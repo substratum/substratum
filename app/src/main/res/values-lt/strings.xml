@@ -43,10 +43,6 @@
     <string name="systemui_navigation">Sistemos NS Navigacija</string>
     <string name="systemui_qs_tiles">Sistemos NS \"QS\" plytelių piktogramos</string>
     <string name="systemui_statusbar">Sistemos NS Būsenos Juostos Piktogramos</string>
-    <string name="tbo_description">Ši tema palaiko \"Team Black Out\'s Theme Ready Google\" programas, jei jūs jų neturite, jūs galite paspausti Atsisiųsti, kad būtumėte nukreipti į jų \"XDA\" puslapį arba Atšaukti jei jūs juos jau turite!    </string>
-    <string name="two_description">Ši tema palaiko \"Google\" numatytąsias programas, tokias, kokios jos buvo sukurtos!
- Jei jūs turite įdiegę \"Theme Ready Google\" programas, tuomet jūs neturite jų pašalinti, bet  jos nebūtinos šiai temai!    </string>
-    <string name="tbo_dialog_proceed">Atsisiųsti</string>
     <string name="warning_title">DĖMESIO!</string>
     <string name="legacy_warning_content">\"Legacy\" yra numatyta ir mes negarantuojame, kad tai jums veiks. Prašome įsitikinti, kad jūs turite pasirinktinį atkūrimo režimą savo įrenginyje ir suprantate, kaip atstatyti įkrovos kilpą prieš tęsiant toliau.\n\nMes negalime sutvarkyti dalykus, kurie negauna apipavidalinimo ant \"legacy\", nes jie reikalauja pakeitimų iš sistemos pusės.    </string>
     <string name="samsung_warning_content">\"Samsung\" palikymas teikiamas, bet mes negalime garantuoti visiško suderinamumo su spalvomis ir \"AOSP-built\" perdangomis. Mes pasirūpinome ir paslėpėme  pavojingas perdangas jūsų įrenginiui, tačiau rankiniu būdu galite tai išjungti nustatymuose savo nuožiūra.\n\nJei bet kokiu atveju susidursite su galima juodojo ekrano problema, prašome pasikonsultuoti mūsų \"XDA\" temoje dėl dviejų atkūrimo būdų.    

@@ -44,15 +44,6 @@
     <string name="systemui_navigation">Navegação da Interface de Usuário do sistema</string>
     <string name="systemui_qs_tiles">Botões das Configurações Rápidas da Interface de Usuário do sistema</string>
     <string name="systemui_statusbar">Ícones da Barra de Status da Interface de Usuário do sistema</string>
-    <string name="tbo_description">Este tema suporta os Aplicativos Google Theme Ready do Team Black Out, se 
-      você não os tem, clique em Baixar para ser redirecionado pro tópico de discussão no XDA, ou Cancelar
-      se você já os tem!
-    </string>
-    <string name="two_description">Este tema suporta os aplicativos do Google, do jeito que foram feitos!
-      Se você tem os Aplicativos Google do Theme Ready instalados, Então você não precisa removê-los,
-      mas não são requeridos para este tema!
-    </string>
-    <string name="tbo_dialog_proceed">Baixar</string>
     <string name="warning_title">ATENÇÃO!</string>
     <string name="legacy_warning_content">A compatibilidade de temas é fornecida tal COMO ESTÁ, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
 conhecimentos sobre como restaurar a partir de um bootloop antes de prosseguir.\n\nNão podemos

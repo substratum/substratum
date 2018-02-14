@@ -29,7 +29,6 @@
     <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
     <string name="search_play_store_url_samsung" translatable="false">https://play.google.com/store/search?q=Substratum%20Samsung%20Theme&amp;c=apps</string>
     <string name="supported_roms_url" translatable="false">https://raw.githubusercontent.com/substratum/database/master/supported_roms.xml</string>
-    <string name="tbo_theme_ready_url" translatable="false">http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192</string>
     <string name="substratum_github" translatable="false">https://github.com/substratum/substratum</string>
     <string name="substratum_github_commits" translatable="false">https://github.com/substratum/substratum/commits/dev</string>
     <string name="interfacer_github" translatable="false">https://github.com/substratum/interfacer</string>
@@ -85,18 +84,6 @@
     <string name="systemui_navigation">System UI Navigation</string>
     <string name="systemui_qs_tiles">System UI QS Tile Icons</string>
     <string name="systemui_statusbar">System UI Status Bar Icons</string>
-
-    <string name="tbo_description">This theme supports Team Black Out\'s Theme Ready Google Apps, if
-      you do not have them, you can click Download to be redirected to their XDA thread, or Cancel
-      if you already have them!
-    </string>
-    <string name="two_description">This theme supports Google\'s stock apps, the way they were made!
-      If you have Theme Ready Google Apps installed then you do not need to remove them,
-      but they are not required for this theme!
-    </string>
-    <string name="tbo_dialog_proceed">Download</string>
-    <string name="open_gapps_dialog" translatable="false">Open Gapps</string>
-    <string name="open_gapps_link" translatable="false">http://opengapps.org/</string>
 
     <string name="warning_title">WARNING!</string>
     <string name="legacy_warning_content">Legacy is provided as-is as we cannot guarantee full
@@ -737,8 +724,6 @@
     <string name="type1c_name_placeholder" translatable="false">TYPE1C VARIABLE</string>
     <string name="type2_name_placeholder" translatable="false">TYPE2 VARIABLE</string>
     <string name="type3_name_placeholder" translatable="false">TYPE3 VARIABLE</string>
-    <string name="theme_name_placeholder_text" translatable="false">THEME_NAME</string>
-    <string name="theme_author_placeholder_text" translatable="false">THEME_AUTHOR</string>
     <string name="cache_placeholder_text" translatable="false">CACHE</string>
     <string name="changelog_title_placeholder_text" translatable="false">PLACEHOLDER_TITLE</string>
     <string name="changelog_array_string_placeholder_text" translatable="false">PLACEHOLDER_ARRAY_STRING</string>

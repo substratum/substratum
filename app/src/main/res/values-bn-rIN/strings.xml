@@ -28,10 +28,6 @@
     <string name="systemui_navigation">সিস্টেম UI ন্যাভিগেশন</string>
     <string name="systemui_qs_tiles">সিস্টেম UI QS টাইল আইকন</string>
     <string name="systemui_statusbar">সিস্টেম UI স্ট্যাটাস বার আইকন</string>
-    <string name="tbo_description">এই থিম, টিম ব্ল্যাক আউট এর থিম Google Apps এর সমর্থন করে
-আপনি তাদের আছে না, আপনি ডাউনলোড ক্লিক করতে পারেন তাদের XDA থ্রেড থেকে আপনাকে পুনঃনির্দেশিত করা হবে, অথবা বাতিল
-আপনি ইতিমধ্যে তাদের আছে!    </string>
-    <string name="tbo_dialog_proceed">ডাউনলোড</string>
     <string name="warning_title">সতর্কীকরন!</string>
     <string name="legacy_warning_content">যেমন-হিসাবে আমরা পূর্ণ নিশ্চয়তা দিতে পারে না উত্তরাধিকার প্রদান করা হয়
       রঙের সঙ্গে সামঞ্জস্য. দয়া করে নিশ্চিত করুন আপনি আপনার ডিভাইসের জন্য একটি কাস্টম রিকভারি আছে এবং আছে

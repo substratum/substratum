@@ -25,8 +25,6 @@
     <string name="systemui_navigation">Barra de Navegació System UI</string>
     <string name="systemui_qs_tiles">Icones de configuració Ràpids System UI</string>
     <string name="systemui_statusbar">Barra d\'Estat System UI</string>
-    <string name="tbo_description">Aquest tema és compatible amb Theme Ready Google Apps de Black Out, si no les té, pot fer clic en Descarregar per ser redirigit al seu fil en XDA, o Cancel·lar si ja els té!    </string>
-    <string name="tbo_dialog_proceed">Descarregar</string>
     <string name="warning_title">ADVERTÈNCIA!</string>
     <string name="legacy_warning_content">Legacy es proporciona com és, ja que no podem garantir completa compatibilitat amb colors. Assegura\'t tenir un recovery personalitzat per al teu dispositiu i tenir el coneixement sobre com sortir d\'un bootloop abans de seguir endavant.\n\nNo podem
 arreglar les coses que no es tematitzen en mode Legacy perquè requereixen canvis en el sistema.    </string>

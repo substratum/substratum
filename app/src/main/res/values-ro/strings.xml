@@ -39,7 +39,6 @@
     <string name="systemui_headers">Antet interfață sistem</string>
     <string name="systemui_navigation">Navigare interfață sistem</string>
     <string name="systemui_statusbar">Icoane bară de stare interfață sistem</string>
-    <string name="tbo_dialog_proceed">Descarcare</string>
     <string name="warning_title">AVERTISMENT!</string>
     <string name="legacy_dialog_soft_reboot_title">Repornire necesară!</string>
     <string name="abort_overlay_toast_success">Toate suprapunerile dezinstalate!</string>

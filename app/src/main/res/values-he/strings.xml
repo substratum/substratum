@@ -39,9 +39,6 @@
 \"</string>
     <string name="systemui_qs_tiles">אייקוני מערכת של אריחי ההגדרות המהירות</string>
     <string name="systemui_statusbar">אייקוני מערכת של שורת הסטטוס</string>
-    <string name="tbo_description">חבילת הנושא הזו תומכת ב Theme Ready Google Apps של Team Black Out, אם אין לך אותם, אתה יכול ללחוץ על \"הורד\" בכדי לעבור אל הפוסט שלהם ב XDA, או ללחוץ על \"בטל\" אם כבר יש לך אותם!    </string>
-    <string name="two_description">חבילת הנושא הזו תומכת באפליקציות הרגילות של גוגל, כמו שהם הוכנו!      אם יש לך את חבילת Theme Ready Google Apps מותקנת אז אין צורך בהסרתה, אך היא אינה הכרחית לערכת נושא זו!    </string>
-    <string name="tbo_dialog_proceed">הורד</string>
     <string name="warning_title">אזהרה!</string>
     <string name="legacy_dialog_soft_reboot_title">נדרש אתחול מחדש!</string>
     <string name="activity_missing_toast">לא נמצאו שום אפליקציות אשר יכולות לנהל את הבקשה הזו, סליחה!    </string>

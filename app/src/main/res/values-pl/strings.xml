@@ -45,10 +45,6 @@
     <string name="systemui_navigation">Nawigacja</string>
     <string name="systemui_qs_tiles">Ikony Szybkich Ustawień</string>
     <string name="systemui_statusbar">Ikony Paska Stanu</string>
-    <string name="tbo_description">Ten motyw obsługuje Theme Ready Google Apps od zespołu Black Out. Jeśli ich nie masz, możesz kliknąć Pobierz by zostać przekierowanym do ich wątku na XDA lub anulować, jeśli już je masz!    </string>
-    <string name="two_description">Ten motyw obsługuje fabryczne aplikacje Google w taki sposób, w jaki były one zrobione!
-Jeśli posiadasz zainstalowane aplikacje Google od zespołu Black Out, nie musisz ich usuwać, choć nie są one wymagane dla tego motywu!    </string>
-    <string name="tbo_dialog_proceed">Pobierz</string>
     <string name="warning_title">UWAGA!</string>
     <string name="legacy_warning_content">Legacy jest dostarczane jako-tako, nie możemy zagwarantować pełnej zgodności z kolorami. Upewnij się, że masz recovery (np. Twrp) i wiesz, jak wyratować się z bootloopa przed przystąpieniem do dalszych kroków. Nie możemy naprawić rzeczy, które nie są zmieniane, ponieważ wymagają one zmiany po stronie systemu.    </string>
     <string name="samsung_warning_content">Wsparcie dla Samsunga dostarczone jest \"jak-jest\", jako że nie możemy zagwarantować pełnej zgodności z kolorami i nakładkami zbudowanymi dla AOSP. Zatroszczyliśmy się o ukrycie niebezpiecznych nakładek dla Twojego urządzenia, ale możesz przełączać to ręcznie w ustawieniach według własnego uznania.\n\nJeżeli wystąpi u Ciebie problem z czarnym ekranem, zapoznaj się z naszym wątkiem na XDA na temat dwóch metod odzyskiwania.    </string>

@@ -44,10 +44,6 @@
     <string name="systemui_navigation">Navigačné tlačidlá</string>
     <string name="systemui_qs_tiles">Ikony rychlých prepínačov</string>
     <string name="systemui_statusbar">Ikony na stavovom riadku</string>
-    <string name="tbo_description">Táto téma podporuje Theme Ready Google Apps od Team Black Out.
-Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunutý na ich XDA vlákno alebo na Zrušiť pokiaľ ju už máte.</string>
-    <string name="two_description">Táto téma podporuje originálne Google aplikácie, tak ako boli naprogramované! Ak máte nainštalované Google aplikácie, ktoré podporujú témy,  nemusíte ich odinštalovať, nie sú ale podmienkou pre použitie tejto témy!    </string>
-    <string name="tbo_dialog_proceed">Stiahnuť</string>
     <string name="warning_title">UPOZORNENIE!</string>
     <string name="legacy_warning_content">Staré systémy sú podporované tak ako-sú, nemôžeme zaručiť plnú kompatibilitu s farbami. Pred pokračovaním si skontrolujte, či máte vo vašom zariadení TWRP recovery a rozumiete ako obnoviť systém, ak náhodou skončíte v spúšťacej slučke  (bootloope).\n\nNa starých systémoch, ktoré nepodporujú zmenu tém, nemôžeme garantovať funkčnosť. Tieto systémy vyžadujú zmeny na strane ich systému.     </string>
     <string name="samsung_warning_content">Samsung podpora je poskytovaná tak, ako-je, pretože nemôžeme zaručiť plnú kompatibilitu s farbami a prekrytiami na báze AOSP.

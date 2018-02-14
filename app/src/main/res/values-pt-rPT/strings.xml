@@ -46,12 +46,6 @@
     <string name="systemui_navigation">Navegação da IU do sist.</string>
     <string name="systemui_qs_tiles">Mosaicos das definições rápidas da IU do sist.</string>
     <string name="systemui_statusbar">Ícones da Barra de Estado da IU do sist.</string>
-    <string name="tbo_description">Este tema suporta as Aplicações Google preparadas para temas da Team Black Out. Se não as tiver, pode tocar em Transferir para ser redirecionado para o tópico de discussão no XDA, caso contrário toque em Cancelar!</string>
-    <string name="two_description">Este tema suporta as aplicações da Google, tal e qual como foram feitas!
-      Se tiver instaladas as Aplicações Google \"Theme Ready\" não precisa de removê-las, 
-      mas não são necessárias para este tema!
-    </string>
-    <string name="tbo_dialog_proceed">Transferir</string>
     <string name="warning_title">AVISO!</string>
     <string name="legacy_warning_content">A compatibilidade é fornecida tal como está, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
 conhecimentos sobre como recuperar de um bootloop antes de prosseguir.\n\nNão podemos

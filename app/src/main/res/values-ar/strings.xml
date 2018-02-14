@@ -35,7 +35,6 @@
     <string name="systemui_navigation">التنقل في واجهة المستخدم</string>
     <string name="systemui_qs_tiles">ايقونات البلاط في الاعدادات السريعة لواجهة المستخدم</string>
     <string name="systemui_statusbar">ايقونات شريط الحالة في واجهة المستخدم</string>
-    <string name="tbo_dialog_proceed">تحميل</string>
     <string name="warning_title">تحذير!</string>
     <string name="legacy_dialog_soft_reboot_title">يتطلب إعادة التشغل!</string>
     <string name="activity_missing_toast">للأسف، لم يتم العثور على أي تطبيقات يمكنها التعامل معها هذا

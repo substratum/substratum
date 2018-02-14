@@ -30,8 +30,6 @@
     <string name="systemui_navigation">시스템 UI 네비게이션 바</string>
     <string name="systemui_qs_tiles">시스템 UI 퀵세팅 타일 아이콘</string>
     <string name="systemui_statusbar">시스템 UI 상단바 아이콘</string>
-    <string name="tbo_description">이 테마는 Team Black Out의 Theme Ready Google Apps를 지원합니다. 만약 해당 GApps를 사용하지 않는다면, 다운로드 버튼을 눌러 해당 팀의 XDA 쓰레드로 이동하시거나 이미 사용하고 계신다면 취소 버튼을 눌러주십시오.</string>
-    <string name="tbo_dialog_proceed">다운로드</string>
     <string name="warning_title">경고!</string>
     <string name="legacy_warning_content">레거시 모드에서는 말 그대로 테마가 제대로 적용될지 보장할 수 없습니다. 레거시 모드에서 설치하기 전에 여러분의 기기에 커스텀 리커버리가 설치되어 있는지, 그리고 어떻게 무한부팅을 고치는지 미리 확인해두시길 바랍니다. \n\n레거시 모드에서 설치한 후 발생한 문제에 대해서는 개발자 측에서 픽스할 수 없습니다.</string>
     <string name="legacy_dialog_soft_reboot_title">다시 시작 필요!</string>

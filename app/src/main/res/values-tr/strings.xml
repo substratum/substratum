@@ -46,15 +46,6 @@
     <string name="systemui_navigation">Sistem Gezinme Çubuğu</string>
     <string name="systemui_qs_tiles">Sistem Hızlı Ayarlar Kare Simgeleri</string>
     <string name="systemui_statusbar">Sistem Durum Çubuğu Simgeleri</string>
-    <string name="tbo_description">Bu tema Team Black Out\'s  Temaya Hazır Google Uygulamalarına ihtiyaç duyar,
-      Eğer bu pakete sahip değilseniz, İndirmek için tıklayın veya Xda konusuna yönlendirilirsiniz,
-      veya bunlara zaten sahipseniz iptal!
-    </string>
-    <string name="two_description">Bu tema Google uygulamalarını, Onların yaptığı şekilde destekler!
-    Eğer Theme Ready Google Apps uygulamalarını yüklediyseniz, bunları kaldırmanız gerekmez,
-    ama bu tema için gerekli değildir!
-    </string>
-    <string name="tbo_dialog_proceed">İndir</string>
     <string name="warning_title">UYARI!</string>
     <string name="legacy_warning_content">Legacy, renklerle tam uyumluluğu garanti edemediğimiz
       haliyle olduğu gibi sağlanmaktadır.. Lütfen cihazınızda özel kurtarma (Twrp) yüklü

@@ -28,7 +28,6 @@
     <string name="systemui_headers">System UI Headers</string>
     <string name="systemui_navigation">System UI navigering</string>
     <string name="systemui_qs_tiles">Systemikoner UI QS</string>
-    <string name="tbo_dialog_proceed">Ladda ner</string>
     <string name="warning_title">VARNING!</string>
     <string name="legacy_dialog_soft_reboot_title">Omstart krävs!</string>
     <string name="rescue_toast">Räddar ditt system&#8230;</string>

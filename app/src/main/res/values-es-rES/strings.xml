@@ -44,11 +44,6 @@
     <string name="systemui_navigation">System UI Barra de Navegación</string>
     <string name="systemui_qs_tiles">System UI Iconos de Ajustes Rápidos</string>
     <string name="systemui_statusbar">System UI Barra de Estado</string>
-    <string name="tbo_description">Este tema es compatible con Theme Ready GApps (TBO), si no los tiene, puede hacer click en Descargar para ser redirigido a su hilo en XDA, o Cancelar si ya los tiene!    </string>
-    <string name="two_description">Este tema es compatible con las Gapps stock, las apps por defecto!
-        Si tienes instalados las Theme Ready Gapps, entonces no es necesario eliminarlos,
-        Pero no son necesarios para este tema!    </string>
-    <string name="tbo_dialog_proceed">Descargar</string>
     <string name="warning_title">¡ADVERTENCIA!</string>
     <string name="legacy_warning_content">Legado (Legacy) se proporciona con limitaciones y riesgos, ya que no podemos garantizar que
 funcione para ti. Asegúrate de tener un recovery personalizado para tu dispositivo y

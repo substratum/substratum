@@ -43,15 +43,6 @@
     <string name="systemui_navigation">System UI navigointipalkki</string>
     <string name="systemui_qs_tiles">System UI QS-laattojen kuvakkeet</string>
     <string name="systemui_statusbar">System UI tilarivin kuvakkeet</string>
-    <string name="tbo_description">Tämä teema tukee Team BlackOut:in Theme-Ready Google Apps:eja, jos
-      sinulla ei ole ne asennettuna, voit painaa \"Lataa\" ja sinut ohjataan heidän XDA sivulle, tai paina \"Peruuta\"
-      jos olet asentanut ne jo!
-    </string>
-    <string name="two_description">Tämä teema tukee Googlen vakio-ohjelmia, juuri sillä tavalla millä ne on tehty!
-      Jos sinulla on Theme Ready Google Apps asennettu, niin sinun ei tarvitse poistaa niitä
-      mutta tämä teema ei niitä tarvitse!
-    </string>
-    <string name="tbo_dialog_proceed">Lataa</string>
     <string name="warning_title">VAROITUS!</string>
     <string name="legacy_warning_content">Legacy tarjotaan sellaisenaan, koska emme voi taata
       täyttä yhteensopivuutta värien kanssa. Varmista että sinulla on kustomi recovery asennettuna, ja että

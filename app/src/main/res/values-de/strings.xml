@@ -44,9 +44,6 @@
     <string name="systemui_navigation">Navigationsleiste</string>
     <string name="systemui_qs_tiles">Schnelleinstellungen-Symbole</string>
     <string name="systemui_statusbar">Statusleisten-Symbole</string>
-    <string name="tbo_description">Dieses Theme unterstützt die \"Theme Ready Google Apps\" von Team BlackOut. Klicke \"Herunterladen\", um zu XDA weitergeleitet zu werden oder \"Abbrechen\", falls du diese schon installiert hast!</string>
-    <string name="two_description">Dieses Theme unterstützt die Apps von Google, wie sie standardmäßig gemacht sind. Falls du die Google Apps von Team BlackOut installiert hast, musst du sie nicht entfernen, aber sie sind nicht erforderlich für dieses Theme!    </string>
-    <string name="tbo_dialog_proceed">Herunterladen</string>
     <string name="warning_title">WARNUNG!</string>
     <string name="samsung_warning_content">Bei Problemen mit der Samsung-Unterstützung können wir keine Hilfe leisten, da wir keine Kompatibilität mit Farben und AOSP-Overlays garantieren können. Wir haben sicher gestellt, dass keine für dein Gerät gefährlichen Overlays angezeigt werden, aber du kannst dies auf eigene Verantwortung in den Einstellungen ausschalten.\n\nWenn du in irgendeinem Fall ein Problem mit einem möglichen Blackscreen hast, schau dir bitte in unserem XDA Thread die zwei Methoden zur Wiederherstellung an.    </string>
     <string name="legacy_dialog_soft_reboot_title">Neustart erforderlich!</string>

@@ -23,8 +23,6 @@
     <string name="systemui_navigation">அமைப்பு பயனாளர் வழிசெலுத்தல்</string>
     <string name="systemui_qs_tiles">அமைப்பு பயனாளர் இடைமுக ஓடுகள் ஐகான்</string>
     <string name="systemui_statusbar">அமைப்பு பயனாளர் நிலை பட்டியல் ஐகான்</string>
-    <string name="tbo_description">இந்த கருப்பொருள் team black அவுட் வழங்கும் கருப்பொருள் தயாரான google ஆஃப்ஸ்க்கு ஆதரவு தருகிறது. நீங்கள் விரும்பினால் அவற்றை XDA விலிருந்து பதிவிறக்கம் செய்யலாம். ஏற்கனவேய அவற்றை பயன்படுத்தினால் நிராகரிக்கவும்.</string>
-    <string name="tbo_dialog_proceed">பதிவிறக்கம்</string>
     <string name="warning_title">எச்சரிக்கை!</string>
     <string name="legacy_dialog_soft_reboot_title">மறுத்துவக்கும் தேவைப்படுகிறது!</string>
     <string name="legacy_dialog_soft_reboot_text">நீங்கள் பயன்படுத்தும் ரேம் ஓம்ஸ் துணை கொண்டு இயங்கவில்லை.\nஎனவே நீங்கள்க நிறுவிய ருப்பொருளை அனுபவிக்கும் முன்னர் உங்கள் சாதனம் மருத்துவக்கம் செய்யப்படவேண்டும். உங்கள் பணிகளை சேமித்துக்கொண்டு, இந்த செயலை தொடரவும்.</string>

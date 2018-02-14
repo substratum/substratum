@@ -36,13 +36,6 @@
     <string name="systemui_navigation">ตัวนำทางของ System UI</string>
     <string name="systemui_qs_tiles">ตัวตั้งค่าทางลัดอย่างเร็วของ SystemUI</string>
     <string name="systemui_statusbar">ไอคอนบนแถบสถานะ</string>
-    <string name="tbo_description">รูปแบบธีมนี้ สนับสนุน ธีมของ Team Black Out\'s พร้อม Google Apps, ถ้า
-   คุณไม่มีธีมเหล่านั้น, คุณสามารถดาวน์โหลดได้โดยตรงจาก กระทู้ของ XDA หรือ ยกเลิก
-   ถ้ามีมันแล้ว!    </string>
-    <string name="two_description">ธีมนี้รองรับกับ Google\'s Apps ต้นฉบับ, ตามที่พวกเขาได้ทำออกมา
-     ถ้าคุณต้องการธีมที่รองรับกับ Google Apps ที่ติดตั้งอยู่นั้น. คุณไม่จำเป็นต้องถอนพวกมัน, 
-     แต่พวกเราไม่ต้องการสำหรับธีมนี้!    </string>
-    <string name="tbo_dialog_proceed">ดาวน์โหลด</string>
     <string name="warning_title">คำเตือน!</string>
     <string name="legacy_warning_content">มีสิ่งล้าหลังอยู่ พวกเราไม่สามารถรับประกันได้
     เกี่ยวกับ การเข้ากันของสี. กรุณาให้มั่นใจว่า คุณมี Custom Recovery สำหรับอุปกรณ์ของคุณ

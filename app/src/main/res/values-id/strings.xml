@@ -46,15 +46,6 @@
     <string name="systemui_navigation">Navigasi Sistem Ui</string>
     <string name="systemui_qs_tiles">Tampilan Sistem Ikon Setelan Cepat</string>
     <string name="systemui_statusbar">Tampilan Ikon Status Bar</string>
-    <string name="tbo_description">Tema ini mendukung \"Theme Ready Google Apps\" dari tim Black Out, bila
-      anda tidak memilikinya, anda dapat mengeklik Unduh yang kemudian diarahkan ke thread XDA mereka, atau Batal
-      bila anda telah memilikinya!
-    </string>
-    <string name="two_description">Tema ini mendukung apl Google bawaan, sebagai mana mestinya!
-      Bila anda memiliki \"Theme Ready Google Apps\" yang terpasang maka anda tidak perlu menghapusnya,
-      namun mereka tidak membutuhkan tema ini!
-    </string>
-    <string name="tbo_dialog_proceed">Unduh</string>
     <string name="warning_title">PERINGATAN!</string>
     <string name="legacy_warning_content">Dukungan lawas disediakan seperti apa adanya karena kami tidak bisa menjamin penuh
       kecocokan warna. Harap pastikan anda memiliki pengembalian/recovery kustom untuk perangkat dan

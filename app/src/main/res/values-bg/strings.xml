@@ -43,11 +43,6 @@
     <string name="systemui_navigation">System UI Навигация</string>
     <string name="systemui_qs_tiles">System UI Икони на бързи настройки</string>
     <string name="systemui_statusbar">System UI Икони в статус лентата</string>
-    <string name="tbo_description">Тази тема поддържа Team Black Out\'s Theme Ready Google Apps, ако искате може да ги инсталирате, като натиснете Изтегляне, или отказ ако вече ги имате!    </string>
-    <string name="two_description">Тази тема поддържа приложенията на Google по начина, по който са направени!
-Ако имате Theme Ready Google Apps инсталирани не е нужно да ги премахнете, 
-но те не са нужни за тази тема!    </string>
-    <string name="tbo_dialog_proceed">Изтегляне</string>
     <string name="warning_title">ВНИМАНИЕ!</string>
     <string name="legacy_warning_content">Legacy не се поддържа, и не можем да ви гарантираме, че цветовете ще да каквито трябва. Желателно е да имате знанията да излезете от ситуация, когато устройството Ви не тръгва преди да продължите.\n\nНие не можем да поправим това което не работи, защото са нужни системни промени.    </string>
     <string name="samsung_warning_content">Не можем да гарантираме пълна съвместимост с Samsung, и не можем да ви уверим, че ще работи с теми направени за AOSP. Ние автоматично скрихме темите който не поддържат Samsung, но вие можете да промените това в настройките.\n\nВ случай, че устройството Ви не тръгва, вижте нашият XDA форум, за двата начина за поправка.    </string>

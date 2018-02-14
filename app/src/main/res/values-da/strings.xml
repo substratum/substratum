@@ -28,7 +28,6 @@
     <string name="systemui_navigation">System UI Navigation</string>
     <string name="systemui_qs_tiles">System brugerflade hurtigt indstillinger titel ikoner</string>
     <string name="systemui_statusbar">System Brugerflade status bar ikoner</string>
-    <string name="tbo_dialog_proceed">Hent</string>
     <string name="warning_title">ADVARSEL!</string>
     <string name="legacy_dialog_soft_reboot_title">Genstart kræves!</string>
     <string name="activity_missing_toast">Der var ingen apps fundet at kunne håndtere denne anmodning, undskyld!     </string>

@@ -105,8 +105,6 @@
     <color name="settings_title_color">@color/colorAccent</color>
 
     <color name="material_drawer_icon_color">#ff000000</color>
-    <color name="material_drawer_selected">@color/colorAccent</color>
-    <color name="material_drawer_background">#ffffffff</color>
 
     <color name="overlay_installed_list_entry">#00c853</color>
     <color name="overlay_not_approved_list_entry">#ff0000</color>
@@ -149,8 +147,6 @@
         <item>@color/substratum_light_blue</item>
     </integer-array>
 
-    <color name="drawer_item_text">#de000000</color>
-    <color name="drawer_item_text_selected">#de000000</color>
     <color name="drawer_item_background">@android:color/transparent</color>
     <color name="drawer_item_background_selected">@color/colorPrimaryDark</color>
 

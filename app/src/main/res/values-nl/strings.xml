@@ -41,9 +41,6 @@
     <string name="systemui_navigation">Systeem-UI navigatie</string>
     <string name="systemui_qs_tiles">Systeem-UI QS tegelpictogrammen</string>
     <string name="systemui_statusbar">Systeem-UI statusbalk pictogrammen</string>
-    <string name="tbo_description">Dit thema ondersteunt Team Black Out\'s Theme Ready Google Apps. Tik Downloaden als je deze nog niet hebt, of Annuleren als je deze al wel hebt!</string>
-    <string name="two_description">Dit thema ondersteunt Google\'s standaard apps, de manier waarop ze aangeboden worden! Als je Theme Ready Google Apps hebt geïnstalleerd, dan hoef je deze niet te verwijderen, maar ze zijn niet vereist voor dit thema!</string>
-    <string name="tbo_dialog_proceed">Downloaden</string>
     <string name="warning_title">WAARSCHUWING!</string>
     <string name="legacy_warning_content">Legacy wordt verstrekt als-is, omdat wij geen volledige compatibiliteit kunnen garanderen. Gelieve te controleren dat je een aangepaste recovery voor je apparaat hebt en begrijpt hoe je herstelt vanuit een bootloop voordat je verder gaat.\n\nWij kunnen niets repareren dat geen thema krijgt op legacy, omdat deze systeemwijzigingen vereisen.</string>
     <string name="samsung_warning_content">Samsung ondersteuning wordt geleverd als-is, omdat wij geen garantie kunnen bieden op volledige compatibiliteit met kleuren en AOSP-gebaseerde overlays. Wij hebben ervoor gezorgd dat schadelijke overlays worden verborgen voor jouw apparaat. Dit kan je handmatig in-/uitschakelen in de instellingen op eigen risico.\n\nAls je te maken krijgt met een zwart scherm, gelieve het XDA thread te raadplegen voor de twee mogelijke herstelmothodes.</string>

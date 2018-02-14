@@ -51,8 +51,6 @@
     <color name="window_bg">@android:color/background_dark</color>
 
     <color name="material_drawer_icon_color">#ffffffff</color>
-    <color name="material_drawer_background">@color/colorPrimary</color>
-    <color name="material_drawer_primary_text">@android:color/white</color>
 
     <color name="fab_menu_background_card">@color/colorPrimary</color>
     <color name="fab_menu_icon_color">#ffffffff</color>
@@ -60,6 +58,4 @@
     <color name="fab_menu_divider">#4affffff</color>
     <color name="fab_background_color">#363636</color>
 
-    <color name="drawer_item_text">#ffffffff</color>
-    <color name="drawer_item_text_selected">#ffffffff</color>
 </resources>

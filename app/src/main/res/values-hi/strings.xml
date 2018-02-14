@@ -44,11 +44,6 @@
     <string name="systemui_navigation">सिस्टम UI नेविगेशन</string>
     <string name="systemui_qs_tiles">सिस्टम UI QS टाइल चिह्न</string>
     <string name="systemui_statusbar">सिस्टम UI स्थिति पट्टी चिह्न</string>
-    <string name="tbo_description">यह विषय Team Black Out के विषय तैयार Google Apps का समर्थन करता है, यदि वह आप के पास नहीं है तो आप डाउनलोड पे क्लिक करके उनके XDA पृष्ठ में जा सकते हैं, या फिर आप के पास है तो रद्द करें    </string>
-    <string name="two_description">यह थीम गूगल के स्टॉक एप्लिकेशन का समर्थन करता है, जिस तरह से वे बनाए गए थे
-        यदि आपके पास थीम उपयोगि गूगल ऐप्स स्थापित हैं, तो आपको उन्हें हटाने की आवश्यकता नहीं है,
-        लेकिन वे इस थीम के लिए आवश्यक नहीं हैं!    </string>
-    <string name="tbo_dialog_proceed">डाउनलोड करें</string>
     <string name="warning_title">चेतावनी!</string>
     <string name="legacy_warning_content">विरासत सिस्टम जैसे है वैसे ही प्रदान की जाती है|हम पूर्ण गारंटी नहीं दे सकते
         रंगों के साथ संगतता की।  कृपया सुनिश्चित करें कि आपके पास अपने उपकरण के लिए कस्टम पुनर्प्राप्ति/रिकवरी  है और

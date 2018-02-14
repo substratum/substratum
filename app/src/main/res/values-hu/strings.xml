@@ -46,15 +46,6 @@
     <string name="systemui_navigation">System UI Navigáció</string>
     <string name="systemui_qs_tiles">System UI QS Csempe ikonok</string>
     <string name="systemui_statusbar">System UI Állapotsori ikonok</string>
-    <string name="tbo_description">Ez a téma támogatja a Team Black Out féle Témára Kész Google Apps csomagot, ha
-      Önnek nem áll rendelkezésére, a Letöltés gombot megnyomva az XDA témájukba irányítjuk, vagy
-      nyomja meg a Mégse gombot, amennyiben már rendelkezik vele!
-    </string>
-    <string name="two_description">Ez a téma a gyári Google alkalmazásokat támogatja!
-      Ha a Theme Ready Google Apps telepítve van akkor nem kell eltávolítania őket,
-      de az nem szükséges ehhez a témához!
-    </string>
-    <string name="tbo_dialog_proceed">Letöltés</string>
     <string name="warning_title">FIGYELEM!</string>
     <string name="legacy_warning_content">Legacy úgy működik, ahogy látszik, mivel mi nem tudjuk garantálni
       a színek teljes kompatibilitását. Győződjön meg arról, hogy egyéni recovery van a készülékén

@@ -41,9 +41,6 @@
     <string name="systemui_navigation">Navigation</string>
     <string name="systemui_qs_tiles">Icônes du volet des \"Configurations Rapides\"</string>
     <string name="systemui_statusbar">Icônes de la barre d\'état</string>
-    <string name="tbo_description">Ce thème prend en charge les Google Apps \"Theme Ready\" de la \"Team Black Out\". Si vous ne les avez pas, vous pouvez appuyer sur \"Télécharger\" pour être redirigé vers leur fil de discussion XDA, ou \"Annuler\" si vous les avez déjà !</string>
-    <string name="two_description">Ce thème prend en charge les Google Apps d\'origines, comme elles ont été faites ! Si vous avez les Google Apps \"Theme Ready\" installées, vous pouvez les conserver, mais elles ne sont pas nécessaires pour ce thème.</string>
-    <string name="tbo_dialog_proceed">Télécharger</string>
     <string name="warning_title">AVERTISSEMENT !</string>
     <string name="legacy_warning_content">\"Legacy\" est fourni en l\'état, sans aucune garantie de bon fonctionnement.\nAssurez-vous de l\'existence d\'un \"recovery custom\" pour votre appareil\n et de posséder les connaissances nécessaires pour rétablir votre appareil en cas de redémarrages en boucle avant de continuer.\n\nCertains éléments graphiques ne sont pas pris en charge par les thèmes pour \"Legacy\", car ils nécessitent des changements dans le système.</string>
     <string name="samsung_warning_content">Le support Samsung est livré en l\'état car nous ne pouvons garantir

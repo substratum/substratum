@@ -166,6 +166,7 @@
     </style>
 
     <style name="ShowcaseDialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowBackground">@color/window_bg</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowActionBar">false</item>

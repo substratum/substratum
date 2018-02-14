@@ -106,7 +106,6 @@ ext {
     supportLibsVersion = '27.0.2'
     firebaseVersion = '11.8.0'
     glideVersion = '4.5.0'
-    butterKnifeVersion = '8.8.1'
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -167,10 +166,6 @@ dependencies {
 
     // Crash Activity
     implementation 'cat.ereza:customactivityoncrash:2.2.0'
-
-    // Dependency Injection
-    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     // Splash screen svg animation
     implementation 'com.jaredrummler:animated-svg-view:1.0.5'

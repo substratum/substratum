@@ -224,6 +224,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 activity.cacheCounter.setText(
                         Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
                 activity.finishAffinity();
+                Substratum.restartSubstratum(context);
             }
         }
     }

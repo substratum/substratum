@@ -53,11 +53,20 @@ import static projekt.substratum.common.References.metadataSamsungSupport;
 public class PackageModificationDetector extends BroadcastReceiver {
 
     private static final String TAG = "SubstratumDetector";
-    private Context context;
+
+    public static PendingIntent getPendingIntent(Context context, String package_name) {
+        Intent myIntent = new Intent(context, AppShortcutLaunch.class);
+        myIntent.putExtra(THEME_PID, package_name);
+        return PendingIntent.getActivity(
+                context,
+                ThreadLocalRandom.current().nextInt(0, 10000),
+                myIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT
+        );
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        this.context = context;
 
         Uri packageName = intent.getData();
         String packageName1;
@@ -237,7 +246,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                     packageName1) + ' ' + context.getString(R.string.notification_theme_updated))
                     .setContentText(context.getString(R.string.notification_theme_updated_content))
                     .setAutoCancel(true)
-                    .setContentIntent(getPendingIntent(packageName1))
+                    .setContentIntent(getPendingIntent(context, packageName1))
                     .setSmallIcon(R.drawable.notification_updated)
                     .setLargeIcon(Packages.getBitmapFromDrawable(
                             Packages.getAppIcon(context, packageName1)))
@@ -260,9 +269,9 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             context.getString(
                                     R.string.notification_theme_installed_content))
                     .setAutoCancel(true)
-                    .setContentIntent(getPendingIntent(packageName1))
+                    .setContentIntent(getPendingIntent(context, packageName1))
                     .setAutoCancel(true)
-                    .setContentIntent(getPendingIntent(packageName1))
+                    .setContentIntent(getPendingIntent(context, packageName1))
                     .setSmallIcon(R.drawable.notification_icon)
                     .setLargeIcon(BitmapFactory.decodeResource(
                             context.getResources(),
@@ -275,11 +284,5 @@ public class PackageModificationDetector extends BroadcastReceiver {
         }
         Broadcasts.sendRefreshMessage(context);
         Broadcasts.sendActivityFinisherMessage(context, packageName1);
-    }
-
-    private PendingIntent getPendingIntent(String package_name) {
-        Intent myIntent = new Intent(context, AppShortcutLaunch.class);
-        myIntent.putExtra(THEME_PID, package_name);
-        return PendingIntent.getActivity(context, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 }

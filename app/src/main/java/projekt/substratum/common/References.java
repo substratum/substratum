@@ -172,7 +172,6 @@ public enum References {
     public static final String permissionSamsungOverlay =
             "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
     // These strings control the nav drawer filter for ThemeFragment
-    public static final String homeFragment = "";
     public static final String overlaysFragment = "overlays";
     public static final String bootAnimationsFragment = "bootanimation";
     public static final String shutdownAnimationsFragment = "shutdownanimation";
@@ -590,6 +589,7 @@ public enum References {
         editor.putBoolean("systemui_recreate", true);
         editor.putBoolean("hide_app_checkbox", false);
         editor.putBoolean("auto_disable_target_overlays", false);
+        editor.putString(APP_THEME, DEFAULT_THEME);
         editor.putInt("grid_style_cards_count", DEFAULT_GRID_COUNT);
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);
         editor.remove("previous_logchar_cleanup");

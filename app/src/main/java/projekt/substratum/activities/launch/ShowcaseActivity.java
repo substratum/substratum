@@ -88,7 +88,7 @@ public class ShowcaseActivity extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.search:
+            case R.id.showcase:
                 try {
                     String playURL;
                     if (Systems.checkOMS(getApplicationContext())) {

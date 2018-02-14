@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,7 +36,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,6 +45,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -201,6 +202,12 @@ public class ThemeFragment extends Fragment {
         themeFragment.swipeRefreshLayout.setEnabled(false);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        new LayoutLoader(this).execute();
+    }
+
     /**
      * Reset all parameters of the recycler view
      *
@@ -246,6 +253,22 @@ public class ThemeFragment extends Fragment {
         if (mainActivity != null) {
             mainActivity.searchView = (SearchView) searchItem.getActionView();
             mainActivity.searchView.setOnQueryTextListener(mainActivity);
+            searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem menuItem) {
+                    mainActivity.searchView.setIconified(false);
+                    return true;
+                }
+
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+                    if (!MainActivity.userInput.equals("")) {
+                        MainActivity.userInput = "";
+                        new LayoutLoader(getInstance()).execute();
+                    }
+                    return true;
+                }
+            });
         }
         super.onCreateOptionsMenu(menu, inflater);
     }

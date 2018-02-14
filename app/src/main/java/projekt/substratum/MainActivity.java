@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -50,13 +51,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
@@ -251,32 +252,6 @@ public class MainActivity extends AppCompatActivity implements
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(this, fragment));
-        tx.commitAllowingStateLoss();
-        supportInvalidateOptionsMenu();
-    }
-
-    /**
-     * Transact a different theme fragment with a different set of filters
-     *
-     * @param title    Fragment's title
-     * @param homeType ThemeFragment's home type
-     */
-    private void switchThemeFragment(String title, String homeType) {
-        if ((searchView != null) && !searchView.isIconified()) {
-            searchView.setIconified(true);
-        }
-        Fragment fragment = new ThemeFragment();
-        if (Systems.isSamsung(context)) {
-            switchToStockToolbar(getString(R.string.samsung_app_name));
-        } else if (!Systems.checkOMS(context)) {
-            switchToStockToolbar(getString(R.string.legacy_app_name));
-        } else {
-            switchToStockToolbar(getString(R.string.nav_main));
-        }
-
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        tx.replace(R.id.main, fragment);
         tx.commitAllowingStateLoss();
         supportInvalidateOptionsMenu();
     }
@@ -507,7 +482,7 @@ public class MainActivity extends AppCompatActivity implements
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.search:
+            case R.id.showcase:
                 launchInternalActivity(this, ShowcaseActivity.class);
                 return true;
             case R.id.rescue:
@@ -860,19 +835,11 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onQueryTextChange(String query) {
         if (!userInput.equals(query)) {
             userInput = query;
-            Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations
-                            (R.anim.fade_in, R.anim.fade_out)
-                    .detach(f)
-                    .commitNowAllowingStateLoss();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations
-                            (R.anim.fade_in, R.anim.fade_out)
-                    .attach(f)
-                    .commitAllowingStateLoss();
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main);
+            if (currentFragment instanceof ThemeFragment ||
+                    currentFragment instanceof ManagerFragment) {
+                currentFragment.onConfigurationChanged(new Configuration());
+            }
         }
         return true;
     }

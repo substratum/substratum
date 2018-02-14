@@ -23,8 +23,8 @@
         android:icon="@drawable/toolbar_search"
         android:orderInCategory="1"
         android:title="@string/actionbar_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="always" />
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/per_app"
         android:icon="@drawable/toolbar_per_app"
@@ -40,7 +40,7 @@
         android:title="@string/nav_recovery"
         app:showAsAction="always" />
     <item
-        android:id="@+id/search"
+        android:id="@+id/showcase"
         android:icon="@drawable/toolbar_showcase"
         android:menuCategory="secondary"
         android:orderInCategory="4"

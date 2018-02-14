@@ -25,6 +25,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -40,7 +41,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +51,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,6 +82,7 @@ import projekt.substratum.databinding.ManagerFragmentBinding;
 import projekt.substratum.util.helpers.StringUtils;
 import projekt.substratum.util.views.FloatingActionMenu;
 
+import static projekt.substratum.MainActivity.userInput;
 import static projekt.substratum.common.Packages.getOverlayMetadata;
 import static projekt.substratum.common.Packages.getOverlayParent;
 import static projekt.substratum.common.Packages.getOverlayTarget;
@@ -98,7 +100,7 @@ import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 import static projekt.substratum.common.platform.ThemeManager.isOverlayEnabled;
 import static projekt.substratum.util.helpers.MapUtils.sortMapByValues;
 
-public class ManagerFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class ManagerFragment extends Fragment {
 
     private static final int MANAGER_FRAGMENT_INITIAL_DELAY = 500;
     public static MaterialSheetFab materialSheetFab;
@@ -123,18 +125,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
     private SearchView searchView;
-    private String userInput = "";
     private boolean firstBoot = true;
     private LayoutReloader layoutReloader;
-
-    /**
-     * Returns the MaterialSheetFab object within this fragment
-     *
-     * @return Returns the MaterialSheetFab object
-     */
-    public MaterialSheetFab getFab() {
-        return materialSheetFab;
-    }
 
     /**
      * Reset the RecyclerView and Adapter
@@ -168,6 +160,19 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
                 layoutReloader.execute();
             }
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (layoutReloader != null && !layoutReloader.isCancelled()) {
+            layoutReloader.cancel(true);
+            layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+            layoutReloader.execute();
+        } else {
+            layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+            layoutReloader.execute();
         }
     }
 
@@ -351,11 +356,40 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.overlays_list_menu, menu);
-        menu.findItem(R.id.action_search).setVisible(true);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null) {
+            mainActivity.searchView = (SearchView) searchItem.getActionView();
+            mainActivity.searchView.setOnQueryTextListener(mainActivity);
+            searchView = ((MainActivity) getActivity()).searchView;
+            searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem menuItem) {
+                    mainActivity.searchView.setIconified(false);
+                    return true;
+                }
+
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+                    if (!userInput.equals("")) {
+                        userInput = "";
+                        if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                            layoutReloader.cancel(true);
+                            layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                            layoutReloader.execute();
+                        } else {
+                            layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                            layoutReloader.execute();
+                        }
+                    }
+                    return true;
+                }
+            });
+        }
+
         if (!checkOMS(context)) menu.findItem(R.id.restart_systemui).setVisible(false);
         assert getActivity() != null;
-        searchView = ((MainActivity) getActivity()).searchView;
-        if (searchView != null) searchView.setOnQueryTextListener(this);
         updateMenuButtonState(menu.findItem(R.id.alphabetize));
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -458,36 +492,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      */
     private List<String> updateEnabledOverlays() {
         return new ArrayList<>(ThemeManager.listOverlays(context, STATE_ENABLED));
-    }
-
-    /**
-     * When the search bar text was changed, and then the user presses enter
-     *
-     * @param query User's input
-     * @return True, if the text was changed
-     */
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    /**
-     * When the search bar text was changed, reload the fragment
-     *
-     * @param newText User's input
-     * @return True, if the text was changed
-     */
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        if (!userInput.equals(newText)) {
-            userInput = newText;
-            if (layoutReloader != null && !layoutReloader.isCancelled()) {
-                layoutReloader.cancel(true);
-                layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
-                layoutReloader.execute();
-            }
-        }
-        return true;
     }
 
     /**
@@ -1241,7 +1245,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             if (fragment != null) {
                 if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
                     fragment.layoutReloader.cancel(true);
-                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
+                    fragment.layoutReloader = new LayoutReloader(fragment, MainActivity.userInput);
                     fragment.layoutReloader.execute();
                 }
                 fragment.loadingBar.setVisibility(View.GONE);

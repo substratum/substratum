@@ -293,10 +293,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         Snackbar lunchbar = Lunchbar.make(getView(),
                                 getString(R.string.locale_restart_message),
                                 Snackbar.LENGTH_INDEFINITE);
-                        lunchbar.setAction(getString(R.string.restart), v -> {
-                            Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                        });
+                        lunchbar.setAction(getString(R.string.restart), v ->
+                                new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                         lunchbar.show();
                     } else {
                         forceEnglish.setChecked(false);
@@ -304,10 +302,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         Snackbar lunchbar = Lunchbar.make(getView(),
                                 getString(R.string.locale_restart_message),
                                 Snackbar.LENGTH_INDEFINITE);
-                        lunchbar.setAction(getString(R.string.restart), v -> {
-                            Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                        });
+                        lunchbar.setAction(getString(R.string.restart), v ->
+                                new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                         lunchbar.show();
                     }
                     return false;
@@ -381,10 +377,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
                         Snackbar.LENGTH_INDEFINITE);
-                lunchbar.setAction(getString(R.string.restart), v -> {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                });
+                lunchbar.setAction(getString(R.string.restart), v ->
+                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                 lunchbar.show();
             });
             auto.setOnClickListener(view -> {
@@ -393,10 +387,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
                         Snackbar.LENGTH_INDEFINITE);
-                lunchbar.setAction(getString(R.string.restart), v -> {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                });
+                lunchbar.setAction(getString(R.string.restart), v ->
+                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                 lunchbar.show();
             });
             dark.setOnClickListener(view -> {
@@ -405,10 +397,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
                         Snackbar.LENGTH_INDEFINITE);
-                lunchbar.setAction(getString(R.string.restart), v -> {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                });
+                lunchbar.setAction(getString(R.string.restart), v ->
+                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                 lunchbar.show();
             });
             sheetDialog.setContentView(sheetView);

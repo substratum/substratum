@@ -769,6 +769,7 @@ public enum ThemeManager {
      * @return True, if should restart SystemUI
      */
     public static boolean shouldRestartUI(Context context, String overlay) {
+        if (checkSubstratumService(context)) return false;
         if (overlay.startsWith(SYSTEMUI)) {
             return checkOMS(context);
         }

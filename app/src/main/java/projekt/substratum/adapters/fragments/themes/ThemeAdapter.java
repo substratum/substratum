@@ -33,7 +33,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +44,7 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Theming;
 import projekt.substratum.databinding.ThemeEntryCardBinding;
+import projekt.substratum.databinding.ThemeEntryLongPressSheetDialogBinding;
 import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
@@ -94,27 +94,27 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
                 // About the theme
                 SheetDialog sheetDialog = new SheetDialog(this.context);
-                // ThemeEntryLongPressSheetDialog binding
                 View sheetView =
                         View.inflate(this.context,
                                 R.layout.theme_entry_long_press_sheet_dialog, null);
+                ThemeEntryLongPressSheetDialogBinding sheetDialogBinding = DataBindingUtil.bind(sheetView);
 
-                TextView aboutText = sheetView.findViewById(R.id.about_text);
-                TextView moreText = sheetView.findViewById(R.id.more_text);
+                assert sheetDialogBinding != null;
+                TextView aboutText = sheetDialogBinding.aboutText;
                 aboutText.setText(themeItem.getThemeName());
                 aboutText.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                moreText.setText(String.format("%s (%s)\n%s",
+                sheetDialogBinding.moreText.setText(String.format("%s (%s)\n%s",
                         Packages.getAppVersion(this.context, themeItem.getThemePackage()),
                         Packages.getAppVersionCode(this.context, themeItem.getThemePackage()),
                         Packages.getPackageTemplateVersion(this.context,
                                 themeItem.getThemePackage())));
 
-                ImageView icon = sheetView.findViewById(R.id.icon);
-                icon.setImageDrawable(Packages.getAppIcon(this.context, themeItem
+                sheetDialogBinding.icon
+                        .setImageDrawable(Packages.getAppIcon(this.context, themeItem
                         .getThemePackage()));
 
                 // Favorite
-                LinearLayout favorite = sheetView.findViewById(R.id.favorite);
+                LinearLayout favorite = sheetDialogBinding.favorite;
 
                 Drawable favoriteImg = this.context.getDrawable(R.drawable.toolbar_favorite);
                 Drawable notFavoriteImg =
@@ -171,7 +171,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Rate Theme
-                LinearLayout rate = sheetView.findViewById(R.id.rate);
+                LinearLayout rate = sheetDialogBinding.rate;
                 String installer =
                         Packages.getInstallerId(this.context, themeItem.getThemePackage());
                 if ((installer != null) && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
@@ -195,7 +195,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Shortcut
-                LinearLayout shortcut = sheetView.findViewById(R.id.shortcut);
+                LinearLayout shortcut = sheetDialogBinding.shortcut;
                 shortcut.setOnClickListener(view12 -> {
                     References.createLauncherIcon(this.context,
                             themeItem.getThemePackage(), themeItem.getThemeName());
@@ -209,7 +209,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Uninstalling
-                LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
+                LinearLayout uninstall = sheetDialogBinding.uninstall;
                 uninstall.setOnClickListener(view2 -> {
                     Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
                     Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);

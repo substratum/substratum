@@ -15,158 +15,159 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/bottom_sheet_dialog_background"
-    android:orientation="vertical"
-    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
-
-    <RelativeLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/default_overlay_icon" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon"
-            android:layout_toStartOf="@id/icons"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/about_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="16dp"
-                android:gravity="start"
-                android:text="@string/app_title_placeholder"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/more_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="16dp"
-                android:gravity="start"
-                android:text="@string/more_text_placeholder"
-                android:textColor="?android:attr/textColorPrimary" />
-
-        </LinearLayout>
+        android:background="@color/bottom_sheet_dialog_background"
+        android:orientation="vertical"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
         <RelativeLayout
-            android:id="@+id/icons"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="3dp"
-            android:layout_marginEnd="5dp"
-            android:clickable="false">
+            android:clickable="false"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/default_overlay_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon"
+                android:layout_toStartOf="@id/icons"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/about_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="16dp"
+                    android:gravity="start"
+                    android:text="@string/app_title_placeholder"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/more_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="16dp"
+                    android:gravity="start"
+                    android:text="@string/more_text_placeholder"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/icons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="5dp"
+                android:clickable="false">
+            </RelativeLayout>
+
         </RelativeLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/favorite"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-    <LinearLayout
-        android:id="@+id/favorite"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="16dp">
+            <TextView
+                android:id="@+id/favorite_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="16dp"
+                android:drawableStart="@drawable/toolbar_favorite"
+                android:drawableTint="@color/main_screen_card_theme_title"
+                android:gravity="center"
+                android:text="@string/menu_favorite"
+                android:textColor="?android:attr/textColorPrimary" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/favorite_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="16dp"
-            android:drawableStart="@drawable/toolbar_favorite"
-            android:drawableTint="@color/main_screen_card_theme_title"
-            android:gravity="center"
-            android:text="@string/menu_favorite"
-            android:textColor="?android:attr/textColorPrimary" />
+        <LinearLayout
+            android:id="@+id/rate"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="16dp"
+                android:drawableStart="@drawable/ic_rate"
+                android:drawableTint="@color/main_screen_card_theme_title"
+                android:gravity="center"
+                android:text="@string/menu_rate"
+                android:textColor="?android:attr/textColorPrimary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shortcut"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="16dp"
+                android:drawableStart="@drawable/ic_launch"
+                android:drawableTint="@color/main_screen_card_theme_title"
+                android:gravity="center"
+                android:text="@string/launcher_shortcut"
+                android:textColor="?android:attr/textColorPrimary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/uninstall"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="16dp"
+                android:drawableStart="@drawable/uninstall_sheet_icon"
+                android:drawableTint="@color/main_screen_card_theme_title"
+                android:gravity="center"
+                android:text="@string/uninstall_dialog_body"
+                android:textColor="?android:attr/textColorPrimary" />
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rate"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="16dp"
-            android:drawableStart="@drawable/ic_rate"
-            android:drawableTint="@color/main_screen_card_theme_title"
-            android:gravity="center"
-            android:text="@string/menu_rate"
-            android:textColor="?android:attr/textColorPrimary" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/shortcut"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="16dp"
-            android:drawableStart="@drawable/ic_launch"
-            android:drawableTint="@color/main_screen_card_theme_title"
-            android:gravity="center"
-            android:text="@string/launcher_shortcut"
-            android:textColor="?android:attr/textColorPrimary" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/uninstall"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="16dp"
-            android:drawableStart="@drawable/uninstall_sheet_icon"
-            android:drawableTint="@color/main_screen_card_theme_title"
-            android:gravity="center"
-            android:text="@string/uninstall_dialog_body"
-            android:textColor="?android:attr/textColorPrimary" />
-    </LinearLayout>
-</LinearLayout>
+</layout>

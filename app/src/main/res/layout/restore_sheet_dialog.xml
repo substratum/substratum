@@ -35,6 +35,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/disable_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -57,6 +58,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/uninstall_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -79,6 +81,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/restore_bootanimation_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -101,6 +104,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/restore_font_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -123,6 +127,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/restore_sounds_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -145,6 +150,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/restore_home_wallpaper_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -167,6 +173,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/restore_lock_wallpaper_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -189,6 +196,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/restore_both_wallpapers_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

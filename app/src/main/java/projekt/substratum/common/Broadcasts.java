@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.common;
 
 import android.content.BroadcastReceiver;
@@ -37,19 +55,19 @@ public enum Broadcasts {
     /**
      * Send a localized key message for encryption to take place
      *
-     * @param context        Context
-     * @param encryption_key Encryption key
-     * @param iv_encrypt_key IV encryption key
+     * @param context       Context
+     * @param encryptionKey Encryption key
+     * @param ivEncryptKey  IV encryption key
      */
     static void sendLocalizedKeyMessage(Context context,
-                                        byte[] encryption_key,
-                                        byte[] iv_encrypt_key) {
+                                        byte[] encryptionKey,
+                                        byte[] ivEncryptKey) {
         Log.d("KeyRetrieval",
                 "The system has completed the handshake for keys retrieval " +
                         "and is now passing it to the activity...");
         Intent intent = new Intent(KEY_RETRIEVAL);
-        intent.putExtra(ENCRYPTION_KEY_EXTRA, encryption_key);
-        intent.putExtra(IV_ENCRYPTION_KEY_EXTRA, iv_encrypt_key);
+        intent.putExtra(ENCRYPTION_KEY_EXTRA, encryptionKey);
+        intent.putExtra(IV_ENCRYPTION_KEY_EXTRA, ivEncryptKey);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
@@ -105,15 +123,15 @@ public enum Broadcasts {
     /**
      * Activity finisher when a theme was updated
      *
-     * @param context      Context
-     * @param package_name Package of theme to close
+     * @param context     Context
+     * @param packageName Package of theme to close
      */
     public static void sendActivityFinisherMessage(Context context,
-                                                   String package_name) {
+                                                   String packageName) {
         Log.d("ThemeInstaller",
                 "A theme has been installed, sending update signal to app for further processing!");
         Intent intent = new Intent(ACTIVITY_FINISHER);
-        intent.putExtra("theme_pid", package_name);
+        intent.putExtra(Internal.THEME_PID, packageName);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

@@ -43,10 +43,11 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -72,14 +73,18 @@ import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
 import projekt.substratum.util.views.Lunchbar;
+import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Activities.launchExternalActivity;
-import static projekt.substratum.common.Internal.RECREATE_PROP;
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE;
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE_DIR;
 import static projekt.substratum.common.Packages.validateResource;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
+import static projekt.substratum.common.References.APP_THEME;
+import static projekt.substratum.common.References.AUTO_THEME;
+import static projekt.substratum.common.References.DARK_THEME;
 import static projekt.substratum.common.References.DEFAULT_GRID_COUNT;
+import static projekt.substratum.common.References.DEFAULT_THEME;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.MAX_PRIORITY;
 import static projekt.substratum.common.References.MIN_PRIORITY;
@@ -273,7 +278,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // Force English
         CheckBoxPreference forceEnglish = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_english_locale");
-        boolean force = prefs.getBoolean("force_english", false);
+        boolean force = prefs.getBoolean("force_english_locale", false);
         if (force) {
             forceEnglish.setChecked(true);
         } else {
@@ -284,131 +289,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         forceEnglish.setChecked(true);
-                        prefs.edit().putBoolean("force_english", true).apply();
+                        prefs.edit().putBoolean("force_english_locale", true).apply();
                         Snackbar lunchbar = Lunchbar.make(getView(),
                                 getString(R.string.locale_restart_message),
                                 Snackbar.LENGTH_INDEFINITE);
-                        lunchbar.setAction(getString(R.string.restart), v -> {
-                            Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                        });
+                        lunchbar.setAction(getString(R.string.restart), v ->
+                                new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                         lunchbar.show();
                     } else {
                         forceEnglish.setChecked(false);
-                        prefs.edit().putBoolean("force_english", false).apply();
+                        prefs.edit().putBoolean("force_english_locale", false).apply();
                         Snackbar lunchbar = Lunchbar.make(getView(),
                                 getString(R.string.locale_restart_message),
                                 Snackbar.LENGTH_INDEFINITE);
-                        lunchbar.setAction(getString(R.string.restart), v -> {
-                            Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                        });
+                        lunchbar.setAction(getString(R.string.restart), v ->
+                                new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                         lunchbar.show();
                     }
                     return false;
                 });
-
-        // Advanced UI
-        CheckBoxPreference advancedUi = (CheckBoxPreference)
-                getPreferenceManager().findPreference("advanced_ui");
-        boolean advanced = prefs.getBoolean("advanced_ui", false);
-        if (advanced) {
-            advancedUi.setChecked(true);
-        } else {
-            advancedUi.setChecked(false);
-        }
-        advancedUi.setOnPreferenceChangeListener(
-                (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (isChecked) {
-                        advancedUi.setChecked(true);
-                        prefs.edit().putBoolean("advanced_ui", true).apply();
-                        Snackbar lunchbar = Lunchbar.make(getView(),
-                                getString(R.string.advanced_ui_restart_message),
-                                Snackbar.LENGTH_INDEFINITE);
-                        lunchbar.setAction(getString(R.string.restart), v -> {
-                            Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                        });
-                        lunchbar.show();
-                    } else {
-                        advancedUi.setChecked(false);
-                        prefs.edit().putBoolean("advanced_ui", false).apply();
-                        Snackbar lunchbar = Lunchbar.make(getView(),
-                                getString(R.string.advanced_ui_restart_message),
-                                Snackbar.LENGTH_INDEFINITE);
-                        lunchbar.setAction(getString(R.string.restart), v -> {
-                            Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
-                        });
-                        lunchbar.show();
-                    }
-                    return false;
-                });
-
-        // Alternative Drawer Design
-        CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
-                getPreferenceManager().findPreference("alternate_drawer_design");
-        if (prefs.getBoolean("alternate_drawer_design", false)) {
-            alternate_drawer_design.setChecked(true);
-        } else {
-            alternate_drawer_design.setChecked(false);
-        }
-        alternate_drawer_design.setOnPreferenceChangeListener(
-                (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (isChecked) {
-                        prefs.edit().putBoolean("alternate_drawer_design", true).apply();
-                        alternate_drawer_design.setChecked(true);
-                        Toast.makeText(context,
-                                getString(R.string.substratum_restart_toast),
-                                Toast.LENGTH_SHORT).show();
-                        if (getActivity() != null) {
-                            getActivity().recreate();
-                        }
-                    } else {
-                        prefs.edit().putBoolean("alternate_drawer_design", false).apply();
-                        alternate_drawer_design.setChecked(false);
-                        Toast.makeText(context,
-                                getString(R.string.substratum_restart_toast),
-                                Toast.LENGTH_SHORT).show();
-                        if (getActivity() != null) {
-                            getActivity().recreate();
-                        }
-                    }
-                    return false;
-                });
-        if (advanced) {
-            alternate_drawer_design.setVisible(true);
-        } else {
-            alternate_drawer_design.setVisible(false);
-        }
-
-        // Nougat Style Cards
-        CheckBoxPreference nougat_style_cards = (CheckBoxPreference)
-                getPreferenceManager().findPreference("nougat_style_cards");
-        if (prefs.getBoolean("nougat_style_cards", true)) {
-            nougat_style_cards.setChecked(true);
-        } else {
-            nougat_style_cards.setChecked(false);
-        }
-        nougat_style_cards.setOnPreferenceChangeListener(
-                (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (isChecked) {
-                        prefs.edit().putBoolean("nougat_style_cards", true).apply();
-                        nougat_style_cards.setChecked(true);
-                    } else {
-                        prefs.edit().putBoolean("nougat_style_cards", false).apply();
-                        nougat_style_cards.setChecked(false);
-                    }
-                    return false;
-                });
-        if (advanced) {
-            nougat_style_cards.setVisible(true);
-        } else {
-            nougat_style_cards.setVisible(false);
-        }
 
         // Notify on Compiled
         CheckBoxPreference vibrate_on_compiled = (CheckBoxPreference)
@@ -445,35 +344,68 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     });
         }
 
-        // Show template version in theme view
-        CheckBoxPreference show_template_version = (CheckBoxPreference)
-                getPreferenceManager().findPreference("show_template_version");
-        if (prefs.getBoolean("show_template_version", false)) {
-            show_template_version.setChecked(true);
-        } else {
-            show_template_version.setChecked(false);
+        // App Theme
+        Preference app_theme = getPreferenceManager().findPreference("app_theme");
+        String selectedTheme;
+        switch (prefs.getString(APP_THEME, DEFAULT_THEME)) {
+            case AUTO_THEME:
+                selectedTheme =
+                        String.format(getString(R.string.app_theme_text),
+                                getString(R.string.app_theme_auto));
+                break;
+            case DARK_THEME:
+                selectedTheme =
+                        String.format(getString(R.string.app_theme_text),
+                                getString(R.string.app_theme_dark));
+                break;
+            default:
+                selectedTheme =
+                        String.format(getString(R.string.app_theme_text),
+                                getString(R.string.app_theme_disabled));
+                break;
         }
-        show_template_version.setOnPreferenceChangeListener(
-                (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (isChecked) {
-                        prefs.edit().putBoolean("show_template_version", true).apply();
-                        show_template_version.setChecked(true);
-                    } else {
-                        prefs.edit().putBoolean("show_template_version", false).apply();
-                        show_template_version.setChecked(false);
-                    }
-                    return false;
-                });
-        if (prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT) > 1) {
-            // Always hide the template version if in grid mode
-            show_template_version.setVisible(false);
-        }
-        if (advanced) {
-            show_template_version.setVisible(true);
-        } else {
-            show_template_version.setVisible(false);
-        }
+        app_theme.setSummary(selectedTheme);
+        app_theme.setOnPreferenceClickListener(preference -> {
+            SheetDialog sheetDialog = new SheetDialog(context);
+            View sheetView = View.inflate(context, R.layout.app_theme_sheet_dialog, null);
+            LinearLayout disabled = sheetView.findViewById(R.id.disabled);
+            LinearLayout auto = sheetView.findViewById(R.id.automatic);
+            LinearLayout dark = sheetView.findViewById(R.id.dark);
+            disabled.setOnClickListener(view -> {
+                prefs.edit().putString(APP_THEME, DEFAULT_THEME).apply();
+                sheetDialog.dismiss();
+                Snackbar lunchbar = Lunchbar.make(getView(),
+                        getString(R.string.app_theme_change),
+                        Snackbar.LENGTH_INDEFINITE);
+                lunchbar.setAction(getString(R.string.restart), v ->
+                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
+                lunchbar.show();
+            });
+            auto.setOnClickListener(view -> {
+                prefs.edit().putString(APP_THEME, AUTO_THEME).apply();
+                sheetDialog.dismiss();
+                Snackbar lunchbar = Lunchbar.make(getView(),
+                        getString(R.string.app_theme_change),
+                        Snackbar.LENGTH_INDEFINITE);
+                lunchbar.setAction(getString(R.string.restart), v ->
+                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
+                lunchbar.show();
+            });
+            dark.setOnClickListener(view -> {
+                prefs.edit().putString(APP_THEME, DARK_THEME).apply();
+                sheetDialog.dismiss();
+                Snackbar lunchbar = Lunchbar.make(getView(),
+                        getString(R.string.app_theme_change),
+                        Snackbar.LENGTH_INDEFINITE);
+                lunchbar.setAction(getString(R.string.restart), v ->
+                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
+                lunchbar.show();
+            });
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
+            return false;
+        });
+
 
         // Grid Style Cards Count
         Preference grid_style_cards_count =
@@ -509,11 +441,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         switch (new_count) {
                             case 1:
                                 prefs.edit().putBoolean("grid_layout", false).apply();
-                                if (advanced) show_template_version.setVisible(true);
                                 break;
                             default:
                                 prefs.edit().putBoolean("grid_layout", true).apply();
-                                if (advanced) show_template_version.setVisible(false);
+                                break;
                         }
 
                         grid_style_cards_count.setSummary(
@@ -797,83 +728,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                         .show();
                             }
                             hide_app_checkbox.setChecked(false);
-                        }
-                        return false;
-                    });
-
-            // Allow for SystemUI recreate if the ROM supports it using the ro.substratum.recreate
-            // build prop
-            CheckBoxPreference systemUIRestart =
-                    (CheckBoxPreference) getPreferenceManager().findPreference("restart_systemui");
-            if (Systems.getProp(RECREATE_PROP).equals("true")) {
-                systemUIRestart.setVisible(false);
-                if (prefs.getBoolean("systemui_recreate", true)) {
-                    systemUIRestart.setChecked(true);
-                } else {
-                    systemUIRestart.setChecked(false);
-                }
-                systemUIRestart.setOnPreferenceChangeListener(
-                        (preference, newValue) -> {
-                            boolean isChecked = (Boolean) newValue;
-                            if (isChecked) {
-                                prefs.edit().putBoolean("systemui_recreate", true).apply();
-                                if (getView() != null) {
-                                    Lunchbar.make(getView(),
-                                            getString(R.string.restart_systemui_toast_enabled),
-                                            Snackbar.LENGTH_LONG)
-                                            .show();
-                                }
-                                systemUIRestart.setChecked(true);
-                            } else {
-                                prefs.edit().putBoolean("systemui_recreate", false).apply();
-                                if (getView() != null) {
-                                    Lunchbar.make(getView(),
-                                            getString(R.string.restart_systemui_toast_disabled),
-                                            Snackbar.LENGTH_LONG)
-                                            .show();
-                                }
-                                systemUIRestart.setChecked(false);
-                            }
-                            return false;
-                        });
-            } else {
-                // Hide recreate on ROMs that do not support it
-                systemUIRestart.setVisible(false);
-            }
-
-            // Allow the user to toggle whether they would like their SystemUI's restarted
-            CheckBoxPreference restartSystemUI =
-                    (CheckBoxPreference) getPreferenceManager().findPreference(
-                            "opt_in_sysui_restart");
-            Boolean restartSysUI = prefs.getBoolean("opt_in_sysui_restart", true);
-            if (restartSysUI) {
-                restartSystemUI.setChecked(true);
-            } else {
-                restartSystemUI.setChecked(false);
-            }
-            if (Systems.isAndromedaDevice(context)) {
-                restartSystemUI.setVisible(false);
-            }
-            restartSystemUI.setOnPreferenceChangeListener(
-                    (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("opt_in_sysui_restart", true).apply();
-                            restartSystemUI.setChecked(true);
-                        } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (context);
-                            builder.setTitle(R.string.auto_reload_sysui_dialog_title);
-                            builder.setMessage(R.string.auto_reload_sysui_dialog_text);
-                            builder.setNegativeButton(R.string.dialog_cancel,
-                                    (dialog, id) -> dialog.dismiss());
-                            builder.setPositiveButton(R.string.break_compilation_dialog_continue,
-                                    (dialog, id) -> {
-                                        prefs.edit().putBoolean("opt_in_sysui_restart", false)
-                                                .apply();
-                                        restartSystemUI.setChecked(false);
-                                    });
-                            builder.show();
                         }
                         return false;
                     });

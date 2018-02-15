@@ -19,6 +19,7 @@
 package projekt.substratum.fragments;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -29,38 +30,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
+import projekt.substratum.databinding.TeamFragmentBinding;
 
 import static projekt.substratum.common.Activities.launchActivityUrl;
 
 public class TeamFragment extends Fragment {
 
-    @BindView(R.id.nicholas_card)
-    CardView nicholas_card;
-    @BindView(R.id.syko_card)
-    CardView syko_card;
-    @BindView(R.id.ivan_card)
-    CardView ivan_card;
-    @BindView(R.id.surge_card)
-    CardView surge_card;
-    @BindView(R.id.george_card)
-    CardView george_card;
-    @BindView(R.id.nathan_card)
-    CardView nathan_card;
-    @BindView(R.id.char_card)
-    CardView char_card;
-    @BindView(R.id.harsh_card)
-    CardView harsh_card;
-    @BindView(R.id.list_button_contributors)
-    Button development_contributors;
-    @BindView(R.id.list_button_translators_contribute)
+    CardView nicholasCard;
+    CardView sykoCard;
+    CardView ivanCard;
+    CardView surgeCard;
+    CardView georgeCard;
+    CardView nathanCard;
+    CardView charCard;
+    CardView harshCard;
+    Button developmentContributors;
     Button contribute;
-    @BindView(R.id.list_button_layers)
     Button layers;
-    @BindView(R.id.list_button_translators)
     Button translators;
 
     @Override
@@ -68,13 +56,26 @@ public class TeamFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.team_fragment, container, false);
-        ButterKnife.bind(this, view);
+        TeamFragmentBinding viewBinding =
+                DataBindingUtil.inflate(inflater, R.layout.team_fragment, container, false);
+        View view = viewBinding.getRoot();
         Context context = getContext();
+        nicholasCard = viewBinding.nicholasCard;
+        sykoCard = viewBinding.sykoCard;
+        ivanCard = viewBinding.ivanCard;
+        surgeCard = viewBinding.surgeCard;
+        georgeCard = viewBinding.georgeCard;
+        nathanCard = viewBinding.nathanCard;
+        charCard = viewBinding.charCard;
+        harshCard = viewBinding.harshCard;
+        developmentContributors = viewBinding.listButtonContributors;
+        contribute = viewBinding.listButtonTranslatorsContribute;
+        layers = viewBinding.listButtonLayers;
+        translators = viewBinding.listButtonTranslators;
 
         if (context != null) {
             // Nicholas
-            nicholas_card.setOnClickListener(v -> {
+            nicholasCard.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     launchActivityUrl(
                             context,
@@ -84,7 +85,7 @@ public class TeamFragment extends Fragment {
             });
 
             // Mike
-            syko_card.setOnClickListener(v -> {
+            sykoCard.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     launchActivityUrl(
                             context,
@@ -94,7 +95,7 @@ public class TeamFragment extends Fragment {
             });
 
             // Ivan
-            ivan_card.setOnClickListener(v -> {
+            ivanCard.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     launchActivityUrl(
                             context,
@@ -104,7 +105,7 @@ public class TeamFragment extends Fragment {
             });
 
             // Surge
-            surge_card.setOnClickListener(v -> {
+            surgeCard.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     launchActivityUrl(
                             context,
@@ -114,7 +115,7 @@ public class TeamFragment extends Fragment {
             });
 
             // George
-            george_card.setOnClickListener(v -> {
+            georgeCard.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     launchActivityUrl(
                             context,
@@ -124,7 +125,7 @@ public class TeamFragment extends Fragment {
             });
 
             // Nathan
-            nathan_card.setOnClickListener(v -> {
+            nathanCard.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     launchActivityUrl(
                             context,
@@ -134,7 +135,7 @@ public class TeamFragment extends Fragment {
             });
 
             // Char
-            char_card.setOnClickListener(v -> {
+            charCard.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     launchActivityUrl(
                             context,
@@ -144,7 +145,7 @@ public class TeamFragment extends Fragment {
             });
 
             // Harsh
-            harsh_card.setOnClickListener(v -> {
+            harshCard.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     launchActivityUrl(
                             context,
@@ -154,7 +155,7 @@ public class TeamFragment extends Fragment {
             });
 
             // Development contributors
-            development_contributors.setOnClickListener(v -> {
+            developmentContributors.setOnClickListener(v -> {
                 assert getActivity() != null;
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setItems(getResources().getStringArray(R.array.substratum_contributors),

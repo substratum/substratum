@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
@@ -33,7 +51,7 @@ import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
-import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
+import static projekt.substratum.common.References.BYPASS_SYSTEM_VERSION_CHECK;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
@@ -92,7 +110,7 @@ public enum Systems {
     public static Boolean checkOMS(@NonNull Context context) {
         //noinspection ConstantConditions
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
-        if (!BYPASS_ALL_VERSION_CHECKS) {
+        if (!BYPASS_SYSTEM_VERSION_CHECK) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!prefs.contains("oms_state")) {
                 setAndCheckOMS(context);
@@ -147,29 +165,30 @@ public enum Systems {
         if (context != null) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!firstLaunch &&
-                    (prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE)) {
-                return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
+                    prefs.contains("current_theme_mode") &&
+                    prefs.getInt("current_theme_mode", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
+                return prefs.getInt("current_theme_mode", NO_THEME_ENGINE);
             }
 
             if (checkOreo()) {
                 if (isAndromedaDevice(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
                 } else if (checkSubstratumService(context)) {
                     // SS mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_O_UNROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
                 } else if (Root.checkRootAccess()) {
                     // Rooted mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_O_ROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ROOTED;
@@ -178,21 +197,21 @@ public enum Systems {
                 if (isBinderInterfacer(context)) {
                     // Interfacer mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_N_UNROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_N_UNROOTED;
                 } else if (isSamsungDevice(context)) {
                     // Sungstratum mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             SAMSUNG_THEME_ENGINE_N
                     ).apply();
                     return SAMSUNG_THEME_ENGINE_N;
                 } else if (Root.requestRootAccess()) {
                     // Rooted mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             RUNTIME_RESOURCE_OVERLAY_N_ROOTED
                     ).apply();
                     return RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
@@ -240,13 +259,15 @@ public enum Systems {
                     Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
                             IOverlayManager.class);
                     if (isOMSRunning || checkOreo()) {
-                        Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
+                        Log.d(SUBSTRATUM_LOG,
+                                "This device fully supports the Overlay Manager Service...");
                         foundOms = true;
                     } else {
                         String out = Root.runCommand("cmd overlay").split("\n")[0];
                         if ("The overlay manager has already been initialized.".equals(out) ||
                                 "Overlay manager (overlay) commands:".equals(out)) {
-                            Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
+                            Log.d(SUBSTRATUM_LOG,
+                                    "This device fully supports the Overlay Manager Service...");
                             foundOms = true;
                         }
                     }
@@ -258,20 +279,16 @@ public enum Systems {
 
             if (foundOms && !isSamsungDevice(context)) {
                 prefs.edit().putBoolean("oms_state", true).apply();
-                prefs.edit().putInt("oms_version", 7).apply();
-                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
-                        "iteration of the Overlay Manager Service...");
+                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with Dynamic Overlay / " +
+                        "Overlay Manager Service support!");
             } else {
                 prefs.edit().putBoolean("oms_state", false).apply();
-                prefs.edit().putInt("oms_version", 0).apply();
-                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
-                        "iteration of the Resource Runtime Overlay system...");
+                Log.d(SUBSTRATUM_LOG,
+                        "Initializing Substratum with Runtime Resource Overlay support!");
             }
         } catch (Exception e) {
             prefs.edit().putBoolean("oms_state", false).apply();
-            prefs.edit().putInt("oms_version", 0).apply();
-            Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
-                    "iteration of the Resource Runtime Overlay system...");
+            Log.d(SUBSTRATUM_LOG, "Initializing Substratum with Runtime Resource Overlay support!");
         }
     }
 
@@ -427,14 +444,9 @@ public enum Systems {
      * @return True, if it passes all Samsung tests
      */
     public static boolean isNewSamsungDevice(Context context) {
-        if (context != null) {
-            if (isSamsungDevice(context)) return false;
-            List<String> listOfFeatures =
-                    Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
-            return listOfFeatures.contains("timakeystore");
-        } else {
-            return false;
-        }
+        return context != null &&
+                !isSamsungDevice(context) &&
+                new File("/system/etc/permissions/com.samsung.device.xml").exists();
     }
 
     /**
@@ -508,11 +520,11 @@ public enum Systems {
      */
     public static Boolean checkROMVersion(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!prefs.contains("build_date")) {
+        if (!prefs.contains("rom_build_date")) {
             setROMVersion(context, false);
         }
         String prop = getProp("ro.build.date.utc");
-        return prefs.getInt("build_date", 0) ==
+        return prefs.getInt("rom_build_date", 0) ==
                 (((prop != null) && !prop.isEmpty()) ? Integer.parseInt(prop) : 0);
     }
 
@@ -525,9 +537,9 @@ public enum Systems {
     public static void setROMVersion(Context context,
                                      boolean force) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!prefs.contains("build_date") || force) {
+        if (!prefs.contains("rom_build_date") || force) {
             String prop = getProp("ro.build.date.utc");
-            prefs.edit().putInt("build_date",
+            prefs.edit().putInt("rom_build_date",
                     ((prop != null) && !prop.isEmpty()) ? Integer.parseInt(prop) : 0)
                     .apply();
         }

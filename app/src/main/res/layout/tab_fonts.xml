@@ -16,150 +16,153 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nestedScrollView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/font_window_background">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/font_window_background">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/font_spinner_background">
-
-            <Spinner
-                android:id="@+id/fontSelection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:background="@color/font_window_background"
             android:orientation="vertical">
 
-            <ProgressBar
-                android:id="@+id/progress_bar_loader"
-                style="?android:attr/indeterminateProgressStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="50dp"
-                android:indeterminate="true" />
-
             <RelativeLayout
-                android:id="@+id/font_placeholder"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:background="@color/font_spinner_background">
 
-                <ImageView
-                    android:id="@+id/image_placeholder"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="20dp"
-                    android:importantForAccessibility="no"
-                    android:src="@drawable/font_placeholder" />
-
-                <TextView
+                <Spinner
+                    android:id="@+id/fontSelection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/image_placeholder"
-                    android:layout_margin="15dp"
-                    android:gravity="center"
-                    android:text="@string/font_placeholder_text"
-                    android:textAllCaps="true"
-                    android:textColor="@color/font_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="15dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/restore_to_default"
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
+                android:layout_marginTop="10dp"
+                android:background="@color/font_window_background"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/restore_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="22dp"
-                    android:importantForAccessibility="no"
-                    android:src="@drawable/tab_restore_default" />
-
-                <TextView
-                    android:layout_width="match_parent"
+                <ProgressBar
+                    android:id="@+id/progress_bar_loader"
+                    style="?android:attr/indeterminateProgressStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/restore_image"
-                    android:layout_margin="15dp"
-                    android:gravity="center"
-                    android:text="@string/fonts_defaults_text"
-                    android:textAllCaps="true"
-                    android:textColor="@color/font_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="50dp"
+                    android:indeterminate="true" />
 
+                <RelativeLayout
+                    android:id="@+id/font_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/font_placeholder" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/image_placeholder"
+                        android:layout_margin="15dp"
+                        android:gravity="center"
+                        android:text="@string/font_placeholder_text"
+                        android:textAllCaps="true"
+                        android:textColor="@color/font_text"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/restore_to_default"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/restore_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="22dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/tab_restore_default" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/restore_image"
+                        android:layout_margin="15dp"
+                        android:gravity="center"
+                        android:text="@string/fonts_defaults_text"
+                        android:textAllCaps="true"
+                        android:textColor="@color/font_text"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/font_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/text_normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/fonts_demo_string"
+                        android:textColor="@color/font_text"
+                        android:textSize="50sp" />
+
+                    <TextView
+                        android:id="@+id/text_bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_normal"
+                        android:gravity="center"
+                        android:text="@string/fonts_demo_string"
+                        android:textColor="@color/font_text"
+                        android:textSize="50sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/text_normal_italics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_bold"
+                        android:gravity="center"
+                        android:text="@string/fonts_demo_string"
+                        android:textColor="@color/font_text"
+                        android:textSize="50sp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/text_normal_bold_italics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_normal_italics"
+                        android:gravity="center"
+                        android:text="@string/fonts_demo_string"
+                        android:textColor="@color/font_text"
+                        android:textSize="50sp"
+                        android:textStyle="italic|bold" />
+                </RelativeLayout>
             </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/font_holder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/text_normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/fonts_demo_string"
-                    android:textColor="@color/font_text"
-                    android:textSize="50sp" />
-
-                <TextView
-                    android:id="@+id/text_bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_normal"
-                    android:gravity="center"
-                    android:text="@string/fonts_demo_string"
-                    android:textColor="@color/font_text"
-                    android:textSize="50sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/text_normal_italics"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_bold"
-                    android:gravity="center"
-                    android:text="@string/fonts_demo_string"
-                    android:textColor="@color/font_text"
-                    android:textSize="50sp"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/text_normal_bold_italics"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_normal_italics"
-                    android:gravity="center"
-                    android:text="@string/fonts_demo_string"
-                    android:textColor="@color/font_text"
-                    android:textSize="50sp"
-                    android:textStyle="italic|bold" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

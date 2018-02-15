@@ -36,6 +36,7 @@ import android.media.AudioAttributes;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -56,7 +57,14 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_AUTO;
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static projekt.substratum.BuildConfig.DEBUG;
+import static projekt.substratum.common.References.APP_THEME;
+import static projekt.substratum.common.References.AUTO_THEME;
+import static projekt.substratum.common.References.DARK_THEME;
+import static projekt.substratum.common.References.DEFAULT_THEME;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
@@ -71,7 +79,7 @@ public class Substratum extends Application {
     public static Thread currentThread;
     private static Substratum substratum;
     private static boolean isWaiting;
-    private static Boolean shouldStopThread = false;
+    private static boolean shouldStopThread = false;
 
     /**
      * Get the current instance of the substratum application
@@ -200,13 +208,24 @@ public class Substratum extends Application {
         super.onCreate();
         substratum = this;
 
-        // Set global app theme if on special UI mode
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getInstance());
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) {
-            setTheme(R.style.AppTheme_SpecialUI);
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        String selectedTheme = prefs.getString(APP_THEME, DEFAULT_THEME);
+        if (!getApplicationContext().getResources().getBoolean(R.bool.forceAppDarkTheme)) {
+            switch (selectedTheme) {
+                case AUTO_THEME:
+                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_AUTO);
+                    break;
+                case DARK_THEME:
+                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
+                    break;
+                case DEFAULT_THEME:
+                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
+                    break;
+            }
         } else {
-            setTheme(R.style.AppTheme);
+            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
+            prefs.edit().putString("app_theme", DARK_THEME).apply();
         }
 
         // Firebase

@@ -31,11 +31,11 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -50,7 +50,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -87,10 +86,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import projekt.substratum.adapters.tabs.InformationTabsAdapter;
+import projekt.substratum.adapters.activities.IATabsAdapter;
 import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Internal;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
@@ -99,6 +97,7 @@ import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.databinding.InformationActivityBinding;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.Wallpapers;
@@ -121,7 +120,6 @@ import static projekt.substratum.common.Internal.MIX_AND_MATCH;
 import static projekt.substratum.common.Internal.MIX_AND_MATCH_IA_TO_OVERLAYS;
 import static projekt.substratum.common.Internal.SHEET_COMMAND;
 import static projekt.substratum.common.Internal.START_JOB_ACTION;
-import static projekt.substratum.common.Internal.THEME_MODE;
 import static projekt.substratum.common.Internal.THEME_NAME;
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.Internal.THEME_WALLPAPER;
@@ -131,13 +129,17 @@ import static projekt.substratum.common.References.ACTIVITY_FINISHER;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.References.bootAnimationsFolder;
 import static projekt.substratum.common.References.bootAnimationsFragment;
+import static projekt.substratum.common.References.fontsFolder;
 import static projekt.substratum.common.References.fontsFragment;
 import static projekt.substratum.common.References.metadataHeroOverride;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataWallpapers;
+import static projekt.substratum.common.References.overlaysFolder;
 import static projekt.substratum.common.References.overlaysFragment;
-import static projekt.substratum.common.References.shutdownAnimationsFragment;
+import static projekt.substratum.common.References.shutdownAnimationsFolder;
+import static projekt.substratum.common.References.soundsFolder;
 import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 import static projekt.substratum.common.Systems.checkPackageSupport;
@@ -147,48 +149,30 @@ public class InformationActivity extends AppCompatActivity {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Snackbar currentShownLunchBar;
-    public static Boolean compilingProcess = false;
-    public static Boolean shouldRestartActivity = false;
-    private static List<String> tab_checker;
-    @BindView(R.id.toolbar)
+    public static boolean compilingProcess = false;
+    public static boolean shouldRestartActivity = false;
+    private static List<String> tabChecker;
     Toolbar toolbar;
-    @BindView(R.id.tabs)
     TabLayout tabLayout;
-    @BindView(R.id.collapsing_toolbar_tabbed_layout)
     CollapsingToolbarLayout collapsingToolbar;
-    @BindView(R.id.viewpager)
     ViewPager viewPager;
-    @BindView(R.id.appbar)
     AppBarLayout appBarLayout;
-    @BindView(R.id.fab_sheet)
     CardView sheetView;
-    @BindView(R.id.overlay)
     DimOverlayFrameLayout overlay;
-    @BindView(R.id.enable_swap)
-    Switch enable_swap;
-    @BindView(R.id.compile_enable_selected)
-    TextView compile_enable_selected;
-    @BindView(R.id.compile_update_selected)
-    TextView compile_update_selected;
-    @BindView(R.id.disable_selected)
-    TextView disable_selected;
-    @BindView(R.id.apply_fab)
+    Switch enableSwap;
+    TextView compileEnableSelected;
+    TextView compileUpdateSelected;
+    TextView disableSelected;
     FloatingActionMenu floatingActionButton;
-    @BindView(R.id.fab_menu_divider)
-    View fab_menu_divider;
-    @BindView(R.id.enable)
-    LinearLayout enable_zone;
-    @BindView(R.id.enable_selected)
-    TextView enable_selected;
-    @BindView(R.id.enable_disable_selected)
-    TextView enable_disable_selected;
-    @BindView(R.id.heroImage)
+    View fabMenuDivider;
+    LinearLayout enableZone;
+    TextView enableSelected;
+    TextView enableDisableSelected;
     ImageView heroImage;
 
-    private String theme_name;
-    private String theme_pid;
-    private String theme_mode;
-    private Boolean uninstalled = false;
+    private String themeName;
+    private String themePid;
+    private boolean uninstalled = false;
     private byte[] byteArray;
     private Bitmap heroImageBitmap;
     private SharedPreferences prefs;
@@ -232,7 +216,7 @@ public class InformationActivity extends AppCompatActivity {
      * @param activity  Activity to change it in
      * @param dark_mode True if dark, false if light
      */
-    private static void setOverflowButtonColor(Activity activity, Boolean dark_mode) {
+    private static void setOverflowButtonColor(Activity activity, boolean dark_mode) {
         @SuppressLint("PrivateResource") String overflowDescription =
                 activity.getString(R.string.abc_action_menu_overflow_description);
         ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
@@ -391,7 +375,7 @@ public class InformationActivity extends AppCompatActivity {
                                 context,
                                 resultUri.toString().substring(7),
                                 "home");
-                        editor.putString("home_wallpaper_applied", theme_pid);
+                        editor.putString("home_wallpaper_applied", themePid);
                         currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_homescreen_success),
                                 Snackbar.LENGTH_LONG);
@@ -409,7 +393,7 @@ public class InformationActivity extends AppCompatActivity {
                                 context,
                                 resultUri.toString().substring(7),
                                 "lock");
-                        editor.putString("lock_wallpaper_applied", theme_pid);
+                        editor.putString("lock_wallpaper_applied", themePid);
                         currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_lockscreen_success),
                                 Snackbar.LENGTH_LONG);
@@ -427,8 +411,8 @@ public class InformationActivity extends AppCompatActivity {
                                 context,
                                 resultUri.toString().substring(7),
                                 "all");
-                        editor.putString("home_wallpaper_applied", theme_pid);
-                        editor.putString("lock_wallpaper_applied", theme_pid);
+                        editor.putString("home_wallpaper_applied", themePid);
+                        editor.putString("lock_wallpaper_applied", themePid);
                         currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_allscreen_success),
                                 Snackbar.LENGTH_LONG);
@@ -453,13 +437,28 @@ public class InformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        // Check if we should activate the custom font
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI_InformationActivity);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.information_activity);
-        ButterKnife.bind(this);
+        InformationActivityBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.information_activity);
+
+        toolbar = binding.toolbar;
+        tabLayout = binding.tabs;
+        collapsingToolbar = binding.collapsingToolbarTabbedLayout;
+        viewPager = binding.viewpager;
+        appBarLayout = binding.appbar;
+        sheetView = binding.fabSheet;
+        overlay = binding.overlay;
+        enableSwap = binding.enableSwap;
+        compileEnableSelected = binding.compileEnableSelected;
+        compileUpdateSelected = binding.compileUpdateSelected;
+        disableSelected = binding.disableSelected;
+        floatingActionButton = binding.applyFab;
+        fabMenuDivider = binding.fabMenuDivider;
+        enableZone = binding.enable;
+        enableSelected = binding.enableSelected;
+        enableDisableSelected = binding.enableDisableSelected;
+        heroImage = binding.heroImage;
 
         localBroadcastManager = LocalBroadcastManager.getInstance(context);
 
@@ -486,32 +485,24 @@ public class InformationActivity extends AppCompatActivity {
 
         // Obtain the current intent to receive the intent data out of it
         Intent currentIntent = getIntent();
-        theme_name = currentIntent.getStringExtra(THEME_NAME);
-        theme_pid = currentIntent.getStringExtra(THEME_PID);
-        theme_mode = currentIntent.getStringExtra("theme_mode");
-        byte[] encryption_key = currentIntent.getByteArrayExtra(ENCRYPTION_KEY_EXTRA);
-        byte[] iv_encrypt_key = currentIntent.getByteArrayExtra(IV_ENCRYPTION_KEY_EXTRA);
-        String wallpaperUrl = getOverlayMetadata(context, theme_pid,
+        themeName = currentIntent.getStringExtra(THEME_NAME);
+        themePid = currentIntent.getStringExtra(THEME_PID);
+        byte[] encryptionKey = currentIntent.getByteArrayExtra(ENCRYPTION_KEY_EXTRA);
+        byte[] ivEncryptKey = currentIntent.getByteArrayExtra(IV_ENCRYPTION_KEY_EXTRA);
+        String wallpaperUrl = getOverlayMetadata(context, themePid,
                 metadataWallpapers);
 
         // Package the intent data into a new bundle
         Bundle bundle = new Bundle();
-        bundle.putString(THEME_NAME, theme_name);
-        bundle.putString(THEME_PID, theme_pid);
-        bundle.putString(THEME_MODE, theme_mode);
-        bundle.putByteArray(ENCRYPTION_KEY_EXTRA, encryption_key);
-        bundle.putByteArray(IV_ENCRYPTION_KEY_EXTRA, iv_encrypt_key);
+        bundle.putString(THEME_NAME, themeName);
+        bundle.putString(THEME_PID, themePid);
+        bundle.putByteArray(ENCRYPTION_KEY_EXTRA, encryptionKey);
+        bundle.putByteArray(IV_ENCRYPTION_KEY_EXTRA, ivEncryptKey);
         bundle.putString(THEME_WALLPAPER, wallpaperUrl);
 
-        // By default, if the mode is null, we will launch with all tabs
-        if (theme_mode == null) theme_mode = "";
-
         // Configure the views
-        Typeface t = ResourcesCompat.getFont(getApplicationContext(), R.font.toolbar_new_ui);
-        toolbar.setTitle(theme_name);
-        collapsingToolbar.setTitle(theme_name);
-        collapsingToolbar.setCollapsedTitleTypeface(t);
-        collapsingToolbar.setExpandedTitleTypeface(t);
+        toolbar.setTitle(themeName);
+        collapsingToolbar.setTitle(themeName);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -522,7 +513,7 @@ public class InformationActivity extends AppCompatActivity {
         // Hero Image
         Drawable heroImage = getPackageHeroImage(
                 getApplicationContext(),
-                theme_pid,
+                themePid,
                 false);
         if (heroImage != null) {
             try {
@@ -567,99 +558,68 @@ public class InformationActivity extends AppCompatActivity {
         // Okay, time for the meat of the reloader
         new LayoutLoader(this).execute("");
 
-        // First, take account for whether the theme was launched normally
-        if (theme_mode != null && theme_mode.isEmpty()) {
-            try {
-                Context otherContext = context.createPackageContext
-                        (theme_pid, 0);
-                AssetManager am = otherContext.getAssets();
-                List found_folders = Arrays.asList(am.list(""));
-                tab_checker = new ArrayList<>();
-                if (!Systems.checkOMS(context)) {
-                    for (int i = 0; i < found_folders.size(); i++) {
-                        if (Resources.allowedForLegacy
-                                (found_folders.get(i).toString())) {
-                            tab_checker.add(found_folders.get(i).toString());
-                        }
+        try {
+            Context otherContext = context.createPackageContext
+                    (themePid, 0);
+            AssetManager am = otherContext.getAssets();
+            List foundFolders = Arrays.asList(am.list(""));
+            tabChecker = new ArrayList<>();
+            if (!Systems.checkOMS(context)) {
+                for (int i = 0; i < foundFolders.size(); i++) {
+                    if (Resources.allowedForLegacy
+                            (foundFolders.get(i).toString())) {
+                        tabChecker.add(foundFolders.get(i).toString());
                     }
-                } else {
-                    tab_checker = Arrays.asList(am.list(""));
                 }
-                boolean isWallpaperOnly = true;
-                if (tab_checker.contains(overlaysFragment)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_one)));
-                }
-                if (tab_checker.contains(bootAnimationsFragment) &&
-                        Resources.isBootAnimationSupported(context)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_two)));
-                }
-                if (tab_checker.contains(shutdownAnimationsFragment) &&
-                        Resources.isShutdownAnimationSupported(context)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_six)));
-                }
-                if (tab_checker.contains(fontsFragment) && Resources.isFontsSupported(context)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_three)));
-                }
-                if (tab_checker.contains(soundsFragment) &&
-                        Resources.isSoundsSupported(context)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_four)));
-                }
-                if ((wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_five)));
-                }
-                if (isWallpaperOnly && (wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() ->
-                            runOnUiThread(floatingActionButton::hide), 500L);
-                }
-            } catch (Exception e) {
-                Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
+            } else {
+                tabChecker = Arrays.asList(am.list(""));
             }
-        } else {
-            // At this point, theme was launched in their tab specific sections
-            switch (theme_mode) {
-                case overlaysFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_one)));
-                    break;
-                case bootAnimationsFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_two)));
-                    break;
-                case shutdownAnimationsFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_six)));
-                    break;
-                case fontsFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_three)));
-                    break;
-                case soundsFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_four)));
-                    break;
-                case wallpaperFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_five)));
-                    break;
+            boolean isWallpaperOnly = true;
+            if (tabChecker.contains(overlaysFolder)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_one)));
             }
+            if (tabChecker.contains(bootAnimationsFolder) &&
+                    Resources.isBootAnimationSupported(context)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_two)));
+            }
+            if (tabChecker.contains(shutdownAnimationsFolder) &&
+                    Resources.isShutdownAnimationSupported(context)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_six)));
+            }
+            if (tabChecker.contains(fontsFolder) && Resources.isFontsSupported(context)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_three)));
+            }
+            if (tabChecker.contains(soundsFolder) &&
+                    Resources.isSoundsSupported(context)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_four)));
+            }
+            if ((wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_five)));
+            }
+            if (isWallpaperOnly && (wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
+                Handler handler = new Handler();
+                handler.postDelayed(() ->
+                        runOnUiThread(floatingActionButton::hide), 500L);
+            }
+        } catch (Exception e) {
+            Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
         }
 
         // Set the tabs to move in a certain way
@@ -670,7 +630,7 @@ public class InformationActivity extends AppCompatActivity {
         String toOverrideHero =
                 Packages.getOverlayMetadata(
                         getApplicationContext(),
-                        theme_pid,
+                        themePid,
                         metadataHeroOverride);
         if (toOverrideHero != null) {
             switch (toOverrideHero) {
@@ -688,22 +648,22 @@ public class InformationActivity extends AppCompatActivity {
             autoSetToolbarIcons();
         }
 
-        HashMap<String, Boolean> extra_hidden_tabs = new HashMap<>();
+        HashMap<String, Boolean> extraHiddenTabs = new HashMap<>();
         // Boot animation visibility
-        extra_hidden_tabs.put(bootAnimationsFragment, Resources.isBootAnimationSupported(context));
+        extraHiddenTabs.put(bootAnimationsFolder, Resources.isBootAnimationSupported(context));
         // Shutdown animation visibility
-        extra_hidden_tabs.put(shutdownAnimationsFragment,
+        extraHiddenTabs.put(shutdownAnimationsFolder,
                 Resources.isShutdownAnimationSupported(context));
         // Fonts visibility
-        extra_hidden_tabs.put(fontsFragment, Resources.isFontsSupported(context));
+        extraHiddenTabs.put(fontsFolder, Resources.isFontsSupported(context));
         // Sounds visibility
-        extra_hidden_tabs.put(soundsFragment, Resources.isSoundsSupported(context));
+        extraHiddenTabs.put(soundsFolder, Resources.isSoundsSupported(context));
 
         // If there are no tabs, then the theme is completely empty. Show toast and quit.
-        if (extra_hidden_tabs.size() == 0 || tabLayout.getTabCount() == 0) {
+        if (extraHiddenTabs.size() == 0 || tabLayout.getTabCount() == 0) {
             String format = String.format(
                     getString(R.string.information_activity_theme_improperly_setup),
-                    theme_name);
+                    themeName);
             Toast.makeText(
                     this,
                     format,
@@ -713,13 +673,12 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         // Set up the tabs
-        InformationTabsAdapter adapter = new InformationTabsAdapter(
+        IATabsAdapter adapter = new IATabsAdapter(
                 getSupportFragmentManager(),
                 tabLayout.getTabCount(),
-                theme_mode,
-                tab_checker,
+                tabChecker,
                 wallpaperUrl,
-                extra_hidden_tabs,
+                extraHiddenTabs,
                 bundle);
         viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -730,20 +689,20 @@ public class InformationActivity extends AppCompatActivity {
                         tabPosition = position;
                         if (viewPager.getAdapter() != null) {
                             switch (viewPager.getAdapter().instantiateItem(viewPager, tabPosition)
-                                    .getClass().getSimpleName()) {
-                                case "Overlays":
+                                    .getClass().getSimpleName().toLowerCase()) {
+                                case overlaysFragment:
                                     floatingActionButton.show();
                                     floatingActionButton.setImageResource(
                                             R.drawable.floating_action_button_icon);
                                     break;
-                                case "BootAnimations":
-                                case "Fonts":
-                                case "Sounds":
+                                case bootAnimationsFragment:
+                                case fontsFragment:
+                                case soundsFragment:
                                     floatingActionButton.show();
                                     floatingActionButton.setImageResource(
                                             R.drawable.floating_action_button_icon_check);
                                     break;
-                                case "Wallpapers":
+                                case wallpaperFragment:
                                     floatingActionButton.hide();
                                     break;
                             }
@@ -778,22 +737,21 @@ public class InformationActivity extends AppCompatActivity {
                     Intent intent;
                     if (adapt != null) {
                         Object obj = adapt.instantiateItem(viewPager, tabPosition);
-                        switch (obj.getClass().getSimpleName()) {
-                            case "Overlays":
+                        switch (obj.getClass().getSimpleName().toLowerCase()) {
+                            case overlaysFragment:
                                 materialSheetFab.showSheet();
                                 break;
-                            case "BootAnimations":
-                                boolean isShutdownTab = ((BootAnimations) obj)
-                                        .isShutdownTab();
+                            case bootAnimationsFragment:
+                                boolean isShutdownTab = ((BootAnimations) obj).isShutdownTab();
                                 intent = new Intent((isShutdownTab ? "ShutdownAnimations" :
                                         "BootAnimations") + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
-                            case "Fonts":
+                            case fontsFragment:
                                 intent = new Intent("Fonts" + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
-                            case "Sounds":
+                            case soundsFragment:
                                 intent = new Intent("Sounds" + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
@@ -808,25 +766,25 @@ public class InformationActivity extends AppCompatActivity {
         // This is for the Floating Action Menu actions
         Intent intent = new Intent("Overlays" + START_JOB_ACTION);
         if (!Systems.checkOMS(this) && !Systems.isSamsungDevice(context)) {
-            enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
+            enableSwap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
         } else if (Systems.isSamsung(context)) {
-            fab_menu_divider.setVisibility(View.GONE);
-            enable_swap.setVisibility(View.GONE);
+            fabMenuDivider.setVisibility(View.GONE);
+            enableSwap.setVisibility(View.GONE);
         }
         boolean enabled = prefs.getBoolean("enable_swapping_overlays", true);
         intent.putExtra(SHEET_COMMAND, MIX_AND_MATCH);
         intent.putExtra(MIX_AND_MATCH_IA_TO_OVERLAYS, enabled);
         localBroadcastManager.sendBroadcast(intent);
-        enable_swap.setChecked(enabled);
-        enable_swap.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        enableSwap.setChecked(enabled);
+        enableSwap.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean("enable_swapping_overlays", isChecked).apply();
             intent.putExtra(SHEET_COMMAND, MIX_AND_MATCH);
             intent.putExtra(MIX_AND_MATCH_IA_TO_OVERLAYS, isChecked);
             localBroadcastManager.sendBroadcast(intent);
         });
 
-        if (!Systems.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
-        compile_enable_selected.setOnClickListener(v -> {
+        if (!Systems.checkOMS(this)) compileEnableSelected.setVisibility(View.GONE);
+        compileEnableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -840,9 +798,9 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         if (!Systems.checkOMS(this)) {
-            compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
+            compileUpdateSelected.setText(getString(R.string.fab_menu_compile_install));
         }
-        compile_update_selected.setOnClickListener(v -> {
+        compileUpdateSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -856,9 +814,9 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         if (!Systems.checkOMS(this)) {
-            disable_selected.setText(getString(R.string.fab_menu_uninstall));
+            disableSelected.setText(getString(R.string.fab_menu_uninstall));
         }
-        disable_selected.setOnClickListener(v -> {
+        disableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -871,8 +829,8 @@ public class InformationActivity extends AppCompatActivity {
             materialSheetFab.hideSheet();
         });
 
-        if (!Systems.checkOMS(this)) enable_zone.setVisibility(View.GONE);
-        enable_selected.setOnClickListener(v -> {
+        if (!Systems.checkOMS(this)) enableZone.setVisibility(View.GONE);
+        enableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -886,8 +844,8 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         if (!Systems.checkOMS(this))
-            enable_disable_selected.setVisibility(View.GONE);
-        enable_disable_selected.setOnClickListener(v -> {
+            enableDisableSelected.setVisibility(View.GONE);
+        enableDisableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -900,10 +858,10 @@ public class InformationActivity extends AppCompatActivity {
             materialSheetFab.hideSheet();
         });
 
-        Boolean shouldShowSamsungWarning =
+        boolean shouldShowSamsungWarning =
                 !prefs.getBoolean("show_dangerous_samsung_overlays", false);
         if (Systems.isSamsung(context) &&
-                Packages.isSamsungTheme(context, theme_pid) &&
+                Packages.isSamsungTheme(context, themePid) &&
                 shouldShowSamsungWarning) {
             currentShownLunchBar = Lunchbar.make(
                     getLunchbarView(this),
@@ -935,7 +893,7 @@ public class InformationActivity extends AppCompatActivity {
         if (isMR1orHigher) {
             favorite = menu.findItem(R.id.favorite);
             if (prefs.contains("app_shortcut_theme")) {
-                if (prefs.getString("app_shortcut_theme", "").equals(theme_pid)) {
+                if (prefs.getString("app_shortcut_theme", "").equals(themePid)) {
                     favorite.setIcon(getDrawable(R.drawable.toolbar_favorite));
                 } else {
                     favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
@@ -947,7 +905,7 @@ public class InformationActivity extends AppCompatActivity {
                     getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
         }
-        if (Packages.getThemeChangelog(context, theme_pid) != null) {
+        if (Packages.getThemeChangelog(context, themePid) != null) {
             MenuItem changelog = menu.findItem(R.id.changelog);
             changelog.setVisible(true);
             if (shouldDarken) changelog.getIcon().setColorFilter(
@@ -970,7 +928,7 @@ public class InformationActivity extends AppCompatActivity {
             menu.findItem(R.id.uninstall).setVisible(false);
         }
 
-        if (!Packages.isUserApp(context, theme_pid)) {
+        if (!Packages.isUserApp(context, themePid)) {
             menu.findItem(R.id.uninstall).setVisible(false);
         }
         return true;
@@ -988,7 +946,7 @@ public class InformationActivity extends AppCompatActivity {
         switch (id) {
             case R.id.favorite:
                 if (prefs.contains("app_shortcut_theme")) {
-                    if (prefs.getString("app_shortcut_theme", "").equals(theme_pid)) {
+                    if (prefs.getString("app_shortcut_theme", "").equals(themePid)) {
                         new AppShortcutClearer(this).execute("");
                     } else {
                         new AppShortcutCreator(this).execute("favorite");
@@ -1001,27 +959,27 @@ public class InformationActivity extends AppCompatActivity {
                 // This opens the changelog bottom sheet dialog for themers
                 SheetDialog sheetDialog = new SheetDialog(this);
                 @SuppressLint("InflateParams") View sheetView = getLayoutInflater()
-                        .inflate(R.layout.changelog_sheet_dialog, null);
+                        .inflate(R.layout.information_activity_changelog_sheet_dialog, null);
 
                 LinearLayout titleBox = sheetView.findViewById(R.id.title_box);
                 TextView title = titleBox.findViewById(R.id.title);
-                String format_me = String.format(
+                String formatMe = String.format(
                         getString(R.string.changelog_title),
-                        theme_name);
-                title.setText(format_me);
+                        themeName);
+                title.setText(formatMe);
 
                 LinearLayout textBox = sheetView.findViewById(R.id.text_box);
                 TextView text = textBox.findViewById(R.id.text);
 
-                String[] changelog_parsing =
-                        Packages.getThemeChangelog(context, theme_pid);
-                StringBuilder to_show = new StringBuilder();
-                if (changelog_parsing != null) {
-                    for (String aChangelog_parsing : changelog_parsing) {
-                        to_show.append("\u2022 ").append(aChangelog_parsing).append('\n');
+                String[] themeChangelog =
+                        Packages.getThemeChangelog(context, themePid);
+                StringBuilder parsedThemeChangelog = new StringBuilder();
+                if (themeChangelog != null) {
+                    for (String changelogEntry : themeChangelog) {
+                        parsedThemeChangelog.append("\u2022 ").append(changelogEntry).append('\n');
                     }
                 }
-                text.setText(to_show.toString());
+                text.setText(parsedThemeChangelog.toString());
                 sheetDialog.setCanceledOnTouchOutside(true);
                 sheetDialog.setContentView(sheetView);
                 sheetDialog.show();
@@ -1029,8 +987,8 @@ public class InformationActivity extends AppCompatActivity {
             case R.id.clean:
                 // This cleans all the installed overlays for this theme
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-                builder1.setTitle(theme_name);
-                builder1.setIcon(Packages.getAppIcon(context, theme_pid));
+                builder1.setTitle(themeName);
+                builder1.setIcon(Packages.getAppIcon(context, themePid));
                 builder1.setMessage(R.string.clean_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id18) -> {
                             // Dismiss the dialog
@@ -1050,7 +1008,7 @@ public class InformationActivity extends AppCompatActivity {
                                                     metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
-                                        if ((parent != null) && parent.equals(theme_pid)) {
+                                        if ((parent != null) && parent.equals(themePid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -1075,8 +1033,8 @@ public class InformationActivity extends AppCompatActivity {
             case R.id.disable:
                 // This disables all the installed overlays for this theme
                 AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
-                builder3.setTitle(theme_name);
-                builder3.setIcon(Packages.getAppIcon(context, theme_pid));
+                builder3.setTitle(themeName);
+                builder3.setIcon(Packages.getAppIcon(context, themePid));
                 builder3.setMessage(R.string.disable_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id16) -> {
                             // Dismiss the dialog
@@ -1097,7 +1055,7 @@ public class InformationActivity extends AppCompatActivity {
                                                     metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
-                                        if ((parent != null) && parent.equals(theme_pid)) {
+                                        if ((parent != null) && parent.equals(themePid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -1123,8 +1081,8 @@ public class InformationActivity extends AppCompatActivity {
                 // This enables all the installed overlays for this theme
                 AlertDialog.Builder builder4 = new AlertDialog.Builder(InformationActivity
                         .this);
-                builder4.setTitle(theme_name);
-                builder4.setIcon(Packages.getAppIcon(context, theme_pid));
+                builder4.setTitle(themeName);
+                builder4.setIcon(Packages.getAppIcon(context, themePid));
                 builder4.setMessage(R.string.enable_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id14) -> {
                             // Dismiss the dialog
@@ -1145,7 +1103,7 @@ public class InformationActivity extends AppCompatActivity {
                                                     metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
-                                        if ((parent != null) && parent.equals(theme_pid)) {
+                                        if ((parent != null) && parent.equals(themePid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -1171,8 +1129,8 @@ public class InformationActivity extends AppCompatActivity {
             case R.id.uninstall:
                 AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity
                         .this);
-                builder5.setTitle(theme_name);
-                builder5.setIcon(Packages.getAppIcon(context, theme_pid));
+                builder5.setTitle(themeName);
+                builder5.setIcon(Packages.getAppIcon(context, themePid));
                 builder5.setMessage(R.string.uninstall_dialog_text)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id12) -> {
                             // Dismiss the dialog
@@ -1340,7 +1298,7 @@ public class InformationActivity extends AppCompatActivity {
             InformationActivity informationActivity = ref.get();
             if (informationActivity != null) {
                 informationActivity.prefs.edit().
-                        putString("app_shortcut_theme", informationActivity.theme_pid).apply();
+                        putString("app_shortcut_theme", informationActivity.themePid).apply();
                 informationActivity.favorite.setIcon(
                         informationActivity.getDrawable(R.drawable.toolbar_favorite));
                 if (informationActivity.shouldDarken)
@@ -1364,9 +1322,9 @@ public class InformationActivity extends AppCompatActivity {
             if (informationActivity != null) {
                 References.createShortcut(
                         informationActivity.context,
-                        informationActivity.theme_pid,
-                        informationActivity.theme_name);
-                return informationActivity.theme_name;
+                        informationActivity.themePid,
+                        informationActivity.themeName);
+                return informationActivity.themeName;
             }
             return null;
         }
@@ -1411,7 +1369,7 @@ public class InformationActivity extends AppCompatActivity {
             InformationActivity informationActivity = ref.get();
             if (informationActivity != null) {
                 References.clearShortcut(informationActivity.context);
-                return informationActivity.theme_name;
+                return informationActivity.themeName;
             }
             return null;
         }
@@ -1434,7 +1392,7 @@ public class InformationActivity extends AppCompatActivity {
             if (informationActivity != null) {
                 String parseMe = String.format(
                         informationActivity.getString(R.string.adapter_uninstalling),
-                        informationActivity.theme_name);
+                        informationActivity.themeName);
 
                 informationActivity.mProgressDialog = new ProgressDialog(informationActivity);
                 informationActivity.mProgressDialog.setMessage(parseMe);
@@ -1467,7 +1425,7 @@ public class InformationActivity extends AppCompatActivity {
             if (informationActivity != null) {
                 Packages.uninstallPackage(
                         informationActivity.context,
-                        informationActivity.theme_pid);
+                        informationActivity.themePid);
             }
             return null;
         }
@@ -1480,7 +1438,7 @@ public class InformationActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (!Packages.isPackageInstalled(context, theme_pid)) {
+            if (!Packages.isPackageInstalled(context, themePid)) {
                 Log.d("ThemeUninstaller",
                         "The theme was uninstalled, so the activity is now closing!");
                 Broadcasts.sendRefreshMessage(context);
@@ -1507,18 +1465,18 @@ public class InformationActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if ((intent != null) && !compilingProcess) {
-                String package_name = intent.getStringExtra("theme_pid");
-                if (package_name != null &&
-                        package_name.equals(theme_pid)) {
-                    String to_format = String.format(
-                            getString(R.string.toast_activity_finished), theme_name);
+                String packageName = intent.getStringExtra(Internal.THEME_PID);
+                if (packageName != null &&
+                        packageName.equals(themePid)) {
+                    String themeUpdatedToastText = String.format(
+                            getString(R.string.toast_activity_finished), themeName);
                     Log.d(SUBSTRATUM_LOG,
-                            theme_name + " was just updated, now closing InformationActivity...");
-                    Toast.makeText(context, to_format, Toast.LENGTH_LONG).show();
+                            themeName + " was just updated, now closing InformationActivity...");
+                    Toast.makeText(context, themeUpdatedToastText, Toast.LENGTH_LONG).show();
                     finish();
                     Handler handler = new Handler();
                     handler.postDelayed(() ->
-                            Theming.launchTheme(context, theme_pid, theme_mode), 500L);
+                            Theming.launchTheme(context, themePid), 500L);
                 }
             } else if (compilingProcess) {
                 Log.d(SUBSTRATUM_LOG,

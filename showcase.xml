@@ -21,9 +21,6 @@
     <tab id="Light Themes">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_light_themes.xml</link>
     </tab>
-    <tab id="Google Apps">
-        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_google_apps.xml</link>
-    </tab>
     <tab id="Samsung">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_samsung.xml</link>
     </tab>
@@ -33,7 +30,7 @@
     <tab id="Other Tweaks">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_other_tweaks.xml</link>
     </tab>
-	<tab id="Wallpapers">
+    <tab id="Wallpapers">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_wallpapers.xml</link>
     </tab>
 </substratum>

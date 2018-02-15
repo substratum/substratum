@@ -18,26 +18,21 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
-import android.animation.ValueAnimator;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
+import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,14 +43,13 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Theming;
+import projekt.substratum.databinding.ThemeEntryCardBinding;
+import projekt.substratum.databinding.ThemeEntryLongPressSheetDialogBinding;
 import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
-import static projekt.substratum.common.Internal.THEME_READY_ALL;
-import static projekt.substratum.common.Internal.THEME_READY_READY;
-import static projekt.substratum.common.Internal.THEME_READY_STOCK;
-import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
+import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
@@ -70,19 +64,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     @Override
     public ThemeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
                                                       int i) {
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(viewGroup.getContext());
-        View view;
-        if (!prefs.getBoolean("advanced_ui", false)) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.special_entry_card,
-                    viewGroup, false);
-        } else if (prefs.getBoolean("nougat_style_cards", false)) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card_n,
-                    viewGroup, false);
-        } else {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card,
-                    viewGroup, false);
-        }
+        View view = LayoutInflater.from(
+                viewGroup.getContext()).inflate(
+                R.layout.theme_entry_card, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -91,61 +75,15 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                  int pos) {
         ThemeItem themeItem = this.information.get(pos);
         this.context = themeItem.getContext();
-
+        ThemeEntryCardBinding viewHolderBinding = viewHolder.getBinding();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
-        viewHolder.theme_name.setText(themeItem.getThemeName());
-        viewHolder.theme_author.setText(themeItem.getThemeAuthor());
-        if (prefs.getBoolean("advanced_ui", false)) {
-            if (themeItem.getPluginVersion() != null) {
-                viewHolder.plugin_version.setText(themeItem.getPluginVersion());
-            } else {
-                viewHolder.plugin_version.setVisibility(View.INVISIBLE);
-            }
-            if (themeItem.getSDKLevels() != null) {
-                viewHolder.theme_apis.setText(themeItem.getSDKLevels());
-            } else {
-                viewHolder.theme_apis.setVisibility(View.INVISIBLE);
-            }
-            if (themeItem.getThemeVersion() != null) {
-                viewHolder.theme_version.setText(themeItem.getThemeVersion());
-            } else {
-                viewHolder.theme_version.setVisibility(View.INVISIBLE);
-            }
 
-            if (prefs.getBoolean("grid_layout", true) ||
-                    (themeItem.getThemeReadyVariable() == null)) {
-                viewHolder.divider.setVisibility(View.GONE);
-                viewHolder.tbo.setVisibility(View.GONE);
-                viewHolder.two.setVisibility(View.GONE);
-            } else if (THEME_READY_ALL.equals(themeItem.getThemeReadyVariable())) {
-                viewHolder.divider.setVisibility(View.VISIBLE);
-                viewHolder.tbo.setVisibility(View.VISIBLE);
-                viewHolder.two.setVisibility(View.VISIBLE);
-            } else if (THEME_READY_READY.equals(themeItem.getThemeReadyVariable())) {
-                viewHolder.divider.setVisibility(View.VISIBLE);
-                viewHolder.tbo.setVisibility(View.VISIBLE);
-                viewHolder.two.setVisibility(View.GONE);
-            } else if (THEME_READY_STOCK.equals(themeItem.getThemeReadyVariable())) {
-                viewHolder.divider.setVisibility(View.VISIBLE);
-                viewHolder.tbo.setVisibility(View.GONE);
-                viewHolder.two.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.divider.setVisibility(View.GONE);
-                viewHolder.tbo.setVisibility(View.GONE);
-                viewHolder.two.setVisibility(View.GONE);
-            }
-
-            viewHolder.tbo.setOnClickListener(v -> this.explainTBO());
-            viewHolder.two.setOnClickListener(v -> this.explainTWO());
-        }
-
-        viewHolder.cardView.setOnClickListener(
+        viewHolderBinding.themeCard.setOnClickListener(
                 v -> Theming.launchTheme(this.context,
-                        themeItem.getThemePackage(),
-                        themeItem.getThemeMode()
+                        themeItem.getThemePackage()
                 ));
 
-        viewHolder.cardView.setOnLongClickListener(view -> {
+        viewHolderBinding.themeCard.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
             if (Packages.isUserApp(this.context, themeItem.getThemePackage())) {
                 Vibrator v = (Vibrator) this.context.getSystemService(Context
@@ -157,53 +95,26 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // About the theme
                 SheetDialog sheetDialog = new SheetDialog(this.context);
                 View sheetView =
-                        View.inflate(this.context, R.layout.theme_long_press_sheet_dialog, null);
+                        View.inflate(this.context,
+                                R.layout.theme_entry_long_press_sheet_dialog, null);
+                ThemeEntryLongPressSheetDialogBinding sheetDialogBinding = DataBindingUtil.bind(sheetView);
 
-                TextView aboutText = sheetView.findViewById(R.id.about_text);
-                TextView moreText = sheetView.findViewById(R.id.more_text);
+                assert sheetDialogBinding != null;
+                TextView aboutText = sheetDialogBinding.aboutText;
                 aboutText.setText(themeItem.getThemeName());
                 aboutText.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                moreText.setText(String.format("%s (%s)\n%s",
+                sheetDialogBinding.moreText.setText(String.format("%s (%s)\n%s",
                         Packages.getAppVersion(this.context, themeItem.getThemePackage()),
                         Packages.getAppVersionCode(this.context, themeItem.getThemePackage()),
                         Packages.getPackageTemplateVersion(this.context,
                                 themeItem.getThemePackage())));
 
-                ImageView icon = sheetView.findViewById(R.id.icon);
-                icon.setImageDrawable(Packages.getAppIcon(this.context, themeItem
-                        .getThemePackage()));
-
-                ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
-                ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);
-                tbo.setOnClickListener(v2 -> this.explainTBO());
-                two.setOnClickListener(v2 -> this.explainTWO());
-
-                try {
-                    switch (themeItem.getThemeReadyVariable()) {
-                        case THEME_READY_ALL:
-                            tbo.setVisibility(View.VISIBLE);
-                            two.setVisibility(View.VISIBLE);
-                            break;
-                        case THEME_READY_READY:
-                            tbo.setVisibility(View.VISIBLE);
-                            two.setVisibility(View.GONE);
-                            break;
-                        case THEME_READY_STOCK:
-                            tbo.setVisibility(View.GONE);
-                            two.setVisibility(View.VISIBLE);
-                            break;
-                        default:
-                            tbo.setVisibility(View.GONE);
-                            two.setVisibility(View.GONE);
-                            break;
-                    }
-                } catch (Exception ignored) {
-                    tbo.setVisibility(View.GONE);
-                    two.setVisibility(View.GONE);
-                }
+                sheetDialogBinding.icon
+                        .setImageDrawable(Packages.getAppIcon(this.context, themeItem
+                                .getThemePackage()));
 
                 // Favorite
-                LinearLayout favorite = sheetView.findViewById(R.id.favorite);
+                LinearLayout favorite = sheetDialogBinding.favorite;
 
                 Drawable favoriteImg = this.context.getDrawable(R.drawable.toolbar_favorite);
                 Drawable notFavoriteImg =
@@ -260,7 +171,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Rate Theme
-                LinearLayout rate = sheetView.findViewById(R.id.rate);
+                LinearLayout rate = sheetDialogBinding.rate;
                 String installer =
                         Packages.getInstallerId(this.context, themeItem.getThemePackage());
                 if ((installer != null) && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
@@ -284,7 +195,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Shortcut
-                LinearLayout shortcut = sheetView.findViewById(R.id.shortcut);
+                LinearLayout shortcut = sheetDialogBinding.shortcut;
                 shortcut.setOnClickListener(view12 -> {
                     References.createLauncherIcon(this.context,
                             themeItem.getThemePackage(), themeItem.getThemeName());
@@ -298,7 +209,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Uninstalling
-                LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
+                LinearLayout uninstall = sheetDialogBinding.uninstall;
                 uninstall.setOnClickListener(view2 -> {
                     Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
                     Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
@@ -311,80 +222,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             }
             return false;
         });
-
-        viewHolder.theme_author.setText(themeItem.getThemeAuthor());
-        viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
-
-        // Prettify the UI with fading desaturating colors!
-        ColorMatrix matrix = new ColorMatrix();
-        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
-        animation.setDuration(FADE_FROM_GRAYSCALE_TO_COLOR_DURATION);
-        animation.addUpdateListener(animation1 -> {
-            matrix.setSaturation(animation1.getAnimatedFraction());
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            viewHolder.imageView.setColorFilter(filter);
-        });
-        animation.start();
-    }
-
-    /**
-     * Show a dialog to explain what Theme Ready Gapps are
-     */
-    private void explainTBO() {
-        new AlertDialog.Builder(this.context)
-                .setMessage(R.string.tbo_description)
-                .setPositiveButton(R.string.tbo_dialog_proceed,
-                        (dialog, which) -> {
-                            try {
-                                String playURL =
-                                        this.context.getString(R.string.tbo_theme_ready_url);
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
-                            } catch (ActivityNotFoundException anfe) {
-                                // Suppress warning
-                            }
-                        })
-                .setNegativeButton(android.R.string.cancel,
-                        (dialog, which) -> dialog.cancel())
-                .setCancelable(true)
-                .show();
-    }
-
-    /**
-     * Show a dialog to explain what stock theming is
-     */
-    private void explainTWO() {
-        new AlertDialog.Builder(this.context)
-                .setMessage(R.string.two_description)
-                .setCancelable(true)
-                .setPositiveButton(R.string.dynamic_gapps_dialog,
-                        (dialog, which) -> {
-                            try {
-                                String playURL =
-                                        this.context.getString(R.string.dynamic_gapps_link);
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
-                            } catch (ActivityNotFoundException anfe) {
-                                // Suppress warning
-                            }
-                        })
-                .setNegativeButton(R.string.open_gapps_dialog,
-                        (dialog, which) -> {
-                            try {
-                                String playURL =
-                                        this.context.getString(R.string.open_gapps_link);
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
-                            } catch (ActivityNotFoundException anfe) {
-                                // Suppress warning
-                            }
-                        })
-                .setNeutralButton(android.R.string.cancel,
-                        (dialog, which) -> dialog.cancel())
-                .show();
+        viewHolderBinding.setThemeItem(themeItem);
+        viewHolderBinding.executePendingBindings();
+        setRecyclerViewAnimations(viewHolderBinding.themePreviewImage);
     }
 
     @Override
@@ -393,29 +233,15 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView theme_name;
-        TextView theme_author;
-        TextView theme_apis;
-        TextView theme_version;
-        TextView plugin_version;
-        ImageView imageView;
-        View divider;
-        ImageView tbo;
-        ImageView two;
+        ThemeEntryCardBinding binding;
 
         ViewHolder(View view) {
             super(view);
-            this.cardView = view.findViewById(R.id.theme_card);
-            this.theme_name = view.findViewById(R.id.theme_name);
-            this.theme_author = view.findViewById(R.id.theme_author);
-            this.theme_apis = view.findViewById(R.id.api_levels);
-            this.theme_version = view.findViewById(R.id.theme_version);
-            this.plugin_version = view.findViewById(R.id.plugin_version);
-            this.imageView = view.findViewById(R.id.theme_preview_image);
-            this.divider = view.findViewById(R.id.theme_ready_divider);
-            this.tbo = view.findViewById(R.id.theme_ready_indicator);
-            this.two = view.findViewById(R.id.theme_unready_indicator);
+            binding = DataBindingUtil.bind(view);
+        }
+
+        ThemeEntryCardBinding getBinding() {
+            return binding;
         }
     }
 }

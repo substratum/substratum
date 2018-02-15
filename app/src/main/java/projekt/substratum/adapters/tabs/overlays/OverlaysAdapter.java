@@ -19,16 +19,14 @@
 package projekt.substratum.adapters.tabs.overlays;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
@@ -39,6 +37,8 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.databinding.TabOverlaysItemBinding;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -57,121 +57,161 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
 
     private List<OverlaysItem> overlayList;
+    private List<String> overlayStateList;
 
-    public OverlaysAdapter(List<OverlaysItem> overlayInfo) {
+    public OverlaysAdapter(List<OverlaysItem> overlayInfo, Context context) {
         super();
         overlayList = overlayInfo;
+        overlayStateList = ThemeManager.listAllOverlays(context);
     }
 
     // Magical easy reset checking for the adapter
     // Function that runs when a user picks a spinner dropdown item that is index 0
     private static void zeroIndex(Context context,
-                                  OverlaysItem current_object,
-                                  ViewHolder viewHolder) {
-        if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
-            viewHolder.overlayState.setVisibility(View.VISIBLE);
+                                  OverlaysItem currentObject,
+                                  List<String> overlayStateList,
+                                  TabOverlaysItemBinding viewBinding) {
+        if (isPackageInstalled(context, currentObject.getFullOverlayParameters())) {
+            viewBinding.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
-            // theme_pid's theme_version
-            if (current_object.compareInstalledOverlay()) {
+            // themePid's themeVersion
+            if (currentObject.compareInstalledOverlay()) {
                 String format = String.format(context.getString(R.string
                                 .overlays_update_available),
-                        current_object.versionName);
-                viewHolder.overlayState.setText(format);
-                viewHolder.overlayState.setTextColor(
+                        currentObject.versionName);
+                viewBinding.overlayState.setText(format);
+                viewBinding.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_available));
             } else {
                 String format = String.format(context.getString(R.string.overlays_up_to_date),
-                        current_object.versionName);
-                viewHolder.overlayState.setText(format);
-                viewHolder.overlayState.setTextColor(
+                        currentObject.versionName);
+                viewBinding.overlayState.setText(format);
+                viewBinding.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_not_needed));
             }
-        } else if (viewHolder.overlayState.getVisibility() == View.VISIBLE) {
-            viewHolder.overlayState.setText(
+        } else if (viewBinding.overlayState.getVisibility() == View.VISIBLE) {
+            viewBinding.overlayState.setText(
                     context.getString(R.string.overlays_overlay_not_installed));
-            viewHolder.overlayState.setTextColor(
+            viewBinding.overlayState.setTextColor(
                     context.getColor(R.color.overlay_not_approved_list_entry));
         } else {
-            viewHolder.overlayState.setVisibility(View.GONE);
+            viewBinding.overlayState.setVisibility(View.GONE);
         }
-        if (current_object.isOverlayEnabled()) {
-            viewHolder.overlayTargetPackageName.setTextColor(
+        if (currentObject.isOverlayEnabled()) {
+            viewBinding.overlayTargetPackageName.setTextColor(
                     context.getColor(R.color.overlay_installed_list_entry));
-        } else if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
-            viewHolder.overlayTargetPackageName.setTextColor(
-                    context.getColor(R.color.overlay_not_enabled_list_entry));
+        } else if (isPackageInstalled(context, currentObject.getFullOverlayParameters())) {
+            if (Systems.isNewSamsungDevice(context)) {
+                if (!overlayStateList.contains(currentObject.getFullOverlayParameters())) {
+                    viewBinding.overlayTargetPackageName.setTextColor(
+                            context.getColor(R.color.overlay_installed_not_active));
+                } else {
+                    viewBinding.overlayTargetPackageName.setTextColor(
+                            context.getColor(R.color.overlay_not_enabled_list_entry));
+                }
+            } else {
+                viewBinding.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_enabled_list_entry));
+            }
         } else {
-            viewHolder.overlayTargetPackageName.setTextColor(
+            viewBinding.overlayTargetPackageName.setTextColor(
                     context.getColor(R.color.overlay_not_installed_list_entry));
         }
     }
 
     // Function that runs when a user picks a spinner dropdown item that is index >= 1
     private static void commitChanges(Context context,
-                                      OverlaysItem current_object,
-                                      ViewHolder viewHolder,
+                                      OverlaysItem overlaysItem,
+                                      List<String> overlayStateList,
+                                      TabOverlaysItemBinding viewBinding,
                                       String packageName) {
         if (isPackageInstalled(context,
-                current_object.getPackageName() + '.' + current_object.getThemeName() +
-                        '.' + packageName +
-                        ((!current_object.getBaseResources().isEmpty()) ?
-                                '.' + current_object.getBaseResources() : ""))) {
-            viewHolder.overlayState.setVisibility(View.VISIBLE);
+                getThemeVariantPackageName(overlaysItem, packageName))) {
+            viewBinding.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
-            // theme_pid's theme_version
-            if (!current_object.compareInstalledVariantOverlay(
+            // themePid's themeVersion
+            if (!overlaysItem.compareInstalledVariantOverlay(
                     packageName)) {
-                String format = String.format(context.getString(R.string
-                                .overlays_update_available),
-                        current_object.versionName);
-
-                viewHolder.overlayState.setText(format);
-                viewHolder.overlayState.setTextColor(
+                viewBinding.overlayState.setText(String.format(
+                        context.getString(R.string.overlays_update_available),
+                        overlaysItem.versionName));
+                viewBinding.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_available));
             } else {
-                String format = String.format(context.getString(R.string.overlays_up_to_date),
-                        current_object.versionName);
-                viewHolder.overlayState.setText(format);
-                viewHolder.overlayState.setTextColor(
+                viewBinding.overlayState.setText(String.format(
+                        context.getString(R.string.overlays_up_to_date),
+                        overlaysItem.versionName));
+                viewBinding.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_not_needed));
             }
-            if (current_object.isOverlayEnabled()) {
-                viewHolder.overlayTargetPackageName.setTextColor(
+            if (overlaysItem.isOverlayEnabled()) {
+                viewBinding.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_installed_list_entry));
             } else if (isPackageInstalled(context,
-                    current_object.getFullOverlayParameters())) {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_enabled_list_entry));
+                    overlaysItem.getFullOverlayParameters())) {
+                if (Systems.isNewSamsungDevice(context)) {
+                    if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
+                        viewBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_installed_not_active));
+                    } else {
+                        viewBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_not_enabled_list_entry));
+                    }
+                } else {
+                    viewBinding.overlayTargetPackageName.setTextColor(
+                            context.getColor(R.color.overlay_not_enabled_list_entry));
+                }
             } else {
-                viewHolder.overlayTargetPackageName.setTextColor(
+                viewBinding.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_not_installed_list_entry));
             }
-        } else if (viewHolder.overlayState.getVisibility() == View.VISIBLE) {
-            viewHolder.overlayState.setText(
+        } else if (viewBinding.overlayState.getVisibility() == View.VISIBLE) {
+            viewBinding.overlayState.setText(
                     context.getString(R.string.overlays_overlay_not_installed));
-            viewHolder.overlayState.setTextColor(
+            viewBinding.overlayState.setTextColor(
                     context.getColor(R.color.overlay_not_approved_list_entry));
-            if (current_object.isOverlayEnabled()) {
-                viewHolder.overlayTargetPackageName.setTextColor(
+            if (overlaysItem.isOverlayEnabled()) {
+                viewBinding.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_installed_list_entry));
             } else if (isPackageInstalled(context,
-                    current_object.getFullOverlayParameters())) {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_enabled_list_entry));
+                    overlaysItem.getFullOverlayParameters())) {
+                if (Systems.isNewSamsungDevice(context)) {
+                    if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
+                        viewBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_installed_not_active));
+                    } else {
+                        viewBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_not_enabled_list_entry));
+                    }
+                } else {
+                    viewBinding.overlayTargetPackageName.setTextColor(
+                            context.getColor(R.color.overlay_not_enabled_list_entry));
+                }
             } else {
-                viewHolder.overlayTargetPackageName.setTextColor(
+                viewBinding.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_not_installed_list_entry));
             }
         } else {
-            viewHolder.overlayState.setVisibility(View.GONE);
+            viewBinding.overlayState.setVisibility(View.GONE);
         }
+    }
+
+    private static String sanitizeOptionSpinnerText(String optionSpinnerText) {
+        return optionSpinnerText.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+    }
+
+    private static String getThemeVariantPackageName(OverlaysItem overlaysItem, String packageName) {
+        return overlaysItem.getPackageName() + '.' + overlaysItem.getThemeName() +
+                '.' + packageName +
+                ((!overlaysItem.getBaseResources().isEmpty()) ?
+                        '.' + overlaysItem.getBaseResources() : "");
     }
 
     @Override
     public OverlaysAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
         View itemLayoutView = LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.overlays_list_row, parent, false);
+                parent.getContext()).inflate(R.layout.tab_overlays_item, parent, false);
         return new ViewHolder(itemLayoutView);
     }
 
@@ -180,6 +220,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                                                ViewHolder viewHolder,
                                                                int spinnerNumber) {
         return new AdapterView.OnItemSelectedListener() {
+
+            TabOverlaysItemBinding viewHolderBinding = viewHolder.getBinding();
 
             String setPackageName(String packageName, AdapterView<?> arg0) {
                 return packageName + arg0.getSelectedItem().toString()
@@ -215,7 +257,12 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
 
                 if (pos == 0) {
-                    OverlaysAdapter.zeroIndex(context, current_object, viewHolder);
+                    OverlaysAdapter.zeroIndex(
+                            context,
+                            current_object,
+                            overlayStateList,
+                            viewHolderBinding
+                    );
                 }
 
                 if (pos >= 1) {
@@ -223,54 +270,55 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     if (spinnerNumber == 1) {
                         packageName = setPackageName(packageName, arg0);
                     } else {
-                        if ((viewHolder.optionsSpinner != null) && (viewHolder
+                        if ((viewHolderBinding.optionsSpinner != null) && (viewHolderBinding
                                 .optionsSpinner.getVisibility() == View.VISIBLE))
-                            if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0)
-                                packageName += viewHolder.optionsSpinner
-                                        .getSelectedItem().toString()
-                                        .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+                            if (viewHolderBinding.optionsSpinner.getSelectedItemPosition() != 0)
+                                packageName += sanitizeOptionSpinnerText(
+                                        viewHolderBinding.optionsSpinner.getSelectedItem().toString());
                     }
                     if (spinnerNumber == 2) {
                         packageName = setPackageName(packageName, arg0);
                     } else {
-                        if ((viewHolder.optionsSpinner2 != null) && (viewHolder
+                        if ((viewHolderBinding.optionsSpinner2 != null) && (viewHolderBinding
                                 .optionsSpinner2.getVisibility() == View.VISIBLE))
-                            if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0)
-                                packageName += viewHolder.optionsSpinner2
-                                        .getSelectedItem().toString()
-                                        .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+                            if (viewHolderBinding.optionsSpinner2.getSelectedItemPosition() != 0)
+                                packageName += sanitizeOptionSpinnerText(
+                                        viewHolderBinding.optionsSpinner2.getSelectedItem().toString());
                     }
                     if (spinnerNumber == 3) {
                         packageName = setPackageName(packageName, arg0);
                     } else {
-                        if ((viewHolder.optionsSpinner3 != null) && (viewHolder
+                        if ((viewHolderBinding.optionsSpinner3 != null) && (viewHolderBinding
                                 .optionsSpinner3.getVisibility() == View.VISIBLE))
-                            if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0)
-                                packageName += viewHolder.optionsSpinner3
-                                        .getSelectedItem().toString().replaceAll("\\s+", "")
-                                        .replaceAll("[^a-zA-Z0-9]+", "");
+                            if (viewHolderBinding.optionsSpinner3.getSelectedItemPosition() != 0)
+                                packageName += sanitizeOptionSpinnerText(
+                                        viewHolderBinding.optionsSpinner3.getSelectedItem().toString());
                     }
                     if (spinnerNumber == 4) {
                         packageName = setPackageName(packageName, arg0);
                     } else {
-                        if ((viewHolder.optionsSpinner4 != null) && (viewHolder
+                        if ((viewHolderBinding.optionsSpinner4 != null) && (viewHolderBinding
                                 .optionsSpinner4.getVisibility() == View.VISIBLE))
-                            if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0)
-                                packageName += viewHolder.optionsSpinner4
-                                        .getSelectedItem().toString().replaceAll("\\s+", "")
-                                        .replaceAll("[^a-zA-Z0-9]+", "");
+                            if (viewHolderBinding.optionsSpinner4.getSelectedItemPosition() != 0)
+                                packageName += sanitizeOptionSpinnerText(
+                                        viewHolderBinding.optionsSpinner4.getSelectedItem().toString());
                     }
                     if (spinnerNumber == 5) {
                         packageName = setPackageName(packageName, arg0);
                     } else {
-                        if ((viewHolder.optionsSpinner5 != null) && (viewHolder
+                        if ((viewHolderBinding.optionsSpinner5 != null) && (viewHolderBinding
                                 .optionsSpinner5.getVisibility() == View.VISIBLE))
-                            if (viewHolder.optionsSpinner5.getSelectedItemPosition() != 0)
-                                packageName += viewHolder.optionsSpinner5
-                                        .getSelectedItem().toString().replaceAll("\\s+", "")
-                                        .replaceAll("[^a-zA-Z0-9]+", "");
+                            if (viewHolderBinding.optionsSpinner5.getSelectedItemPosition() != 0)
+                                packageName += sanitizeOptionSpinnerText(
+                                        viewHolderBinding.optionsSpinner5.getSelectedItem().toString());
                     }
-                    OverlaysAdapter.commitChanges(context, current_object, viewHolder, packageName);
+                    OverlaysAdapter.commitChanges(
+                            context,
+                            current_object,
+                            overlayStateList,
+                            viewHolderBinding,
+                            packageName
+                    );
                 }
             }
 
@@ -284,93 +332,66 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int position) {
 
-        OverlaysItem current_object = overlayList.get(position);
-        Context context = current_object.getContext();
+        OverlaysItem overlaysItem = overlayList.get(position);
+        TabOverlaysItemBinding viewHolderBinding = viewHolder.getBinding();
+        Context context = overlaysItem.getContext();
+        viewHolderBinding.setOverlay(overlaysItem);
+        viewHolderBinding.executePendingBindings();
 
-        viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
-        viewHolder.overlayTargetPackageName.setText(current_object.getName());
+        viewHolderBinding.appIcon.setImageDrawable(overlaysItem.getAppIcon());
+        viewHolderBinding.overlayTargetPackageName.setText(overlaysItem.getName());
 
-        String targetVersion;
-        switch (current_object.getPackageName()) {
-            case SYSTEMUI_HEADERS:
-            case SYSTEMUI_NAVBARS:
-            case SYSTEMUI_STATUSBARS:
-            case SYSTEMUI_QSTILES:
-                targetVersion = Packages.getAppVersion(context, SYSTEMUI);
-                break;
-            case SETTINGS_ICONS:
-                targetVersion = Packages.getAppVersion(context, SETTINGS);
-                break;
-            default:
-                targetVersion = Packages.getAppVersion(context, current_object.getPackageName());
-        }
-        String packageTargetWithVersion =
-                current_object.getPackageName() + " [" + targetVersion + "]";
-        viewHolder.overlayTargetPackage.setText(packageTargetWithVersion);
-
-        if (isPackageInstalled(context,
-                current_object.getPackageName() + '.' + current_object.getThemeName() +
-                        ((!current_object.getBaseResources().isEmpty()) ?
-                                '.' + current_object.getBaseResources() : ""))) {
-            viewHolder.overlayState.setVisibility(View.VISIBLE);
-            // Check whether currently installed overlay is up to date with theme_pid's theme_version
-            if (current_object.compareInstalledOverlay()) {
-                String format = String.format(
-                        context.getString(R.string.overlays_update_available),
-                        current_object.versionName);
-                viewHolder.overlayState.setText(format);
-                viewHolder.overlayState.setTextColor(
+        if (overlaysItem.isVariantInstalled()) {
+            // Check whether currently installed overlay is up to date with themePid's themeVersion
+            if (overlaysItem.compareInstalledOverlay()) {
+                viewHolderBinding.overlayState.setText(
+                        String.format(
+                                context.getString(R.string.overlays_update_available),
+                                overlaysItem.versionName));
+                viewHolderBinding.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_available));
             } else {
-                String format = String.format(context.getString(R.string.overlays_up_to_date),
-                        current_object.versionName);
-                viewHolder.overlayState.setText(format);
-                viewHolder.overlayState.setTextColor(
+                viewHolderBinding.overlayState.setText(
+                        String.format(
+                                context.getString(R.string.overlays_up_to_date),
+                                overlaysItem.versionName));
+                viewHolderBinding.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_not_needed));
             }
-        } else {
-            viewHolder.overlayState.setVisibility(View.GONE);
         }
 
-        viewHolder.checkBox.setChecked(current_object.isSelected());
+        viewHolderBinding.checkBox.setTag(overlaysItem);
 
-        viewHolder.checkBox.setTag(current_object);
+        viewHolderBinding.attentionIcon.setOnClickListener(view -> {
+            SheetDialog sheetDialog = new SheetDialog(context);
+            View sheetView =
+                    View.inflate(context, R.layout.tab_overlays_attention_sheet_dialog, null);
+            TextView attentionText = sheetView.findViewById(R.id.attention_text);
+            attentionText.setText(overlaysItem.attention.replace("\\n", "\n"));
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
+        });
 
-        if (current_object.attention != null && current_object.attention.length() > 0) {
-            viewHolder.attentionIcon.setVisibility(View.VISIBLE);
-            viewHolder.attentionIcon.setOnClickListener(view -> {
-                SheetDialog sheetDialog = new SheetDialog(context);
-                View sheetView =
-                        View.inflate(context, R.layout.overlays_attention_sheet_dialog, null);
-                TextView attentionText = sheetView.findViewById(R.id.attention_text);
-                attentionText.setText(current_object.attention.replace("\\n", "\n"));
-                sheetDialog.setContentView(sheetView);
-                sheetDialog.show();
-            });
-        } else {
-            viewHolder.attentionIcon.setVisibility(View.GONE);
-        }
-
-        viewHolder.checkBox.setOnClickListener(v -> {
+        viewHolderBinding.checkBox.setOnClickListener(v -> {
             CheckBox cb = (CheckBox) v;
             OverlaysItem contact = (OverlaysItem) cb.getTag();
 
             contact.setSelected(cb.isChecked());
-            current_object.setSelected(cb.isChecked());
+            overlaysItem.setSelected(cb.isChecked());
         });
 
-        viewHolder.card.setOnClickListener(v -> {
-            viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
+        viewHolderBinding.card.setOnClickListener(v -> {
+            viewHolderBinding.checkBox.setChecked(!viewHolderBinding.checkBox.isChecked());
 
-            CheckBox cb = viewHolder.checkBox;
+            CheckBox cb = viewHolderBinding.checkBox;
             OverlaysItem contact = (OverlaysItem) cb.getTag();
 
             contact.setSelected(cb.isChecked());
-            current_object.setSelected(cb.isChecked());
+            overlaysItem.setSelected(cb.isChecked());
         });
 
-        viewHolder.card.setOnLongClickListener(view -> {
-            String packageName = current_object.getPackageName();
+        viewHolderBinding.card.setOnLongClickListener(view -> {
+            String packageName = overlaysItem.getPackageName();
             String packageVersion;
             switch (packageName) {
                 case SYSTEMUI_HEADERS:
@@ -391,27 +412,18 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             if (packageVersion != null) {
                 String version = String.format(
                         context.getString(R.string.overlays_tab_package_ver_message),
-                        current_object.getName(),
+                        overlaysItem.getName(),
                         packageVersion);
-
+                References.copyToClipboard(context, "version", version);
                 currentShownLunchBar = Lunchbar.make(
-                        getLunchbarView(current_object),
-                        version,
-                        Snackbar.LENGTH_LONG);
-                currentShownLunchBar.setAction(context.getString(android.R.string.copy),
-                        view1 -> {
-                            References.copyToClipboard(context, "version", version);
-                            currentShownLunchBar = Lunchbar.make(
-                                    getLunchbarView(current_object),
-                                    context.getString(
-                                            R.string.overlays_tab_package_ver_message_copied),
-                                    Snackbar.LENGTH_SHORT);
-                            currentShownLunchBar.show();
-                        });
+                        getLunchbarView(overlaysItem),
+                        context.getString(
+                                R.string.overlays_tab_package_ver_message_copied),
+                        Snackbar.LENGTH_SHORT);
                 currentShownLunchBar.show();
             } else {
                 currentShownLunchBar = Lunchbar.make(
-                        getLunchbarView(current_object),
+                        getLunchbarView(overlaysItem),
                         context.getString(R.string.overlays_tab_package_ver_failure),
                         Snackbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -419,72 +431,68 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             return true;
         });
 
-        if (current_object.variant_mode) {
-            if (current_object.getSpinnerArray() != null) {
-                viewHolder.optionsSpinner.setVisibility(View.VISIBLE);
-                viewHolder.optionsSpinner.setAdapter(current_object.getSpinnerArray());
-                viewHolder.optionsSpinner.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 1));
-                viewHolder.optionsSpinner.setSelection(current_object.getSelectedVariant());
-            } else {
-                viewHolder.optionsSpinner.setVisibility(View.GONE);
+        if (overlaysItem.variantMode) {
+            if (overlaysItem.getSpinnerArray() != null) {
+                viewHolderBinding.optionsSpinner.setAdapter(overlaysItem.getSpinnerArray());
+                viewHolderBinding.optionsSpinner.setOnItemSelectedListener(
+                        adapterViewOISL(context, overlaysItem, viewHolder, 1));
+                viewHolderBinding.optionsSpinner.setSelection(overlaysItem.getSelectedVariant());
             }
-            if (current_object.getSpinnerArray2() != null) {
-                viewHolder.optionsSpinner2.setVisibility(View.VISIBLE);
-                viewHolder.optionsSpinner2.setAdapter(current_object.getSpinnerArray2());
-                viewHolder.optionsSpinner2.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 2));
-                viewHolder.optionsSpinner2.setSelection(current_object.getSelectedVariant2());
-            } else {
-                viewHolder.optionsSpinner2.setVisibility(View.GONE);
+            if (overlaysItem.getSpinnerArray2() != null) {
+                viewHolderBinding.optionsSpinner2.setAdapter(overlaysItem.getSpinnerArray2());
+                viewHolderBinding.optionsSpinner2.setOnItemSelectedListener(
+                        adapterViewOISL(context, overlaysItem, viewHolder, 2));
+                viewHolderBinding.optionsSpinner2.setSelection(overlaysItem.getSelectedVariant2());
             }
-            if (current_object.getSpinnerArray3() != null) {
-                viewHolder.optionsSpinner3.setVisibility(View.VISIBLE);
-                viewHolder.optionsSpinner3.setAdapter(current_object.getSpinnerArray3());
-                viewHolder.optionsSpinner3.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 3));
-                viewHolder.optionsSpinner3.setSelection(current_object.getSelectedVariant3());
-            } else {
-                viewHolder.optionsSpinner3.setVisibility(View.GONE);
+            if (overlaysItem.getSpinnerArray3() != null) {
+                viewHolderBinding.optionsSpinner3.setAdapter(overlaysItem.getSpinnerArray3());
+                viewHolderBinding.optionsSpinner3.setOnItemSelectedListener(
+                        adapterViewOISL(context, overlaysItem, viewHolder, 3));
+                viewHolderBinding.optionsSpinner3.setSelection(overlaysItem.getSelectedVariant3());
             }
-            if (current_object.getSpinnerArray4() != null) {
-                viewHolder.optionsSpinner4.setVisibility(View.VISIBLE);
-                viewHolder.optionsSpinner4.setAdapter(current_object.getSpinnerArray4());
-                viewHolder.optionsSpinner4.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 4));
-                viewHolder.optionsSpinner4.setSelection(current_object.getSelectedVariant4());
-            } else {
-                viewHolder.optionsSpinner4.setVisibility(View.GONE);
+            if (overlaysItem.getSpinnerArray4() != null) {
+                viewHolderBinding.optionsSpinner4.setAdapter(overlaysItem.getSpinnerArray4());
+                viewHolderBinding.optionsSpinner4.setOnItemSelectedListener(
+                        adapterViewOISL(context, overlaysItem, viewHolder, 4));
+                viewHolderBinding.optionsSpinner4.setSelection(overlaysItem.getSelectedVariant4());
             }
-            if (current_object.getSpinnerArray5() != null) {
-                viewHolder.optionsSpinner5.setVisibility(View.VISIBLE);
-                viewHolder.optionsSpinner5.setAdapter(current_object.getSpinnerArray5());
-                viewHolder.optionsSpinner5.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 5));
-                viewHolder.optionsSpinner5.setSelection(current_object.getSelectedVariant5());
-            } else {
-                viewHolder.optionsSpinner5.setVisibility(View.GONE);
+            if (overlaysItem.getSpinnerArray5() != null) {
+                viewHolderBinding.optionsSpinner5.setAdapter(overlaysItem.getSpinnerArray5());
+                viewHolderBinding.optionsSpinner5.setOnItemSelectedListener(
+                        adapterViewOISL(context, overlaysItem, viewHolder, 5));
+                viewHolderBinding.optionsSpinner5.setSelection(overlaysItem.getSelectedVariant5());
             }
-            if (current_object.isDeviceOMS()) {
-                if (current_object.isOverlayEnabled()) {
-                    viewHolder.overlayTargetPackageName.setTextColor(
+            if (overlaysItem.isDeviceOMS()) {
+                if (overlaysItem.isOverlayEnabled()) {
+                    viewHolderBinding.overlayTargetPackageName.setTextColor(
                             context.getColor(R.color.overlay_installed_list_entry));
                 } else {
-                    if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
-                        viewHolder.overlayTargetPackageName.setTextColor(
-                                context.getColor(R.color.overlay_not_enabled_list_entry));
+                    if (isPackageInstalled(context, overlaysItem.getFullOverlayParameters())) {
+                        if (Systems.isNewSamsungDevice(context)) {
+                            if (!overlayStateList.contains(
+                                    overlaysItem.getFullOverlayParameters())) {
+                                viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                        context.getColor(R.color.overlay_installed_not_active));
+                            } else {
+                                viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                        context.getColor(R.color.overlay_not_enabled_list_entry));
+                            }
+                        } else {
+                            viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                    context.getColor(R.color.overlay_not_enabled_list_entry));
+                        }
                     } else {
-                        viewHolder.overlayTargetPackageName.setTextColor(
+                        viewHolderBinding.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_not_installed_list_entry));
                     }
                 }
             } else {
                 if (Systems.isSamsungDevice(context)) {
-                    if (current_object.isOverlayEnabled()) {
-                        viewHolder.overlayTargetPackageName.setTextColor(
+                    if (overlaysItem.isOverlayEnabled()) {
+                        viewHolderBinding.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_installed_list_entry));
                     } else {
-                        viewHolder.overlayTargetPackageName.setTextColor(
+                        viewHolderBinding.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_not_installed_list_entry));
                     }
                 } else {
@@ -494,38 +502,40 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     if (file.exists() || file2.exists()) {
                         File filer1 = new File(
                                 file.getAbsolutePath() + '/' +
-                                        current_object.getPackageName() + '.' +
-                                        current_object.getThemeName() + ".apk");
+                                        overlaysItem.getPackageName() + '.' +
+                                        overlaysItem.getThemeName() + ".apk");
                         File filer2 = new File(
                                 file2.getAbsolutePath() + '/' +
-                                        current_object.getPackageName() + '.' +
-                                        current_object.getThemeName() + ".apk");
+                                        overlaysItem.getPackageName() + '.' +
+                                        overlaysItem.getThemeName() + ".apk");
                         if (filer1.exists() || filer2.exists()) {
-                            viewHolder.overlayTargetPackageName.setTextColor(
+                            viewHolderBinding.overlayTargetPackageName.setTextColor(
                                     context.getColor(R.color.overlay_installed_list_entry));
                         } else {
-                            viewHolder.overlayTargetPackageName.setTextColor(
+                            viewHolderBinding.overlayTargetPackageName.setTextColor(
                                     context.getColor(R.color.overlay_not_installed_list_entry));
                         }
                     }
                 }
             }
         } else {
-            viewHolder.optionsSpinner.setVisibility(View.GONE);
-            viewHolder.optionsSpinner2.setVisibility(View.GONE);
-            viewHolder.optionsSpinner3.setVisibility(View.GONE);
-            viewHolder.optionsSpinner4.setVisibility(View.GONE);
-            viewHolder.optionsSpinner5.setVisibility(View.GONE);
-            if (current_object.isDeviceOMS()) {
-                if (current_object.isOverlayEnabled()) {
-                    viewHolder.overlayTargetPackageName.setTextColor(
+            if (overlaysItem.isDeviceOMS()) {
+                if (overlaysItem.isOverlayEnabled()) {
+                    viewHolderBinding.overlayTargetPackageName.setTextColor(
                             context.getColor(R.color.overlay_installed_list_entry));
-                } else if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
-                    viewHolder.overlayTargetPackageName.setTextColor(
-                            context.getColor(R.color.overlay_not_enabled_list_entry));
-                } else {
-                    viewHolder.overlayTargetPackageName.setTextColor(
-                            context.getColor(R.color.overlay_not_installed_list_entry));
+                } else if (isPackageInstalled(context, overlaysItem.getFullOverlayParameters())) {
+                    if (Systems.isNewSamsungDevice(context)) {
+                        if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
+                            viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                    context.getColor(R.color.overlay_installed_not_active));
+                        } else {
+                            viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                    context.getColor(R.color.overlay_not_enabled_list_entry));
+                        }
+                    } else {
+                        viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_not_enabled_list_entry));
+                    }
                 }
             }
         }
@@ -549,35 +559,15 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-
-        CardView card;
-        TextView overlayTargetPackageName;
-        TextView overlayTargetPackage;
-        TextView overlayState;
-        CheckBox checkBox;
-        Spinner optionsSpinner;
-        Spinner optionsSpinner2;
-        Spinner optionsSpinner3;
-        Spinner optionsSpinner4;
-        Spinner optionsSpinner5;
-        ImageView app_icon;
-        ImageView attentionIcon;
+        TabOverlaysItemBinding binding;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            app_icon = itemLayoutView.findViewById(R.id.app_icon);
-            attentionIcon = itemLayoutView.findViewById(R.id.feature_icon);
-            card = itemLayoutView.findViewById(R.id.card);
-            checkBox = itemLayoutView.findViewById(R.id.checkBox);
-            overlayState = itemLayoutView.findViewById(R.id.installedState);
-            optionsSpinner = itemLayoutView.findViewById(R.id.optionsSpinner);
-            optionsSpinner2 = itemLayoutView.findViewById(R.id.optionsSpinner2);
-            optionsSpinner3 = itemLayoutView.findViewById(R.id.optionsSpinner3);
-            optionsSpinner4 = itemLayoutView.findViewById(R.id.optionsSpinner4);
-            optionsSpinner5 = itemLayoutView.findViewById(R.id.optionsSpinner5);
-            overlayTargetPackageName = itemLayoutView.findViewById(R.id
-                    .overlayTargetPackageName);
-            overlayTargetPackage = itemLayoutView.findViewById(R.id.overlayTargetPackage);
+            binding = DataBindingUtil.bind(itemLayoutView);
+        }
+
+        TabOverlaysItemBinding getBinding() {
+            return binding;
         }
     }
 }

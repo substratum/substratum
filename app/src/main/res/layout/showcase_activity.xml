@@ -18,58 +18,77 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="@dimen/action_bar_elevation"
-        android:theme="@style/ToolbarTheme"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/rootView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/main"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/action_bar_elevation"
+            android:theme="@style/ToolbarTheme"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <RelativeLayout
-            android:id="@+id/no_network"
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="57dp">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/image_placeholder2"
+            <FrameLayout
+                android:id="@+id/rootView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/no_network_showcase" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/image_placeholder2"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="@string/showcase_no_connection"
-                android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="20sp"
-                android:textStyle="italic" />
+                <FrameLayout
+                    android:id="@+id/main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/no_network"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="57dp">
 
-    </FrameLayout>
+                    <ImageView
+                        android:id="@+id/image_placeholder2"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/no_network_showcase" />
 
-</LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/image_placeholder2"
+                        android:layout_margin="15dp"
+                        android:gravity="center"
+                        android:text="@string/showcase_no_connection"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <android.support.design.widget.NavigationView
+                android:id="@+id/navigation_view"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                app:itemTextColor="?android:attr/textColorPrimary"
+                app:itemBackground="@drawable/showcase_drawer_item_background" />
+
+        </android.support.v4.widget.DrawerLayout>
+
+    </LinearLayout>
+
+</layout>

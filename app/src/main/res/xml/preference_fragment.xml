@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -100,6 +102,15 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:defaultValue="false"
+            android:key="auto_disable_target_overlays"
+            android:summaryOff="@string/auto_disable_target_overlays_off"
+            android:summaryOn="@string/auto_disable_target_overlays_on"
+            android:title="@string/auto_disable_target_overlays" />
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="overlay_alert"
             android:summary="@string/settings_auto_alert_text"
             android:title="@string/settings_auto_alert_title" />
@@ -110,13 +121,6 @@
             android:key="crash_receiver"
             android:summary="@string/settings_crash_receiver_text"
             android:title="@string/settings_crash_receiver_title" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="autosave_logchar"
-            android:summary="@string/logchar_autosave_subtext"
-            android:title="@string/logchar_autosave_title" />
 
     </PreferenceCategory>
 
@@ -142,20 +146,6 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="restart_systemui"
-            android:summary="@string/restart_systemui_subtext"
-            android:title="@string/restart_systemui" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="show_template_version"
-            android:summary="@string/show_theme_template_version_description"
-            android:title="@string/show_theme_template_version" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="hide_app_checkbox"
             android:summary="@string/hide_app_icon_not_supported"
             android:title="@string/hide_app_icon" />
@@ -163,20 +153,9 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:defaultValue="true"
-            android:key="opt_in_sysui_restart"
-            android:summaryOff="@string/auto_reload_sysui_summary_off"
-            android:summaryOn="@string/auto_reload_sysui_summary_on"
-            android:title="@string/auto_reload_sysui_title" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:defaultValue="false"
-            android:key="auto_disable_target_overlays"
-            android:summaryOff="@string/auto_disable_target_overlays_off"
-            android:summaryOn="@string/auto_disable_target_overlays_on"
-            android:title="@string/auto_disable_target_overlays" />
+            android:key="autosave_logchar"
+            android:summary="@string/logchar_autosave_subtext"
+            android:title="@string/logchar_autosave_title" />
 
     </PreferenceCategory>
 
@@ -185,12 +164,12 @@
         android:layout_height="match_parent"
         android:title="@string/settings_title_3">
 
-        <CheckBoxPreference
+        <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="advanced_ui"
-            android:summary="@string/advanced_ui_text"
-            android:title="@string/advanced_ui_title" />
+            android:key="app_theme"
+            android:summary="@string/app_theme_text"
+            android:title="@string/app_theme_title" />
 
         <Preference
             android:layout_width="match_parent"
@@ -198,20 +177,6 @@
             android:key="grid_style_cards_count"
             android:summary="@string/grid_size_text"
             android:title="@string/grid_size_title" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="nougat_style_cards"
-            android:summary="@string/nougat_style_cards_subtext"
-            android:title="@string/nougat_style_cards_title" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="alternate_drawer_design"
-            android:summary="@string/alternate_drawer_design_subtext"
-            android:title="@string/alternate_drawer_design_title" />
 
     </PreferenceCategory>
 </PreferenceScreen>

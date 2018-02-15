@@ -20,32 +20,35 @@ package projekt.substratum.adapters.tabs.overlays;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
+import projekt.substratum.databinding.TabOverlaysPreviewItemBinding;
 
 public class VariantAdapter extends ArrayAdapter<VariantItem> {
 
+    private Context context;
+
     public VariantAdapter(Context context,
                           List<VariantItem> variantItemArrayList) {
-        super(context, R.layout.preview_spinner, R.id.variant_name, variantItemArrayList);
+        super(context, R.layout.tab_overlays_preview_item, variantItemArrayList);
+        this.context = context;
     }
 
     @Override
     public View getDropDownView(int position,
                                 View convertView,
                                 @NonNull ViewGroup parent) {
-        return this.getCustomView(position, convertView, parent);
+        return this.getCustomView(position);
     }
 
     @NonNull
@@ -53,26 +56,13 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
     public View getView(int position,
                         View convertView,
                         @NonNull ViewGroup parent) {
-        return this.getCustomView(position, convertView, parent);
+        return this.getCustomView(position);
     }
 
-    private View getCustomView(int position,
-                               View convertView,
-                               ViewGroup parent) {
-        ViewHolder holder;
-
-        if (convertView == null) {
-            convertView = LayoutInflater.from(
-                    this.getContext()).inflate(R.layout.preview_spinner, parent, false);
-
-            holder = new ViewHolder();
-            holder.variantName = convertView.findViewById(R.id.variant_name);
-            holder.variantHex = convertView.findViewById(R.id.variant_hex);
-
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+    private View getCustomView(int position) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        TabOverlaysPreviewItemBinding binding = DataBindingUtil.
+                inflate(inflater, R.layout.tab_overlays_preview_item, null, false);
 
         VariantItem item = this.getItem(position);
         if (item != null) {
@@ -80,26 +70,26 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                 // First check if our model contains a saved color value
                 if (item.isDefaultOption()) {
                     if (item.getVariantName() != null) {
-                        holder.variantName.setText(item.getVariantName().replace("_", " "));
-                        holder.variantHex.setVisibility(View.GONE);
+                        binding.variantName.setText(item.getVariantName().replace("_", " "));
+                        binding.variantHex.setVisibility(View.GONE);
                     }
                 } else if (item.getColor() == 0) {
                     if (item.getVariantName() != null) {
-                        holder.variantName.setText(item.getVariantName().replace("_", " "));
+                        binding.variantName.setText(item.getVariantName().replace("_", " "));
                         if (item.getVariantHex().contains(":color")) {
                             // Uh oh, we hit a package dependent resource pointer!
-                            String working_value = item.getVariantHex();
+                            String workingValue = item.getVariantHex();
                             // First, we have to strip out the reference pointers (public/private)
-                            if (working_value.startsWith("@*")) {
-                                working_value = working_value.substring(2);
-                            } else if (working_value.startsWith("@")) {
-                                working_value = working_value.substring(1);
+                            if (workingValue.startsWith("@*")) {
+                                workingValue = workingValue.substring(2);
+                            } else if (workingValue.startsWith("@")) {
+                                workingValue = workingValue.substring(1);
                             }
                             // Now check the package name
-                            String working_package = working_value.split(":")[0];
-                            String working_color = working_value.split("/")[1];
+                            String workingPackage = workingValue.split(":")[0];
+                            String workingColor = workingValue.split("/")[1];
                             int color = Packages.getColorResource(
-                                    this.getContext(), working_package, working_color);
+                                    this.getContext(), workingPackage, workingColor);
                             if (color != 0) {
                                 item.setColor(color);
                                 ColorStateList csl = new ColorStateList(
@@ -112,11 +102,11 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                                                 color
                                         }
                                 );
-                                holder.variantHex.setImageTintList(csl);
-                                holder.variantHex.setVisibility(View.VISIBLE);
+                                binding.variantHex.setImageTintList(csl);
+                                binding.variantHex.setVisibility(View.VISIBLE);
                             } else {
-                                holder.variantName.setText(item.getVariantName());
-                                holder.variantHex.setVisibility(View.GONE);
+                                binding.variantName.setText(item.getVariantName());
+                                binding.variantHex.setVisibility(View.GONE);
                             }
                         } else {
                             int color = Color.parseColor(item.getVariantHex());
@@ -131,15 +121,15 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                                             color
                                     }
                             );
-                            holder.variantHex.setImageTintList(csl);
-                            holder.variantHex.setVisibility(View.VISIBLE);
+                            binding.variantHex.setImageTintList(csl);
+                            binding.variantHex.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        holder.variantHex.setVisibility(View.INVISIBLE);
+                        binding.variantHex.setVisibility(View.INVISIBLE);
                     }
                 } else {
                     if (item.getVariantName() != null) {
-                        holder.variantName.setText(item.getVariantName().replace("_", " "));
+                        binding.variantName.setText(item.getVariantName().replace("_", " "));
                     }
                     // We now know that the color is not 0 which is the hardcoded null set for int
                     int color = item.getColor();
@@ -153,20 +143,17 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                                     color
                             }
                     );
-                    holder.variantHex.setImageTintList(csl);
-                    holder.variantHex.setVisibility(View.VISIBLE);
+                    binding.variantHex.setImageTintList(csl);
+                    binding.variantHex.setVisibility(View.VISIBLE);
                 }
             } catch (IllegalArgumentException iae) {
-                holder.variantHex.setVisibility(View.INVISIBLE);
+                binding.variantHex.setVisibility(View.INVISIBLE);
             }
         } else {
-            holder.variantHex.setVisibility(View.INVISIBLE);
+            binding.variantHex.setVisibility(View.INVISIBLE);
         }
-        return convertView;
-    }
-
-    private static class ViewHolder {
-        TextView variantName;
-        ImageView variantHex;
+        binding.setOverlayColorPreviewItem(item);
+        binding.executePendingBindings();
+        return binding.getRoot();
     }
 }

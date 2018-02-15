@@ -22,6 +22,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Animatable;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,27 +51,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesItem;
 import projekt.substratum.adapters.fragments.priorities.PriorityAdapter;
+import projekt.substratum.common.Internal;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.databinding.PriorityListFragmentBinding;
 
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.platform.ThemeManager.listEnabledOverlaysForTarget;
 
 public class PriorityListFragment extends Fragment {
 
-    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.profile_apply_fab)
     FloatingActionButton applyFab;
-    @BindView(R.id.priority_header_loading_bar)
     ProgressBar headerProgress;
     private Context context;
 
@@ -136,8 +134,13 @@ public class PriorityListFragment extends Fragment {
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        View view = inflater.inflate(R.layout.priority_list_fragment, container, false);
-        ButterKnife.bind(this, view);
+
+        PriorityListFragmentBinding viewBinding =
+                DataBindingUtil.inflate(inflater, R.layout.priority_list_fragment, container, false);
+        View view = viewBinding.getRoot();
+        headerProgress = viewBinding.priorityHeaderLoadingBar;
+        recyclerView = viewBinding.recyclerView;
+        applyFab = viewBinding.profileApplyFab;
 
         setHasOptionsMenu(true);
         LinearLayoutManager manager = new LinearLayoutManager(context);
@@ -151,24 +154,24 @@ public class PriorityListFragment extends Fragment {
         }
 
         // Begin loading up list
-        String obtained_key = "";
+        String obtainedKey = "";
         Bundle bundle = getArguments();
         if (bundle != null) {
-            obtained_key = bundle.getString("package_name", null);
+            obtainedKey = bundle.getString(Internal.THEME_PACKAGE, null);
         }
 
         List<PrioritiesInterface> prioritiesList = new ArrayList<>();
-        ArrayList<String> workable_list = new ArrayList<>();
-        List<String> overlays = listEnabledOverlaysForTarget(context, obtained_key);
+        ArrayList<String> workableList = new ArrayList<>();
+        List<String> overlays = listEnabledOverlaysForTarget(context, obtainedKey);
         for (String o : overlays) {
             prioritiesList.add(new PrioritiesItem(o,
                     Packages.getOverlayParentIcon(context, o)));
-            workable_list.add(o);
+            workableList.add(o);
         }
         // On Android Oreo and above, the list is properly reflected now, where the top holds to
         // highest priority while the bottom holds the lowest, unlike M and N
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Collections.reverse(workable_list);
+            Collections.reverse(workableList);
             Collections.reverse(prioritiesList);
         }
         PriorityAdapter adapter = new PriorityAdapter(
@@ -179,9 +182,8 @@ public class PriorityListFragment extends Fragment {
 
         new GestureManager.Builder(recyclerView)
                 .setManualDragEnabled(true)
-                .setGestureFlags(
-                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT,
-                        ItemTouchHelper.UP | ItemTouchHelper.DOWN)
+                .setSwipeFlags(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT)
+                .setDragFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN)
                 .build();
 
         /*
@@ -211,11 +213,11 @@ public class PriorityListFragment extends Fragment {
                             int fromPos,
                             int toPos) {
                         if (fromPos != toPos) {
-                            String move_package = workable_list.get(fromPos);
+                            String move_package = workableList.get(fromPos);
                             // As workable list is a simulation of the priority list without object
                             // values, we have to simulate the events such as adding above parents
-                            workable_list.remove(fromPos);
-                            workable_list.add(toPos, move_package);
+                            workableList.remove(fromPos);
+                            workableList.add(toPos, move_package);
                             applyFab.show();
                         }
                     }
@@ -245,8 +247,8 @@ public class PriorityListFragment extends Fragment {
             colorAnimation.start();
 
             headerProgress.setVisibility(View.VISIBLE);
-            ThemeManager.setPriority(context, workable_list);
-            if (Packages.needsRecreate(context, workable_list)) {
+            ThemeManager.setPriority(context, workableList);
+            if (Packages.needsRecreate(context, workableList)) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so

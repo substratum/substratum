@@ -38,6 +38,9 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+    dataBinding {
+        enabled true
+    }
     android.applicationVariants.all { final variant ->
         variant.outputs.all {
             outputFileName = "substratum_${variant.versionCode}_${gitHash()}.apk"
@@ -47,8 +50,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 24
         targetSdkVersion 27
-        versionCode 953
-        versionName "nine hundred fifty three"
+        versionCode 955
+        versionName "nine hundred fifty five"
         buildConfigField "java.util.Date", "buildTime", "new java.util.Date(" + System.currentTimeMillis() + "L)"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
@@ -103,7 +106,6 @@ ext {
     supportLibsVersion = '27.0.2'
     firebaseVersion = '11.8.0'
     glideVersion = '4.5.0'
-    butterKnifeVersion = '8.8.1'
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -129,6 +131,7 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Commons IO
+    //noinspection GradleDependency
     implementation 'commons-io:commons-io:2.5'
 
     // APK Signer
@@ -140,11 +143,6 @@ dependencies {
     // Floating Action Buttons
     implementation 'com.gordonwong:material-sheet-fab:1.2.1'
 
-    // Material Drawer
-    implementation('com.mikepenz:materialdrawer:6.0.2@aar') {
-        transitive = true
-    }
-
     // About Libraries
     implementation('com.mikepenz:aboutlibraries:6.0.2@aar') {
         transitive = true
@@ -154,7 +152,6 @@ dependencies {
     implementation 'com.thesurix.gesturerecycler:gesture-recycler:1.4.1'
 
     // ZT Zip
-
     //noinspection GradleDependency
     implementation 'org.zeroturnaround:zt-zip:1.8'
 
@@ -169,10 +166,6 @@ dependencies {
 
     // Crash Activity
     implementation 'cat.ereza:customactivityoncrash:2.2.0'
-
-    // Dependency Injection
-    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     // Splash screen svg animation
     implementation 'com.jaredrummler:animated-svg-view:1.0.5'

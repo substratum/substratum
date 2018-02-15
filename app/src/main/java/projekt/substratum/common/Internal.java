@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.common;
 
 public enum Internal {
@@ -59,7 +77,6 @@ public enum Internal {
     public static final String THEME_NAME = "theme_name";
     public static final String THEME_PID = "theme_pid";
     public static final String THEME_PACKAGE = "package_name";
-    public static final String THEME_MODE = "theme_mode";
     public static final String THEME_HASH = "theme_hash";
     public static final String THEME_OMS = "oms_check";
     public static final String THEME_CERTIFIED = "certified";
@@ -70,8 +87,6 @@ public enum Internal {
     public static final String THEME_LEGACY = "theme_legacy";
     public static final String THEME_WALLPAPER = "wallpaperUrl";
     public static final String THEME_CALLER = "calling_package_name";
-    public static final String HOME_TYPE = "home_type";
-    public static final String HOME_TITLE = "title";
     // Prefs
     public static final String SOUNDS_APPLIED = "sounds_applied";
     public static final String BOOT_ANIMATION = "bootanimation";
@@ -144,8 +159,6 @@ public enum Internal {
     public static final String XML_SERIALIZER =
             "http://xmlpull.org/v1/doc/features.html#indent-output";
     public static final String XML_UTF = "UTF-8";
-    // Props
-    public static final String RECREATE_PROP = "ro.substratum.recreate";
     // Overlays.java
     public static final Integer SPECIAL_SNOWFLAKE_DELAY = 500;
     public static final String XML_EXTENSION = ".xml";

@@ -82,13 +82,6 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="autosave_logchar"
-            android:summary="@string/logchar_autosave_subtext"
-            android:title="@string/logchar_autosave_title" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="overlay_alert"
             android:summary="@string/settings_auto_alert_text"
             android:title="@string/settings_auto_alert_title" />
@@ -117,9 +110,9 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="show_template_version"
-            android:summary="@string/show_theme_template_version_description"
-            android:title="@string/show_theme_template_version" />
+            android:key="autosave_logchar"
+            android:summary="@string/logchar_autosave_subtext"
+            android:title="@string/logchar_autosave_title" />
 
     </PreferenceCategory>
 
@@ -128,12 +121,12 @@
         android:layout_height="match_parent"
         android:title="@string/settings_title_3">
 
-        <CheckBoxPreference
+        <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="advanced_ui"
-            android:summary="@string/advanced_ui_text"
-            android:title="@string/advanced_ui_title" />
+            android:key="app_theme"
+            android:summary="@string/app_theme_text"
+            android:title="@string/app_theme_title" />
 
         <Preference
             android:layout_width="match_parent"
@@ -141,20 +134,6 @@
             android:key="grid_style_cards_count"
             android:summary="@string/grid_size_text"
             android:title="@string/grid_size_title" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="nougat_style_cards"
-            android:summary="@string/nougat_style_cards_subtext"
-            android:title="@string/nougat_style_cards_title" />
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="alternate_drawer_design"
-            android:summary="@string/alternate_drawer_design_subtext"
-            android:title="@string/alternate_drawer_design_title" />
 
     </PreferenceCategory>
 </PreferenceScreen>

@@ -19,6 +19,7 @@
 package projekt.substratum.fragments;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,16 +41,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
-import projekt.substratum.adapters.showcase.ShowcaseItem;
-import projekt.substratum.adapters.showcase.ShowcaseItemAdapter;
+import projekt.substratum.adapters.activities.ShowcaseAdapter;
+import projekt.substratum.adapters.activities.ShowcaseItem;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
-import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
+import projekt.substratum.adapters.tabs.wallpapers.WallpaperItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.databinding.ShowcaseTabBinding;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudShowcaseFile;
 
@@ -57,10 +57,8 @@ import static projekt.substratum.common.References.SHOWCASE_SHUFFLE_COUNT;
 
 public class ShowcaseTab extends Fragment {
 
-    @BindView(R.id.progress_bar_loader)
     ProgressBar materialProgressBar;
-    @BindView(R.id.wallpaperRecyclerView)
-    RecyclerView mRecyclerView;
+    RecyclerView recyclerView;
     private int current_tab_position;
     private String current_tab_address;
     private Context context;
@@ -71,9 +69,13 @@ public class ShowcaseTab extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         context = Substratum.getInstance();
-        View view = inflater.inflate(R.layout.showcase_tab, container, false);
-        ButterKnife.bind(this, view);
+        ShowcaseTabBinding viewBinding =
+                DataBindingUtil.inflate(inflater, R.layout.showcase_tab, container, false);
+        View view = viewBinding.getRoot();
+        materialProgressBar = viewBinding.progressBarLoader;
+        recyclerView = viewBinding.wallpaperRecyclerView;
         Bundle bundle = getArguments();
+
         if (bundle != null) {
             current_tab_position = bundle.getInt("tab_count", 0);
             current_tab_address = bundle.getString("tabbed_address");
@@ -89,19 +91,19 @@ public class ShowcaseTab extends Fragment {
      */
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
-        ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+        ArrayList<WallpaperItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
-        mRecyclerView.setAdapter(empty_adapter);
-        mRecyclerView.getViewTreeObserver().addOnPreDrawListener(
+        recyclerView.setAdapter(empty_adapter);
+        recyclerView.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
                     @Override
                     public boolean onPreDraw() {
-                        mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                        recyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
                         boolean slowDevice = Systems.isSamsungDevice(context);
-                        for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-                            View v = mRecyclerView.getChildAt(i);
+                        for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                            View v = recyclerView.getChildAt(i);
                             v.setAlpha(0.0f);
                             v.animate().alpha(1.0f)
                                     .setDuration(300)
@@ -117,7 +119,7 @@ public class ShowcaseTab extends Fragment {
                     current_tab_address,
                     "showcase_tab_" + current_tab_position + ".xml");
         } else {
-            mRecyclerView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
         }
     }
@@ -139,7 +141,7 @@ public class ShowcaseTab extends Fragment {
             super.onPreExecute();
             ShowcaseTab showcaseTab = ref.get();
             if (showcaseTab != null) {
-                showcaseTab.mRecyclerView.setVisibility(View.GONE);
+                showcaseTab.recyclerView.setVisibility(View.GONE);
                 showcaseTab.materialProgressBar.setVisibility(View.VISIBLE);
             }
         }
@@ -150,9 +152,9 @@ public class ShowcaseTab extends Fragment {
             super.onPostExecute(result);
             ShowcaseTab showcaseTab = ref.get();
             if (showcaseTab != null) {
-                ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
-                showcaseTab.mRecyclerView.setAdapter(mAdapter);
-                showcaseTab.mRecyclerView.setVisibility(View.VISIBLE);
+                ShowcaseAdapter mAdapter = new ShowcaseAdapter(result);
+                showcaseTab.recyclerView.setAdapter(mAdapter);
+                showcaseTab.recyclerView.setVisibility(View.VISIBLE);
                 showcaseTab.materialProgressBar.setVisibility(View.GONE);
             }
         }
@@ -166,7 +168,7 @@ public class ShowcaseTab extends Fragment {
                 File showcase_directory = new File(
                         showcaseTab.context.getCacheDir() + "/ShowcaseCache/");
                 if (!showcase_directory.exists()) {
-                    Boolean made = showcase_directory.mkdir();
+                    boolean made = showcase_directory.mkdir();
                     if (!made)
                         Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
                 }
@@ -192,7 +194,6 @@ public class ShowcaseTab extends Fragment {
                             .contains("-".toLowerCase(Locale.getDefault()))) {
                         newEntry.setContext(showcaseTab.context);
                         newEntry.setThemeName(stringStringEntry.getKey().replaceAll("%", " "));
-                        newEntry.setThemeLink(stringStringEntry.getValue());
                     } else {
                         String entry = stringStringEntry.getKey().toLowerCase(Locale.US);
                         if (entry.contains("-author".toLowerCase(Locale.US))) {

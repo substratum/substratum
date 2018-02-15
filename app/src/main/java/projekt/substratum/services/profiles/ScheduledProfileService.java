@@ -73,8 +73,8 @@ public class ScheduledProfileService extends JobService {
     private Context context;
     private SharedPreferences prefs;
     private String extra;
-    private NotificationManager mNotifyManager;
-    private NotificationCompat.Builder mBuilder;
+    private NotificationManager notificationManager;
+    private NotificationCompat.Builder builder;
     private JobParameters jobParameters;
 
     @Override
@@ -82,9 +82,9 @@ public class ScheduledProfileService extends JobService {
         context = this;
         jobParameters = params;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        mNotifyManager =
+        notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mBuilder = new NotificationCompat.Builder(context, References
+        builder = new NotificationCompat.Builder(context, References
                 .DEFAULT_NOTIFICATION_CHANNEL_ID);
         extra = params.getExtras().getString(SCHEDULED_PROFILE_TYPE_EXTRA);
 
@@ -92,11 +92,11 @@ public class ScheduledProfileService extends JobService {
             new ApplyProfile(this).execute();
             return true;
         } else {
-            mBuilder.setContentTitle(getString(R.string.scheduled_night_profile))
+            builder.setContentTitle(getString(R.string.scheduled_night_profile))
                     .setSmallIcon(R.drawable.ic_substratum)
                     .setPriority(Notification.PRIORITY_DEFAULT)
                     .setContentText(getString(R.string.profile_failed_notification));
-            mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
+            notificationManager.notify(NOTIFICATION_ID, builder.build());
             return false;
         }
     }
@@ -126,22 +126,22 @@ public class ScheduledProfileService extends JobService {
                     Substratum.getInstance().startBinderService(InterfacerBinderService.class);
                 }
 
-                String profile_name = "";
+                String profileName = "";
                 switch (service.extra) {
                     case "day":
-                        profile_name = service.getString(R.string.profile_notification_title_day);
+                        profileName = service.getString(R.string.profile_notification_title_day);
                         break;
                     case "night":
-                        profile_name = service.getString(R.string.profile_notification_title_night);
+                        profileName = service.getString(R.string.profile_notification_title_night);
                         break;
                 }
 
                 Log.d(TAG, "Processing...");
-                String title_parse = String.format(
+                String titleParse = String.format(
                         service.getString(R.string.profile_notification_title),
-                        profile_name);
-                service.mNotifyManager.cancel(NOTIFICATION_ID);
-                service.mBuilder.setContentTitle(title_parse)
+                        profileName);
+                service.notificationManager.cancel(NOTIFICATION_ID);
+                service.builder.setContentTitle(titleParse)
                         .setOngoing(false)
                         .setPriority(Notification.PRIORITY_MAX)
                         .setSmallIcon(R.drawable.ic_substratum)
@@ -167,10 +167,10 @@ public class ScheduledProfileService extends JobService {
                 File overlays = new File(Environment.getExternalStorageDirectory()
                         .getAbsolutePath()
                         + "/substratum/profiles/" + processed + "/overlay_state.xml");
-                ArrayList<String> to_be_run = new ArrayList<>();
-                List<List<String>> cannot_run_overlays = new ArrayList<>();
+                ArrayList<String> toBeRun = new ArrayList<>();
+                List<List<String>> cannotRunOverlays = new ArrayList<>();
                 List<String> system = new ArrayList<>();
-                StringBuilder dialog_message = new StringBuilder();
+                StringBuilder dialogMessage = new StringBuilder();
                 if (overlays.exists()) {
                     List<List<String>> profile =
                             ProfileManager.readProfileStatePackageWithTargetPackage(processed, 5);
@@ -183,36 +183,36 @@ public class ScheduledProfileService extends JobService {
                         String targetPackage = profile.get(i).get(1);
                         if (Packages.isPackageInstalled(context, targetPackage)) {
                             if (system.contains(packageName)) {
-                                to_be_run.add(packageName);
+                                toBeRun.add(packageName);
                             } else {
-                                cannot_run_overlays.add(profile.get(i));
+                                cannotRunOverlays.add(profile.get(i));
                             }
                         }
                     }
 
                     // Parse non-exist profile overlay packages
-                    for (int i = 0; i < cannot_run_overlays.size(); i++) {
-                        String packageName = cannot_run_overlays.get(i).get(0);
-                        String targetPackage = cannot_run_overlays.get(i).get(1);
+                    for (int i = 0; i < cannotRunOverlays.size(); i++) {
+                        String packageName = cannotRunOverlays.get(i).get(0);
+                        String targetPackage = cannotRunOverlays.get(i).get(1);
                         String packageDetail = packageName.replace(targetPackage + '.', "");
                         String detailSplit = Arrays.toString(packageDetail.split("\\."))
                                 .replace("[", "")
                                 .replace("]", "")
                                 .replace(",", " ");
 
-                        if (dialog_message.length() == 0) {
-                            dialog_message.append("\u2022 ")
+                        if (dialogMessage.length() == 0) {
+                            dialogMessage.append("\u2022 ")
                                     .append(targetPackage).append(" (")
                                     .append(detailSplit).append(')');
                         } else {
-                            dialog_message.append('\n' + "\u2022 ")
+                            dialogMessage.append('\n' + "\u2022 ")
                                     .append(targetPackage).append(" (")
                                     .append(detailSplit).append(')');
                         }
                     }
                 }
 
-                if (cannot_run_overlays.isEmpty()) {
+                if (cannotRunOverlays.isEmpty()) {
                     File theme = new File(
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/substratum/profiles/" + processed + "/theme");
@@ -233,12 +233,12 @@ public class ScheduledProfileService extends JobService {
                     Iterable<String> toBeDisabled = new ArrayList<>(system);
                     boolean shouldRestartUi = ThemeManager.shouldRestartUI(context,
                             toBeDisabled)
-                            || ThemeManager.shouldRestartUI(context, to_be_run);
+                            || ThemeManager.shouldRestartUI(context, toBeRun);
                     ThemeInterfacerService.applyProfile(
                             context,
                             processed,
                             new ArrayList<>(system),
-                            to_be_run,
+                            toBeRun,
                             shouldRestartUi);
 
                     // Restore wallpapers
@@ -261,11 +261,11 @@ public class ScheduledProfileService extends JobService {
                 } else {
                     Intent notifyIntent = new Intent(context, ProfileErrorInfoActivity.class);
                     notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    notifyIntent.putExtra("dialog_message", dialog_message.toString());
+                    notifyIntent.putExtra("dialogMessage", dialogMessage.toString());
                     PendingIntent contentIntent =
                             PendingIntent.getActivity(context, 0, notifyIntent, 0);
 
-                    service.mBuilder.setContentTitle(
+                    service.builder.setContentTitle(
                             service.getString(R.string.profile_failed_notification))
                             .setContentText(service.getString(
                                     R.string.profile_failed_info_notification))
@@ -318,7 +318,7 @@ public class ScheduledProfileService extends JobService {
                 prefs.edit().putString(SCHEDULED_PROFILE_CURRENT_PROFILE, service.extra).apply();
 
                 //all set, notify user the output
-                service.mNotifyManager.notify(NOTIFICATION_ID, service.mBuilder.build());
+                service.notificationManager.notify(NOTIFICATION_ID, service.builder.build());
                 service.jobFinished(service.jobParameters, false);
             }
         }

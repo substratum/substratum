@@ -18,21 +18,17 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_bg</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:navigationBarDividerColor">@color/navigation_bar_divider</item>
         <item name="android:statusBarColor">@color/statusBarColor</item>
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
         <item name="android:windowLightNavigationBar">@bool/windowLightNavigationBar</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-    </style>
-
-    <style name="AppTheme.SpecialUI" parent="AppTheme">
-        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
-        <item name="fontFamily">@font/global_app_font</item>
     </style>
 
     <style name="AppTheme.InformationActivity" parent="AppTheme">
@@ -45,16 +41,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.SpecialUI.InformationActivity" parent="AppTheme.SpecialUI">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat">
+    <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat.DayNight">
         <item name="android:navigationBarColor">@color/splashscreen_background</item>
         <item name="android:statusBarColor">@color/splashscreen_background</item>
         <item name="android:windowLightStatusBar">@bool/SplashscreenWindowLightStatusBar</item>

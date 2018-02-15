@@ -32,18 +32,18 @@ public enum FontsManager {
     /**
      * Set a font pack
      *
-     * @param context   Context
-     * @param theme_pid Theme package name
-     * @param name      Name of font
+     * @param context  Context
+     * @param themePid Theme package name
+     * @param name     Name of font
      */
     public static void setFonts(
             Context context,
-            String theme_pid,
+            String themePid,
             String name) {
         if (checkSubstratumService(context)) {
-            SubstratumService.setFonts(theme_pid, name);
+            SubstratumService.setFonts(themePid, name);
         } else if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.setFonts(context, theme_pid, name);
+            ThemeInterfacerService.setFonts(context, themePid, name);
         }
     }
 

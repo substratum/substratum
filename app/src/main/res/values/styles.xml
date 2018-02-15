@@ -18,10 +18,11 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_bg</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:statusBarColor">@color/statusBarColor</item>
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
@@ -34,7 +35,7 @@
 
     <style name="AppTheme.DialogAlert" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert" />
 
-    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -50,21 +51,7 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
     </style>
 
-    <style name="AppTheme.SpecialUI" parent="AppTheme">
-        <item name="fontFamily">@font/global_app_font</item>
-    </style>
-
-    <style name="AppTheme.SpecialUI.InformationActivity" parent="AppTheme.SpecialUI">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/information_activity_background_shadow</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-    </style>
-
-    <style name="ToolbarTheme" parent="Theme.AppCompat.Light">
+    <style name="ToolbarTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -87,7 +74,7 @@
         <item name="android:windowBackground">@color/do_not_theme_this_color</item>
     </style>
 
-    <style name="PhotoCrop.ActivityTheme" parent="Theme.AppCompat">
+    <style name="PhotoCrop.ActivityTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@android:color/transparent</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
         <item name="android:colorPrimary">@android:color/transparent</item>
@@ -104,13 +91,13 @@
         <item name="android:textSize">26sp</item>
     </style>
 
-    <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat">
+    <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat.DayNight">
         <item name="android:navigationBarColor">@color/splashscreen_background</item>
         <item name="android:statusBarColor">@color/splashscreen_background</item>
         <item name="android:windowLightStatusBar">@bool/SplashscreenWindowLightStatusBar</item>
     </style>
 
-    <style name="SubstratumBuilder.ActivityTheme" parent="Theme.AppCompat">
+    <style name="SubstratumBuilder.ActivityTheme" parent="Theme.AppCompat.DayNight">
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:textColor">@color/dialog_text_color</item>
         <item name="android:windowAnimationStyle">@style/SubstratumBuilder.WindowAnimation</item>
@@ -123,7 +110,7 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
-    <style name="Theme.AppCompat.Translucent">
+    <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.DayNight">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -133,13 +120,16 @@
         <item name="android:windowAnimationStyle">@style/SubstratumBuilder.WindowAnimation</item>
     </style>
 
-    <style name="FloatUiDialog" parent="@android:style/Theme.Material.Dialog.Alert">
+    <style name="FloatUiDialog" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:colorAccent">@color/floatui_dialog_button_color</item>
         <item name="android:windowTitleStyle">@style/FloatUiDialog</item>
         <item name="android:windowBackground">@color/floatui_dialog_background</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/FloatUiAnimation</item>
+
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
     </style>
 
     <style name="FloatUiAnimation" parent="@android:style/Animation.Activity">
@@ -175,7 +165,8 @@
         <item name="android:drawablePadding">@dimen/sheet_item_image_spacing</item>
     </style>
 
-    <style name="ShowcaseDialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="ShowcaseDialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowBackground">@color/window_bg</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowActionBar">false</item>

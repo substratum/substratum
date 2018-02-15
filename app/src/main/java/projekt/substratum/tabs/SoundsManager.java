@@ -32,21 +32,21 @@ public enum SoundsManager {
     /**
      * Set sound pack
      *
-     * @param context   Context
-     * @param theme_pid Theme package name
-     * @param name      Name of sound pack
+     * @param context  Context
+     * @param themePid Theme package name
+     * @param name     Name of sound pack
      * @return Return an array of booleans
      */
     public static boolean[] setSounds(
             Context context,
-            String theme_pid,
+            String themePid,
             String name) {
         boolean ringtone = false;
 
         if (checkSubstratumService(context)) {
-            SubstratumService.setSounds(theme_pid, name);
+            SubstratumService.setSounds(themePid, name);
         } else if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.setThemedSounds(context, theme_pid, name);
+            ThemeInterfacerService.setThemedSounds(context, themePid, name);
             ringtone = true; // Always assume that the process is succeeded;
         }
         return new boolean[]{false, ringtone};

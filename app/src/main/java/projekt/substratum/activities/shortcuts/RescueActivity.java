@@ -45,17 +45,16 @@ public class RescueActivity extends AppCompatActivity {
             startActivity(new Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
         } else {
             Toast.makeText(this, getString(R.string.rescue_toast), Toast.LENGTH_LONG).show();
-            Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                List<String> android = ThemeManager.listEnabledOverlaysForTarget(
+            new Handler().postDelayed(() -> {
+                List<String> frameworkOverlays = ThemeManager.listEnabledOverlaysForTarget(
                         Substratum.getInstance(),
                         FRAMEWORK);
-                List<String> substratum = ThemeManager.listEnabledOverlaysForTarget(
+                List<String> substratumOverlays = ThemeManager.listEnabledOverlaysForTarget(
                         Substratum.getInstance(),
                         SUBSTRATUM_PACKAGE);
 
-                ArrayList<String> to_be_disabled = new ArrayList<>(android);
-                to_be_disabled.addAll(substratum);
+                ArrayList<String> to_be_disabled = new ArrayList<>(frameworkOverlays);
+                to_be_disabled.addAll(substratumOverlays);
                 ThemeManager.disableOverlay(
                         Substratum.getInstance(),
                         to_be_disabled);

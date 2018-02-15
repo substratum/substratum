@@ -24,17 +24,17 @@
         android:menuCategory="secondary"
         android:orderInCategory="3"
         android:title="@string/menu_filter"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
-        android:id="@+id/search"
+        android:id="@+id/showcase"
         android:icon="@drawable/actionbar_playstore"
         android:orderInCategory="2"
         android:title="@string/menu_search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/info"
         android:icon="@drawable/showcase_info"
         android:orderInCategory="1"
         android:title="@string/menu_showcase_info"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

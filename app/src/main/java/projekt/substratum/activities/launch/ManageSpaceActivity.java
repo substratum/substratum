@@ -19,27 +19,24 @@
 package projekt.substratum.activities.launch;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
-import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
+import projekt.substratum.databinding.ManageSpaceActivityBinding;
 
 import static projekt.substratum.common.References.LOGCHAR_DIR;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.NAMES_PREFS;
@@ -49,30 +46,22 @@ import static projekt.substratum.common.commands.FileOperations.getFileSize;
 
 public class ManageSpaceActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.clear_cache_button)
-    CardView clearCacheButton;
-    @BindView(R.id.reset_app_button)
-    CardView resetAppButton;
-    @BindView(R.id.clear_logs_button)
-    CardView clearLogsButton;
-    @BindView(R.id.cache_counter)
-    TextView cacheCounter;
-    @BindView(R.id.log_counter)
-    TextView logsCounter;
+    private TextView cacheCounter;
+    private TextView logsCounter;
     private String callingPackage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        // Check if we should activate the custom font
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_space);
-        ButterKnife.bind(this);
+
+        ManageSpaceActivityBinding activityManageSpaceBinding =
+                DataBindingUtil.setContentView(this, R.layout.manage_space_activity);
+        Toolbar toolbar = activityManageSpaceBinding.toolbar;
+        CardView clearCacheButton = activityManageSpaceBinding.clearCacheButton;
+        CardView resetAppButton = activityManageSpaceBinding.resetAppButton;
+        CardView clearLogsButton = activityManageSpaceBinding.clearLogsButton;
+        cacheCounter = activityManageSpaceBinding.cacheCounter;
+        logsCounter = activityManageSpaceBinding.logCounter;
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -80,18 +69,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-
-        if (bottomBarUi) {
-            // Change the toolbar title size
-            for (int i = 0; i < toolbar.getChildCount(); i++) {
-                View child = toolbar.getChildAt(i);
-                if (child instanceof TextView) {
-                    TextView textView = ((TextView) child);
-                    textView.setTextSize(22);
-                    break;
-                }
-            }
-        }
 
         cacheCounter.setText(getString(R.string.clear_cache_button_loading));
         cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
@@ -247,6 +224,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 activity.cacheCounter.setText(
                         Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
                 activity.finishAffinity();
+                Substratum.restartSubstratum(context);
             }
         }
     }

@@ -45,7 +45,7 @@ public class FontUtils {
 
     private Context context;
     private ProgressDialog progress;
-    private String theme_pid;
+    private String themePid;
     private SharedPreferences prefs;
 
     /**
@@ -53,14 +53,14 @@ public class FontUtils {
      *
      * @param arguments Arguments to pass
      * @param context   Self explanatory, bud
-     * @param theme_pid Theme's package name
+     * @param themePid  Theme's package name
      */
     public void execute(String arguments,
                         Context context,
-                        String theme_pid) {
+                        String themePid) {
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.context = context;
-        this.theme_pid = theme_pid;
+        this.themePid = themePid;
         new FontHandlerAsync(this).execute(arguments);
     }
 
@@ -89,7 +89,7 @@ public class FontUtils {
                     fragment.progress.setCancelable(false);
                     fragment.progress.show();
                 }
-                Boolean isRootless =
+                boolean isRootless =
                         (checkThemeInterfacer(context) || checkSubstratumService(context));
                 if (isRootless)
                     Toast.makeText(context,
@@ -109,7 +109,7 @@ public class FontUtils {
                     }
                     if (result == null) {
                         SharedPreferences.Editor editor = fragment.prefs.edit();
-                        editor.putString(FONTS_APPLIED, fragment.theme_pid);
+                        editor.putString(FONTS_APPLIED, fragment.themePid);
                         editor.apply();
                         Toast toast = Toast.makeText(context,
                                 context.getString(R.string.font_dialog_apply_success), Toast
@@ -150,20 +150,20 @@ public class FontUtils {
             if (fragment != null) {
                 Context context = fragment.context;
                 try {
-                    Boolean isRootless = checkOMS(context) &&
+                    boolean isRootless = checkOMS(context) &&
                             (checkThemeInterfacer(context) &&
                                     checkSubstratumService(context));
 
                     if (isRootless) {
                         SharedPreferences.Editor editor = fragment.prefs.edit();
-                        editor.putString(FONTS_APPLIED, fragment.theme_pid);
+                        editor.putString(FONTS_APPLIED, fragment.themePid);
                         editor.apply();
                     }
 
                     // Inform the font manager to start setting fonts!
                     FontsManager.setFonts(
                             context,
-                            fragment.theme_pid,
+                            fragment.themePid,
                             sUrl[0]);
 
                     if (isRootless)

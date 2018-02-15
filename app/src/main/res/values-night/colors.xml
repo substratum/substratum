@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2016-2017 Projekt Substratum
+  ~ This file is part of Substratum.
+  ~
+  ~ Substratum is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Substratum is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">@color/colorPrimary</color>
+    <color name="colorAccent">#d6d6d6</color>
+    <color name="colorRipple">#73ffffff</color>
+    <color name="navigationBarColor">@color/colorPrimaryDark</color>
+    <color name="navigation_bar_divider">@android:color/transparent</color>
+    <color name="statusBarColor">@color/colorPrimaryDark</color>
+
+    <color name="lunchbar_background">@color/colorPrimary</color>
+    <color name="lunchbar_text">@android:color/white</color>
+
+    <color name="bottombar_icon_inactive_tint">#64ffffff</color>
+
+    <color name="floatui_dialog_background">#000000</color>
+
+    <color name="tab_defaults_icon_tint">@android:color/black</color>
+
+    <color name="backup_button_text_color">@android:color/white</color>
+    <color name="restore_button_text_color">@android:color/white</color>
+
+    <color name="splashscreen_background">#ff000000</color>
+    <color name="dialog_text_color">#ffffffff</color>
+
+    <color name="main_screen_card_background">#212021</color>
+    <color name="main_screen_card_theme_title">#ffffffff</color>
+
+    <color name="theme_information_background">#0e0e0e</color>
+    <color name="theme_information_card_subtext">@android:color/white</color>
+
+    <color name="overlay_not_installed_list_entry">#81ffffff</color>
+
+    <color name="window_bg">@android:color/background_dark</color>
+
+    <color name="material_drawer_icon_color">#ffffffff</color>
+
+    <color name="fab_menu_background_card">@color/colorPrimary</color>
+    <color name="fab_menu_icon_color">#ffffffff</color>
+    <color name="fab_menu_text_color">#deffffff</color>
+    <color name="fab_menu_divider">#4affffff</color>
+    <color name="fab_background_color">#363636</color>
+
+</resources>

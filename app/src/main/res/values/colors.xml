@@ -21,23 +21,25 @@
     <color name="colorPrimaryDark">#f4f4f4</color>
     <color name="colorAccent">#424242</color>
     <color name="colorRipple">#73777777</color>
-    <color name="navigationBarColor">#ff000001</color>
+    <color name="navigationBarColor">#ff000000</color>
     <color name="statusBarColor">@color/colorPrimaryDark</color>
 
     <color name="lunchbar_background">@android:color/white</color>
     <color name="lunchbar_text">@android:color/black</color>
 
-    <color name="bottombar_bar_background">@android:color/white</color>
+    <color name="bottombar_bar_background">@color/colorPrimary</color>
+    <color name="bottombar_icon_inactive_tint">#64000000</color>
 
     <!-- Hardcode the colors so it doesn't change every time an Android System overlay changes -->
-    <color name="floatui_dialog_background">#ca000000</color>
-    <color name="floatui_dialog_header_background">#66777777</color>
-    <color name="floatui_dialog_title_color">@android:color/white</color>
-    <color name="floatui_dialog_row_color">@android:color/white</color>
-    <color name="floatui_dialog_checkmark_color">@android:color/white</color>
-    <color name="floatui_dialog_button_color">@android:color/white</color>
+    <color name="floatui_dialog_background">#ffffff</color>
+    <color name="floatui_dialog_button_color">@color/colorAccent</color>
 
     <color name="bottom_sheet_dialog_background">@color/main_screen_card_background</color>
+    <color name="bottom_sheet_dialog_background_night">#212021</color>
+    <color name="bottom_sheet_dialog_icons">@color/material_drawer_icon_color</color>
+    <color name="bottom_sheet_dialog_icons_night">@android:color/white</color>
+    <color name="bottom_sheet_dialog_text">@android:color/black</color>
+    <color name="bottom_sheet_dialog_text_night">@android:color/white</color>
 
     <color name="error_icons">@android:color/white</color>
 
@@ -71,7 +73,7 @@
     <color name="sounds_spinner_background">@color/theme_information_background</color>
     <color name="sounds_window_background">@android:color/black</color>
 
-    <color name="backup_button">@color/colorPrimary</color>
+    <color name="backup_button">@android:color/transparent</color>
     <color name="backup_button_text_color">@android:color/black</color>
     <color name="restore_button">@android:color/transparent</color>
     <color name="restore_button_text_color">@android:color/black</color>
@@ -91,23 +93,20 @@
 
     <color name="main_screen_card_background">#fffafafa</color>
     <color name="main_screen_card_theme_title">#ff000000</color>
-    <color name="main_screen_card_theme_author">#d0000000</color>
     <color name="main_screen_card_theme_title_special">#ffffffff</color>
     <color name="main_screen_card_theme_author_special">#d0ffffff</color>
+    <color name="theme_card_background">@color/main_screen_card_background</color>
 
     <color name="wallpaper_bg_background">@android:color/black</color>
 
     <color name="theme_information_background">#ffeeeeee</color>
-    <color name="theme_information_card_divider">#33777777</color>
     <color name="theme_information_card_subtext">@android:color/darker_gray</color>
 
     <color name="settings_title_color">@color/colorAccent</color>
 
     <color name="material_drawer_icon_color">#ff000000</color>
-    <color name="material_drawer_selected">@color/colorAccent</color>
-    <color name="material_drawer_background">#ffffffff</color>
-    <color name="material_drawer_header_background">#9e9e9e</color>
 
+    <color name="overlay_installed_not_active">#ff4081</color>
     <color name="overlay_installed_list_entry">#00c853</color>
     <color name="overlay_not_approved_list_entry">#ff0000</color>
     <color name="overlay_not_enabled_list_entry">#ef6c00</color>
@@ -115,6 +114,7 @@
     <color name="overlay_update_available">#d4b400</color>
     <color name="overlay_update_not_needed">#008c3a</color>
 
+    <color name="window_bg">@android:color/background_light</color>
     <color name="window_bg_glass">#c8000000</color>
     <color name="cropper_bg_glass">#c8000000</color>
 
@@ -147,5 +147,8 @@
         <item>@color/substratum_blue</item>
         <item>@color/substratum_light_blue</item>
     </integer-array>
+
+    <color name="drawer_item_background">@android:color/transparent</color>
+    <color name="drawer_item_background_selected">@color/colorPrimaryDark</color>
 
 </resources>

@@ -27,13 +27,8 @@ public class ThemeItem {
     private String themeName;
     private String themeAuthor;
     private String themePackage;
-    private String themeVersion;
-    private String sdkLevels;
-    private String pluginVersion;
-    private String themeReady;
     private Drawable themeDrawable;
     private Context themeContext;
-    private String themeMode;
     private Activity activity;
 
     public String getThemeName() {
@@ -44,7 +39,7 @@ public class ThemeItem {
         this.themeName = themeName;
     }
 
-    CharSequence getThemeAuthor() {
+    public String getThemeAuthor() {
         return this.themeAuthor;
     }
 
@@ -52,7 +47,7 @@ public class ThemeItem {
         this.themeAuthor = themeAuthor;
     }
 
-    String getThemePackage() {
+    public String getThemePackage() {
         return this.themePackage;
     }
 
@@ -60,15 +55,7 @@ public class ThemeItem {
         this.themePackage = themePackage;
     }
 
-    CharSequence getPluginVersion() {
-        return this.pluginVersion;
-    }
-
-    public void setPluginVersion(String pluginVersion) {
-        this.pluginVersion = pluginVersion;
-    }
-
-    Drawable getThemeDrawable() {
+    public Drawable getThemeDrawable() {
         return this.themeDrawable;
     }
 
@@ -92,35 +79,4 @@ public class ThemeItem {
         this.themeContext = context;
     }
 
-    CharSequence getSDKLevels() {
-        return this.sdkLevels;
-    }
-
-    public void setSDKLevels(String sdkLevels) {
-        this.sdkLevels = sdkLevels;
-    }
-
-    CharSequence getThemeVersion() {
-        return this.themeVersion;
-    }
-
-    public void setThemeVersion(String themeVersion) {
-        this.themeVersion = themeVersion;
-    }
-
-    String getThemeReadyVariable() {
-        return this.themeReady;
-    }
-
-    public void setThemeReadyVariable(String themeVisibility) {
-        this.themeReady = themeVisibility;
-    }
-
-    String getThemeMode() {
-        return this.themeMode;
-    }
-
-    public void setThemeMode(String themeMode) {
-        this.themeMode = themeMode;
-    }
 }

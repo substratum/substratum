@@ -16,107 +16,110 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nestedScrollView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bootanimation_window_background">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/bootanimation_window_background">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bootanimation_spinner_background">
-
-            <Spinner
-                android:id="@+id/bootAnimationSelection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bootanimation_window_background"
             android:orientation="vertical">
 
-            <ProgressBar
-                android:id="@+id/progress_bar_loader"
-                style="?android:attr/indeterminateProgressStyle"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="50dp"
-                android:indeterminate="true" />
+                android:background="@color/bootanimation_spinner_background">
 
-            <RelativeLayout
-                android:id="@+id/restore_to_default"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/restore_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/tab_restore_default" />
-
-                <TextView
-                    android:id="@+id/restore_to_default_text"
+                <Spinner
+                    android:id="@+id/bootAnimationSelection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/restore_image"
-                    android:layout_margin="15dp"
-                    android:gravity="center"
-                    android:text="@string/bootanimation_defaults_text"
-                    android:textColor="@color/font_text"
-                    android:textSize="20sp"
-                    android:textStyle="italic" />
+                    android:layout_marginStart="15dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/bootanimation_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/image_placeholder"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/bootanimation_placeholder" />
-
-                <TextView
-                    android:id="@+id/bootanimation_placeholder_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/image_placeholder"
-                    android:layout_margin="15dp"
-                    android:gravity="center"
-                    android:text="@string/bootanimation_placeholder_text"
-                    android:textAllCaps="true"
-                    android:textColor="@color/font_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/bootAnimationPreview"
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true" />
-        </RelativeLayout>
+                android:background="@color/bootanimation_window_background"
+                android:orientation="vertical">
 
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+                <ProgressBar
+                    android:id="@+id/progress_bar_loader"
+                    style="?android:attr/indeterminateProgressStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="50dp"
+                    android:indeterminate="true" />
+
+                <RelativeLayout
+                    android:id="@+id/restore_to_default"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/restore_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="30dp"
+                        android:src="@drawable/tab_restore_default" />
+
+                    <TextView
+                        android:id="@+id/restore_to_default_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/restore_image"
+                        android:layout_margin="15dp"
+                        android:gravity="center"
+                        android:text="@string/bootanimation_defaults_text"
+                        android:textColor="@color/font_text"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/bootanimation_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="30dp"
+                        android:src="@drawable/bootanimation_placeholder" />
+
+                    <TextView
+                        android:id="@+id/bootanimation_placeholder_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/image_placeholder"
+                        android:layout_margin="15dp"
+                        android:gravity="center"
+                        android:text="@string/bootanimation_placeholder_text"
+                        android:textAllCaps="true"
+                        android:textColor="@color/font_text"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/bootAnimationPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

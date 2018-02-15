@@ -17,6 +17,7 @@
   -->
 
 <resources>
+    <bool name="forceAppDarkTheme">false</bool>
     <bool name="dynamicActionBarColors">true</bool>
     <bool name="dynamicNavigationBarColors">true</bool>
     <bool name="SplashscreenWindowLightStatusBar">true</bool>

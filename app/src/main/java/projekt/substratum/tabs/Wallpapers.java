@@ -19,6 +19,7 @@
 package projekt.substratum.tabs;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,13 +38,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
-import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
+import projekt.substratum.adapters.tabs.wallpapers.WallpaperItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.databinding.TabWallpapersBinding;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudWallpaperFile;
 
@@ -53,16 +53,11 @@ import static projekt.substratum.common.Internal.THEME_WALLPAPER;
 public class Wallpapers extends Fragment {
 
     public static AsyncTask<String, Integer, String> mainLoader = null;
-    @BindView(R.id.progress_bar_loader)
-    ProgressBar materialProgressBar;
-    @BindView(R.id.no_network)
-    View no_network;
-    @BindView(R.id.none_found)
-    View no_wallpapers;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.wallpaperRecyclerView)
-    RecyclerView mRecyclerView;
+    private ProgressBar materialProgressBar;
+    private View noNetwork;
+    private View noWallpapers;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView mRecyclerView;
     private String wallpaperUrl;
     private Context context;
 
@@ -72,8 +67,17 @@ public class Wallpapers extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         context = getContext();
-        View view = inflater.inflate(R.layout.tab_wallpapers, container, false);
-        ButterKnife.bind(this, view);
+
+        TabWallpapersBinding tabWallpapersBinding =
+                DataBindingUtil.inflate(inflater, R.layout.tab_wallpapers, container, false);
+
+        View view = tabWallpapersBinding.getRoot();
+
+        materialProgressBar = tabWallpapersBinding.progressBarLoader;
+        noNetwork = tabWallpapersBinding.noNetwork;
+        noWallpapers = tabWallpapersBinding.noneFound;
+        swipeRefreshLayout = tabWallpapersBinding.swipeRefreshLayout;
+        mRecyclerView = tabWallpapersBinding.wallpaperRecyclerView;
 
         if (getArguments() != null) {
             wallpaperUrl = getArguments().getString(THEME_WALLPAPER);
@@ -94,9 +98,9 @@ public class Wallpapers extends Fragment {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
-        mRecyclerView.setAdapter(empty_adapter);
+        ArrayList<WallpaperItem> emptyArray = new ArrayList<>();
+        RecyclerView.Adapter emptyAdapter = new WallpaperAdapter(emptyArray);
+        mRecyclerView.setAdapter(emptyAdapter);
         mRecyclerView.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
                     @Override
@@ -114,8 +118,8 @@ public class Wallpapers extends Fragment {
                         return true;
                     }
                 });
-        no_wallpapers.setVisibility(View.GONE);
-        no_network.setVisibility(View.GONE);
+        noWallpapers.setVisibility(View.GONE);
+        noNetwork.setVisibility(View.GONE);
 
         if (References.isNetworkAvailable(context)) {
             mainLoader = new downloadResources(this);
@@ -123,8 +127,8 @@ public class Wallpapers extends Fragment {
         } else {
             mRecyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
-            no_wallpapers.setVisibility(View.GONE);
-            no_network.setVisibility(View.VISIBLE);
+            noWallpapers.setVisibility(View.GONE);
+            noNetwork.setVisibility(View.VISIBLE);
         }
 
     }
@@ -157,8 +161,8 @@ public class Wallpapers extends Fragment {
                     Map<String, String> newArray =
                             ReadCloudWallpaperFile.read(
                                     wallpapers.context.getCacheDir() + "/" + CURRENT_WALLPAPERS);
-                    ArrayList<WallpaperEntries> wallpaperEntries = new ArrayList<>();
-                    WallpaperEntries newEntry = new WallpaperEntries();
+                    ArrayList<WallpaperItem> wallpaperEntries = new ArrayList<>();
+                    WallpaperItem newEntry = new WallpaperItem();
 
                     for (Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
                         if (!stringStringEntry.getKey().toLowerCase(Locale.US)
@@ -172,14 +176,14 @@ public class Wallpapers extends Fragment {
                             // This is a preview image to be displayed on the card
                             newEntry.setWallpaperPreview(stringStringEntry.getValue());
                             wallpaperEntries.add(newEntry);
-                            newEntry = new WallpaperEntries();
+                            newEntry = new WallpaperItem();
                         }
                     }
                     RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpaperEntries);
                     wallpapers.mRecyclerView.setAdapter(mAdapter);
 
                     if (wallpaperEntries.isEmpty())
-                        wallpapers.no_wallpapers.setVisibility(View.VISIBLE);
+                        wallpapers.noWallpapers.setVisibility(View.VISIBLE);
 
                     wallpapers.mRecyclerView.setVisibility(View.VISIBLE);
                     wallpapers.materialProgressBar.setVisibility(View.GONE);

@@ -16,21 +16,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-    <scale
-        android:duration="250"
-        android:fillAfter="false"
-        android:fromXScale="0.0"
-        android:fromYScale="0.0"
-        android:interpolator="@android:anim/linear_interpolator"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:startOffset="200"
-        android:toXScale="1.0"
-        android:toYScale="1.0" />
-    <translate
-        android:duration="50"
-        android:fromYDelta="50%"
-        android:startOffset="200"
-        android:toYDelta="0" />
-</set>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@android:integer/config_shortAnimTime"
+    android:fromYDelta="50%p"
+    android:toYDelta="0%p" />

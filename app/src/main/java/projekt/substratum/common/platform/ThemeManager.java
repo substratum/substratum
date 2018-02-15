@@ -61,7 +61,6 @@ import static projekt.substratum.common.Packages.getOverlayTarget;
 import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.Resources.FRAMEWORK;
 import static projekt.substratum.common.Resources.PIXEL_OVERLAY_PACKAGES;
 import static projekt.substratum.common.Resources.SETTINGS;
@@ -75,7 +74,6 @@ import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
-import static projekt.substratum.common.Systems.checkThemeSystemModule;
 
 public enum ThemeManager {
     ;
@@ -189,11 +187,7 @@ public enum ThemeManager {
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
                 if (shouldRestartUI(context, overlays)) {
-                    if (optInFromUIRestart(context)) {
-                        restartSystemUI(context);
-                    } else {
-                        killSystemUINotificationsOnStockOreo(context);
-                    }
+                    restartSystemUI(context);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -239,11 +233,7 @@ public enum ThemeManager {
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
                 if (shouldRestartUI(context, overlays)) {
-                    if (optInFromUIRestart(context)) {
-                        restartSystemUI(context);
-                    } else {
-                        killSystemUINotificationsOnStockOreo(context);
-                    }
+                    restartSystemUI(context);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -283,11 +273,7 @@ public enum ThemeManager {
             }
             ElevatedCommands.runThreadedCommand(commands.toString());
             if (shouldRestartUI(context, overlays)) {
-                if (optInFromUIRestart(context)) {
-                    restartSystemUI(context);
-                } else {
-                    killSystemUINotificationsOnStockOreo(context);
-                }
+                restartSystemUI(context);
             }
         }
     }
@@ -318,20 +304,6 @@ public enum ThemeManager {
             ThemeInterfacerService.restartSystemUI(context);
         } else {
             Root.runCommand("pkill -f com.android.systemui");
-        }
-    }
-
-    /**
-     * Kill all notifications on stock Oreo with root, unfortunately this doesn't work on persistent
-     * application's notifications such as USB Charging, so unplugging would refresh it.
-     * <p>
-     * This is only used if you don't want to restart SystemUI and have a more graceful ending
-     *
-     * @param context Context
-     */
-    private static void killSystemUINotificationsOnStockOreo(Context context) {
-        if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_ROOTED) {
-            Root.runCommand("service call notification 1");
         }
     }
 
@@ -600,6 +572,7 @@ public enum ThemeManager {
                 }
             }
         }
+        list.removeAll(Arrays.asList(PIXEL_OVERLAY_PACKAGES));
         return list;
     }
 
@@ -796,6 +769,7 @@ public enum ThemeManager {
      * @return True, if should restart SystemUI
      */
     public static boolean shouldRestartUI(Context context, String overlay) {
+        if (checkSubstratumService(context)) return false;
         if (overlay.startsWith(SYSTEMUI)) {
             return checkOMS(context);
         }
@@ -811,23 +785,12 @@ public enum ThemeManager {
      */
     public static boolean shouldRestartUI(Context context,
                                           Iterable<String> overlays) {
+        if (checkSubstratumService(context)) return false;
         for (String o : overlays) {
             if (shouldRestartUI(context, o)) {
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * Allow the user to control whether they would get SystemUI restarts of not
-     *
-     * @param context Context
-     * @return True, if users want to restart SystemUI
-     */
-    private static boolean optInFromUIRestart(Context context) {
-        return PreferenceManager
-                .getDefaultSharedPreferences(context)
-                .getBoolean("opt_in_sysui_restart", true);
     }
 }

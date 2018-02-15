@@ -27,7 +27,6 @@
 
     <dimen name="main_screen_card_elevation">2dp</dimen>
     <dimen name="main_screen_card_corner_radius">2dp</dimen>
-    <dimen name="main_screen_n_card_elevation">0dp</dimen>
 
     <dimen name="fab_sheet_elevation">0dp</dimen>
 

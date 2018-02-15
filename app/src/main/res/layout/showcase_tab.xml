@@ -15,30 +15,32 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <ProgressBar
-        android:id="@+id/progress_bar_loader"
-        style="?android:attr/indeterminateProgressStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="top|center_horizontal"
-        android:indeterminate="true"
-        android:paddingTop="50dp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/wallpaperRecyclerView"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:clipToPadding="false"
-        android:paddingBottom="90dp"
-        android:scrollbars="vertical" />
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-</android.support.design.widget.CoordinatorLayout>
+        <ProgressBar
+            android:id="@+id/progress_bar_loader"
+            style="?android:attr/indeterminateProgressStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="top|center_horizontal"
+            android:indeterminate="true"
+            android:paddingTop="50dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/wallpaperRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:clipToPadding="false"
+            android:paddingBottom="90dp"
+            android:scrollbars="vertical" />
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

@@ -347,7 +347,7 @@ public class Overlays extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<OverlaysItem> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
+        RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array, context);
         recyclerView.setAdapter(empty_adapter);
         toggleAllOverlaysText.setVisibility(View.VISIBLE);
 
@@ -1490,7 +1490,7 @@ public class Overlays extends Fragment {
             Overlays fragment = ref.get();
             if (fragment != null) {
                 setViews(fragment, true);
-                fragment.mAdapter = new OverlaysAdapter(adapterList);
+                fragment.mAdapter = new OverlaysAdapter(adapterList, fragment.context);
                 fragment.recyclerView.setAdapter(fragment.mAdapter);
                 fragment.recyclerView.getLayoutManager().scrollToPosition(
                         fragment.recyclerViewPosition);

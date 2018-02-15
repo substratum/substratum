@@ -111,7 +111,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
                 sheetDialogBinding.icon
                         .setImageDrawable(Packages.getAppIcon(this.context, themeItem
-                        .getThemePackage()));
+                                .getThemePackage()));
 
                 // Favorite
                 LinearLayout favorite = sheetDialogBinding.favorite;
@@ -240,6 +240,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             binding = DataBindingUtil.bind(view);
         }
 
-        ThemeEntryCardBinding getBinding() {return binding;}
+        ThemeEntryCardBinding getBinding() {
+            return binding;
+        }
     }
 }

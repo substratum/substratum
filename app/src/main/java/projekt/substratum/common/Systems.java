@@ -444,14 +444,9 @@ public enum Systems {
      * @return True, if it passes all Samsung tests
      */
     public static boolean isNewSamsungDevice(Context context) {
-        if (context != null) {
-            if (isSamsungDevice(context)) return false;
-            List<String> listOfFeatures =
-                    Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
-            return listOfFeatures.contains("timakeystore");
-        } else {
-            return false;
-        }
+        return context != null &&
+                !isSamsungDevice(context) &&
+                new File("/system/etc/permissions/com.samsung.device.xml").exists();
     }
 
     /**

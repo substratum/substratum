@@ -37,6 +37,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.databinding.TabOverlaysItemBinding;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
@@ -56,16 +57,19 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
 
     private List<OverlaysItem> overlayList;
+    private List<String> overlayStateList;
 
-    public OverlaysAdapter(List<OverlaysItem> overlayInfo) {
+    public OverlaysAdapter(List<OverlaysItem> overlayInfo, Context context) {
         super();
         overlayList = overlayInfo;
+        overlayStateList = ThemeManager.listAllOverlays(context);
     }
 
     // Magical easy reset checking for the adapter
     // Function that runs when a user picks a spinner dropdown item that is index 0
     private static void zeroIndex(Context context,
                                   OverlaysItem currentObject,
+                                  List<String> overlayStateList,
                                   TabOverlaysItemBinding viewBinding) {
         if (isPackageInstalled(context, currentObject.getFullOverlayParameters())) {
             viewBinding.overlayState.setVisibility(View.VISIBLE);
@@ -97,8 +101,18 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             viewBinding.overlayTargetPackageName.setTextColor(
                     context.getColor(R.color.overlay_installed_list_entry));
         } else if (isPackageInstalled(context, currentObject.getFullOverlayParameters())) {
-            viewBinding.overlayTargetPackageName.setTextColor(
-                    context.getColor(R.color.overlay_not_enabled_list_entry));
+            if (Systems.isNewSamsungDevice(context)) {
+                if (!overlayStateList.contains(currentObject.getFullOverlayParameters())) {
+                    viewBinding.overlayTargetPackageName.setTextColor(
+                            context.getColor(R.color.overlay_installed_not_active));
+                } else {
+                    viewBinding.overlayTargetPackageName.setTextColor(
+                            context.getColor(R.color.overlay_not_enabled_list_entry));
+                }
+            } else {
+                viewBinding.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_enabled_list_entry));
+            }
         } else {
             viewBinding.overlayTargetPackageName.setTextColor(
                     context.getColor(R.color.overlay_not_installed_list_entry));
@@ -108,6 +122,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     // Function that runs when a user picks a spinner dropdown item that is index >= 1
     private static void commitChanges(Context context,
                                       OverlaysItem overlaysItem,
+                                      List<String> overlayStateList,
                                       TabOverlaysItemBinding viewBinding,
                                       String packageName) {
         if (isPackageInstalled(context,
@@ -134,8 +149,18 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         context.getColor(R.color.overlay_installed_list_entry));
             } else if (isPackageInstalled(context,
                     overlaysItem.getFullOverlayParameters())) {
-                viewBinding.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_enabled_list_entry));
+                if (Systems.isNewSamsungDevice(context)) {
+                    if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
+                        viewBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_installed_not_active));
+                    } else {
+                        viewBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_not_enabled_list_entry));
+                    }
+                } else {
+                    viewBinding.overlayTargetPackageName.setTextColor(
+                            context.getColor(R.color.overlay_not_enabled_list_entry));
+                }
             } else {
                 viewBinding.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_not_installed_list_entry));
@@ -150,8 +175,18 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         context.getColor(R.color.overlay_installed_list_entry));
             } else if (isPackageInstalled(context,
                     overlaysItem.getFullOverlayParameters())) {
-                viewBinding.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_enabled_list_entry));
+                if (Systems.isNewSamsungDevice(context)) {
+                    if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
+                        viewBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_installed_not_active));
+                    } else {
+                        viewBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_not_enabled_list_entry));
+                    }
+                } else {
+                    viewBinding.overlayTargetPackageName.setTextColor(
+                            context.getColor(R.color.overlay_not_enabled_list_entry));
+                }
             } else {
                 viewBinding.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_not_installed_list_entry));
@@ -222,7 +257,12 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
 
                 if (pos == 0) {
-                    OverlaysAdapter.zeroIndex(context, current_object, viewHolderBinding);
+                    OverlaysAdapter.zeroIndex(
+                            context,
+                            current_object,
+                            overlayStateList,
+                            viewHolderBinding
+                    );
                 }
 
                 if (pos >= 1) {
@@ -272,7 +312,13 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                 packageName += sanitizeOptionSpinnerText(
                                         viewHolderBinding.optionsSpinner5.getSelectedItem().toString());
                     }
-                    OverlaysAdapter.commitChanges(context, current_object, viewHolderBinding, packageName);
+                    OverlaysAdapter.commitChanges(
+                            context,
+                            current_object,
+                            overlayStateList,
+                            viewHolderBinding,
+                            packageName
+                    );
                 }
             }
 
@@ -422,8 +468,19 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                             context.getColor(R.color.overlay_installed_list_entry));
                 } else {
                     if (isPackageInstalled(context, overlaysItem.getFullOverlayParameters())) {
-                        viewHolderBinding.overlayTargetPackageName.setTextColor(
-                                context.getColor(R.color.overlay_not_enabled_list_entry));
+                        if (Systems.isNewSamsungDevice(context)) {
+                            if (!overlayStateList.contains(
+                                    overlaysItem.getFullOverlayParameters())) {
+                                viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                        context.getColor(R.color.overlay_installed_not_active));
+                            } else {
+                                viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                        context.getColor(R.color.overlay_not_enabled_list_entry));
+                            }
+                        } else {
+                            viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                    context.getColor(R.color.overlay_not_enabled_list_entry));
+                        }
                     } else {
                         viewHolderBinding.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_not_installed_list_entry));
@@ -467,8 +524,18 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     viewHolderBinding.overlayTargetPackageName.setTextColor(
                             context.getColor(R.color.overlay_installed_list_entry));
                 } else if (isPackageInstalled(context, overlaysItem.getFullOverlayParameters())) {
-                    viewHolderBinding.overlayTargetPackageName.setTextColor(
-                            context.getColor(R.color.overlay_not_enabled_list_entry));
+                    if (Systems.isNewSamsungDevice(context)) {
+                        if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
+                            viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                    context.getColor(R.color.overlay_installed_not_active));
+                        } else {
+                            viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                    context.getColor(R.color.overlay_not_enabled_list_entry));
+                        }
+                    } else {
+                        viewHolderBinding.overlayTargetPackageName.setTextColor(
+                                context.getColor(R.color.overlay_not_enabled_list_entry));
+                    }
                 }
             }
         }

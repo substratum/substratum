@@ -106,6 +106,7 @@
 
     <color name="material_drawer_icon_color">#ff000000</color>
 
+    <color name="overlay_installed_not_active">#ff4081</color>
     <color name="overlay_installed_list_entry">#00c853</color>
     <color name="overlay_not_approved_list_entry">#ff0000</color>
     <color name="overlay_not_enabled_list_entry">#ef6c00</color>

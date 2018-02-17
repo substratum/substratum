@@ -108,6 +108,10 @@ public enum Systems {
      * @param context Self explanatory, sir
      */
     public static Boolean checkOMS(@NonNull Context context) {
+        // In an ideal world lint would know that
+        // OMS refreshes kill kittens and contexts.
+        // But we don't live in an ideal world so
+        // will have to do.
         //noinspection ConstantConditions
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
         if (!BYPASS_SYSTEM_VERSION_CHECK) {
@@ -606,7 +610,6 @@ public enum Systems {
                     "com.forpda.",
                     "zone.jasi2169."
             };
-            //noinspection ConstantConditions
             checkPackageSupported = blacklistedPackages.length != 0 && (
                     checkPackageRegex(context, blacklistedPackages) ||
                             spreadYourWingsAndFly(context, override) ||

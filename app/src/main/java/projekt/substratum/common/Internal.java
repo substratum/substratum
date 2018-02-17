@@ -105,11 +105,8 @@ public enum Internal {
     public static final String EFFECT_TICK = "Effect_Tick";
     public static final String LOCK = "Lock";
     public static final String UNLOCK = "Unlock";
-    // Theme Ready
+    // For Play store links
     public static final String PLAY_URL_PREFIX = "https://play.google.com/store/apps/details?id=";
-    public static final String THEME_READY_ALL = "all";
-    public static final String THEME_READY_READY = "ready";
-    public static final String THEME_READY_STOCK = "stock";
     // Misc Packages
     public static final String PHONE = "com.android.phone";
     public static final String PHONE_COMMON_FRAMEWORK = "com.android.phone.common";

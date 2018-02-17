@@ -259,11 +259,10 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * Transact to the license fragment
      *
-     * @param title    Fragment's title
      * @param fragment Name of the fragment in projekt.substratum.fragments
      */
-    private void switchFragmentToLicenses(CharSequence title,
-                                          LibsSupportFragment fragment) {
+    @SuppressWarnings("unused")
+    private void switchFragmentToLicenses(LibsSupportFragment fragment) {
         if ((searchView != null) && !searchView.isIconified()) {
             searchView.setIconified(true);
         }
@@ -1015,8 +1014,9 @@ public class MainActivity extends AppCompatActivity implements
             // These are hardcoded booleans and lint is squawking because
             // of the hardcode. The utility of these is mentioned alongside
             // their declarations.
-            //noinspection ConstantConditions
-            dialogReturnBool &= ENABLE_ROOT_CHECK & !BYPASS_SYSTEM_VERSION_CHECK;
+            // Only enable these on debug builds
+            if (BuildConfig.DEBUG)
+                dialogReturnBool &= ENABLE_ROOT_CHECK & !BYPASS_SYSTEM_VERSION_CHECK;
 
             super.onPostExecute(dialogReturnBool);
             MainActivity activity = ref.get();

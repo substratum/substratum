@@ -55,10 +55,10 @@ public class OverlayFound extends BroadcastReceiver {
     private String packageName;
     private Context context;
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (PACKAGE_ADDED.equals(intent.getAction())) {
+        if (intent.getData() != null &&
+                PACKAGE_ADDED.equals(intent.getAction())) {
             packageName = intent.getData().toString().substring(8);
             this.context = context;
 

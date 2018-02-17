@@ -581,7 +581,7 @@ public class Overlays extends Fragment {
                     context,
                     themePid,
                     currentInstance.errorLogs.toString(),
-                    currentInstance.failed_packages.toString(),
+                    currentInstance.failedPackages.toString(),
                     true
             ).execute();
         }
@@ -638,7 +638,7 @@ public class Overlays extends Fragment {
                             context,
                             themePid,
                             logs.toString(),
-                            currentInstance.failed_packages.toString(),
+                            currentInstance.failedPackages.toString(),
                             false).execute());
         }
         builder.show();
@@ -845,11 +845,11 @@ public class Overlays extends Fragment {
         switch (requestCode) {
             case 2486:
                 FileOperations.delete(context,
-                        new File(currentInstance.late_install.get(0)).getAbsolutePath());
-                if ((currentInstance.late_install != null) &&
-                        !currentInstance.late_install.isEmpty())
-                    currentInstance.late_install.remove(0);
-                if (!currentInstance.late_install.isEmpty()) {
+                        new File(currentInstance.lateInstall.get(0)).getAbsolutePath());
+                if ((currentInstance.lateInstall != null) &&
+                        !currentInstance.lateInstall.isEmpty())
+                    currentInstance.lateInstall.remove(0);
+                if (!currentInstance.lateInstall.isEmpty()) {
                     installMultipleAPKs();
                 } else {
                     refreshList();
@@ -866,7 +866,7 @@ public class Overlays extends Fragment {
         Uri uri = FileProvider.getUriForFile(
                 context,
                 context.getApplicationContext().getPackageName() + ".provider",
-                new File(currentInstance.late_install.get(0)));
+                new File(currentInstance.lateInstall.get(0)));
         intent.setDataAndType(
                 uri,
                 PACKAGE_INSTALL_URI);
@@ -1055,7 +1055,7 @@ public class Overlays extends Fragment {
             fragment.swipeRefreshLayout.setRefreshing(!state);
             fragment.recyclerView.setEnabled(state);
             fragment.toggleAll.setEnabled(state);
-            if (!state) fragment.toggleAll.setChecked(state);
+            if (!state) fragment.toggleAll.setChecked(false);
             fragment.baseSpinner.setEnabled(state);
         }
 

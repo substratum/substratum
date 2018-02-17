@@ -85,10 +85,10 @@ public class OverlayUpdater extends BroadcastReceiver {
     private static final Integer APP_UPGRADE_NOTIFICATION_ID = 24768941;
     private static final Integer THEME_UPGRADE_NOTIFICATION_ID = 13573743;
 
-    @SuppressWarnings({"ConstantConditions"})
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (PACKAGE_ADDED.equals(intent.getAction())) {
+        if (intent.getData() != null &&
+                PACKAGE_ADDED.equals(intent.getAction())) {
             String packageName = intent.getData().toString().substring(8);
 
             if (ThemeManager.isOverlay(context, intent.getData().toString().substring(8)) ||
@@ -133,7 +133,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
     private static class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
-        int notification_priority = Notification.PRIORITY_MAX;
+        int notificationPriority = Notification.PRIORITY_MAX;
         @SuppressLint("StaticFieldLeak")
         private Context context;
         private String packageName;
@@ -206,7 +206,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                         context,
                                         packageName)))
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
-                        .setPriority(notification_priority)
+                        .setPriority(notificationPriority)
                         .setOngoing(true);
                 mNotifyManager.notify(id, builder.build());
 
@@ -273,7 +273,6 @@ public class OverlayUpdater extends BroadcastReceiver {
             }
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
             if (!installedOverlays.isEmpty()) {
@@ -410,7 +409,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     String type2Dir = "overlays/" + target + "/type2_" + type2;
                     String type3Dir = "overlays/" + target + "/type3_" + type3;
 
-                    String additional_variant = (((type2 != null) && !type2.isEmpty()) ?
+                    String additionalVariant = (((type2 != null) && !type2.isEmpty()) ?
                             type2Dir.split("/")[2].substring(6) : null);
                     String base_variant = (((type3Dir != null) && !type3Dir.isEmpty()) ?
                             type3Dir.split("/")[2].substring(6) : null);
@@ -516,7 +515,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                             installedOverlays.get(i))),
                             Packages.getPackageName(context, theme),
                             packageName,
-                            additional_variant,
+                            additionalVariant,
                             base_variant,
                             Packages.getAppVersion(context,
                                     Packages.getOverlayParent(context, this
@@ -546,8 +545,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     if (encrypted) {
                         try {
                             localBroadcastManager.unregisterReceiver(keyRetrieval);
-                        } catch (IllegalArgumentException e) {
-                            // Unregistered already
+                        } catch (IllegalArgumentException ignored) {
                         }
                     }
                 }
@@ -565,18 +563,18 @@ public class OverlayUpdater extends BroadcastReceiver {
     }
 
     static class UpdaterLogs extends BroadcastReceiver {
-        public static void invokeLogCharDialog(Context context, String error_logs) {
+        public static void invokeLogCharDialog(Context context, String errorLogs) {
             AlertDialog.Builder builder = new AlertDialog.Builder
                     (context)
                     .setTitle(R.string.logcat_dialog_title)
-                    .setMessage('\n' + error_logs)
+                    .setMessage('\n' + errorLogs)
                     .setNeutralButton(R.string
                             .customactivityoncrash_error_activity_error_details_close, null)
                     .setNegativeButton(R.string
                                     .customactivityoncrash_error_activity_error_details_copy,
                             (dialog1, which) -> References.copyToClipboard(context,
                                     "substratum_log",
-                                    error_logs));
+                                    errorLogs));
             builder.show();
         }
 

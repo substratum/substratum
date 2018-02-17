@@ -94,8 +94,10 @@ public enum CompilerCommands {
         if (!baseVariantNull) packageName = packageName + variantName + baseVariantName;
         if (isNotNullOrEmpty(packageNameOverride)) packageName = packageNameOverride;
 
-        boolean showOverlayInSamsungSettings =
-                Systems.isSamsungDevice(context) && References.toggleShowSamsungOverlayInSettings;
+        boolean showOverlayInSamsungSettings = Systems.isSamsungDevice(context);
+        if (BuildConfig.DEBUG)
+            showOverlayInSamsungSettings &= References.toggleShowSamsungOverlayInSettings;
+
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                     .newInstance();

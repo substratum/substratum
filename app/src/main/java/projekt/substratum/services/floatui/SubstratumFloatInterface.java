@@ -238,16 +238,16 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 AlertDialog alertDialog = builder.create();
-                //noinspection ConstantConditions
-                alertDialog.getWindow().setBackgroundDrawable(
+                Window window = alertDialog.getWindow();
+                assert window != null;
+                window.setBackgroundDrawable(
                         getDrawable(R.drawable.dialog_background));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    alertDialog.getWindow().setType(LayoutParams.TYPE_APPLICATION_OVERLAY);
+                    window.setType(LayoutParams.TYPE_APPLICATION_OVERLAY);
                 } else {
-                    alertDialog.getWindow().setType(LayoutParams.TYPE_SYSTEM_ALERT);
+                    window.setType(LayoutParams.TYPE_SYSTEM_ALERT);
                 }
 
-                Window window = alertDialog.getWindow();
                 WindowManager.LayoutParams windowParams = window.getAttributes();
                 windowParams.copyFrom(window.getAttributes());
                 windowParams.width = LayoutParams.MATCH_PARENT;

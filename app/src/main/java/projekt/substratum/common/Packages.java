@@ -33,7 +33,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.VectorDrawable;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -70,7 +69,6 @@ import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataOverlayTarget;
 import static projekt.substratum.common.References.metadataOverlayVersion;
 import static projekt.substratum.common.References.metadataSamsungSupport;
-import static projekt.substratum.common.References.metadataThemeReady;
 import static projekt.substratum.common.References.metadataVersion;
 import static projekt.substratum.common.References.resourceChangelog;
 import static projekt.substratum.common.Resources.FRAMEWORK;
@@ -106,8 +104,7 @@ public enum Packages {
         try {
             PackageManager pm = context.getPackageManager();
             return pm.getInstallerPackageName(packageName);
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return null;
     }
@@ -228,6 +225,9 @@ public enum Packages {
             bitmap = getBitmapFromVector(drawable);
         } else if ((drawable instanceof BitmapDrawable)
                 | (drawable instanceof ShapeDrawable)) {
+            // Lint doesn't realise that ShapeDrawable and
+            // BitmapDrawable are interoperable classes so
+            // keeps throwing the warning.
             //noinspection ConstantConditions
             bitmap = ((BitmapDrawable) drawable).getBitmap();
         } else if (drawable instanceof AdaptiveIconDrawable) {
@@ -402,113 +402,6 @@ public enum Packages {
             // Suppress warning
         }
         return 0;
-    }
-
-    /**
-     * Grabs a given theme's app version
-     *
-     * @param context     Context
-     * @param packageName Package name of the desired app to be checked
-     * @return Returns a string of the app's version
-     */
-    public static String getThemeVersion(Context context,
-                                         String packageName) {
-        try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(packageName, 0);
-            return pInfo.versionName + " (" + pInfo.versionCode + ')';
-        } catch (PackageManager.NameNotFoundException e) {
-            // Suppress warning
-        }
-        return null;
-    }
-
-    /**
-     * Grab the available API levels for a given theme
-     *
-     * @param context     Context
-     * @param packageName Package name of the desired app to be checked
-     * @return Returns a string of the theme's SDK APIs
-     */
-    public static String getThemeAPIs(Context context,
-                                      String packageName) {
-        try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    packageName, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                try {
-                    if (appInfo.minSdkVersion == appInfo.targetSdkVersion) {
-                        int target = appInfo.targetSdkVersion;
-                        switch (target) {
-                            case Build.VERSION_CODES.N:
-                                return context.getString(R.string.api_24);
-                            case Build.VERSION_CODES.N_MR1:
-                                return context.getString(R.string.api_25);
-                            case Build.VERSION_CODES.O:
-                                return context.getString(R.string.api_26);
-                            case Build.VERSION_CODES.O_MR1:
-                                return context.getString(R.string.api_27);
-                        }
-                    } else {
-                        String minSdk = "";
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            int min = appInfo.minSdkVersion;
-                            switch (min) {
-                                case Build.VERSION_CODES.N:
-                                    minSdk = context.getString(R.string.api_24);
-                                    break;
-                                case Build.VERSION_CODES.N_MR1:
-                                    minSdk = context.getString(R.string.api_25);
-                                    break;
-                                case Build.VERSION_CODES.O:
-                                    minSdk = context.getString(R.string.api_26);
-                                    break;
-                                case Build.VERSION_CODES.O_MR1:
-                                    minSdk = context.getString(R.string.api_27);
-                                    break;
-                            }
-                        }
-                        String targetSdk = "";
-                        int target = appInfo.targetSdkVersion;
-                        switch (target) {
-                            case Build.VERSION_CODES.N:
-                                targetSdk = context.getString(R.string.api_24);
-                                break;
-                            case Build.VERSION_CODES.N_MR1:
-                                targetSdk = context.getString(R.string.api_25);
-                                break;
-                            case Build.VERSION_CODES.O:
-                                targetSdk = context.getString(R.string.api_26);
-                                break;
-                            case Build.VERSION_CODES.O_MR1:
-                                targetSdk = context.getString(R.string.api_27);
-                                break;
-                        }
-                        return minSdk + " - " + targetSdk;
-                    }
-                } catch (NoSuchFieldError noSuchFieldError) {
-                    int target = appInfo.targetSdkVersion;
-                    if (target == Build.VERSION_CODES.N) {
-                        return context.getString(R.string.api_24);
-                    } else {
-                        String targetAPI = "";
-                        switch (target) {
-                            case Build.VERSION_CODES.N_MR1:
-                                targetAPI = context.getString(R.string.api_25);
-                                break;
-                            case Build.VERSION_CODES.O:
-                                targetAPI = context.getString(R.string.api_26);
-                                break;
-                            case Build.VERSION_CODES.O_MR1:
-                                targetAPI = context.getString(R.string.api_27);
-                        }
-                        return context.getString(R.string.api_24) + " - " + targetAPI;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return null;
     }
 
     /**
@@ -689,18 +582,6 @@ public enum Packages {
     }
 
     /**
-     * Get Theme Ready support
-     *
-     * @param context     Context
-     * @param packageName Package name of the desired app to be checked
-     * @return String of whether the theme supports theme ready
-     */
-    public static String getThemeReadyVisibility(Context context,
-                                                 String packageName) {
-        return getOverlayMetadata(context, packageName, metadataThemeReady);
-    }
-
-    /**
      * Get theme plugin version
      *
      * @param context     Context
@@ -796,7 +677,6 @@ public enum Packages {
      * Checks the packages for Substratum, then mutates the input
      *
      * @param context      Context
-     * @param homeType     Home type
      * @param searchFilter User input in search
      * @return Returns a map of substratum ready packages
      */
@@ -938,8 +818,7 @@ public enum Packages {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             return ai.sourceDir;
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return null;
     }

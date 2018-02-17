@@ -80,14 +80,14 @@ public enum Restore {
                 PreferenceManager.getDefaultSharedPreferences(context);
         String selectedTheme = prefs.getString(APP_THEME, DEFAULT_THEME);
 
-        LinearLayout disable_all = sheetView.findViewById(R.id.disable_all);
-        LinearLayout uninstall_all = sheetView.findViewById(R.id.uninstall_all);
-        LinearLayout restore_bootanimation = sheetView.findViewById(R.id.restore_bootanimation);
-        LinearLayout restore_system_font = sheetView.findViewById(R.id.restore_system_font);
-        LinearLayout restore_sounds = sheetView.findViewById(R.id.restore_sounds);
-        LinearLayout home_wallpaper = sheetView.findViewById(R.id.home_wallpaper);
-        LinearLayout lock_wallpaper = sheetView.findViewById(R.id.lock_wallpaper);
-        LinearLayout both_wallpapers = sheetView.findViewById(R.id.both_wallpapers);
+        LinearLayout disableAll = sheetView.findViewById(R.id.disable_all);
+        LinearLayout uninstallAll = sheetView.findViewById(R.id.uninstall_all);
+        LinearLayout restoreBootanimation = sheetView.findViewById(R.id.restore_bootanimation);
+        LinearLayout restoreSystemFont = sheetView.findViewById(R.id.restore_system_font);
+        LinearLayout restoreSounds = sheetView.findViewById(R.id.restore_sounds);
+        LinearLayout homeWallpaper = sheetView.findViewById(R.id.home_wallpaper);
+        LinearLayout lockWallpaper = sheetView.findViewById(R.id.lock_wallpaper);
+        LinearLayout bothWallpapers = sheetView.findViewById(R.id.both_wallpapers);
 
         // Doing this because for some reason the dark theme does not take charge
         if (context.getResources().getBoolean(R.bool.forceAppDarkTheme) ||
@@ -116,40 +116,40 @@ public enum Restore {
                                 context.getColor(R.color.bottom_sheet_dialog_icons_night)
                         });
 
-                int text_tint = context.getColor(R.color.bottom_sheet_dialog_text_night);
+                int textTint = context.getColor(R.color.bottom_sheet_dialog_text_night);
 
-                TextView disable = disable_all.findViewById(R.id.disable_text);
-                disable.setTextColor(text_tint);
+                TextView disable = disableAll.findViewById(R.id.disable_text);
+                disable.setTextColor(textTint);
                 disable.setCompoundDrawableTintList(icon_tint);
 
-                TextView uninstall = uninstall_all.findViewById(R.id.uninstall_text);
-                uninstall.setTextColor(text_tint);
+                TextView uninstall = uninstallAll.findViewById(R.id.uninstall_text);
+                uninstall.setTextColor(textTint);
                 uninstall.setCompoundDrawableTintList(icon_tint);
 
                 TextView bootanimation =
-                        restore_bootanimation.findViewById(R.id.restore_bootanimation_text);
-                bootanimation.setTextColor(text_tint);
+                        restoreBootanimation.findViewById(R.id.restore_bootanimation_text);
+                bootanimation.setTextColor(textTint);
                 bootanimation.setCompoundDrawableTintList(icon_tint);
 
-                TextView sounds = restore_sounds.findViewById(R.id.restore_sounds_text);
-                sounds.setTextColor(text_tint);
+                TextView sounds = restoreSounds.findViewById(R.id.restore_sounds_text);
+                sounds.setTextColor(textTint);
                 sounds.setCompoundDrawableTintList(icon_tint);
 
-                TextView fonts = restore_system_font.findViewById(R.id.restore_font_text);
-                fonts.setTextColor(text_tint);
+                TextView fonts = restoreSystemFont.findViewById(R.id.restore_font_text);
+                fonts.setTextColor(textTint);
                 fonts.setCompoundDrawableTintList(icon_tint);
 
-                TextView home_wall = home_wallpaper.findViewById(R.id.restore_home_wallpaper_text);
-                home_wall.setTextColor(text_tint);
+                TextView home_wall = homeWallpaper.findViewById(R.id.restore_home_wallpaper_text);
+                home_wall.setTextColor(textTint);
                 home_wall.setCompoundDrawableTintList(icon_tint);
 
-                TextView lock_wall = lock_wallpaper.findViewById(R.id.restore_lock_wallpaper_text);
-                lock_wall.setTextColor(text_tint);
+                TextView lock_wall = lockWallpaper.findViewById(R.id.restore_lock_wallpaper_text);
+                lock_wall.setTextColor(textTint);
                 lock_wall.setCompoundDrawableTintList(icon_tint);
 
                 TextView both_walls =
-                        both_wallpapers.findViewById(R.id.restore_both_wallpapers_text);
-                both_walls.setTextColor(text_tint);
+                        bothWallpapers.findViewById(R.id.restore_both_wallpapers_text);
+                both_walls.setTextColor(textTint);
                 both_walls.setCompoundDrawableTintList(icon_tint);
             }
         }
@@ -157,32 +157,32 @@ public enum Restore {
         View view = activity.findViewById(R.id.drawer_container);
 
         if (!Systems.checkOMS(context)) {
-            disable_all.setVisibility(View.GONE);
-            uninstall_all.setVisibility(View.GONE);
+            disableAll.setVisibility(View.GONE);
+            uninstallAll.setVisibility(View.GONE);
         }
-        if (!isBootAnimationSupported(context)) restore_bootanimation.setVisibility(View.GONE);
-        if (!isFontsSupported(context)) restore_system_font.setVisibility(View.GONE);
-        if (!isSoundsSupported(context)) restore_sounds.setVisibility(View.GONE);
+        if (!isBootAnimationSupported(context)) restoreBootanimation.setVisibility(View.GONE);
+        if (!isFontsSupported(context)) restoreSystemFont.setVisibility(View.GONE);
+        if (!isSoundsSupported(context)) restoreSounds.setVisibility(View.GONE);
 
         // Overlays
-        disable_all.setOnClickListener(vi -> {
+        disableAll.setOnClickListener(vi -> {
             new RestoreFunction(activity).execute(false);
             sheetDialog.hide();
         });
-        uninstall_all.setOnClickListener(vi -> {
+        uninstallAll.setOnClickListener(vi -> {
             new RestoreFunction(activity).execute(true);
             sheetDialog.hide();
         });
 
 
         // Boot Animations
-        restore_bootanimation.setOnClickListener(view2 -> {
+        restoreBootanimation.setOnClickListener(view2 -> {
             new BootAnimationClearer(activity).execute();
             sheetDialog.hide();
         });
 
         // Fonts
-        restore_system_font.setOnClickListener(view2 -> {
+        restoreSystemFont.setOnClickListener(view2 -> {
             if (Systems.checkThemeInterfacer(context) ||
                     Systems.checkSubstratumService(context)) {
                 new FontsClearer(activity).execute("");
@@ -191,7 +191,7 @@ public enum Restore {
         });
 
         // Sounds
-        restore_sounds.setOnClickListener(view2 -> {
+        restoreSounds.setOnClickListener(view2 -> {
             if (Systems.checkThemeInterfacer(context) ||
                     Systems.checkSubstratumService(context)) {
                 new SoundsClearer(activity).execute();
@@ -200,7 +200,7 @@ public enum Restore {
         });
 
         // Wallpapers
-        home_wallpaper.setOnClickListener(view2 -> {
+        homeWallpaper.setOnClickListener(view2 -> {
             try {
                 WallpapersManager.clearWallpaper(context, HOME_WALLPAPER);
                 if (view != null) {
@@ -218,7 +218,7 @@ public enum Restore {
             }
             sheetDialog.hide();
         });
-        lock_wallpaper.setOnClickListener(view2 -> {
+        lockWallpaper.setOnClickListener(view2 -> {
             try {
                 WallpapersManager.clearWallpaper(context, LOCK_WALLPAPER);
                 if (view != null) {
@@ -233,7 +233,7 @@ public enum Restore {
             }
             sheetDialog.hide();
         });
-        both_wallpapers.setOnClickListener(view2 -> {
+        bothWallpapers.setOnClickListener(view2 -> {
             try {
                 WallpapersManager.clearWallpaper(context, ALL_WALLPAPER);
                 if (view != null) {
@@ -259,7 +259,7 @@ public enum Restore {
      * Uninstall overlays
      */
     private static class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
-        ArrayList<String> final_commands_array;
+        ArrayList<String> finalCommandsArray;
         private WeakReference<Activity> ref;
         private boolean withUninstall;
         private ProgressDialog alertDialog;
@@ -302,7 +302,7 @@ public enum Restore {
                             //noinspection ConstantConditions
                             if (context != null) {
                                 ThemeManager.uninstallOverlay(
-                                        context, final_commands_array);
+                                        context, finalCommandsArray);
                             }
                         } catch (Exception e) {
                             // At this point the window is refreshed too many times detaching the
@@ -355,8 +355,8 @@ public enum Restore {
                     if (Systems.checkOMS(context)) {
                         List<String> overlays = ThemeManager.listAllOverlays(context);
 
-                        final_commands_array = new ArrayList<>();
-                        final_commands_array.addAll(overlays.stream()
+                        finalCommandsArray = new ArrayList<>();
+                        finalCommandsArray.addAll(overlays.stream()
                                 .filter(o -> Packages.getOverlayParent(context, o) != null)
                                 .collect(Collectors.toList()));
                     } else {

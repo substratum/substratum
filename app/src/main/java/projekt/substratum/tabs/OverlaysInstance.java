@@ -26,17 +26,17 @@ import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 class OverlaysInstance {
 
     private static volatile OverlaysInstance ourInstance = new OverlaysInstance();
-    boolean has_failed;
-    Integer fail_count;
-    StringBuilder failed_packages;
+    boolean hasFailed;
+    Integer failCount;
+    StringBuilder failedPackages;
     StringBuilder errorLogs;
     boolean missingType3;
-    List<String> final_runner;
-    List<String> late_install;
-    ArrayList<String> final_command;
+    List<String> finalRunner;
+    List<String> lateInstall;
+    ArrayList<String> finalCommand;
     List<OverlaysItem> checkedOverlays;
-    double current_amount;
-    double total_amount;
+    double currentAmount;
+    double totalAmount;
     int overlaysWaiting;
 
     /**
@@ -53,16 +53,16 @@ class OverlaysInstance {
      * Resets the singleton instance and its values
      */
     void reset() {
-        has_failed = false;
-        fail_count = 0;
-        failed_packages = new StringBuilder();
+        hasFailed = false;
+        failCount = 0;
+        failedPackages = new StringBuilder();
         errorLogs = new StringBuilder();
         missingType3 = false;
-        final_runner = new ArrayList<>();
-        late_install = new ArrayList<>();
-        final_command = new ArrayList<>();
+        finalRunner = new ArrayList<>();
+        lateInstall = new ArrayList<>();
+        finalCommand = new ArrayList<>();
         checkedOverlays = new ArrayList<>();
-        current_amount = 0;
+        currentAmount = 0;
         overlaysWaiting = 0;
     }
 }

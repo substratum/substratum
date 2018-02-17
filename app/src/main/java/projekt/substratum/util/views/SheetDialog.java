@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialog;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 public class SheetDialog extends BottomSheetDialog {
@@ -38,13 +39,14 @@ public class SheetDialog extends BottomSheetDialog {
      *
      * @param savedInstanceState Saved state
      */
-    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        Window window = getWindow();
+        if (window == null) return;
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            View v = getWindow().getDecorView();
+            View v = window.getDecorView();
             int flags = v.getSystemUiVisibility();
             flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             v.setSystemUiVisibility(flags);

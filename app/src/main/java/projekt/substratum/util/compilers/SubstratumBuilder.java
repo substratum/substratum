@@ -134,7 +134,7 @@ public class SubstratumBuilder {
      * @param overridePackage   String package to tell whether we should change the package name
      * @param overlayUpdater    boolean flag to tell whether specialSnowflake should be skipped
      */
-    @SuppressWarnings({"UnusedReturnValue", "ConstantConditions"})
+    @SuppressWarnings("UnusedReturnValue")
     public boolean beginAction(Context context,
                                String overlayPackage,
                                String themeName,

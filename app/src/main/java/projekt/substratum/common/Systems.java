@@ -31,7 +31,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -107,12 +106,7 @@ public enum Systems {
      *
      * @param context Self explanatory, sir
      */
-    public static Boolean checkOMS(@NonNull Context context) {
-        // In an ideal world lint would know that
-        // OMS refreshes kill kittens and contexts.
-        // But we don't live in an ideal world so
-        // will have to do.
-        //noinspection ConstantConditions
+    public static Boolean checkOMS(Context context) {
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
         if (!BYPASS_SYSTEM_VERSION_CHECK) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

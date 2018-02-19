@@ -239,23 +239,23 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
                 AlertDialog alertDialog = builder.create();
                 Window window = alertDialog.getWindow();
-                assert window != null;
-                window.setBackgroundDrawable(
-                        getDrawable(R.drawable.dialog_background));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    window.setType(LayoutParams.TYPE_APPLICATION_OVERLAY);
-                } else {
-                    window.setType(LayoutParams.TYPE_SYSTEM_ALERT);
+                if (window != null) {
+                    window.setBackgroundDrawable(
+                            getDrawable(R.drawable.dialog_background));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        window.setType(LayoutParams.TYPE_APPLICATION_OVERLAY);
+                    } else {
+                        window.setType(LayoutParams.TYPE_SYSTEM_ALERT);
+                    }
+
+                    WindowManager.LayoutParams windowParams = window.getAttributes();
+                    windowParams.copyFrom(window.getAttributes());
+                    windowParams.width = LayoutParams.MATCH_PARENT;
+                    windowParams.height = LayoutParams.WRAP_CONTENT;
+                    windowParams.gravity = Gravity.BOTTOM;
+                    windowParams.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+                    window.setAttributes(windowParams);
                 }
-
-                WindowManager.LayoutParams windowParams = window.getAttributes();
-                windowParams.copyFrom(window.getAttributes());
-                windowParams.width = LayoutParams.MATCH_PARENT;
-                windowParams.height = LayoutParams.WRAP_CONTENT;
-                windowParams.gravity = Gravity.BOTTOM;
-                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-                window.setAttributes(windowParams);
-
                 alertDialog.show();
             }
         });

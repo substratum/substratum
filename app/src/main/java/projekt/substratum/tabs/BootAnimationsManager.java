@@ -69,11 +69,7 @@ public enum BootAnimationsManager {
                 }
             } else if (checkThemeInterfacer(context)) {
                 Log.d(TAG, "No-root option has been enabled with the inclusion of theme interfacer...");
-                if (shutdownAnimation) {
-                    ThemeInterfacerService.setShutdownAnimation(context, location);
-                } else {
-                    ThemeInterfacerService.setBootAnimation(context, location);
-                }
+                ThemeInterfacerService.setBootAnimation(location);
             }
         } else {
             // We will mount system, make our directory, copy the bootanimation
@@ -108,11 +104,7 @@ public enum BootAnimationsManager {
                     SubstratumService.clearBootAnimation();
                 }
             } else if (checkThemeInterfacer(context)) {
-                if (shutdownAnimation) {
-                    ThemeInterfacerService.clearShutdownAnimation(context);
-                } else {
-                    ThemeInterfacerService.clearBootAnimation(context);
-                }
+                ThemeInterfacerService.clearBootAnimation();
             } else {
                 if (shutdownAnimation) {
                     FileOperations.delete(context, THEME_DIRECTORY + SHUTDOWNANIMATION);

@@ -42,7 +42,6 @@ import static projekt.substratum.common.Internal.JOB_COMPLETE;
 import static projekt.substratum.common.Internal.SOUNDS_APPLIED;
 import static projekt.substratum.common.Internal.SOUNDS_CREATION_CACHE;
 import static projekt.substratum.common.References.STATUS_CHANGED;
-import static projekt.substratum.common.platform.ThemeInterfacerService.PRIMARY_COMMAND_KEY;
 
 public class SoundUtils {
 
@@ -54,6 +53,7 @@ public class SoundUtils {
     private boolean ringtone;
     private SharedPreferences prefs;
     private View view;
+    private static final String PRIMARY_COMMAND_KEY = "primary_command_key";
 
     /**
      * Clear the applied sound pack

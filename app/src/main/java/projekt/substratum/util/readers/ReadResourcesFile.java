@@ -48,14 +48,14 @@ public enum ReadResourcesFile {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName(tag);
+            NodeList nodeList = doc.getElementsByTagName(tag);
 
             List<String> list = new ArrayList<>();
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    list.add(eElement.getAttribute("name"));
+            for (int temp = 0; temp < nodeList.getLength(); temp++) {
+                Node node = nodeList.item(temp);
+                if ((int) node.getNodeType() == (int) Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    list.add(element.getAttribute("name"));
                 }
             }
             return list;

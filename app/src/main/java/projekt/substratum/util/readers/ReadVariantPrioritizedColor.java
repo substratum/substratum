@@ -41,10 +41,10 @@ public class ReadVariantPrioritizedColor {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fileName);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("color");
-            Node eElement = nList.item(0);
-            return eElement.getAttributes().item(0).getNodeValue();
-        } catch (Exception e) {
+            NodeList nodeList = doc.getElementsByTagName("color");
+            Node node = nodeList.item(0);
+            return node.getAttributes().item(0).getNodeValue();
+        } catch (Exception ignored) {
             // At this point, the file does not exist!
         }
         return null;

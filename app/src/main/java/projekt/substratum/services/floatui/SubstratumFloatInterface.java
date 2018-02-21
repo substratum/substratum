@@ -65,11 +65,11 @@ import projekt.substratum.services.notification.FloatUiButtonReceiver;
 public class SubstratumFloatInterface extends Service implements FloatingViewListener {
 
     private static final int NOTIFICATION_ID = 92781162;
-    private FloatingViewManager mFloatingViewManager;
+    private FloatingViewManager floatingViewManager;
     private List<ManagerItem> finalCheck;
     private SharedPreferences prefs;
     private boolean triggerServiceRestart, triggerSystemuiRestart;
-    private ManagerAdapter mAdapter;
+    private ManagerAdapter adapter;
 
     private String foregroundedApp() {
         @SuppressLint("WrongConstant") UsageStatsManager usageStatsManager =
@@ -110,7 +110,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (mFloatingViewManager != null) {
+        if (floatingViewManager != null) {
             return START_STICKY;
         }
         DisplayMetrics metrics = new DisplayMetrics();
@@ -160,7 +160,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     finalCheck.add(managerItem);
                 }
 
-                mAdapter = new ManagerAdapter(finalCheck);
+                adapter = new ManagerAdapter(finalCheck);
 
                 // Initialize the AlertDialog Builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);
@@ -171,7 +171,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     ArrayList<String> toDisable = new ArrayList<>();
 
                     for (int i = 0; i < finalCheck.size(); i++) {
-                        if (mAdapter.getOverlayManagerList().get(i).isSelected()) {
+                        if (adapter.getOverlayManagerList().get(i).isSelected()) {
                             // Check if enabled
                             if (!enabledOverlaysForForegroundPackage
                                     .contains(finalCheck.get(i).getName())) {
@@ -231,11 +231,11 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 View content = inflate.inflate(R.layout.floatui_dialog, null);
                 builder.setView(content);
 
-                RecyclerView mRecyclerView = content.findViewById(R.id.recycler_view);
-                mRecyclerView.setAdapter(mAdapter);
+                RecyclerView recyclerView = content.findViewById(R.id.recycler_view);
+                recyclerView.setAdapter(adapter);
 
-                mRecyclerView.setHasFixedSize(true);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 AlertDialog alertDialog = builder.create();
                 Window window = alertDialog.getWindow();
@@ -259,12 +259,12 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 alertDialog.show();
             }
         });
-        mFloatingViewManager = new FloatingViewManager(this, this);
-        mFloatingViewManager.setFixedTrashIconImage(R.drawable.floating_trash_cross);
-        mFloatingViewManager.setActionTrashIconImage(R.drawable.floating_trash_base);
+        floatingViewManager = new FloatingViewManager(this, this);
+        floatingViewManager.setFixedTrashIconImage(R.drawable.floating_trash_cross);
+        floatingViewManager.setActionTrashIconImage(R.drawable.floating_trash_base);
         FloatingViewManager.Options options = new FloatingViewManager.Options();
         options.overMargin = (int) (16.0F * metrics.density);
-        mFloatingViewManager.addViewToWindow(iconView, options);
+        floatingViewManager.addViewToWindow(iconView, options);
 
         startForeground(NOTIFICATION_ID, createNotification());
 
@@ -292,9 +292,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     }
 
     private void destroy() {
-        if (mFloatingViewManager != null) {
-            mFloatingViewManager.removeAllViewToWindow();
-            mFloatingViewManager = null;
+        if (floatingViewManager != null) {
+            floatingViewManager.removeAllViewToWindow();
+            floatingViewManager = null;
         }
     }
 

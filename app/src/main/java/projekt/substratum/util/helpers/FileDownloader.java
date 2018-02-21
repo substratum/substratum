@@ -53,7 +53,6 @@ public enum FileDownloader {
             NetworkOnMainThreadException {
 
         try {
-
             // First create the cache folder
             File directory = new File(context.getCacheDir().getAbsolutePath() + '/' +
                     destinationFileOrFolder);
@@ -115,8 +114,7 @@ public enum FileDownloader {
                         output.close();
                     if (input != null)
                         input.close();
-                } catch (IOException ioe) {
-                    // Suppress warning
+                } catch (IOException ignored) {
                 }
 
                 if (connection != null)

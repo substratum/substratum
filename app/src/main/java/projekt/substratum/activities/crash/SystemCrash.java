@@ -39,12 +39,10 @@ public class SystemCrash extends Activity {
         dialog.setCancelable(false);
         dialog.show();
 
-        Handler handler = new Handler();
-        Runnable r = () -> {
+        new Handler().postDelayed(() -> {
             dialog.dismiss();
             Activities.launchInternalActivity(getApplicationContext(), LaunchActivity.class);
             finishAffinity();
-        };
-        handler.postDelayed(r, 3000);
+        }, 3000);
     }
 }

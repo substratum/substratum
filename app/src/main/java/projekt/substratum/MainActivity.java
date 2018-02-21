@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements
     View bottomBarShadow;
     private ActionBar supportActionBar;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
-    private Dialog mProgressDialog;
+    private Dialog progressDialog;
     private SharedPreferences prefs;
     private LocalBroadcastManager localBroadcastManager;
     private KillReceiver killReceiver;
@@ -307,8 +307,8 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         Substratum.setLocale(prefs.getBoolean("force_english_locale", false));
 
-        mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
-        mProgressDialog.setCancelable(false);
+        progressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
+        progressDialog.setCancelable(false);
 
         if (BuildConfig.DEBUG && !isSamsungDevice(context)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
@@ -1041,16 +1041,16 @@ public class MainActivity extends AppCompatActivity implements
             if (activity != null) {
                 Context context = activity.context;
                 if (passthrough) {
-                    activity.mProgressDialog.show();
-                    activity.mProgressDialog.setContentView(R.layout.main_activity_attention_dialog);
+                    activity.progressDialog.show();
+                    activity.progressDialog.setContentView(R.layout.main_activity_attention_dialog);
 
-                    TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
+                    TextView titleView = activity.progressDialog.findViewById(R.id.title);
                     TextView textView =
-                            activity.mProgressDialog.findViewById(R.id.root_rejected_text);
+                            activity.progressDialog.findViewById(R.id.root_rejected_text);
                     if (isSamsungDevice(context)) {
-                        TextView samsungTitle = activity.mProgressDialog.findViewById(
+                        TextView samsungTitle = activity.progressDialog.findViewById(
                                 R.id.sungstratum_title);
-                        Button samsungButton = activity.mProgressDialog.findViewById(
+                        Button samsungButton = activity.progressDialog.findViewById(
                                 R.id.sungstratum_button);
                         samsungButton.setOnClickListener(view ->
                                 launchActivityUrl(context, R.string.sungstratum_url));
@@ -1070,11 +1070,11 @@ public class MainActivity extends AppCompatActivity implements
                         titleView.setVisibility(View.GONE);
                     } else if (Systems.isAndromedaDevice(context) &&
                             !AndromedaService.checkServerActivity()) {
-                        TextView andromedaTitle = activity.mProgressDialog.findViewById(
+                        TextView andromedaTitle = activity.progressDialog.findViewById(
                                 R.id.andromeda_title);
                         andromedaTitle.setText(R.string.andromeda_disconnected);
                         andromedaTitle.setVisibility(View.VISIBLE);
-                        Button andromedaButton = activity.mProgressDialog.findViewById(
+                        Button andromedaButton = activity.progressDialog.findViewById(
                                 R.id.andromeda_button);
                         andromedaButton.setText(R.string.andromeda_check_status);
                         andromedaButton.setVisibility(View.VISIBLE);
@@ -1084,10 +1084,10 @@ public class MainActivity extends AppCompatActivity implements
                         titleView.setVisibility(View.GONE);
                     } else if (Systems.checkOreo() &&
                             !Packages.isPackageInstalled(context, ANDROMEDA_PACKAGE)) {
-                        TextView andromedaTitle = activity.mProgressDialog.findViewById(
+                        TextView andromedaTitle = activity.progressDialog.findViewById(
                                 R.id.andromeda_title);
                         andromedaTitle.setVisibility(View.VISIBLE);
-                        Button andromedaButton = activity.mProgressDialog.findViewById(
+                        Button andromedaButton = activity.progressDialog.findViewById(
                                 R.id.andromeda_button);
                         andromedaButton.setVisibility(View.VISIBLE);
                         andromedaButton.setOnClickListener(view ->
@@ -1262,7 +1262,7 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (!mProgressDialog.isShowing()) {
+            if (!progressDialog.isShowing()) {
                 RootRequester rootRequester = new RootRequester(MainActivity.this);
                 rootRequester.execute();
             }

@@ -92,7 +92,7 @@ public enum Root {
                         process.getOutputStream()));
                 bufferedReader = new BufferedReader(new InputStreamReader(
                         process.getInputStream()));
-            } catch (IOException e) {
+            } catch (IOException ignored) {
                 denied = true;
                 closed = true;
             }
@@ -116,10 +116,10 @@ public enum Root {
                 }
                 firstTry = false;
                 return sb.toString().trim();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
                 closed = true;
                 if (firstTry) denied = true;
-            } catch (Exception e) {
+            } catch (Exception ignored) {
                 denied = true;
             }
             return null;

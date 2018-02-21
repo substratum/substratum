@@ -91,8 +91,7 @@ public enum BinaryInstaller {
                 Log.d(References.SUBSTRATUM_LOG,
                         "Android Asset Packaging Tool (x86) " +
                                 "has been added into the compiler directory.");
-            } catch (Exception e) {
-                // Suppress warning
+            } catch (Exception ignored) {
             }
         }
         File f = new File(aaptPath);
@@ -132,8 +131,7 @@ public enum BinaryInstaller {
                 Log.d(References.SUBSTRATUM_LOG,
                         "ZipAlign (x86) " +
                                 "has been added into the compiler directory.");
-            } catch (Exception e) {
-                // Suppress warning
+            } catch (Exception ignored) {
             }
         }
 

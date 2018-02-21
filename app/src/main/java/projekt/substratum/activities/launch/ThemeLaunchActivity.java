@@ -102,13 +102,13 @@ public class ThemeLaunchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int intent_id = (int) ThreadLocalRandom.current().nextLong(0L, 9999L);
+        int intentId = (int) ThreadLocalRandom.current().nextLong(0L, 9999L);
 
         Intent activityExtras = getIntent();
         packageName = activityExtras.getStringExtra(THEME_PACKAGE);
-        boolean omsCheck = activityExtras.getBooleanExtra(THEME_OMS, false);
+        Boolean omsCheck = activityExtras.getBooleanExtra(THEME_OMS, false);
         Integer hashPassthrough = activityExtras.getIntExtra(THEME_HASHPASSTHROUGH, 0);
-        boolean certified = activityExtras.getBooleanExtra(THEME_CERTIFIED, true);
+        Boolean certified = activityExtras.getBooleanExtra(THEME_CERTIFIED, true);
         String action = activityExtras.getAction();
         String packageName = activityExtras.getPackage();
         String themeCaller = activityExtras.getStringExtra(THEME_CALLER);
@@ -125,14 +125,13 @@ public class ThemeLaunchActivity extends Activity {
         try {
             assert action != null;
             startActivityForResult(myIntent,
-                    (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
+                    (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intentId));
         } catch (Exception e) {
             try {
                 legacyTheme = true;
                 startActivityForResult(myIntent,
-                        (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
-            } catch (Exception e2) {
-                // Suppress warning
+                        (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intentId));
+            } catch (Exception ignored) {
             }
         }
     }

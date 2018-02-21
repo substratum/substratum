@@ -24,10 +24,10 @@ import android.graphics.drawable.Drawable;
 public class ValidatorInfo {
     private String packageName;
     private Context context;
-    private boolean mVerified;
-    private boolean mCommons;
-    private Drawable mDrawable;
-    private ValidatorError mValidatorError;
+    private boolean verified;
+    private boolean commons;
+    private Drawable drawable;
+    private ValidatorError validatorError;
 
     public ValidatorInfo(Context context,
                          String packageName,
@@ -36,20 +36,20 @@ public class ValidatorInfo {
         super();
         this.context = context;
         this.packageName = packageName;
-        this.mVerified = verified;
-        this.mCommons = commons;
+        this.verified = verified;
+        this.commons = commons;
     }
 
     boolean getCommons() {
-        return this.mCommons;
+        return this.commons;
     }
 
     ValidatorError getPackageError() {
-        return this.mValidatorError;
+        return this.validatorError;
     }
 
     public void setPackageError(ValidatorError validatorError) {
-        this.mValidatorError = validatorError;
+        this.validatorError = validatorError;
     }
 
     public String getPackageName() {
@@ -61,14 +61,14 @@ public class ValidatorInfo {
     }
 
     public Drawable getDrawable() {
-        return this.mDrawable;
+        return this.drawable;
     }
 
     public void setDrawable(Drawable drawable) {
-        this.mDrawable = drawable;
+        this.drawable = drawable;
     }
 
-    public boolean getVerification() {
-        return this.mVerified;
+    boolean getVerification() {
+        return this.verified;
     }
 }

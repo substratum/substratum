@@ -386,8 +386,7 @@ public enum ProfileManager {
                 xmlSerializer.endDocument();
                 xmlSerializer.flush();
             }
-        } catch (IOException ioe) {
-            // Suppress exception
+        } catch (IOException ignored) {
         }
     }
 

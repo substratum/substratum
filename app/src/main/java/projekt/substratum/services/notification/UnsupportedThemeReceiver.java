@@ -39,10 +39,10 @@ public class UnsupportedThemeReceiver extends BroadcastReceiver {
 
                 // Cancel the notification
                 if (notificationToKill > 0) {
-                    NotificationManager mNotifyManager = (NotificationManager) context
+                    NotificationManager notificationManager = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (mNotifyManager != null) {
-                        mNotifyManager.cancel(notificationToKill);
+                    if (notificationManager != null) {
+                        notificationManager.cancel(notificationToKill);
                     }
                 }
 

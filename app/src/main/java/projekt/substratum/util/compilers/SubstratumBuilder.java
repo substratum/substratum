@@ -167,6 +167,7 @@ public class SubstratumBuilder {
         String workArea = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
 
         // 3. Create a modified Android Manifest for use with aapt
+        // TODO: Need to git blame this file and find out what we removed
 
         // 4. Parse the theme's name before adding it into the new manifest to prevent any issues
 
@@ -212,7 +213,7 @@ public class SubstratumBuilder {
                                 new File(workAreaArray.getAbsolutePath() + "/priority")
                         )))) {
                     legacyPriority = Integer.parseInt(reader.readLine());
-                } catch (IOException e) {
+                } catch (IOException ignored) {
                     dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
                             "There was an error parsing priority file!");
                     legacyPriority =
@@ -443,7 +444,7 @@ public class SubstratumBuilder {
         if (!hasErroredOut) {
             if (themeOms) {
                 specialSnowflake = false;
-                if ("android".equals(overlayPackage) ||
+                if (Resources.FRAMEWORK.equals(overlayPackage) ||
                         "projekt.substratum".equals(overlayPackage)) {
                     specialSnowflake = ThemeManager.isOverlayEnabled(context, overlayName) ||
                             (Systems.checkOreo() && !overlayUpdater);

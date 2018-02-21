@@ -87,8 +87,8 @@ public class OverlayFound extends BroadcastReceiver {
     private static class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
         private WeakReference<OverlayFound> ref;
-        private NotificationManager mNotifyManager;
-        private NotificationCompat.Builder mBuilder;
+        private NotificationManager notificationManager;
+        private NotificationCompat.Builder builder;
         private List<ResolveInfo> installedThemes;
         private List<String> matchingCriteria;
 
@@ -101,7 +101,7 @@ public class OverlayFound extends BroadcastReceiver {
         protected void onPreExecute() {
             OverlayFound overlayFound = ref.get();
             if (overlayFound != null) {
-                mNotifyManager = (NotificationManager) overlayFound.context.getSystemService(
+                notificationManager = (NotificationManager) overlayFound.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
                 installedThemes = Packages.getThemes(overlayFound.context);
             }
@@ -116,29 +116,28 @@ public class OverlayFound extends BroadcastReceiver {
             }
         }
 
-        @SuppressWarnings("deprecation")
         void bundleNotifications(String theme_package) {
             OverlayFound overlayFound = ref.get();
             if (overlayFound != null) {
-                mBuilder = new NotificationCompat.Builder(overlayFound.context,
+                builder = new NotificationCompat.Builder(overlayFound.context,
                         References.DEFAULT_NOTIFICATION_CHANNEL_ID);
-                mBuilder.setAutoCancel(true);
-                mBuilder.setOngoing(false);
-                mBuilder.setSmallIcon(R.drawable.notification_overlay_found);
-                mBuilder.setLargeIcon((
+                builder.setAutoCancel(true);
+                builder.setOngoing(false);
+                builder.setSmallIcon(R.drawable.notification_overlay_found);
+                builder.setLargeIcon((
                         getBitmapFromDrawable(
                                 Packages.getAppIcon(overlayFound.context, theme_package))));
-                mBuilder.setContentIntent(getPendingIntent(overlayFound.context, theme_package));
-                mBuilder.setContentTitle(String.format(
+                builder.setContentIntent(getPendingIntent(overlayFound.context, theme_package));
+                builder.setContentTitle(String.format(
                         overlayFound.context.getString(
                                 R.string.notification_overlay_found_specific),
                         Packages.getPackageName(overlayFound.context, overlayFound.packageName),
                         Packages.getPackageName(overlayFound.context, theme_package)));
-                mBuilder.setContentText(
+                builder.setContentText(
                         overlayFound.context.getString(
                                 R.string.notification_overlay_found_description));
-                mNotifyManager.notify(
-                        ThreadLocalRandom.current().nextInt(0, 10000), mBuilder.build());
+                notificationManager.notify(
+                        ThreadLocalRandom.current().nextInt(0, 10000), builder.build());
             }
         }
 
@@ -148,20 +147,19 @@ public class OverlayFound extends BroadcastReceiver {
             if (overlayFound != null) {
                 matchingCriteria = new ArrayList<>();
                 for (int i = 0; i < installedThemes.size(); i++) {
-                    String theme_pid = installedThemes.get(i).activityInfo.packageName;
-                    Log.d(TAG, "Searching theme for themable overlay: " + theme_pid);
+                    String themePid = installedThemes.get(i).activityInfo.packageName;
+                    Log.d(TAG, "Searching theme for themable overlay: " + themePid);
                     try {
                         Resources themeResources = overlayFound.context.getPackageManager()
-                                .getResourcesForApplication(theme_pid);
+                                .getResourcesForApplication(themePid);
                         AssetManager themeAssetManager = themeResources.getAssets();
                         String[] listArray = themeAssetManager.list("overlays");
                         List<String> list = Arrays.asList(listArray);
                         if (list.contains(overlayFound.packageName)) {
-                            Log.d(TAG, "Found in theme: " + theme_pid);
-                            matchingCriteria.add(theme_pid);
+                            Log.d(TAG, "Found in theme: " + themePid);
+                            matchingCriteria.add(themePid);
                         }
-                    } catch (Exception e) {
-                        // Suppress exception
+                    } catch (Exception ignored) {
                     }
                 }
             }

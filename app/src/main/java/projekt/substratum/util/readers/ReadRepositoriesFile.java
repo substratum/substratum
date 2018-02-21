@@ -52,43 +52,39 @@ public enum ReadRepositoriesFile {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("repo");
+            NodeList nodeList = doc.getElementsByTagName("repo");
 
             List<Repository> list = new ArrayList<>();
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    Repository current = new Repository(eElement.getAttribute("name"));
+            for (int temp = 0; temp < nodeList.getLength(); temp++) {
+                Node node = nodeList.item(temp);
+                if ((int) node.getNodeType() == (int) Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    Repository current = new Repository(element.getAttribute("name"));
                     Log.d(References.SUBSTRATUM_VALIDATOR,
                             "Pulling live resources from '" + current.getPackageName() + "'!");
                     try {
                         String bools =
-                                eElement.getElementsByTagName("bools").item(0).getTextContent();
+                                element.getElementsByTagName("bools").item(0).getTextContent();
                         current.setBools(bools);
-                    } catch (Exception e) {
-                        // Suppress warning
+                    } catch (Exception ignored) {
                     }
                     try {
                         String colors =
-                                eElement.getElementsByTagName("colors").item(0).getTextContent();
+                                element.getElementsByTagName("colors").item(0).getTextContent();
                         current.setColors(colors);
-                    } catch (Exception e) {
-                        // Suppress warning
+                    } catch (Exception ignored) {
                     }
                     try {
                         String dimens =
-                                eElement.getElementsByTagName("dimens").item(0).getTextContent();
+                                element.getElementsByTagName("dimens").item(0).getTextContent();
                         current.setDimens(dimens);
-                    } catch (Exception e) {
-                        // Suppress warning
+                    } catch (Exception ignored) {
                     }
                     try {
                         String styles =
-                                eElement.getElementsByTagName("styles").item(0).getTextContent();
+                                element.getElementsByTagName("styles").item(0).getTextContent();
                         current.setStyles(styles);
-                    } catch (Exception e) {
-                        // Suppress warning
+                    } catch (Exception ignored) {
                     }
                     list.add(current);
                 }

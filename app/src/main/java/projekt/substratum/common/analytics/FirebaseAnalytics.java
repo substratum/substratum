@@ -51,7 +51,7 @@ public enum FirebaseAnalytics {
 
     public static final String NAMES_PREFS = "names";
     public static final String PACKAGES_PREFS = "prefs";
-    private static FirebaseDatabase mDatabase;
+    private static FirebaseDatabase firebaseDatabase;
 
     public static boolean checkFirebaseAuthorized() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -61,24 +61,22 @@ public enum FirebaseAnalytics {
                     "https://console.firebase.google.com/").openConnection();
             connection.setRequestMethod("HEAD");
             return connection.getResponseCode() == HttpURLConnection.HTTP_OK;
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return false;
     }
 
     @SuppressLint("MissingFirebaseInstanceTokenRefresh")
     private static DatabaseReference getDatabaseReference() {
-        if (mDatabase == null) {
-            mDatabase = FirebaseDatabase.getInstance();
-            mDatabase.setPersistenceEnabled(true);
+        if (firebaseDatabase == null) {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            firebaseDatabase.setPersistenceEnabled(true);
             String token = FirebaseInstanceId.getInstance().getToken();
             Log.d(References.SUBSTRATUM_LOG, "Firebase Registration Token: " + token);
         }
-        return mDatabase.getReference();
+        return firebaseDatabase.getReference();
     }
 
-    @SuppressWarnings("unchecked")
     public static void withdrawBlacklistedPackages(Context context, Boolean firstStart) {
         DatabaseReference database = getDatabaseReference();
         database.child("patchers").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -97,7 +95,7 @@ public enum FirebaseAnalytics {
                         listOfPackages.add(entry);
                     }
 
-                    Set set = new HashSet(listOfPackages);
+                    Set<String> set = new HashSet<>(listOfPackages);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                     editor.putStringSet(dateFormat.format(new Date()), set);
                     editor.apply();
@@ -132,8 +130,7 @@ public enum FirebaseAnalytics {
                             Object dataValue = dataSnapshot.child(String.valueOf(version))
                                     .getValue();
                             if (dataValue != null) {
-                                String hash = dataValue.toString();
-                                editor.putString(prefKey, hash).apply();
+                                editor.putString(prefKey, dataValue.toString()).apply();
                             }
                         }
 
@@ -164,8 +161,7 @@ public enum FirebaseAnalytics {
                             Object dataValue = dataSnapshot.child(String.valueOf(version))
                                     .getValue();
                             if (dataValue != null) {
-                                String hash = dataValue.toString();
-                                editor.putString(prefKey, hash).apply();
+                                editor.putString(prefKey, dataValue.toString()).apply();
                             }
                         }
 

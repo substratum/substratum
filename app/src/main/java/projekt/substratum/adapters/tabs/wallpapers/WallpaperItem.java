@@ -27,14 +27,14 @@ public class WallpaperItem {
     private String wallpaperName;
     private String wallpaperLink;
     private String wallpaperPreview;
-    private Activity mActivity;
+    private Activity activity;
 
     Activity getCallingActivity() {
-        return this.mActivity;
+        return this.activity;
     }
 
     public void setCallingActivity(Activity mActivity) {
-        this.mActivity = mActivity;
+        this.activity = mActivity;
     }
 
     public Context getContext() {

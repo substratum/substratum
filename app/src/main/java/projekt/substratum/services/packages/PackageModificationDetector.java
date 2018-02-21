@@ -54,9 +54,9 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
     private static final String TAG = "SubstratumDetector";
 
-    public static PendingIntent getPendingIntent(Context context, String package_name) {
+    public static PendingIntent getPendingIntent(Context context, String packageName) {
         Intent myIntent = new Intent(context, AppShortcutLaunch.class);
-        myIntent.putExtra(THEME_PID, package_name);
+        myIntent.putExtra(THEME_PID, packageName);
         return PendingIntent.getActivity(
                 context,
                 ThreadLocalRandom.current().nextInt(0, 10000),
@@ -120,7 +120,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         // Let's add it to the list of installed themes on shared prefs
         SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         Set<String> installedThemes =
-                mainPrefs.getStringSet("installedThemes", new HashSet<>());
+                mainPrefs.getStringSet("installed_themes", new HashSet<>());
         Set<String> installedSorted = new TreeSet<>();
 
         int beginningSize = installedThemes.size();
@@ -129,7 +129,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             installedSorted.addAll(installedThemes);
         }
         if (installedThemes.size() > beginningSize) {
-            mainPrefs.edit().putStringSet("installedThemes", installedSorted).apply();
+            mainPrefs.edit().putStringSet("installed_themes", installedSorted).apply();
         }
 
         try {
@@ -137,8 +137,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     .getApplicationInfo(packageName1, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 // Legacy check to see if an OMS theme is guarded from being installed on legacy
-                boolean check_legacy = appInfo.metaData.getBoolean(References.metadataLegacy);
-                if (!Systems.checkOMS(context) && !check_legacy) {
+                boolean checkLegacy = appInfo.metaData.getBoolean(References.metadataLegacy);
+                if (!Systems.checkOMS(context) && !checkLegacy) {
                     Log.e(TAG, "Device is non-OMS, while an " +
                             "OMS theme is installed, aborting operation!");
 
@@ -164,9 +164,9 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                     PendingIntent.FLAG_CANCEL_CURRENT
                             );
 
-                    NotificationManager mNotifyManager = (NotificationManager) context
+                    NotificationManager notificationManager = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
-                    NotificationCompat.Builder mBuilder = new
+                    NotificationCompat.Builder builder = new
                             NotificationCompat.Builder(context,
                             References.DEFAULT_NOTIFICATION_CHANNEL_ID)
                             .setContentTitle(context.getString(
@@ -178,8 +178,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                     context.getString(R.string.refused_to_install_notification_button), btPendingIntent)
                             .setSmallIcon(R.drawable.notification_warning_icon)
                             .setPriority(Notification.PRIORITY_MAX);
-                    if (mNotifyManager != null) {
-                        mNotifyManager.notify(notificationId, mBuilder.build());
+                    if (notificationManager != null) {
+                        notificationManager.notify(notificationId, builder.build());
                     }
                     return;
                 }
@@ -229,8 +229,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     return;
                 }
             }
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
 
         if (replacing) {

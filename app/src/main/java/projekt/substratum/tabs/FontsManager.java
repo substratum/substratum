@@ -43,7 +43,7 @@ public enum FontsManager {
         if (checkSubstratumService(context)) {
             SubstratumService.setFonts(themePid, name);
         } else if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.setFonts(context, themePid, name);
+            ThemeInterfacerService.setFonts(themePid, name);
         }
     }
 
@@ -56,7 +56,7 @@ public enum FontsManager {
         if (checkSubstratumService(context)) {
             SubstratumService.clearFonts();
         } else if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.clearFonts(context);
+            ThemeInterfacerService.clearFonts();
         }
     }
 }

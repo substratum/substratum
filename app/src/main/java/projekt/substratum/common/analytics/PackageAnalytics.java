@@ -18,7 +18,6 @@
 
 package projekt.substratum.common.analytics;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -36,16 +35,16 @@ public enum PackageAnalytics {
     private static final String RUNTIME_TAG = "RuntimeMemory";
 
     public static boolean isLowEnd() {
-        Float maximum_memory = logRuntimeMemoryLimits()[0];
-        return maximum_memory <= 130.0F;
+        Float maximumMemory = logRuntimeMemoryLimits()[0];
+        return maximumMemory <= 130.0F;
     }
 
     private static Float[] logRuntimeMemoryLimits() {
-        String max = humanReadableByteCount(Runtime.getRuntime().maxMemory(), false)
+        String max = humanReadableByteCount(Runtime.getRuntime().maxMemory())
                 .replaceAll(",", ".");
-        String total = humanReadableByteCount(Runtime.getRuntime().totalMemory(), false)
+        String total = humanReadableByteCount(Runtime.getRuntime().totalMemory())
                 .replaceAll(",", ".");
-        String free = humanReadableByteCount(Runtime.getRuntime().freeMemory(), false)
+        String free = humanReadableByteCount(Runtime.getRuntime().freeMemory())
                 .replaceAll(",", ".");
         Log.d(RUNTIME_TAG, "Max Memory: " + max);
         Log.d(RUNTIME_TAG, "Total Memory: " + total);
@@ -57,15 +56,12 @@ public enum PackageAnalytics {
         };
     }
 
-    @SuppressWarnings("SameParameterValue")
-    @SuppressLint("DefaultLocale")
-    private static String humanReadableByteCount(long bytes,
-                                                 boolean si) {
-        int unit = si ? 1000 : 1024;
+    private static String humanReadableByteCount(long bytes) {
+        int unit = 1024;
         if (bytes < (long) unit) return bytes + " B";
         int exp = (int) (StrictMath.log((double) bytes) / StrictMath.log((double) unit));
-        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
-        return String.format("%.1f %sB",
+        String pre = ("KMGTPE").charAt(exp - 1) + ("i");
+        return String.format(Locale.US, "%.1f %sB",
                 (double) bytes / StrictMath.pow((double) unit, (double) exp), pre);
     }
 
@@ -90,8 +86,7 @@ public enum PackageAnalytics {
             Log.d(PACKAGE_TAG, "Installation date: " + text);
             Log.d(PACKAGE_TAG, "Installation time: " + text2);
             Log.d(PACKAGE_TAG, "Installation location: " + installer);
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
     }
 }

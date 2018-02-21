@@ -244,8 +244,7 @@ public class BootAnimations extends Fragment {
         super.onDestroy();
         try {
             localBroadcastManager.unregisterReceiver(jobReceiver);
-        } catch (final IllegalArgumentException e) {
-            // Unregistered already
+        } catch (final IllegalArgumentException ignored) {
         }
     }
 
@@ -454,8 +453,7 @@ public class BootAnimations extends Fragment {
                         });
                         bootAnimations.previewHandler.postDelayed(
                                 bootAnimations.previewRunnable, (long) ANIMATION_FRAME_DURATION);
-                    } catch (final Exception e) {
-                        // Suppress warning
+                    } catch (final Exception ignored) {
                     }
                 };
             }
@@ -475,7 +473,7 @@ public class BootAnimations extends Fragment {
                     }
                     bootAnimations.progressBar.setVisibility(View.GONE);
                     bootAnimations.paused = false;
-                } catch (final Exception e) {
+                } catch (final Exception ignored) {
                     Log.e(TAG, "Window was destroyed before AsyncTask could perform postExecute()");
                 }
             }

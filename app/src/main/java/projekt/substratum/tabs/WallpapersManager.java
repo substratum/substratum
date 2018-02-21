@@ -18,7 +18,6 @@
 
 package projekt.substratum.tabs;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.ParcelFileDescriptor;
 
@@ -50,7 +49,6 @@ public enum WallpapersManager {
             case HOME_WALLPAPER:
                 // Set home screen wallpaper
                 // Get current lock screen wallpaper to be applied later
-                @SuppressLint("MissingPermission")
                 ParcelFileDescriptor lockFile =
                         wallpaperManager.getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
                 if (lockFile != null) {
@@ -94,7 +92,6 @@ public enum WallpapersManager {
             case HOME_WALLPAPER:
                 // Clear home screen wallpaper
                 // Get current lock screen wallpaper to be applied later
-                @SuppressLint("MissingPermission")
                 ParcelFileDescriptor lockFile =
                         wallpaperManager.getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
                 if (lockFile != null) {

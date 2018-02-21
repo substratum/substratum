@@ -285,8 +285,7 @@ public enum Packages {
                 icon = context.getPackageManager().getApplicationIcon(packageName);
             }
             return icon;
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         if ((packageName != null) &&
                 packageName.equals(INTERFACER_PACKAGE) &&
@@ -312,8 +311,7 @@ public enum Packages {
             if (appInfo.metaData != null) {
                 return appInfo.metaData.getInt(metadataOverlayVersion);
             }
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return 0;
     }
@@ -334,8 +332,7 @@ public enum Packages {
                     (appInfo.metaData.getString(metadataOverlayParent) != null)) {
                 return getAppIcon(context, appInfo.metaData.getString(metadataOverlayParent));
             }
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return getAppIcon(context, packageName);
     }
@@ -380,8 +377,7 @@ public enum Packages {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(packageName, 0);
             return pInfo.versionName;
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return null;
     }
@@ -398,8 +394,7 @@ public enum Packages {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(packageName, 0);
             return pInfo.versionCode;
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return 0;
     }
@@ -436,8 +431,7 @@ public enum Packages {
                     }
                 }
             }
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return null;
     }
@@ -463,8 +457,7 @@ public enum Packages {
                     packageName + ':' + type + '/' + resourceName,
                     type,
                     packageName);
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return 0;
     }
@@ -499,8 +492,7 @@ public enum Packages {
             int array_position = getResource(context, packageName, resourceChangelog,
                     "array");
             return res.getStringArray(array_position);
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return null;
     }
@@ -635,8 +627,7 @@ public enum Packages {
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
             return (ai.flags & mask) == 0;
-        } catch (PackageManager.NameNotFoundException e) {
-            // Suppress warning
+        } catch (PackageManager.NameNotFoundException ignored) {
         }
         return false;
     }
@@ -667,7 +658,7 @@ public enum Packages {
         if (checkSubstratumService(context)) {
             SubstratumService.uninstallOverlay(list, false);
         } else if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.uninstallOverlays(context, list, false);
+            ThemeInterfacerService.uninstallOverlays(list);
         } else {
             ElevatedCommands.runThreadedCommand("pm uninstall " + packageName);
         }
@@ -738,8 +729,7 @@ public enum Packages {
                 }
             }
             return returnMap;
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return null;
     }

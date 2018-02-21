@@ -232,8 +232,7 @@ public class Substratum extends Application {
         try {
             FirebaseApp.initializeApp(this.getApplicationContext());
             FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
-        } catch (IllegalStateException ise) {
-            // Suppress warning
+        } catch (IllegalStateException ignored) {
         }
 
         // Dynamically check which theme engine is running at the moment
@@ -271,7 +270,7 @@ public class Substratum extends Application {
      * For Android Oreo and above, we need to ensure our notification channels are properly
      * configured so that we do not get killed off with the new background service limiter.
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.O)
     private void createNotificationChannel() {
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
@@ -333,8 +332,7 @@ public class Substratum extends Application {
                 }
             }
             return true;
-        } catch (Exception e) {
-            // Suppress warnings
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -373,7 +371,7 @@ public class Substratum extends Application {
     public void unregisterFinishReceiver() {
         try {
             this.unregisterReceiver(finishReceiver);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException ignored) {
             // Already unregistered
         }
     }

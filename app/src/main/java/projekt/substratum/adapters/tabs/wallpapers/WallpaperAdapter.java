@@ -70,8 +70,6 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                  int pos) {
         WallpaperItem wallpaperItem = information.get(pos);
         TabWallpaperItemBinding viewHolderBinding = viewHolder.getBinding();
-        viewHolderBinding.setWallpaperItem(wallpaperItem);
-        viewHolderBinding.executePendingBindings();
         context = wallpaperItem.getContext();
 
         viewHolderBinding.wallpaperCard.setOnClickListener(view -> {
@@ -108,6 +106,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             });
             builder.show();
         });
+        viewHolderBinding.setWallpaperItem(wallpaperItem);
+        viewHolderBinding.executePendingBindings();
         setRecyclerViewAnimations(viewHolderBinding.wallpaperImage);
     }
 
@@ -122,7 +122,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         private WeakReference<Activity> activity;
         private String wallpaperLink;
         private String extension;
-        private String directory_output;
+        private String directoryOutput;
         private String wallpaperName;
 
         downloadWallpaper(WallpaperAdapter wallpaperAdapter,
@@ -183,14 +183,14 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                 // InformationActivity
                 CropImage.activity(Uri.fromFile(new File(
                         wallpaperAdapter.context.getCacheDir().getAbsolutePath() +
-                                '/' + this.directory_output)))
+                                '/' + this.directoryOutput)))
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setFixAspectRatio(false)
                         .setInitialCropWindowPaddingRatio((float) 0)
                         .setActivityTitle(this.wallpaperName)
                         .setOutputUri(Uri.fromFile(new File(
                                 wallpaperAdapter.context.getCacheDir().getAbsolutePath() +
-                                        '/' + this.directory_output)))
+                                        '/' + this.directoryOutput)))
                         .start(this.activity.get());
             }
         }
@@ -205,13 +205,13 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                 } else {
                     this.extension = ".jpg";
                 }
-                this.directory_output = sUrl[1] + this.extension;
+                this.directoryOutput = sUrl[1] + this.extension;
                 this.wallpaperName = sUrl[2];
 
                 FileDownloader.init(wallpaperAdapter.context,
                         this.wallpaperLink,
                         "",
-                        this.directory_output
+                        this.directoryOutput
                 );
             }
             return null;

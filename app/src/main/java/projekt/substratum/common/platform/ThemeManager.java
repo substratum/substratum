@@ -167,7 +167,7 @@ public enum ThemeManager {
             SubstratumService.switchOverlay(overlays, true, shouldRestartUI(context, overlays));
         } else if (hasThemeInterfacer) {
             ThemeInterfacerService.enableOverlays(
-                    context, overlays, shouldRestartUI(context, overlays));
+                    overlays, shouldRestartUI(context, overlays));
         } else if (hasAndromeda) {
             if (!AndromedaService.enableOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
@@ -212,7 +212,7 @@ public enum ThemeManager {
             SubstratumService.switchOverlay(overlays, false, shouldRestartUI(context, overlays));
         } else if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.disableOverlays(
-                    context, overlays, shouldRestartUI(context, overlays));
+                    overlays, shouldRestartUI(context, overlays));
         } else if (checkAndromeda(context)) {
             if (!AndromedaService.disableOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
@@ -252,7 +252,7 @@ public enum ThemeManager {
             SubstratumService.setPriority(overlays, shouldRestartUI(context, overlays));
         } else if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.setPriority(
-                    context, overlays, shouldRestartUI(context, overlays));
+                    overlays, shouldRestartUI(context, overlays));
         } else if (checkAndromeda(context)) {
             if (!AndromedaService.setPriority(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
@@ -301,7 +301,7 @@ public enum ThemeManager {
         if (checkSubstratumService(context)) {
             SubstratumService.restartSystemUi();
         } else if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.restartSystemUI(context);
+            ThemeInterfacerService.restartSystemUI();
         } else {
             Root.runCommand("pkill -f com.android.systemui");
         }
@@ -367,9 +367,6 @@ public enum ThemeManager {
             if (checkSubstratumService(context)) {
                 // For direct calls with the Substratum service
                 allOverlays = SubstratumService.getAllOverlays();
-            } else if (checkThemeInterfacer(context)) {
-                // For Theme Interfacer calls
-                allOverlays = ThemeInterfacerService.getAllOverlays(context);
             }
             if (allOverlays != null) {
                 switch (secondaryState) {
@@ -531,8 +528,7 @@ public enum ThemeManager {
                                         if (!sourceDir.startsWith("/vendor/overlay/")) {
                                             list.add(packageName);
                                         }
-                                    } catch (Exception e2) {
-                                        // Suppress warning
+                                    } catch (Exception ignored) {
                                     }
                                 }
                             }
@@ -580,14 +576,14 @@ public enum ThemeManager {
      * Check whether a specified package is an overlay
      *
      * @param context      Context
-     * @param package_name Package to be determined
-     * @return True, if package_name is an overlay
+     * @param packageName  Package to be determined
+     * @return True, if packageName is an overlay
      */
     public static boolean isOverlay(Context context,
-                                    String package_name) {
+                                    String packageName) {
         List<String> overlays = listAllOverlays(context);
         for (int i = 0; i < overlays.size(); i++) {
-            if (overlays.get(i).equals(package_name)) {
+            if (overlays.get(i).equals(packageName)) {
                 return true;
             }
         }
@@ -598,15 +594,15 @@ public enum ThemeManager {
      * List overlays by theme
      *
      * @param context      Context
-     * @param package_name Package to be determined
-     * @return Returns a list of overlays activated for package_name
+     * @param packageName  Package to be determined
+     * @return Returns a list of overlays activated for packageName
      */
     public static List<String> listOverlaysByTheme(Context context,
-                                                   String package_name) {
+                                                   String packageName) {
         List<String> list = new ArrayList<>();
         List<String> overlays = listAllOverlays(context);
         for (int i = 0; i < overlays.size(); i++) {
-            if (getOverlayParent(context, overlays.get(i)).equals(package_name)) {
+            if (getOverlayParent(context, overlays.get(i)).equals(packageName)) {
                 list.add(overlays.get(i));
             }
         }
@@ -689,7 +685,7 @@ public enum ThemeManager {
         } else if (checkThemeInterfacer(context)) {
             ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
-            ThemeInterfacerService.installOverlays(context, list);
+            ThemeInterfacerService.installOverlays(list);
         } else if (checkAndromeda(context)) {
             List<String> list = new ArrayList<>();
             list.add(overlay);
@@ -729,9 +725,8 @@ public enum ThemeManager {
             SubstratumService.uninstallOverlay(overlays, shouldRestartUi);
         } else if (checkThemeInterfacer(context) && !Systems.isSamsungDevice(context)) {
             ThemeInterfacerService.uninstallOverlays(
-                    context,
-                    overlays,
-                    false);
+                    overlays
+            );
         } else if (checkAndromeda(context) && !Systems.isSamsungDevice(context)) {
             if (!AndromedaService.uninstallOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());

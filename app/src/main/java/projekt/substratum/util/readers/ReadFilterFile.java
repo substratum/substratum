@@ -49,22 +49,22 @@ public enum ReadFilterFile {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("repo");
+            NodeList nodeList = doc.getElementsByTagName("repo");
 
             List<ValidatorFilter> list = new ArrayList<>();
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
+            for (int temp = 0; temp < nodeList.getLength(); temp++) {
+                Node node = nodeList.item(temp);
+                if ((int) node.getNodeType() == (int) Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
                     ValidatorFilter current = new ValidatorFilter(
-                            eElement.getAttribute("name"));
+                            element.getAttribute("name"));
                     List<String> filtered = new ArrayList<>();
                     boolean unknown = false;
                     int counter = 1;
                     while (!unknown) {
                         try {
                             String filterObject =
-                                    eElement.getElementsByTagName(
+                                    element.getElementsByTagName(
                                             "filter" + counter).item(0).getTextContent();
                             filtered.add(filterObject);
                             counter++;

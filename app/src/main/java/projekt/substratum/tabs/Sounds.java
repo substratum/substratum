@@ -96,7 +96,7 @@ public class Sounds extends Fragment {
     private RecyclerView recyclerView;
     private Spinner soundsSelector;
     private RelativeLayout relativeLayout;
-    private String theme_pid;
+    private String themePid;
     private ArrayList<SoundsItem> wordList;
     private int previousPosition;
     private SharedPreferences prefs;
@@ -132,7 +132,7 @@ public class Sounds extends Fragment {
         relativeLayout = tabSoundsBinding.relativeLayout;
 
         if (getArguments() != null) {
-            theme_pid = getArguments().getString(THEME_PID);
+            themePid = getArguments().getString(THEME_PID);
         } else {
             // At this point, the tab has been incorrectly loaded
             return null;
@@ -145,13 +145,13 @@ public class Sounds extends Fragment {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        final ArrayList<SoundsItem> empty_array = new ArrayList<>();
-        final RecyclerView.Adapter empty_adapter = new SoundsAdapter(empty_array);
-        recyclerView.setAdapter(empty_adapter);
+        final ArrayList<SoundsItem> emptyArray = new ArrayList<>();
+        final RecyclerView.Adapter emptyAdapter = new SoundsAdapter(emptyArray);
+        recyclerView.setAdapter(emptyAdapter);
 
         try {
             soundsSelector = setThemeExtraLists(context,
-                    theme_pid,
+                    themePid,
                     soundsDir,
                     getString(R.string.sounds_default_spinner),
                     getString(R.string.sounds_spinner_set_defaults),
@@ -221,7 +221,7 @@ public class Sounds extends Fragment {
                             stopPlayer();
                         }
                         previousPosition = position;
-                    } catch (final IOException ioe) {
+                    } catch (final IOException ignored) {
                         Log.e(TAG, "Playback has failed for " + info.getWorkingTitle());
                     }
                 })
@@ -246,7 +246,7 @@ public class Sounds extends Fragment {
                         nestedScrollView,
                         soundsSelector.getSelectedItem().toString(),
                         context,
-                        theme_pid
+                        themePid
                 );
             }
         }
@@ -263,7 +263,7 @@ public class Sounds extends Fragment {
                 context.getApplicationContext().unregisterReceiver(finishReceiver);
             }
             localBroadcastManager.unregisterReceiver(jobReceiver);
-        } catch (final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException ignored) {
             // Unregistered already
         }
     }
@@ -393,7 +393,7 @@ public class Sounds extends Fragment {
                         sounds.errorLoadingPack.setVisibility(View.VISIBLE);
                     }
                     sounds.progressBar.setVisibility(View.GONE);
-                } catch (final Exception e) {
+                } catch (final Exception ignored) {
                     Log.e(TAG, "Window was destroyed before AsyncTask could perform postExecute()");
                 }
             }
@@ -427,7 +427,7 @@ public class Sounds extends Fragment {
                     if (encrypted) {
                         FileOperations.copyFileOrDir(
                                 Objects.requireNonNull(
-                                        getThemeAssetManager(sounds.context, sounds.theme_pid)
+                                        getThemeAssetManager(sounds.context, sounds.themePid)
                                 ),
                                 soundsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 sounds.context.getCacheDir().getAbsolutePath() +
@@ -437,7 +437,7 @@ public class Sounds extends Fragment {
                     } else {
                         try (InputStream inputStream =
                                      Objects.requireNonNull(
-                                             getThemeAssetManager(sounds.context, sounds.theme_pid)
+                                             getThemeAssetManager(sounds.context, sounds.themePid)
                                      ).open(soundsDir + '/' + source);
                              OutputStream outputStream =
                                      new FileOutputStream(

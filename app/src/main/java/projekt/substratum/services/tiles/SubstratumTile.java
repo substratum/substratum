@@ -19,6 +19,7 @@
 package projekt.substratum.services.tiles;
 
 import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Build;
 import android.service.quicksettings.TileService;
@@ -34,7 +35,7 @@ public class SubstratumTile extends TileService {
         try {
             Intent intent = new Intent(this, LauncherActivity.class);
             startActivityAndCollapse(intent);
-        } catch (Exception e) {
+        } catch (ActivityNotFoundException ignored) {
             // At this point, the app is most likely hidden and set to only open from Settings
             Intent intent = new Intent(this, LaunchActivity.class);
             startActivityAndCollapse(intent);

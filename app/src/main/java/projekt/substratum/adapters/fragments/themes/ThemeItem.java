@@ -47,7 +47,7 @@ public class ThemeItem {
         this.themeAuthor = themeAuthor;
     }
 
-    public String getThemePackage() {
+    String getThemePackage() {
         return this.themePackage;
     }
 

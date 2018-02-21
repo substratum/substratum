@@ -19,7 +19,6 @@
 package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
@@ -65,6 +64,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.SUBSTRATUM_THEME;
 import static projekt.substratum.common.References.hashPassthrough;
 import static projekt.substratum.common.References.isNetworkAvailable;
+import static projekt.substratum.common.References.isServiceRunning;
 import static projekt.substratum.common.References.spreadYourWingsAndFly;
 
 public enum Systems {
@@ -76,30 +76,6 @@ public enum Systems {
      */
     public static Boolean isSamsungDevice = null;
     static Boolean checkPackageSupported;
-
-    /**
-     * Check whether Overlay Manager Service is actually running on the device
-     *
-     * @param context      Self explantory, bro
-     * @param serviceClass Specified OMS class name
-     * @return True, if OMS is running
-     */
-    private static boolean isOMSRunning(
-            Context context,
-            Class<?> serviceClass) {
-        ActivityManager activityManager = (ActivityManager)
-                context.getSystemService(Context.ACTIVITY_SERVICE);
-        assert activityManager != null;
-        List<ActivityManager.RunningServiceInfo> services =
-                activityManager.getRunningServices(Integer.MAX_VALUE);
-
-        for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
-            if (runningServiceInfo.service.getClassName().equals(serviceClass.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * This method is used to determine whether there the system is initiated with OMS
@@ -254,8 +230,8 @@ public enum Systems {
                 if (checkThemeInterfacer(context) || checkSubstratumService(context)) {
                     foundOms = true;
                 } else if (sonyCheck == null || sonyCheck.length() == 0) {
-                    Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
-                            IOverlayManager.class);
+                    Boolean isOMSRunning = isServiceRunning(IOverlayManager.class,
+                            context.getApplicationContext());
                     if (isOMSRunning || checkOreo()) {
                         Log.d(SUBSTRATUM_LOG,
                                 "This device fully supports the Overlay Manager Service...");
@@ -456,8 +432,7 @@ public enum Systems {
     private static PackageInfo getAndromedaPackage(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
-        } catch (Exception e) {
-            // Andromeda was not installed
+        } catch (Exception ignored) {
         }
         return null;
     }
@@ -471,8 +446,7 @@ public enum Systems {
     public static PackageInfo getThemeInterfacerPackage(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(INTERFACER_PACKAGE, 0);
-        } catch (Exception e) {
-            // Theme Interfacer was not installed
+        } catch (Exception ignored) {
         }
         return null;
     }
@@ -648,7 +622,7 @@ public enum Systems {
             Context context,
             String url,
             String fileName) {
-        String supported_rom = "";
+        String supportedRom = "";
         try {
             if (isNetworkAvailable(context)) {
                 FileDownloader.init(context, url, "", fileName);
@@ -679,11 +653,11 @@ public enum Systems {
                                 current = current.split("\\.")[1];
                             }
                             Log.d(SUBSTRATUM_LOG, "Supported ROM: " + current);
-                            supported_rom = current;
+                            supportedRom = current;
                             supported = true;
                         } else {
                             Log.d(SUBSTRATUM_LOG, "Supported ROM: " + value);
-                            supported_rom = value;
+                            supportedRom = value;
                             supported = true;
                         }
                         break;
@@ -716,12 +690,12 @@ public enum Systems {
                                     }
                                     Log.d(SUBSTRATUM_LOG,
                                             "Supported ROM (1): " + current);
-                                    supported_rom = current;
+                                    supportedRom = current;
                                     supported = true;
                                 } else {
                                     Log.d(SUBSTRATUM_LOG,
                                             "Supported ROM (1): " + value);
-                                    supported_rom = value;
+                                    supportedRom = value;
                                     supported = true;
                                 }
                                 break;
@@ -731,10 +705,9 @@ public enum Systems {
                     }
                 }
             }
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
-        return supported_rom;
+        return supportedRom;
     }
 
     /**

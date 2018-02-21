@@ -47,16 +47,16 @@ public enum ReadSupportedROMsFile {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("rom");
+            NodeList nodeList = doc.getElementsByTagName("rom");
 
             Map<String, String> hashMap = new HashMap<>();
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
+            for (int temp = 0; temp < nodeList.getLength(); temp++) {
+                Node node = nodeList.item(temp);
+                if ((int) node.getNodeType() == (int) Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
 
-                    String name = eElement.getAttribute("name");
-                    String id = eElement.getAttribute("id");
+                    String name = element.getAttribute("name");
+                    String id = element.getAttribute("id");
 
                     hashMap.put(id, name);
                 }

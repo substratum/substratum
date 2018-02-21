@@ -252,7 +252,7 @@ public class BootAnimationUtils {
                                              bootanimation + ".zip")) {
                             BootAnimationHandlerAsync.CopyStream(inputStream, outputStream);
                         }
-                    } catch (Exception e) {
+                    } catch (Exception ignored) {
                         hasFailed = true;
                         Log.e(TAG,
                                 "There is no animation.zip found within the assets " +
@@ -395,8 +395,7 @@ public class BootAnimationUtils {
                     if (reader != null) {
                         try {
                             reader.close();
-                        } catch (IOException e) {
-                            // Suppress warning
+                        } catch (IOException ignored) {
                         }
                     }
                 }
@@ -492,15 +491,14 @@ public class BootAnimationUtils {
                                 if (in != null) {
                                     try {
                                         in.close();
-                                    } catch (IOException e) {
-                                        // Suppress warning
+                                    } catch (IOException ignored) {
+
                                     }
                                 }
                                 if (out != null) {
                                     try {
                                         out.close();
-                                    } catch (IOException e) {
-                                        // Suppress warning
+                                    } catch (IOException ignored) {
                                     }
                                 }
                             }

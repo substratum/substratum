@@ -31,7 +31,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -74,8 +73,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                     .getApplicationInfo(packageName, 0);
             packageName = context.getPackageManager()
                     .getApplicationLabel(applicationInfo).toString();
-        } catch (PackageManager.NameNotFoundException e) {
-            // Suppress warning
+        } catch (PackageManager.NameNotFoundException ignored) {
         }
         return packageName;
     }
@@ -106,7 +104,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                         overlays);
 
             }
-        } else if (Objects.equals(packageName, SYSTEMUI)) {
+        } else if (SYSTEMUI.equals(packageName)) {
             if (ThemeManager.listEnabledOverlaysForTarget(context, SYSTEMUI).isEmpty()) return;
             switch (sharedPreferences.getInt("sysui_crash_count", 0)) {
                 case 0:

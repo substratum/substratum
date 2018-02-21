@@ -46,12 +46,11 @@ public class IATabsAdapter extends FragmentStatePagerAdapter {
     private String wallpaperUrl;
     private Bundle bundle;
     private HashMap<String, Boolean> extras;
-    private List packageChecker;
+    private List<Object> packageChecker;
 
-    @SuppressWarnings("unchecked")
     public IATabsAdapter(FragmentManager fragmentManager,
                          Integer NumOfTabs,
-                         List packageChecker,
+                         List<? extends String> packageChecker,
                          String wallpaperUrl,
                          HashMap<String, Boolean> extras,
                          Bundle bundle) {
@@ -59,7 +58,7 @@ public class IATabsAdapter extends FragmentStatePagerAdapter {
         this.numOfTabs = NumOfTabs;
         try {
             this.packageChecker = new ArrayList<>(packageChecker);
-        } catch (NullPointerException npe) {
+        } catch (NullPointerException ignored) {
             // Suppress this warning for themeMode launches
         }
         this.wallpaperUrl = wallpaperUrl;

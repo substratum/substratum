@@ -46,7 +46,7 @@ public enum SoundsManager {
         if (checkSubstratumService(context)) {
             SubstratumService.setSounds(themePid, name);
         } else if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.setThemedSounds(context, themePid, name);
+            ThemeInterfacerService.setThemedSounds(themePid, name);
             ringtone = true; // Always assume that the process is succeeded;
         }
         return new boolean[]{false, ringtone};
@@ -67,7 +67,7 @@ public enum SoundsManager {
         if (checkSubstratumService(context)) {
             SubstratumService.clearSounds();
         } else if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.clearThemedSounds(context);
+            ThemeInterfacerService.clearThemedSounds();
         }
     }
 }

@@ -66,7 +66,9 @@ import static projekt.substratum.common.Internal.SHOWCASE_CACHE;
 public class ShowcaseActivity extends AppCompatActivity {
 
     private static final String TAG = "ShowcaseActivity";
-    private RelativeLayout no_network;
+    private static final String showcaseTabsFile = "showcase_tabs.xml";
+    private static final String showcaseTabsTempFile = "showcase_tabs-temp.xml";
+    private RelativeLayout noNetwork;
     private Toolbar toolbar;
     private ViewGroup masterView;
     private NavigationView navigationView;
@@ -133,11 +135,12 @@ public class ShowcaseActivity extends AppCompatActivity {
      */
     private void refreshLayout() {
         if (References.isNetworkAvailable(getApplicationContext())) {
-            no_network.setVisibility(View.GONE);
+            noNetwork.setVisibility(View.GONE);
             DownloadTabs downloadTabs = new DownloadTabs(this);
-            downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
+            downloadTabs.execute(getString(R.string.showcase_tabs), showcaseTabsFile);
         } else {
-            no_network.setVisibility(View.VISIBLE);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            noNetwork.setVisibility(View.VISIBLE);
         }
     }
 
@@ -148,7 +151,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         ShowcaseActivityBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.showcase_activity);
 
-        no_network = binding.noNetwork;
+        noNetwork = binding.noNetwork;
         toolbar = binding.toolbar;
         masterView = binding.rootView;
         navigationView = binding.navigationView;
@@ -213,22 +216,22 @@ public class ShowcaseActivity extends AppCompatActivity {
                 String resultant = result;
                 if (resultant.endsWith("-temp.xml")) {
                     String existing = MD5.calculateMD5(new File(activity.getCacheDir() +
-                            SHOWCASE_CACHE + "showcase_tabs.xml"));
+                            SHOWCASE_CACHE + showcaseTabsFile));
                     String new_file = MD5.calculateMD5(new File(activity.getCacheDir() +
-                            SHOWCASE_CACHE + "showcase_tabs-temp.xml"));
+                            SHOWCASE_CACHE + showcaseTabsTempFile));
                     if ((existing != null) && !existing.equals(new_file)) {
                         // MD5s don't match
                         File renameMe = new File(activity.getCacheDir() +
-                                SHOWCASE_CACHE + "showcase_tabs-temp.xml");
+                                SHOWCASE_CACHE + showcaseTabsTempFile);
                         boolean move = renameMe.renameTo(
                                 new File(activity.getCacheDir() +
-                                        SHOWCASE_CACHE + "showcase_tabs.xml"));
+                                        SHOWCASE_CACHE + showcaseTabsFile));
                         if (move) {
                             Log.e(TAG, "Successfully updated the showcase tabs database.");
                         }
                     } else {
                         File deleteMe = new File(activity.getCacheDir() +
-                                SHOWCASE_CACHE + "showcase_tabs-temp.xml");
+                                SHOWCASE_CACHE + showcaseTabsTempFile);
                         boolean deleted = deleteMe.delete();
                         if (!deleted) {
                             Log.e(TAG, "Unable to delete temporary tab file.");
@@ -236,7 +239,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                     }
                 }
 
-                resultant = "showcase_tabs.xml";
+                resultant = showcaseTabsFile;
 
                 Map<String, String> newArray =
                         ReadShowcaseTabsFile.read(activity.getCacheDir() +
@@ -309,9 +312,9 @@ public class ShowcaseActivity extends AppCompatActivity {
 
             if (activity != null) {
 
-                File current_wallpapers = new File(
+                File currentWallpapers = new File(
                         activity.getCacheDir() + SHOWCASE_CACHE + inputFileName);
-                if (current_wallpapers.exists()) {
+                if (currentWallpapers.exists()) {
                     // We create a temporary file to check whether we should be replacing the
                     // current
                     inputFileName = inputFileName.substring(0, inputFileName.length() - 4) +

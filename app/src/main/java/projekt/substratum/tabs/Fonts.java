@@ -96,7 +96,7 @@ public class Fonts extends Fragment {
     private RelativeLayout fontPlaceholder;
     private Spinner fontSelector;
     private String themePid;
-    private ProgressDialog mProgressDialog;
+    private ProgressDialog progressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
     private boolean paused;
@@ -210,7 +210,7 @@ public class Fonts extends Fragment {
         super.onDestroy();
         try {
             localBroadcastManager.unregisterReceiver(jobReceiver);
-        } catch (final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException ignored) {
             // unregistered already
         }
     }
@@ -263,12 +263,12 @@ public class Fonts extends Fragment {
             if (fragment != null) {
                 final Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
-                    fragment.mProgressDialog = new ProgressDialog(context, R.style.RestoreDialog);
-                    fragment.mProgressDialog.setMessage(
+                    fragment.progressDialog = new ProgressDialog(context, R.style.RestoreDialog);
+                    fragment.progressDialog.setMessage(
                             context.getString(R.string.manage_dialog_performing));
-                    fragment.mProgressDialog.setIndeterminate(true);
-                    fragment.mProgressDialog.setCancelable(false);
-                    fragment.mProgressDialog.show();
+                    fragment.progressDialog.setIndeterminate(true);
+                    fragment.progressDialog.setCancelable(false);
+                    fragment.progressDialog.show();
                 }
             }
         }
@@ -279,7 +279,7 @@ public class Fonts extends Fragment {
             if (fragment != null) {
                 final Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
-                    fragment.mProgressDialog.dismiss();
+                    fragment.progressDialog.dismiss();
                 }
                 final SharedPreferences.Editor editor = fragment.prefs.edit();
                 editor.remove(FONTS_APPLIED);
@@ -292,11 +292,11 @@ public class Fonts extends Fragment {
                             Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    final Toast toast = Toast.makeText(
+                    Toast.makeText(
                             context,
                             R.string.manage_fonts_toast,
-                            Toast.LENGTH_SHORT);
-                    toast.show();
+                            Toast.LENGTH_SHORT)
+                            .show();
                     final AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(context);
                     alertDialogBuilder.setTitle(R.string.legacy_dialog_soft_reboot_title);
@@ -432,7 +432,7 @@ public class Fonts extends Fragment {
                     fonts.fontHolder.setVisibility(View.VISIBLE);
                     fonts.progressBar.setVisibility(View.GONE);
                     fonts.paused = false;
-                } catch (final Exception e) {
+                } catch (final Exception ignored) {
                     Log.e("Fonts",
                             "Window was destroyed before AsyncTask could complete postExecute()");
                 }
@@ -495,7 +495,7 @@ public class Fonts extends Fragment {
                                     FONT_CACHE + source,
                             fonts.context.getCacheDir().getAbsolutePath() +
                                     FONT_PREVIEW_CACHE);
-                } catch (final Exception e) {
+                } catch (final Exception ignored) {
                     Log.e(TAG, "Unexpectedly lost connection to the application host");
                 }
             }

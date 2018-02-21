@@ -205,7 +205,6 @@ public class InformationActivity extends AppCompatActivity {
                 return context.getColor(R.color.colorPrimary);
             }
         } catch (IllegalArgumentException ignored) {
-            // Suppress warning
         }
         return context.getColor(R.color.main_screen_card_background);
     }
@@ -214,9 +213,9 @@ public class InformationActivity extends AppCompatActivity {
      * Depending on the hero image, change the actionbar color buttons
      *
      * @param activity  Activity to change it in
-     * @param dark_mode True if dark, false if light
+     * @param darkMode  True if dark, false if light
      */
-    private static void setOverflowButtonColor(Activity activity, boolean dark_mode) {
+    private static void setOverflowButtonColor(Activity activity, boolean darkMode) {
         @SuppressLint("PrivateResource") String overflowDescription =
                 activity.getString(R.string.abc_action_menu_overflow_description);
         ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
@@ -233,7 +232,7 @@ public class InformationActivity extends AppCompatActivity {
             for (View view : outViews) {
                 if (view instanceof AppCompatImageView) {
                     AppCompatImageView overflow = (AppCompatImageView) view;
-                    overflow.setImageResource(dark_mode ? R.drawable
+                    overflow.setImageResource(darkMode ? R.drawable
                             .information_activity_overflow_dark :
                             R.drawable.information_activity_overflow_light);
                 }
@@ -518,8 +517,7 @@ public class InformationActivity extends AppCompatActivity {
         if (heroImage != null) {
             try {
                 heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
-            } catch (Exception e) {
-                // Suppress warning
+            } catch (Exception ignored) {
             }
         }
         dominantColor = heroImageBitmap == null ?
@@ -732,8 +730,7 @@ public class InformationActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(v -> {
             try {
                 boolean isLunchbarOpen = InformationActivity.closeAllLunchBars();
-                Handler handler = new Handler();
-                handler.postDelayed(() -> {
+                new Handler().postDelayed(() -> {
                     Intent intent;
                     if (adapt != null) {
                         Object obj = adapt.instantiateItem(viewPager, tabPosition);
@@ -758,8 +755,7 @@ public class InformationActivity extends AppCompatActivity {
                         }
                     }
                 }, (long) (isLunchbarOpen ? LUNCHBAR_DISMISS_FAB_CLICK_DELAY : 0));
-            } catch (NullPointerException npe) {
-                // Suppress warning
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -996,7 +992,7 @@ public class InformationActivity extends AppCompatActivity {
                             // Get all installed overlays
                             List<String> stateAll = ThemeManager.listAllOverlays(context);
 
-                            ArrayList<String> all_overlays = new ArrayList<>();
+                            ArrayList<String> allOverlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
@@ -1009,18 +1005,17 @@ public class InformationActivity extends AppCompatActivity {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
                                         if ((parent != null) && parent.equals(themePid)) {
-                                            all_overlays.add(current);
+                                            allOverlays.add(current);
                                         }
                                     }
-                                } catch (Exception e) {
-                                    // NameNotFound
+                                } catch (Exception ignored) {
                                 }
                             }
 
                             // Begin uninstalling overlays for this package
                             ThemeManager.uninstallOverlay(
                                     context,
-                                    all_overlays
+                                    allOverlays
                             );
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id19) -> {
@@ -1043,7 +1038,7 @@ public class InformationActivity extends AppCompatActivity {
                             List<String> stateAll = ThemeManager.listOverlays(
                                     context, ThemeManager.STATE_ENABLED);
 
-                            ArrayList<String> all_overlays = new ArrayList<>();
+                            ArrayList<String> allOverlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
@@ -1056,11 +1051,10 @@ public class InformationActivity extends AppCompatActivity {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
                                         if ((parent != null) && parent.equals(themePid)) {
-                                            all_overlays.add(current);
+                                            allOverlays.add(current);
                                         }
                                     }
-                                } catch (Exception e) {
-                                    // NameNotFound
+                                } catch (Exception ignored) {
                                 }
                             }
                             currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
@@ -1068,7 +1062,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Snackbar.LENGTH_LONG);
                             currentShownLunchBar.show();
                             // Begin disabling overlays
-                            ThemeManager.disableOverlay(context, all_overlays);
+                            ThemeManager.disableOverlay(context, allOverlays);
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id15) -> {
                             // User cancelled the dialog
@@ -1091,7 +1085,7 @@ public class InformationActivity extends AppCompatActivity {
                             List<String> stateAll = ThemeManager.listOverlays(
                                     context, ThemeManager.STATE_DISABLED);
 
-                            ArrayList<String> all_overlays = new ArrayList<>();
+                            ArrayList<String> allOverlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
@@ -1104,11 +1098,10 @@ public class InformationActivity extends AppCompatActivity {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
                                         if ((parent != null) && parent.equals(themePid)) {
-                                            all_overlays.add(current);
+                                            allOverlays.add(current);
                                         }
                                     }
-                                } catch (Exception e) {
-                                    // NameNotFound
+                                } catch (Exception ignored) {
                                 }
                             }
                             currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
@@ -1117,7 +1110,7 @@ public class InformationActivity extends AppCompatActivity {
                             currentShownLunchBar.show();
 
                             // Begin enabling overlays
-                            ThemeManager.enableOverlay(context, all_overlays);
+                            ThemeManager.enableOverlay(context, allOverlays);
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id13) ->
                                 dialog
@@ -1195,7 +1188,7 @@ public class InformationActivity extends AppCompatActivity {
         NotificationManager manager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
-            manager.cancel(References.notification_id_compiler);
+            manager.cancel(References.NOTIFICATION_ID_COMPILER);
         }
 
         try {
@@ -1404,7 +1397,7 @@ public class InformationActivity extends AppCompatActivity {
                         informationActivity.context
                                 .getSystemService(Context.NOTIFICATION_SERVICE);
                 if (manager != null) {
-                    manager.cancel(References.notification_id_compiler);
+                    manager.cancel(References.NOTIFICATION_ID_COMPILER);
                 }
             }
         }
@@ -1474,8 +1467,7 @@ public class InformationActivity extends AppCompatActivity {
                             themeName + " was just updated, now closing InformationActivity...");
                     Toast.makeText(context, themeUpdatedToastText, Toast.LENGTH_LONG).show();
                     finish();
-                    Handler handler = new Handler();
-                    handler.postDelayed(() ->
+                    new Handler().postDelayed(() ->
                             Theming.launchTheme(context, themePid), 500L);
                 }
             } else if (compilingProcess) {

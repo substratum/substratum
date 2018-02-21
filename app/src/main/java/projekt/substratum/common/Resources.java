@@ -82,6 +82,7 @@ public enum Resources {
 
             // Device Specific Packages
             "com.cyanogenmod.settings.device",
+            "org.lineageos.settings.device",
 
             // Google Packages
             "com.google.android.apps.nexuslauncher",
@@ -245,13 +246,9 @@ public enum Resources {
             cls.getDeclaredMethod("stopShutdownAnimation");
             Log.d(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
             return true;
-        } catch (final Exception ignored) {
-            return false;
+        } catch (Exception ignored) {
         }
+        return false;
     }
 
-    // This method checks whether user profiles is supported by the system
-    public static boolean isProfilesSupported(final Context context) {
-        return !checkAndromeda(context) && !isSamsungDevice(context);
-    }
 }

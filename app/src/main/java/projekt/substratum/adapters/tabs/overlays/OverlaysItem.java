@@ -313,8 +313,7 @@ public class OverlaysItem implements Serializable {
             PackageInfo pinfo =
                     context.getPackageManager().getPackageInfo(getFullOverlayParameters(), 0);
             return !pinfo.versionName.equals(versionName);
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return true;
     }
@@ -331,8 +330,7 @@ public class OverlaysItem implements Serializable {
                     context.getPackageManager().getPackageInfo(
                             packageName + '.' + themeName + variant + base, 0);
             return packageInfo.versionName.equals(versionName);
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return false;
     }

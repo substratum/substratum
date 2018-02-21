@@ -263,9 +263,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                             overlayStateList,
                             viewHolderBinding
                     );
-                }
-
-                if (pos >= 1) {
+                } else if (pos >= 1) {
                     String packageName = "";
                     if (spinnerNumber == 1) {
                         packageName = setPackageName(packageName, arg0);
@@ -335,8 +333,6 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         OverlaysItem overlaysItem = overlayList.get(position);
         TabOverlaysItemBinding viewHolderBinding = viewHolder.getBinding();
         Context context = overlaysItem.getContext();
-        viewHolderBinding.setOverlay(overlaysItem);
-        viewHolderBinding.executePendingBindings();
 
         viewHolderBinding.appIcon.setImageDrawable(overlaysItem.getAppIcon());
         viewHolderBinding.overlayTargetPackageName.setText(overlaysItem.getName());
@@ -539,6 +535,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
             }
         }
+        viewHolderBinding.setOverlay(overlaysItem);
+        viewHolderBinding.executePendingBindings();
     }
 
     private View getLunchbarView(OverlaysItem item) {

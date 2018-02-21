@@ -57,7 +57,7 @@ public class Wallpapers extends Fragment {
     private View noNetwork;
     private View noWallpapers;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    private RecyclerView recyclerView;
     private String wallpaperUrl;
     private Context context;
 
@@ -77,7 +77,7 @@ public class Wallpapers extends Fragment {
         noNetwork = tabWallpapersBinding.noNetwork;
         noWallpapers = tabWallpapersBinding.noneFound;
         swipeRefreshLayout = tabWallpapersBinding.swipeRefreshLayout;
-        mRecyclerView = tabWallpapersBinding.wallpaperRecyclerView;
+        recyclerView = tabWallpapersBinding.wallpaperRecyclerView;
 
         if (getArguments() != null) {
             wallpaperUrl = getArguments().getString(THEME_WALLPAPER);
@@ -96,19 +96,19 @@ public class Wallpapers extends Fragment {
 
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<WallpaperItem> emptyArray = new ArrayList<>();
         RecyclerView.Adapter emptyAdapter = new WallpaperAdapter(emptyArray);
-        mRecyclerView.setAdapter(emptyAdapter);
-        mRecyclerView.getViewTreeObserver().addOnPreDrawListener(
+        recyclerView.setAdapter(emptyAdapter);
+        recyclerView.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
                     @Override
                     public boolean onPreDraw() {
-                        mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                        recyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
                         boolean slowDevice = Systems.isSamsungDevice(context);
-                        for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-                            View v = mRecyclerView.getChildAt(i);
+                        for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                            View v = recyclerView.getChildAt(i);
                             v.setAlpha(0.0f);
                             v.animate().alpha(1.0f)
                                     .setDuration(300)
@@ -125,12 +125,11 @@ public class Wallpapers extends Fragment {
             mainLoader = new downloadResources(this);
             mainLoader.execute(wallpaperUrl, CURRENT_WALLPAPERS);
         } else {
-            mRecyclerView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
             noWallpapers.setVisibility(View.GONE);
             noNetwork.setVisibility(View.VISIBLE);
         }
-
     }
 
     private static class downloadResources extends AsyncTask<String, Integer, String> {
@@ -146,7 +145,7 @@ public class Wallpapers extends Fragment {
             super.onPreExecute();
             Wallpapers wallpapers = ref.get();
             if (wallpapers != null) {
-                wallpapers.mRecyclerView.setVisibility(View.GONE);
+                wallpapers.recyclerView.setVisibility(View.GONE);
                 wallpapers.materialProgressBar.setVisibility(View.VISIBLE);
             }
         }
@@ -180,15 +179,14 @@ public class Wallpapers extends Fragment {
                         }
                     }
                     RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpaperEntries);
-                    wallpapers.mRecyclerView.setAdapter(mAdapter);
+                    wallpapers.recyclerView.setAdapter(mAdapter);
 
                     if (wallpaperEntries.isEmpty())
                         wallpapers.noWallpapers.setVisibility(View.VISIBLE);
 
-                    wallpapers.mRecyclerView.setVisibility(View.VISIBLE);
+                    wallpapers.recyclerView.setVisibility(View.VISIBLE);
                     wallpapers.materialProgressBar.setVisibility(View.GONE);
-                } catch (Exception e) {
-                    // Suppress warning
+                } catch (Exception ignored) {
                 }
             }
         }

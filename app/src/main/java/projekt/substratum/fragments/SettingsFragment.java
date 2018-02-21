@@ -77,6 +77,7 @@ import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Activities.launchExternalActivity;
+import static projekt.substratum.common.Internal.SUPPORTED_ROMS_FILE;
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE;
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE_DIR;
 import static projekt.substratum.common.Packages.validateResource;
@@ -156,7 +157,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (isOMS) {
             new checkROMSupportList(this).execute(
                     getString(R.string.supported_roms_url),
-                    "supported_roms.xml");
+                    SUPPORTED_ROMS_FILE);
         }
         platformSummary = new StringBuilder();
         platformSummary.append(String.format("%s %s (%s)\n", getString(R.string.android),
@@ -500,8 +501,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     try {
                         startActivity(new Intent(getActivity(), ManageSpaceActivity
                                 .class));
-                    } catch (ActivityNotFoundException activityNotFoundException) {
-                        // Suppress warning
+                    } catch (ActivityNotFoundException ignored) {
                     }
                     return false;
                 });

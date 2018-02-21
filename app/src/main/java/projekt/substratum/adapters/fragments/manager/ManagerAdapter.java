@@ -54,8 +54,6 @@ public class ManagerAdapter extends
                                  int position) {
         final ManagerItem managerItem = overlayList.get(position);
         ManagerItemBinding viewHolderBinding = viewHolder.getBinding();
-        viewHolderBinding.setOverlay(managerItem);
-        viewHolderBinding.executePendingBindings();
 
         viewHolderBinding.tvName.setTextColor(overlayList.get(position).getActivationValue());
 
@@ -89,17 +87,19 @@ public class ManagerAdapter extends
             viewHolderBinding.appIcon.setImageDrawable(overlayList.get(position).getDrawable());
         }
         if (overlayList.get(position).getTargetDrawable() == null) {
-            Drawable app_icon = Packages.getAppIcon(
+            Drawable appIcon = Packages.getAppIcon(
                     overlayList.get(position).getContext(),
                     Packages.getOverlayTarget(
                             overlayList.get(position).getContext(),
                             overlayList.get(position).getName()));
-            overlayList.get(position).setTargetDrawable(app_icon);
-            viewHolderBinding.appIconSub.setImageDrawable(app_icon);
+            overlayList.get(position).setTargetDrawable(appIcon);
+            viewHolderBinding.appIconSub.setImageDrawable(appIcon);
         } else {
             viewHolderBinding.appIconSub.setImageDrawable(
                     overlayList.get(position).getTargetDrawable());
         }
+        viewHolderBinding.setOverlay(managerItem);
+        viewHolderBinding.executePendingBindings();
     }
 
     @Override

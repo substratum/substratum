@@ -45,8 +45,7 @@ public enum AndromedaService {
     public static boolean checkServerActivity() {
         try {
             return andromedaInterface.checkServerActivity();
-        } catch (Exception e) {
-            // Suppressed exception
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -60,8 +59,7 @@ public enum AndromedaService {
     static boolean enableOverlays(List<String> overlays) {
         try {
             return andromedaInterface.enableOverlay(overlays);
-        } catch (Exception e) {
-            // Suppressed exception
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -75,8 +73,7 @@ public enum AndromedaService {
     static boolean disableOverlays(List<String> overlays) {
         try {
             return andromedaInterface.disableOverlay(overlays);
-        } catch (Exception e) {
-            // Suppressed exception
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -89,8 +86,7 @@ public enum AndromedaService {
     public static boolean listOverlays() {
         try {
             return andromedaInterface.listOverlays();
-        } catch (Exception e) {
-            // Suppressed exception
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -104,8 +100,7 @@ public enum AndromedaService {
     static boolean installOverlays(List<String> overlays) {
         try {
             return andromedaInterface.installPackage(overlays);
-        } catch (Exception e) {
-            // Suppressed exception
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -119,8 +114,7 @@ public enum AndromedaService {
     static boolean uninstallOverlays(List<String> overlays) {
         try {
             return andromedaInterface.uninstallPackage(overlays);
-        } catch (Exception e) {
-            // Suppressed exception
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -134,8 +128,7 @@ public enum AndromedaService {
     static boolean setPriority(List<String> overlays) {
         try {
             return andromedaInterface.changePriority(overlays);
-        } catch (Exception e) {
-            // Suppressed exception
+        } catch (Exception ignored) {
         }
         return false;
     }

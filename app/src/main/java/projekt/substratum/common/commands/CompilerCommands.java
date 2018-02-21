@@ -219,6 +219,8 @@ public enum CompilerCommands {
      * @param dir               Volatile directory to keep changes in
      * @return Returns a string to allow the app to execute
      */
+    // This is necessary to avoid making a massive unreadable soup
+    // inside the method.
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     public static String createAAPTShellCommands(String workArea,
                                                  String targetPkg,

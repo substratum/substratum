@@ -78,7 +78,7 @@ public class ThemeFragment extends Fragment {
     private BroadcastReceiver refreshReceiver;
     private SharedPreferences prefs;
     private boolean firstBoot = true;
-    private ThemeAdapter mAdapter;
+    private ThemeAdapter themeAdapter;
 
     /**
      * Prepares the data to be used by the cards
@@ -156,10 +156,10 @@ public class ThemeFragment extends Fragment {
             }
 
             // Now we need to sort the buffered installed themes
-            themeFragment.mAdapter = new ThemeAdapter(themeItems);
+            themeFragment.themeAdapter = new ThemeAdapter(themeItems);
 
             // Assign adapter to RecyclerView
-            themeFragment.recyclerView.setAdapter(themeFragment.mAdapter);
+            themeFragment.recyclerView.setAdapter(themeFragment.themeAdapter);
             // Now let's animate the objects one by one!
             themeFragment.recyclerView.getViewTreeObserver().addOnPreDrawListener(
                     new ViewTreeObserver.OnPreDrawListener() {
@@ -213,11 +213,11 @@ public class ThemeFragment extends Fragment {
      */
     private void resetRecyclerView(RecyclerView recyclerView) {
         // Initialize the recycler view with an empty adapter first
-        ArrayList<ThemeItem> empty_array = new ArrayList<>();
-        ThemeAdapter empty_adapter = new ThemeAdapter(empty_array);
+        ArrayList<ThemeItem> emptyArray = new ArrayList<>();
+        ThemeAdapter emptyAdapter = new ThemeAdapter(emptyArray);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(empty_adapter);
+        recyclerView.setAdapter(emptyAdapter);
     }
 
     /**
@@ -276,7 +276,7 @@ public class ThemeFragment extends Fragment {
         super.onDestroy();
         try {
             localBroadcastManager.unregisterReceiver(refreshReceiver);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException ignored) {
             // Unregistered already
         }
     }
@@ -363,8 +363,7 @@ public class ThemeFragment extends Fragment {
                 try {
                     Thread.sleep((long)
                             (themeFragment.firstBoot ? THEME_FRAGMENT_INITIAL_DELAY : 0));
-                } catch (InterruptedException ie) {
-                    // Suppress warning
+                } catch (InterruptedException ignored) {
                 }
                 if (themeFragment.firstBoot) themeFragment.firstBoot = false;
             }

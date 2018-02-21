@@ -119,8 +119,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                 ).execute(APP_UPGRADE);
             } else if (replacing && Packages.getThemesArray(context).contains(packageName)) {
                 // When the package is replacing, and also a theme, update the overlays too!
-                boolean to_update = prefs.getBoolean("theme_updater", false);
-                if (!to_update) return;
+                boolean toUpdate = prefs.getBoolean("theme_updater", false);
+                if (!toUpdate) return;
                 new OverlayUpdate(
                         context,
                         packageName,
@@ -140,7 +140,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         private StringBuilder errorLogs = new StringBuilder();
         private int id;
         private Handler handler = new Handler();
-        private NotificationManager mNotifyManager;
+        private NotificationManager notificationManager;
         private NotificationCompat.Builder builder;
         private List<String> installedOverlays;
         private List<String> erroredPackages;
@@ -192,7 +192,7 @@ public class OverlayUpdater extends BroadcastReceiver {
             if ((upgradeMode != null) && upgradeMode != null && !upgradeMode
                     .isEmpty() && !installedOverlays.isEmpty()) {
                 erroredPackages = new ArrayList<>();
-                mNotifyManager = (NotificationManager) context.getSystemService(
+                notificationManager = (NotificationManager) context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
                 builder = new NotificationCompat.Builder(context,
                         DEFAULT_NOTIFICATION_CHANNEL_ID);
@@ -208,7 +208,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notificationPriority)
                         .setOngoing(true);
-                mNotifyManager.notify(id, builder.build());
+                notificationManager.notify(id, builder.build());
 
                 localBroadcastManager = LocalBroadcastManager.getInstance(context);
 
@@ -218,7 +218,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         @Override
         protected void onPostExecute(String result) {
             if (!installedOverlays.isEmpty()) {
-                mNotifyManager.cancel(id);
+                notificationManager.cancel(id);
                 builder.setAutoCancel(true);
                 builder.setProgress(0, 0, false);
                 builder.setOngoing(false);
@@ -269,7 +269,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                 }
                 erroredPackages = new ArrayList<>();
                 upgradeMode = "";
-                mNotifyManager.notify(id, builder.build());
+                notificationManager.notify(id, builder.build());
             }
         }
 
@@ -311,7 +311,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                                             installedOverlays.get(i)))));
                             break;
                     }
-                    mNotifyManager.notify(id, builder.build());
+                    notificationManager.notify(id, builder.build());
 
                     String theme = Packages.getOverlayMetadata(context,
                             installedOverlays.get(i), metadataOverlayParent);
@@ -380,7 +380,6 @@ public class OverlayUpdater extends BroadcastReceiver {
 
                     String target = Packages.getOverlayMetadata(
                             context, installedOverlays.get(i), metadataOverlayTarget);
-
                     String type1a = Packages.getOverlayMetadata(
                             context, installedOverlays.get(i), metadataOverlayType1a);
                     String type1b = Packages.getOverlayMetadata(
@@ -411,7 +410,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
                     String additionalVariant = (((type2 != null) && !type2.isEmpty()) ?
                             type2Dir.split("/")[2].substring(6) : null);
-                    String base_variant = (((type3Dir != null) && !type3Dir.isEmpty()) ?
+                    String baseVariant = (((type3Dir != null) && !type3Dir.isEmpty()) ?
                             type3Dir.split("/")[2].substring(6) : null);
 
                     // Prenotions
@@ -516,7 +515,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             Packages.getPackageName(context, theme),
                             packageName,
                             additionalVariant,
-                            base_variant,
+                            baseVariant,
                             Packages.getAppVersion(context,
                                     Packages.getOverlayParent(context, this
                                             .installedOverlays.get(i))),

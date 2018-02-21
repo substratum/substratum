@@ -42,7 +42,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     private static final String TAG = "InterfacerBinderService";
     private static InterfacerBinderService binderService;
     private IInterfacerInterface interfacerInterface;
-    private boolean mBound;
+    private boolean bound;
 
     public static InterfacerBinderService getInstance() {
         return binderService;
@@ -53,7 +53,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     }
 
     private void bindInterfacer() {
-        if (Systems.isBinderInterfacer(this) && !mBound) {
+        if (Systems.isBinderInterfacer(this) && !bound) {
             Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
             bindService(intent, this, Context.BIND_AUTO_CREATE);
@@ -91,14 +91,14 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
-        mBound = true;
+        bound = true;
         Log.d(TAG, "Substratum has successfully binded with the Interfacer module.");
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
         interfacerInterface = null;
-        mBound = false;
+        bound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Interfacer module.");
     }
 }

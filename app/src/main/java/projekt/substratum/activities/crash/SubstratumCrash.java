@@ -46,6 +46,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.databinding.CrashActivityBinding;
 
+import static projekt.substratum.common.Internal.SUPPORTED_ROMS_FILE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
@@ -193,7 +194,7 @@ public class SubstratumCrash extends Activity {
 
         String rom = Systems.checkFirmwareSupport(this,
                 getString(R.string.supported_roms_url),
-                "supported_roms.xml");
+                SUPPORTED_ROMS_FILE);
         String romVersion = Build.VERSION.RELEASE + " - " +
                 (!rom.isEmpty() ? rom : "Unknown");
         details += "ROM: " + romVersion + '\n';

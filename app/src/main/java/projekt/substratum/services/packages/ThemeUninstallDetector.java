@@ -76,7 +76,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {
-                Set installedThemes = prefs.getStringSet("installedThemes", null);
+                Set installedThemes = prefs.getStringSet("installed_themes", null);
                 if ((installedThemes != null) && installedThemes.contains(packageName1)) {
                     Broadcasts.sendRefreshMessage(context);
                     // Get all installed overlays for this package
@@ -149,7 +149,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     for (int i = 0; i < allThemes.size(); i++) {
                         installed.add(allThemes.get(i).activityInfo.packageName);
                     }
-                    editor.putStringSet("installedThemes", installed);
+                    editor.putStringSet("installed_themes", installed);
                     editor.apply();
                 }
             }

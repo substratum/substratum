@@ -206,8 +206,7 @@ public enum Broadcasts {
     public static void unregisterProfileScreenOffReceiver(Context context) {
         try {
             context.unregisterReceiver(scheduledProfileReceiver);
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
     }
 

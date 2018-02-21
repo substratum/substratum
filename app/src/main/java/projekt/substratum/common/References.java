@@ -111,7 +111,6 @@ public enum References {
     // These are package names for our backend systems
     public static final String ANDROMEDA_PACKAGE = "projekt.andromeda";
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
-    public static final String INTERFACER_SERVICE = INTERFACER_PACKAGE + ".services.JobService";
     public static final String SUBSTRATUM_PACKAGE = "projekt.substratum";
     public static final String COMMON_PACKAGE = "com.mon";
     // Samsung package names
@@ -165,7 +164,6 @@ public enum References {
     };
     public static final String metadataOverlayVersion = "Substratum_Version";
     public static final String metadataSamsungSupport = "Substratum_Samsung";
-    public static final String metadataThemeReady = "Substratum_ThemeReady";
     public static final String resourceChangelog = "ThemeChangelog";
     // These are Samsung specific manifest values
     public static final boolean toggleShowSamsungOverlayInSettings = false;
@@ -210,7 +208,7 @@ public enum References {
     public static final int SAMSUNG_THEME_ENGINE_N = 2389284;
     public static final int NO_THEME_ENGINE = 0;
     // This int controls the notification identifier
-    public static final int notification_id_compiler = 17589715;
+    public static final int NOTIFICATION_ID_COMPILER = 17589715;
     // This int controls the delay for window refreshes to occur
     public static final int REFRESH_WINDOW_DELAY = 500;
     // This int controls the default grid count for the theme adapter
@@ -294,8 +292,7 @@ public enum References {
                         android.R.layout.simple_spinner_dropdown_item, unarchivedExtra);
                 spinner.setAdapter(adapter1);
                 return spinner;
-            } catch (Exception e) {
-                // Suppress warning
+            } catch (Exception ignored) {
             }
         }
         return null;
@@ -628,13 +625,11 @@ public enum References {
         assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         try {
-            InetAddress checkSiteAvailability = InetAddress.getByName("google.com");
-            //noinspection EqualsBetweenInconvertibleTypes
+            String checkSiteAvailability = InetAddress.getByName("google.com").toString();
             return activeNetworkInfo != null &&
                     activeNetworkInfo.isConnected() &&
                     !checkSiteAvailability.equals("");
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -666,7 +661,6 @@ public enum References {
      * @param input Input text/command
      * @return Returns any outstanding output from the executed command
      */
-    @SuppressWarnings("SameParameterValue")
     public static StringBuilder runShellCommand(String input) {
         try {
             Process shell = Runtime.getRuntime().exec(input);
@@ -679,8 +673,7 @@ public enum References {
                 returnString.append(line).append('\n');
             }
             return returnString;
-        } catch (Exception e) {
-            // Suppress warning
+        } catch (Exception ignored) {
         }
         return null;
     }
@@ -760,18 +753,12 @@ public enum References {
      * @param minute  Minute
      * @return Returns the proper time
      */
-    @SuppressWarnings("deprecation")
     public static CharSequence parseTime(Context context,
                                          int hour,
                                          int minute) {
-        Locale locale;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            locale = context.getResources().getConfiguration().getLocales().get(0);
-        } else {
-            locale = context.getResources().getConfiguration().locale;
-        }
-
+        Locale locale =
+                context.getResources().getConfiguration().getLocales().get(0);
         String parse;
         if (android.text.format.DateFormat.is24HourFormat(context)) {
             parse = String.format(locale, "%02d:%02d", hour, minute);

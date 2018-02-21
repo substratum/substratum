@@ -113,9 +113,9 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                 }
 
                 if ((title != null) && !title.isEmpty()) {
-                    priorityObjectAdapter.mCardText.setText(title);
+                    priorityObjectAdapter.cardText.setText(title);
                 } else {
-                    priorityObjectAdapter.mCardText.setText(R.string.reboot_awaiting_manager_title);
+                    priorityObjectAdapter.cardText.setText(R.string.reboot_awaiting_manager_title);
                 }
 
                 if (applicationInfo.metaData != null) {
@@ -247,23 +247,22 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             priorityObjectAdapter.tvDesc.setText(prioritiesItem.getThemeName());
                         }
                     } else {
-                        priorityObjectAdapter.mCardText.setText(
+                        priorityObjectAdapter.cardText.setText(
                                 String.format("%s (%s)", packageTitle, prioritiesItem.getName()));
                     }
                 } else {
-                    priorityObjectAdapter.mCardText.setText(
+                    priorityObjectAdapter.cardText.setText(
                             String.format("%s (%s)", packageTitle, prioritiesItem.getName()));
                 }
 
-                priorityObjectAdapter.mAppIcon.setImageDrawable(prioritiesItem.getDrawableId());
+                priorityObjectAdapter.appIcon.setImageDrawable(prioritiesItem.getDrawableId());
             } catch (Exception e) {
                 e.printStackTrace();
-                // Suppress warning
             }
         } else {
             HeaderViewAdapter headerViewAdapter = (HeaderViewAdapter) holder;
             PrioritiesHeader prioritiesHeader = (PrioritiesHeader) prioritiesInterface;
-            headerViewAdapter.mHeaderText.setText(prioritiesHeader.getName());
+            headerViewAdapter.headerText.setText(prioritiesHeader.getName());
         }
     }
 
@@ -274,15 +273,15 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private static class PrioritiesHeader implements PrioritiesInterface {
 
-        private String mName;
+        private String name;
 
         public PrioritiesHeader(String name) {
             super();
-            mName = name;
+            this.name = name;
         }
 
         public CharSequence getName() {
-            return mName;
+            return name;
         }
 
         @Override
@@ -293,8 +292,8 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private static class PriorityObjectAdapter extends GestureViewHolder {
 
-        TextView mCardText;
-        ImageView mAppIcon;
+        TextView cardText;
+        ImageView appIcon;
         TextView tvDesc;
         TextView type1a;
         TextView type1b;
@@ -302,14 +301,14 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         TextView type2;
         TextView type3;
         View view;
-        private ImageView mItemDrag;
+        private ImageView itemDrag;
 
         PriorityObjectAdapter(View view) {
             super(view);
             this.view = view;
-            this.mCardText = view.findViewById(R.id.card_text);
-            this.mItemDrag = view.findViewById(R.id.card_drag);
-            this.mAppIcon = view.findViewById(R.id.app_icon);
+            this.cardText = view.findViewById(R.id.card_text);
+            this.itemDrag = view.findViewById(R.id.card_drag);
+            this.appIcon = view.findViewById(R.id.app_icon);
             this.tvDesc = view.findViewById(R.id.desc);
             this.type1a = view.findViewById(R.id.type1a);
             this.type1b = view.findViewById(R.id.type1b);
@@ -321,7 +320,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         @Nullable
         @Override
         public View getDraggableView() {
-            return mItemDrag;
+            return itemDrag;
         }
 
         @Override
@@ -337,11 +336,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private static class HeaderViewAdapter extends GestureViewHolder {
 
-        TextView mHeaderText;
+        TextView headerText;
 
         HeaderViewAdapter(View view) {
             super(view);
-            mHeaderText = view.findViewById(R.id.header_text);
+            headerText = view.findViewById(R.id.header_text);
         }
 
         @Override

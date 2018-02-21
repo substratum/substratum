@@ -59,8 +59,8 @@ public class ShowcaseTab extends Fragment {
 
     ProgressBar materialProgressBar;
     RecyclerView recyclerView;
-    private int current_tab_position;
-    private String current_tab_address;
+    private int currentTabPosition;
+    private String currentTabAddress;
     private Context context;
 
     @Override
@@ -77,8 +77,8 @@ public class ShowcaseTab extends Fragment {
         Bundle bundle = getArguments();
 
         if (bundle != null) {
-            current_tab_position = bundle.getInt("tab_count", 0);
-            current_tab_address = bundle.getString("tabbed_address");
+            currentTabPosition = bundle.getInt("tab_count", 0);
+            currentTabAddress = bundle.getString("tabbed_address");
         } else {
             return null;
         }
@@ -116,8 +116,8 @@ public class ShowcaseTab extends Fragment {
         if (References.isNetworkAvailable(context)) {
             downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(
-                    current_tab_address,
-                    "showcase_tab_" + current_tab_position + ".xml");
+                    currentTabAddress,
+                    "showcase_tab_" + currentTabPosition + ".xml");
         } else {
             recyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
@@ -165,18 +165,18 @@ public class ShowcaseTab extends Fragment {
             ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
             if (showcaseTab != null) {
                 String inputFileName = sUrl[1];
-                File showcase_directory = new File(
+                File showcaseDirectory = new File(
                         showcaseTab.context.getCacheDir() + "/ShowcaseCache/");
-                if (!showcase_directory.exists()) {
-                    boolean made = showcase_directory.mkdir();
+                if (!showcaseDirectory.exists()) {
+                    boolean made = showcaseDirectory.mkdir();
                     if (!made)
                         Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
                 }
 
-                File current_wallpapers = new File(showcaseTab.context.getCacheDir() +
+                File currentWallpapers = new File(showcaseTab.context.getCacheDir() +
                         "/ShowcaseCache/" + inputFileName);
-                if (current_wallpapers.exists()) {
-                    boolean deleted = current_wallpapers.delete();
+                if (currentWallpapers.exists()) {
+                    boolean deleted = currentWallpapers.delete();
                     if (!deleted) Log.e("ShowcaseTab", "Could not delete the current tab file...");
                 }
 

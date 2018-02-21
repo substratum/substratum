@@ -39,7 +39,6 @@ public class ShowcaseItem {
         this.context = context;
     }
 
-    @SuppressWarnings("unused")
     public CharSequence getThemeAuthor() {
         return this.themeAuthor;
     }
@@ -72,7 +71,6 @@ public class ShowcaseItem {
         this.themePackage = themePackage;
     }
 
-    @SuppressWarnings("unused")
     public String getThemeBackgroundImage() {
         return this.themeBackgroundImage;
     }
@@ -89,7 +87,6 @@ public class ShowcaseItem {
         this.isInstalled = installed;
     }
 
-    @SuppressWarnings("unused")
     public boolean isPaid() {
         return isPaid;
     }

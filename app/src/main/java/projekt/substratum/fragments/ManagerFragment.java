@@ -586,8 +586,7 @@ public class ManagerFragment extends Fragment {
                                                 allOverlays.get(i),
                                                 getPackageName(context, targetApplication));
                                     }
-                                } catch (Exception e) {
-                                    // Suppress warning
+                                } catch (Exception ignored) {
                                 }
                             }
                         }
@@ -634,11 +633,10 @@ public class ManagerFragment extends Fragment {
                     try {
                         Thread.sleep((long) (fragment.firstBoot ?
                                 MANAGER_FRAGMENT_INITIAL_DELAY : 0));
-                    } catch (InterruptedException ie) {
-                        // Suppress warning
+                    } catch (InterruptedException ignored) {
                     }
                     if (fragment.firstBoot) fragment.firstBoot = false;
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                     // Consume window refresh
                 }
             }

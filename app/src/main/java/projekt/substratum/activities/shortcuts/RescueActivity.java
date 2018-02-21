@@ -53,11 +53,11 @@ public class RescueActivity extends AppCompatActivity {
                         Substratum.getInstance(),
                         SUBSTRATUM_PACKAGE);
 
-                ArrayList<String> to_be_disabled = new ArrayList<>(frameworkOverlays);
-                to_be_disabled.addAll(substratumOverlays);
+                ArrayList<String> toBeDisabled = new ArrayList<>(frameworkOverlays);
+                toBeDisabled.addAll(substratumOverlays);
                 ThemeManager.disableOverlay(
                         Substratum.getInstance(),
-                        to_be_disabled);
+                        toBeDisabled);
             }, 500L);
         }
         finish();

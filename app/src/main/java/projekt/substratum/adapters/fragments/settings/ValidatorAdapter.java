@@ -59,8 +59,6 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
         Context context = validatorInfo.getContext();
         String packageName = validatorInfo.getPackageName();
         ValidatorDialogEntryBinding viewHolderBinding = viewHolder.getBinding();
-        viewHolderBinding.setValidatorInfo(validatorInfo);
-        viewHolderBinding.executePendingBindings();
 
         if (packageName.endsWith(".common")) {
             packageName = packageName.substring(0, packageName.length() - 7);
@@ -71,6 +69,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                         Packages.getPackageName(context, packageName),
                         (validatorInfo.getCommons()) ? (' ' +
                                 context.getString(R.string.resource_checker_commons)) : ""));
+
 
         viewHolderBinding.packIcon.setImageDrawable(
                 Packages.getAppIcon(context, packageName));
@@ -88,25 +87,25 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                 List<String> dimenErrors = error.getDimenErrors();
                 List<String> styleErrors = error.getStyleErrors();
 
-                StringBuilder error_logs = new StringBuilder();
+                StringBuilder errorLogs = new StringBuilder();
                 if (!boolErrors.isEmpty()) {
                     for (int i = 0; i < boolErrors.size(); i++) {
-                        error_logs.append(boolErrors.get(i)).append('\n');
+                        errorLogs.append(boolErrors.get(i)).append('\n');
                     }
                 }
                 if (!colorErrors.isEmpty()) {
                     for (int i = 0; i < colorErrors.size(); i++) {
-                        error_logs.append(colorErrors.get(i)).append('\n');
+                        errorLogs.append(colorErrors.get(i)).append('\n');
                     }
                 }
                 if (!dimenErrors.isEmpty()) {
                     for (int i = 0; i < dimenErrors.size(); i++) {
-                        error_logs.append(dimenErrors.get(i)).append('\n');
+                        errorLogs.append(dimenErrors.get(i)).append('\n');
                     }
                 }
                 if (!styleErrors.isEmpty()) {
                     for (int i = 0; i < styleErrors.size(); i++) {
-                        error_logs.append(styleErrors.get(i)).append('\n');
+                        errorLogs.append(styleErrors.get(i)).append('\n');
                     }
                 }
 
@@ -124,12 +123,14 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                         Packages.getPackageName(context, pkg));
                 new android.app.AlertDialog.Builder(context)
                         .setTitle(format)
-                        .setMessage("\n" + error_logs)
+                        .setMessage("\n" + errorLogs)
                         .setPositiveButton(R.string
                                 .customactivityoncrash_error_activity_error_details_close, null)
                         .show();
             });
         }
+        viewHolderBinding.setValidatorInfo(validatorInfo);
+        viewHolderBinding.executePendingBindings();
     }
 
     @Override

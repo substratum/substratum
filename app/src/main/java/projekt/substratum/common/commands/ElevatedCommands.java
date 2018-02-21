@@ -46,7 +46,7 @@ public enum ElevatedCommands {
         new Thread(() -> {
             try {
                 Root.runCommand(command);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
                 // Consume window refresh
             }
         }).start();

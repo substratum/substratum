@@ -235,7 +235,6 @@ public class ScheduledProfileService extends JobService {
                             toBeDisabled)
                             || ThemeManager.shouldRestartUI(context, toBeRun);
                     ThemeInterfacerService.applyProfile(
-                            context,
                             processed,
                             new ArrayList<>(system),
                             toBeRun,

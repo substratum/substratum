@@ -1462,7 +1462,6 @@ public class ProfileFragment extends Fragment {
                             shouldRestartUi);
                 } else if (Systems.checkThemeInterfacer(profileFragment.context)) {
                     ThemeInterfacerService.applyProfile(
-                            profileFragment.context,
                             profileName,
                             toBeDisabled,
                             toBeRun,

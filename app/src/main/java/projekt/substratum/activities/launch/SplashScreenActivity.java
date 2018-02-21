@@ -87,7 +87,7 @@ public class SplashScreenActivity extends Activity {
         firstRun = currentIntent.getBooleanExtra("first_run", false);
         checkThemeSystemModule(this, firstRun);
         intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-        long intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
+        long intentLaunchDelay = DELAY_LAUNCH_MAIN_ACTIVITY;
 
         if (firstRun && !isLowEnd()) {
             // Load the ImageView that will host the animation and
@@ -97,7 +97,7 @@ public class SplashScreenActivity extends Activity {
                 svgView.start();
                 // Finally set the proper launch activity and delay
                 intent = new Intent(SplashScreenActivity.this, AppIntroActivity.class);
-                intent_launch_delay = DELAY_LAUNCH_APP_INTRO;
+                intentLaunchDelay = DELAY_LAUNCH_APP_INTRO;
             } catch (OutOfMemoryError ignored) {
                 Log.e(References.SUBSTRATUM_LOG, "The VM has blown up and the rendering of " +
                         "the splash screen animated icon has been cancelled.");
@@ -107,9 +107,9 @@ public class SplashScreenActivity extends Activity {
         }
 
         Handler handler = new Handler();
-        handler.postDelayed(() -> new CheckSamsung(this).execute(), intent_launch_delay);
+        handler.postDelayed(() -> new CheckSamsung(this).execute(), intentLaunchDelay);
         handler.postDelayed(() -> runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE)),
-                DELAY_SHOW_PROGRESS_BAR + intent_launch_delay);
+                DELAY_SHOW_PROGRESS_BAR + intentLaunchDelay);
     }
 
     private void launch() {

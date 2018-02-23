@@ -127,7 +127,7 @@
     <string name="theme_information_tab_five">Tapety na plochu</string>
     <string name="theme_information_tab_six">Animácia pri vypnutí</string>
     <string name="uninstall_dialog_text">Naozaj chcete odinštalovať túto tému?</string>
-    <string name="manage_dialog_performing">Obnovenie do predvoleného stavu...</string>
+    <string name="manage_dialog_performing">Obnovenie do predvoleného stavu…</string>
     <string name="manage_bootanimation_title">Obnoviť spúšťaciu animáciu</string>
     <string name="manage_bootanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
     <string name="manage_shutdownanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
@@ -148,10 +148,6 @@
     <string name="manage_wallpaper_all_toast">Tapeta bola úspešne obnovená!</string>
     <string name="adapter_uninstalling">Odstraňovanie %s&#8230;</string>
     <string name="plugin_template">Zásuvný modul</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Prijať</string>
     <string name="deny">Odoprieť</string>
     <string name="permission_explanation_title">Prehľad oprávnení</string>
@@ -188,7 +184,7 @@
     <string name="error_loading_theme_close">Zavrieť</string>
     <string name="error_loading_theme_close_text">Názov balíka tejto témy sa musí zhodovať s názvom v adresároch manifestov a kódov pre správnu výmenu kľúčov.</string>
     <string name="logcat_snackbar_button">Správy protokolu LogChar</string>
-    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia...</string>
+    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia…</string>
     <string name="logcat_dialog_title">Správy protokolu ladenia \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Protokol chýb sa úspešne skopíroval do schránky!</string>
     <string name="logcat_send">Odoslať</string>

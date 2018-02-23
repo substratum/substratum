@@ -85,6 +85,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import projekt.substratum.adapters.activities.IATabsAdapter;
 import projekt.substratum.common.Broadcasts;
@@ -508,6 +509,7 @@ public class InformationActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        heroImage.setContentDescription(themeName);
 
         // Hero Image
         Drawable heroImage = getPackageHeroImage(
@@ -687,7 +689,7 @@ public class InformationActivity extends AppCompatActivity {
                         tabPosition = position;
                         if (viewPager.getAdapter() != null) {
                             switch (viewPager.getAdapter().instantiateItem(viewPager, tabPosition)
-                                    .getClass().getSimpleName().toLowerCase()) {
+                                    .getClass().getSimpleName().toLowerCase(Locale.US)) {
                                 case overlaysFragment:
                                     floatingActionButton.show();
                                     floatingActionButton.setImageResource(
@@ -734,7 +736,7 @@ public class InformationActivity extends AppCompatActivity {
                     Intent intent;
                     if (adapt != null) {
                         Object obj = adapt.instantiateItem(viewPager, tabPosition);
-                        switch (obj.getClass().getSimpleName().toLowerCase()) {
+                        switch (obj.getClass().getSimpleName().toLowerCase(Locale.US)) {
                             case overlaysFragment:
                                 materialSheetFab.showSheet();
                                 break;

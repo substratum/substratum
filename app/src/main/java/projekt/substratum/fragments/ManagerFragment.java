@@ -65,6 +65,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import projekt.substratum.MainActivity;
@@ -565,8 +566,8 @@ public class ManagerFragment extends Fragment {
                                 }
                                 combined.append(getPackageName(context,
                                         getOverlayTarget(context, allOverlays.get(i))));
-                                if (!combined.toString().toLowerCase().contains(
-                                        userInputString.toLowerCase())) {
+                                if (!combined.toString().toLowerCase(Locale.US).contains(
+                                        userInputString.toLowerCase(Locale.US))) {
                                     canContinue = false;
                                 }
                             }
@@ -624,8 +625,8 @@ public class ManagerFragment extends Fragment {
                             StringBuilder combined = new StringBuilder();
                             combined.append(st.getLabelName());
                             combined.append(st.getThemeName());
-                            if (combined.toString().toLowerCase().contains(
-                                    userInput.get().toLowerCase()))
+                            if (combined.toString().toLowerCase(Locale.US).contains(
+                                    userInput.get().toLowerCase(Locale.US)))
                                 fragment.overlaysList.add(st);
                         }
                     }

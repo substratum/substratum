@@ -148,10 +148,6 @@
     <string name="manage_wallpaper_all_toast">Sfondo ripristinato con successo!</string>
     <string name="adapter_uninstalling">Rimozione %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Accetta</string>
     <string name="deny">Nega</string>
     <string name="permission_explanation_title">Panoramica delle autorizzazioni</string>

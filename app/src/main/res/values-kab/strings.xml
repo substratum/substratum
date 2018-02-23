@@ -58,9 +58,6 @@
     <string name="manage_dialog_performing">Tiririt n wazalen imezwar&#8230;</string>
     <string name="manage_bootanimation_title">Err-d amray n tnekra</string>
     <string name="plugin_template">Asiɣzef</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
     <string name="accept">Qbel</string>
     <string name="deny">Agi</string>
     <string name="menu_per_app">FloatUI</string>

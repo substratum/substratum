@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import projekt.substratum.R;
 import projekt.substratum.common.analytics.PackageAnalytics;
@@ -642,7 +643,7 @@ public enum Packages {
     public static boolean isSamsungTheme(Context context,
                                          String packageName) {
         String obtainedValue = getOverlayMetadata(context, packageName, metadataSamsungSupport);
-        return obtainedValue == null || !obtainedValue.toLowerCase().equals("true");
+        return obtainedValue == null || !obtainedValue.toLowerCase(Locale.US).equals("true");
     }
 
     /**
@@ -705,11 +706,9 @@ public enum Packages {
                                     filtered = new StringBuilder();
                             filtered.append(appInfo.metaData.getString(metadataName));
                             filtered.append(appInfo.metaData.getString(metadataAuthor));
-                            canContinue =
-                                    filtered
-                                            .toString()
-                                            .toLowerCase()
-                                            .contains(searchFilter.toLowerCase());
+                            canContinue = filtered.toString()
+                                            .toLowerCase(Locale.US)
+                                            .contains(searchFilter.toLowerCase(Locale.US));
                         }
                     }
                 }

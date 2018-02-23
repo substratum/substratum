@@ -155,10 +155,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="manage_wallpaper_all_toast">Imagem de fundo restaurada com sucesso!</string>
     <string name="adapter_uninstalling">Removendo agora %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Accept</string>
     <string name="deny">Negar</string>
     <string name="permission_explanation_title">Visão geral de permissões</string>

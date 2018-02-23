@@ -140,10 +140,6 @@
     <string name="manage_wallpaper_all_toast">Шпалеры адноўлены!</string>
     <string name="adapter_uninstalling">Выдаленне %s&#8230;</string>
     <string name="plugin_template">Плагін</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Прыняць</string>
     <string name="deny">Адхіліць</string>
     <string name="permission_explanation_title">Апісанне дазволаў</string>

@@ -143,10 +143,6 @@
     <string name="manage_wallpaper_all_toast">Обои восстановлены!</string>
     <string name="adapter_uninstalling">Удаление %s&#8230;</string>
     <string name="plugin_template">Плагин</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Принять</string>
     <string name="deny">Отклонить</string>
     <string name="permission_explanation_title">Описание разрешений</string>

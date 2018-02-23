@@ -176,10 +176,6 @@ lütfen
     <string name="manage_wallpaper_all_toast">Duvar kağıdı geri yükleme başarılı!</string>
     <string name="adapter_uninstalling">%s kaldırılıyor&#8230;</string>
     <string name="plugin_template">Eklenti</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Kabut Et</string>
     <string name="deny">Reddet</string>
     <string name="permission_explanation_title">İzinlere Gözat</string>

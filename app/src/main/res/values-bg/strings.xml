@@ -140,10 +140,6 @@
     <string name="manage_wallpaper_all_toast">Тапетите са възстановени успешно!</string>
     <string name="adapter_uninstalling">Премахване на %s&#8230;</string>
     <string name="plugin_template">Плъгин</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Приемам</string>
     <string name="deny">Откажи</string>
     <string name="permission_explanation_title">Преглед на права</string>

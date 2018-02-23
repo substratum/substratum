@@ -60,6 +60,7 @@ import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -558,7 +559,7 @@ public class BootAnimations extends Fragment {
                             for (final String currentDirContent : currentDirs) {
                                 final File probablyImage = new File(current, currentDirContent);
                                 for (final String ext : supportedFile) {
-                                    if (probablyImage.getName().toLowerCase().endsWith(ext)) {
+                                    if (probablyImage.getName().toLowerCase(Locale.US).endsWith(ext)) {
                                         bootAnimations.previewImages.add(
                                                 probablyImage.getAbsolutePath());
                                         break;

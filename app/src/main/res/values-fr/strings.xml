@@ -132,9 +132,6 @@
     <string name="manage_wallpaper_all_toast">Fond d\'écran rétabli !</string>
     <string name="adapter_uninstalling">Désinstallation de %s en cours&#8230;</string>
     <string name="plugin_template">Extension</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
     <string name="accept">Accepter</string>
     <string name="deny">Refuser</string>
     <string name="permission_explanation_title">Aperçu des autorisations</string>

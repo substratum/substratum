@@ -160,9 +160,6 @@
     <string name="manage_wallpaper_all_toast">Taustakuva palautettiin onnistuneesti!</string>
     <string name="adapter_uninstalling">Poistetaan %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
     <string name="accept">Hyväksy</string>
     <string name="deny">Kiellä</string>
     <string name="permission_explanation_title">Käyttöoikeuksien Yleiskatsaus</string>

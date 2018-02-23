@@ -24,18 +24,18 @@
         android:orderInCategory="1"
         android:title="@string/actionbar_search"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always|collapseActionView" />
+        app:showAsAction="ifRoom|collapseActionView" />
     <item
         android:id="@+id/restart_systemui"
         android:icon="@drawable/toolbar_refresh"
         android:menuCategory="secondary"
         android:orderInCategory="3"
         android:title="@string/menu_restart_systemui"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/alphabetize"
         android:icon="@drawable/toolbar_alphabetize"
         android:orderInCategory="2"
         android:title="@string/menu_alphabetize"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

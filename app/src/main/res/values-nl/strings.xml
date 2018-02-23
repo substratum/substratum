@@ -138,9 +138,6 @@
     <string name="manage_wallpaper_all_toast">Achtergrond succesvol herstelt!</string>
     <string name="adapter_uninstalling">%s verwijderen&#8230;</string>
     <string name="plugin_template">Plug-in</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
     <string name="accept">Accepteren</string>
     <string name="deny">Weigeren</string>
     <string name="permission_explanation_title">Machtigingsoverzicht</string>

@@ -156,10 +156,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_wallpaper_all_toast">Tapeta byla úspěšně obnovena!</string>
     <string name="adapter_uninstalling">Odstraňování %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Přijmout</string>
     <string name="deny">Odepřít</string>
     <string name="permission_explanation_title">Přehled oprávnění</string>

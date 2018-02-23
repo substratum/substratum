@@ -22,7 +22,7 @@
       필요합니다!
     </string>
     <string name="failed_to_install_title_notification">OMS 테마 설치 실패</string>
-    <string name="actionbar_theme_count_loading">로드 중...</string>
+    <string name="actionbar_theme_count_loading">로드 중…</string>
     <string name="actionbar_search">검색</string>
     <string name="actionbar_changelog">테마 변경 내역</string>
     <string name="settings_icons">설정 아이콘</string>
@@ -40,28 +40,28 @@
     <string name="manager_type1a">Type1a:</string>
     <string name="manager_type1b">Type1b:</string>
     <string name="manager_type1c">Type1c:</string>
-    <string name="overlays_variant_substitute">%s...</string>
-    <string name="overlays_variant_default_1a">type1a 타입...</string>
-    <string name="overlays_variant_default_1b">type1b 타입...</string>
-    <string name="overlays_variant_default_1c">type1c 타입...</string>
-    <string name="overlays_variant_default_2">type2 타입...</string>
-    <string name="overlays_variant_default_3">기본 타입...</string>
+    <string name="overlays_variant_substitute">%s…</string>
+    <string name="overlays_variant_default_1a">type1a 타입…</string>
+    <string name="overlays_variant_default_1b">type1b 타입…</string>
+    <string name="overlays_variant_default_1c">type1c 타입…</string>
+    <string name="overlays_variant_default_2">type2 타입…</string>
+    <string name="overlays_variant_default_3">기본 타입…</string>
     <string name="overlays_update_available">새로운 버전이 있습니다.\n(%s)</string>
     <string name="overlays_overlay_not_installed">해당 타입이 설치되지 않음</string>
-    <string name="bootanimation_dialog_apply_text">부트 애니메이션 적용 중...</string>
+    <string name="bootanimation_dialog_apply_text">부트 애니메이션 적용 중…</string>
     <string name="bootanimation_dialog_apply_success">부트 애니메이션 적용 완료!</string>
-    <string name="bootanimation_dialog_apply_failed">부트 애니메이션 적용 실패...</string>
+    <string name="bootanimation_dialog_apply_failed">부트 애니메이션 적용 실패…</string>
     <string name="wallpaper_dialog_wallpaper">홈 배경화면</string>
     <string name="wallpaper_dialog_lockscreen">잠금 화면 배경화면</string>
     <string name="wallpaper_dialog_wallpaper_both">홈 화면 및 잠금 화면</string>
-    <string name="wallpaper_downloading">이미지 캐싱 중...</string>
+    <string name="wallpaper_downloading">이미지 캐싱 중…</string>
     <string name="wallpaper_allscreen_success">홈 화면 및 잠금 화면 배경 화면 모두 적용 완료!</string>
     <string name="wallpaper_allscreen_error">홈 화면 및 잠금 화면 배경 화면 적용 실패</string>
     <string name="wallpaper_homescreen_success">홈 화면의 배경화면을 설정했습니다!</string>
     <string name="wallpaper_homescreen_error">홈 화면의 배경화면을 설정할 수 없습니다.</string>
     <string name="wallpaper_lockscreen_success">잠금 화면의 배경화면을 설정했습니다!</string>
     <string name="wallpaper_lockscreen_error">잠금 화면의 배경화면을 설정할 수 없습니다.</string>
-    <string name="font_dialog_apply_text">폰트 처리 중...</string>
+    <string name="font_dialog_apply_text">폰트 처리 중…</string>
     <string name="font_dialog_apply_success">폰트가 적용되었습니다!</string>
     <string name="font_dialog_apply_failed">폰트 적용에 실패했습니다.</string>
     <string name="sounds_dialog_apply_success">사운드 팩이 적용되었습니다!</string>
@@ -83,7 +83,7 @@
     <string name="theme_information_tab_four">사운드 팩</string>
     <string name="theme_information_tab_five">배경화면</string>
     <string name="uninstall_dialog_text">정말 이 테마를 제거하시겠습니까?</string>
-    <string name="manage_dialog_performing">기본값으로 복원 중...</string>
+    <string name="manage_dialog_performing">기본값으로 복원 중…</string>
     <string name="manage_bootanimation_title">부트 애니메이션 복원</string>
     <string name="manage_bootanimation_toast">부팅 애니메이션을 성공적으로 복원했습니다!</string>
     <string name="manage_fonts_title">폰트 복원</string>
@@ -92,8 +92,8 @@
     <string name="manage_sounds_toast">사운드를 성공적으로 복원했습니다!</string>
     <string name="manage_system_overlay_disable">오버레이를 기본값으로 복원</string>
     <string name="manage_system_overlay_uninstall">오버레이를 기본값으로 복원 및 설치된 모든 오버레이 일괄 삭제</string>
-    <string name="manage_system_overlay_toast">시스템 테마를 복원 중입니다...</string>
-    <string name="manage_system_overlay_uninstall_toast">백그라운드에서 오버레이를 제거 중...</string>
+    <string name="manage_system_overlay_toast">시스템 테마를 복원 중입니다…</string>
+    <string name="manage_system_overlay_uninstall_toast">백그라운드에서 오버레이를 제거 중…</string>
     <string name="manage_wallpaper_home">홈 배경화면</string>
     <string name="manage_wallpaper_lock">잠금 화면 배경화면</string>
     <string name="manage_wallpaper_all">홈 화면 및 잠금 화면</string>
@@ -102,9 +102,6 @@
     <string name="manage_wallpaper_all_toast">배경화면 복원 성공!</string>
     <string name="adapter_uninstalling">%s를 제거 중입니다&#8230;</string>
     <string name="plugin_template">플러그인</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
     <string name="accept">승인</string>
     <string name="deny">거부</string>
     <string name="permission_explanation_title">사용 권한 개요</string>
@@ -127,9 +124,9 @@
     <string name="dialog_restart_reboot_content">기기를 완전히 다시 시작합니다.</string>
     <string name="dialog_restart_soft_reboot_title">빠른 다시 시작</string>
     <string name="dialog_restart_soft_reboot_content">기기를 빠르게 다시 시작합니다.</string>
-    <string name="studio_applying">로드 중...</string>
+    <string name="studio_applying">로드 중…</string>
     <string name="logcat_dialog_copy_success">클립보드에 오류 로그를 복사했습니다.</string>
-    <string name="logcat_email_activity">버그 리포트 보내는 중...</string>
+    <string name="logcat_email_activity">버그 리포트 보내는 중…</string>
     <string name="logcat_email_activity_error">이메일 클라이언트가 설치되지 않았습니다.</string>
     <string name="logcat_email_xposed_check">Xposed 프레임워크</string>
     <string name="priority_no_multiple_overlays_title">2개 이상의 오버레이가 적용된       애플리케이션이 없습니다.</string>
@@ -172,17 +169,17 @@
     <string name="toast_compiled_updated">선택된 오버레이가 업데이트 되었습니다.</string>
     <string name="toast_disabled3">오버레이를 적용하기 전에 컴파일 해주세요.</string>
     <string name="toast_disabled6">선택된 오버레이가 제거되었습니다.</string>
-    <string name="no_themes_title">테마를 찾을 수 없음...</string>
+    <string name="no_themes_title">테마를 찾을 수 없음…</string>
     <string name="no_themes_description">Substratum 테마를 설치해주세요!</string>
-    <string name="no_themes_description_search">테마 리스트에서 %s을(를) 찾을 수 없습니다...</string>
+    <string name="no_themes_description_search">테마 리스트에서 %s을(를) 찾을 수 없습니다…</string>
     <string name="notification_theme_installed">설치됨</string>
     <string name="notification_theme_updated">업데이트됨</string>
     <string name="notification_theme_installed_content">테마가 성공적으로 설치되었습니다.</string>
     <string name="notification_theme_updated_content">리소스가 성공적으로 업데이트되었습니다.</string>
     <string name="notification_initial_title">Substratum이 실행 중입니다.</string>
     <string name="notification_done_title">테마 컴파일 완료</string>
-    <string name="notification_processing">오버레이 처리 중...</string>
-    <string name="notification_processing_n">오버레이 준비 중...</string>
+    <string name="notification_processing">오버레이 처리 중…</string>
+    <string name="notification_processing_n">오버레이 준비 중…</string>
     <string name="shortcut_rescue">도와주세요!</string>
     <string name="shortcut_rescue_disabled">도와주세요!</string>
     <string name="shortcut_overlay_manager">오버레이 매니저</string>
@@ -240,5 +237,5 @@
     <!-- Resources -->
     <!-- More -->
     <string name="nav_settings">설정</string>
-    <string name="clear_cache_button_loading">로드 중...</string>
+    <string name="clear_cache_button_loading">로드 중…</string>
 </resources>

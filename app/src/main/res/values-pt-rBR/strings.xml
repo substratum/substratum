@@ -154,10 +154,6 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="manage_wallpaper_all_toast">Papel de parede restaurado com sucesso!</string>
     <string name="adapter_uninstalling">Removendo agora %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Aceitar</string>
     <string name="deny">Negar</string>
     <string name="permission_explanation_title">Visão Geral de Permissões</string>

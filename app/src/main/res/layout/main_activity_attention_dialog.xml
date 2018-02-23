@@ -22,13 +22,13 @@
     android:background="@android:color/transparent"
     android:gravity="center|center_horizontal|center_vertical">
 
-
     <ImageView
         android:id="@+id/icon"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_root_requester" />
+        android:src="@drawable/ic_root_requester"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/title"

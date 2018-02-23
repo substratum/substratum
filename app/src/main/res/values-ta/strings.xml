@@ -85,9 +85,6 @@
     <string name="manage_wallpaper_all_toast">முந்தைய சுவர்படம் வெற்றிகரமாக அமைக்கப்பட்டது!</string>
     <string name="adapter_uninstalling">தற்பொழுது நீக்கப்படுகிறது %s&#8230;</string>
     <string name="plugin_template">இடைச் சொருகுகள்</string>
-    <string name="api_24">நுகட்</string>
-    <string name="api_25">பிக்சல்-N</string>
-    <string name="api_26">ஓரியோ</string>
     <string name="accept">ஏற்றுக்கொள்</string>
     <string name="deny">மறு</string>
     <string name="permission_explanation_title">அனுமதிகள் மேலோட்டப் பார்வை</string>

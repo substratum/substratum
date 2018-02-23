@@ -110,9 +110,6 @@
     <string name="manage_wallpaper_all_toast">Hình nền được khôi phục thành công!</string>
     <string name="adapter_uninstalling">Đang loại bỏ%s&#8230;</string>
     <string name="plugin_template">Plugin</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
     <string name="accept">Chấp nhận</string>
     <string name="deny">Từ chối</string>
     <string name="permission_explanation_title">Tổng quan về quyền</string>

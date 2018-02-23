@@ -19,7 +19,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- commons-io -->
-    <string name="define_commons_io" tools:keep="@string/define_commons_io" />
+    <string name="define_commons_io" tools:keep="@string/define_commons_io" translatable="false" />
     <!-- Author section -->
     <string name="library_commons_io_author" translatable="false" tools:keep="@string/library_commons_io_author">Apache</string>
     <string name="library_commons_io_authorWebsite" translatable="false" tools:keep="@string/library_commons_io_authorWebsite">
@@ -45,7 +45,7 @@
     <string name="library_commons_io_licenseId" translatable="false" tools:keep="@string/library_commons_io_licenseId">apache_2_0</string>
 
     <!-- Gesture RecyclerView -->
-    <string name="define_gesturerecycler" tools:keep="@string/define_gesturerecycler" />
+    <string name="define_gesturerecycler" tools:keep="@string/define_gesturerecycler" translatable="false" />
     <!-- Author section -->
     <string name="library_gesturerecycler_author" translatable="false" tools:keep="@string/library_gesturerecycler_author">Paweł Surówka</string>
     <string name="library_gesturerecycler_authorWebsite" translatable="false" tools:keep="@string/library_gesturerecycler_authorWebsite">
@@ -74,7 +74,7 @@
     <string name="library_gesturerecycler_licenseId" translatable="false" tools:keep="@string/library_gesturerecycler_licenseId">apache_2_0</string>
 
     <!-- Material Sheet Fab -->
-    <string name="define_materialsheetfab" tools:keep="@string/define_materialsheetfab" />
+    <string name="define_materialsheetfab" tools:keep="@string/define_materialsheetfab" translatable="false" />
     <!-- Author section -->
     <string name="library_materialsheetfab_author" translatable="false" tools:keep="@string/library_materialsheetfab_author">Gordon Wong</string>
     <string name="library_materialsheetfab_authorWebsite" translatable="false" tools:keep="@string/library_materialsheetfab_authorWebsite">
@@ -104,7 +104,7 @@
     <string name="library_materialsheetfab_licenseId" translatable="false" tools:keep="@string/library_materialsheetfab_licenseId">mit</string>
 
     <!-- Welcome -->
-    <string name="define_welcome_android" tools:keep="@string/define_welcome_android" />
+    <string name="define_welcome_android" tools:keep="@string/define_welcome_android" translatable="false" />
     <!-- Author section -->
     <string name="library_welcome_android_author" translatable="false" tools:keep="@string/library_welcome_android_author">Stephen Tuso</string>
     <string name="library_welcome_android_authorWebsite" translatable="false" tools:keep="@string/library_welcome_android_authorWebsite">
@@ -131,7 +131,7 @@
     <string name="library_welcome_android_licenseId" translatable="false" tools:keep="@string/library_welcome_android_licenseId">apache_2_0</string>
 
     <!-- ZipSigner -->
-    <string name="define_zipsigner" tools:keep="@string/define_zipsigner" />
+    <string name="define_zipsigner" tools:keep="@string/define_zipsigner" translatable="false" />
     <!-- Author section -->
     <string name="library_zipsigner_author" translatable="false" tools:keep="@string/library_zipsigner_author">Ken Ellinwood</string>
     <string name="library_zipsigner_authorWebsite" translatable="false" tools:keep="@string/library_zipsigner_authorWebsite">
@@ -158,7 +158,7 @@
     <string name="library_zipsigner_licenseId" translatable="false" tools:keep="@string/library_zipsigner_licenseId">apache_2_0</string>
 
     <!-- ZT-Zip -->
-    <string name="define_zt_zip" tools:keep="@string/define_zt_zip" />
+    <string name="define_zt_zip" tools:keep="@string/define_zt_zip" translatable="false" />
     <!-- Author section -->
     <string name="library_zt_zip_author" translatable="false" tools:keep="@string/library_zt_zip_author">ZeroTurnAround</string>
     <string name="library_zt_zip_authorWebsite" translatable="false" tools:keep="@string/library_zt_zip_authorWebsite">http://zeroturnaround.com/
@@ -184,7 +184,7 @@
     <string name="library_zt_zip_licenseId" translatable="false" tools:keep="@string/library_zt_zip_licenseId">apache_2_0</string>
 
     <!-- Floating View -->
-    <string name="define_floatingview" tools:keep="@string/define_floatingview" />
+    <string name="define_floatingview" tools:keep="@string/define_floatingview" translatable="false" />
     <!-- Author section -->
     <string name="library_floatingview_author" tools:keep="@string/library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
     <string name="library_floatingview_authorWebsite" tools:keep="@string/library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
@@ -202,7 +202,7 @@
     <string name="library_floatingview_licenseId" tools:keep="@string/library_floatingview_licenseId">apache_2_0</string>
 
     <!-- ExpandableLayout -->
-    <string name="define_expandablelayout" tools:keep="@string/define_expandablelayout" />
+    <string name="define_expandablelayout" tools:keep="@string/define_expandablelayout" translatable="false" />
     <!-- Author section -->
     <string name="library_expandablelayout_author" translatable="false" tools:keep="@string/library_expandablelayout_author">Daniel Cachapa</string>
     <string name="library_expandablelayout_authorWebsite" translatable="false" tools:keep="@string/library_expandablelayout_authorWebsite">https://github.com/cachapa</string>

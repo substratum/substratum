@@ -40,7 +40,7 @@
     <string name="activity_missing_toast">للأسف، لم يتم العثور على أي تطبيقات يمكنها التعامل معها هذا
         الطلب!</string>
     <string name="abort_overlay_toast_success">تم إلغاء تثبيت جميع التراكبات!</string>
-    <string name="rescue_toast">جار إنقاذ النظام ...</string>
+    <string name="rescue_toast">جار إنقاذ النظام …</string>
     <string name="manager_theme_name">الموضوع:</string>
     <string name="overlays_overlay_not_installed">لم يتم تثبيت البديل</string>
     <string name="bootanimation_dialog_apply_text">جار معالجة الرسوم المتحركة في التمهيد&#8230;</string>

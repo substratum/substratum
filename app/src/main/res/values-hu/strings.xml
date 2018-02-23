@@ -171,10 +171,6 @@
     <string name="manage_wallpaper_all_toast">Háttérkép sikeresen visszaállítva!</string>
     <string name="adapter_uninstalling">%s eltávolítása folyamatban&#8230;</string>
     <string name="plugin_template">Beépülő</string>
-    <string name="api_24">Nougat</string>
-    <string name="api_25">Pixel-N</string>
-    <string name="api_26">Oreo</string>
-    <string name="api_27">Pixel-O</string>
     <string name="accept">Elfogad</string>
     <string name="deny">Megtagadás</string>
     <string name="permission_explanation_title">Engedélyek áttekintése</string>

@@ -158,6 +158,7 @@ public enum Internal {
     public static final String XML_UTF = "UTF-8";
     // Overlays.java
     public static final Integer SPECIAL_SNOWFLAKE_DELAY = 500;
+    public static final Integer SPECIAL_SNOWFLAKE_DELAY_SS = 1500;
     public static final String XML_EXTENSION = ".xml";
     public static final String TYPE1A_PREFIX = "type1a_";
     public static final String TYPE1B_PREFIX = "type1b_";

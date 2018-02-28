@@ -466,8 +466,7 @@ public class SubstratumBuilder {
                 } else {
                     Log.d(References.SUBSTRATUM_BUILDER,
                             "Returning compiled APK path for later installation...");
-                    noInstall =
-                            EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
+                    noInstall = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                 }
             } else {
                 boolean isSamsung = Systems.isSamsungDevice(context);

@@ -74,6 +74,7 @@ import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
 import static projekt.substratum.common.Internal.OVERLAYS_DIR;
 import static projekt.substratum.common.Internal.PACKAGE_INSTALL_URI;
 import static projekt.substratum.common.Internal.SPECIAL_SNOWFLAKE_DELAY;
+import static projekt.substratum.common.Internal.SPECIAL_SNOWFLAKE_DELAY_SS;
 import static projekt.substratum.common.Internal.THEME_NAME;
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
@@ -1394,7 +1395,12 @@ enum OverlaysManager {
                             }
                         }
                         if (state.equals(COMPILE_ENABLE)) {
-                            ThemeManager.enableOverlay(context, packages);
+                            try {
+                                Thread.sleep((long) (SPECIAL_SNOWFLAKE_DELAY_SS));
+                                ThemeManager.enableOverlay(context, packages);
+                            } catch (InterruptedException ignored) {
+                                // Still waiting
+                            }
                         }
                         Substratum.getInstance().unregisterFinishReceiver();
                         thread.quitSafely();

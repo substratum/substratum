@@ -388,6 +388,7 @@ public class MainActivity extends AppCompatActivity implements
             menuView.findViewById(R.id.tab_priorities).setVisibility(View.GONE);
             menuView.findViewById(R.id.tab_profiles).setVisibility(View.GONE);
         }
+
         bottomBar.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.tab_themes:
@@ -405,6 +406,18 @@ public class MainActivity extends AppCompatActivity implements
                 case R.id.tab_settings:
                     switchFragment(SettingsFragment.class.getCanonicalName());
                     break;
+            }
+
+            if (item.getItemId() != R.id.tab_overlay_manager) {
+                if (ManagerFragment.layoutReloader != null &&
+                        !((AsyncTask) ManagerFragment.layoutReloader).isCancelled()) {
+                    ((AsyncTask) ManagerFragment.layoutReloader).cancel(true);
+                }
+            } else {
+                if (ThemeFragment.layoutReloader != null &&
+                        !ThemeFragment.layoutReloader.isCancelled()) {
+                    ThemeFragment.layoutReloader.cancel(true);
+                }
             }
             return true;
         });
@@ -1009,6 +1022,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(Boolean dialogReturnBool) {
             // These are hardcoded booleans and lint is squawking because

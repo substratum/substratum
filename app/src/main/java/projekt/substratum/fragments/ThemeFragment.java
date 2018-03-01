@@ -79,6 +79,7 @@ public class ThemeFragment extends Fragment {
     private SharedPreferences prefs;
     private boolean firstBoot = true;
     private ThemeAdapter themeAdapter;
+    public static AsyncTask layoutReloader;
 
     /**
      * Prepares the data to be used by the cards
@@ -97,9 +98,12 @@ public class ThemeFragment extends Fragment {
             themeItem.setThemeName(map.keySet().toArray()[i].toString());
             themeItem.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
             themeItem.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
-            themeItem.setThemeDrawable(
-                    Packages.getPackageHeroImage(
-                            context, map.get(map.keySet().toArray()[i].toString())[1], true));
+            try {
+                themeItem.setThemeDrawable(
+                        Packages.getPackageHeroImage(
+                                context, map.get(map.keySet().toArray()[i].toString())[1], true));
+            } catch (Exception ignored) {
+            }
             themeItem.setContext(context);
             themeItem.setActivity(activity);
             themes.add(themeItem);
@@ -203,7 +207,7 @@ public class ThemeFragment extends Fragment {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        new LayoutLoader(this).execute();
+        layoutReloader = new LayoutLoader(this).execute();
     }
 
     /**
@@ -262,7 +266,7 @@ public class ThemeFragment extends Fragment {
                 public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                     if (!MainActivity.userInput.equals("")) {
                         MainActivity.userInput = "";
-                        new LayoutLoader(getInstance()).execute();
+                        layoutReloader = new LayoutLoader(getInstance()).execute();
                     }
                     return true;
                 }
@@ -304,7 +308,8 @@ public class ThemeFragment extends Fragment {
         localBroadcastManager.registerReceiver(refreshReceiver, intentFilter);
 
         resetRecyclerView(recyclerView);
-        swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
+        swipeRefreshLayout.setOnRefreshListener(() ->
+                layoutReloader = new LayoutLoader(this).execute());
         swipeRefreshLayout.setRefreshing(true);
 
         if (getActivity() != null) {
@@ -314,7 +319,7 @@ public class ThemeFragment extends Fragment {
         cardView.setVisibility(View.GONE);
 
         // Let's start loading everything
-        new LayoutLoader(this).execute();
+        layoutReloader = new LayoutLoader(this).execute();
 
         return view;
     }
@@ -378,7 +383,7 @@ public class ThemeFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            new LayoutLoader(ThemeFragment.this.getInstance()).execute();
+            layoutReloader = new LayoutLoader(ThemeFragment.this.getInstance()).execute();
         }
     }
 }

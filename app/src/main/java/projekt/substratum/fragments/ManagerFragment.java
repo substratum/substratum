@@ -127,7 +127,7 @@ public class ManagerFragment extends Fragment {
     private BroadcastReceiver refreshReceiver;
     private SearchView searchView;
     private boolean firstBoot = true;
-    private LayoutReloader layoutReloader;
+    public static LayoutReloader layoutReloader;
 
     /**
      * Reset the RecyclerView and Adapter

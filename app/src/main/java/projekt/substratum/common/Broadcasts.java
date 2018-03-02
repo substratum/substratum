@@ -162,8 +162,6 @@ public enum Broadcasts {
                 context.getApplicationContext().registerReceiver(
                         new AppCrashReceiver(), intentAppCrashed);
                 context.getApplicationContext().registerReceiver(
-                        new OverlayFound(), intentPackageAdded);
-                context.getApplicationContext().registerReceiver(
                         new OverlayUpdater(), intentPackageAdded);
             }
 
@@ -174,6 +172,8 @@ public enum Broadcasts {
                         new InterfacerAuthorizationReceiver(), interfacerAuthorize);
             }
 
+            context.getApplicationContext().registerReceiver(
+                    new OverlayFound(), intentPackageAdded);
             context.getApplicationContext().registerReceiver(
                     new PackageModificationDetector(), intentPackageAdded);
             context.getApplicationContext().registerReceiver(

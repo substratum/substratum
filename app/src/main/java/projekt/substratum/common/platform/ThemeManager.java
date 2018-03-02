@@ -575,8 +575,8 @@ public enum ThemeManager {
     /**
      * Check whether a specified package is an overlay
      *
-     * @param context      Context
-     * @param packageName  Package to be determined
+     * @param context     Context
+     * @param packageName Package to be determined
      * @return True, if packageName is an overlay
      */
     public static boolean isOverlay(Context context,
@@ -593,8 +593,8 @@ public enum ThemeManager {
     /**
      * List overlays by theme
      *
-     * @param context      Context
-     * @param packageName  Package to be determined
+     * @param context     Context
+     * @param packageName Package to be determined
      * @return Returns a list of overlays activated for packageName
      */
     public static List<String> listOverlaysByTheme(Context context,

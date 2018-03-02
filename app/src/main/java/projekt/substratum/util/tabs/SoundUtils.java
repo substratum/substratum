@@ -45,15 +45,14 @@ import static projekt.substratum.common.References.STATUS_CHANGED;
 
 public class SoundUtils {
 
+    private static final String PRIMARY_COMMAND_KEY = "primary_command_key";
     public static FinishReceiver finishReceiver;
-
     private Context context;
     private String themePid;
     private boolean hasFailed;
     private boolean ringtone;
     private SharedPreferences prefs;
     private View view;
-    private static final String PRIMARY_COMMAND_KEY = "primary_command_key";
 
     /**
      * Clear the applied sound pack

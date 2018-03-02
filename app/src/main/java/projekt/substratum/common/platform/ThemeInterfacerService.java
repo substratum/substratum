@@ -45,7 +45,8 @@ public enum ThemeInterfacerService {
 
     /**
      * Uninstall a list of overlays
-     * @param overlays  List of overlays
+     *
+     * @param overlays List of overlays
      */
     public static void uninstallOverlays(ArrayList<String> overlays) {
         try {
@@ -83,7 +84,6 @@ public enum ThemeInterfacerService {
 
     /**
      * Restart the SystemUI
-     *
      */
     public static void restartSystemUI() {
         try {
@@ -106,7 +106,6 @@ public enum ThemeInterfacerService {
 
     /**
      * Clear the applied boot animation
-     *
      */
     public static void clearBootAnimation() {
         try {
@@ -118,8 +117,8 @@ public enum ThemeInterfacerService {
     /**
      * Set a font pack
      *
-     * @param pid     Package name
-     * @param name    Name of font
+     * @param pid  Package name
+     * @param name Name of font
      */
     public static void setFonts(String pid, String name) {
         try {
@@ -130,7 +129,6 @@ public enum ThemeInterfacerService {
 
     /**
      * Clear applied font pack
-     *
      */
     public static void clearFonts() {
         try {
@@ -142,8 +140,8 @@ public enum ThemeInterfacerService {
     /**
      * Set a sound pack
      *
-     * @param pid     Package name
-     * @param name    Name of sounds
+     * @param pid  Package name
+     * @param name Name of sounds
      */
     public static void setThemedSounds(String pid, String name) {
         try {
@@ -154,7 +152,6 @@ public enum ThemeInterfacerService {
 
     /**
      * Clear applied sound pack
-     *
      */
     public static void clearThemedSounds() {
         try {

@@ -105,6 +105,7 @@ public class ManagerFragment extends Fragment {
 
     private static final int MANAGER_FRAGMENT_INITIAL_DELAY = 500;
     public static MaterialSheetFab materialSheetFab;
+    public static LayoutReloader layoutReloader;
     private RelativeLayout toggleZone;
     private RelativeLayout noOverlaysEnabled;
     private RecyclerView recyclerView;
@@ -127,7 +128,6 @@ public class ManagerFragment extends Fragment {
     private BroadcastReceiver refreshReceiver;
     private SearchView searchView;
     private boolean firstBoot = true;
-    public static LayoutReloader layoutReloader;
 
     /**
      * Reset the RecyclerView and Adapter
@@ -1242,10 +1242,10 @@ public class ManagerFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
-                    fragment.layoutReloader.cancel(true);
-                    fragment.layoutReloader = new LayoutReloader(fragment, MainActivity.userInput);
-                    fragment.layoutReloader.execute();
+                if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                    layoutReloader.cancel(true);
+                    layoutReloader = new LayoutReloader(fragment, MainActivity.userInput);
+                    layoutReloader.execute();
                 }
                 fragment.loadingBar.setVisibility(View.GONE);
             }

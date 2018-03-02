@@ -707,8 +707,8 @@ public enum Packages {
                             filtered.append(appInfo.metaData.getString(metadataName));
                             filtered.append(appInfo.metaData.getString(metadataAuthor));
                             canContinue = filtered.toString()
-                                            .toLowerCase(Locale.US)
-                                            .contains(searchFilter.toLowerCase(Locale.US));
+                                    .toLowerCase(Locale.US)
+                                    .contains(searchFilter.toLowerCase(Locale.US));
                         }
                     }
                 }

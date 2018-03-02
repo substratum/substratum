@@ -70,6 +70,7 @@ import static projekt.substratum.common.Systems.isSamsungDevice;
 public class ThemeFragment extends Fragment {
 
     private static final int THEME_FRAGMENT_INITIAL_DELAY = 300;
+    public static AsyncTask layoutReloader;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private View cardView;
@@ -79,7 +80,6 @@ public class ThemeFragment extends Fragment {
     private SharedPreferences prefs;
     private boolean firstBoot = true;
     private ThemeAdapter themeAdapter;
-    public static AsyncTask layoutReloader;
 
     /**
      * Prepares the data to be used by the cards

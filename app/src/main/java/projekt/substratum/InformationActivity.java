@@ -213,8 +213,8 @@ public class InformationActivity extends AppCompatActivity {
     /**
      * Depending on the hero image, change the actionbar color buttons
      *
-     * @param activity  Activity to change it in
-     * @param darkMode  True if dark, false if light
+     * @param activity Activity to change it in
+     * @param darkMode True if dark, false if light
      */
     private static void setOverflowButtonColor(Activity activity, boolean darkMode) {
         @SuppressLint("PrivateResource") String overflowDescription =

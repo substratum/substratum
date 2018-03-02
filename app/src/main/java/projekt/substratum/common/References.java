@@ -38,6 +38,7 @@ import android.graphics.Bitmap;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.AdaptiveIconDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
@@ -83,6 +84,7 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
@@ -816,6 +818,29 @@ public enum References {
         if (clipboard != null) {
             clipboard.setPrimaryClip(clip);
         }
+    }
+
+    /**
+     * Resizes a given image dynamically based on the user's screen
+     *
+     * @param image Drawable to be resized dynamically
+     * @return Resized drawable
+     */
+    public static Drawable dynamicallyResize(Drawable image) {
+        Bitmap b = ((BitmapDrawable) image).getBitmap();
+
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        int gridCount = PreferenceManager.getDefaultSharedPreferences(
+                Substratum.getInstance()).getInt("grid_style_cards_count", 1);
+        float targetWidthSize = (float) screenWidth / gridCount;
+
+        int width = image.getIntrinsicWidth();
+        float dstMultiplier = targetWidthSize / width;
+        int dstWidth = (int) (image.getIntrinsicWidth() * dstMultiplier);
+        int dstHeight = (int) (image.getIntrinsicHeight() * dstMultiplier);
+
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, dstWidth, dstHeight, true);
+        return new BitmapDrawable(Substratum.getInstance().getResources(), bitmapResized);
     }
 
     /**

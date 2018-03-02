@@ -22,6 +22,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import static projekt.substratum.common.References.dynamicallyResize;
+
 public class ThemeItem {
 
     private String themeName;
@@ -60,7 +62,7 @@ public class ThemeItem {
     }
 
     public void setThemeDrawable(Drawable drawable) {
-        this.themeDrawable = drawable;
+        this.themeDrawable = dynamicallyResize(drawable);
     }
 
     public Activity getActivity() {

@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(this, fragment));
         tx.commitAllowingStateLoss();
         supportInvalidateOptionsMenu();
@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements
             switchToStockToolbar(getString(R.string.nav_main));
         }
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commitAllowingStateLoss();
         supportInvalidateOptionsMenu();

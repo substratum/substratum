@@ -134,7 +134,7 @@
     <string name="information_activity_theme_improperly_setup">"%s" has no available resources for theming!</string>
 
     <string name="legacy_preference_priority_title">Overlay priority adjustment</string>
-    <string name="legacy_preference_priority_text">Priority is set at (default %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Priority is set at (default %d): %d</string>
 
     <string name="grid_size_title">Theme display column adjustment</string>
     <string name="grid_size_text">Column count is set to (default %d): %d</string>

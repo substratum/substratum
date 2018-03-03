@@ -1022,8 +1022,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 boolean validated = Packages.validateResource(
                                         settingsFragment.context,
                                         tempPackageName,
-                                        "bool",
-                                        bools.get(j));
+                                        bools.get(j),
+                                        "bool");
                                 if (validated) {
                                     if (VALIDATE_WITH_LOGS)
                                         Log.d("BoolCheck", "Resource exists: " + bools.get(j));
@@ -1071,8 +1071,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 boolean validated = Packages.validateResource(
                                         settingsFragment.context,
                                         tempPackageName,
-                                        "color",
-                                        colors.get(j));
+                                        colors.get(j),
+                                        "color");
                                 if (validated) {
                                     if (VALIDATE_WITH_LOGS)
                                         Log.d("ColorCheck", "Resource exists: " + colors.get(j));
@@ -1119,8 +1119,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 boolean validated = Packages.validateResource(
                                         settingsFragment.context,
                                         tempPackageName,
-                                        "dimen",
-                                        dimens.get(j));
+                                        dimens.get(j),
+                                        "dimen");
                                 if (validated) {
                                     if (VALIDATE_WITH_LOGS)
                                         Log.d("DimenCheck", "Resource exists: " + dimens.get(j));
@@ -1169,8 +1169,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 boolean validated = Packages.validateResource(
                                         settingsFragment.context,
                                         tempPackageName,
-                                        "style",
-                                        styles.get(j));
+                                        styles.get(j),
+                                        "style");
                                 if (validated) {
                                     if (VALIDATE_WITH_LOGS)
                                         Log.d("StyleCheck", "Resource exists: " + styles.get(j));

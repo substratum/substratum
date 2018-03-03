@@ -186,11 +186,11 @@ public enum Packages {
         try {
             Context ctx = context.createPackageContext(packageName, 0);
             android.content.res.Resources resources = ctx.getResources();
-            int drawablePointer = resources.getIdentifier(
-                    resourceName, // Drawable name explicitly defined
-                    resourceType, // Declared icon is a drawable, indeed.
-                    packageName); // Icon pack package name
-            return drawablePointer != 0;
+            int resourcePointer = resources.getIdentifier(
+                    resourceName, // Resource name
+                    resourceType, // Type of resource to check
+                    packageName); // Package name to check
+            return resourcePointer != 0;
         } catch (Exception e) {
             return false;
         }

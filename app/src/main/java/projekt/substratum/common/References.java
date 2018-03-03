@@ -651,10 +651,10 @@ public enum References {
         for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**

@@ -168,7 +168,7 @@ public enum References {
     public static final String metadataSamsungSupport = "Substratum_Samsung";
     public static final String resourceChangelog = "ThemeChangelog";
     // These are Samsung specific manifest values
-    public static final boolean toggleShowSamsungOverlayInSettings = false;
+    public static final boolean toggleShowSamsungOverlayInSettings = true;
     public static final String permissionSamsungOverlay =
             "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
     // These strings control the folders to detect in the assets

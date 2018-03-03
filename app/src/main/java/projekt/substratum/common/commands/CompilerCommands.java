@@ -111,15 +111,16 @@ public enum CompilerCommands {
             rootElement.setAttribute("package", packageName);
             rootElement.setAttribute("android:versionName", versionName);
 
+            if (showOverlayInSamsungSettings) {
+                Element samsungPermissionElement = document.createElement("uses-permission");
+                samsungPermissionElement.setAttribute("android:name", permissionSamsungOverlay);
+                rootElement.appendChild(samsungPermissionElement);
+            }
+
             Element overlayElement = document.createElement("overlay");
             if (!themeOms)
                 overlayElement.setAttribute("android:priority", String.valueOf(legacyPriority));
             overlayElement.setAttribute("android:targetPackage", targetPackage);
-            if (showOverlayInSamsungSettings) {
-                Element samsungPermissionElement = document.createElement("uses-permission");
-                samsungPermissionElement.setAttribute("android:name", permissionSamsungOverlay);
-                overlayElement.appendChild(samsungPermissionElement);
-            }
             rootElement.appendChild(overlayElement);
 
             Element applicationElement = document.createElement("application");

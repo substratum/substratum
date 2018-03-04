@@ -212,14 +212,19 @@ public class ManagerFragment extends Fragment {
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
         localBroadcastManager = LocalBroadcastManager.getInstance(context);
-        localBroadcastManager.registerReceiver(refreshReceiver,
-                new IntentFilter(MANAGER_REFRESH));
+        localBroadcastManager.registerReceiver(refreshReceiver, new IntentFilter(MANAGER_REFRESH));
 
         loadingBar.setVisibility(View.GONE);
 
         // Don't even display the "enableDisableSelected" button to non-oms users.
         if (!checkOMS(context))
             sheetView.findViewById(R.id.enable_disable_selected).setVisibility(View.GONE);
+        if (MainActivity.instanceBasedAndromedaFailure) {
+            // Andromeda is broken!
+            sheetView.findViewById(R.id.enable_disable_selected).setVisibility(View.GONE);
+            sheetView.findViewById(R.id.enable_selected).setVisibility(View.GONE);
+            sheetView.findViewById(R.id.disable_selected).setVisibility(View.GONE);
+        }
         int sheetColor = context.getColor(R.color.fab_menu_background_card);
         int fabColor = context.getColor(R.color.fab_background_color);
 
@@ -392,6 +397,9 @@ public class ManagerFragment extends Fragment {
         if (!checkOMS(context)) menu.findItem(R.id.restart_systemui).setVisible(false);
         assert getActivity() != null;
         updateMenuButtonState(menu.findItem(R.id.alphabetize));
+        if (MainActivity.instanceBasedAndromedaFailure) {
+            menu.findItem(R.id.restart_systemui).setVisible(false);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 

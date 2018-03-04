@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String SELECTED_TAB_ITEM = "selected_tab_item";
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
+    public static boolean instanceBasedAndromedaFailure;
     public SearchView searchView;
     public TextView actionbarContent;
     TextView actionbarTitle;
@@ -150,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
     private Context context;
+    private BottomNavigationMenuView menuView;
 
     /**
      * Checks whether the overlays installed are outdated or not, based on substratum version used
@@ -353,13 +355,12 @@ public class MainActivity extends AppCompatActivity implements
             switchToStockToolbar(getString(R.string.nav_main));
         }
 
-        bottomBar.setVisibility(View.VISIBLE);
         getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         BottomNavigationView bottomBar = findViewById(R.id.bottomBar);
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomBar.getChildAt(0);
+        menuView = (BottomNavigationMenuView) bottomBar.getChildAt(0);
 
         try {
             Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
@@ -664,10 +665,18 @@ public class MainActivity extends AppCompatActivity implements
                 transaction.commit();
                 switchToDefaultToolbarText();
             } else {
-                if (bottomBar.getSelectedItemId() != R.id.tab_themes) {
-                    bottomBar.setSelectedItemId(R.id.tab_themes);
+                if (!instanceBasedAndromedaFailure) {
+                    if (bottomBar.getSelectedItemId() != R.id.tab_themes) {
+                        bottomBar.setSelectedItemId(R.id.tab_themes);
+                    } else {
+                        finish();
+                    }
                 } else {
-                    finish();
+                    if (bottomBar.getSelectedItemId() != R.id.tab_overlay_manager) {
+                        bottomBar.setSelectedItemId(R.id.tab_overlay_manager);
+                    } else {
+                        finish();
+                    }
                 }
             }
         }
@@ -1082,6 +1091,10 @@ public class MainActivity extends AppCompatActivity implements
                             !AndromedaService.checkServerActivity()) {
                         TextView andromedaTitle = activity.progressDialog.findViewById(
                                 R.id.andromeda_title);
+                        Button andromedaOfflineButton =
+                                activity.progressDialog.findViewById(R.id.andromeda_offline_button);
+                        TextView andromedaDebugText =
+                                activity.progressDialog.findViewById(R.id.andromeda_debug_text);
                         andromedaTitle.setText(R.string.andromeda_disconnected);
                         andromedaTitle.setVisibility(View.VISIBLE);
                         Button andromedaButton = activity.progressDialog.findViewById(
@@ -1090,8 +1103,20 @@ public class MainActivity extends AppCompatActivity implements
                         andromedaButton.setVisibility(View.VISIBLE);
                         andromedaButton.setOnClickListener(view ->
                                 launchExternalActivity(context, ANDROMEDA_PACKAGE, "InfoActivity"));
+                        andromedaOfflineButton.setVisibility(View.VISIBLE);
+                        andromedaOfflineButton.setOnClickListener(v ->
+                                activity.progressDialog.cancel());
+                        if (BuildConfig.DEBUG) {
+                            andromedaDebugText.setVisibility(View.VISIBLE);
+                        }
+
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
+                        instanceBasedAndromedaFailure = true;
+                        activity.menuView.findViewById(R.id.tab_themes).setVisibility(View.GONE);
+                        activity.menuView.findViewById(R.id.tab_priorities).setVisibility(View.GONE);
+                        activity.menuView.findViewById(R.id.tab_profiles).setVisibility(View.GONE);
+                        activity.bottomBar.setSelectedItemId(R.id.tab_overlay_manager);
                     } else if (Systems.checkOreo() &&
                             !Packages.isPackageInstalled(context, ANDROMEDA_PACKAGE)) {
                         TextView andromedaTitle = activity.progressDialog.findViewById(
@@ -1136,7 +1161,10 @@ public class MainActivity extends AppCompatActivity implements
                                 "AndromedaService binder lookup failed, " +
                                         "scheduling immediate restart...");
                         context.stopService(new Intent(context, AndromedaBinderService.class));
-                        Substratum.getInstance().startBinderService(AndromedaBinderService.class);
+                        if (!instanceBasedAndromedaFailure) {
+                            Substratum.getInstance()
+                                    .startBinderService(AndromedaBinderService.class);
+                        }
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {

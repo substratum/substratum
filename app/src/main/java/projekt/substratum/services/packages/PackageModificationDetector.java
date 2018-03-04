@@ -38,6 +38,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.common.Broadcasts;
@@ -81,7 +82,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
-        if (Systems.isSamsungDevice(context)) {
+        if (Systems.isSamsungDevice(context) || MainActivity.instanceBasedAndromedaFailure) {
             Broadcasts.sendOverlayRefreshMessage(context);
             Broadcasts.sendRefreshManagerMessage(context);
         }

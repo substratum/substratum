@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import java.io.Serializable;
 
 import projekt.substratum.BuildConfig;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -138,8 +139,13 @@ public class ManagerItem implements Serializable {
 
     public void updateEnabledOverlays(boolean isActivated) {
         this.activationValue =
-                ((isActivated) ? this.context.getColor(R.color.overlay_installed_list_entry) :
-                        this.context.getColor(R.color.overlay_not_enabled_list_entry));
+                (MainActivity.instanceBasedAndromedaFailure ?
+                        this.context.getColor(R.color.overlay_installed_not_active) :
+                        ((isActivated) ?
+                                this.context.getColor(R.color.overlay_installed_list_entry) :
+                                this.context.getColor(R.color.overlay_not_enabled_list_entry)
+                        )
+                );
     }
 
     public String getType1a() {

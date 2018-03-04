@@ -436,12 +436,14 @@
     <string name="no_overlays_description_search">\"%s\" was not found in the list of
         overlays installed&#8230;</string>
 
-    <string name="toast_andromeda_timed_out">There is a delay with the Andromeda Backend, please relaunch Substratum.</string>
+    <string name="toast_andromeda_timed_out">Substratum could not connect to the Andromeda backend.</string>
     <string name="toast_could_not_uninstall">No valid overlays selected.</string>
 
     <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>
-    <string name="andromeda_disconnected">the andromeda desktop client needs to connect to your device to be able to function with substratum!</string>
+    <string name="andromeda_debug_menu_alert">you are currently running a debug build of substratum. ensure you have \'bypass check\' enabled in Andromeda after clicking the connection card eight times.</string>
+    <string name="andromeda_disconnected">the andromeda desktop client needs to connect to your device to be able to function with substratum!\n\nyou can still uninstall existing overlays installed on the device using offline mode.</string>
     <string name="andromeda_check_status">Check status</string>
+    <string name="andromeda_offline_mode">Offline mode</string>
     <string name="andromeda_no_root_dialog">It seems that you are on a supported themable Oreo device, an addon was released to support this!</string>
     <string name="andromeda_no_root_dialog_button">Download now!</string>
     <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>

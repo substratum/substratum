@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -418,7 +419,8 @@ public enum ThemeManager {
             }
         } catch (Exception e) {
             // At this point, we probably ran into a legacy command or stock OMS
-            if (Systems.checkOMS(context) || Systems.checkOreo()) {
+            if ((Systems.checkOMS(context) || Systems.checkOreo()) &&
+                    !MainActivity.instanceBasedAndromedaFailure) {
                 String prefix;
                 if (overlayState == STATE_ENABLED) {
                     prefix = "[x]";
@@ -431,7 +433,7 @@ public enum ThemeManager {
                 String[] arrList = null;
 
                 // This is a check for Oreo and Andromeda's integration
-                if (Systems.checkAndromeda(context)) {
+                if (Systems.checkAndromeda(context) && !MainActivity.instanceBasedAndromedaFailure) {
                     File overlays = new File(
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/.andromeda/overlays.xml");
@@ -536,9 +538,11 @@ public enum ThemeManager {
                         break;
                 }
             } else {
-                // We now know this is not OMS, so fallback for Samsung and Legacy
+                // We now know this is not OMS, so fallback for Samsung and Legacy or
+                // offline Andromeda
                 if ((overlayState == STATE_LIST_ALL_OVERLAYS) || (overlayState == STATE_ENABLED)) {
-                    if (Systems.isSamsungDevice(context)) {
+                    if (Systems.isSamsungDevice(context) ||
+                            MainActivity.instanceBasedAndromedaFailure) {
                         PackageManager pm = context.getPackageManager();
                         List<ApplicationInfo> packages =
                                 pm.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -727,7 +731,9 @@ public enum ThemeManager {
             ThemeInterfacerService.uninstallOverlays(
                     overlays
             );
-        } else if (checkAndromeda(context) && !Systems.isSamsungDevice(context)) {
+        } else if ((checkAndromeda(context) &&
+                !MainActivity.instanceBasedAndromedaFailure) &&
+                !Systems.isSamsungDevice(context)) {
             if (!AndromedaService.uninstallOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() ->
@@ -737,9 +743,10 @@ public enum ThemeManager {
                                 Toast.LENGTH_LONG).show()
                 );
             }
-        } else if (Systems.isSamsungDevice(context) &&
-                !Root.checkRootAccess() &&
-                !Root.requestRootAccess()) {
+        } else if (MainActivity.instanceBasedAndromedaFailure ||
+                (Systems.isSamsungDevice(context) &&
+                        !Root.checkRootAccess() &&
+                        !Root.requestRootAccess())) {
             for (int i = 0; i < overlays.size(); i++) {
                 Uri packageURI = Uri.parse("package:" + overlays.get(i));
                 Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);

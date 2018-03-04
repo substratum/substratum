@@ -30,7 +30,8 @@
     <color name="bottombar_bar_background">@color/colorPrimary</color>
     <color name="bottombar_icon_inactive_tint">#64000000</color>
 
-    <!-- Hardcode the colors so it doesn't change every time an Android System overlay changes -->
+    <color name="main_activity_alert_button_color">#df3b3b3b</color>
+
     <color name="floatui_dialog_background">#ffffff</color>
     <color name="floatui_dialog_button_color">@color/colorAccent</color>
 

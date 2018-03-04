@@ -95,6 +95,7 @@ import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
@@ -394,10 +395,11 @@ public class ManagerFragment extends Fragment {
             });
         }
 
-        if (!checkOMS(context)) menu.findItem(R.id.restart_systemui).setVisible(false);
         assert getActivity() != null;
         updateMenuButtonState(menu.findItem(R.id.alphabetize));
-        if (MainActivity.instanceBasedAndromedaFailure) {
+        if (!checkOMS(context)||
+                checkAndromeda(context) ||
+                MainActivity.instanceBasedAndromedaFailure) {
             menu.findItem(R.id.restart_systemui).setVisible(false);
         }
         super.onCreateOptionsMenu(menu, inflater);

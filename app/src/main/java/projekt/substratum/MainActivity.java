@@ -93,6 +93,7 @@ import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.LocaleHelper;
 import projekt.substratum.util.helpers.Root;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -298,6 +299,11 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
+    }
+
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -305,7 +311,6 @@ public class MainActivity extends AppCompatActivity implements
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         super.onCreate(savedInstanceState);
-        Substratum.setLocale(prefs.getBoolean("force_english_locale", false));
 
         progressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         progressDialog.setCancelable(false);

@@ -103,6 +103,7 @@ import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.Wallpapers;
 import projekt.substratum.tabs.WallpapersManager;
+import projekt.substratum.util.helpers.LocaleHelper;
 import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.Lunchbar;
@@ -276,6 +277,11 @@ public class InformationActivity extends AppCompatActivity {
             return coordinatorLayout;
         }
         return References.getView(activity);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
     }
 
     /**

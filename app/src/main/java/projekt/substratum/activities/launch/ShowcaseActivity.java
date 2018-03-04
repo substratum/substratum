@@ -22,14 +22,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -51,12 +50,12 @@ import java.util.List;
 import java.util.Map;
 
 import projekt.substratum.R;
-import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.databinding.ShowcaseActivityBinding;
 import projekt.substratum.fragments.ShowcaseTab;
 import projekt.substratum.util.helpers.FileDownloader;
+import projekt.substratum.util.helpers.LocaleHelper;
 import projekt.substratum.util.helpers.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 import projekt.substratum.util.views.Lunchbar;
@@ -74,6 +73,10 @@ public class ShowcaseActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
+    }
 
     @Override
     public void onBackPressed() {
@@ -156,11 +159,6 @@ public class ShowcaseActivity extends AppCompatActivity {
         masterView = binding.rootView;
         navigationView = binding.navigationView;
         drawerLayout = binding.drawerLayout;
-
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        Substratum.setLocale(prefs.getBoolean("force_english_locale", false));
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

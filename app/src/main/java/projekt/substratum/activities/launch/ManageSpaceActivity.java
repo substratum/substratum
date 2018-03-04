@@ -37,6 +37,7 @@ import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.databinding.ManageSpaceActivityBinding;
+import projekt.substratum.util.helpers.LocaleHelper;
 
 import static projekt.substratum.common.References.LOGCHAR_DIR;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.NAMES_PREFS;
@@ -49,6 +50,11 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private TextView cacheCounter;
     private TextView logsCounter;
     private String callingPackage;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

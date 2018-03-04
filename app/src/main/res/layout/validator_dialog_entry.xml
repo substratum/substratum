@@ -34,8 +34,8 @@
         android:id="@+id/pack_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
         android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:selectableItemBackground"
@@ -51,19 +51,19 @@
                 android:id="@+id/pack_icon"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_centerVertical="true"
                 android:importantForAccessibility="no"
                 android:src="@android:color/transparent" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/pack_icon"
                 android:layout_toStartOf="@+id/verification_icon"
+                android:layout_toEndOf="@id/pack_icon"
+                android:layout_centerVertical="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -85,11 +85,11 @@
                 android:id="@+id/verification_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/package_verification_failure" />
 

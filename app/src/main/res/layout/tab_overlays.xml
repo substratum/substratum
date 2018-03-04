@@ -41,10 +41,10 @@
                 android:id="@+id/toggle_zone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginEnd="7dp"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="12dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -61,17 +61,17 @@
                     android:id="@+id/type3_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="-12dp"
                     android:layout_marginStart="-7dp"
                     android:layout_marginTop="-10dp"
+                    android:layout_marginBottom="-12dp"
                     android:layout_toStartOf="@+id/toggle_all_overlays" />
 
                 <Switch
                     android:id="@+id/toggle_all_overlays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="6dp" />
+                    android:layout_marginTop="6dp"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -85,10 +85,10 @@
                     android:id="@+id/overlayRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/type3_spinner"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_below="@id/type3_spinner"
                     android:clipToPadding="false"
                     android:paddingBottom="90dp"
                     android:scrollbars="none" />

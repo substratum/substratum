@@ -16,13 +16,18 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <layout>
+
     <data>
+
         <import type="projekt.substratum.adapters.tabs.overlays.VariantItem" />
+
         <import type="android.view.View" />
+
         <variable
             name="overlayColorPreviewItem"
             type="VariantItem" />
     </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,11 +39,11 @@
             android:id="@+id/variantHex"
             android:layout_width="25dip"
             android:layout_height="25dip"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/preview_spinner_circle"
-            android:importantForAccessibility="no" />
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center_vertical"
+            android:importantForAccessibility="no"
+            android:src="@drawable/preview_spinner_circle" />
 
         <CheckedTextView
             android:id="@+id/variantName"

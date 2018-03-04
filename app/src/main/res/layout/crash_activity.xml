@@ -27,16 +27,16 @@
             android:id="@+id/blob"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:src="@drawable/ic_error_report"
-            android:importantForAccessibility="no" />
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_error_report" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_below="@+id/blob"
             android:layout_centerInParent="true"
-            android:layout_marginTop="20dp"
             android:text="@string/error_activity_title"
             android:textAllCaps="true"
             android:textColor="?android:textColorPrimary"
@@ -53,9 +53,9 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_below="@+id/text"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:backgroundTint="@color/do_not_theme_this_color_buttons"
             android:gravity="center">
 

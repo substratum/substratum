@@ -44,8 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_toEndOf="@+id/icon"
             android:layout_toStartOf="@id/icons"
+            android:layout_toEndOf="@+id/icon"
             android:orientation="vertical">
 
             <TextView
@@ -77,8 +77,8 @@
             style="?android:progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/information"
             android:layout_marginTop="20dp"
+            android:layout_below="@+id/information"
             android:indeterminate="true" />
 
     </RelativeLayout>

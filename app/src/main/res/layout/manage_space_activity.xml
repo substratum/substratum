@@ -72,8 +72,8 @@
                     android:id="@+id/cache_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@+id/erase_cache_title"
+                    android:layout_alignParentEnd="true"
                     android:gravity="end"
                     android:text="@string/cache_placeholder_text" />
             </RelativeLayout>
@@ -110,8 +110,8 @@
                     android:id="@+id/log_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@+id/erase_logs_title"
+                    android:layout_alignParentEnd="true"
                     android:gravity="end"
                     android:text="@string/logs_placeholder" />
             </RelativeLayout>

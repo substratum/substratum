@@ -46,17 +46,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="15dp">
 
             <RelativeLayout
                 android:id="@+id/holder"
                 android:layout_width="48dp"
                 android:layout_height="60dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp">
 
                 <ImageView
                     android:id="@+id/app_icon"
@@ -70,10 +70,10 @@
                     android:id="@+id/app_icon_sub"
                     android:layout_width="48dp"
                     android:layout_height="30dp"
-                    android:layout_alignBottom="@id/app_icon"
-                    android:layout_alignStart="@id/app_icon"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignStart="@id/app_icon"
+                    android:layout_alignBottom="@id/app_icon"
                     android:importantForAccessibility="no"
                     android:src="@drawable/default_overlay_icon" />
 
@@ -82,9 +82,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/holder"
                 android:layout_toStartOf="@+id/chkSelected"
+                android:layout_toEndOf="@+id/holder"
+                android:layout_centerVertical="true"
                 android:gravity="start|center"
                 android:orientation="vertical">
 

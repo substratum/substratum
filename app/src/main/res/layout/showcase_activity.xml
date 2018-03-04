@@ -67,8 +67,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/image_placeholder2"
                         android:layout_margin="15dp"
+                        android:layout_below="@id/image_placeholder2"
                         android:gravity="center"
                         android:text="@string/showcase_no_connection"
                         android:textColor="@color/main_screen_card_theme_title"
@@ -84,8 +84,8 @@
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                app:itemTextColor="?android:attr/textColorPrimary"
-                app:itemBackground="@drawable/showcase_drawer_item_background" />
+                app:itemBackground="@drawable/showcase_drawer_item_background"
+                app:itemTextColor="?android:attr/textColorPrimary" />
 
         </android.support.v4.widget.DrawerLayout>
 

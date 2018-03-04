@@ -17,6 +17,7 @@
   -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,16 +37,16 @@
                 android:id="@+id/icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/default_overlay_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/icon"
                 android:layout_toStartOf="@id/icons"
+                android:layout_toEndOf="@+id/icon"
+                android:layout_centerVertical="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -73,11 +74,10 @@
                 android:id="@+id/icons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="3dp"
                 android:layout_marginEnd="5dp"
-                android:clickable="false">
-            </RelativeLayout>
+                android:layout_marginBottom="3dp"
+                android:layout_alignParentEnd="true"
+                android:clickable="false"></RelativeLayout>
 
         </RelativeLayout>
 

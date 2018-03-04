@@ -26,18 +26,18 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
     <item
-        android:id="@+id/per_app"
-        android:icon="@drawable/toolbar_per_app"
-        android:menuCategory="secondary"
-        android:orderInCategory="2"
-        android:title="@string/menu_per_app"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/rescue"
         android:icon="@drawable/toolbar_rescue"
         android:menuCategory="secondary"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         android:title="@string/nav_recovery"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/per_app"
+        android:icon="@drawable/toolbar_per_app"
+        android:menuCategory="secondary"
+        android:orderInCategory="3"
+        android:title="@string/menu_per_app"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/showcase"

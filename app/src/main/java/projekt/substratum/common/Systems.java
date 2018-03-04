@@ -424,6 +424,16 @@ public enum Systems {
     }
 
     /**
+     * Checks if the device is a Xiaomi device
+     *
+     * @param context CONTEXT!
+     * @return True, if it passes all Xiaomi tests
+     */
+    public static boolean isXiaomiDevice(Context context) {
+        return context != null && new File("/system/etc/permissions/platform-miui.xml").exists();
+    }
+
+    /**
      * Obtains the Andromeda Package
      *
      * @param context Context...

@@ -98,6 +98,11 @@
       at your own discretion.\n\nIf at any case you reach an issue with a possible black screen,
       please consult our XDA thread on the two methods of recovery.
     </string>
+    <string name="xiaomi_warning_content">Xiaomi added extra steps to prevent substratum from working
+        as-is.\n\nYou will need to have \"Install via USB\" and \"USB debugging (Security settings)\"
+        enabled in Developer options as well as the usual \"USB debugging\".\n\nWithout these
+        permissions, overlays will not be installed!
+    </string>
 
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>
     <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it
@@ -405,6 +410,7 @@
       permissions
       or the app will not function properly!
     </string>
+    <string name="dialog_check">Check</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Do not show again</string>
     <string name="dialog_cancel">Cancel</string>

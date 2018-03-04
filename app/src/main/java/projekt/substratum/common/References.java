@@ -594,6 +594,9 @@ public enum References {
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);
         editor.remove("previous_logchar_cleanup");
         editor.remove("seen_legacy_warning");
+        editor.remove("rooted_oms_dismissal");
+        editor.remove("xiaomi_enable_development");
+        editor.remove("legacy_dismissal");
         editor2.clear();
         Theming.refreshInstalledThemesPref(context);
         editor.apply();

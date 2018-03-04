@@ -956,6 +956,28 @@ public class MainActivity extends AppCompatActivity implements
                                     alert.show();
                                 }
 
+                                if (Systems.checkOMS(context) &&
+                                        Systems.isXiaomiDevice(context) &&
+                                        !activity.prefs.contains("xiaomi_enable_development")) {
+                                    AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                                    alert.setTitle(R.string.warning_title);
+                                    alert.setMessage(R.string.xiaomi_warning_content);
+                                    alert.setPositiveButton(R.string.dialog_ok,
+                                            (dialog2, i2) -> dialog2.cancel());
+                                    alert.setNegativeButton(R.string.dialog_check, (dlg, which) -> {
+                                        activity.startActivity(
+                                                new Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+                                        activity.finishAffinity();
+                                    });
+                                    alert.setNeutralButton(R.string.dialog_do_not_show_again,
+                                            (dialog3, i3) -> {
+                                                activity.prefs.edit().putBoolean(
+                                                        "xiaomi_enable_development", true).apply();
+                                                dialog3.cancel();
+                                            });
+                                    alert.show();
+                                }
+
                                 if ((checkThemeSystemModule(context) ==
                                         OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
                                         !activity.prefs.contains("rooted_oms_dismissal")) {
@@ -1003,6 +1025,28 @@ public class MainActivity extends AppCompatActivity implements
                                 (dialog3, i3) -> {
                                     activity.prefs.edit().putBoolean(
                                             "legacy_dismissal", true).apply();
+                                    dialog3.cancel();
+                                });
+                        alert.show();
+                    }
+
+                    if (Systems.checkOMS(context) &&
+                            Systems.isXiaomiDevice(context) &&
+                            !activity.prefs.contains("xiaomi_enable_development")) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                        alert.setTitle(R.string.warning_title);
+                        alert.setMessage(R.string.xiaomi_warning_content);
+                        alert.setPositiveButton(R.string.dialog_ok,
+                                (dialog2, i2) -> dialog2.cancel());
+                        alert.setNegativeButton(R.string.dialog_check, (dialog, which) -> {
+                            activity.startActivity(
+                                    new Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+                            activity.finishAffinity();
+                        });
+                        alert.setNeutralButton(R.string.dialog_do_not_show_again,
+                                (dialog3, i3) -> {
+                                    activity.prefs.edit().putBoolean(
+                                            "xiaomi_enable_development", true).apply();
                                     dialog3.cancel();
                                 });
                         alert.show();

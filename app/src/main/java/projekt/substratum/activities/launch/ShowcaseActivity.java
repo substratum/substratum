@@ -293,7 +293,6 @@ public class ShowcaseActivity extends AppCompatActivity {
                                     String link_address,
                                     String title) {
             FragmentTransaction tx = activity.getSupportFragmentManager().beginTransaction();
-            tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             Bundle bundle = new Bundle();
             bundle.putInt("tab_count", position);
             bundle.putString("tabbed_address", link_address);

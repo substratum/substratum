@@ -33,6 +33,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 
+import static projekt.substratum.common.References.isServiceRunning;
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 
 public class FloatUILaunchActivity extends AppCompatActivity {
@@ -42,8 +43,7 @@ public class FloatUILaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (Settings.canDrawOverlays(getApplicationContext()) &&
                 checkUsagePermissions(getApplicationContext())) {
-            if (References.isServiceRunning(SubstratumFloatInterface.class,
-                    getApplicationContext())) {
+            if (!isServiceRunning(SubstratumFloatInterface.class, getApplicationContext())) {
                 triggerFloatingHead(true);
             } else {
                 triggerFloatingHead(false);

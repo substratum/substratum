@@ -507,10 +507,8 @@ public class MainActivity extends AppCompatActivity implements
 
             // Begin OMS based options
             case R.id.per_app:
-                if (References.isServiceRunning(SubstratumFloatInterface.class,
-                        context)) {
-                    if (Settings.canDrawOverlays(context) &&
-                            checkUsagePermissions(context)) {
+                if (!References.isServiceRunning(SubstratumFloatInterface.class, context)) {
+                    if (Settings.canDrawOverlays(context) && checkUsagePermissions(context)) {
                         showFloatingHead();
                     } else if (!Settings.canDrawOverlays(context)) {
                         DialogInterface.OnClickListener dialogClickListener = (dialog,

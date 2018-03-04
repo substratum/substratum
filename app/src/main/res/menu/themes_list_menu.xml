@@ -17,34 +17,36 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/toolbar_search"
         android:orderInCategory="1"
         android:title="@string/actionbar_search"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/rescue"
         android:icon="@drawable/toolbar_rescue"
         android:menuCategory="secondary"
         android:orderInCategory="2"
         android:title="@string/nav_recovery"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/per_app"
-        android:icon="@drawable/toolbar_per_app"
-        android:menuCategory="secondary"
-        android:orderInCategory="3"
-        android:title="@string/menu_per_app"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/showcase"
         android:icon="@drawable/toolbar_showcase"
         android:menuCategory="secondary"
-        android:orderInCategory="4"
+        android:orderInCategory="3"
         android:title="@string/menu_showcase"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/per_app"
+        android:icon="@drawable/toolbar_per_app"
+        android:menuCategory="secondary"
+        android:orderInCategory="4"
+        android:title="@string/menu_per_app"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/reboot_device"

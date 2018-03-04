@@ -39,11 +39,9 @@ import javax.xml.transform.stream.StreamResult;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.References.COMMON_PACKAGE;
 import static projekt.substratum.common.References.ENABLE_AAPT_OUTPUT;
-import static projekt.substratum.common.References.permissionSamsungOverlay;
 import static projekt.substratum.common.Systems.getDeviceID;
 
 public enum CompilerCommands {
@@ -94,10 +92,6 @@ public enum CompilerCommands {
         if (!baseVariantNull) packageName = packageName + variantName + baseVariantName;
         if (isNotNullOrEmpty(packageNameOverride)) packageName = packageNameOverride;
 
-        boolean showOverlayInSamsungSettings = Systems.isSamsungDevice(context);
-        if (BuildConfig.DEBUG)
-            showOverlayInSamsungSettings &= References.toggleShowSamsungOverlayInSettings;
-
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                     .newInstance();
@@ -110,12 +104,6 @@ public enum CompilerCommands {
                     "http://schemas.android.com/apk/res/android");
             rootElement.setAttribute("package", packageName);
             rootElement.setAttribute("android:versionName", versionName);
-
-            if (showOverlayInSamsungSettings) {
-                Element samsungPermissionElement = document.createElement("uses-permission");
-                samsungPermissionElement.setAttribute("android:name", permissionSamsungOverlay);
-                rootElement.appendChild(samsungPermissionElement);
-            }
 
             Element overlayElement = document.createElement("overlay");
             if (!themeOms)

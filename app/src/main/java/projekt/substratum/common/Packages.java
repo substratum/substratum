@@ -571,7 +571,7 @@ public enum Packages {
         } catch (Exception e) {
             ai = null;
         }
-        return (String) ((ai != null) ? pm.getApplicationLabel(ai) : null);
+        return (String) ((ai != null) ? pm.getApplicationLabel(ai) : packageName);
     }
 
     /**

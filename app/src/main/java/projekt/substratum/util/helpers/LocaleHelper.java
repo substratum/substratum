@@ -39,7 +39,7 @@ public class LocaleHelper extends android.content.ContextWrapper {
                         .getBoolean("force_english_locale", false);
         Configuration configuration = resources.getConfiguration();
 
-        Locale chosenLocale = forceEnglish ? Locale.ENGLISH : Locale.getDefault();
+        Locale chosenLocale = forceEnglish ? Locale.US : Locale.getDefault();
 
         configuration.setLocale(chosenLocale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());

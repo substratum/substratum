@@ -400,6 +400,7 @@ public enum Systems {
     }
 
     public static boolean isSamsungDevice(Context context) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) return false;
         if (isSamsungDevice != null) return isSamsungDevice;
         if (context != null) {
             List<String> listOfFeatures =
@@ -414,12 +415,10 @@ public enum Systems {
     /**
      * Checks if it passes all cases of new Samsung Oreo checks
      *
-     * @param context CONTEXT!
      * @return True, if it passes all Samsung tests
      */
-    public static boolean isNewSamsungDevice(Context context) {
-        return context != null &&
-                !isSamsungDevice(context) &&
+    public static boolean isNewSamsungDevice() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 &&
                 new File("/system/etc/permissions/com.samsung.device.xml").exists();
     }
 

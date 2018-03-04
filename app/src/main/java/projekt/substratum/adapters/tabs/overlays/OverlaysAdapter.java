@@ -101,7 +101,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             viewBinding.overlayTargetPackageName.setTextColor(
                     context.getColor(R.color.overlay_installed_list_entry));
         } else if (isPackageInstalled(context, currentObject.getFullOverlayParameters())) {
-            if (Systems.isNewSamsungDevice(context)) {
+            if (Systems.isNewSamsungDevice()) {
                 if (!overlayStateList.contains(currentObject.getFullOverlayParameters())) {
                     viewBinding.overlayTargetPackageName.setTextColor(
                             context.getColor(R.color.overlay_installed_not_active));
@@ -149,7 +149,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         context.getColor(R.color.overlay_installed_list_entry));
             } else if (isPackageInstalled(context,
                     overlaysItem.getFullOverlayParameters())) {
-                if (Systems.isNewSamsungDevice(context)) {
+                if (Systems.isNewSamsungDevice()) {
                     if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
                         viewBinding.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_installed_not_active));
@@ -175,7 +175,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         context.getColor(R.color.overlay_installed_list_entry));
             } else if (isPackageInstalled(context,
                     overlaysItem.getFullOverlayParameters())) {
-                if (Systems.isNewSamsungDevice(context)) {
+                if (Systems.isNewSamsungDevice()) {
                     if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
                         viewBinding.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_installed_not_active));
@@ -464,7 +464,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                             context.getColor(R.color.overlay_installed_list_entry));
                 } else {
                     if (isPackageInstalled(context, overlaysItem.getFullOverlayParameters())) {
-                        if (Systems.isNewSamsungDevice(context)) {
+                        if (Systems.isNewSamsungDevice()) {
                             if (!overlayStateList.contains(
                                     overlaysItem.getFullOverlayParameters())) {
                                 viewHolderBinding.overlayTargetPackageName.setTextColor(
@@ -520,7 +520,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     viewHolderBinding.overlayTargetPackageName.setTextColor(
                             context.getColor(R.color.overlay_installed_list_entry));
                 } else if (isPackageInstalled(context, overlaysItem.getFullOverlayParameters())) {
-                    if (Systems.isNewSamsungDevice(context)) {
+                    if (Systems.isNewSamsungDevice()) {
                         if (!overlayStateList.contains(overlaysItem.getFullOverlayParameters())) {
                             viewHolderBinding.overlayTargetPackageName.setTextColor(
                                     context.getColor(R.color.overlay_installed_not_active));

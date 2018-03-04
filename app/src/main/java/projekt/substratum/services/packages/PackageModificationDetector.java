@@ -189,7 +189,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                 // on a Samsung device
                 boolean samsungSupport = appInfo.metaData.getBoolean(metadataSamsungSupport, true);
                 if (!samsungSupport &&
-                        (Systems.isSamsungDevice(context) || Systems.isNewSamsungDevice(context))) {
+                        (Systems.isSamsungDevice(context) || Systems.isNewSamsungDevice())) {
                     Log.e(TAG, "Theme does not support Samsung, yet the theme was installed, " +
                             "aborting operation!");
 

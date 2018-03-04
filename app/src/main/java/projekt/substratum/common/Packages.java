@@ -694,8 +694,7 @@ public enum Packages {
                     boolean samsungSupport =
                             appInfo.metaData.getBoolean(metadataSamsungSupport, true);
                     if (!samsungSupport &&
-                            (Systems.isSamsungDevice(context) ||
-                                    Systems.isNewSamsungDevice(context))) {
+                            (Systems.isSamsungDevice(context) || Systems.isNewSamsungDevice())) {
                         canContinue = false;
                     } else {
                         // The theme app contains the proper metadata

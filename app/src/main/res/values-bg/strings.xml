@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="showcase">показно</string>
@@ -26,6 +26,7 @@
     <string name="resource_needs_internet">За да валидирате комитите на Вашия ROM, моля, свържете се към интернета!</string>
     <string name="resource_validated">Всички комити са в изправност!</string>
     <string name="rooted_oms_dialog_warning_title">Динамични слоеве и root</string>
+    <string name="rooted_oms_dialog_warning_text">Ако сте били с нас, когато маскарад е нашата основна система, вие ще знаете, че нямате нужда от руут за да направиш много неща с OMS. Това е времето, когато системата е изключително бавна! \n\nНие също имаше режим където Substratum може да работи без маскарад и то не ще разтоварят никакви промени в ресурс от нашата собствена ап, смисъла Substratum ще започне да се бави огато дава възможност на/правя неспособен, тъй като промените в конфигурацията са изключително тежки! \n\nIf може, тя ще бъде силно препоръчва винаги да стартирате без корени вариант като Андромеда или модифициран ROM с нашата нова система, за да се увеличи скоростта.\n\nКато продължава с помощта на руут вариант, ще има миг и проблеми с производителността с ап поради Substratum, не е в състояние да разтоварят промени в конфигурацията на системата!</string>
     <string name="interfacer_notification_title">Substratum и interfaced са свързани!</string>
     <string name="interfacer_notification_text">Фоновите услуги за тема са свързани, активни и работещи.</string>
     <string name="andromeda_notification_title">Substratum и Andromeda са свързани!</string>
@@ -33,8 +34,14 @@
     <string name="andromeda_notification_text">Фоновите услуги за тема са свързани, активни и работещи.</string>
     <string name="andromeda_notification_text_negation">Услугите на Andromeda не работят, моля пуснете програмата на компютър отново!</string>
     <string name="resource_commit_dialog_title">Липсват източници в %s</string>
-    <string name="showcase_no_connection">каталогът на темите изисква интернет връзка, за да функционира!    </string>
+    <string name="showcase_no_connection">каталогът на темите изисква интернет връзка,
+      за да функционира!
+    </string>
+    <string name="refused_to_install_notification_button">Премахни тема</string>
+    <string name="refused_to_install_title_notification">Темата не поддържа Samsung.</string>
+    <string name="refused_to_install_text_notification">Инсталирането на %s е неуспешно.</string>
     <string name="failed_to_install_title_notification">Грешка в инсталирането на OMS тема</string>
+    <string name="failed_to_install_text_notification">Инсталирането на %s е неуспешно.</string>
     <string name="actionbar_theme_count_loading">зареждане&#8230;</string>
     <string name="actionbar_search">Търси</string>
     <string name="actionbar_changelog">Изменения на темата</string>
@@ -44,21 +51,38 @@
     <string name="systemui_qs_tiles">System UI Икони на бързи настройки</string>
     <string name="systemui_statusbar">System UI Икони в статус лентата</string>
     <string name="warning_title">ВНИМАНИЕ!</string>
-    <string name="legacy_warning_content">Legacy не се поддържа, и не можем да ви гарантираме, че цветовете ще да каквито трябва. Желателно е да имате знанията да излезете от ситуация, когато устройството Ви не тръгва преди да продължите.\n\nНие не можем да поправим това което не работи, защото са нужни системни промени.    </string>
-    <string name="samsung_warning_content">Не можем да гарантираме пълна съвместимост с Samsung, и не можем да ви уверим, че ще работи с теми направени за AOSP. Ние автоматично скрихме темите който не поддържат Samsung, но вие можете да промените това в настройките.\n\nВ случай, че устройството Ви не тръгва, вижте нашият XDA форум, за двата начина за поправка.    </string>
+    <string name="samsung_warning_content">Поддръжката за Samsung се предлага както е, защото ние
+      не можем да гарантираме пълна съвместимост на темите. Скрили сме опасните за
+      вашето устройство пластове, но можете да ги покажете отново ръчно в настройките
+      на ваша отговорност.\n\nАко все пак стигнете до проблем с черен екран, посетете
+      темата ни във XDA форума, за да видите двата начина за възстановяване.
+    </string>
     <string name="legacy_dialog_soft_reboot_title">Необходимо е рестартиране!</string>
-    <string name="legacy_dialog_soft_reboot_text">Понеже вие използвате Resource Runtime Overlay е нужно да рестартирате устройството си, след като добавяте или премахвате елементи от тема.\n\nКато продължете с този диалог устройството Ви автоматично ще се рестартира, затова се уверете че сте запазили всичко преди да продължите.    </string>
-    <string name="activity_missing_toast">Не бяха намерени приложения, който могат да извършат заявката Ви!    </string>
+    <string name="legacy_dialog_soft_reboot_text">Работейки върху Resource Runtime Overlay системата, е
+      задължително да се рестартира устройството след добавяне или премахване на слоеве.\n\n
+      Продължаването с този диалог ще го рестартира автоматично, затова се уверете, че сте
+      запазили работата си, преди да продължите.
+    </string>
+    <string name="activity_missing_toast">Не бяха намерени приложения, които могат да
+      извършат заявката ви!
+    </string>
     <string name="abort_overlay_toast_success">Всички пластове са деинсталирани!</string>
     <string name="rescue_toast">Спасяване на системата&#8230;</string>
     <string name="reboot_awaiting_manager_title">ГРРЕШКА ПРИ РАЗЧИТАНЕТО НА ЕЛЕМАНТА ОТ ТЕМАТА</string>
-    <string name="manager_theme_name">Тема:</string>
-    <string name="manager_type1a">Type1a:</string>
-    <string name="manager_type1b">Type1b:</string>
-    <string name="manager_type1c">Type1c:</string>
+    <string name="manager_theme_name">Тема: %s</string>
+    <string name="priorities_theme_name">Тема:</string>
+    <string name="backend_not_authorized_title">Тестовата версия на Substratum не се поддържа!</string>
+    <string name="backend_not_authorized_text">За да използвате тази компилация от Substratum с вашите потребителски ROM, моля активирайте \"Сила разрешават всеки тема app\" в опции на разработчика.\n\nIf не е там, обърнете се към създателя на вашия ROM за липсващи опции!</string>
+    <string name="information_activity_theme_improperly_setup">\"%s\" няма налични средства за слоевете!</string>
     <string name="legacy_preference_priority_title">Промяна на приоритетите на елементи от темите</string>
-    <string name="legacy_preference_priority_text">Приоритетът е (по подразбиране %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Приоритетът е (по подразбиране %d): %d</string>
     <string name="grid_size_title">Промяна на колоните на изглед на темите</string>
+    <string name="grid_size_text">Броят на колоните са (по подразбиране %d): %d</string>
+    <string name="app_theme_title">Тема на приложението</string>
+    <string name="app_theme_disabled">По подразбиране</string>
+    <string name="app_theme_auto">Автоматично</string>
+    <string name="app_theme_dark">Тъмна</string>
+    <string name="app_theme_change">Рестартирайте приложението, за да превключите теми</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">вариант type1a&#8230;</string>
     <string name="overlays_variant_default_1b">вариант type1b&#8230;</string>
@@ -66,23 +90,21 @@
     <string name="overlays_variant_default_2">вариант type2&#8230;</string>
     <string name="overlays_variant_default_3">стандартен основен вариант&#8230;</string>
     <string name="overlays_variant_default_4">вариант тип4&#8230;</string>
+    <string name="overlays_up_to_date">АКТУАЛНА (%s)</string>
     <string name="overlays_update_available">Налично е обновяване!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Вариантът не е инсталиран</string>
-    <string name="shutdownanimation_placeholder_text">Моля изберете изключваща анимация от падащото меню&#8230;</string>
-    <string name="shutdownanimation_defaults_text">Това ще изчисти всякакви изкючващи анимации, приложени на устройството Ви</string>
+    <string name="shutdownanimation_placeholder_text">Моля, изберете анимация за изключване от падащото
+      меню&#8230;</string>
     <string name="shutdownanimation_dialog_apply_text">Изключващата анимация се обработва&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Изключващата анимация е приложена!</string>
     <string name="shutdownanimation_dialog_apply_failed">Грешка в прилагането на изключващата анимация&#8230;</string>
-    <string name="bootanimation_placeholder_text">Моля, изберете зареждаща анимация от падащият лист&#8230;</string>
     <string name="bootanimation_default_spinner">Моля, изберете зареждаща анимация&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">Възстановяване на зареждаща анимация по подразбиране&#8230;</string>
-    <string name="bootanimation_defaults_text">Това ще изчисти всякакви зареждащи анимации, приложени на устройството Ви</string>
     <string name="bootanimation_dialog_apply_text">Зареждащата анимация се обработва&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Зареждащата анимация е приложена!</string>
     <string name="bootanimation_dialog_apply_failed">Грешка в прилагането на зареждаща анимация&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Тапет за началния екран</string>
     <string name="wallpaper_dialog_lockscreen">Тапет за заключен екран</string>
-    <string name="wallpaper_dialog_wallpaper_both">Тапет за начален и заключен екран</string>
     <string name="wallpaper_downloading">Зареждане на изображението в кеша&#8230;</string>
     <string name="wallpaper_allscreen_success">Тапетите за начален и заключен екран са конфигурирани!    </string>
     <string name="wallpaper_allscreen_error">Не е възможно прилагането на тапети за начален и заключен екран    </string>
@@ -90,12 +112,23 @@
     <string name="wallpaper_homescreen_error">Не е възможно прилагането на тапет за начален екран</string>
     <string name="wallpaper_lockscreen_success">Тапетът за заключен екран е конфигуриран!</string>
     <string name="wallpaper_lockscreen_error">Не е възможно прилагането на тапет за заключен екран</string>
+    <string name="font_default_spinner">Моля, изберете шрифтов пакет&#8230;</string>
+    <string name="font_spinner_set_defaults">Възстанови шрифтовете по подразбиране&#8230;</string>
     <string name="font_dialog_apply_text">Шрифтовият пакет се обработва&#8230;</string>
     <string name="font_dialog_apply_success">Шрифтовият пакет е приложен!</string>
     <string name="font_dialog_apply_failed">Грешка в прилагането на шрифтовия пакет&#8230;</string>
+    <string name="sounds_placeholder_text">Моля, изберете звуков пакет от падащия
+      списък&#8230;</string>
+    <string name="sounds_spinner_set_defaults">Възстанови звуците по подразбиране&#8230;
+    </string>
     <string name="sounds_dialog_apply_success">Звуковият пакет е приложен!</string>
     <string name="sounds_dialog_apply_failed">Грешка в прилагането на звуковия пакет&#8230;</string>
-    <string name="fonts_dialog_permissions_grant_toast2">За да позволите Substratum да контролира системните шрифтове, трябва да разрешите \"Позволи промяна системни настройки\".    </string>
+    <string name="sounds_default_spinner">Моля, изберете звуков пакет&#8230;</string>
+    <string name="fonts_dialog_permissions_grant_toast2">За да позволите на Substratum да контролира
+      системните шрифтове, трябва да включите
+\"Позволи промяна на системни настройки\".    </string>
+    <string name="error_loading_pack">Изглежда, че този пакет не е
+      конфигуриран правилно&#8230;</string>
     <string name="sounds_alarm">Аларма</string>
     <string name="sounds_notification">Известие</string>
     <string name="sounds_ringtone">Мелодия</string>
@@ -120,21 +153,19 @@
     <string name="theme_information_tab_six">Изключващи анимации</string>
     <string name="uninstall_dialog_text">Наистина ли искате да деинсталирате тази тема?</string>
     <string name="manage_dialog_performing">Възстановяване на стандартното&#8230;</string>
-    <string name="manage_bootanimation_title">Възстановяване на зареждащата анимация</string>
+    <string name="manage_bootanimation_title">Възстанови анимацията за включване</string>
     <string name="manage_bootanimation_toast">Зареждащата анимация е възстановена успешно!</string>
     <string name="manage_shutdownanimation_toast">Изключващата анимация е възстановена успешно!</string>
-    <string name="manage_fonts_title">Възстановяване на системния шрифт</string>
+    <string name="manage_fonts_title">Възстанови системния шрифт</string>
     <string name="manage_fonts_toast">Шрифтовете са възстановени успешно!</string>
-    <string name="manage_sounds_title">Възстановяване на системните звукове</string>
     <string name="manage_sounds_toast">Системните звукове са възстановени успешно!</string>
     <string name="manage_system_overlay_disable">Деактивиране на всички приложени пластове</string>
     <string name="manage_system_overlay_uninstall">Деинсталиране на всички инсталирани пластове</string>
     <string name="manage_system_overlay_toast">Системната тема се възстановява&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">Пластовете се деинсталират на заден план&#8230;</string>
     <string name="manage_system_not_permitted">Моля изберете валиден елемент да промените статус.</string>
-    <string name="manage_wallpaper_home">Тапет за началния екран</string>
-    <string name="manage_wallpaper_lock">Тапет за заключен екран</string>
-    <string name="manage_wallpaper_all">Тапет за начален и заключен екран</string>
+    <string name="manage_wallpaper_home">Възстанови тапета за начален екран</string>
+    <string name="manage_wallpaper_lock">Възстанови тапета за заключен екран</string>
+    <string name="manage_wallpaper_all">Възстанови тапетите за начален и заключен екран</string>
     <string name="manage_wallpaper_home_toast">Тапет на началния екран, възстановен успешно!</string>
     <string name="manage_wallpaper_lock_toast">Тапет на заключения екран, възстановен успешно!</string>
     <string name="manage_wallpaper_all_toast">Тапетите са възстановени успешно!</string>
@@ -157,6 +188,7 @@
     <string name="menu_alphabetize">Промяна на сортирането</string>
     <string name="menu_search">Теми от Google Play магазина</string>
     <string name="menu_showcase">Показно</string>
+    <string name="menu_filter">Филтриране</string>
     <string name="menu_uninstall">Деинсталиране на тема</string>
     <string name="menu_restore_info">Възобнови информация</string>
     <string name="menu_favorite_snackbar">Успешно прилагане на %s като пряк път за приложение!</string>
@@ -176,7 +208,8 @@
     <string name="logcat_email_activity">Изпращане на доклад с технически грешки, използвайки&#8230;</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="priority_instructions_title">Инструкции</string>
-    <string name="manager_no_overlays_title">не са инсталирани пластове&#8230;</string>
+    <string name="priority_no_multiple_overlays_title">няма приложения с няколко слоя</string>
+    <string name="manager_no_overlays_title">няма инсталирани пластове</string>
     <string name="manager_no_overlays_text">компилирай поне един пласт, за да можеш да ме използваш!</string>
     <string name="delete_dialog_okay">Изтриване</string>
     <string name="delete_dialog_title">Изтриване на профил</string>
@@ -185,13 +218,9 @@
     <string name="restore_dialog_okay">Продължете</string>
     <string name="restore_button">ВЪЗСТАНОВЯВАНЕ НА ПРОФИЛ</string>
     <string name="profile_edittext_title">Нов Профил:</string>
-    <string name="toast_backup_success">Листът със вашите слоеве беше записан в
-       \"/storage/emulated/0/substratum/profiles/%s\"
-    </string>
     <string name="spinner_default_item">изберете профил&#8230;</string>
     <string name="select_to_toggle_all_overlays">Изберете, за да маркирате всички пластове</string>
     <string name="permission_not_granted_dialog_title">Не са предоставени разрешения</string>
-    <string name="permission_not_granted_dialog_message1">Моля, позволете на substratum да съхранява на вашето устройство или може да изникне грешка в работата на приложението!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Не показвай отново</string>
     <string name="dialog_cancel">Отмяна</string>
@@ -209,8 +238,6 @@
     <string name="no_themes_title">няма открити теми&#8230;</string>
     <string name="no_overlays_title">няма намерени слоеве&#8230;</string>
     <string name="no_themes_description">моля, инсталирайте съвместима тема!</string>
-    <string name="no_themes_description_search">\"%s\" не беше открита сред инсталираните теми&#8230;</string>
-    <string name="no_overlays_description_search">\"%s\" не беше намерено в вашите инсталирани слоеве&#8230;</string>
     <string name="toast_samsung_prototype_alert">Substratum автоматично скри неподдържани системни пластове от вашето устройство!</string>
     <string name="andromeda_no_root_dialog_button">Изтеглете сега!</string>
     <string name="samsung_prototype_no_root_dialog">Изглежда сте на Samsung устройство което се поддържа, съществува приставка, която подпомага това!</string>
@@ -220,7 +247,6 @@
     <string name="notification_theme_installed_content">Темата е инсталирана успешно.</string>
     <string name="notification_theme_updated_content">Ресурсите са успешно обновени.</string>
     <string name="notification_initial_title">Substratum е пуснат</string>
-    <string name="notification_initial_title_upgrade_intent">Надстройване на пластовете на %s&#8230;</string>
     <string name="notification_done_title">Компилирането на темата завърши</string>
     <string name="notification_done_upgrade_title_failed">Липсваща или несъвместима конфигурация:\n\n%s</string>
     <string name="notification_done_upgrade_text">Всички елементи на тази тема са актуализирани.</string>
@@ -351,10 +377,6 @@
     <!-- Utilities -->
     <string name="nav_priorities">Приоритети</string>
     <string name="nav_backup_restore">Профили</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Настройки</string>
     <string name="title_activity_manage_space">Управление на паметта</string>
     <string name="manage_space_cache_text_title">Изчистване на кеш</string>

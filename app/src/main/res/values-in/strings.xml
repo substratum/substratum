@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="showcase">pamerkan</string>
@@ -34,9 +34,6 @@
     <string name="andromeda_notification_text">Latar belakang tema layanan telah digabungkan, aktif dan berjalan.</string>
     <string name="andromeda_notification_text_negation">Layanan Andromeda tidak berjalan, silakan jalankan kembali desktop suite!</string>
     <string name="resource_commit_dialog_title">Sumber yang hilang di %s</string>
-    <string name="showcase_no_connection">penampil tema membutuhkan sebuah koneksi internet agar dapat
-      berfungsi!
-    </string>
     <string name="failed_to_install_title_notification">Gagal memasang tema OMS</string>
     <string name="actionbar_theme_count_loading">memuat&#8230;</string>
     <string name="actionbar_search">Cari</string>
@@ -47,40 +44,17 @@
     <string name="systemui_qs_tiles">Tampilan Sistem Ikon Setelan Cepat</string>
     <string name="systemui_statusbar">Tampilan Ikon Status Bar</string>
     <string name="warning_title">PERINGATAN!</string>
-    <string name="legacy_warning_content">Dukungan lawas disediakan seperti apa adanya karena kami tidak bisa menjamin penuh
-      kecocokan warna. Harap pastikan anda memiliki pengembalian/recovery kustom untuk perangkat dan
-      sebuah pemahaman tentang bagaimana cara memulihkan bootloop sebelum melanjutkan nya.\n\nKami
-      tidak bisa memperbaiki suatu yang tidak dapat ditemakan pada perangkat lawas karena mereka membutuhkan
-      perubahan di sisi sistem.
-    </string>
-    <string name="samsung_warning_content">Dukungan untuk Samsung disediakan seperti apa-adanya karena kami tidak dapat menjamin
-      penuh kecocokan warna dan lapisan susunan AOSP. Kami telah mencegah dengan menyembunyikan
-      lapisan berbahaya untuk perangkat anda, namun anda dapat mengubahnya di pengaturan secara manual
-      dengan kebijaksanaan anda sendiri.\n\nBila dalam beberapa kasus anda mengalami layar hitam,
-      harap konsultasi kan di thread XDA kami dengan dua cara pemulihan.
-    </string>
     <string name="legacy_dialog_soft_reboot_title">Reboot diperlukan!</string>
-    <string name="legacy_dialog_soft_reboot_text">Berjalan pada sistem Resource Runtime Overlay (RRO), 
-      diperlukan reboot setelah menambah atau menghapus lapisan.\n\nTindak lanjut dari
-      dialog ini akan otomatis me-reboot perangkat anda, harap pastikan anda menyimpan pekerjaan anda
-      sebelum melanjutkan.
-    </string>
-    <string name="activity_missing_toast">Tidak tersedia apl yang dapat menangani
-      permintaan ini, maaf!
-    </string>
     <string name="abort_overlay_toast_success">Semua lapisan telah dicopot!</string>
     <string name="rescue_toast">Menyelamatkan sistem Anda&#8230;</string>
     <string name="reboot_awaiting_manager_title">KESALAHAN MEMBACA LAPISAN</string>
-    <string name="manager_theme_name">Tema:</string>
-    <string name="manager_type1a">Tipe 1a:</string>
-    <string name="manager_type1b">Tipe 1b:</string>
-    <string name="manager_type1c">Tipe 1c:</string>
     <string name="backend_not_authorized_title">Pembuatan debug substratum tidak di izinkan!</string>
     <string name="backend_not_authorized_text">Untuk menggunakan substratum build dengan custom rom anda, Aktifkan \'Paksa otorasi setiap tema app\' di Opsi pengembang.\n\njika tidak ada, segera hubungi ROM pengembang anda untuk commits yang hilang!</string>
     <string name="legacy_preference_priority_title">Prioritas penyesuaian lapisan</string>
-    <string name="legacy_preference_priority_text">Prioritas diterapkan pada (bawaan%d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Prioritas diterapkan pada (bawaan%d): %d</string>
     <string name="grid_size_title">Penyesuaian tampilan kolom tema</string>
     <string name="grid_size_text">Jumlah kolom diatur ke (default %d): %d</string>
+    <string name="app_theme_disabled">Standar</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">varian tipe 1a&#8230;</string>
     <string name="overlays_variant_default_1b">varian tipe 1b&#8230;</string>
@@ -90,25 +64,16 @@
     <string name="overlays_variant_default_4">varian tipe 4&#8230;</string>
     <string name="overlays_update_available">Pembaruan tersedia!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varian tidak terpasang</string>
-    <string name="shutdownanimation_placeholder_text">harap memilih animasi boot dari daftar
-      berikut&#8230;</string>
-    <string name="shutdownanimation_defaults_text">Ini akan mengembalikan animasi boot kustom
-      yang diterapkan pada perangkat anda</string>
     <string name="shutdownanimation_dialog_apply_text">Animasi boot sedang memproses&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Animasi boot telah diterapkan!</string>
     <string name="shutdownanimation_dialog_apply_failed">Animasi boot gagal diterapkan&#8230;</string>
-    <string name="bootanimation_placeholder_text">Harap memilih boot animasi dari daftar
-      berikut&#8230;</string>
     <string name="bootanimation_default_spinner">Silahkan pilih animasi boot&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">Pulihkan animasi boot bawaan&#8230;</string>
-    <string name="bootanimation_defaults_text">Ini akan mengembalikan animasi boot kustom
-      yang diterapkan di perangkat anda</string>
     <string name="bootanimation_dialog_apply_text">Animasi boot sedang memproses&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animasi boot telah diterapkan!</string>
     <string name="bootanimation_dialog_apply_failed">Animasi boot gagal diterapkan&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Wallpaper beranda</string>
     <string name="wallpaper_dialog_lockscreen">Wallpaper layar kunci</string>
-    <string name="wallpaper_dialog_wallpaper_both">Wallpaper beranda dan layar kunci</string>
     <string name="wallpaper_downloading">Memuat gambar ke dalam singgahan&#8230;</string>
     <string name="wallpaper_allscreen_success">Wallpaper beranda dan layar kunci diterapkan!
     </string>
@@ -122,7 +87,6 @@
     <string name="font_dialog_apply_failed">Paket font gagal diterapkan&#8230;</string>
     <string name="sounds_dialog_apply_success">Paket suara telah diterapkan!</string>
     <string name="sounds_dialog_apply_failed">Paket suara gagal diterapkan&#8230;</string>
-    <string name="fonts_dialog_permissions_grant_toast2">Untuk membiarkan Substratum mengontrol font sistem Anda, Anda harus mengaktifkan \'Izinkan memodifikasi pengaturan sistem\'.    </string>
     <string name="sounds_alarm">Alarm</string>
     <string name="sounds_notification">Pemberitahuan</string>
     <string name="sounds_ringtone">Nada dering</string>
@@ -147,21 +111,14 @@
     <string name="theme_information_tab_six">Animasi shutdown</string>
     <string name="uninstall_dialog_text">Apakah Anda yakin ingin mencopot pemasangan tema ini?</string>
     <string name="manage_dialog_performing">Memulihkan ke default&#8230;</string>
-    <string name="manage_bootanimation_title">Pulihkan animasi boot</string>
     <string name="manage_bootanimation_toast">Pemulihan animasi boot telah berhasil!</string>
     <string name="manage_shutdownanimation_toast">Pemulihan animasi shutdown berhasil!</string>
-    <string name="manage_fonts_title">Memulihkan Font Sistem</string>
     <string name="manage_fonts_toast">Pemulihan font telah berhasil!</string>
-    <string name="manage_sounds_title">Memulihkan Suara Sistem</string>
     <string name="manage_sounds_toast">Pemulihan suara bawaan berhasil!</string>
     <string name="manage_system_overlay_disable">Nonaktifkan semua lapisan aktif</string>
     <string name="manage_system_overlay_uninstall">Copot semua lapisan terinstal</string>
     <string name="manage_system_overlay_toast">Tema Sistem sedang memulihkan&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">Lapisan sedang dicopot di latar belakang&#8230;</string>
     <string name="manage_system_not_permitted">Silahkan pilih lapisan yg valid untuk mengubah keadaan.</string>
-    <string name="manage_wallpaper_home">Wallpaper beranda</string>
-    <string name="manage_wallpaper_lock">Wallpaper layar kunci</string>
-    <string name="manage_wallpaper_all">Wallpaper beranda dan layar kunci</string>
     <string name="manage_wallpaper_home_toast">Pemulihan wallpaper home screen berhasil!</string>
     <string name="manage_wallpaper_lock_toast">Pemulihan wallpaper lock screen berhasil!</string>
     <string name="manage_wallpaper_all_toast">Pemulihan wallpaper berhasil!</string>
@@ -170,7 +127,6 @@
     <string name="accept">Terima</string>
     <string name="deny">Tolak</string>
     <string name="permission_explanation_title">Ikhtisar Perizinan</string>
-    <string name="permission_explanation_text">Substratum tidak dapat berfungsi seperti yang diharapkan tanpa diberikan beberapa izin penting.\n\n <b>penyimpanan:</b> Substratum perlu memanfaatkan penyimpanan internal anda untuk menyimpan arsip penyelamatan sistem, yang terletak di /storage/emulated/0/substratum/.\n\n <b>Firebase:</b> Substratum memanfaatkan <i>Google Firebase</i> untuk mengunduh informasi penting dari database terpusat milik kami secara real-time untuk meningkatkan layanan inti dan peningkatan keamanan.    </string>
     <string name="priority_back_title">Kembali ke lapisan</string>
     <string name="menu_clean">Bersihkan lapisan yg terinstal</string>
     <string name="menu_disable">Nonaktifkan lapisan yg ter-install</string>
@@ -212,36 +168,24 @@
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Memproses laporan kerusakan</string>
     <string name="priority_instructions_title">Petunjuk</string>
-    <string name="priority_no_multiple_overlays_title">tidak ada aplikasi dengan kelipatan lapisan&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">aktifkan dua atau lebih lapisan pada satu aplikasi untuk menggunakan aku!    </string>
-    <string name="manager_no_overlays_title">tidak ada lapisan yang ter-install&#8230;</string>
     <string name="manager_no_overlays_text">kompil satu lapisan untuk dapat mempergunakan aku!</string>
     <string name="backup">Kartu Cadangan</string>
-    <string name="backup_card_content">Fungsi ini dapat membuat salinan dalam mengaktifkan daftar lapisan saat ini dan meletakkannya pada \"/storage/emulated/0/substratum/profiles/\" untuk berjaga-jaga.    </string>
     <string name="delete_dialog_okay">Hapus</string>
     <string name="delete_dialog_title">Hapus profil</string>
     <string name="delete_dialog_text">Apa kamu yakin untuk menghapus \"%s\"?</string>
     <string name="restore">Memulihkan Kartu</string>
-    <string name="restore_card_content">Ketika profil dimuat, pengaturan terkini kamu akan dihapus seluruhnya dan \"memulihkan tema\" akan mengambil alih perubahan yang telah diperbarui.    </string>
     <string name="remove_dialog_later">Nanti</string>
     <string name="restore_dialog_okay">Lanjutkan</string>
-    <string name="restore_dialog_title">Overlay ini akan diinstal untuk memulihkan profilmu
-Terselesaikan:    </string>
     <string name="backup_button">BACKUP KONDISI TERKINI</string>
     <string name="backup_no_overlays">Tidak ada lapisan di dalam pengaturan terkini kamu.</string>
     <string name="restore_button">MEMULIHKAN PROFIL</string>
-    <string name="restore_button_none_selected_toast">Harap pilih profil dari daftar dibawah ini sebelum mencoba memulihkan profil!    </string>
-    <string name="profile_delete_button_none_selected_toast">Harap pilih profil dari daftar dibawah ini sebelum mencoba menghapus  profil!    </string>
     <string name="profile_edittext_hint">Harap tulis nama untuk profil kamu&#8230;</string>
-    <string name="profile_edittext_empty_toast">Harap tulis nama untuk profil kamu sebelum melakukan cadangan!    </string>
     <string name="profile_edittext_title">Profil Baru:</string>
     <string name="profile_edittext_whitespace_warning_toast">Tidak dapat menggunakan spasi di dalam nama profil!</string>
-    <string name="toast_backup_success">Daftar lapisan saat ini disimpan di \"/storage/emulated/0/substratum/profiles/%s\"    </string>
     <string name="profile_restoration_message">Memproses profil pemulihan&#8230;</string>
     <string name="spinner_default_item">pilih profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Pilih untuk memilih semua lapisan</string>
     <string name="permission_not_granted_dialog_title">Perizinan ditolak</string>
-    <string name="permission_not_granted_dialog_message1">Silahkan Izinkan substratum mengakses penyimpanan izin atau aplikasi tidak akan bekerja sebagaimana mestinya!    </string>
     <string name="dialog_ok">OKE</string>
     <string name="dialog_do_not_show_again">Jangan tampilkan lagi</string>
     <string name="dialog_cancel">Batal</string>
@@ -253,7 +197,6 @@ Terselesaikan:    </string>
     <string name="sb_phase_2_loader">membuat dan memasang lapisan</string>
     <string name="root_rejected_title">tidak dapat kembali ke mode root</string>
     <string name="root_rejected_text">tidak ada mesin tema yang dapat digunakan pada perangkat saat ini&#8230;</string>
-    <string name="toast_activity_finished">%s telah diperbarui, mulai ulang untuk melihat perubahan!</string>
     <string name="toast_compiled_updated">Lapisan terpilih telah diperbarui!</string>
     <string name="toast_compiled_missing">Satu atau lebih lapisan tidak dapat di susun di karenakan konfigurasi yang hilang pada pengaturan ini&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Lapisan terpilih diperbaharui dengan beberapa masalah!</string>
@@ -263,12 +206,8 @@ Terselesaikan:    </string>
     <string name="no_themes_title">tema tidak ditemukan&#8230;</string>
     <string name="no_overlays_title">lapisan tidak ditemukan&#8230;</string>
     <string name="no_themes_description">silahkan pasang tema yang kompatibel!</string>
-    <string name="no_themes_description_search">\"%s\" tidak ditemukan dalam daftar tema yang terpasang&#8230;</string>
-    <string name="no_overlays_description_search">\"%s\" tidak ditemukan dalam daftar tema yang terpasang&#8230;</string>
-    <string name="toast_andromeda_timed_out">Terjadi penundaan dengan Andromeda Backend, silakan buka ulang Substratum.</string>
     <string name="toast_could_not_uninstall">Tidak ada lapisan valid yang dipilih.</string>
     <string name="toast_samsung_prototype_alert">Substratum otomatis menyembunyikan lapisan sistem yang tidak didukung untuk perangkat Anda!</string>
-    <string name="andromeda_disconnected">klien desktop andromeda membutuhkan koneksi ke perangkat anda agar dapat berfungsi dengan substratum!</string>
     <string name="andromeda_check_status">Periksa status</string>
     <string name="andromeda_no_root_dialog">Tampaknya Anda berada di perangkat Oreo yang didukung, addon telah dirilis untuk mendukung hal ini!</string>
     <string name="andromeda_no_root_dialog_button">Unduh sekarang!</string>
@@ -283,7 +222,6 @@ Terselesaikan:    </string>
     <string name="notification_theme_installed_content">Tema sukses terinstal.</string>
     <string name="notification_theme_updated_content">Resource berhasil diperbarui</string>
     <string name="notification_initial_title">Substratum sedang berjalan</string>
-    <string name="notification_initial_title_upgrade_intent">Memperbaharui %s\'s overlay&#8230;</string>
     <string name="notification_done_title">Penyusunan tema telah selesai</string>
     <string name="notification_done_upgrade_title">Pembaharuan lapisan telah selesai dalam %s!</string>
     <string name="notification_done_upgrade_title_warning">Pembaruan lapisan telah selesai dalam %s!</string>
@@ -467,10 +405,6 @@ Terselesaikan:    </string>
     <string name="nav_overlay_manager">Pengelola</string>
     <string name="nav_priorities">Prioritas</string>
     <string name="nav_backup_restore">Profil</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Pengaturan</string>
     <string name="title_activity_manage_space">Kelola Penggunaan Penyimpanan</string>
     <string name="manage_space_cache_text_title">Bersihkan cache</string>

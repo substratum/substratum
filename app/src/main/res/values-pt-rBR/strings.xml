@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="showcase">mostruário</string>
@@ -34,21 +34,26 @@
     <string name="andromeda_notification_text">Os serviços de plano de fundo de temas estão conectados, ativos e funcionando.</string>
     <string name="andromeda_notification_text_negation">O serviço Andromeda não está funcionando, por favor reabra o programa do Desktop!</string>
     <string name="resource_commit_dialog_title">Faltam recursos em %s</string>
-    <string name="showcase_no_connection">a vitrine de temas requer uma conexão com a internet para funcionar!</string>
+    <string name="showcase_no_connection">o mostruário de temas requer uma conexão com a Internet para
+      funcionar!    </string>
+    <string name="refused_to_install_notification_button">Remover Tema</string>
+    <string name="refused_to_install_title_notification">O Tema rejeita ser instalado no Samsung.</string>
+    <string name="refused_to_install_text_notification">%s falhou ao instalar.</string>
     <string name="failed_to_install_title_notification">Falha ao instalar um tema OMS</string>
+    <string name="failed_to_install_text_notification">%s falhou ao instalar.</string>
     <string name="actionbar_theme_count_loading">carregando&#8230;</string>
     <string name="actionbar_search">Pesquisar</string>
     <string name="actionbar_changelog">Lista de alterações do tema</string>
     <string name="settings_icons">Ícones das Configurações</string>
     <string name="systemui_headers">Cabeçalhos da Interface de Usuário do sistema</string>
     <string name="systemui_navigation">Navegação da Interface de Usuário do sistema</string>
-    <string name="systemui_qs_tiles">Botões das Configurações Rápidas da Interface de Usuário do sistema</string>
-    <string name="systemui_statusbar">Ícones da Barra de Status da Interface de Usuário do sistema</string>
+    <string name="systemui_qs_tiles">Ícones das Configurações Rápidas da Interface de Usuário do sistema</string>
+    <string name="systemui_statusbar">Ícones da Barra de Status</string>
     <string name="warning_title">ATENÇÃO!</string>
-    <string name="legacy_warning_content">A compatibilidade de temas é fornecida tal COMO ESTÁ, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
+    <string name="legacy_warning_content">A compatibilidade de temas é fornecida tal Como Está, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
 conhecimentos sobre como restaurar a partir de um bootloop antes de prosseguir.\n\nNão podemos
 corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibilidade, pois estas exigem mudanças ao nível do sistema.    </string>
-    <string name="samsung_warning_content">O suporte para Samsung é fornecido como está, pois não podemos garantir a compatibilidade total com cores e camadas construídas para AOSP. Nós cuidamos de esconder as camadas perigosas para o seu dispositivo, mas você pode alternar isso manualmente nas configurações, a seu critério.\n\nSe de qualquer forma você chegar a um problema com uma possível tela preta, consulte nosso tópico de discussão no XDA sobre dois métodos de recuperação.
+    <string name="samsung_warning_content">O suporte para Samsung é fornecido como está, pois não podemos garantir compatibilidade total com cores e camadas construídas para AOSP. Nós cuidamos de esconder as camadas perigosas para o seu dispositivo, mas você pode mudar isso manualmente nas configurações, a seu critério.\n\nSe de qualquer forma você chegar a ter um problema com uma possível tela preta, consulte nosso tópico no XDA sobre os dois métodos de recuperação.
     </string>
     <string name="legacy_dialog_soft_reboot_title">Reinício necessário!</string>
     <string name="legacy_dialog_soft_reboot_text">Executando no sistema Resource Runtime Overlay (RRO),
@@ -60,36 +65,53 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="abort_overlay_toast_success">Todas as camadas foram removidas!</string>
     <string name="rescue_toast">Restaurando seu sistema&#8230;</string>
     <string name="reboot_awaiting_manager_title">ERRO AO LER A CAMADA</string>
-    <string name="manager_theme_name">Tema:</string>
-    <string name="manager_type1a">Tipo1a:</string>
-    <string name="manager_type1b">Tipo1b:</string>
-    <string name="manager_type1c">Tipo1c:</string>
+    <string name="manager_theme_name">Tema: %s</string>
+    <string name="manager_type1a">Tipo1a: %s</string>
+    <string name="manager_type1b">Tipo1b: %s</string>
+    <string name="manager_type1c">Tipo1c: %s</string>
+    <string name="manager_type2">Tipo2: %s</string>
+    <string name="manager_type3">Tipo3: %s</string>
+    <string name="manager_type4">Tipo4: %s</string>
+    <string name="priorities_theme_name">Tema:</string>
+    <string name="priorities_type1a">Tipo1a:</string>
+    <string name="priorities_type1b">Tipo1b:</string>
+    <string name="priorities_type1c">Tipo1c:</string>
+    <string name="priorities_type2">Tipo2:</string>
+    <string name="priorities_type3">Tipo3:</string>
     <string name="backend_not_authorized_title">Compilação de depuração do substratum não autorizada!</string>
-    <string name="backend_not_authorized_text">Para usar esta compilação de substratum com sua ROM personalizada, habilite \'Forçar autorizar cada aplicativo de temas\' nas opções do desenvolvedor.\n\nSe não estiver lá, entre em contato com o desenvolvedor da sua ROM por commits em falta!</string>
+    <string name="backend_not_authorized_text">Para usar esta compilação de substratum com sua ROM personalizada, habilite \'Forçar autorizar cada aplicativo de temas\' nas opções do desenvolvedor.\n\nSe não estiver lá, entre em contato com o desenvolvedor da sua ROM por atualizações em falta!</string>
+    <string name="information_activity_theme_improperly_setup">\"%s\" não possui recursos disponíveis para tematizar!</string>
     <string name="legacy_preference_priority_title">Ajuste de prioridade de camadas</string>
-    <string name="legacy_preference_priority_text">Prioridade definida como (padrão %d): %d</string>
-    <string name="grid_size_title">Ajuste do esquema de colunas de temas</string>
+    <string name="legacy_preference_priority_text" formatted="false">Prioridade definida como (padrão %d): %d</string>
+    <string name="grid_size_title">Ajuste das colunas de exibição de temas</string>
     <string name="grid_size_text">O número de colunas está definido para (padrão %d): %d</string>
+    <string name="app_theme_title">Tema do aplicativo</string>
+    <string name="app_theme_text">Tema do aplicativo, definido como: %s</string>
+    <string name="app_theme_disabled">Padrão</string>
+    <string name="app_theme_auto">Automático</string>
+    <string name="app_theme_dark">Escuro</string>
+    <string name="app_theme_change">Reinicie o aplicativo para alternar temas</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">variante de tipo1a&#8230;</string>
     <string name="overlays_variant_default_1b">variante de tipo1b&#8230;</string>
     <string name="overlays_variant_default_1c">variante de tipo1c&#8230;</string>
     <string name="overlays_variant_default_2">variante de tipo2&#8230;</string>
     <string name="overlays_variant_default_3">variante da base padrão&#8230;</string>
-    <string name="overlays_variant_default_4">variante type4&#8230;</string>
+    <string name="overlays_variant_default_4">variante de tipo4&#8230;</string>
+    <string name="overlays_up_to_date">ATUALIZADO (%s)</string>
     <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante não instalada</string>
     <string name="shutdownanimation_placeholder_text">Por favor, selecione uma animação de encerramento da lista&#8230;</string>
-    <string name="shutdownanimation_defaults_text">Isso vai limpar qualquer animação de encerramento personalizada
-      aplicada em seu dispositivo</string>
+    <string name="shutdownanimation_defaults_text">Isto vai limpar qualquer animação de encerramento personalizada
+        aplicada em seu dispositivo</string>
     <string name="shutdownanimation_dialog_apply_text">A animação de encerramento está sendo processada&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Animação de encerramento aplicada!</string>
     <string name="shutdownanimation_dialog_apply_failed">Falha ao aplicar a animação de encerramento&#8230;</string>
     <string name="bootanimation_placeholder_text">Por favor, selecione uma animação de boot da lista&#8230;</string>
     <string name="bootanimation_default_spinner">Por favor, selecione uma animação de boot&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">Restaurar a animação de boot padrão&#8230;</string>
-    <string name="bootanimation_defaults_text">Isso vai limpar qualquer animação de boot personalizada
-      aplicada em seu dispositivo</string>
+    <string name="bootanimation_defaults_text">Isto limpará qualquer animação de boot personalizada
+        aplicada no seu dispositivo</string>
     <string name="bootanimation_dialog_apply_text">Animação de boot está processando&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animação de boot aplicada!</string>
     <string name="bootanimation_dialog_apply_failed">Animação de boot falhou ao aplicar&#8230;</string>
@@ -100,16 +122,34 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="wallpaper_allscreen_success">Ambos papéis de parede da Tela de início e da Tela de bloqueio foram configurados!</string>
     <string name="wallpaper_allscreen_error">Não é possível aplicar os papéis de parede da Tela de início e da Tela de bloqueio    </string>
     <string name="wallpaper_homescreen_success">Papel de parede da tela de início configurado!</string>
-    <string name="wallpaper_homescreen_error">Incapaz de aplicar o papel de parede da tela de início</string>
+    <string name="wallpaper_homescreen_error">Não é possível configurar o papel de parede da tela inicial</string>
     <string name="wallpaper_lockscreen_success">Papel de parede da tela de bloqueio configurado!</string>
-    <string name="wallpaper_lockscreen_error">Incapaz de aplicar o papel de parede da tela de bloqueio</string>
-    <string name="font_dialog_apply_text">Pacote de fonte está processando&#8230;</string>
-    <string name="font_dialog_apply_success">Pacote de fonte foi aplicado!</string>
-    <string name="font_dialog_apply_failed">Pacote de fonte falhou ao aplicar&#8230;</string>
-    <string name="sounds_dialog_apply_success">Pacote de áudio aplicado!</string>
-    <string name="sounds_dialog_apply_failed">Pacote de áudio falhou ao aplicar&#8230;</string>
+    <string name="wallpaper_lockscreen_error">Não é possível configurar o papel de parede da tela de bloqueio</string>
+    <string name="wallpaper_no_connection">Para utilizar os papéis de parede do tema, é necessária uma conexão com a
+        internet&#8230;</string>
+    <string name="wallpaper_no_wallpapers">Parece que o banco de dados do papel de parede carregado está
+        vazio&#8230;</string>
+    <string name="font_placeholder_text">Por favor, selecione um pacote de fontes no menu da lista
+        suspensa&#8230;</string>
+    <string name="font_default_spinner">Por favor, selecione um pacote de fontes&#8230;</string>
+    <string name="font_spinner_set_defaults">Restaurar fontes padrão&#8230;</string>
+    <string name="fonts_defaults_text">Isto apagará todas as fontes personalizadas
+        aplicadas no seu dispositivo</string>
+    <string name="font_dialog_apply_text">O pacote de fontes está processando&#8230;</string>
+    <string name="font_dialog_apply_success">O pacote de fontes foi aplicado!</string>
+    <string name="font_dialog_apply_failed">O pacote de fontes falhou ao aplicar&#8230;</string>
+    <string name="sounds_placeholder_text">Por favor, selecione um pacote de som no menu da lista
+        suspensa&#8230;</string>
+    <string name="sounds_spinner_set_defaults">Restaurar os sons predefinidos&#8230;    </string>
+    <string name="sounds_spinner_defaults_text">Isto apagará todos os sons personalizados
+        aplicados no seu dispositivo</string>
+    <string name="sounds_dialog_apply_success">Pacote de sons aplicado!</string>
+    <string name="sounds_dialog_apply_failed">O pacote de sons falhou ao aplicar&#8230;</string>
+    <string name="sounds_default_spinner">Por favor, selecione um pacote de sons&#8230;</string>
     <string name="fonts_dialog_permissions_grant_toast2">Para permitir que o Substratum modifique as fontes do
-sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</string>
+sistema, você deve ativar \'Permitir modificar configurações do sistema\'.    </string>
+    <string name="error_loading_pack">Parece que este pacote não foi configurado
+        corretamente&#8230;</string>
     <string name="sounds_alarm">Alarme</string>
     <string name="sounds_notification">Notificação</string>
     <string name="sounds_ringtone">Toques</string>
@@ -117,10 +157,10 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="sounds_lock_sound">Sons de Bloqueio da Tela</string>
     <string name="sounds_unlock_sound">Sons de Desbloqueio da Tela</string>
     <string name="settings_about_substratum">versão do Substratum</string>
-    <string name="settings_about_interfacer">versão do interfacer</string>
+    <string name="settings_about_interfacer">versão do Interfacer</string>
     <string name="settings_about_interfacer_not_installed">Não instalado</string>
-    <string name="settings_about_andromeda">versão andromeda</string>
-    <string name="settings_about_samsung">versão sungstratum</string>
+    <string name="settings_about_andromeda">versão do Andromeda</string>
+    <string name="settings_about_samsung">versão do Sungstratum</string>
     <string name="settings_about_oms_rro_version">Plataforma de temas:</string>
     <string name="settings_about_oms_version_do">Camadas Dinâmicas (OMS)</string>
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
@@ -134,21 +174,21 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="theme_information_tab_six">Animações de encerramento</string>
     <string name="uninstall_dialog_text">Você tem certeza que deseja desinstalar este tema?</string>
     <string name="manage_dialog_performing">Restaurando ao padrão&#8230;</string>
-    <string name="manage_bootanimation_title">Restaura a Animação de Boot padrão</string>
+    <string name="manage_bootanimation_title">Restaurar a animação de boot</string>
     <string name="manage_bootanimation_toast">Animação de Boot restaurada com sucesso!</string>
     <string name="manage_shutdownanimation_toast">Animação de encerramento restaurada com sucesso!</string>
-    <string name="manage_fonts_title">Restaura Fonte do Sistema</string>
+    <string name="manage_fonts_title">Restaurar a fonte do sistema</string>
     <string name="manage_fonts_toast">Fontes restauradas com sucesso!</string>
-    <string name="manage_sounds_title">Restaura os Áudios do Sistema</string>
-    <string name="manage_sounds_toast">Áudio padrão restaurado com sucesso!</string>
-    <string name="manage_system_overlay_disable">Desabilitar todas as camadas habilitadas</string>
+    <string name="manage_sounds_title">Restaurar os sons do sistema</string>
+    <string name="manage_sounds_toast">Sons originais restaurados com sucesso!</string>
+    <string name="manage_system_overlay_disable">Desabilitar todas as camadas ativas</string>
     <string name="manage_system_overlay_uninstall">Remover todas as camadas instaladas</string>
-    <string name="manage_system_overlay_toast">Tema do Sistema está agora restaurando&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">As camadas estão desinstalando em segundo plano&#8230;</string>
+    <string name="manage_system_overlay_toast">O tema do sistema está sendo restaurado&#8230;</string>
+    <string name="manage_system_overlay_uninstall_toast">As camadas estão sendo desinstaladas em segundo plano&#8230;</string>
     <string name="manage_system_not_permitted">Por favor selecione uma camada válida para mudar estados.</string>
-    <string name="manage_wallpaper_home">Papel de Parede da Tela de Início</string>
-    <string name="manage_wallpaper_lock">Papel de Parede da Tela de Bloqueio</string>
-    <string name="manage_wallpaper_all">Papel de parede da Tela de início e da Tela de bloqueio</string>
+    <string name="manage_wallpaper_home">Restaurar o papel de parede da tela inicial</string>
+    <string name="manage_wallpaper_lock">Restaurar o papel de parede da tela de bloqueio</string>
+    <string name="manage_wallpaper_all">Restaurar os papéis de parede da tela inicial e da tela de bloqueio</string>
     <string name="manage_wallpaper_home_toast">Papel de parede da tela de início restaurado com sucesso!</string>
     <string name="manage_wallpaper_lock_toast">Papel de parede da tela de bloqueio restaurado com sucesso!</string>
     <string name="manage_wallpaper_all_toast">Papel de parede restaurado com sucesso!</string>
@@ -158,11 +198,11 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="deny">Negar</string>
     <string name="permission_explanation_title">Visão Geral de Permissões</string>
     <string name="permission_explanation_text">Substratum pode não funcionar como devido sem
-      algumas permissões cruciais garantidas.\n\n<b>Armazenamento:</b> Substratum necessita de utilizar seu
-      armazenamento interno para armazenar os arquivos de resgate do sistema, localizados em
-      /storage/emulated/0/substratum/.\n\n<b>Firebase:</b> 
-      Substratum usa Firebase do Google para baixar informações cruciais de nossas
-      databases centralizadas de tempo real para aprimorar os serviços e melhorar a segurança.    </string>
+        estas poucas permissões cruciais garantidas.\n\n<b>Armazenamento:</b> Substratum necessita utilizar seu
+        armazenamento interno para armazenar os arquivos de recuperação do sistema, localizados em
+        /storage/emulated/0/substratum/.\n\n<b>Firebase:</b> 
+        Substratum usa o Firebase do Google para baixar informações cruciais de nossos
+        bancos de dados centralizados em tempo real para melhorar os serviços básicos e melhorar a segurança.    </string>
     <string name="priority_back_title">Voltar para camadas</string>
     <string name="menu_clean">Limpar camadas</string>
     <string name="menu_disable">Desabilitar camadas instaladas</string>
@@ -177,6 +217,7 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="menu_alphabetize">Alterar Modo De Classificação</string>
     <string name="menu_search">Temas na Play Store</string>
     <string name="menu_showcase">Mostruário</string>
+    <string name="menu_filter">Filtro</string>
     <string name="menu_uninstall">Desinstalar Tema</string>
     <string name="menu_restore_info">Restaurar informações</string>
     <string name="menu_showcase_info">Informação do mostruário</string>
@@ -204,17 +245,27 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="logcat_email_xposed_check">Framework Xposed</string>
     <string name="logcat_processing_dialog">Processando relatório de erros</string>
     <string name="priority_instructions_title">Instruções</string>
-    <string name="priority_no_multiple_overlays_title">nenhum aplicativo com múltiplas camadas&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">habilite duas ou mais camadas em um aplicativo para me usar!</string>
-    <string name="manager_no_overlays_title">nenhuma camada instalada&#8230;</string>
+    <string name="priority_instructions_content">Com o sistema de prioridade dinâmico, você pode ajustar
+      as prioridades de sobreposição como camadas em termos de níveis. O que isso significa é que quando uma
+      camada tem a maior prioridade, os recursos da camada serão retirados da
+      maior camada primeiro, então a segunda mais alta.
+      \n
+      \nPara dispositivos Oreo, a camada superior é a mais alta.
+      \n
+      \nPara dispositivos Nougat, a camada inferior é a mais alta (invertida).    </string>
+    <string name="priority_no_multiple_overlays_title">nenhum aplicativo com múltiplas camadas</string>
+    <string name="priority_no_multiple_overlays_text">habilite duas ou mais camadas em um aplicativo para me usar!    </string>
+    <string name="manager_no_overlays_title">nenhuma camada instalada</string>
     <string name="manager_no_overlays_text">compile uma camada para para poder me usar!</string>
     <string name="backup">Cartão de Backup</string>
-    <string name="backup_card_content">Esta função faz uma cópia das suas camadas atuais habilitadas em lista e as realoca em \"/storage/emulated/0/substratum/profiles/\" para proteção.</string>
+    <string name="backup_card_content">Esta função faz uma cópia das camadas habilitadas atualmente
+      numa lista e as coloca em \"/storage/emulated/0/substratum/profiles/\" por proteção.    </string>
     <string name="delete_dialog_okay">Deletar</string>
     <string name="delete_dialog_title">Deletar perfil</string>
     <string name="delete_dialog_text">Tem certeza que deseja deletar \"%s\"?</string>
     <string name="restore">Restaurar Cartão</string>
-    <string name="restore_card_content">Quando um perfil é carregado, sua configuração atual é completamente apagada e \"restaurar tema\" obteria as mudanças atualizadas.</string>
+    <string name="restore_card_content">Quando um perfil é carregado, sua configuração atual é completamente
+      apagada e \"restaurar tema\" assumiria as alterações atualizadas.    </string>
     <string name="remove_dialog_later">Depois</string>
     <string name="restore_dialog_okay">Continuar</string>
     <string name="restore_dialog_title">Estas camadas serão instaladas para restaurar seu perfil
@@ -222,18 +273,20 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="backup_button">SALVAR ESTADO ATUAL</string>
     <string name="backup_no_overlays">Não há camadas em sua configuração atual.</string>
     <string name="restore_button">RESTAURAR PERFIL</string>
-    <string name="restore_button_none_selected_toast">Favor selecionar um perfil da lista suspensa antes de tentar restaurar um perfil!</string>
-    <string name="profile_delete_button_none_selected_toast">Favor selecionar um perfil da lista suspensa antes de tentar deletar um perfil!</string>
+    <string name="restore_button_none_selected_toast">Selecione um perfil na lista suspensa
+      antes de tentar restaurar um perfil!    </string>
+    <string name="profile_delete_button_none_selected_toast">Selecione um perfil na lista suspensa
+      antes de tentar apagar um perfil!    </string>
     <string name="profile_edittext_hint">favor digitar um nome para seu perfil&#8230;</string>
-    <string name="profile_edittext_empty_toast">Favor entre com um nome para seu perfil antes de salvar o backup!</string>
+    <string name="profile_edittext_empty_toast">Digite um nome para o seu perfil antes de salvar o backup!    </string>
     <string name="profile_edittext_title">Novo Perfil:</string>
     <string name="profile_edittext_whitespace_warning_toast">Não é possível usar espaço no nome do perfil!</string>
-    <string name="toast_backup_success">Lista atual de camadas salva em \"/storage/emulated/0/substratum/profiles/%s\"</string>
+    <string name="toast_backup_success">Lista atual de camadas salva em \"/storage/emulated/0/substratum/profiles/%s\"    </string>
     <string name="profile_restoration_message">Processando restauração de perfil&#8230;</string>
     <string name="spinner_default_item">selecionar um perfil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Selecione para alternar todas as camadas</string>
     <string name="permission_not_granted_dialog_title">Permissões não garantidas</string>
-    <string name="permission_not_granted_dialog_message1">Favor garantir ao Substratum permissões de armazenamento ou o aplicativo não funcionará corretamente!</string>
+    <string name="permission_not_granted_dialog_message1">Por favor conceda ao Substratum permissões de armazenamento ou o aplicativo não funcionará corretamente!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Não mostrar novamente</string>
     <string name="dialog_cancel">Cancelar</string>
@@ -245,7 +298,7 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="sb_phase_2_loader">compilando e instalando camadas</string>
     <string name="root_rejected_title">não foi possível reverter ao modo root</string>
     <string name="root_rejected_text">não existem outros motores de temas disponíveis no seu dispositivo no momento&#8230;</string>
-    <string name="toast_activity_finished">%s foi atualizado. Reabrir para aplicar as alterações!</string>
+    <string name="toast_activity_finished">%s foi atualizado, reabra para aplicar as    mudanças!</string>
     <string name="toast_compiled_updated">Camada(s) selecionada(s) atualizada!</string>
     <string name="toast_compiled_missing">Uma ou mais camadas não puderam ser compiladas devido falta de configurações&#8230;</string>
     <string name="toast_compiled_updated_with_errors">A camada (as) selecionada foi atualizada com erros!</string>
@@ -256,11 +309,9 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="no_overlays_title">nenhuma camada encontrada&#8230;</string>
     <string name="no_themes_description">favor instalar um tema compatível!</string>
     <string name="no_themes_description_search">\"%s\" não foi encontrado na lista de temas instalados&#8230;</string>
-    <string name="no_overlays_description_search">\"%s\" não foi encontrado(a) na lista de camadas instaladas&#8230;</string>
-    <string name="toast_andromeda_timed_out">Há um atraso no Backend do Andromeda. Por favor, reinicie o Substratum.</string>
+    <string name="no_overlays_description_search">\"%s\" não foi encontrado na lista de camadas instaladas&#8230;</string>
     <string name="toast_could_not_uninstall">Nenhuma camada válida selecionada.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticamente escondeu as sobreposições de sistema sem suporte para o seu dispositivo!</string>
-    <string name="andromeda_disconnected">o cliente de desktop andromeda precisa conectar a seu dispositivo para poder funcionar com o substratum!</string>
     <string name="andromeda_check_status">Verificar status</string>
     <string name="andromeda_no_root_dialog">Parece que você está num dispositivo Oreo com suporte a temas, um plugin foi lançado para torná-lo compatível!</string>
     <string name="andromeda_no_root_dialog_button">Baixe Agora!</string>
@@ -289,6 +340,8 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="shortcut_floatui">Interface flutuante</string>
     <string name="shortcut_rescue">Restaure-me!</string>
     <string name="shortcut_rescue_disabled">Restaure-me!</string>
+    <string name="shortcut_store">Mostruário de Temas</string>
+    <string name="shortcut_store_disabled">Mostruário de Temas</string>
     <string name="shortcut_overlay_manager">Gerente de Camadas</string>
     <string name="shortcut_overlay_manager_disabled">Gerente de Camadas</string>
     <string name="settings_title">Sobre</string>
@@ -430,6 +483,8 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="per_app_manual_grant">Para que a função de interface de usuário flutuante funcione corretamente, conceda a permissão \"Sobrepor outros aplicativos\" manualmente nas configurações do sistema!</string>
     <string name="notification_overlay_found_specific">Uma camada de %s está em %s!</string>
     <string name="notification_overlay_found_description">Você pode abrir o tema clicando nesta notificação!</string>
+    <string name="system_crash_text">Seu sistema recarregou os recursos do substratum. O aplicativo irá
+        reiniciar em 3 segundos.</string>
     <string name="error_activity_title">Sinto muito por esse erro!</string>
     <string name="error_activity_text">por favor, me perdoe&#8230;</string>
     <string name="error_activity_button_restart">Reiniciar</string>
@@ -457,12 +512,9 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="nav_home">Temas</string>
     <!-- Utilities -->
     <string name="nav_overlay_manager">Gerenciador</string>
+    <string name="nav_recovery">Recuperação</string>
     <string name="nav_priorities">Prioridades</string>
     <string name="nav_backup_restore">Perfis</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Configurações</string>
     <string name="title_activity_manage_space">Gerenciar Uso de Armazenamento</string>
     <string name="manage_space_cache_text_title">Limpar cache</string>
@@ -477,5 +529,6 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="overlays_tab_package_ver_message">Instalado %s versão: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Código da versão copiado para a área de transferência com sucesso!</string>
     <string name="overlays_tab_package_ver_failure">Falha ao obter a versão do pacote</string>
+    <string name="locale_restart_message">Reinicie o aplicativo para mudar o idioma</string>
     <string name="restart">Reiniciar</string>
 </resources>

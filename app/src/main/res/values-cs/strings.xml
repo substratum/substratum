@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="showcase">ukázka</string>
@@ -35,7 +35,11 @@
     <string name="andromeda_notification_text_negation">Andromeda neběží, restartujte aplikaci na svém počítači!</string>
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
     <string name="showcase_no_connection">ukázky motivů potřebují internetové připojení!    </string>
+    <string name="refused_to_install_notification_button">Odstranit motiv</string>
+    <string name="refused_to_install_title_notification">Autor motivu zamítl motiv nainstalovaný na Samsung.</string>
+    <string name="refused_to_install_text_notification">%s se nepodařilo nainstalovat.</string>
     <string name="failed_to_install_title_notification">Nepodařilo se instalovat OMS motiv</string>
+    <string name="failed_to_install_text_notification">%s se nepodařilo nainstalovat.</string>
     <string name="actionbar_theme_count_loading">načítaní&#8230;</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_changelog">Seznam změn motivu</string>
@@ -46,30 +50,46 @@
     <string name="systemui_statusbar">Ikony na stavové liště</string>
     <string name="warning_title">VAROVÁNÍ!</string>
     <string name="legacy_warning_content">Legacy je dáno tak jak je a nemůžeme garantovat plnou podporu barev. Prosím přesvědčte se že máte custom recovery a víte jakpoužít záchranný/obnovovací zip.
-Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systému.    </string>
+\n\nNemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systému.    </string>
     <string name="samsung_warning_content">Samsung podpora je poskytována tak, jak je, protože nemůžeme zaručit plnou kompatibilitu s barvami a překrytím na bázi AOSP.
   Postarali jsme se o skrytí nebezpečných potahů pro vaše zařízení, podle vlastního uvážení můžete tuto možnost ručně vypnout v nastavení.\n\nPokud narazíte na problém s černou obrazovkou, přečtěte si naše vlákno XDA o dvou způsobech obnovení.    </string>
     <string name="legacy_dialog_soft_reboot_title">Je potřeba restartovat!</string>
     <string name="legacy_dialog_soft_reboot_text">Běží na prostředkovém potahovém systému, je
-      potřebné po přidání nebo odebrání potahů restartovat systém.\n\nPokračování s tímto
-      dialogem automaticky restartuje vaš zařízení, takže si prosím uložte vaši práci
-      před pokračováním.
+        potřebné po přidání nebo odebrání potahů restartovat systém.\n\nPokračování s tímto
+        dialogem automaticky restartuje vaš zařízení, takže si prosím uložte vaši práci
+        před pokračováním.
     </string>
     <string name="activity_missing_toast">Promiňte, ale nebyly nalezeny žádné aplikace, které by mohl zvládnout tuto žádost!
     </string>
     <string name="abort_overlay_toast_success">Všechny potahy odinstalovány!</string>
     <string name="rescue_toast">Záchrana systému&#8230;</string>
     <string name="reboot_awaiting_manager_title">CHYBA PŘI ČTENÍ POTAHU</string>
-    <string name="manager_theme_name">Motiv:</string>
-    <string name="manager_type1a">Typ1a:</string>
-    <string name="manager_type1b">Typ1b:</string>
-    <string name="manager_type1c">Typ1c:</string>
+    <string name="manager_theme_name">Motiv: %s</string>
+    <string name="manager_type1a">Typ1a: %s</string>
+    <string name="manager_type1b">Typ1b: %s</string>
+    <string name="manager_type1c">Typ1c: %s</string>
+    <string name="manager_type2">Typ2: %s</string>
+    <string name="manager_type3">Typ3: %s</string>
+    <string name="manager_type4">Typ4: %s</string>
+    <string name="priorities_theme_name">Motiv:</string>
+    <string name="priorities_type1a">Typ1a:</string>
+    <string name="priorities_type1b">Typ1b:</string>
+    <string name="priorities_type1c">Typ1c:</string>
+    <string name="priorities_type2">Typ2:</string>
+    <string name="priorities_type3">Typ3:</string>
     <string name="backend_not_authorized_title">Ladění sestavení Substratum není povoleno!</string>
     <string name="backend_not_authorized_text">Chcete-li použít toto sestavení Substratum s vlastní ROM, povolte v nastavení pro vývojáře \'Zakázat autorizaci každého motivu aplikace\'.\n\nPokud tam takové nastavení není, obraťte se na vývojáře vaší ROM!</string>
+    <string name="information_activity_theme_improperly_setup">\"%s\" nemá žádné dostupné zdroje pro motivy!</string>
     <string name="legacy_preference_priority_title">Nastavení priority potahů</string>
-    <string name="legacy_preference_priority_text">Priorita je nastavena na (výchozí %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Priorita je nastavena na (výchozí %d): %d</string>
     <string name="grid_size_title">Nastavení počtu sloupců motivu</string>
     <string name="grid_size_text">Počet sloupců je nastaven na (výchozí %d): %d</string>
+    <string name="app_theme_title">Motiv aplikace</string>
+    <string name="app_theme_text">Motiv aplikace nastaven na: %s</string>
+    <string name="app_theme_disabled">Výchozí</string>
+    <string name="app_theme_auto">Automaticky</string>
+    <string name="app_theme_dark">Tmavý</string>
+    <string name="app_theme_change">Restartujte aplikaci pro přepnutí motivu</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a varianta&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b varianta&#8230;</string>
@@ -77,11 +97,12 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="overlays_variant_default_2">typ2 varianta&#8230;</string>
     <string name="overlays_variant_default_3">výchozí varianta&#8230;</string>
     <string name="overlays_variant_default_4">typ4 varianta&#8230;</string>
+    <string name="overlays_up_to_date">AKTUÁLNÍ (%s)</string>
     <string name="overlays_update_available">Dostupná aktualizace!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varianta není nainstalována</string>
     <string name="shutdownanimation_placeholder_text">Prosím, vyberte animaci při vypnutí ze seznamu&#8230;</string>
     <string name="shutdownanimation_defaults_text">Toto vyčistí všechny vlastní animace při vypnutí
-      aplikované na tomto zařízení</string>
+        aplikované na tomto zařízení</string>
     <string name="shutdownanimation_dialog_apply_text">Zpracovávání animace při vypnutí&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Animace při vypnutí nastavena!</string>
     <string name="shutdownanimation_dialog_apply_failed">Animaci při vypnutí se nepodařilo použít&#8230;</string>
@@ -89,13 +110,13 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="bootanimation_default_spinner">Prosím, vyberte spouštěcí animaci&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">Obnovit na výchozí spouštěcí animaci&#8230;</string>
     <string name="bootanimation_defaults_text">Toto vyčistí všechny vlastní spouštěcí animace
-      aplikované na tomto zařízení</string>
+        aplikované na tomto zařízení</string>
     <string name="bootanimation_dialog_apply_text">Zpracovávání spouštěcí animace&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Spouštěcí animace nastavena!</string>
     <string name="bootanimation_dialog_apply_failed">Spouštěcí animaci se nepodařilo použít&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Tapeta domácí obrazovky</string>
     <string name="wallpaper_dialog_lockscreen">Tapeta zamykací obrazovky</string>
-    <string name="wallpaper_dialog_wallpaper_both">Tapeta domácí a zamykací obrazovky</string>
+    <string name="wallpaper_dialog_wallpaper_both">Tapety domácí a zamykací obrazovky</string>
     <string name="wallpaper_downloading">Načítání obrázku do mezipaměti&#8230;</string>
     <string name="wallpaper_allscreen_success">Tapeta na domácí a zamykací obrazovce nastavena!
     </string>
@@ -105,13 +126,25 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="wallpaper_homescreen_error">Nelze nastavit tapetu domácí obrazovky</string>
     <string name="wallpaper_lockscreen_success">Tapeta zamykací obrazovky je nastavena!</string>
     <string name="wallpaper_lockscreen_error">Nelze nastavit tapetu zamykací obrazovky</string>
+    <string name="wallpaper_no_connection">Chcete-li využít tapety motivu, je vyžadováno připojení k Internetu&#8230;</string>
+    <string name="wallpaper_no_wallpapers">Vypadá to, že načtená databáze tapet je prázdná&#8230;</string>
+    <string name="font_placeholder_text">Prosím, vyberte balíček písem ze seznamu&#8230;</string>
+    <string name="font_default_spinner">Prosím, vyberte balíček stylů písmen&#8230;</string>
+    <string name="font_spinner_set_defaults">Obnovit na výchozí písma&#8230;</string>
+    <string name="fonts_defaults_text">Toto vyčistí jakákoliv vlastní písma použíté v tomto zařízení</string>
     <string name="font_dialog_apply_text">Balíček písem se zpracovává&#8230;</string>
     <string name="font_dialog_apply_success">Balíček písem byl použit!</string>
     <string name="font_dialog_apply_failed">Balíček písem se nepodařilo použít&#8230;</string>
+    <string name="sounds_placeholder_text">Prosím, vyberte balíček zvuků ze seznamu&#8230;</string>
+    <string name="sounds_spinner_set_defaults">Obnovit výchozí zvuky&#8230;
+    </string>
+    <string name="sounds_spinner_defaults_text">Toto vyčistí všechny vlastní zvuky použité v zařízení</string>
     <string name="sounds_dialog_apply_success">Zvukový balíček byl použit!</string>
     <string name="sounds_dialog_apply_failed">Zvukový balíček se nepodařilo použít&#8230;</string>
+    <string name="sounds_default_spinner">Prosím, vyberte balíček zvuků&#8230;</string>
     <string name="fonts_dialog_permissions_grant_toast2">Pro povolení ovládání systémových písem Substratum musíte zapnout volbu \"Povolit úpravu systémového nastavení\".
     </string>
+    <string name="error_loading_pack">Vypadá to, že tento balíček nebyl správně nastaven&#8230;</string>
     <string name="sounds_alarm">Budík</string>
     <string name="sounds_notification">Oznámení</string>
     <string name="sounds_ringtone">Vyzváněcí tón</string>
@@ -148,9 +181,9 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_system_overlay_toast">Systémový motiv se nyní obnovuje&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Probíhá odinstalování potahů na pozadí&#8230;</string>
     <string name="manage_system_not_permitted">Pro změnu stavů zvolte platný potah.</string>
-    <string name="manage_wallpaper_home">Tapeta domácí obrazovky</string>
-    <string name="manage_wallpaper_lock">Tapeta zamykací obrazovky</string>
-    <string name="manage_wallpaper_all">Tapeta domácí a zamykací obrazovky</string>
+    <string name="manage_wallpaper_home">Obnovit tapetu domovské obrazovky</string>
+    <string name="manage_wallpaper_lock">Obnovit tapetu zamykací obrazovky</string>
+    <string name="manage_wallpaper_all">Obnovit tapety domovské a zamykací obrazovky</string>
     <string name="manage_wallpaper_home_toast">Tapeta domácí obrazovky úspěšně obnovena!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta zamykací obrazovky úspěšně obnovena!</string>
     <string name="manage_wallpaper_all_toast">Tapeta byla úspěšně obnovena!</string>
@@ -174,6 +207,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="menu_alphabetize">Změnit režim řazení</string>
     <string name="menu_search">Motivy v Obchodu Play</string>
     <string name="menu_showcase">Ukázky</string>
+    <string name="menu_filter">Filtr</string>
     <string name="menu_uninstall">Odinstalovat motiv</string>
     <string name="menu_restore_info">Obnovit informace</string>
     <string name="menu_showcase_info">Informace o prezentaci</string>
@@ -201,13 +235,20 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Zpracování zprávy o chybách</string>
     <string name="priority_instructions_title">Pokyny</string>
-    <string name="priority_no_multiple_overlays_title">žádné aplikace s více potahy&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">aby jste mě mohli používat, povolte dvě nebo více překrytí na jednu aplikaci!    </string>
-    <string name="manager_no_overlays_title">nejsou nainstalovány žádné potahy&#8230;</string>
+    <string name="priority_instructions_content">S dynamickým prioritním systémem můžete nastavit priority potahů jako vrstvy z hlediska úrovní.
+To znamená, že když má potah nejvyšší prioritu, budou zdroje potahů vytaženy nejdříve z nejvyššího, a poté z druhého nejvyššího potahu.
+      \n 
+      \nPro zařízení s Oreo je nejvyšší horní potah.
+      \n
+      \nPro zařízení s Nougat je nejvyšší dolní potah (obráceně).
+    </string>
+    <string name="priority_no_multiple_overlays_title">žádné aplikace s více potahy</string>
+    <string name="priority_no_multiple_overlays_text">aby jste mě mohli používat, povolte dva nebo více potahů na jednu aplikaci!    </string>
+    <string name="manager_no_overlays_title">nejsou nainstalovány žádné potahy</string>
     <string name="manager_no_overlays_text">aby jste mě mohli používat, zkompilujte jedno překrytí!</string>
     <string name="backup">Záložní karta</string>
     <string name="backup_card_content">Tato funkce vytvoří kopii aktuálně povolených potahů
-      - vytvoří seznam a umístí ho do \"/storage/emulated/0/substratum/profiles/\" pro zachování.
+        - vytvoří seznam a umístí ho do \"/storage/emulated/0/substratum/profiles/\" pro zachování.
     </string>
     <string name="delete_dialog_okay">Odstranit</string>
     <string name="delete_dialog_title">Odstranit profil</string>
@@ -259,10 +300,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="no_themes_description">prosím, nainstalujte kompatibilní motiv!</string>
     <string name="no_themes_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných motivů&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných potahů&#8230;</string>
-    <string name="toast_andromeda_timed_out">Zpoždění Andromeda Backend, restartujte Substratum.</string>
     <string name="toast_could_not_uninstall">Nebyly vybrány žádné platné potahy.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skrylo nepodporované potahy systému pro vaše zařízení!</string>
-    <string name="andromeda_disconnected">desktopový klient Andromeda se musí připojit k vašemu zařízení, aby mohl pracovat se Substratum!</string>
     <string name="andromeda_check_status">Zkontrolovat stav</string>
     <string name="andromeda_no_root_dialog">Zdá se, že používáte podporované zařízení Oreo, pro které byl vydán podpůrný modul!</string>
     <string name="andromeda_no_root_dialog_button">Stáhnout teď!</string>
@@ -291,6 +330,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Zachraňte mě!</string>
     <string name="shortcut_rescue_disabled">Zachraňte mě!</string>
+    <string name="shortcut_store">Ukázka motivů</string>
+    <string name="shortcut_store_disabled">Ukázka motivů</string>
     <string name="shortcut_overlay_manager">Správce potahů</string>
     <string name="shortcut_overlay_manager_disabled">Správce potahů</string>
     <string name="settings_title">O aplikaci</string>
@@ -436,6 +477,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="per_app_manual_grant">Prosím, ručně udělte oprávnění k \"využití přístupu\" a \"vykreslování nad ostatními aplikacemi\" v nastavení aplikace pro používání plovoucího okna!</string>
     <string name="notification_overlay_found_specific">Potah pro %s je v %s!</string>
     <string name="notification_overlay_found_description">Motiv můžete otevřít kliknutím na toto upozornění!</string>
+    <string name="system_crash_text">Váš systém znovu načetl zdroje Substratum. Aplikace se
+restartuje po 3 sekundách.</string>
     <string name="error_activity_title">Omlouvám se za tento krach!</string>
     <string name="error_activity_text">prosím odpusťte mi&#8230;</string>
     <string name="error_activity_button_restart">Restartovat</string>
@@ -464,12 +507,9 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="nav_home">Motivy vzhledu</string>
     <!-- Utilities -->
     <string name="nav_overlay_manager">Správce</string>
+    <string name="nav_recovery">Recovery</string>
     <string name="nav_priorities">Priority</string>
     <string name="nav_backup_restore">Profily</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Nastavení</string>
     <string name="title_activity_manage_space">Správa využití úložiště</string>
     <string name="manage_space_cache_text_title">Vyčistit mezipaměť</string>
@@ -484,5 +524,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="overlays_tab_package_ver_message">Nainstalované %s verze: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Kód verze byl úspěšně zkopírován do schránky!</string>
     <string name="overlays_tab_package_ver_failure">Nepodařilo se zachytit verzi balíčku</string>
+    <string name="locale_restart_message">Restartujte aplikaci pro přepnutí jazyka</string>
     <string name="restart">Restartovat</string>
 </resources>

@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="android">Lqem Android:</string>
@@ -30,10 +30,6 @@
     <string name="systemui_navigation">Tunigin UI n unagraw</string>
     <string name="systemui_qs_tiles">Tignitin n uzwel UI QS n unagraw</string>
     <string name="systemui_statusbar">Tignitin n ufeggag n waddad UI n unagraw</string>
-    <string name="manager_theme_name">Asentel:</string>
-    <string name="manager_type1a">Anaw 1a:</string>
-    <string name="manager_type1b">Anaw 1b:</string>
-    <string name="manager_type1c">Anaw 1c:</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">tasenfelt type1a&#8230;</string>
     <string name="overlays_variant_default_1b">tasenfelt type1b&#8230;</string>
@@ -42,7 +38,6 @@
     <string name="overlays_variant_default_4">tasenfelt type4&#8230;</string>
     <string name="bootanimation_default_spinner">Fren amray n tnekra&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">Err-d amray n tnekra amezwer&#8230;</string>
-    <string name="bootanimation_defaults_text">Ayagi ad yesfeḍ imrayen n tulsa n tnekra ibedden ɣef yibenk-ik</string>
     <string name="bootanimation_dialog_apply_text">Asebded n umray n tnekra iteddu&#8230;</string>
     <string name="sounds_alarm">Aṭenṭen</string>
     <string name="sounds_notification">Alɣu</string>
@@ -56,7 +51,6 @@
     <string name="settings_about_andromeda">lqem n andromeda</string>
     <string name="settings_about_samsung">lqem n substratum</string>
     <string name="manage_dialog_performing">Tiririt n wazalen imezwar&#8230;</string>
-    <string name="manage_bootanimation_title">Err-d amray n tnekra</string>
     <string name="plugin_template">Asiɣzef</string>
     <string name="accept">Qbel</string>
     <string name="deny">Agi</string>
@@ -100,9 +94,5 @@
     <!-- Notification channel -->
     <!-- Nav drawer -->
     <!-- Utilities -->
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="clear_cache_button_loading">Asali&#8230;</string>
 </resources>

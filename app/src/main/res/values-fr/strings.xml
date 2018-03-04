@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="android">Version Android :</string>
@@ -24,6 +24,7 @@
     <string name="resource_not_validated">Les nouvelles demandes ont été fusionnées !</string>
     <string name="resource_needs_internet">Pour valider les demandes de votre ROM, connectez-vous à Internet !</string>
     <string name="resource_validated">Toutes les demandes sont intactes !</string>
+    <string name="rooted_oms_dialog_warning_title">Surcouches dynamiques et Root</string>
     <string name="interfacer_notification_title">Substratum et Interfacer sont connectés !</string>
     <string name="interfacer_notification_text">Les services de thème d\'arrière-plan sont liés, actifs et en cours d\'exécution.</string>
     <string name="andromeda_notification_title">Substratum et Andromeda sont connectés !</string>
@@ -31,8 +32,10 @@
     <string name="andromeda_notification_text">Les services de thème d\'arrière-plan sont liés, actifs et en cours d\'exécution.</string>
     <string name="andromeda_notification_text_negation">Les services d\'Andromeda ne sont pas en cours d\'exécution, veuillez relancer l\'application depuis votre ordinateur !</string>
     <string name="resource_commit_dialog_title">Ressources manquantes pour %s</string>
-    <string name="showcase_no_connection">La galerie de thème nécessite une connexion Internet pour fonctionner !</string>
+    <string name="refused_to_install_notification_button">Supprimer le thème</string>
+    <string name="refused_to_install_text_notification">Échec de l\'installation de %s.</string>
     <string name="failed_to_install_title_notification">Échec de l\'installation du thème</string>
+    <string name="failed_to_install_text_notification">Échec de l\'installation de %s.</string>
     <string name="actionbar_theme_count_loading">Chargement en cours&#8230;</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="actionbar_changelog">Note de version de thème</string>
@@ -42,23 +45,11 @@
     <string name="systemui_qs_tiles">Icônes du volet des \"Configurations Rapides\"</string>
     <string name="systemui_statusbar">Icônes de la barre d\'état</string>
     <string name="warning_title">AVERTISSEMENT !</string>
-    <string name="legacy_warning_content">\"Legacy\" est fourni en l\'état, sans aucune garantie de bon fonctionnement.\nAssurez-vous de l\'existence d\'un \"recovery custom\" pour votre appareil\n et de posséder les connaissances nécessaires pour rétablir votre appareil en cas de redémarrages en boucle avant de continuer.\n\nCertains éléments graphiques ne sont pas pris en charge par les thèmes pour \"Legacy\", car ils nécessitent des changements dans le système.</string>
-    <string name="samsung_warning_content">Le support Samsung est livré en l\'état car nous ne pouvons garantir
-      une parfaite compatibilité avec les couleurs et les surcouches AOSP intégrées. Nous avons pris la précaution de cacher
-      les surcouches dangereuses pour votre appareil, mais vous pouvez les activer dans les paramètres
-      (à vos risques et périls).\n\nSi vous rencontrez un problème d\'écran noir,
-      merci de lire notre sujet XDA à propos des deux méthodes de récupération.
-    </string>
     <string name="legacy_dialog_soft_reboot_title">Redémarrage nécessaire !</string>
-    <string name="legacy_dialog_soft_reboot_text">Exécution du système de superposition en cours. Il est nécessaire d\'effectuer un redémarrage après l\'ajout ou la suppression des surcouches.\n\nL\'utilisation de cette fenêtre de dialogue redémarrera automatiquement votre appareil. Veuillez donc vous assurer d\'avoir enregistré votre travail avant de poursuivre.</string>
-    <string name="activity_missing_toast">Désolé, aucune application trouvée qui pourrait gérer cette demande !</string>
     <string name="abort_overlay_toast_success">Toutes les surcouches sont désinstallées !</string>
     <string name="rescue_toast">Restauration système en cours&#8230;</string>
     <string name="reboot_awaiting_manager_title">ERREUR LORS DE LA LECTURE DE L\'OVERLAY</string>
-    <string name="manager_theme_name">Thème :</string>
-    <string name="manager_type1a">Type 1a :</string>
-    <string name="manager_type1b">Type 1b :</string>
-    <string name="manager_type1c">Type 1c :</string>
+    <string name="app_theme_disabled">Par défaut</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Variante type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Variante type1b&#8230;</string>
@@ -68,16 +59,16 @@
     <string name="overlays_variant_default_4">variante type4&#8230;</string>
     <string name="overlays_update_available">Mise à jour disponible !\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante non installée</string>
-    <string name="bootanimation_placeholder_text">Sélectionnez une animation de démarrage à partir de la liste déroulante&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_text">Installation de l\'animation d\'arrêt en cours&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Animation d’arrêt appliquée !</string>
+    <string name="shutdownanimation_dialog_apply_failed">Échec de l\'installation de l\'animation d\'arrêt&#8230;</string>
     <string name="bootanimation_default_spinner">Sélectionnez une animation de démarrage&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">Réstaurer animation de démarrage par défaut&#8230;</string>
-    <string name="bootanimation_defaults_text">Cela va effacer les animations de démarrage définies sur votre appareil</string>
     <string name="bootanimation_dialog_apply_text">Installation de l\'animation de démarrage en cours&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animation de démarrage installée !</string>
     <string name="bootanimation_dialog_apply_failed">Échec de l\'installation de l\'animation de démarrage&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Fond d\'écran d\'accueil</string>
     <string name="wallpaper_dialog_lockscreen">Fond d\'écran de l\'écran de déverrouillage</string>
-    <string name="wallpaper_dialog_wallpaper_both">Fond d\'écran d\'accueil et de l\'Écran de déverrouillage</string>
     <string name="wallpaper_downloading">Chargement de l\'image dans le cache en cours&#8230;</string>
     <string name="wallpaper_allscreen_success">Fonds d\'écran d\'accueil et de déverrouillage  définis !</string>
     <string name="wallpaper_allscreen_error">Impossible de définir les fonds d\'écran d\'accueil et de déverrouillage</string>
@@ -90,7 +81,7 @@
     <string name="font_dialog_apply_failed">Échec de l\'installation du paquet de police&#8230;</string>
     <string name="sounds_dialog_apply_success">Paquet de son installé !</string>
     <string name="sounds_dialog_apply_failed">Échec de l\'installation du paquet de son&#8230;</string>
-    <string name="fonts_dialog_permissions_grant_toast2">Pour permettre à Substratum de gérer vos polices d\'écriture système,\nvous devez activer \"Autoriser la modification des paramètres systèmes\".</string>
+    <string name="sounds_default_spinner">Sélectionnez un paquet de son&#8230;</string>
     <string name="sounds_alarm">Alarme</string>
     <string name="sounds_notification">Notification</string>
     <string name="sounds_ringtone">Sonnerie</string>
@@ -111,22 +102,17 @@
     <string name="theme_information_tab_three">Paquets de police</string>
     <string name="theme_information_tab_four">Paquets de son</string>
     <string name="theme_information_tab_five">Fonds d\'écran</string>
+    <string name="theme_information_tab_six">Animation d\'arrêt</string>
     <string name="uninstall_dialog_text">Voulez-vous vraiment désinstaller ce thème ?</string>
     <string name="manage_dialog_performing">Restauration des valeurs par défaut en cours&#8230;</string>
-    <string name="manage_bootanimation_title">Rétablir l\'animation de démarrage par défaut</string>
     <string name="manage_bootanimation_toast">Animation de démarrage rétablie !</string>
-    <string name="manage_fonts_title">Rétablir les polices système</string>
+    <string name="manage_shutdownanimation_toast">Animation d\'arrêt rétablie !</string>
     <string name="manage_fonts_toast">Polices d\'écriture rétablies !</string>
-    <string name="manage_sounds_title">Rétablir les sons système</string>
     <string name="manage_sounds_toast">Sons système par défaut rétablis !</string>
     <string name="manage_system_overlay_disable">Désactiver toutes les surcouches installées</string>
     <string name="manage_system_overlay_uninstall">Désinstaller toutes les surcouches installées</string>
     <string name="manage_system_overlay_toast">Restauration du thème système en cours&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">Désinstallation en arrière-plan des surcouches en cours&#8230;</string>
     <string name="manage_system_not_permitted">Veuillez choisir une surcouche valide.</string>
-    <string name="manage_wallpaper_home">Fond d\'écran d\'accueil</string>
-    <string name="manage_wallpaper_lock">Fond d\'écran de l\'écran de déverrouillage</string>
-    <string name="manage_wallpaper_all">Fond d\'écran d\'accueil et de l\'Écran de déverrouillage</string>
     <string name="manage_wallpaper_home_toast">Fond d\'écran d\'accueil rétabli !</string>
     <string name="manage_wallpaper_lock_toast">Fond d\'écran de déverrouillage rétabli !</string>
     <string name="manage_wallpaper_all_toast">Fond d\'écran rétabli !</string>
@@ -135,7 +121,6 @@
     <string name="accept">Accepter</string>
     <string name="deny">Refuser</string>
     <string name="permission_explanation_title">Aperçu des autorisations</string>
-    <string name="permission_explanation_text">Substratum peut ne pas fonctionner correctement si ces quelques autorisations ne lui sont pas accordées.\n\n<b>Stockage : </b> Substratum a besoin d\'utiliser votre espace de stockage interne pour stocker vos archives de récupération du système (/storage/emulated/0/substratum/).\n\n<b>Firebase: </b>Substratum utilise Google Firebase Analytics pour recueillir et analyser l\'expérience utilisateur afin d\'améliorer ses services et sa sécurité lors de futures mises à jour.</string>
     <string name="priority_back_title">Retour aux surcouches</string>
     <string name="menu_clean">Nettoyer les surcouches</string>
     <string name="menu_disable">Désactiver les surcouches installées</string>
@@ -148,6 +133,8 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Redémarrage de l\'interface</string>
     <string name="menu_alphabetize">Changer l\'ordre de tri</string>
+    <string name="menu_search">Thèmes sur le Play Store</string>
+    <string name="menu_filter">Filtre</string>
     <string name="menu_uninstall">Désinstaller</string>
     <string name="menu_restore_info">Restaurer informations</string>
     <string name="menu_favorite_snackbar">%s défini comme raccourci d\'application !</string>
@@ -174,35 +161,23 @@
     <string name="logcat_email_xposed_check">\"Xposed Framework\"</string>
     <string name="logcat_processing_dialog">Rapport d\'erreur en cours</string>
     <string name="priority_instructions_title">Instructions</string>
-    <string name="priority_no_multiple_overlays_title">Aucune application possédant des surcouches multiples&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">Activez deux surcouches ou plus pour la même application, pour pouvoir m\'utiliser !</string>
-    <string name="manager_no_overlays_title">Aucune surcouche installée&#8230;</string>
     <string name="manager_no_overlays_text">Compilez une surcouche pour pouvoir m\'utiliser !</string>
     <string name="backup">Carte de sauvegarde</string>
-    <string name="backup_card_content">Cette fonction créée une copie de votre liste de surcouches actuellement activées et l\'enregistre dans \"/storage/emulated/0/substratum/profiles/\" pour plus de sécurité.</string>
     <string name="delete_dialog_okay">Supprimer</string>
     <string name="delete_dialog_title">Supprimer le profil</string>
     <string name="delete_dialog_text">Voulez-vous vraiment supprimer \"%s\" ?</string>
     <string name="restore">Carte de restauration</string>
-    <string name="restore_card_content">Lorsqu\'un profil est chargé, votre configuration actuelle est entièrement effacée et \"Rétablir le thème\" prend en compte ces modifications.</string>
     <string name="remove_dialog_later">Plus tard</string>
     <string name="restore_dialog_okay">Continuer</string>
-    <string name="restore_dialog_title">Ces superpositions seront installées pour restaurer votre profil complètement:    </string>
     <string name="backup_button">SAUVEGARDER</string>
     <string name="backup_no_overlays">Aucune surcouche dans votre configuration actuelle.</string>
     <string name="restore_button">RÉTABLIR LE PROFIL</string>
-    <string name="restore_button_none_selected_toast">Sélectionnez un profil dans la liste déroulante avant d\'essayer d\'en rétablir un !</string>
-    <string name="profile_delete_button_none_selected_toast">Sélectionnez un profil dans la liste déroulante avant d\'essayer d\'en supprimer un !</string>
     <string name="profile_edittext_hint">Saisir un nom pour ce profil&#8230;</string>
-    <string name="profile_edittext_empty_toast">Saisir un nom pour ce profil avant d\'essayer de le sauvegarder !</string>
     <string name="profile_edittext_title">Nouveau profil :</string>
     <string name="profile_edittext_whitespace_warning_toast">Impossible d’utiliser un espace à l’intérieur du nom de profil !</string>
-    <string name="toast_backup_success">Liste des surcouches actuelles enregistrée dans \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">Sélectionnez un profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Sélectionnez/désélectionnez toutes les surcouches</string>
     <string name="permission_not_granted_dialog_title">Autorisations non accordées</string>
-    <string name="permission_not_granted_dialog_message1">Veuillez accorder à Substratum l\'autorisation \"Stockage\"
-      ou l\'application ne fonctionnera pas correctement !</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Ne plus afficher</string>
     <string name="dialog_cancel">Annuler</string>
@@ -222,8 +197,6 @@
     <string name="no_themes_title">Aucun thème trouvé&#8230;</string>
     <string name="no_overlays_title">aucune surcouche trouvée&#8230;</string>
     <string name="no_themes_description">Installez un thème compatible !</string>
-    <string name="no_themes_description_search">\"%s\" est introuvable dans la liste des thèmes installés&#8230;</string>
-    <string name="no_overlays_description_search">« %s » n’a pas été trouvée dans la liste des surcouches installées&#8230;</string>
     <string name="toast_could_not_uninstall">Aucune surcouche valide n\'a été sélectionnée.</string>
     <string name="toast_samsung_prototype_alert">Substratum masque automatiquement les surcouches système non prises en charge pour votre appareil !</string>
     <string name="andromeda_check_status">Vérifier l\'état</string>
@@ -235,7 +208,6 @@
     <string name="notification_theme_installed_content">Thème installé</string>
     <string name="notification_theme_updated_content">Ressources mises à jour</string>
     <string name="notification_initial_title">Substratum est en cours d\'exécution</string>
-    <string name="notification_initial_title_upgrade_intent">Mise à niveau des surcouches de %s en cours&#8230;</string>
     <string name="notification_done_title">Compilation de thème terminée</string>
     <string name="notification_done_upgrade_title">Actualisation de la surcouche %s terminée !</string>
     <string name="notification_done_upgrade_title_warning">Actualisation de la surcouche %s incomplète !</string>
@@ -351,10 +323,14 @@
     <string name="settings_theme_auto_updater_dialog_title">AVERTISSEMENT</string>
     <string name="settings_theme_auto_updater_dialog_text">Assurez-vous que l\'installateur de paquet est bien fermé lorsque la notification est affichée. Les surcouches du \"framework\" ont tendance à redémarrer l\'installateur de paquet, provoquant des recompilations en boucle !</string>
     <string name="settings_auto_alert_title">Alerte de nouvelle surcouche</string>
+    <string name="settings_force_english_title">Forcer la langue anglaise</string>
     <string name="settings_force_english_text">Force l\'application à utiliser la langue anglaise</string>
+    <string name="settings_manage_space_title">Gestion de l\'espace de stockage</string>
+    <string name="settings_samsung_show_dangerous_overlays">Autoriser les surcouches dangereuses</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Afficher toutes les surcouches normalement dangereuses pour les appareils Samsung si le thème ne le supporte pas.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVERTISSEMENT</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nous masquons les surcouches dangereuses pour une raison, mais si vous êtes sûr•e de vouloir l\'activer, veuillez suivre les instructions de désactivation sur notre sujet XDA !</string>
+    <string name="settings_crash_receiver_title">Collecteur d\'erreur de thème</string>
     <string name="settings_crash_receiver_text">Désactiver automatiquement une surcouche lors de la détection d\'erreurs répétitives de l\'application</string>
     <string name="overlays_outdated">Superpositions obsolètes</string>
     <string name="overlays_outdated_message">Depuis la version 816 et au-delà, notre signature pour signer des couches a changé pour éviter les incompatibilités de signature.\n\nCela signifie que vos couches installées doivent être désactivées pour installer les nouvelles mises à jour de thème ou il va dire que vos couches nécessitent une éternelle mise à jour ! \n\nCe message ne s’affichera pas lorsque toutes les couches seront compilées en utilisant le nouveau substratum.</string>
@@ -392,13 +368,10 @@
     <string name="notification_channel_ongoing_description">Notifications persistantes</string>
     <!-- Nav drawer -->
     <string name="nav_main">Substratum</string>
+    <string name="nav_home">Thèmes</string>
     <!-- Utilities -->
     <string name="nav_priorities">Priorités</string>
     <string name="nav_backup_restore">Profils</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Paramètres</string>
     <string name="title_activity_manage_space">Gestion de l\'espace de stockage</string>
     <string name="manage_space_cache_text_title">Vider le cache</string>
@@ -410,5 +383,7 @@
     <string name="manage_space_reset_dialog_title">Réinitialiser ?</string>
     <string name="manage_space_reset_dialog_content">L\'application se fermera après la réinitialisation</string>
     <string name="legacy_overlay_uninstall_warning_text">Si vous désinstallez toutes les couches, s\'il vous plait, utilisez Substratum Rescue ZIPs pour eviter d\'éventuels bootloops.</string>
+    <string name="overlays_tab_package_ver_message">Version de %s installée : %s</string>
+    <string name="locale_restart_message">Redémarrez l\'appli pour changer la langue</string>
     <string name="restart">Redémarrer</string>
 </resources>

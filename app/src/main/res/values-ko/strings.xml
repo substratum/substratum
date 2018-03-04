@@ -13,16 +13,19 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
+    <string name="showcase">쇼케이스</string>
+    <string name="android">안드로이드 버전:</string>
+    <string name="device">장치 모델:</string>
     <string name="resource_checker_commons">프레임워크</string>
     <string name="resource_checker_dialog_quit">끝내기</string>
-    <string name="showcase_no_connection">테마 쇼케이스를 사용하려면 인터넷 연결이
-      필요합니다!
-    </string>
+    <string name="refused_to_install_notification_button">테마 제거</string>
+    <string name="refused_to_install_text_notification">%s 설치에 실패했습니다.</string>
     <string name="failed_to_install_title_notification">OMS 테마 설치 실패</string>
-    <string name="actionbar_theme_count_loading">로드 중…</string>
+    <string name="failed_to_install_text_notification">%s 설치에 실패했습니다.</string>
+    <string name="actionbar_theme_count_loading">로드 중...</string>
     <string name="actionbar_search">검색</string>
     <string name="actionbar_changelog">테마 변경 내역</string>
     <string name="settings_icons">설정 아이콘</string>
@@ -31,43 +34,37 @@
     <string name="systemui_qs_tiles">시스템 UI 퀵세팅 타일 아이콘</string>
     <string name="systemui_statusbar">시스템 UI 상단바 아이콘</string>
     <string name="warning_title">경고!</string>
-    <string name="legacy_warning_content">레거시 모드에서는 말 그대로 테마가 제대로 적용될지 보장할 수 없습니다. 레거시 모드에서 설치하기 전에 여러분의 기기에 커스텀 리커버리가 설치되어 있는지, 그리고 어떻게 무한부팅을 고치는지 미리 확인해두시길 바랍니다. \n\n레거시 모드에서 설치한 후 발생한 문제에 대해서는 개발자 측에서 픽스할 수 없습니다.</string>
     <string name="legacy_dialog_soft_reboot_title">다시 시작 필요!</string>
-    <string name="legacy_dialog_soft_reboot_text">리소스 런타임 오버레이(RRO) 시스템을 사용하고 계시기 때문에, 오버레이를 추가하거나 삭제한 후에는 재부팅이 필요합니다. \n\n이 과정을 계속할 시 자동으로 기기가 재부팅되므로, 하고 계시던 작업을 마무리하셨는지 확인하시길 바랍니다.</string>
-    <string name="activity_missing_toast">이 요청을 다룰 수 있는 앱이 발견되지 않았습니다, 죄송합니다!</string>
     <string name="abort_overlay_toast_success">모든 오버레이 삭제 완료!</string>
-    <string name="manager_theme_name">테마:</string>
-    <string name="manager_type1a">Type1a:</string>
-    <string name="manager_type1b">Type1b:</string>
-    <string name="manager_type1c">Type1c:</string>
-    <string name="overlays_variant_substitute">%s…</string>
-    <string name="overlays_variant_default_1a">type1a 타입…</string>
-    <string name="overlays_variant_default_1b">type1b 타입…</string>
-    <string name="overlays_variant_default_1c">type1c 타입…</string>
-    <string name="overlays_variant_default_2">type2 타입…</string>
-    <string name="overlays_variant_default_3">기본 타입…</string>
+    <string name="manager_theme_name">테마: %s</string>
+    <string name="priorities_theme_name">테마:</string>
+    <string name="legacy_preference_priority_title">오버레이 우선 순위 조정</string>
+    <string name="app_theme_title">앱 테마</string>
+    <string name="overlays_variant_substitute">%s...</string>
+    <string name="overlays_variant_default_1a">type1a 타입...</string>
+    <string name="overlays_variant_default_1b">type1b 타입...</string>
+    <string name="overlays_variant_default_1c">type1c 타입...</string>
+    <string name="overlays_variant_default_2">type2 타입...</string>
+    <string name="overlays_variant_default_3">기본 타입...</string>
     <string name="overlays_update_available">새로운 버전이 있습니다.\n(%s)</string>
     <string name="overlays_overlay_not_installed">해당 타입이 설치되지 않음</string>
-    <string name="bootanimation_dialog_apply_text">부트 애니메이션 적용 중…</string>
+    <string name="bootanimation_dialog_apply_text">부트 애니메이션 적용 중...</string>
     <string name="bootanimation_dialog_apply_success">부트 애니메이션 적용 완료!</string>
-    <string name="bootanimation_dialog_apply_failed">부트 애니메이션 적용 실패…</string>
+    <string name="bootanimation_dialog_apply_failed">부트 애니메이션 적용 실패...</string>
     <string name="wallpaper_dialog_wallpaper">홈 배경화면</string>
     <string name="wallpaper_dialog_lockscreen">잠금 화면 배경화면</string>
-    <string name="wallpaper_dialog_wallpaper_both">홈 화면 및 잠금 화면</string>
-    <string name="wallpaper_downloading">이미지 캐싱 중…</string>
+    <string name="wallpaper_downloading">이미지 캐싱 중...</string>
     <string name="wallpaper_allscreen_success">홈 화면 및 잠금 화면 배경 화면 모두 적용 완료!</string>
     <string name="wallpaper_allscreen_error">홈 화면 및 잠금 화면 배경 화면 적용 실패</string>
     <string name="wallpaper_homescreen_success">홈 화면의 배경화면을 설정했습니다!</string>
     <string name="wallpaper_homescreen_error">홈 화면의 배경화면을 설정할 수 없습니다.</string>
     <string name="wallpaper_lockscreen_success">잠금 화면의 배경화면을 설정했습니다!</string>
     <string name="wallpaper_lockscreen_error">잠금 화면의 배경화면을 설정할 수 없습니다.</string>
-    <string name="font_dialog_apply_text">폰트 처리 중…</string>
+    <string name="font_dialog_apply_text">폰트 처리 중...</string>
     <string name="font_dialog_apply_success">폰트가 적용되었습니다!</string>
     <string name="font_dialog_apply_failed">폰트 적용에 실패했습니다.</string>
     <string name="sounds_dialog_apply_success">사운드 팩이 적용되었습니다!</string>
     <string name="sounds_dialog_apply_failed">사운드 팩 적용에 실패했습니다.</string>
-    <string name="fonts_dialog_permissions_grant_toast2">Substratum으로 시스템 설정을 수정하려면
-\'시스템 설정 수정 권한\'을 허용해야 합니다.    </string>
     <string name="sounds_alarm">알람</string>
     <string name="sounds_notification">알림</string>
     <string name="sounds_ringtone">벨소리</string>
@@ -76,27 +73,29 @@
     <string name="sounds_unlock_sound">화면 잠금 해제 소리</string>
     <string name="settings_about_substratum">substratum 버전</string>
     <string name="settings_about_interfacer">interfacer 버전</string>
+    <string name="settings_about_andromeda">andromeda 버전</string>
+    <string name="settings_about_samsung">sungstratum ㅂ저ㅓㄴ</string>
+    <string name="settings_about_oms_rro_version">테마 플랫폼:</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
+    <string name="settings_about_system_version">시스템 정보</string>
     <string name="theme_information_tab_one">오버레이</string>
     <string name="theme_information_tab_two">부팅 애니메이션</string>
     <string name="theme_information_tab_three">폰트</string>
     <string name="theme_information_tab_four">사운드 팩</string>
     <string name="theme_information_tab_five">배경화면</string>
+    <string name="theme_information_tab_six">종료 애니메이션</string>
     <string name="uninstall_dialog_text">정말 이 테마를 제거하시겠습니까?</string>
-    <string name="manage_dialog_performing">기본값으로 복원 중…</string>
+    <string name="manage_dialog_performing">기본값으로 복원 중...</string>
     <string name="manage_bootanimation_title">부트 애니메이션 복원</string>
     <string name="manage_bootanimation_toast">부팅 애니메이션을 성공적으로 복원했습니다!</string>
-    <string name="manage_fonts_title">폰트 복원</string>
+    <string name="manage_shutdownanimation_toast">부트 애니메이션을 성공적으로 복원했습니다!</string>
+    <string name="manage_fonts_title">시스템 폰트 복원</string>
     <string name="manage_fonts_toast">폰트를 성공적으로 복원했습니다!</string>
-    <string name="manage_sounds_title">시스템 사운드 복원</string>
     <string name="manage_sounds_toast">사운드를 성공적으로 복원했습니다!</string>
     <string name="manage_system_overlay_disable">오버레이를 기본값으로 복원</string>
     <string name="manage_system_overlay_uninstall">오버레이를 기본값으로 복원 및 설치된 모든 오버레이 일괄 삭제</string>
-    <string name="manage_system_overlay_toast">시스템 테마를 복원 중입니다…</string>
-    <string name="manage_system_overlay_uninstall_toast">백그라운드에서 오버레이를 제거 중…</string>
-    <string name="manage_wallpaper_home">홈 배경화면</string>
-    <string name="manage_wallpaper_lock">잠금 화면 배경화면</string>
-    <string name="manage_wallpaper_all">홈 화면 및 잠금 화면</string>
+    <string name="manage_system_overlay_toast">시스템 테마를 복원 중입니다...</string>
     <string name="manage_wallpaper_home_toast">홈 화면 배경화면 복원 성공!</string>
     <string name="manage_wallpaper_lock_toast">잠금 화면 배경화면 복원 성공!</string>
     <string name="manage_wallpaper_all_toast">배경화면 복원 성공!</string>
@@ -110,12 +109,18 @@
     <string name="menu_disable">설치된 오버레이 적용 해제</string>
     <string name="menu_enable">설치된 오버레이 적용</string>
     <string name="menu_favorite">즐겨찾기</string>
+    <string name="menu_unfavorite">즐겨찾기에서 제거</string>
     <string name="menu_rate">테마 평가</string>
     <string name="menu_soft_reboot">빠른 다시 시작</string>
     <string name="menu_reboot_device">다시 시작</string>
     <string name="menu_restart_systemui">시스템 UI 다시 시작</string>
     <string name="menu_alphabetize">정렬 모드 변경</string>
+    <string name="menu_search">Play 스토어 테마</string>
+    <string name="menu_showcase">쇼케이스</string>
+    <string name="menu_filter">필터</string>
     <string name="menu_uninstall">테마 제거</string>
+    <string name="menu_restore_info">정보 복원</string>
+    <string name="menu_showcase_info">쇼케이스 정보</string>
     <string name="menu_favorite_snackbar">%s을 앱 바로가기로 설정 성공!</string>
     <string name="changelog_title">%s 테마의 변경 내역</string>
     <string name="dialog_restart_systemui_title">시스템 UI 다시 시작</string>
@@ -124,39 +129,29 @@
     <string name="dialog_restart_reboot_content">기기를 완전히 다시 시작합니다.</string>
     <string name="dialog_restart_soft_reboot_title">빠른 다시 시작</string>
     <string name="dialog_restart_soft_reboot_content">기기를 빠르게 다시 시작합니다.</string>
-    <string name="studio_applying">로드 중…</string>
+    <string name="studio_applying">로드 중...</string>
+    <string name="error_loading_theme_close">닫기</string>
     <string name="logcat_dialog_copy_success">클립보드에 오류 로그를 복사했습니다.</string>
-    <string name="logcat_email_activity">버그 리포트 보내는 중…</string>
+    <string name="logcat_send">보내기</string>
+    <string name="logcat_email_activity">버그 리포트 보내는 중...</string>
     <string name="logcat_email_activity_error">이메일 클라이언트가 설치되지 않았습니다.</string>
     <string name="logcat_email_xposed_check">Xposed 프레임워크</string>
-    <string name="priority_no_multiple_overlays_title">2개 이상의 오버레이가 적용된       애플리케이션이 없습니다.</string>
-    <string name="priority_no_multiple_overlays_text">절 사용하시려면 같은 앱에 두 개 이상의 오버레이를 적용해주세요!</string>
-    <string name="manager_no_overlays_title">설치된 오버레이가 없습니다&#8230;</string>
     <string name="manager_no_overlays_text">절 사용하시려면 오버레이를 하나 이상 컴파일해주세요!</string>
     <string name="backup">카드 백업</string>
-    <string name="backup_card_content">이 기능은 현재 적용된 오버레이 리스트를 \"/storage/emulated/0/substratum/profiles/\" 경로에 저장합니다.</string>
     <string name="delete_dialog_okay">삭제</string>
     <string name="delete_dialog_title">프로필 삭제</string>
     <string name="delete_dialog_text">정말 \"%s\"을(를) 삭제하시겠습니까?</string>
     <string name="restore">카드 복원</string>
-    <string name="restore_card_content">프로파일을 불러오면 현재 설정이 초기화되고 기존의 저장된 설정이 복원됩니다.</string>
     <string name="remove_dialog_later">나중에</string>
     <string name="restore_dialog_okay">계속</string>
     <string name="backup_button">현재 상태 백업</string>
     <string name="backup_no_overlays">현재 적용된 오버레이가 없습니다.</string>
     <string name="restore_button">프로필 복원</string>
-    <string name="restore_button_none_selected_toast">프로파일을 불러오려면 드롭다운 리스트에 있는 프로파일 중 하나를 선택해주세요.</string>
-    <string name="profile_delete_button_none_selected_toast">저장된 프로파일을 제거하려면 드롭다운 리스트에 있는 프로파일 중 하나를 선택해주세요.</string>
     <string name="profile_edittext_hint">사용할 프로필의 이름을 입력하세요&#8230;</string>
-    <string name="profile_edittext_empty_toast">프로필 백업 전에 이름을 설정하세요.    </string>
     <string name="profile_edittext_title">새 프로필:</string>
-    <string name="toast_backup_success">현재 오버레이 목록을 다음 경로에 저장하였습니다:
-      \"/storage/emulated/0/substratum/profiles/%s\"
-    </string>
     <string name="spinner_default_item">프로필을 선택하세요&#8230;</string>
     <string name="select_to_toggle_all_overlays">모든 오버레이를 선택</string>
     <string name="permission_not_granted_dialog_title">권환이 부여되지 않았습니다</string>
-    <string name="permission_not_granted_dialog_message1">substratum 앱을 정상적으로 사용하려면 \'저장\' 권한을 허용해야 합니다.</string>
     <string name="dialog_ok">확인</string>
     <string name="dialog_do_not_show_again">다시 보지 않기</string>
     <string name="dialog_cancel">취소</string>
@@ -166,29 +161,49 @@
     </string>
     <string name="uninstall_dialog_body">테마 제거</string>
     <string name="sb_phase_1_loader">테마 추출 중</string>
+    <string name="sb_phase_2_loader">오버레이 빌드 및 설치</string>
     <string name="toast_compiled_updated">선택된 오버레이가 업데이트 되었습니다.</string>
     <string name="toast_disabled3">오버레이를 적용하기 전에 컴파일 해주세요.</string>
     <string name="toast_disabled6">선택된 오버레이가 제거되었습니다.</string>
-    <string name="no_themes_title">테마를 찾을 수 없음…</string>
+    <string name="no_themes_title">테마를 찾을 수 없음...</string>
+    <string name="no_overlays_title">발견된 오버레이가 없습니다&#8230;</string>
     <string name="no_themes_description">Substratum 테마를 설치해주세요!</string>
-    <string name="no_themes_description_search">테마 리스트에서 %s을(를) 찾을 수 없습니다…</string>
+    <string name="andromeda_no_root_dialog">테마가 지원되는 오레오 기기를 사용하는 것으로 보입니다. 이를 지원하는 추가 기능이 출시 되었습니다!</string>
+    <string name="andromeda_no_root_dialog_button">지금 다운로드!</string>
+    <string name="samsung_prototype_no_root_dialog">테마가 지원되는 삼성 기기를 사용하는 것으로 보입니다. 이를 지원하는 추가 기능이 출시 되었습니다!</string>
+    <string name="samsung_prototype_no_root_dialog_button">지금 다운로드!</string>
+    <string name="samsung_prototype_no_firebase_dialog">테마가 지원되는 삼성 기기를 사용하는 것으로 보입니다. 하지만 파이어베이스(Firebase) 가 확인되지 않습니다. 당신의 국가에서 차단된 것일 수 있으니, VPN을 실행하고 substratum 앱을 재설치 해보세요!</string>
+    <string name="samsung_prototype_reinstall_dialog">테마가 지원되는 삼성 기기를 사용하고, 추가 기능이 설치된 것으로 보입니다. 그러나 검증에 실패했습니다. 플레이 스토어에서 추가 기능을 다시 설치해보세요!</string>
     <string name="notification_theme_installed">설치됨</string>
     <string name="notification_theme_updated">업데이트됨</string>
     <string name="notification_theme_installed_content">테마가 성공적으로 설치되었습니다.</string>
     <string name="notification_theme_updated_content">리소스가 성공적으로 업데이트되었습니다.</string>
     <string name="notification_initial_title">Substratum이 실행 중입니다.</string>
     <string name="notification_done_title">테마 컴파일 완료</string>
-    <string name="notification_processing">오버레이 처리 중…</string>
-    <string name="notification_processing_n">오버레이 준비 중…</string>
+    <string name="notification_processing">오버레이 처리 중...</string>
+    <string name="notification_processing_n">오버레이 준비 중...</string>
     <string name="shortcut_rescue">도와주세요!</string>
     <string name="shortcut_rescue_disabled">도와주세요!</string>
     <string name="shortcut_overlay_manager">오버레이 매니저</string>
     <string name="shortcut_overlay_manager_disabled">오버레이 매니저</string>
     <string name="settings_title">정보</string>
+    <string name="settings_title_1">사용자 설정</string>
     <string name="settings_title_3">테마 적용</string>
+    <string name="settings_title_clickable">시스템 설정</string>
+    <string name="manage_notification_channel">알림 설정</string>
     <string name="hide_app_icon">앱 아이콘 표시</string>
+    <string name="hide_app_icon_supported">홈 화면에서 아이콘을 보이거나 보이지 않도록 설정할 수 있습니다.</string>
+    <string name="logchar_autosave_title">로그 유지</string>
+    <string name="logchar_autosave_subtext">모든 로그는 다음 경로에 저장됩니다.\n/storage/emulated/0/substratum/LogCharReports/</string>
+    <string name="auto_disable_target_overlays">적용 대상 외 다른 오버레이 자동 비활성화</string>
+    <string name="auto_disable_target_overlays_on">새로운 오버레이가 설치/활성화 될 때, 다른 오버레이들을 비활성화 합니다.</string>
+    <string name="auto_disable_target_overlays_off">새로운 오버레이가 설치/활성화 될 때, 다른 오버레이들이 변경되지 않고 유지됩니다.</string>
     <string name="fab_menu_compile_enable">빌드 및 활성화</string>
     <string name="fab_menu_compile_update">빌드 및 업데이트</string>
+    <string name="fab_menu_uninstall">선택된 오버레이 삭제</string>
+    <string name="fab_menu_disable">선택된 오버레이 비활성화</string>
+    <string name="fab_menu_enable">선택된 오버레이 활성화</string>
+    <string name="fab_menu_enable_disable">활성화↔비활성화 전환</string>
     <string name="fab_menu_swap_toggle">다른 테마 비활성화</string>
     <string name="slide_1_title">substratum에 오신 것을 환영합니다</string>
     <string name="scheduled_profile_apply_success">예약된 프로필이 성공적으로 적용되었습니다!</string>
@@ -204,6 +219,8 @@
     <string name="profile_notification_title">%s 프로필</string>
     <string name="profile_success_notification">프로필이 성공적으로 적용되었습니다!</string>
     <string name="profile_failed_notification">프로필을 적용하지 못했습니다&#8230;</string>
+    <string name="theme_debug_mode_title">기존 컴파일러 대체하지 않음</string>
+    <string name="theme_debug_mode_summary">앱이 복구할 수 없는 상태가 되었을 때, 테마를 돕기 위해 기존 컴파일러를 대체하여 사용하는 것을 멈춥니다.</string>
     <string name="break_compilation_dialog_title">경고</string>
     <string name="break_compilation_dialog_continue">계속</string>
     <string name="theme_safety_dialog_title">경고</string>
@@ -214,8 +231,17 @@
     <string name="profile_sound">소리</string>
     <string name="profile_wallpaper">배경화면</string>
     <string name="profile_dialog_ok">확인</string>
+    <string name="settings_system_status">시스템 확인</string>
+    <string name="settings_system_status_rooted">루팅됨</string>
+    <string name="settings_system_status_certified">확인됨</string>
+    <string name="settings_system_status_uncertified">확인되지 않음</string>
+    <string name="settings_title_automation">자동화</string>
     <string name="settings_theme_auto_updater_dialog_title">경고</string>
-    <string name="settings_force_english_text">이 작업은 애플리케이션의 언어를 항상 영어로 설정합니다./nThis will force the application to use the English language.</string>
+    <string name="settings_auto_alert_title">새로 설치가능한 오버레이 감지되면 알림</string>
+    <string name="settings_auto_alert_text">최근 설치한 앱에 사용 가능한 테마가 있을 경우 알림을 표시합니다.</string>
+    <string name="settings_force_english_title">항상 영어 사용(Force English language)</string>
+    <string name="settings_force_english_text">이 작업은 애플리케이션의 언어를 항상 영어로 설정합니다.\nThis will force the application to use the English language.</string>
+    <string name="settings_manage_space_title">저장소 관리</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">경고</string>
     <string name="root_required_title">루트 권한 필요</string>
     <string name="root_required_boot_animation">기기가 암호화되어 있습니다. 부트 애니메이션을 적용하려면 루트 권한이 필요합니다.</string>
@@ -226,16 +252,26 @@
     <string name="per_app_toast_no_overlays">%s 앱에 대해 구성할 오버레이가 없습니다.</string>
     <string name="per_app_apply">적용</string>
     <string name="per_app_manual_grant">FloatUI를 사용하려면 특별 액세스의 \'다른 앱 위에 그리기\' 권한을 허용해야 합니다.</string>
+    <string name="error_activity_button_restart">다시 시작</string>
     <string name="error_activity_button_disable_overlays">도와주세요!</string>
+    <string name="error_dialog_samsung_text">안타깝게도 Substratum에 설치된 오버레이에 문제가 있는 것 같습니다. 설정에서 수동으로 삭제하세요.</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
+    <string name="nav_home">테마</string>
     <!-- Utilities -->
+    <string name="nav_overlay_manager">관리자</string>
     <string name="nav_priorities">우선순위 설정</string>
     <string name="nav_backup_restore">프로필</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">설정</string>
-    <string name="clear_cache_button_loading">로드 중…</string>
+    <string name="title_activity_manage_space">저장소 관리</string>
+    <string name="manage_space_cache_text_title">캐시 삭제</string>
+    <string name="manage_space_logs_text_title">저장된 로그 삭제</string>
+    <string name="clear_cache_button_loading">로드 중...</string>
+    <string name="manage_space_cache_counter_title">로컬 캐시를 삭제하면 테마 컴파일러와 온라인 다운로더가 사용하는 모든 파일이 제거됩니다.\n\n캐시의 크기에 따라 완료하는데 몇 초가 걸릴 수 있습니다.</string>
+    <string name="manage_space_reset_text_title">설정 초기화</string>
+    <string name="manage_space_reset_text_desc">이 앱에 문제가 있습니까? 혹은 최근에 아주 오래된 버전에서 많은 버전을 건너 뛰고 업데이트 했습니까? 간단한 설정 초기화가 문제 해결에 도움이 될 것입니다.</string>
+    <string name="manage_space_reset_dialog_title">설정을 초기화 하시겠습니까?</string>
+    <string name="manage_space_reset_dialog_content">초기화가 완료되면 이 앱은 종료됩니다.</string>
+    <string name="locale_restart_message">언어 변경을 위해 앱 다시 시작</string>
+    <string name="restart">다시 시작</string>
 </resources>

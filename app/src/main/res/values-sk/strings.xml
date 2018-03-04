@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="showcase">Ukážka</string>
@@ -35,7 +35,11 @@
     <string name="andromeda_notification_text_negation">Služba Andromeda nie je spustená, reštartujte aplikáciu v počítači!</string>
     <string name="resource_commit_dialog_title">Chýbajúce zdroje v %s</string>
     <string name="showcase_no_connection">Ukážky tém vyžadujú pripojenie k internetu!</string>
+    <string name="refused_to_install_notification_button">Odstrániť tému</string>
+    <string name="refused_to_install_title_notification">Autor témy zakázal inštaláciu témy na Samsungu.</string>
+    <string name="refused_to_install_text_notification">%s sa nepodarilo nainštalovať.</string>
     <string name="failed_to_install_title_notification">Nepodarilo sa nainštalovať OMS tému</string>
+    <string name="failed_to_install_text_notification">%s sa nepodarilo nainštalovať.</string>
     <string name="actionbar_theme_count_loading">načítavanie&#8230;</string>
     <string name="actionbar_search">Hľadať</string>
     <string name="actionbar_changelog">Zoznam zmien v téme</string>
@@ -46,26 +50,40 @@
     <string name="systemui_statusbar">Ikony na stavovom riadku</string>
     <string name="warning_title">UPOZORNENIE!</string>
     <string name="legacy_warning_content">Staré systémy sú podporované tak ako-sú, nemôžeme zaručiť plnú kompatibilitu s farbami. Pred pokračovaním si skontrolujte, či máte vo vašom zariadení TWRP recovery a rozumiete ako obnoviť systém, ak náhodou skončíte v spúšťacej slučke  (bootloope).\n\nNa starých systémoch, ktoré nepodporujú zmenu tém, nemôžeme garantovať funkčnosť. Tieto systémy vyžadujú zmeny na strane ich systému.     </string>
-    <string name="samsung_warning_content">Samsung podpora je poskytovaná tak, ako-je, pretože nemôžeme zaručiť plnú kompatibilitu s farbami a prekrytiami na báze AOSP.
- Postarali sme sa o skrytie nebezpečných prekrytí pre vaše zariadenie, podľa vlastného uváženia môžete túto možnosť ručne vypnúť v nastaveniach.\n\nV každom prípade, ak narazíte na problém s čiernou obrazovkou, prečítajte si naše vlákno XDA o dvoch spôsoboch obnovenia.   </string>
+    <string name="samsung_warning_content">Samsung podpora je poskytovaná tak, ako-je, pretože nemôžeme zaručiť plnú kompatibilitu s farbami a prekrytiami na báze AOSP. Postarali sme sa o skrytie nebezpečných prekrytí pre vaše zariadenie, podľa vlastného uváženia môžete túto možnosť ručne vypnúť v nastaveniach.\n\nV každom prípade, ak narazíte na problém s čiernou obrazovkou, prečítajte si naše vlákno XDA o dvoch spôsoboch obnovenia.   </string>
     <string name="legacy_dialog_soft_reboot_title">Vyžaduje sa reštart!</string>
     <string name="legacy_dialog_soft_reboot_text">Systém funguje na princípe real-time prekrývania zdrojov, po pridaní alebo odobraní prekrytí je potrebné  reštartovať systém.\n\nPokračovaním v tomto dialógu sa vaše zariadenie automaticky reštartuje, tak si prosím pred pokračovaním uložte vašu prácu.</string>
-    <string name="activity_missing_toast">Prepáčte, ale neboli nájdené žiadne aplikácie, ktoré by mohli zvládnuť 
-      túto požiadavku.
+    <string name="activity_missing_toast">Prepáčte, ale neboli nájdené žiadne aplikácie, ktoré by mohli zvládnuť túto požiadavku.
     </string>
     <string name="abort_overlay_toast_success">Všetky prekrytia boli odinštalované!</string>
     <string name="rescue_toast">Záchrana systému&#8230;</string>
     <string name="reboot_awaiting_manager_title">CHYBA PRI ČÍTANÍ PREKRYTIA</string>
-    <string name="manager_theme_name">Téma:</string>
-    <string name="manager_type1a">Typ1a:</string>
-    <string name="manager_type1b">Typ1b:</string>
-    <string name="manager_type1c">Typ1c:</string>
+    <string name="manager_theme_name">Téma: %s</string>
+    <string name="manager_type1a">Typ1a: %s</string>
+    <string name="manager_type1b">Typ1b: %s</string>
+    <string name="manager_type1c">Typ1c: %s</string>
+    <string name="manager_type2">Typ2: %s</string>
+    <string name="manager_type3">Typ3: %s</string>
+    <string name="manager_type4">Typ4: %s</string>
+    <string name="priorities_theme_name">Téma:</string>
+    <string name="priorities_type1a">Typ1a:</string>
+    <string name="priorities_type1b">Typ1b:</string>
+    <string name="priorities_type1c">Typ1c:</string>
+    <string name="priorities_type2">Typ2:</string>
+    <string name="priorities_type3">Typ3:</string>
     <string name="backend_not_authorized_title">Ladiace zostavenie Substratum nie je povolené!</string>
     <string name="backend_not_authorized_text">Ak chcete použiť toto zostavenie Substratum s vlastnou ROM, povoľte vo voľbách pre vývojárov nastavenie \'Vynúť autorizáciu každej aplikácie témy\'.\n\nAk tam také nastavenie nie je, obráťte sa vývojára vašej ROM!</string>
+    <string name="information_activity_theme_improperly_setup">\"%s\" nemá k dispozícii žiadne zdroje pre témy!</string>
     <string name="legacy_preference_priority_title">Nastavenie priority prekrytia</string>
-    <string name="legacy_preference_priority_text">Priorita je nastavená na (predvolene 255): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Priorita je nastavená na (predvolene 255): %d</string>
     <string name="grid_size_title">Nastavenie počtu stĺpcov témy</string>
     <string name="grid_size_text">Počet stĺpcov je nastavený na (predvolene %d): %d</string>
+    <string name="app_theme_title">Téme aplikácie</string>
+    <string name="app_theme_text">Téme aplikácie nastavená na: %s</string>
+    <string name="app_theme_disabled">Predvolené</string>
+    <string name="app_theme_auto">Automaticky</string>
+    <string name="app_theme_dark">Tmavá</string>
+    <string name="app_theme_change">Reštartujte aplikáciu pre prepnutie tém</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">variant type1a&#8230;</string>
     <string name="overlays_variant_default_1b">variant type1b&#8230;</string>
@@ -73,6 +91,7 @@
     <string name="overlays_variant_default_2">variant type2&#8230;</string>
     <string name="overlays_variant_default_3">predvolený variant&#8230;</string>
     <string name="overlays_variant_default_4">variant typ4&#8230;</string>
+    <string name="overlays_up_to_date">AKTUÁLNE (%s)</string>
     <string name="overlays_update_available">Je dostupná aktualizácia!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant nie je nainštalovaný</string>
     <string name="shutdownanimation_placeholder_text">Prosím, vyberte z rozbaľovacieho zoznamu animáciu pri vypnutí&#8230;</string>
@@ -97,13 +116,24 @@
     <string name="wallpaper_homescreen_error">Nie je možné nastaviť tapetu na domovskú obrazovku</string>
     <string name="wallpaper_lockscreen_success">Tapeta na obrazovke uzamknutia je nastavená!</string>
     <string name="wallpaper_lockscreen_error">Nie je možné nastaviť tapetu na obrazovke uzamknutia</string>
+    <string name="wallpaper_no_connection">Ak chcete použiť tapety z témy, je vyžadované pripojenie k Internetu&#8230;</string>
+    <string name="wallpaper_no_wallpapers">Vyzerá to tak, že načítaná databáza tapiet je prázdna&#8230;</string>
+    <string name="font_placeholder_text">Prosím, vyberte balíček písiem z rozbaľovacieho zoznamu&#8230;</string>
+    <string name="font_default_spinner">Prosím, vyberte balíček štýlov písiem&#8230;</string>
+    <string name="font_spinner_set_defaults">Obnoviť na predvolené písmo&#8230;</string>
+    <string name="fonts_defaults_text">Toto vymaže všetky vlastné písma aplikované na tomto zariadení</string>
     <string name="font_dialog_apply_text">Spracováva sa balíček písiem&#8230;</string>
     <string name="font_dialog_apply_success">Balíček písiem bol aplikovaný!</string>
     <string name="font_dialog_apply_failed">Balíček písiem sa nepodarilo aplikovať&#8230;</string>
+    <string name="sounds_placeholder_text">Prosím, vyberte balíček zvukov zo zoznamu&#8230;</string>
+    <string name="sounds_spinner_set_defaults">Obnoviť na predvolené zvuky&#8230;</string>
+    <string name="sounds_spinner_defaults_text">Toto vymaže všetky vlastné zvuky aplikované na tomto zariadení</string>
     <string name="sounds_dialog_apply_success">Balíček zvukov je aplikovaný!</string>
     <string name="sounds_dialog_apply_failed">Balíček zvukov sa nepodarilo aplikovať&#8230;</string>
+    <string name="sounds_default_spinner">Prosím, vyberte balíček zvukov&#8230;</string>
     <string name="fonts_dialog_permissions_grant_toast2">Pre povolenie ovládania systémových písiem pomocou Substratum, musíte udeliť oprávnenie  \"Povoliť úpravy nastavení systému\".
     </string>
+    <string name="error_loading_pack">Zdá sa, že tento balíček nebol nastavený správne&#8230;</string>
     <string name="sounds_alarm">Budík</string>
     <string name="sounds_notification">Upozornenie</string>
     <string name="sounds_ringtone">Zvonenie</string>
@@ -127,7 +157,7 @@
     <string name="theme_information_tab_five">Tapety na plochu</string>
     <string name="theme_information_tab_six">Animácia pri vypnutí</string>
     <string name="uninstall_dialog_text">Naozaj chcete odinštalovať túto tému?</string>
-    <string name="manage_dialog_performing">Obnovenie do predvoleného stavu…</string>
+    <string name="manage_dialog_performing">Obnovenie do predvoleného stavu...</string>
     <string name="manage_bootanimation_title">Obnoviť spúšťaciu animáciu</string>
     <string name="manage_bootanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
     <string name="manage_shutdownanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
@@ -140,9 +170,9 @@
     <string name="manage_system_overlay_toast">Obnovuje sa systémová téma&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Prebieha odinštalovanie prekrytí na pozadí&#8230;</string>
     <string name="manage_system_not_permitted">Ak chcete zmeniť stavy, vyberte platné prekrytie.</string>
-    <string name="manage_wallpaper_home">Tapeta na domovskej obrazovke</string>
-    <string name="manage_wallpaper_lock">Tapetu na obrazovke uzamknutia</string>
-    <string name="manage_wallpaper_all">Tapeta na domovskej aj obrazovke uzamknutia</string>
+    <string name="manage_wallpaper_home">Nie je možné nastaviť tapetu na domovskú obrazovku</string>
+    <string name="manage_wallpaper_lock">Nie je možné nastaviť tapetu na obrazovke uzamknutia</string>
+    <string name="manage_wallpaper_all">Nie je možné nastaviť tapetu na domovskú a obrazovku uzamknutia</string>
     <string name="manage_wallpaper_home_toast">Tapeta plochy bola úspešne obnovená!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta obrazovky uzamknutia bola úspešne obnovená!</string>
     <string name="manage_wallpaper_all_toast">Tapeta bola úspešne obnovená!</string>
@@ -166,6 +196,7 @@
     <string name="menu_alphabetize">Zmeniť spôsob triedenia</string>
     <string name="menu_search">Témy v Obchode Play</string>
     <string name="menu_showcase">Ukážky</string>
+    <string name="menu_filter">Filter</string>
     <string name="menu_uninstall">Odinštalovať tému</string>
     <string name="menu_restore_info">Informácie o obnovení</string>
     <string name="menu_showcase_info">Informácie o ukážke</string>
@@ -184,7 +215,7 @@
     <string name="error_loading_theme_close">Zavrieť</string>
     <string name="error_loading_theme_close_text">Názov balíka tejto témy sa musí zhodovať s názvom v adresároch manifestov a kódov pre správnu výmenu kľúčov.</string>
     <string name="logcat_snackbar_button">Správy protokolu LogChar</string>
-    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia…</string>
+    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia...</string>
     <string name="logcat_dialog_title">Správy protokolu ladenia \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Protokol chýb sa úspešne skopíroval do schránky!</string>
     <string name="logcat_send">Odoslať</string>
@@ -193,9 +224,15 @@
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Spracovanie správy o chybách</string>
     <string name="priority_instructions_title">Pokyny</string>
-    <string name="priority_no_multiple_overlays_title">žiadne aplikácie s viacerými prekrytiami&#8230;</string>
+    <string name="priority_instructions_content">S dynamickým prioritným systémom môžete nastaviť priority prekrytí ako vrstvy z hľadiska úrovní. To znamená, že keď má prekrytie najvyššiu prioritu, budú zdroje prekrytí vytiahnuté najskôr z najvyššieho, a potom z druhého najvyššieho poťahu.
+      \n 
+      \nPre zariadenia Oreo je vrchná prekryvná vrstva najvyššia.
+      \n
+      \nPre zariadenia Nugát je dolná prekryvná vrstva najvyššia (obrátená).
+    </string>
+    <string name="priority_no_multiple_overlays_title">žiadne aplikácie s viacerými prekrytiami</string>
     <string name="priority_no_multiple_overlays_text">aby ste ma mohli používať, povoľte dve alebo viac prekrytí na jednu aplikáciu!</string>
-    <string name="manager_no_overlays_title">nie sú nainštalované žiadne prekrytia&#8230;</string>
+    <string name="manager_no_overlays_title">nie sú nainštalované žiadne prekrytia…</string>
     <string name="manager_no_overlays_text">aby ste ma mohli používať, vytvorte jedno prekrytie!</string>
     <string name="backup">Záložná karta</string>
     <string name="backup_card_content">Táto funkcia vytvorí kópiu aktuálne povolených prekrytí -> vytvorí zoznam a umiestni ho do cesty \"/storage/emulated/0/substratum/profiles/\" pre účely zálohovania.</string>
@@ -246,10 +283,8 @@
     <string name="no_themes_description">prosím, nainštalujte kompatibilnú tému!</string>
     <string name="no_themes_description_search">\"%s\" nebola nájdená v zozname nainštalovaných tém&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" nebola nájdená v zozname nainštalovaných prekrytí&#8230;</string>
-    <string name="toast_andromeda_timed_out">Oneskorenie Andromeda Backend, prosím, reštartujte Substratum.</string>
     <string name="toast_could_not_uninstall">Nebolo zvolené žiadne platné prekrytie.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skryl nepodporované prekrytia systému pre vaše zariadenie!</string>
-    <string name="andromeda_disconnected">Andromeda desktop klient sa musí pripojiť k vášmu zariadeniu, aby mohol pracovať so Substratum!</string>
     <string name="andromeda_check_status">Skontrolovať stav</string>
     <string name="andromeda_no_root_dialog">Zdá sa, že používate podporované Oreo zariadenie, pre ktoré bol vydaný podporný modul!</string>
     <string name="andromeda_no_root_dialog_button">Stiahnuť teraz!</string>
@@ -278,6 +313,8 @@
     <string name="shortcut_floatui">Plávajúce okno</string>
     <string name="shortcut_rescue">Zachráňte ma!</string>
     <string name="shortcut_rescue_disabled">Zachráňte ma!</string>
+    <string name="shortcut_store">Ukážka tém</string>
+    <string name="shortcut_store_disabled">Ukážka tém</string>
     <string name="shortcut_overlay_manager">Správca prekrytí</string>
     <string name="shortcut_overlay_manager_disabled">Správca prekrytí</string>
     <string name="settings_title">O aplikácii</string>
@@ -420,6 +457,7 @@
     <string name="per_app_manual_grant">Prosím, ručne udeľte oprávnenie k \"využitie prístupu\" a \"vykresľovanie nad ostatnými aplikáciami\" v Nastaveniach aplikácie pre používanie plávajúceho okna!</string>
     <string name="notification_overlay_found_specific">Prekrytie pre %s je v %s!</string>
     <string name="notification_overlay_found_description">Tému môžete otvoriť kliknutím na toto upozornenie!</string>
+    <string name="system_crash_text">Váš systém opätovne načítal Substratum zdroje. Aplikácia bude reštartovaná po 3 sekundách.</string>
     <string name="error_activity_title">Je mi to ľúto, že došlo k tejto havárii!</string>
     <string name="error_activity_text">prosím odpustite mi&#8230;</string>
     <string name="error_activity_button_restart">Reštartovať</string>
@@ -447,12 +485,9 @@
     <string name="nav_home">Témy</string>
     <!-- Utilities -->
     <string name="nav_overlay_manager">Správca</string>
+    <string name="nav_recovery">Recovery</string>
     <string name="nav_priorities">Priority</string>
     <string name="nav_backup_restore">Profily</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Nastavenia</string>
     <string name="title_activity_manage_space">Správa využitia úložiska</string>
     <string name="manage_space_cache_text_title">Vymazať vyrovnávaciu pamäť</string>
@@ -467,5 +502,6 @@
     <string name="overlays_tab_package_ver_message">Nainštalované %s verzia: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Kód verzie sa úspešne skopíroval do schránky!</string>
     <string name="overlays_tab_package_ver_failure">Nepodarilo zachytiť verziu balíka</string>
+    <string name="locale_restart_message">Reštartujte aplikáciu pre prepnutie jazyka</string>
     <string name="restart">Reštartovať</string>
 </resources>

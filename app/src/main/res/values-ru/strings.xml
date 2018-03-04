@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="showcase">каталог</string>
@@ -34,7 +34,6 @@
     <string name="andromeda_notification_text">Фоновые процессы связаны, активны и запущены.</string>
     <string name="andromeda_notification_text_negation">Сервис Andromeda не запущен, пожалуйста перезапустите приложение на компьютере!</string>
     <string name="resource_commit_dialog_title">Отсутствуют ресурсы в %s</string>
-    <string name="showcase_no_connection">каталог тем требует подключения к интернету!    </string>
     <string name="failed_to_install_title_notification">Не удалось установить OMS тему</string>
     <string name="actionbar_theme_count_loading">загрузка&#8230;</string>
     <string name="actionbar_search">Найти</string>
@@ -45,23 +44,15 @@
     <string name="systemui_qs_tiles">Значки Быстрых Настроек</string>
     <string name="systemui_statusbar">Значки статус-бара</string>
     <string name="warning_title">ВНИМАНИЕ!</string>
-    <string name="legacy_warning_content">Режим совместимости предоставляется как-есть, так как мы не можем гарантировать, что он заработает у Вас. Убедитесь, что на устройстве установлено кастомное рекавери и Вы имеете представление о том, как восстановиться после вечной загрузки до предпринятия каких-либо действий.n\nМы не можем исправить то, что не оформляется в режиме совместимости, так как это требует вмешательства в систему.   </string>
-    <string name="samsung_warning_content">Поддержка устройств Samsung предоставляется \"КАК ЕСТЬ\", так как совместимость с предназначенными для AOSP окрасками и  наслоениями не может быть гарантирована. Наслоения, рискованные для Вашего устройства, скрыты, но можете отключить проверку вручную под Вашу осмотрительность.\n\nЕсли возникнет возможная проблема с черным экраном, обратитесь в тему на XDA для получения сведений о двух методах восстановления.    </string>
     <string name="legacy_dialog_soft_reboot_title">Требуется перезагрузка!</string>
-    <string name="legacy_dialog_soft_reboot_text">Используемой системе Resource Runtime Overlay требуется проводить перезагрузку после добавления или удаления слоев.\n\nСогласие в этом диалоге тут же приведет к перезагрузке - убедитесь, что важные данные сохранены, перед тем как продолжить.
-    </string>
-    <string name="activity_missing_toast">Не найдено приложения, способного выполнить задачу, извините!</string>
     <string name="abort_overlay_toast_success">Все слои удалены!</string>
     <string name="rescue_toast">Восстановление системы&#8230;</string>
     <string name="reboot_awaiting_manager_title">ОШИБКА ПРИ ЧТЕНИИ НАСЛОЕНИЯ</string>
-    <string name="manager_theme_name">Оформление:</string>
-    <string name="manager_type1a">Type1a:</string>
-    <string name="manager_type1b">Type1b:</string>
-    <string name="manager_type1c">Type1c:</string>
     <string name="legacy_preference_priority_title">Изменение приоритета наслоения</string>
-    <string name="legacy_preference_priority_text">Задан приоритет (по ум. %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Задан приоритет (по ум. %d): %d</string>
     <string name="grid_size_title">Регулировка расположения дисплея для темы</string>
     <string name="grid_size_text">Количество столбцов (по умолчанию %d): %d</string>
+    <string name="app_theme_disabled">По умолчанию</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Вариант type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Вариант type1b&#8230;</string>
@@ -71,21 +62,16 @@
     <string name="overlays_variant_default_4">Вариант type4&#8230;</string>
     <string name="overlays_update_available">Доступно обновление!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Вариация не установлена</string>
-    <string name="shutdownanimation_placeholder_text">Пожалуйста выберите анимацию выключения из выпадающего списка&#8230;</string>
-    <string name="shutdownanimation_defaults_text">Это отключит любые кастомные анимации выключения применённые на вашем устройстве</string>
     <string name="shutdownanimation_dialog_apply_text">Применение анимации выключения&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Анимация выключения применена!</string>
     <string name="shutdownanimation_dialog_apply_failed">Не удалось применить анимацию выключения&#8230;</string>
-    <string name="bootanimation_placeholder_text">Пожалуйста выберите анимацию загрузки из выпадающего списка&#8230;</string>
     <string name="bootanimation_default_spinner">Пожалуйста выберите анимацию загрузки&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">Вернуть стандартную анимацию загрузки&#8230;</string>
-    <string name="bootanimation_defaults_text">Это отключит любые кастомные анимации загрузки применённые на вашем устройстве</string>
     <string name="bootanimation_dialog_apply_text">Применение анимации загрузки&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Анимация загрузки применена!</string>
     <string name="bootanimation_dialog_apply_failed">Не удалось применить анимацию загрузки&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">На домашний экран</string>
     <string name="wallpaper_dialog_lockscreen">На экран блокировки</string>
-    <string name="wallpaper_dialog_wallpaper_both">На оба экрана</string>
     <string name="wallpaper_downloading">Загрузка изображения в кэш&#8230;</string>
     <string name="wallpaper_allscreen_success">Обои применены для обоих экранов!</string>
     <string name="wallpaper_allscreen_error">Не удалось применить обои для обоих экранов!</string>
@@ -98,7 +84,6 @@
     <string name="font_dialog_apply_failed">Не удалось применить набор шрифтов&#8230;</string>
     <string name="sounds_dialog_apply_success">Набор звуков применен!</string>
     <string name="sounds_dialog_apply_failed">Не удалось применить набор звуков&#8230;</string>
-    <string name="fonts_dialog_permissions_grant_toast2">Чтобы позволить Substratum управление системными шрифтами, предоставьте \"Разрешение на изменение системных настроек\"</string>
     <string name="sounds_alarm">Сигнал</string>
     <string name="sounds_notification">Уведомления</string>
     <string name="sounds_ringtone">Рингтон</string>
@@ -123,21 +108,14 @@
     <string name="theme_information_tab_six">Анимации выключения</string>
     <string name="uninstall_dialog_text">Вы уверены, что хотите удалить эту тему?</string>
     <string name="manage_dialog_performing">Возвращаем стандартное&#8230;</string>
-    <string name="manage_bootanimation_title">Восстановить анимацию загрузки</string>
     <string name="manage_bootanimation_toast">Анимация загрузки восстановлена!</string>
     <string name="manage_shutdownanimation_toast">Анимация выключения восстановлена успешно!</string>
-    <string name="manage_fonts_title">Восстановить шрифт</string>
     <string name="manage_fonts_toast">Шрифты восстановлены!</string>
-    <string name="manage_sounds_title">Восстановить системные звуки</string>
     <string name="manage_sounds_toast">Звуки по умолчанию восстановлены!</string>
     <string name="manage_system_overlay_disable">Отключить все активные слои</string>
     <string name="manage_system_overlay_uninstall">Удалить все установленные слои</string>
     <string name="manage_system_overlay_toast">Возвращаем системное оформление&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">Слои будут удалены в фоновом режиме&#8230;</string>
     <string name="manage_system_not_permitted">Пожалуйста выберите допустимое наслоение для изменения состояний.</string>
-    <string name="manage_wallpaper_home">На домашний экран</string>
-    <string name="manage_wallpaper_lock">На экран блокировки</string>
-    <string name="manage_wallpaper_all">На оба экрана</string>
     <string name="manage_wallpaper_home_toast">Обои домашнего экрана восстановлены!</string>
     <string name="manage_wallpaper_lock_toast">Обои экрана блокировки восстановлены!</string>
     <string name="manage_wallpaper_all_toast">Обои восстановлены!</string>
@@ -146,13 +124,6 @@
     <string name="accept">Принять</string>
     <string name="deny">Отклонить</string>
     <string name="permission_explanation_title">Описание разрешений</string>
-    <string name="permission_explanation_text">Substratum может работать некорректно, если не предоставить ему
-      ряд важных разрешений.\n\n<b>Хранилище: </b> Substratum необходимо обращаться к
-      внутренней памяти для сохранения архивов восстановления системы, расположенных в
-      /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
-      Substratum использует Firebase от Google для получения нужных сведений из нашей постоянно
-      обновляемой централизованной базы данных, ради повышения качества основных функций и безопасности.
-    </string>
     <string name="priority_back_title">Перейти к наслоениям</string>
     <string name="menu_clean">Удалить установленное</string>
     <string name="menu_disable">Отключить активные наслоения</string>
@@ -167,6 +138,7 @@
     <string name="menu_alphabetize">Порядок сортировки</string>
     <string name="menu_search">Искать темы в Play Маркет</string>
     <string name="menu_showcase">Каталог</string>
+    <string name="menu_filter">Фильтр</string>
     <string name="menu_uninstall">Удалить тему</string>
     <string name="menu_restore_info">Сведения о восстановлении</string>
     <string name="menu_showcase_info">Сведения о каталоге</string>
@@ -194,38 +166,24 @@
     <string name="logcat_email_xposed_check">Фреймворк Xposed</string>
     <string name="logcat_processing_dialog">Создание отчета об ошибке</string>
     <string name="priority_instructions_title">Инструкции</string>
-    <string name="priority_no_multiple_overlays_title">нет приложений с несколькими
-      наслоениями&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">Включите два и более наслоения на одно приложение, чтобы воспользоваться мной!     </string>
-    <string name="manager_no_overlays_title">нет установленных наслоений&#8230;</string>
     <string name="manager_no_overlays_text">соберите одно наслоение, чтобы начать пользоваться мной!</string>
     <string name="backup">Резервирование</string>
-    <string name="backup_card_content">Позволяет создать копию списка примененных в настоящее время наслоений и помещает его в \"/storage/emulated/0/substratum/profiles/\".     </string>
     <string name="delete_dialog_okay">Удалить</string>
     <string name="delete_dialog_title">Удалить профиль</string>
     <string name="delete_dialog_text">Вы уверены, что хотите удалить \"%s\"?</string>
     <string name="restore">Восстановление</string>
-    <string name="restore_card_content">При загрузке профиля текущие настройки будет полностью сброшены и применится \"восстанавливаемая тема\".     </string>
     <string name="remove_dialog_later">Позже</string>
     <string name="restore_dialog_okay">Продолжить</string>
-    <string name="restore_dialog_title">Для полного восстановления профиля будут установлены следующие наслоения:    </string>
     <string name="backup_button">СОХРАНИТЬ ТЕКУЩЕЕ СОСТОЯНИЕ</string>
     <string name="backup_no_overlays">В текущей конфигурации наслоений нет.</string>
     <string name="restore_button">ВОССТАНОВИТЬ ПРОФИЛЬ</string>
-    <string name="restore_button_none_selected_toast">Перед восстановлением профиля выберите его из выпадающего списка!</string>
-    <string name="profile_delete_button_none_selected_toast">Перед удалением профиля выберите его из выпадающего списка!</string>
     <string name="profile_edittext_hint">введите имя для профиля&#8230;</string>
-    <string name="profile_edittext_empty_toast">Назовите профиль перед сохранением!</string>
     <string name="profile_edittext_title">Новый профиль:</string>
     <string name="profile_edittext_whitespace_warning_toast">Нельзя использовать пробелы внутри имени профиля!</string>
-    <string name="toast_backup_success">Текущий список наслоений сохранен в
-      \"/storage/emulated/0/substratum/profiles/%s\"
-    </string>
     <string name="profile_restoration_message">Восстановление профиля&#8230;</string>
     <string name="spinner_default_item">выберите профиль&#8230;</string>
     <string name="select_to_toggle_all_overlays">Переключить все наслоения</string>
     <string name="permission_not_granted_dialog_title">Разрешения не предоставлены</string>
-    <string name="permission_not_granted_dialog_message1">Пожалуйста, предоставьте substratum доступ к хранилищу или приложение не сможет работать правильно!     </string>
     <string name="dialog_ok">ОК</string>
     <string name="dialog_do_not_show_again">Не показывать снова</string>
     <string name="dialog_cancel">Отмена</string>
@@ -237,7 +195,6 @@
     <string name="sb_phase_2_loader">сборка и установка наслоений</string>
     <string name="root_rejected_title">не возможно возвратиться в Root-режим</string>
     <string name="root_rejected_text">другие менеджеры тем не могут быть использованы на этом устройстве&#8230;</string>
-    <string name="toast_activity_finished">%s обновлен, перезапускаем для применения изменений!</string>
     <string name="toast_compiled_updated">Выбранные слои обновлены!</string>
     <string name="toast_compiled_missing">Одно или несколько наслоений не могут быть собраны из-за отсутствующих настроек&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Выбранные слои обновлены с неполадками!</string>
@@ -247,12 +204,8 @@
     <string name="no_themes_title">не найдено тем&#8230;</string>
     <string name="no_overlays_title">оверлеи не найдены&#8230;</string>
     <string name="no_themes_description">установите любую совместимую тему!</string>
-    <string name="no_themes_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
-    <string name="no_overlays_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
-    <string name="toast_andromeda_timed_out">Возникла проблема с Andromeda Backend, пожалуйста перезапустите приложение.</string>
     <string name="toast_could_not_uninstall">Не выбраны допустимые наслоения.</string>
     <string name="toast_samsung_prototype_alert">Substratum автоматически скроет неподдерживаемые на вашем устройстве системные наслоения!</string>
-    <string name="andromeda_disconnected">настольному клиенту Andromeda необходимо подключиться к устройству для работы Substratum!</string>
     <string name="andromeda_check_status">Проверить статус</string>
     <string name="andromeda_no_root_dialog">Похоже, у Вас поддерживаемое устройство Oreo, для него выпущен пакет совместимости!</string>
     <string name="andromeda_no_root_dialog_button">Загрузить!</string>
@@ -267,7 +220,6 @@
     <string name="notification_theme_installed_content">Тема успешно установлена.</string>
     <string name="notification_theme_updated_content">Ресурсы обновлены.</string>
     <string name="notification_initial_title">Substratum запущен</string>
-    <string name="notification_initial_title_upgrade_intent">Обновление наслоений %s&#8230;</string>
     <string name="notification_done_title">Сборка темы завершена</string>
     <string name="notification_done_upgrade_title">Обновление наслоений для %s завершено!</string>
     <string name="notification_done_upgrade_title_warning">Обновление наслоений для %s частично завершено!</string>
@@ -281,6 +233,8 @@
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">На помощь!</string>
     <string name="shortcut_rescue_disabled">На помощь!</string>
+    <string name="shortcut_store">Каталог тем</string>
+    <string name="shortcut_store_disabled">Каталог тем</string>
     <string name="shortcut_overlay_manager">Управление слоями</string>
     <string name="shortcut_overlay_manager_disabled">Управление слоями</string>
     <string name="settings_title">О системе</string>
@@ -451,10 +405,6 @@
     <string name="nav_overlay_manager">Управление</string>
     <string name="nav_priorities">Приоритеты</string>
     <string name="nav_backup_restore">Профили</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Настройки</string>
     <string name="title_activity_manage_space">Потребление памяти</string>
     <string name="manage_space_cache_text_title">Очистить кэш</string>

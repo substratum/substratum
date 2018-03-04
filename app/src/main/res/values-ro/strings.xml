@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="android">Versiune Android:</string>
@@ -28,9 +28,6 @@
     <string name="andromeda_notification_text">Serviciile de fundal ale temei sunt unite, active și rulează.</string>
     <string name="andromeda_notification_text_negation">Serviciul Andromeda nu rulează, te rog repornește suita pentru desktop!</string>
     <string name="resource_commit_dialog_title">Lipsă de resurse în %s</string>
-    <string name="showcase_no_connection">prezentarea temei necesită o conexiune la internet pentru a
-      funcționa!
-    </string>
     <string name="failed_to_install_title_notification">Eroare instalare tema OMS</string>
     <string name="actionbar_theme_count_loading">încărcare&#8230;</string>
     <string name="actionbar_search">Căutare</string>
@@ -42,11 +39,7 @@
     <string name="warning_title">AVERTISMENT!</string>
     <string name="legacy_dialog_soft_reboot_title">Repornire necesară!</string>
     <string name="abort_overlay_toast_success">Toate suprapunerile dezinstalate!</string>
-    <string name="manager_theme_name">Temă:</string>
-    <string name="manager_type1a">Tip 1a:</string>
-    <string name="manager_type1b">Tip 1b:</string>
-    <string name="manager_type1c">Tip 1c:</string>
-    <string name="legacy_preference_priority_text">Prioritate setată la (implicită %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Prioritate setată la (implicită %d): %d</string>
     <string name="grid_size_title">Ajustare coloană afișare temă</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">varianta tip1a&#8230;</string>
@@ -61,7 +54,6 @@
     <string name="bootanimation_dialog_apply_failed">Aplicare animație pornire eșuată&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Fundal ecran principal</string>
     <string name="wallpaper_dialog_lockscreen">Fundal ecran blocare</string>
-    <string name="wallpaper_dialog_wallpaper_both">Fundal ecran principal și ecran blocare</string>
     <string name="sounds_dialog_apply_success">Pachet sunet aplicat!</string>
     <string name="sounds_dialog_apply_failed">Aplicare pachet sunet eșuată&#8230;</string>
     <string name="sounds_alarm">Alarmă</string>
@@ -82,9 +74,6 @@
     <string name="theme_information_tab_four">Pachete sunete</string>
     <string name="theme_information_tab_five">Fundaluri</string>
     <string name="theme_information_tab_six">Animație oprire</string>
-    <string name="manage_wallpaper_home">Fundal ecran principal</string>
-    <string name="manage_wallpaper_lock">Fundal ecran blocare</string>
-    <string name="manage_wallpaper_all">Fundal ecran principal și ecran blocare</string>
     <string name="menu_unfavorite">Elimină favorit</string>
     <string name="menu_rate">Evaluează tema</string>
     <string name="menu_soft_reboot">Repornire soft</string>
@@ -99,8 +88,4 @@
     <!-- Notification channel -->
     <!-- Nav drawer -->
     <!-- Utilities -->
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
 </resources>

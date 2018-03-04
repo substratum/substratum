@@ -13,9 +13,10 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
+    <string name="showcase">cửa hàng chủ đề</string>
     <string name="android">Phiên bản Android:</string>
     <string name="device">Mẫu thiết bị:</string>
     <string name="resource_checker">Cam kết xác nhận</string>
@@ -24,9 +25,23 @@
     <string name="resource_not_validated">Cam kết mới đã được sát nhập!</string>
     <string name="resource_needs_internet">Để xác nhận cam kết cho ROM của bạn, vui lòng kết nối Internet!</string>
     <string name="resource_validated">Tất cả cam kết còn nguyên vẹn!</string>
+    <string name="rooted_oms_dialog_warning_title">Lớp phủ động và Root</string>
+    <string name="rooted_oms_dialog_warning_text">Nếu bạn ở với chúng tôi khi masquerade là hệ thống phụ trợ của chúng tôi, bạn sẽ biết rằng chúng tôi cần root để làm nhiều thứ với OMS. Đó là thời gian hệ thống rất chậm! \ N \ nChúng tôi cũng đã có một chế độ ở đó!</string>
+    <string name="interfacer_notification_title">Substratum và Interfacer được kết nối!</string>
+    <string name="interfacer_notification_text">Các dịch vụ chủ đề nền được kết hợp, hoạt động và chạy.</string>
+    <string name="andromeda_notification_title">Substratum và Andromeda được kết nối!</string>
+    <string name="andromeda_notification_title_negation">Substratum và Andromeda KHÔNG kết nối</string>
+    <string name="andromeda_notification_text">Các dịch vụ chủ đề nền được kết hợp, hoạt động và chạy.</string>
+    <string name="andromeda_notification_text_negation">Dịch vụ của Andromeda không chạy, hãy chạy lại bộ máy tính để bàn!</string>
     <string name="resource_commit_dialog_title">Thiếu nguồn trong %s</string>
-    <string name="showcase_no_connection">cửa hàng chủ đề cần phải có kết nối internet để hoạt động!    </string>
+    <string name="showcase_no_connection">trình diễn chủ đề yêu cầu kết nối internet với
+      chức năng!
+    </string>
+    <string name="refused_to_install_notification_button">Xoá chủ đề</string>
+    <string name="refused_to_install_title_notification">Loại bỏ chủ đề đã được cài đặt trên Samsung.</string>
+    <string name="refused_to_install_text_notification">%s không được cài đặt.</string>
     <string name="failed_to_install_title_notification">Không thể cài đặt chủ đề OMS</string>
+    <string name="failed_to_install_text_notification">%s không được cài đặt.</string>
     <string name="actionbar_theme_count_loading">đang tải&#8230;</string>
     <string name="actionbar_search">Tìm kiếm</string>
     <string name="actionbar_changelog">Các thay đổi của chủ đề</string>
@@ -36,31 +51,74 @@
     <string name="systemui_qs_tiles">Biểu tượng Ô Cài đặt nhanh</string>
     <string name="systemui_statusbar">Biểu tượng Thanh trạng thái</string>
     <string name="warning_title">CẢNH BÁO!</string>
-    <string name="legacy_warning_content">Legacy được cung cấp theo yêu cầu đồng nghĩa với việc chúng tôi không thể đảm bảo sự tương thích hoàn toàn. Hãy chắc chắn rằng bạn đã cài một recovery tuỳ chỉnh cho thiết bị của bạn và biết cách khôi phục hệ thống khi bị bootloop trước khi tiếp tục.\n\nChúng tôi không thể sửa những thứ không áp dụng chủ đề trên legacy vì chúng cần các thay đổi về hệ thống.    </string>
-    <string name="samsung_warning_content">Samsung hỗ trợ được cung cấp như là-là vì chúng tôi không thể đảm bảo khả năng tương thích đầy đủ với màu sắc và xây dựng AOSP lớp phủ. Chúng tôi đã lấy chăm sóc của ẩn lớp phủ nguy hiểm cho thiết bị của bạn, nhưng bạn có thể chuyển đổi này ra theo cách thủ công trong cài đặt của riêng bạn discretion.\n\nNếu ở bất kỳ trường hợp bạn tiếp cận một vấn đề với màn hình đen có thể, xin vui lòng tham khảo ý kiến của chúng tôi chủ đề XDA trên hai phương pháp phục hồi.    </string>
+    <string name="legacy_warning_content">Legacy được cung cấp theo yêu cầu vì chúng tôi không thể đảm bảo đầy đủ
+      tương thích với màu sắc. Hãy đảm bảo bạn có khôi phục tùy chỉnh cho thiết bị của mình và có
+      một sự hiểu biết về cách khôi phục từ một.    </string>
+    <string name="samsung_warning_content">Hỗ trợ của Samsung được cung cấp theo như chúng tôi không thể đảm bảo
+      tương thích đầy đủ với màu sắc và lớp phủ AOSP. Chúng tôi đã quan tâm đến việc trốn tránh
+      lớp phủ nguy hiểm cho thiết bị của bạn, bu.    </string>
     <string name="legacy_dialog_soft_reboot_title">Yêu cầu khởi động lại!</string>
-    <string name="legacy_dialog_soft_reboot_text">Đang chạy trên hệ thống Resource Runtime Overlay, nó yêu cầu thực hiện khởi động lại sau khi thêm hoặc xoá các lớp phủ.\n\nTiến hành với hộp thoại này sẽ tự động khởi động lại thiết bị của bạn, vì vậy hãy chắc chắn rằng bạn đã lưu mọi công việc của bạn trước khi tiếp tục.    </string>
-    <string name="activity_missing_toast">Không có ứng dụng nào có thể xử lý yêu cầu này, xin lỗi!    </string>
+    <string name="legacy_dialog_soft_reboot_text">Đang chạy trên hệ thống Lớp phủ Thời gian chạy Tài nguyên,
+      được yêu cầu thực hiện khởi động lại sau khi thêm hoặc xóa các lớp phủ. \ n \ nKhả năng này
+      sẽ tự động khởi động lại thiết bị của bạn,.    </string>
+    <string name="activity_missing_toast">Không tìm thấy ứng dụng nào có thể xử lý được
+      yêu cầu, xin lỗi!
+    </string>
     <string name="abort_overlay_toast_success">Tất cả các lớp phủ gỡ bỏ cài đặt!</string>
     <string name="rescue_toast">Đang giải cứu hệ thống của bạn&#8230;</string>
-    <string name="manager_theme_name">Chủ đề:</string>
-    <string name="manager_type1a">Type1a:</string>
-    <string name="manager_type1b">Type1b:</string>
-    <string name="manager_type1c">Type1c:</string>
+    <string name="reboot_awaiting_manager_title">LỖI ĐỌC LỚP PHỦ</string>
+    <string name="manager_theme_name">Giáo diện: %s</string>
+    <string name="manager_type1a">Loại1a: %s</string>
+    <string name="manager_type1b">Loại1b: %s</string>
+    <string name="manager_type1c">Loại1c: %s</string>
+    <string name="manager_type2">Loại2: %s</string>
+    <string name="manager_type3">Loại3: %s</string>
+    <string name="manager_type4">Loại4: %s</string>
+    <string name="priorities_theme_name">Chủ đề:</string>
+    <string name="priorities_type1a">Loại1a:</string>
+    <string name="priorities_type1b">Loại1b:</string>
+    <string name="priorities_type1c">Loại1c:</string>
+    <string name="priorities_type2">Loại 2:</string>
+    <string name="priorities_type3">Loại 3:</string>
+    <string name="backend_not_authorized_title">Gỡ lỗi dưới lớp xây dựng không được phép!</string>
+    <string name="backend_not_authorized_text">Để sử dụng bản build này với ROM tuỳ chỉnh của bạn, vui lòng bật \'Force ủy quyền cho mọi ứng dụng chủ đề\' trong các tùy chọn của Nhà phát triển. \ N \ nNếu không có nó, vui lòng liên hệ với bộ phận ROM của bạn để quên mất cam kết!</string>
+    <string name="information_activity_theme_improperly_setup">\"%s\" không có tài nguyên sẵn có để làm chủ đề!</string>
+    <string name="legacy_preference_priority_title">Điều chỉnh ưu tiên che phủ</string>
+    <string name="legacy_preference_priority_text" formatted="false">Ưu tiên được đặt (mặc định %d): %d</string>
+    <string name="grid_size_title">Điều chỉnh cột hiển thị chủ đề</string>
+    <string name="grid_size_text">Cột đếm được thiết lập (mặc định %d): %d</string>
+    <string name="app_theme_title">Ứng dụng chủ đề</string>
+    <string name="app_theme_text">Chủ đề ứng dụng thiết lập: %s</string>
+    <string name="app_theme_auto">Tự động</string>
+    <string name="app_theme_dark">Tối</string>
+    <string name="app_theme_change">Khởi động lại ứng dụng để chuyển chủ đề</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">phiên bản type1a&#8230;</string>
     <string name="overlays_variant_default_1b">phiên bản type1b&#8230;</string>
     <string name="overlays_variant_default_1c">phiên bản type1c&#8230;</string>
     <string name="overlays_variant_default_2">phiên bản type2&#8230;</string>
     <string name="overlays_variant_default_3">phiên bản cơ bản mặc định&#8230;</string>
+    <string name="overlays_variant_default_4">phiên bản type4&#8230;</string>
+    <string name="overlays_up_to_date">THÔNG TIN MỚI NHẤT (%s)</string>
     <string name="overlays_update_available">Cập nhật khả dụng!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Biến thể không được cài đặt</string>
+    <string name="shutdownanimation_placeholder_text">Vui lòng chọn một hình động tắt máy từ trình đơn thả xuống
+      danh sách&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Thao tác này sẽ xóa bất kỳ hình động tắt máy tùy chỉnh nào
+      được áp dụng trên thiết bị của bạn</string>
+    <string name="shutdownanimation_dialog_apply_text">Đang xử lý tắt hoạt ảnh&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Tắt hoạt ảnh áp dụng!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Tắt hoạt ảnh thất bại trong việc áp dụng&#8230;</string>
+    <string name="bootanimation_placeholder_text">Hãy lựa chọn một hình ảnh động khởi động từ danh sách thả xuống&#8230;</string>
+    <string name="bootanimation_default_spinner">Hãy lựa chọn một hình ảnh động khởi động&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Khôi phục hoạt hình khởi động mặc định&#8230;</string>
+    <string name="bootanimation_defaults_text">Thao tác này sẽ xóa bất kỳ hình động khởi động tuỳ chỉnh nào       được áp dụng trên thiết bị của bạn</string>
     <string name="bootanimation_dialog_apply_text">Hình khởi động đang được xử lí&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Hình khởi động đã được áp dụng!</string>
     <string name="bootanimation_dialog_apply_failed">Áp dụng hình khởi động thất bại&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Hình nền Màn hình chính</string>
     <string name="wallpaper_dialog_lockscreen">Hình nền Màn hình khoá</string>
-    <string name="wallpaper_dialog_wallpaper_both">Hình nền Màn hình chính và Màn hình khoá</string>
+    <string name="wallpaper_dialog_wallpaper_both">Trang chủ và màn hình khóa màn hình</string>
     <string name="wallpaper_downloading">Đang tải hình nền vào bộ nhớ đệm&#8230;</string>
     <string name="wallpaper_allscreen_success">Hình nền của màn hình chính và màn hình khoá đã được đặt!    </string>
     <string name="wallpaper_allscreen_error">Không thể đặt hình nền màn hình chính và màn hình khoá    </string>
@@ -68,12 +126,34 @@
     <string name="wallpaper_homescreen_error">Không thể đặt hình nền màn hình chính</string>
     <string name="wallpaper_lockscreen_success">Hình nền màn hình khoá đã được đặt!</string>
     <string name="wallpaper_lockscreen_error">Không thể đặt hình nền màn hình khoá</string>
+    <string name="wallpaper_no_connection">Để sử dụng hình nền chủ đề, một kết nối internet là
+Để sử dụng hình nền chủ đề, một kết nối internet là
+      cần thiết&#8230;</string>
+    <string name="wallpaper_no_wallpapers">Có vẻ như cơ sở dữ liệu nền được tải là
+      trống&#8230;</string>
+    <string name="font_placeholder_text">Vui lòng chọn một gói font từ trình đơn thả xuống
+      danh sách&#8230;</string>
+    <string name="font_default_spinner">Vui lòng chọn một gói phông chữ&#8230;</string>
+    <string name="font_spinner_set_defaults">Khôi phục lại phông chữ mặc định&#8230;</string>
+    <string name="fonts_defaults_text">Thao tác này sẽ xóa bất kỳ phông chữ tùy chỉnh nào
+      được áp dụng trên thiết bị của bạn</string>
     <string name="font_dialog_apply_text">Gói font chữ đang được xử lý&#8230;</string>
     <string name="font_dialog_apply_success">Gói font chữ đã được áp dụng!</string>
     <string name="font_dialog_apply_failed">Áp dụng font chữ thất bại&#8230;</string>
+    <string name="sounds_placeholder_text">Vui lòng chọn một gói âm thanh từ trình đơn thả xuống
+      danh sách&#8230;</string>
+    <string name="sounds_spinner_set_defaults">Khôi phục âm thanh mặc định&#8230;
+    </string>
+    <string name="sounds_spinner_defaults_text">Thao tác này sẽ xóa bất kỳ âm thanh tùy chỉnh nào
+      được áp dụng trên thiết bị của bạn</string>
     <string name="sounds_dialog_apply_success">Gói âm thanh đã được áp dụng!</string>
     <string name="sounds_dialog_apply_failed">Áp dụng gói âm thanh thất bại&#8230;</string>
-    <string name="fonts_dialog_permissions_grant_toast2">Để cho substratum kiểm soát font chữ hệ thống của bạn, bạn cần phải cấp quyền \'Có thể thay đổi cài đặt hệ thống\' từ Cài đặt.    </string>
+    <string name="sounds_default_spinner">Hãy chọn gói âm thanh&#8230;</string>
+    <string name="fonts_dialog_permissions_grant_toast2">Để cho phép kiểm soát Substratum hệ thống của bạn
+      phông chữ, bạn phải bật \'Cho phép sửa đổi cài đặt hệ thống\'.
+    </string>
+    <string name="error_loading_pack">Có vẻ như gói này không được thiết lập
+      đúng&#8230;</string>
     <string name="sounds_alarm">Báo thức</string>
     <string name="sounds_notification">Thông báo</string>
     <string name="sounds_ringtone">Nhạc chuông</string>
@@ -83,28 +163,36 @@
     <string name="settings_about_substratum">Phiên bản substratum</string>
     <string name="settings_about_interfacer">Phiên bản Interfacer</string>
     <string name="settings_about_interfacer_not_installed">Không được cài đặt</string>
+    <string name="settings_about_andromeda">phiên bản andromeda</string>
+    <string name="settings_about_samsung">phiên bản sungstratum</string>
     <string name="settings_about_oms_rro_version">Nền tảng của chủ đề:</string>
+    <string name="settings_about_oms_version_do">Lớp phủ động (OMS)</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Kế thừa)</string>
     <string name="settings_about_system_version">Nền tảng hệ thống</string>
     <string name="theme_information_tab_two">Hoạt ảnh khởi động</string>
     <string name="theme_information_tab_three">Gói Phông Chữ</string>
     <string name="theme_information_tab_four">Gói Âm Thanh</string>
     <string name="theme_information_tab_five">Hình nền</string>
+    <string name="theme_information_tab_six">Hình động tắt máy</string>
     <string name="uninstall_dialog_text">Bạn có chắc bạn muốn gỡ cài đặt chủ đề này?</string>
     <string name="manage_dialog_performing">Khôi phục về mặc định&#8230;</string>
-    <string name="manage_bootanimation_title">Khôi phục hiệu ứng khởi động</string>
+    <string name="manage_bootanimation_title">Khôi phục hoạt hình khởi động</string>
     <string name="manage_bootanimation_toast">Hiệu ứng khởi động được phục hồi thành công!</string>
-    <string name="manage_fonts_title">Khôi phục font chữ mặc định</string>
+    <string name="manage_shutdownanimation_toast">Shutdown hoạt hình khôi phục thành công!</string>
+    <string name="manage_fonts_title">Khôi phục phông chữ hệ thống</string>
     <string name="manage_fonts_toast">Phông chữ được khôi phục thành công!</string>
-    <string name="manage_sounds_title">Khôi phục âm thanh hệ thống</string>
+    <string name="manage_sounds_title">Phục hồi âm thanh hệ thống</string>
     <string name="manage_sounds_toast">Âm thanh mặc định được khôi phục thành công!</string>
     <string name="manage_system_overlay_disable">Vô hiệu hoá tất cả lớp phủ</string>
     <string name="manage_system_overlay_uninstall">Gỡ cài đặt tất cả các lớp phủ đã cài đặt trước đó</string>
     <string name="manage_system_overlay_toast">Chủ đề mặc định đang được khôi phục&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">Lớp phủ đang được gỡ cài đặt ở chế đồ nền&#8230;</string>
-    <string name="manage_wallpaper_home">Hình nền Màn hình chính</string>
-    <string name="manage_wallpaper_lock">Hình nền Màn hình khoá</string>
-    <string name="manage_wallpaper_all">Hình nền Màn hình chính và Màn hình khoá</string>
+    <string name="manage_system_overlay_uninstall_toast">Lớp phủ đang gỡ cài đặt trong
+      nền&#8230;</string>
+    <string name="manage_system_not_permitted">Vui lòng chọn lớp phủ hợp lệ để thay đổi trạng thái.</string>
+    <string name="manage_wallpaper_home">Khôi phục hình nền màn hình chính</string>
+    <string name="manage_wallpaper_lock">Khôi phục màn hình khóa màn hình</string>
+    <string name="manage_wallpaper_all">Khôi phục lại màn hình khóa màn hình khóa và màn hình khóa</string>
     <string name="manage_wallpaper_home_toast">Hình nền màn hình được phục hồi thành công!</string>
     <string name="manage_wallpaper_lock_toast">Hình nền màn hình khóa đã được khôi phục thành công!</string>
     <string name="manage_wallpaper_all_toast">Hình nền được khôi phục thành công!</string>
@@ -113,22 +201,34 @@
     <string name="accept">Chấp nhận</string>
     <string name="deny">Từ chối</string>
     <string name="permission_explanation_title">Tổng quan về quyền</string>
-    <string name="permission_explanation_text">Substratum có thể không hoạt động như mong đợi nếu không có những quyền quan trọng này được cấp. \ N \ n <b> Lưu trữ: </b> Substratum cần sử dụng bộ nhớ trong của bạn để lưu trữ giải cứu hệ thống, nằm trong       /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
-Substratum sử dụng Firebase của Google để tải xuống thông tin quan trọng từ cơ sở dữ liệu thời gian thực tập trung của chúng tôi để cải tiến các dịch vụ cốt lõi và cải tiến về bảo mật.    </string>
+    <string name="permission_explanation_text">Substratum có thể không hoạt động như mong đợi nếu không có
+      vài cấp phép được cấp.\n\n<b> Lưu trữ: </b> Substratum cần phải sử dụng
+      bộ lưu trữ nội bộ để lưu trữ lưu trữ giải cứu hệ thống, đặt tại
+      / storage_emulated/0/substratum/.\n\n<b>Firebase: </b>
+      Substratum sử dụng Firebase của Google để tải xuống thông tin quan trọng từ
+      tập trung cơ sở dữ liệu thời gian thực để cải thiện dịch vụ cốt lõi và cải tiến an ninh.    </string>
     <string name="priority_back_title">Quay lại lớp phủ</string>
     <string name="menu_clean">Làm sạch các lớp phủ đã cài đặt</string>
     <string name="menu_disable">Vô hiệu hoá các lớp phủ đã cài đặt</string>
     <string name="menu_enable">Cho phép cài đặt lớp phủ</string>
     <string name="menu_favorite">Yêu thích</string>
+    <string name="menu_unfavorite">Xóa mục ưa thích</string>
     <string name="menu_rate">Xếp hạng chủ đề</string>
     <string name="menu_soft_reboot">Khởi động lại mềm</string>
     <string name="menu_reboot_device">Khởi động lại thiết bị</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Khởi động lại SystemUI</string>
     <string name="menu_alphabetize">Thay đổi chế độ phân loại</string>
+    <string name="menu_search">Chủ đề trên Ch Play</string>
+    <string name="menu_showcase">Phòng trưng bày</string>
+    <string name="menu_filter">Bộ lọc</string>
     <string name="menu_uninstall">Gỡ cài đặt chủ đề</string>
+    <string name="menu_restore_info">Khôi phục thông tin</string>
+    <string name="menu_showcase_info">Thông tin giới thiệu</string>
     <string name="menu_favorite_snackbar">Thiết lập %s thành phím tắt ứng dụng!</string>
     <string name="menu_favorite_snackbar_cleared">Đã loại bỏ %s khỏi phím tắt ứng dụng.</string>
+    <string name="launcher_shortcut">Phím tắt trên Launcher</string>
+    <string name="launcher_shortcut_toast">Đã tạo thành công một biểu tượng trình khởi chạy!</string>
     <string name="changelog_title">%s Chủ đề thay đổi</string>
     <string name="dialog_restart_systemui_title">Khởi động lại SystemUI</string>
     <string name="dialog_restart_systemui_content">Thao tác này sẽ tiến hành khởi động lại SystemUI trên thiết bị của bạn.</string>
@@ -136,10 +236,47 @@ Substratum sử dụng Firebase của Google để tải xuống thông tin quan
     <string name="dialog_restart_reboot_content">Thao tác này sẽ tiến hành khởi động lại toàn bộ thiết bị của bạn.</string>
     <string name="dialog_restart_soft_reboot_title">Khởi động lại mềm</string>
     <string name="dialog_restart_soft_reboot_content">Thao tác này sẽ thực hiện khởi động lại mềm trên thiết bị của bạn.</string>
+    <string name="studio_applying">Đang tải&#8230;</string>
+    <string name="error_loading_theme_close">Đóng</string>
+    <string name="error_loading_theme_close_text">Tên gói của chủ đề này phải khớp trong tệp kê khai và thư mục mã để trao đổi khoá chính xác.</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Đã chọn cấu hình ứng dụng / lớp phủ đã lỗi thời hoặc không phù hợp&#8230;</string>
+    <string name="logcat_dialog_title">Báo cáo LogChar gỡ lỗi</string>
+    <string name="logcat_dialog_copy_success">Đã sao chép thành công lỗi đăng nhập vào khay nhớ tạm!</string>
+    <string name="logcat_send">Gửi đi</string>
+    <string name="logcat_email_activity">Gửi báo cáo lỗi bằng&#8230;</string>
+    <string name="logcat_email_activity_error">Không có ứng dụng email được cài đặt.</string>
+    <string name="logcat_email_xposed_check">Khung Xposed</string>
+    <string name="logcat_processing_dialog">Đang xử lý báo cáo lỗi</string>
+    <string name="priority_instructions_title">Hướng dẫn</string>
+    <string name="priority_instructions_content">Với hệ thống ưu tiên năng động, bạn có thể điều chỉnh
+      các lớp phủ ưu tiên như các lớp về mức độ. Điều này có nghĩa là khi một
+      lớp phủ có mức độ ưu tiên cao nhất, tài nguyên từ lớp phủ sẽ được kéo từ
+      lớp phủ cao nhất đầu tiên, sau đó cao thứ hai.
+      \ n
+      \ nĐối với thiết bị Oreo, lớp phủ trên cao nhất.
+      \ n
+      \ nĐối với thiết bị Nougat, lớp phủ phía dưới là cao nhất (nghịch).    </string>
+    <string name="priority_no_multiple_overlays_title">không có ứng dụng có lớp phủ nhiều lớp</string>
+    <string name="priority_no_multiple_overlays_text">cho phép hai lớp phủ hoặc nhiều hơn trên một ứng dụng để sử dụng
+      tôi!    </string>
+    <string name="manager_no_overlays_title">không có lớp phủ nào được cài đặt</string>
+    <string name="manager_no_overlays_text">biên dịch một lớp phủ để có thể sử dụng tôi!</string>
+    <string name="backup">Thẻ dự phòng</string>
+    <string name="backup_card_content">Chức năng này làm cho một bản sao của danh sách lớp phủ hiện đang kích hoạt của bạn và đặt nó trong \"/ lưu trữ/mô phỏng/0/substratum/profiles /\" để bảo quản.    </string>
+    <string name="delete_dialog_okay">Xoá</string>
+    <string name="delete_dialog_title">Xóa hồ sơ</string>
+    <string name="delete_dialog_text">Bạn có chắc bạn muốn xóa bỏ \"%s\"?</string>
+    <string name="restore">Khôi phục thẻ</string>
+    <string name="restore_card_content">Khi cấu hình được tải, thiết lập hiện tại của bạn hoàn toàn bị xóa và \"khôi phục chủ đề\" sẽ mang về những thay đổi Cập Nhật.    </string>
+    <string name="remove_dialog_later">Để sau</string>
+    <string name="restore_dialog_okay">Tiếp tục</string>
+    <string name="restore_dialog_title">Lớp phủ này sẽ được cài đặt để khôi phục lại tiểu sử của bạn hoàn toàn:    </string>
+    <string name="backup_button">BACKUP NGUỒN HIỆN TẠI</string>
+    <string name="backup_no_overlays">Không có không có lớp phủ trong hiện tại của bạn thiết lập.</string>
     <string name="spinner_default_item">chọn cấu hình&#8230;</string>
     <string name="select_to_toggle_all_overlays">Chọn để chuyển đổi tất cả các lớp phủ</string>
     <string name="permission_not_granted_dialog_title">Quyền chưa được cấp phép</string>
-    <string name="permission_not_granted_dialog_message1">Vui lòng cấp quyền lưu trữ hoặc ứng dụng sẽ không hoạt động đúng!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Đừng hiện cho tôi xem nữa</string>
     <string name="dialog_cancel">Huỷ</string>
@@ -155,14 +292,12 @@ Substratum sử dụng Firebase của Google để tải xuống thông tin quan
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_overlay_manager">Quản lý Lớp phủ</string>
     <string name="shortcut_overlay_manager_disabled">Quản lý Lớp phủ</string>
+    <string name="break_compilation_dialog_continue">Tiếp tục</string>
     <string name="profile_wallpaper">Hình nền</string>
     <string name="profile_dialog_ok">OK</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
     <!-- Utilities -->
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
+    <string name="clear_cache_button_loading">Đang tải&#8230;</string>
     <string name="manage_space_reset_dialog_content">Ứng dụng này sẽ đóng sau khi quá trình thiết lập lại hoàn tất!</string>
 </resources>

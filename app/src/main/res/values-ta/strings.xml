@@ -13,10 +13,9 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
-    <string name="showcase_no_connection">சமூக காட்சி பெட்டி இயங்குவதற்கு இணைய இணைப்பு தேவை!</string>
     <string name="failed_to_install_title_notification">ஓம்ஸ் கருப்பொருள் நிறுவும் முயற்சி தோல்வியில் முடிந்தது</string>
     <string name="settings_icons">அமைப்புகள் ஐகான்</string>
     <string name="systemui_headers">அமைப்பு பயனாளர் தலைப்புகள்</string>
@@ -25,8 +24,6 @@
     <string name="systemui_statusbar">அமைப்பு பயனாளர் நிலை பட்டியல் ஐகான்</string>
     <string name="warning_title">எச்சரிக்கை!</string>
     <string name="legacy_dialog_soft_reboot_title">மறுத்துவக்கும் தேவைப்படுகிறது!</string>
-    <string name="legacy_dialog_soft_reboot_text">நீங்கள் பயன்படுத்தும் ரேம் ஓம்ஸ் துணை கொண்டு இயங்கவில்லை.\nஎனவே நீங்கள்க நிறுவிய ருப்பொருளை அனுபவிக்கும் முன்னர் உங்கள் சாதனம் மருத்துவக்கம் செய்யப்படவேண்டும். உங்கள் பணிகளை சேமித்துக்கொண்டு, இந்த செயலை தொடரவும்.</string>
-    <string name="activity_missing_toast">மன்னிக்கவும்!! இந்த கோரிக்கையை நிறைவேற்றும் எந்த செயலியும் தற்சமயம் இல்லை.</string>
     <string name="abort_overlay_toast_success">அனைத்து மேலடுக்குகளும் நீக்கப்பட்டன!</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
@@ -41,7 +38,6 @@
     <string name="bootanimation_dialog_apply_failed">துவக்க அனிமேஷன் செயலாக்கம் தோல்வி&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">முகப்புதிரை</string>
     <string name="wallpaper_dialog_lockscreen">பூட்டியதிரை</string>
-    <string name="wallpaper_dialog_wallpaper_both">முகப்பு மற்றும் பூட்டியதிரை சுவர்படம்</string>
     <string name="wallpaper_downloading">படம் பதுக்ககத்தில் செலுத்த படுகிறது&#8230;</string>
     <string name="wallpaper_allscreen_success">முகப்பு மற்றும் பூட்டியதிரை சுவர்படம் நிர்மாணிக்கப்பட்டது!</string>
     <string name="wallpaper_allscreen_error">முகப்பு மற்றும் பூட்டியதிரை சுவர்படம் நிறுவும் முயற்சியை தீர்மானிக்க இயலவில்லை</string>
@@ -67,19 +63,12 @@
     <string name="theme_information_tab_four">எழுத்துருப்பு கட்டுகள்</string>
     <string name="theme_information_tab_five">ஒலி கட்டுகள்</string>
     <string name="manage_dialog_performing">இயல்பு நிலைக்கு திரும்பி செல்&#8230;</string>
-    <string name="manage_bootanimation_title">உங்கள் சாதனத்தின் இயல்பு நிலை துவக்க அனிமேஷனை செயல்படுத்தும்</string>
     <string name="manage_bootanimation_toast">இயல்பு நிலை துவக்க அனிமேஷன் வெற்றிகரமாக செயல் படுத்தப்பட்டது!</string>
-    <string name="manage_fonts_title">இயல்பு நிலை எழுத்துருப்பை மீட்கவும்</string>
     <string name="manage_fonts_toast">எழுத்துருப்பு வெற்றிகரமாக மீட்கப்பட்டது!</string>
-    <string name="manage_sounds_title">சாதனத்தின் இயல்பு நிலை ஒலிகள் மீட்க</string>
     <string name="manage_sounds_toast">இயல்பு நிலை ஒலிகள் வெற்றிகரமாக மீட்கப்பட்டது!</string>
     <string name="manage_system_overlay_disable">செயல்பாட்டில் உள்ள அனைத்து மேலடுக்குகளையும் முடக்குக</string>
     <string name="manage_system_overlay_uninstall">செயல்பாட்டில் உள்ள அனைத்து மேலடுக்குகளையும் முற்றிலுமாக நீக்குக</string>
     <string name="manage_system_overlay_toast">இந்த சாதனத்தின் இயல்பு நிலை கருப்பொருள் மீண்டும் அமைக்கப்படுகிறது&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">மேலடுக்குகள் பின்னயில் நீக்கப்படுகின்றன&#8230;</string>
-    <string name="manage_wallpaper_home">முகப்புதிரை</string>
-    <string name="manage_wallpaper_lock">பூட்டியதிரை</string>
-    <string name="manage_wallpaper_all">முகப்பு மற்றும் பூட்டியதிரை சுவர்படம்</string>
     <string name="manage_wallpaper_home_toast">முந்தைய முகப்புதிரை சுவர்படம் வெற்றிகரமாக அமைக்கப்பட்டது!</string>
     <string name="manage_wallpaper_lock_toast">முந்தைய பூட்டுத்திரை சுவர்படம் வெற்றிகரமாக அமைக்கப்பட்டது!</string>
     <string name="manage_wallpaper_all_toast">முந்தைய சுவர்படம் வெற்றிகரமாக அமைக்கப்பட்டது!</string>
@@ -105,31 +94,21 @@
     <string name="logcat_email_activity">பிழை அறிக்கை அனுப்புவதற்கு&#8230;</string>
     <string name="logcat_email_activity_error">மின்னஞ்சல் செயலி எதுவும் நிறுவ படவில்லை</string>
     <string name="logcat_email_xposed_check">வெளிப்படும் கட்டமைப்பு</string>
-    <string name="priority_no_multiple_overlays_title">எந்த செயலியும் ஒன்றுக்கும் மேற்பட்ட கருப்பொருள் வைத்துக்கொள்ளவில்லை&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">ஒரு செயலிக்கு ஒன்றுக்கும் மேற்பட்ட கருப்பொருளை பயன்படுத்து!</string>
-    <string name="manager_no_overlays_title">தனிப்பட்ட கருப்பொருள்கள் எதுவும் நிறுவப்படவில்லை&#8230;</string>
     <string name="manager_no_overlays_text">ஏதேனும் ஒரு மேலடுக்கை நிறுவி என்னை பயன்படுத்தவும்!</string>
     <string name="backup">காப்பு அட்டை</string>
-    <string name="backup_card_content">இந்த செயல்பாடு உங்களின் தற்போதைய  மேலடுக்குகள் நிலையை ஒரு  காப்பு அமைத்து, இந்த முகவரியில் \"/storage/emulated/0/substratum/profiles/\" பத்திர படுத்தும்.</string>
     <string name="delete_dialog_okay">அழித்திடு</string>
     <string name="delete_dialog_title">தனிப்பட்ட விருப்புகளை அழித்திடு</string>
     <string name="delete_dialog_text">நிச்சயமாக அழிக்க விரும்புகிறீர்களா %s ?</string>
     <string name="restore">அட்டையை மீட்க</string>
-    <string name="restore_card_content">ஒரு தனிப்பட்ட விருப்புகளை அமைந்திடும் பொருட்டு உங்களின் தற்போதைய நிலைகள் அழிக்கப்பட்டு பின்னர் மாற்றங்கள் மேற்கொள்ளப்படும்.</string>
     <string name="remove_dialog_later">பின்னர்</string>
     <string name="restore_dialog_okay">தொடர்ந்திடு</string>
     <string name="backup_button">இப்போதைய நிலையை காத்து சேமித்து கொள்க</string>
     <string name="backup_no_overlays">இப்போதைய அமைப்பில் எந்தவொரு மேலடுக்கும் இல்லை.</string>
     <string name="restore_button">தனிப்பட்ட விருப்புகளை மீட்டெடு</string>
-    <string name="restore_button_none_selected_toast">ஏதேனும் ஒரு தனிப்பட்ட விருப்புகளை கீழ்காணும் மெனுவில் இருந்து தேர்வு செய்யவும்!</string>
-    <string name="profile_delete_button_none_selected_toast">அழிப்பதற்கு முன்னர் ஏதேனும் ஒரு தனிப்பட்ட விருப்புகளை கீழ்காணும் மெனுவில் இருந்து தேர்வு செய்யவும்!</string>
     <string name="profile_edittext_hint">உங்கள் தனிப்பட்ட விருப்புக்கு ஒரு பெயரை கொடுக்கவும்&#8230;</string>
-    <string name="profile_edittext_empty_toast">காப்பு எடுக்கும் முன்னர் உங்கள் தனிப்பட்ட விருப்புக்கு ஒரு பெயரை கொடுக்கவும்!</string>
     <string name="profile_edittext_title">புதிய தனிப்பட்ட விருப்புகள்</string>
-    <string name="toast_backup_success">தற்போதய மேலடுக்கு பட்டியல் இந்த முகவரியில் சேமிக்கப்பட்டது \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="select_to_toggle_all_overlays">அனைத்து மேலடுக்கையும் இயற்ற சொடுக்குக</string>
     <string name="permission_not_granted_dialog_title">அனுமதிகள் மறுக்கப்பட்டன</string>
-    <string name="permission_not_granted_dialog_message1">தயவுசெய்து சப்ஸ்டிரேட்டம் செயலிக்கு தகவல்களை சேமித்து கொள்ள அனுமதி அளிக்கவும்! இல்லையென்றால் இந்த செயலி முழுமையாக இயங்காது!</string>
     <string name="dialog_ok">சரி</string>
     <string name="dialog_do_not_show_again">மீண்டும் காண்பிக்க வேண்டாம்</string>
     <string name="dialog_cancel">ரத்து செய்</string>
@@ -191,10 +170,6 @@
     <!-- Utilities -->
     <string name="nav_priorities">முன்னுரிமைகள்</string>
     <string name="nav_backup_restore">தனிப்பட்ட விருப்புகள்</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">அமைப்புகள்</string>
     <string name="clear_cache_button_loading">ஏற்றப்படுகிறது&#8230;</string>
 </resources>

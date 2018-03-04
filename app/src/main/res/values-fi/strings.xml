@@ -13,9 +13,10 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
+    <string name="showcase">näyteikkuna</string>
     <string name="android">Android-versio:</string>
     <string name="device">Laitemalli:</string>
     <string name="resource_checker">Kommitoinnin Vahvistaja</string>
@@ -24,6 +25,7 @@
     <string name="resource_not_validated">Uudet commitit on yhdistetty!</string>
     <string name="resource_needs_internet">Vahvistaaksesi ROMisi commitit, olethan yhteydessä Internetiin!</string>
     <string name="resource_validated">Kaikki commitit koskemattomia!</string>
+    <string name="rooted_oms_dialog_warning_title">Dynaamoset Päällykset ja Root</string>
     <string name="interfacer_notification_title">Substratum ja Interfacer on yhdistetty!</string>
     <string name="interfacer_notification_text">Teeman taustapalvelut on yhdistetty, aktiiviset ja käynnissä.</string>
     <string name="andromeda_notification_title">Substratum ja Andromeda on yhdistetty!</string>
@@ -31,10 +33,11 @@
     <string name="andromeda_notification_text">Teeman taustapalvelut on yhdistetty, aktiiviset ja käynnissä.</string>
     <string name="andromeda_notification_text_negation">Andromedan palvelut eivät ole käynnissä, uudelleenkäynnistä tietokoneohjelma!</string>
     <string name="resource_commit_dialog_title">Puuttuvat Resurssit %s</string>
-    <string name="showcase_no_connection">Teemojen esittelytila vaatii internet-yhteyden
-      toimiakseen!
-    </string>
+    <string name="refused_to_install_notification_button">Poista Teema</string>
+    <string name="refused_to_install_title_notification">Teemantekijä hylkäsi teeman Samsungilla.</string>
+    <string name="refused_to_install_text_notification">%s asennus epäonnistui.</string>
     <string name="failed_to_install_title_notification">OMS-teeman asennus epäonnistui</string>
+    <string name="failed_to_install_text_notification">%s asennus epäonnistui.</string>
     <string name="actionbar_theme_count_loading">ladataan&#8230;</string>
     <string name="actionbar_search">Hae</string>
     <string name="actionbar_changelog">Teeman Muutosloki</string>
@@ -44,37 +47,33 @@
     <string name="systemui_qs_tiles">System UI QS-laattojen kuvakkeet</string>
     <string name="systemui_statusbar">System UI tilarivin kuvakkeet</string>
     <string name="warning_title">VAROITUS!</string>
-    <string name="legacy_warning_content">Legacy tarjotaan sellaisenaan, koska emme voi taata
-      täyttä yhteensopivuutta värien kanssa. Varmista että sinulla on kustomi recovery asennettuna, ja että
-      sinulla on tietoa kuinka selvitä bootloopista ennen kuin jatkat eteenpäin.\n\nMe
-      emme voi korjata osia joita teemat eivät kykene muuttamaan Legacy-versiossa, koska ne vaativat muutoksia
-      järjestelmän puolelta.
-    </string>
-    <string name="samsung_warning_content">Samsung-tuki on toimitettu kuten se on, sillä emme voi taata
-      täyttä tukea väreillä ja AOSP-rakennetuilla päällyksillä. Me olemme hoitaneet
-      vaarallisten päällyksien piilottamisen sinun laitteellasi, mutta voit halutessasi ottaa tämän manuaalisesti pois päältä asetuksissa
-      omalla vastuullasi.\n\nJos missään tapauksessa joudut kohtaamaan ongelman mahdollisella mustalla ruudulla,
-      konsultoithan meidän XDA-lankamme kahta eri palautusmethodia.
-    </string>
     <string name="legacy_dialog_soft_reboot_title">Vaatii uudelleenkäynnistyksen!</string>
-    <string name="legacy_dialog_soft_reboot_text">Käytössä Resource Runtime Overlay system, se
-      vaatii uudelleenkäynnistyksen kun overlay otetaan käyttöön tai poistetaan.\n\nTämän dialogi 
-      saa aikaan laitteesi uudelleenkäynnistyksen, joten varmista että olet tallentanut kaikki työsi
-      ennen kuin jatkat.
-    </string>
-    <string name="activity_missing_toast">Ei löytynyt sovellusta joka pystyy käsittelemään tätä
-      pyyntöä, olemme pahoillamme!
-    </string>
     <string name="abort_overlay_toast_success">Kaikki overlay:t poistettu!</string>
     <string name="rescue_toast">Pelastetaan järjestelmääsi&#8230;</string>
     <string name="reboot_awaiting_manager_title">ONGELMA LUKIESSA PÄÄLLYSTÄ</string>
-    <string name="manager_theme_name">Teema:</string>
-    <string name="manager_type1a">Tyyppi1a:</string>
-    <string name="manager_type1b">Tyyppi1b:</string>
-    <string name="manager_type1c">Tyyppi1c:</string>
+    <string name="manager_theme_name">Teema: %s</string>
+    <string name="manager_type1a">Tyyppi1a: %s</string>
+    <string name="manager_type1b">Tyyppi1b: %s</string>
+    <string name="manager_type1c">Tyyppi1c: %s</string>
+    <string name="manager_type2">Tyyppi2: %s</string>
+    <string name="manager_type3">Tyyppi3: %s</string>
+    <string name="manager_type4">Tyyppi4: %s</string>
+    <string name="priorities_theme_name">Teema:</string>
+    <string name="priorities_type1a">Tyyppi1a:</string>
+    <string name="priorities_type1b">Tyyppi1b:</string>
+    <string name="priorities_type1c">Tyyppi1c:</string>
+    <string name="priorities_type2">Tyyppi2:</string>
+    <string name="priorities_type3">Tyyppi3:</string>
+    <string name="backend_not_authorized_title">Substratum debug-build ei valtuutettu!</string>
     <string name="legacy_preference_priority_title">Päällyksen prioriteetin säätäminen</string>
-    <string name="legacy_preference_priority_text">Prioriteetti on asetettu kohtaan (vakio %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Prioriteetti on asetettu kohtaan (vakio %d): %d</string>
     <string name="grid_size_title">Teeman esittelyn kolumnin säätäminen</string>
+    <string name="app_theme_title">Sovelluksen teema</string>
+    <string name="app_theme_text">Sovelluksen teema asetettu kohtaan: %s</string>
+    <string name="app_theme_disabled">Oletusarvo</string>
+    <string name="app_theme_auto">Automaattinen</string>
+    <string name="app_theme_dark">Tumma</string>
+    <string name="app_theme_change">Käynnistä sovellus uudelleen vaihtaaksesi teemoja</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">tyyppi 1a:n variantti&#8230;</string>
     <string name="overlays_variant_default_1b">tyyppi 1b:n variantti&#8230;</string>
@@ -82,25 +81,19 @@
     <string name="overlays_variant_default_2">tyyppi 2:n variantti&#8230;</string>
     <string name="overlays_variant_default_3">perus variantti&#8230;</string>
     <string name="overlays_variant_default_4">tyyppi4 variantti&#8230;</string>
+    <string name="overlays_up_to_date">AJANTASALLA (%s)</string>
     <string name="overlays_update_available">Päivitys saatavilla!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varianttia ei asennettu</string>
-    <string name="shutdownanimation_placeholder_text">Valitse sammumisanimaatio pudotusvalikosta&#8230;</string>
-    <string name="shutdownanimation_defaults_text">Tämä tyhjentää minkä tahansa sammumisanimaation
-      mikä on asetettu laitteellesi</string>
     <string name="shutdownanimation_dialog_apply_text">Sammumisanimaatio on käsittelyssä&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Sammumisanimaatio asetettu!</string>
     <string name="shutdownanimation_dialog_apply_failed">Sammumisanimaation asettaminen epäonnistui&#8230;</string>
-    <string name="bootanimation_placeholder_text">Valitse käynnistysanimaation pudotusvalikosta&#8230;</string>
     <string name="bootanimation_default_spinner">Valitse käynnistysanimaatio&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">Palauta alkuperäinen käynnistysanimaatio&#8230;</string>
-    <string name="bootanimation_defaults_text">Tämä tyhjentää minkä tahansa mukautetun käynnistysanimaation
-      mikä on asetettu laitteellesi</string>
     <string name="bootanimation_dialog_apply_text">Boot-animaatiota käsitellään&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Boot-animaatio otettu käyttöön!</string>
     <string name="bootanimation_dialog_apply_failed">Boot-animaation käyttöönotto epäonnistui&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Kotinäytön taustakuva</string>
     <string name="wallpaper_dialog_lockscreen">Lukitusnäytön taustakuva</string>
-    <string name="wallpaper_dialog_wallpaper_both">Koti- ja Lukitusnäytön taustakuva</string>
     <string name="wallpaper_downloading">Ladataan kuvaa välimuistiin&#8230;</string>
     <string name="wallpaper_allscreen_success">Sekä Koti- että Lukitusnäytön taustakuva määritetty!    </string>
     <string name="wallpaper_allscreen_error">Sekä Koti- että Lukitusnäytön taustakuvan määritys epäonnistui    </string>
@@ -113,8 +106,6 @@
     <string name="font_dialog_apply_failed">Fonttipaketin asettaminen epäonnistui&#8230;</string>
     <string name="sounds_dialog_apply_success">Äänipaketti asetettu!</string>
     <string name="sounds_dialog_apply_failed">Äänipaketin asettaminen epäonnistui&#8230;</string>
-    <string name="fonts_dialog_permissions_grant_toast2">Antaaksesu Substratumin hallita sinun järjestelmäsi
-      fontteja, on sinun otettava käyttöön \'Muokkaa järjestelmäasetuksia\'.    </string>
     <string name="sounds_alarm">Hälytys</string>
     <string name="sounds_notification">Ilmoitus</string>
     <string name="sounds_ringtone">Soittoääni</string>
@@ -139,22 +130,14 @@
     <string name="theme_information_tab_six">Sammuttamisanimaatiot</string>
     <string name="uninstall_dialog_text">Oletko varma että haluat poistaa tämän teeman?</string>
     <string name="manage_dialog_performing">Palautetaan oletusarvoon&#8230;</string>
-    <string name="manage_bootanimation_title">Palauta Boot-animaatio</string>
     <string name="manage_bootanimation_toast">Boot-animaatio palautettu onnistuneesti!</string>
     <string name="manage_shutdownanimation_toast">Sammumisanimaatio palautettu onnistuneesti!</string>
-    <string name="manage_fonts_title">Palauta Järjestelmän Fontti</string>
     <string name="manage_fonts_toast">Fontti palautettu onnistuneesti!</string>
-    <string name="manage_sounds_title">Palauta Järjestelmän Äänet</string>
     <string name="manage_sounds_toast">Oletusarvoiset äänet palautettu onnistuneesti!</string>
     <string name="manage_system_overlay_disable">Poistaa käytöstä kaikki käytössä olevat overlay:t</string>
     <string name="manage_system_overlay_uninstall">Poista kaikki asennetut overlay:t</string>
     <string name="manage_system_overlay_toast">Järjestelmän teemaa palautetaan&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">Overlay:t poistetaan nyt
-      taustalla&#8230;</string>
     <string name="manage_system_not_permitted">Valitse toimiva päällys muuttaaksesi tilaa.</string>
-    <string name="manage_wallpaper_home">Kotinäytön taustakuva</string>
-    <string name="manage_wallpaper_lock">Lukitusnäytön taustakuva</string>
-    <string name="manage_wallpaper_all">Koti- ja Lukitusnäytön taustakuva</string>
     <string name="manage_wallpaper_home_toast">Kotinäytön taustakuva palautettiin onnistuneesti!</string>
     <string name="manage_wallpaper_lock_toast">Lukitusnäytön taustakuva palautettiin onnistuneesti!</string>
     <string name="manage_wallpaper_all_toast">Taustakuva palautettiin onnistuneesti!</string>
@@ -163,13 +146,6 @@
     <string name="accept">Hyväksy</string>
     <string name="deny">Kiellä</string>
     <string name="permission_explanation_title">Käyttöoikeuksien Yleiskatsaus</string>
-    <string name="permission_explanation_text">Substratum ei välttämättä toimi kunnolla ilman näitä
-      tärkeitä käyttöoikeuksia.\n\n<b>Tallennustila: </b> Substratum tarvitsee tämän hallitakseen sinun
-      sisäistä tallennustilaa varastoidakseen sinun järjestelmän pelastamisarkistot, jotka sijaitsevat kohteessa
-      /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
-      Substratum käyttää Googlen Firebasea ladatakseen tärkeää tietoa meidän
-      keskitetystä reaaliaikaisesta tietokannasta parantaaksemme ydinpalveluita ja turvallisuutta.
-    </string>
     <string name="priority_back_title">Takaisin overlay-näkymään</string>
     <string name="menu_clean">Tyhjennä asennetut overlay:t</string>
     <string name="menu_disable">Poista käytöstä asennetut overlay:t</string>
@@ -208,39 +184,22 @@
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Suoritetaan virheraporttia</string>
     <string name="priority_instructions_title">Ohjeet</string>
-    <string name="priority_no_multiple_overlays_title">ei ohjelmia, joilla
-      päällyksiä&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">ota käyttöön kaksi tai enemmän päällystä yhdelle sovellukselle käyttääksesi
-      minua!
-    </string>
-    <string name="manager_no_overlays_title">päällyksiä ei asennettu&#8230;</string>
     <string name="manager_no_overlays_text">kokoa yksi päällys käyttääksesi minua!</string>
     <string name="backup">Varmuuskopio-Kortti</string>
-    <string name="backup_card_content">Tämä ominaisuus luo kopion sinun nykyisestä päällysten
-      listasta ja asettaa sen kohteeseen \"/storage/emulated/0/substratum/profiles/\" säilytystä varten.
-    </string>
     <string name="delete_dialog_okay">Poista</string>
     <string name="delete_dialog_title">Poista profiili</string>
     <string name="delete_dialog_text">Oletko varma että haluat poistaa \"%s\"?</string>
     <string name="restore">Palauta Kortti</string>
-    <string name="restore_card_content">Kun profiili on ladattu, sinun nykyinen asetelma on kokonaan
-      pyyhitty ja \"palauta teema\" ottaa käyttöön päivitetyt muutokset.    </string>
     <string name="remove_dialog_later">Myöhemmin</string>
     <string name="restore_dialog_okay">Jatka</string>
-    <string name="restore_dialog_title">Nämä päällykset asennetaan, jotta profiilisi voidaan palauttaa      kokonaan:    </string>
     <string name="backup_button">VARMUUSKOPIO NYKYINEN TILA</string>
     <string name="backup_no_overlays">Nykyisessä asetelmassasi ei ole päällyksiä.</string>
     <string name="restore_button">PALAUTA PROFIILI</string>
-    <string name="restore_button_none_selected_toast">Valitse profiili pudotusvalikosta      ennen kuin yrität palauttaa profiilia!    </string>
-    <string name="profile_delete_button_none_selected_toast">Valitse profiili      pudotusvalikosta ennen kuin yrität poistaa profiilia!    </string>
     <string name="profile_edittext_hint">kirjoita profiilisi nimi&#8230;</string>
-    <string name="profile_edittext_empty_toast">Nimeä profiilisi ennen kuin      varmuuskopioit!    </string>
     <string name="profile_edittext_title">Uusi Profiili:</string>
     <string name="spinner_default_item">valitse profiili&#8230;</string>
     <string name="select_to_toggle_all_overlays">Paina valitaksesi kaikki päällykset</string>
     <string name="permission_not_granted_dialog_title">Käyttöoikeuksia ei sallittu</string>
-    <string name="permission_not_granted_dialog_message1">Myönnäthän substratumille tallennustilan
-      käyttöoikeudet      tai sovellus ei toimi kunnolla!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Älä näytä uudelleen</string>
     <string name="dialog_cancel">Peruuta</string>
@@ -391,10 +350,6 @@
     <string name="nav_overlay_manager">Manageri</string>
     <string name="nav_priorities">Prioriteetit</string>
     <string name="nav_backup_restore">Profiilit</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Asetukset</string>
     <string name="title_activity_manage_space">Hallitse Tallennustilan Käyttöä</string>
     <string name="manage_space_cache_text_title">Tyhjennä Välimuisti</string>

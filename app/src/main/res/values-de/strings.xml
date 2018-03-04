@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="showcase">showcase</string>
@@ -35,7 +35,11 @@
     <string name="andromeda_notification_text_negation">Andromeda-Dienst wird nicht ausgeführt, bitte starte die Desktop-Suite erneut!</string>
     <string name="resource_commit_dialog_title">Fehlende Ressourcen in %s</string>
     <string name="showcase_no_connection">Für Themes-Showcase ist eine Internetverbindung erforderlich!</string>
+    <string name="refused_to_install_notification_button">Entferne Theme</string>
+    <string name="refused_to_install_title_notification">Themer hat das auf Samsung installierte Theme abgelehnt.</string>
+    <string name="refused_to_install_text_notification">%s konnte nicht installiert werden.</string>
     <string name="failed_to_install_title_notification">Installation des OMS-Themes fehlgeschlagen</string>
+    <string name="failed_to_install_text_notification">%s konnte nicht installiert werden.</string>
     <string name="actionbar_theme_count_loading">Lädt&#8230;</string>
     <string name="actionbar_search">Suche</string>
     <string name="actionbar_changelog">Theme-Änderungsprotokoll</string>
@@ -52,22 +56,38 @@
     <string name="abort_overlay_toast_success">Alle Overlays deinstalliert!</string>
     <string name="rescue_toast">Rette dein System&#8230;</string>
     <string name="reboot_awaiting_manager_title">LESEN DES OVERLAYS FEHLGESCHLAGEN</string>
-    <string name="manager_theme_name">Theme:</string>
-    <string name="manager_type1a">Typ1a:</string>
-    <string name="manager_type1b">Typ1b:</string>
-    <string name="manager_type1c">Typ1c:</string>
+    <string name="manager_theme_name">Theme: %s</string>
+    <string name="manager_type1a">Typ1a: %s</string>
+    <string name="manager_type1b">Typ1b: %s</string>
+    <string name="manager_type1c">Typ1c: %s</string>
+    <string name="manager_type2">Typ2: %s</string>
+    <string name="manager_type3">Typ3: %s</string>
+    <string name="manager_type4">Typ4: %s</string>
+    <string name="priorities_theme_name">Theme:</string>
+    <string name="priorities_type1a">Typ1a:</string>
+    <string name="priorities_type1b">Typ1b:</string>
+    <string name="priorities_type1c">Typ1c:</string>
+    <string name="priorities_type2">Typ2:</string>
+    <string name="priorities_type3">Typ3:</string>
     <string name="backend_not_authorized_title">Substratum-Debug-Build nicht autorisiert!</string>
     <string name="backend_not_authorized_text">Um diesen Build von Substratum mit deiner Custom ROM zu verwenden, schalte die \'Erzwinge Autorisierung für alle Theme Apps\' Option in den Entwickler Optionen ein.\n\nFalls diese Option nicht vorhanden ist, kontaktiere deinen ROM Entwickler wegen fehlenden Commits!</string>
+    <string name="information_activity_theme_improperly_setup">\"%s\" hat keine verfügbaren Ressourcen für Theming!</string>
     <string name="legacy_preference_priority_title">Anpassung der Overlay-Priorität</string>
-    <string name="legacy_preference_priority_text">Die Priorität beträgt (Standard %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Die Priorität beträgt (Standard %d): %d</string>
     <string name="grid_size_title">Theme-Ansicht Spalteneinstellungen</string>
     <string name="grid_size_text">Die Anzahl an Spalten beträgt (Standard: %d): %d</string>
+    <string name="app_theme_title">App Theme</string>
+    <string name="app_theme_text">App Theme gesetzt auf: %s</string>
+    <string name="app_theme_disabled">Standard</string>
+    <string name="app_theme_auto">Automatisch</string>
+    <string name="app_theme_dark">Dunkel</string>
+    <string name="app_theme_change">Starten sie die App neu um Themes zu wechseln</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a Variante&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b Variante&#8230;</string>
     <string name="overlays_variant_default_1c">typ1c Variante&#8230;</string>
     <string name="overlays_variant_default_2">typ2 Variante&#8230;</string>
-    <string name="overlays_variant_default_3">standard Basis Variante&#8230;</string>
+    <string name="overlays_variant_default_3">Standard Basis Variante&#8230;</string>
     <string name="overlays_variant_default_4">Typ4 Variante&#8230;</string>
     <string name="overlays_update_available">Aktualisierung verfügbar!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante nicht installiert</string>
@@ -85,7 +105,7 @@
     <string name="bootanimation_dialog_apply_failed">Anwenden der Boot-Animation fehlgeschlagen&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Startbildschirm-Hintergrund</string>
     <string name="wallpaper_dialog_lockscreen">Sperrbildschirm-Hintergrund</string>
-    <string name="wallpaper_dialog_wallpaper_both">Start- und Sperrbildschirm-Hintergrund</string>
+    <string name="wallpaper_dialog_wallpaper_both">Start- und Sperrbildschirm-Hintergründe</string>
     <string name="wallpaper_downloading">Bild wird zwischengespeichert&#8230;</string>
     <string name="wallpaper_allscreen_success">Start- und Sperrbildschirm-Hintergrund angepasst!</string>
     <string name="wallpaper_allscreen_error">Festlegen des Start- sowie Sperrbildschirm-Hintergrundbilds nicht möglich</string>
@@ -93,13 +113,25 @@
     <string name="wallpaper_homescreen_error">Festlegen des Startbildschirm-Hintergrunds fehlgeschlagen</string>
     <string name="wallpaper_lockscreen_success">Sperrbildschirm-Hintergrund angepasst!</string>
     <string name="wallpaper_lockscreen_error">Festlegen des Sperrbildschirm-Hintergrunds fehlgeschlagen</string>
+    <string name="wallpaper_no_connection">Für die Nutzung der Theme-Hintergründe ist eine Internetverbindung erforderlich&#8230;</string>
+    <string name="wallpaper_no_wallpapers">Anscheinend ist die geladene Hintergrund-Datenbank leer&#8230;</string>
+    <string name="font_placeholder_text">Bitte wähle eine Schriftart aus der Dropdown-Liste&#8230;</string>
+    <string name="font_default_spinner">Schriftart wählen&#8230;</string>
+    <string name="font_spinner_set_defaults">Standardschriftarten wiederherstellen&#8230;</string>
+    <string name="fonts_defaults_text">Hiermit werden alle angewendeten Schriftarten deaktiviert</string>
     <string name="font_dialog_apply_text">Schriftart wird angewendet&#8230;</string>
     <string name="font_dialog_apply_success">Schriftart wurde angewendet!</string>
     <string name="font_dialog_apply_failed">Anwenden der Schriftart fehlgeschlagen&#8230;</string>
+    <string name="sounds_placeholder_text">Bitte wähle ein Soundpaket aus der Dropdown-Liste&#8230;</string>
+    <string name="sounds_spinner_set_defaults">Standardtöne wiederherstellen&#8230;    </string>
+    <string name="sounds_spinner_defaults_text">Hiermit werden alle angewendeten Töne deaktiviert</string>
     <string name="sounds_dialog_apply_success">Soundpaket wurde angewendet!</string>
     <string name="sounds_dialog_apply_failed">Anwenden des Soundpakets fehlgeschlagen&#8230;</string>
+    <string name="sounds_default_spinner">Soundpaket wählen&#8230;</string>
     <string name="fonts_dialog_permissions_grant_toast2">Um Substratum deine System-Schriftarten ändern zu lassen,
 aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
+    <string name="error_loading_pack">Anscheinend wurde dieses Paket nicht richtig
+eingerichtet&#8230;</string>
     <string name="sounds_alarm">Wecker</string>
     <string name="sounds_notification">Benachrichtigung</string>
     <string name="sounds_ringtone">Klingelton</string>
@@ -124,7 +156,7 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="theme_information_tab_six">Shutdown-Animationen</string>
     <string name="uninstall_dialog_text">Wollen Sie dieses Theme wirklich deinstallieren?</string>
     <string name="manage_dialog_performing">Auf Standard zurücksetzen&#8230;</string>
-    <string name="manage_bootanimation_title">Wiederherstellen der Boot-Animation</string>
+    <string name="manage_bootanimation_title">Boot-Animation wiederherstellen</string>
     <string name="manage_bootanimation_toast">Boot-Animation erfolgreich wiederhergestellt!</string>
     <string name="manage_shutdownanimation_toast">Shutdown-Animation erfolgreich wiederhergestellt!</string>
     <string name="manage_fonts_title">Systemschriften wiederherstellen</string>
@@ -136,9 +168,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="manage_system_overlay_toast">System-Theme wird wiederhergestellt&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Overlays werden im Hintergrund deinstalliert&#8230;</string>
     <string name="manage_system_not_permitted">Bitte wähle ein gültige Overlay, um den Status zu ändern.</string>
-    <string name="manage_wallpaper_home">Startbildschirm-Hintergrund</string>
-    <string name="manage_wallpaper_lock">Sperrbildschirm-Hintergrund</string>
-    <string name="manage_wallpaper_all">Start- und Sperrbildschirm-Hintergrund</string>
     <string name="manage_wallpaper_home_toast">Startbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_lock_toast">Sperrbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_all_toast">Hintergrund erfolgreich wiederhergestellt!</string>
@@ -163,6 +192,7 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="menu_alphabetize">Ändere Sortiermethode</string>
     <string name="menu_search">Themes im Play Store</string>
     <string name="menu_showcase">Showcase</string>
+    <string name="menu_filter">Filter</string>
     <string name="menu_uninstall">Deinstallieren</string>
     <string name="menu_restore_info">Wiederherstellungsinfo</string>
     <string name="menu_showcase_info">Showcase-Info</string>
@@ -190,9 +220,9 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="logcat_email_xposed_check">Xposed-Framework</string>
     <string name="logcat_processing_dialog">Fehlermeldung in Bearbeitung</string>
     <string name="priority_instructions_title">Anleitung</string>
-    <string name="priority_no_multiple_overlays_title">Keine Apps mit mehreren Overlays&#8230;</string>
+    <string name="priority_no_multiple_overlays_title">Keine Apps mit mehreren Overlays…</string>
     <string name="priority_no_multiple_overlays_text">Aktiviere 2 oder mehr Overlays, um mich zu benutzen!</string>
-    <string name="manager_no_overlays_title">Keine Overlays installiert&#8230;</string>
+    <string name="manager_no_overlays_title">Keine Overlays installiert</string>
     <string name="manager_no_overlays_text">Kompiliere ein Overlay um mich zu benutzen</string>
     <string name="backup">Karte sichern</string>
     <string name="backup_card_content">Diese Funktion macht eine Kopie deiner derzeit aktivierten Overlays und platziert sie in \"/storage/emulated/0/substratum/profiles/\" </string>
@@ -203,15 +233,14 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="restore_card_content">Wenn ein Profil geladen wird, wird dein aktuelles Setup komplett gelöscht und \"Theme zurücksetzen\" wird die neuen Änderungen übernehmen</string>
     <string name="remove_dialog_later">Später</string>
     <string name="restore_dialog_okay">Fortsetzen</string>
-    <string name="restore_dialog_title">Diese Overlays werden installiert werden, um dein Profil wieder vollständig herzustellen:
-    </string>
+    <string name="restore_dialog_title">Diese Overlays werden installiert werden, um dein Profil wieder vollständig herzustellen:</string>
     <string name="backup_button">AKTUELLEN ZUSTAND SICHERN</string>
     <string name="backup_no_overlays">Es gibt keine Overlays in deiner aktuellen Konfiguration.</string>
     <string name="restore_button">PROFIL WIEDERHERSTELLEN</string>
     <string name="restore_button_none_selected_toast">Bitte wähle ein Profil aus der Liste aus, bevor du versuchst, es wiederherzustellen!</string>
     <string name="profile_delete_button_none_selected_toast">Bitte wähle ein Profil aus der Liste aus, bevor du versuchst, es zu löschen!</string>
     <string name="profile_edittext_hint">Bitte gib einen Namen für dein Profil ein&#8230;</string>
-    <string name="profile_edittext_empty_toast">Bitte gib einen Namen für dein Profil ein, bevor du ein Backup erstellst!    </string>
+    <string name="profile_edittext_empty_toast">Bitte gib einen Namen für dein Profil ein, bevor du ein Backup erstellst!</string>
     <string name="profile_edittext_title">Neues Profil:</string>
     <string name="profile_edittext_whitespace_warning_toast">Im Profilnamen können keine Leerzeichen verwendet werden!</string>
     <string name="toast_backup_success">Aktuelle Overlay Liste wurde gespeichert nach \"/storage/emulated/0/substratum/profiles/%s\"</string>
@@ -243,10 +272,8 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" wurde nicht in der Liste von installierten Overlays gefunden&#8230;</string>
-    <string name="toast_andromeda_timed_out">Es bestehen Verzögerungen mit dem Andromeda Backend, bitte starte Substratum neu.</string>
     <string name="toast_could_not_uninstall">Keine gültigen Overlays ausgewählt.</string>
     <string name="toast_samsung_prototype_alert">Substratum hat automatisch nicht unterstützte System-Overlays für dein Gerät versteckt!</string>
-    <string name="andromeda_disconnected">Der Andromeda Desktop Client muss mit deinem Gerät verbunden sein um mit substratum zu funktionieren!</string>
     <string name="andromeda_check_status">Überprüfe Status</string>
     <string name="andromeda_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten themebaren Oreo Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="andromeda_no_root_dialog_button">Jetzt herunterladen!</string>
@@ -275,6 +302,8 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Rette mich!</string>
     <string name="shortcut_rescue_disabled">Rette mich!</string>
+    <string name="shortcut_store">Theme-Showcase</string>
+    <string name="shortcut_store_disabled">Theme-Showcase</string>
     <string name="shortcut_overlay_manager">Overlay-Manager</string>
     <string name="shortcut_overlay_manager_disabled">Overlay-Manager</string>
     <string name="settings_title">Über</string>
@@ -387,7 +416,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNUNG</string>
     <string name="settings_theme_auto_updater_text">Automatisch eine aktualisierte Version aller Overlays eines kürzlich aktualisierten Themes kompilieren und installieren.</string>
     <string name="settings_theme_auto_updater_dialog_text">Bitte öffne NICHT den Packet-Installer im Vordergrund während die Benachrichtigung erscheint. Framework Overlays tendieren dazu den Packet-Installer neuzustarten, was eine unendliche Anzahl an Neukompilierungen zur Folge hat!</string>
-    <string name="settings_auto_alert_title">Alarm wegen eines gefundenen neuen installierbaren Overlays</string>
     <string name="settings_auto_alert_text">Benachrichtigung anzeigen wenn ein Overlay für eine kürzlich installierte App verfügbar ist.</string>
     <string name="settings_force_english_title">Englische Sprache forcieren</string>
     <string name="settings_force_english_text">Dies zwingt die Anwendung, die englische Sprache zu verwenden.</string>
@@ -409,7 +437,7 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="per_app_toast_no_overlays">Es gibt keine konfigurierbaren Overlays für %s!</string>
     <string name="per_app_apply">Anwenden</string>
     <string name="per_app_request_title">FloatUI-Berechtigungen</string>
-    <string name="per_app_draw_over_other_apps_request">Bitte gewähre Substratum die Berechtigung \"über andere Apps zeichnen\" für die schwebende Oberfläche und die Berechtigung für \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
+    <string name="per_app_draw_over_other_apps_request">Bitte gewähre Substratum die Berechtigung \"Über andere Apps zeichnen\" für FloatUI und die Berechtigung für \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
     <string name="per_app_usage_stats_request">Bitte gewähre Substratum die Berechtigung \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
     <string name="per_app_manual_grant">Bitte gewähre Substratum in den Anwendungseinstellungen manuell die Berechtigungen für \"Nutzungszugriff\" und \"Über andere Apps zeichnen\", um FloatUI nutzen zu können!</string>
     <string name="notification_overlay_found_specific">Ein Overlay für %s ist in %s!</string>
@@ -442,12 +470,9 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="nav_home">Themes</string>
     <!-- Utilities -->
     <string name="nav_overlay_manager">Manager</string>
+    <string name="nav_recovery">Wiederherstellung</string>
     <string name="nav_priorities">Prioritäten</string>
     <string name="nav_backup_restore">Profile</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Einstellungen</string>
     <string name="title_activity_manage_space">Speichernutzung verwalten</string>
     <string name="manage_space_cache_text_title">Cache löschen</string>
@@ -455,12 +480,13 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="clear_cache_button_loading">Lädt&#8230;</string>
     <string name="manage_space_cache_counter_title">Das Leeren des lokalen Caches wird alle Dateien des Theme-Compilers und Online-Downloaders löschen. Alle Theme-Pakete und Benutzerkonfigurationen werden erhalten bleiben.\n\nAbhängig von der Größe deines Caches, kann das ein paar Sekunden dauern.</string>
     <string name="manage_space_reset_text_title">Konfiguration zurücksetzen</string>
-    <string name="manage_space_reset_text_desc">Hast du Probleme mit der App? Oder hast du in letzter Zeit ein Upgrade von einer sehr alten Version von Substratum gemacht? Das simple zurücksetzen deiner Konfiguration könnte deine Probleme beheben!</string>
+    <string name="manage_space_reset_text_desc">Hast du Probleme mit der App? Oder hast du in letzter Zeit ein Upgrade von einer sehr alten Version von Substratum gemacht? Das simple zurücksetzen deiner Konfiguration könnte helfen deine Probleme zu beheben!</string>
     <string name="manage_space_reset_dialog_title">Konfiguration zurücksetzen?</string>
     <string name="manage_space_reset_dialog_content">Die App wird sich schließen nachdem das Zurücksetzen abgeschlossen ist!</string>
     <string name="legacy_overlay_uninstall_warning_text">Wenn du alle Overlays deinstallieren verwende bitte die Substratum Rettungs-ZIPs, um mögliche Bootloops zu verhindern.</string>
     <string name="overlays_tab_package_ver_message">%s Version %s installiert</string>
     <string name="overlays_tab_package_ver_message_copied">Versions-Code erfolgreich in die Zwischenablage kopiert!</string>
     <string name="overlays_tab_package_ver_failure">Fehler beim Erfassen der Paket-Version</string>
+    <string name="locale_restart_message">Starten sie die App neu um die Sprache zu wechseln</string>
     <string name="restart">Neustart</string>
 </resources>

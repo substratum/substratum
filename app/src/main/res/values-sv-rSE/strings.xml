@@ -13,14 +13,13 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
     <string name="android">Androidversion:</string>
     <string name="device">Enhetsmodell:</string>
     <string name="resource_checker_commons">Ramverk</string>
     <string name="resource_checker_dialog_quit">Avsluta</string>
-    <string name="showcase_no_connection">temamontern kräver en internet-anslutning för att fungera!    </string>
     <string name="failed_to_install_title_notification">Kunde inte installera OMS-tema</string>
     <string name="actionbar_theme_count_loading">laddar&#8230;</string>
     <string name="actionbar_search">Sök</string>
@@ -31,10 +30,7 @@
     <string name="warning_title">VARNING!</string>
     <string name="legacy_dialog_soft_reboot_title">Omstart krävs!</string>
     <string name="rescue_toast">Räddar ditt system&#8230;</string>
-    <string name="manager_theme_name">Tema:</string>
-    <string name="manager_type1a">Typ1a:</string>
-    <string name="manager_type1b">Typ1b:</string>
-    <string name="manager_type1c">Typ1c:</string>
+    <string name="app_theme_disabled">Standard</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
@@ -54,9 +50,6 @@
     <string name="theme_information_tab_three">Fontpaket</string>
     <string name="theme_information_tab_four">Ljudpack</string>
     <string name="manage_dialog_performing">Återställer till standard&#8230;</string>
-    <string name="manage_bootanimation_title">Återställ bootanimation</string>
-    <string name="manage_fonts_title">Återställ systemfont</string>
-    <string name="manage_sounds_title">Återställ systemljud</string>
     <string name="adapter_uninstalling">Tar nu bort %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="accept">Acceptera</string>
@@ -168,10 +161,6 @@
     <!-- Utilities -->
     <string name="nav_priorities">Prioriteringar</string>
     <string name="nav_backup_restore">Profiler</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-    <!-- More -->
     <string name="nav_settings">Inställningar</string>
     <string name="title_activity_manage_space">Hantera lagringsanvändning</string>
     <string name="manage_space_cache_text_title">Rensa cache</string>

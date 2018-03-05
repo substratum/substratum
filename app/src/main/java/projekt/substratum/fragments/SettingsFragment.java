@@ -154,7 +154,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // System Platform
         systemPlatform = getPreferenceManager().findPreference("system_platform");
-        if (isOMS) {
+        if (isOMS && !hasAndromeda) {
             new checkROMSupportList(this).execute(
                     getString(R.string.supported_roms_url),
                     SUPPORTED_ROMS_FILE);

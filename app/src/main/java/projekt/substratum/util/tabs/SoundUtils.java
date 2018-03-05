@@ -120,7 +120,9 @@ public class SoundUtils {
                     context.getApplicationContext().registerReceiver(finishReceiver, intentFilter);
                 } else {
                     soundUtils.finishFunction();
-                    ThemeManager.restartSystemUI(context);
+                    if (!Systems.checkSubstratumService(context)) {
+                        ThemeManager.restartSystemUI(context);
+                    }
                 }
             }
         }

@@ -42,6 +42,7 @@ import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.COMMON_PACKAGE;
 import static projekt.substratum.common.References.ENABLE_AAPT_OUTPUT;
+import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.getDeviceID;
 
 public enum CompilerCommands {
@@ -109,7 +110,7 @@ public enum CompilerCommands {
             if (!themeOms)
                 overlayElement.setAttribute("android:priority", String.valueOf(legacyPriority));
             overlayElement.setAttribute("android:targetPackage", targetPackage);
-            overlayElement.setAttribute("android:isStatic", "false");
+            if (checkOreo()) overlayElement.setAttribute("android:isStatic", "false");
             rootElement.appendChild(overlayElement);
 
             Element applicationElement = document.createElement("application");

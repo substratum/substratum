@@ -109,6 +109,7 @@ public enum CompilerCommands {
             if (!themeOms)
                 overlayElement.setAttribute("android:priority", String.valueOf(legacyPriority));
             overlayElement.setAttribute("android:targetPackage", targetPackage);
+            overlayElement.setAttribute("android:isStatic", "false");
             rootElement.appendChild(overlayElement);
 
             Element applicationElement = document.createElement("application");

@@ -60,8 +60,7 @@ public enum FileDownloader {
                     !destinationFileOrFolder.endsWith(".jpg") &&
                     !destinationFileOrFolder.endsWith(".xml") &&
                     !directory.exists()) {
-                boolean made = directory.mkdir();
-                if (!made)
+                if (!directory.mkdir())
                     Log.e(References.SUBSTRATUM_LOG,
                             "Could not make " + directory.getAbsolutePath() + " directory...");
             } else if (destinationFileOrFolder.endsWith(".xml") &&

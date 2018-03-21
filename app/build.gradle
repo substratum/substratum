@@ -104,7 +104,7 @@ android {
 ext {
     leakCanaryVersion = '1.5.4'
     supportLibsVersion = '27.1.0'
-    firebaseVersion = '11.8.0'
+    firebaseVersion = '12.0.0'
     glideVersion = '4.5.0'
 }
 dependencies {

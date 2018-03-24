@@ -364,7 +364,6 @@ public class MainActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
-        BottomNavigationView bottomBar = findViewById(R.id.bottomBar);
         menuView = (BottomNavigationMenuView) bottomBar.getChildAt(0);
 
         try {

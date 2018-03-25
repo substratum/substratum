@@ -199,6 +199,19 @@ public enum Systems {
     }
 
     /**
+     * Check if the device is P based
+     *
+     * @return True, if yes.
+     *
+     * Currently hardcoded via getprop due to incomplete APIs on Google's end.
+     * WTF is VERSION_CODE 10000?
+     *
+     */
+    public static Boolean checkP() {
+        return getProp("ro.build.version.release").equals("P");
+    }
+
+    /**
      * Check if the device is Oreo based
      *
      * @return True, if yes.

@@ -205,6 +205,7 @@ public enum References {
     public static final String DATA_RESOURCE_DIR = "/data/resource-cache/";
     public static final String PIXEL_NEXUS_DIR = "/system/overlay/";
     public static final String LEGACY_NEXUS_DIR = "/system/vendor/overlay/";
+    public static final String P_DIR = "/system/app/";
     public static final String VENDOR_DIR = "/vendor/overlay/";
     // Notification Channel
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";

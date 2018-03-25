@@ -42,8 +42,11 @@ import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.COMMON_PACKAGE;
 import static projekt.substratum.common.References.ENABLE_AAPT_OUTPUT;
+import static projekt.substratum.common.References.SAMSUNG_OVERLAY_PERMISSION;
 import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.getDeviceID;
+import static projekt.substratum.common.Systems.isNewSamsungDevice;
+import static projekt.substratum.common.Systems.isSamsungDevice;
 
 public enum CompilerCommands {
     ;
@@ -105,6 +108,13 @@ public enum CompilerCommands {
                     "http://schemas.android.com/apk/res/android");
             rootElement.setAttribute("package", packageName);
             rootElement.setAttribute("android:versionName", versionName);
+
+            // Special permissions for special devices
+            if (isNewSamsungDevice()) {
+                Element permissionElement = document.createElement("uses-permission");
+                permissionElement.setAttribute("android:name", SAMSUNG_OVERLAY_PERMISSION);
+                rootElement.appendChild(permissionElement);
+            }
 
             Element overlayElement = document.createElement("overlay");
             if (!themeOms)

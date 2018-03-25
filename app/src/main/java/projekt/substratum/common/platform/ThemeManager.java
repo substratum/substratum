@@ -51,6 +51,7 @@ import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.SamsungOverlayCacher;
+import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.helpers.Root;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -61,6 +62,7 @@ import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_SAMSUNG_OVERLAY_CACHE;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.P_DIR;
 import static projekt.substratum.common.Resources.FRAMEWORK;
 import static projekt.substratum.common.Resources.PIXEL_OVERLAY_PACKAGES;
 import static projekt.substratum.common.Resources.SETTINGS;
@@ -729,6 +731,15 @@ public enum ThemeManager {
             temp.removeAll(listOverlays(context, STATE_DISABLED));
             disableOverlay(context, temp);
             shouldRestartUi = shouldRestartUI(context, temp);
+        }
+
+        if (Systems.checkP()) {
+            FileOperations.mountRW();
+            for (String overlay : overlays) {
+                FileOperations.bruteforceDelete(P_DIR + '_' + overlay + ".apk");
+            }
+            FileOperations.mountRO();
+            return;
         }
 
         // if enabled list is not contains any overlays

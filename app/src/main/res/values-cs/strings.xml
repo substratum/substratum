@@ -300,9 +300,13 @@ To znamená, že když má potah nejvyšší prioritu, budou zdroje potahů vyta
     <string name="no_themes_description">prosím, nainstalujte kompatibilní motiv!</string>
     <string name="no_themes_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných motivů&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných potahů&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum se nemohlo připojit k podpoře Andromeda.</string>
     <string name="toast_could_not_uninstall">Nebyly vybrány žádné platné potahy.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skrylo nepodporované potahy systému pro vaše zařízení!</string>
+    <string name="andromeda_debug_menu_alert">v současnosti probíhá ladění sestavení Substratum. Zajistěte, aby byla v nastaveníc Andromeda zapnuta volba \'bypass check\', nastavení vyvoláte kliknutím na kartu připojení osmkrát.</string>
+    <string name="andromeda_disconnected">desktopový klient Andromeda se musí připojit k zařízení, aby mohl fungovat se Substratum!\n\nExistující potahy nainstalované v zařízení můžete odinstalovat v offline režimu.</string>
     <string name="andromeda_check_status">Zkontrolovat stav</string>
+    <string name="andromeda_offline_mode">Režim offline</string>
     <string name="andromeda_no_root_dialog">Zdá se, že používáte podporované zařízení Oreo, pro které byl vydán podpůrný modul!</string>
     <string name="andromeda_no_root_dialog_button">Stáhnout teď!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá se, že používáte podporované zařízení Samsung, pro které byl vydán podpůrný modul!</string>

@@ -294,9 +294,13 @@
     <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
     <string name="no_themes_description_search">\"%s\" nepavyko rasti tarp įdiegtų temų&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" sąraše nepavyko rasti įdiegtų perdangų&#8230;</string>
+    <string name="toast_andromeda_timed_out">\"Substratum\" negali prisijungti prie \"Andromeda\".</string>
     <string name="toast_could_not_uninstall">Nepasirinktos jokios galiojančios perdangos.</string>
     <string name="toast_samsung_prototype_alert">\"Substratum\", jūsų įrenginiui, automatiškai paslepia nepalaikomas sistemos perdangas!</string>
+    <string name="andromeda_debug_menu_alert">šiuo metu jūs naudojate \"substratum\" derinimo konstrukcija. įsitikinkite, kad \'apeiti patikra\' įjungtas po to, kai spustelėjote prisijungimo kortelę aštuonis kartus.</string>
+    <string name="andromeda_disconnected">\"andromeda\" darbalaukio klientui reikia prisijungti prie jūsų įrenginio, kad galėtu funkcionuoti su \"substratum\"!\n\njūs vis dar galite išdiegti esamas perdangas, įdiegtas įrenginye, naudodami režimą neprisijungus.</string>
     <string name="andromeda_check_status">Patikrinti būseną</string>
+    <string name="andromeda_offline_mode">Režimas neprisijungus</string>
     <string name="andromeda_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"Oreo\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>
     <string name="andromeda_no_root_dialog_button">Atsisiųsti dabar!</string>
     <string name="samsung_prototype_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"Samsung\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>

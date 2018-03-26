@@ -278,9 +278,13 @@
     <string name="no_themes_description">proszę zainstalować zgodny motyw!</string>
     <string name="no_themes_description_search">Nie znaleziono \"%s\" na liście zainstalowanych motywów&#8230;</string>
     <string name="no_overlays_description_search">Nie znaleziono \"%s\"  na liście zainstalowanych nakładek&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum nie może połączyć się z bazą danych Andromedy.</string>
     <string name="toast_could_not_uninstall">Nie wybrano prawidłowych nakładek.</string>
     <string name="toast_samsung_prototype_alert">Substratum automatycznie ukrył nieobsługiwane nakładki systemowe urządzenia!</string>
+    <string name="andromeda_debug_menu_alert">w tej chwili używasz debugowej kompilacji substratum. Upewnij się, że masz włączoną opcję \"obejścia\" w Andromedzie po osmiokrotnym kliknięciu karty połączenia.</string>
+    <string name="andromeda_disconnected">klient pulpitu Andromedy musi połączyć się z twoim urządzeniem, aby móc działać z substratum!\n\n Nadal możesz odinstalować istniejące nakładki zainstalowane na urządzeniu w trybie offline.</string>
     <string name="andromeda_check_status">Sprawdź status</string>
+    <string name="andromeda_offline_mode">Tryb offline</string>
     <string name="andromeda_no_root_dialog">Wydaje się, że jesteś na obsługiwanym urządzeniu z Oreo, dodatek został już wydany!</string>
     <string name="andromeda_no_root_dialog_button">Pobierz teraz!</string>
     <string name="samsung_prototype_no_root_dialog">Wydaje się, że jesteś na obsługiwanym urządzeniu Samsung, dodatek został wydany w celu wsparcia tego!</string>

@@ -286,9 +286,13 @@
     <string name="no_themes_description">Per favore installa un tema compatibile!</string>
     <string name="no_themes_description_search">\"%s\" non è stato trovato nell\'elenco dei temi installati&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" non è stato trovato nell\'elenco delle sovrapposizioni installate&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum non è riuscito a connettersi con il backend di Andromeda.</string>
     <string name="toast_could_not_uninstall">Nessuna sovrapposizione valida selezionata.</string>
     <string name="toast_samsung_prototype_alert">Substratum ha nascosto automaticamente le sovrapposizioni di sistema non supportate dal tuo dispositivo!</string>
+    <string name="andromeda_debug_menu_alert">stai attualmente eseguendo una versione di debug di substratum. Assicurati di aver abilitato il \"bypass check\" in Andromeda dopo aver cliccato sulla scheda di connessione otto volte.</string>
+    <string name="andromeda_disconnected">il client desktop di andromeda ha bisogno di connettersi al tuo dispositivo per essere in grado di funzionare con un substratum!\n\nPuoi ancora disinstallare le sovrapposizioni installate sul dispositivo usando la modalità offline.</string>
     <string name="andromeda_check_status">Controlla stato</string>
+    <string name="andromeda_offline_mode">Modalità offline</string>
     <string name="andromeda_no_root_dialog">Sembra che tu sia su un dispositivo Oreo supportato, è stata rilasciata un addon per supportarlo!</string>
     <string name="andromeda_no_root_dialog_button">Scarica ora!</string>
     <string name="samsung_prototype_no_root_dialog">Sembra tu abbia un dispositivo Samsung supportato, un add-on è stato rilasciato per supportarlo!</string>

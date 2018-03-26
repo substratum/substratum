@@ -283,9 +283,13 @@
     <string name="no_themes_description">prosím, nainštalujte kompatibilnú tému!</string>
     <string name="no_themes_description_search">\"%s\" nebola nájdená v zozname nainštalovaných tém&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" nebola nájdená v zozname nainštalovaných prekrytí&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum sa nemohol spojiť s podporou Andromedy.</string>
     <string name="toast_could_not_uninstall">Nebolo zvolené žiadne platné prekrytie.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skryl nepodporované prekrytia systému pre vaše zariadenie!</string>
+    <string name="andromeda_debug_menu_alert">V súčasnosti prebieha ladenie zostavenia Substratum. Zaistite, aby bola v nastaveniach Andromeda zapnutá voľba \'bypass check\', nastavenia vyvoláte kliknutím na kartu pripojenia osemkrát.</string>
+    <string name="andromeda_disconnected">Desktopový klient Andromeda sa musí pripojiť k vášmu zariadeniu, aby mohol fungovať so Substratum!\n\nExistujúce prekrytia nainštalované v zariadení môžete odinštalovať v offline režime.</string>
     <string name="andromeda_check_status">Skontrolovať stav</string>
+    <string name="andromeda_offline_mode">Režim offline</string>
     <string name="andromeda_no_root_dialog">Zdá sa, že používate podporované Oreo zariadenie, pre ktoré bol vydaný podporný modul!</string>
     <string name="andromeda_no_root_dialog_button">Stiahnuť teraz!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá sa, že používate podporované zariadenie Samsung, pre ktoré bol vydaný podporný modul!</string>

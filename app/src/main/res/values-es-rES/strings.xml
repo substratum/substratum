@@ -16,7 +16,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
-    <string name="showcase">mostrador</string>
+    <string name="showcase">Mostrador</string>
     <string name="android">Versión de Android:</string>
     <string name="device">Modelo del dispositivo:</string>
     <string name="resource_checker">Validador de Commits</string>
@@ -320,9 +320,13 @@
         instalados&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" no se encontró en la lista de
         capas instaladas&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum no se pudo conectar con el apoyo de Andromeda.</string>
     <string name="toast_could_not_uninstall">No se han seleccionado capas válidas.</string>
     <string name="toast_samsung_prototype_alert">¡Substratum ocultó automáticamente las capas del sistema no soportadas por su dispositivo!</string>
+    <string name="andromeda_debug_menu_alert">Actualmente está ejecutando una versión de depuración de Substrato. Asegúrese que tiene habilitado \'bypass check\' (control de derivación) en Andromeda después de hacer clic ocho veces en la tarjeta de conexión.</string>
+    <string name="andromeda_disconnected">El cliente de escritorio de Andromeda necesita conectarse a su dispositivo para poder funcionar con Substratum\n\n Tú todavía puedes desinstalar las capas existentes que estén instaladas en el dispositivo utilizando el modo offline.</string>
     <string name="andromeda_check_status">Comprobar estado</string>
+    <string name="andromeda_offline_mode">Modo Offline</string>
     <string name="andromeda_no_root_dialog">¡Parece que está utilizando un dispositivo Oreo que permite tematización, se lanzó un complemento para soportarlo!</string>
     <string name="andromeda_no_root_dialog_button">¡Descargar ahora!</string>
     <string name="samsung_prototype_no_root_dialog">Parece que estás en un dispositivo compatible de Samsung, un addon (complemento) fue lanzado para apoyar esto!</string>

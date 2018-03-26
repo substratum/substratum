@@ -36,7 +36,7 @@
     <string name="resource_commit_dialog_title">在 %s 中缺少资源</string>
     <string name="showcase_no_connection">主题展示需要网络连接才能正常工作！</string>
     <string name="refused_to_install_notification_button">移除主题</string>
-    <string name="refused_to_install_title_notification">主题作者不允许该主题在三星设备上安装。</string>
+    <string name="refused_to_install_title_notification">Themer 拒绝在三星设备上安装主题。</string>
     <string name="refused_to_install_text_notification">%s 安装失败。</string>
     <string name="failed_to_install_title_notification">未能安装 OMS 主题</string>
     <string name="failed_to_install_text_notification">%s 安装失败。</string>
@@ -226,10 +226,10 @@
     <string name="priority_instructions_content">通过优先级动态调整系统，您可以调整叠加层的优先级。
 这意味着当指定的叠加层拥有最高的优先级，对应的叠加层资源将会优先被提取，然后再提取接下来的叠加层资源。
 \n
-\n对于系统为Android Oreo的设备，顶叠加层的优先级是最高的。
+\n对于 Oreo 设备，顶叠加层的优先级是最高的。
 \n
-\n对于系统为Android Nougat的设备，底层叠加层的优先级是最高的。    </string>
-    <string name="priority_no_multiple_overlays_title">没有应用具有多个叠加层</string>
+\n对于 Nougat 设备，底层叠加层的优先级是最高的。    </string>
+    <string name="priority_no_multiple_overlays_title">没有具有多个叠加层的应用程序</string>
     <string name="priority_no_multiple_overlays_text">使用此功能需要您对同一应用启用多个叠加层！</string>
     <string name="manager_no_overlays_title">没有已安装的叠加层</string>
     <string name="manager_no_overlays_text">使用此功能需要您编译一个叠加层</string>
@@ -281,9 +281,13 @@
     <string name="no_themes_description">请安装一个兼容的主题</string>
     <string name="no_themes_description_search">在已安装的主题列表中无法找到 \"%s\"</string>
     <string name="no_overlays_description_search">在已安装的叠加层列表中无法找到 \"%s\"</string>
+    <string name="toast_andromeda_timed_out">Substratum 无法连接到 Andromeda 后端</string>
     <string name="toast_could_not_uninstall">没有选择有效的叠加层</string>
     <string name="toast_samsung_prototype_alert">Substratum 会自动隐藏不支持此设备的系统叠加层</string>
+    <string name="andromeda_debug_menu_alert">您当前运行的是 Substratum 调试版本。请先在连接卡连点 8 次，以确保在 Andromeda 启用 “旁路检测”。</string>
+    <string name="andromeda_disconnected">Andromeda 客户端需要连接到您的设备才能运行 Substratum 的功能\n\n您仍可以通过离线模式卸载已安装的覆盖层</string>
     <string name="andromeda_check_status">检查状态</string>
+    <string name="andromeda_offline_mode">离线模式</string>
     <string name="andromeda_no_root_dialog">看来, 你是在使用一个支持主题的奥利奥设备, 一个插件将被释放来支持这一点!</string>
     <string name="andromeda_no_root_dialog_button">立即下载</string>
     <string name="samsung_prototype_no_root_dialog">一个新插件已经发布，您的三星设备已受支持。</string>

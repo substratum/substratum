@@ -275,9 +275,13 @@
     <string name="no_themes_description">installeer een compatibel thema!</string>
     <string name="no_themes_description_search">\"%s\" werd niet gevonden in de lijst van geïnstalleerde thema\'s&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" werd niet gevonden in de lijst van geïnstalleerde overlays&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum kan niet verbinden met de Andromeda backend.</string>
     <string name="toast_could_not_uninstall">Geen geldige overlays geselecteerd.</string>
     <string name="toast_samsung_prototype_alert">Substratum heeft automatisch niet-ondersteunde systeemoverlays verborgen voor jouw apparaat!</string>
+    <string name="andromeda_debug_menu_alert">je draait momenteel een debug build van substratum. verzeker dat je \'bypass check\' hebt ingeschakeld in Andromeda na acht keer tikken van de verbindingskaart.</string>
+    <string name="andromeda_disconnected">de andromeda desktop client moet verbinding maken met je apparaat om te kunnen functioneren met substratum!\n\nje kunt geïnstalleerde overlays deïnstalleren met behulp van de offline modus.</string>
     <string name="andromeda_check_status">Status controleren</string>
+    <string name="andromeda_offline_mode">Offline modus</string>
     <string name="andromeda_no_root_dialog">Het lijkt erop dat je een ondersteund Oreo apparaat hebt, hiervoor is een ondersteunende add-on vrijgegeven!</string>
     <string name="andromeda_no_root_dialog_button">Download nu!</string>
     <string name="samsung_prototype_no_root_dialog">Het lijkt erop dat je een ondersteund Samsung apparaat hebt, hiervoor is een ondersteunende add-on vrijgegeven!</string>

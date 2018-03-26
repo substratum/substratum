@@ -26,7 +26,7 @@
     <string name="resource_needs_internet">ROM\'unuzun hata bildirimlerini doğrulamak için lütfen internete bağlanın!</string>
     <string name="resource_validated">Tüm hata bildirimleri sağlam!</string>
     <string name="rooted_oms_dialog_warning_title">Dinamik Temalar ve Kök Erişimi</string>
-    <string name="rooted_oms_dialog_warning_text">Eğer masquerade arka plan sistemimiz olduğu zaman bizimle birlikte olsaydınız OMS ile birçok şey yapmak için kök erişimi gerektiğini bilirdiniz. Sistemin son derece yavaş olduğu zamanlar böyleydi!\n\nAyrıca, substratum\'u masquerade olmadan çalıştırabilecek ve herhangi bir kaynak değişikliğini uygulamamızdan yükleyen bir modumuz vardı, yani substratum, yapılandırma değişiklikleri son derece ağır olduğu için, etkinleştirirken veya devre dışı bırakıldığında gecikmeye başlar!\n\nEğer yapabilirseniz, hızlı tema uygulamayı deneyimlemek için Andromeda veya özel bir ROM gibi; kök erişimi olmayan bir varyantı çalıştırmanız şiddetle öneriyoruz.\n\nKök erişimli varyantı kullanmaya devam ederseniz, substratum\'un herhangi bir yapılandırma değişikliğini sisteme yükleyememesi nedeniyle uygulamada gecikmeler ve performans sorunları olacaktır!</string>
+    <string name="rooted_oms_dialog_warning_text">Eğer masquerade arka uç sistemimiz olduğu zaman bizimle birlikte olsaydınız OMS ile birçok şey yapmak için kök erişimi gerektiğini bilirdiniz. Sistemin son derece yavaş olduğu zamanlar böyleydi!\n\nAyrıca, substratum\'u masquerade olmadan çalıştırabilecek ve herhangi bir kaynak değişikliğini uygulamamızdan yükleyen bir modumuz vardı, yani substratum, yapılandırma değişiklikleri son derece ağır olduğu için, etkinleştirirken veya devre dışı bırakıldığında gecikmeye başlar!\n\nEğer yapabilirseniz, hızlı tema uygulamayı deneyimlemek için Andromeda veya özel bir ROM gibi; kök erişimi olmayan bir varyantı çalıştırmanız şiddetle öneriyoruz.\n\nKök erişimli varyantı kullanmaya devam ederseniz, substratum\'un herhangi bir yapılandırma değişikliğini sisteme yükleyememesi nedeniyle uygulamada gecikmeler ve performans sorunları olacaktır!</string>
     <string name="interfacer_notification_title">Substratum ve Arayüz bağlı!</string>
     <string name="interfacer_notification_text">Arka plan tema hizmetleri bağlı, etkin ve çalışıyor.</string>
     <string name="andromeda_notification_title">Substratum ve Andromeda bağlı!</string>
@@ -350,9 +350,13 @@
         bulunamadı&#8230;</string>
     <string name="no_overlays_description_search">\'\'%s\'\' yüklü temalar listesinde
         bulunamadı&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum Andromeda arka ucuna bağlanamadı.</string>
     <string name="toast_could_not_uninstall">Geçerli temalar seçilmedi.</string>
     <string name="toast_samsung_prototype_alert">Substratum, cihazınız için desteklenmeyen sistem temalarını otomatik olarak gizledi!</string>
+    <string name="andromeda_debug_menu_alert">şu anda substratum için bir hata ayıklama derlemesi çalıştırıyorsunuz. sekiz kez bağlantı kartını tıkladıktan sonra Andromeda\'da \'bypass check\' özelliğini etkinleştirdiğinizden emin olun.</string>
+    <string name="andromeda_disconnected">andromeda masaüstü istemcisi, substratum ile çalışabilmek için cihazınıza bağlanmalıdır!\n\nçevrimdışı modu kullanarak cihazda yüklü olan mevcut temaları kaldırmaya devam edebilirsiniz.</string>
     <string name="andromeda_check_status">Durumu kontrol et</string>
+    <string name="andromeda_offline_mode">Çevrimdışı mod</string>
     <string name="andromeda_no_root_dialog">Öyle görünüyor ki, desteklenen bir temalı Oreo cihazı kullanıyorsunuz, bunu desteklemek için bir eklenti yayınlandı!</string>
     <string name="andromeda_no_root_dialog_button">Şimdi indirin!</string>
     <string name="samsung_prototype_no_root_dialog">Öyle görünüyor ki, desteklenen bir Samsung cihazını kullanıyorsunuz, bunu desteklemek için bir eklenti yayınlandı!</string>

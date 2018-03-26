@@ -168,6 +168,9 @@ eingerichtet&#8230;</string>
     <string name="manage_system_overlay_toast">System-Theme wird wiederhergestellt&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Overlays werden im Hintergrund deinstalliert&#8230;</string>
     <string name="manage_system_not_permitted">Bitte wähle ein gültige Overlay, um den Status zu ändern.</string>
+    <string name="manage_wallpaper_home">Startbildschirm Hintergrund wiederherstellen</string>
+    <string name="manage_wallpaper_lock">Sperrbildschirm Hintergrund wiederherstellen</string>
+    <string name="manage_wallpaper_all">Start- und Sperrbildschirm-Hintergründe wiederherstellen</string>
     <string name="manage_wallpaper_home_toast">Startbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_lock_toast">Sperrbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_all_toast">Hintergrund erfolgreich wiederhergestellt!</string>
@@ -272,9 +275,11 @@ eingerichtet&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" wurde nicht in der Liste von installierten Overlays gefunden&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum konnte keine Verbindung mit dem Andromeda-Backend herstellen.</string>
     <string name="toast_could_not_uninstall">Keine gültigen Overlays ausgewählt.</string>
     <string name="toast_samsung_prototype_alert">Substratum hat automatisch nicht unterstützte System-Overlays für dein Gerät versteckt!</string>
     <string name="andromeda_check_status">Überprüfe Status</string>
+    <string name="andromeda_offline_mode">Offline-Modus</string>
     <string name="andromeda_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten themebaren Oreo Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="andromeda_no_root_dialog_button">Jetzt herunterladen!</string>
     <string name="samsung_prototype_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Samsung-Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
@@ -346,6 +351,7 @@ eingerichtet&#8230;</string>
     <string name="team_text_four">Diese Leute haben in der Vergangenheit bereits den Layers-Manager verwirklicht und haben auch seitdem viel dazu beigetragen, dass Substratum uns jetzt zur Verfügung steht!</string>
     <string name="team_button_four">Mitwirkende anzeigen</string>
     <string name="team_nicholas_description">Entwicklungs-Koordinator</string>
+    <string name="team_syko_description">System Forscher</string>
     <string name="team_ivan_description">Plattform &amp; Funktionen</string>
     <string name="team_surge_description">Binärdateien &amp; Algorithmen</string>
     <string name="team_char_description">Community-Organisation &amp; Support</string>

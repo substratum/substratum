@@ -310,9 +310,13 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.   
     <string name="no_themes_description">favor instalar um tema compatível!</string>
     <string name="no_themes_description_search">\"%s\" não foi encontrado na lista de temas instalados&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" não foi encontrado na lista de camadas instaladas&#8230;</string>
+    <string name="toast_andromeda_timed_out">O substratum não conseguiu ligar-se ao backend do Andromeda.</string>
     <string name="toast_could_not_uninstall">Nenhuma camada válida selecionada.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticamente escondeu as sobreposições de sistema sem suporte para o seu dispositivo!</string>
+    <string name="andromeda_debug_menu_alert">Está atualmente a usar uma compilação de depuração do substratum. Certifique-se que tem ativada a opção \"ignorar verificação\" no Andromeda depois de tocar oito vezes no cartão de ligação.</string>
+    <string name="andromeda_disconnected">O cliente da área de trabalho do Andromeda necessita de se ligar ao seu dispositivo para funcionar com o substratum!\n\nAinda pode desinstalar sobreposições existentes que tenha instaladas no dispositivo através do modo offline.</string>
     <string name="andromeda_check_status">Verificar status</string>
+    <string name="andromeda_offline_mode">Modo offline</string>
     <string name="andromeda_no_root_dialog">Parece que você está num dispositivo Oreo com suporte a temas, um plugin foi lançado para torná-lo compatível!</string>
     <string name="andromeda_no_root_dialog_button">Baixe Agora!</string>
     <string name="samsung_prototype_no_root_dialog">Parece que você está em um dispositivo Samsung suportado, um complemento foi lançado para suportar isso!</string>

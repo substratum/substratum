@@ -347,9 +347,13 @@
         nem található&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" a telepített fedvények
         listájában nem található&#8230;</string>
+    <string name="toast_andromeda_timed_out">Substratum nem tud kapcsolódni az Andromeda támogatáshoz.</string>
     <string name="toast_could_not_uninstall">Nincs érvényes kijelölt fedvény.</string>
     <string name="toast_samsung_prototype_alert">Substratum automatikusan elrejtette a készülékén nem támogatott rendszerfedvényeket!</string>
+    <string name="andromeda_debug_menu_alert">jelenleg a substratum egy hibakeresés alapú verzióját futtatja. győződjön meg róla, hogy az Andromedában engedélyezte a \"bypass check\" lehetőséget, miután a csatlakozási kártyára nyolcszor kattintott.</string>
+    <string name="andromeda_disconnected">az andromeda asztali kliensnek csatlakoznia kell a készülékéhez, hogy együttműködhessen a substratummal!\n\naz eszközön lévő meglévő fedvényeket offline módban is eltávolíthatja.</string>
     <string name="andromeda_check_status">Állapot ellenőrzése</string>
+    <string name="andromeda_offline_mode">Kapcsolat nélküli mód</string>
     <string name="andromeda_no_root_dialog">Úgy tűnik, hogy támogatott Oreos eszközt használ, egy add-on készült ennek támogatásához!</string>
     <string name="andromeda_no_root_dialog_button">Töltse le most!</string>
     <string name="samsung_prototype_no_root_dialog">Úgy tűnik, hogy támogatott Samsung eszközt használ, egy add-on készült ennek támogatásához!</string>

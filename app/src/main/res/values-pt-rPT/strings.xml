@@ -318,9 +318,13 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
         instalados&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" não foi encontrada na lista de
         sobreposições instaladas&#8230;</string>
+    <string name="toast_andromeda_timed_out">O substratum não conseguiu ligar-se ao backend do Andromeda.</string>
     <string name="toast_could_not_uninstall">Sem sobreposições válidas selecionadas.</string>
     <string name="toast_samsung_prototype_alert">O Substratum irá esconder automaticamente sobreposições de sistema não suportadas pelo seu dispositivo!</string>
+    <string name="andromeda_debug_menu_alert">Está atualmente a usar uma compilação de depuração do substratum. Certifique-se que tem ativada a opção \"ignorar verificação\" no Andromeda depois de tocar oito vezes no cartão de ligação.</string>
+    <string name="andromeda_disconnected">O cliente da área de trabalho do Andromeda necessita de se ligar ao seu dispositivo para funcionar com o substratum!\n\nAinda pode desinstalar sobreposições existentes que tenha instaladas no dispositivo através do modo offline.</string>
     <string name="andromeda_check_status">Verificar estado</string>
+    <string name="andromeda_offline_mode">Modo offline</string>
     <string name="andromeda_no_root_dialog">Parece que está a utilizar um dispositivo suportado com Android Oreo. Foi lançado um plugin para torná-lo compatível!</string>
     <string name="andromeda_no_root_dialog_button">Transferir agora!</string>
     <string name="samsung_prototype_no_root_dialog">Parece que está a utilizar um dispositivo Samsung suportado. Foi lançado um plugin para torná-lo compatível!</string>

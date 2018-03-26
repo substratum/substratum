@@ -571,7 +571,10 @@ enum OverlaysManager {
                 }
 
                 // Enable finish install listener
-                boolean needToWait = Substratum.needToWaitInstall() && Systems.checkOMS(context);
+                boolean needToWait =
+                        !Systems.isNewSamsungDevice() &&
+                        Substratum.needToWaitInstall() &&
+                        Systems.checkOMS(context);
                 if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();
                 }
@@ -1379,7 +1382,8 @@ enum OverlaysManager {
                             String packageName =
                                     o.substring(o.lastIndexOf('/') + 1, o.lastIndexOf('-'));
                             packages.add(packageName);
-                            if ((checkThemeInterfacer(context) &&
+                            if (!Systems.isNewSamsungDevice() &&
+                                    (checkThemeInterfacer(context) &&
                                     !Systems.isBinderInterfacer(context)) ||
                                     Systems.checkAndromeda(context)) {
                                 // Wait until the overlays to fully install so on compile enable

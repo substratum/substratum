@@ -164,7 +164,7 @@
     <string name="menu_favorite_snackbar_cleared">Poistettiin %s olemasta sovelluksen pikakuvake.</string>
     <string name="launcher_shortcut">Pikakuvake Launcherissa</string>
     <string name="launcher_shortcut_toast">Launcher-ikoni luotiin onnistuneesti!</string>
-    <string name="changelog_title">%s teeman muutosloki</string>
+    <string name="changelog_title" formatted="false">%s teeman muutosloki</string>
     <string name="dialog_restart_systemui_title">Uudelleenkäynnistä SystemUI</string>
     <string name="dialog_restart_systemui_content">Tämä suorittaa SystemUI-uudelleenkäynnistyksen laitteellasi.</string>
     <string name="dialog_restart_reboot_title">Käynnistä uudelleen</string>

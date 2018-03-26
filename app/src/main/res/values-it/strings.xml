@@ -208,7 +208,7 @@
     <string name="menu_favorite_snackbar_cleared">%s è stata rimossa come scorciatoia app.</string>
     <string name="launcher_shortcut">Scorciatoia nel Launcher</string>
     <string name="launcher_shortcut_toast">Icona di avvio creata con successo!</string>
-    <string name="changelog_title">Cambiamenti del tema %s</string>
+    <string name="changelog_title" formatted="false">Cambiamenti del tema %s</string>
     <string name="dialog_restart_systemui_title">Riavvia SystemUI</string>
     <string name="dialog_restart_systemui_content">Questo eseguirà un riavvio del SystemUI sul tuo dispositivo.</string>
     <string name="dialog_restart_reboot_title">Riavvia</string>

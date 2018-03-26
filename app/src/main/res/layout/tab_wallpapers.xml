@@ -42,8 +42,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
                 android:layout_below="@id/image_placeholder"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:text="@string/wallpaper_no_wallpapers"
                 android:textAllCaps="true"
@@ -69,8 +69,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
                 android:layout_below="@id/image_placeholder2"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:text="@string/wallpaper_no_connection"
                 android:textAllCaps="true"
@@ -85,8 +85,8 @@
             style="?android:attr/indeterminateProgressStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
             android:layout_centerInParent="true"
+            android:layout_gravity="top|center_horizontal"
             android:indeterminate="true"
             android:paddingTop="50dp" />
 

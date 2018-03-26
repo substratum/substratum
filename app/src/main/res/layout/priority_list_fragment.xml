@@ -35,9 +35,9 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingEnd="15dp"
             android:paddingStart="15dp"
-            android:paddingTop="10dp" />
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp" />
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -47,9 +47,9 @@
                 android:id="@+id/profile_apply_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom|end"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="15dp"
-                android:layout_gravity="center|bottom|end"
                 android:src="@drawable/fab_profile_save"
                 android:visibility="invisible"
                 app:backgroundTint="@color/fab_background_color"

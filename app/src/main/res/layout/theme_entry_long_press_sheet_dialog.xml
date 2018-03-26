@@ -37,16 +37,16 @@
                 android:id="@+id/icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginEnd="10dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/default_overlay_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toStartOf="@id/icons"
                 android:layout_toEndOf="@+id/icon"
-                android:layout_centerVertical="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -74,9 +74,9 @@
                 android:id="@+id/icons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="3dp"
-                android:layout_alignParentEnd="true"
                 android:clickable="false"></RelativeLayout>
 
         </RelativeLayout>
@@ -96,8 +96,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawablePadding="16dp"
                 android:drawableStart="@drawable/toolbar_favorite"
+                android:drawablePadding="16dp"
                 android:drawableTint="@color/main_screen_card_theme_title"
                 android:gravity="center"
                 android:text="@string/menu_favorite"
@@ -118,8 +118,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawablePadding="16dp"
                 android:drawableStart="@drawable/ic_rate"
+                android:drawablePadding="16dp"
                 android:drawableTint="@color/main_screen_card_theme_title"
                 android:gravity="center"
                 android:text="@string/menu_rate"
@@ -140,8 +140,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawablePadding="16dp"
                 android:drawableStart="@drawable/ic_launch"
+                android:drawablePadding="16dp"
                 android:drawableTint="@color/main_screen_card_theme_title"
                 android:gravity="center"
                 android:text="@string/launcher_shortcut"
@@ -162,8 +162,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawablePadding="16dp"
                 android:drawableStart="@drawable/uninstall_sheet_icon"
+                android:drawablePadding="16dp"
                 android:drawableTint="@color/main_screen_card_theme_title"
                 android:gravity="center"
                 android:text="@string/uninstall_dialog_body"

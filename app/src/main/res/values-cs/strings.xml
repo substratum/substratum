@@ -215,7 +215,7 @@
     <string name="menu_favorite_snackbar_cleared">Odstraněn zástupce aplikace pro %s.</string>
     <string name="launcher_shortcut">Odkaz na spouštěč</string>
     <string name="launcher_shortcut_toast">Ikona spouštěče byla úspěšně vytvořena!</string>
-    <string name="changelog_title">%s seznam změn motivu</string>
+    <string name="changelog_title" formatted="false">%s seznam změn motivu</string>
     <string name="dialog_restart_systemui_title">Restartovat SystemUI</string>
     <string name="dialog_restart_systemui_content">Takto provedete restartování SystemUI na vašem zařízení.</string>
     <string name="dialog_restart_reboot_title">Restart</string>

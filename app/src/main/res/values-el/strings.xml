@@ -100,7 +100,7 @@
     <string name="menu_favorite_snackbar_cleared">Έχει αφαιρεθεί %s από συντόμευση εφαρμογής.</string>
     <string name="launcher_shortcut">Συντόμευση στο πρόγραμμα εγκατάστασης</string>
     <string name="launcher_shortcut_toast">Δημιουργήθηκε με επιτυχία ένα εικονίδιο του προγράμματος εγκατάστασης!</string>
-    <string name="changelog_title">%s Περιοχέμενα αναβάθμισης θέματος</string>
+    <string name="changelog_title" formatted="false">%s Περιοχέμενα αναβάθμισης θέματος</string>
     <string name="dialog_restart_systemui_content">Αυτό θα επανεκκινήσει το περιβάλλον συστήματος (SystemUI) της συσκευής σας.</string>
     <string name="dialog_restart_reboot_title">Επανεκκίνηση</string>
     <string name="dialog_restart_reboot_content">Αυτό θα εκτελέσει μια πλήρη επανεκκίνηση στη συσκευή σας.</string>

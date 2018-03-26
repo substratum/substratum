@@ -243,7 +243,7 @@
     <string name="menu_favorite_snackbar_cleared">%s eltávolítva, hogy egy alkalmazás parancsikon legyen.</string>
     <string name="launcher_shortcut">Parancsikon az indítóban</string>
     <string name="launcher_shortcut_toast">Indító ikon sikeresen létrehozva!</string>
-    <string name="changelog_title">%s téma változáslista</string>
+    <string name="changelog_title" formatted="false">%s téma változáslista</string>
     <string name="dialog_restart_systemui_title">SystemUI újraindítása</string>
     <string name="dialog_restart_systemui_content">Ez egy SystemUI újraindítást fog végrehajtani az eszközén.</string>
     <string name="dialog_restart_reboot_title">Újraindítás</string>

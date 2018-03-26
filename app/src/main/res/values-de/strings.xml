@@ -200,7 +200,7 @@ eingerichtet&#8230;</string>
     <string name="menu_favorite_snackbar_cleared">%s als App-Verknüpfung entfernt.</string>
     <string name="launcher_shortcut">Verknüpfung auf dem Startbildschirm</string>
     <string name="launcher_shortcut_toast">Verknüpfung auf dem Startbildschirm wurde erstellt!</string>
-    <string name="changelog_title">%s Theme-Änderungsprotokoll</string>
+    <string name="changelog_title" formatted="false">%s Theme-Änderungsprotokoll</string>
     <string name="dialog_restart_systemui_title">SystemUI neustarten</string>
     <string name="dialog_restart_systemui_content">Dies wird einen Neustart der System-Oberfläche ihres Gerätes durchführen.</string>
     <string name="dialog_restart_reboot_title">Neustarten</string>

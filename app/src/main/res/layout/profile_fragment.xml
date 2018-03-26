@@ -69,30 +69,30 @@
                             android:id="@+id/tv_content_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/tv"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_below="@id/tv"
                             android:text="@string/backup_card_content" />
 
                         <TextView
                             android:id="@+id/tv1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_content_1"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="20dp"
-                            android:layout_below="@id/tv_content_1"
                             android:text="@string/profile_edittext_title" />
 
                         <EditText
                             android:id="@+id/edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/tv1"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="-11dp"
                             android:layout_marginEnd="16dp"
                             android:layout_toEndOf="@+id/tv1"
-                            android:layout_alignTop="@+id/tv1"
                             android:hint="@string/profile_edittext_hint"
                             android:imeOptions="actionNext"
                             android:inputType="textNoSuggestions"
@@ -103,8 +103,8 @@
                             android:id="@+id/backupButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:layout_below="@+id/edittext"
+                            android:layout_marginTop="5dp"
                             android:background="@color/backup_button"
                             android:clickable="true"
                             android:focusable="true"
@@ -120,10 +120,10 @@
                     android:id="@+id/cardListView2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_below="@id/cardListView"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="15dp"
-                    android:layout_below="@id/cardListView"
                     android:backgroundTint="@color/main_screen_card_background"
                     card_view:cardBackgroundColor="@color/main_screen_card_background"
                     card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
@@ -147,29 +147,29 @@
                             android:id="@+id/tv_content_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/tv3"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_below="@id/tv3"
                             android:text="@string/restore_card_content" />
 
                         <Spinner
                             android:id="@+id/restore_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_below="@id/tv_content_2"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="16dp"
-                            android:layout_toStartOf="@+id/remove_profile"
-                            android:layout_below="@id/tv_content_2" />
+                            android:layout_toStartOf="@+id/remove_profile" />
 
                         <ImageButton
                             android:id="@+id/remove_profile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="5dp"
                             android:layout_below="@+id/tv_content_2"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="5dp"
                             android:backgroundTint="@android:color/transparent"
                             android:clickable="true"
                             android:focusable="true"
@@ -181,8 +181,8 @@
                             android:id="@+id/restore_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:layout_below="@+id/restore_spinner"
+                            android:layout_marginTop="5dp"
                             android:background="@color/restore_button"
                             android:clickable="true"
                             android:focusable="true"
@@ -198,8 +198,8 @@
                     android:id="@+id/card_view_list3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="15dp"
                     android:layout_below="@id/cardListView2"
+                    android:layout_margin="15dp"
                     card_view:cardBackgroundColor="@color/theme_card_background"
                     card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
                     card_view:cardElevation="@dimen/main_screen_card_corner_elevation">
@@ -211,9 +211,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_above="@+id/tv_content_3"
                             android:layout_alignTop="@+id/profile_switch"
+                            android:layout_marginStart="16dp"
                             android:gravity="center_vertical"
                             android:text="@string/scheduled_night_profile"
                             android:textColor="@color/colorAccent"
@@ -223,19 +223,19 @@
                             android:id="@+id/profile_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_alignParentEnd="true" />
+                            android:layout_marginEnd="16dp" />
 
                         <TextView
                             android:id="@+id/tv_content_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/profile_switch"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_below="@id/profile_switch"
                             android:text="@string/scheduled_profile_card_content" />
 
                         <net.cachapa.expandablelayout.ExpandableLayout
@@ -340,8 +340,8 @@
                             android:id="@+id/apply_schedule_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
                             android:layout_below="@id/scheduled_profile_card_content_container"
+                            android:layout_marginTop="16dp"
                             android:background="@color/restore_button"
                             android:clickable="true"
                             android:focusable="true"

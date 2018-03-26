@@ -100,7 +100,7 @@
     <string name="menu_uninstall">解除安裝主題</string>
     <string name="menu_favorite_snackbar">已成功將 %s 設定為 App捷徑！</string>
     <string name="menu_favorite_snackbar_cleared">已成功將 %s 從 App捷徑 中移除。</string>
-    <string name="changelog_title">%s 主題更新紀錄</string>
+    <string name="changelog_title" formatted="false">%s 主題更新紀錄</string>
     <string name="dialog_restart_systemui_title">重新啟動 SystemUI</string>
     <string name="dialog_restart_reboot_title">重新開機</string>
     <string name="dialog_restart_soft_reboot_title">軟重新啟動</string>

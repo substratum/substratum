@@ -229,7 +229,7 @@
     <string name="menu_favorite_snackbar_cleared">Đã loại bỏ %s khỏi phím tắt ứng dụng.</string>
     <string name="launcher_shortcut">Phím tắt trên Launcher</string>
     <string name="launcher_shortcut_toast">Đã tạo thành công một biểu tượng trình khởi chạy!</string>
-    <string name="changelog_title">%s Chủ đề thay đổi</string>
+    <string name="changelog_title" formatted="false">%s Chủ đề thay đổi</string>
     <string name="dialog_restart_systemui_title">Khởi động lại SystemUI</string>
     <string name="dialog_restart_systemui_content">Thao tác này sẽ tiến hành khởi động lại SystemUI trên thiết bị của bạn.</string>
     <string name="dialog_restart_reboot_title">Khởi động lại</string>

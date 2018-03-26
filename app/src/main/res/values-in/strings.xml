@@ -148,7 +148,7 @@
     <string name="menu_favorite_snackbar_cleared">%s dihapus dari pintasan aplikasi.</string>
     <string name="launcher_shortcut">Pintasan pada peluncur</string>
     <string name="launcher_shortcut_toast">Berhasil membuat pintasan ikon!</string>
-    <string name="changelog_title">Riwayat Perubahan Tema</string>
+    <string name="changelog_title" formatted="false">Riwayat Perubahan Tema</string>
     <string name="dialog_restart_systemui_title">Mulai ulang SystemUI</string>
     <string name="dialog_restart_systemui_content">Ini akan melakukan restart SystemUI pada perangkat anda.</string>
     <string name="dialog_restart_reboot_title">Mulai ulang</string>

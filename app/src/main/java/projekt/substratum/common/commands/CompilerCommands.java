@@ -46,7 +46,6 @@ import static projekt.substratum.common.References.SAMSUNG_OVERLAY_PERMISSION;
 import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.getDeviceID;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
-import static projekt.substratum.common.Systems.isSamsungDevice;
 
 public enum CompilerCommands {
     ;

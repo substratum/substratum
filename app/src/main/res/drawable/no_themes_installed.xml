@@ -20,17 +20,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:width="128dp"
     android:height="128dp"
-    android:viewportHeight="128"
-    android:viewportWidth="128">
+    android:viewportWidth="128"
+    android:viewportHeight="128">
     <path
         android:fillColor="#fcc21b"
         android:pathData="M64 8.7C7.3 8.7 6 72.2 6 84.8c0 12.6 26 22.8 58 22.8 32 0 58 -10.2 58 -22.8C122 72.2 120.7 8.7 64 8.7Z" />
     <path
         android:pathData="M45.9 66.5c0 0 20.1 -7.7 34.6 7.7"
+        android:strokeWidth="6"
         android:strokeColor="#2f2f2f"
         android:strokeLineCap="round"
-        android:strokeMiterLimit="10"
-        android:strokeWidth="6" />
+        android:strokeMiterLimit="10" />
     <path
         android:fillColor="#2f2f2f"
         android:pathData="M45.8 45.5c-3.6 -0.5 -6 -4.3 -5.5 -8.6 0.5 -4.3 3.9 -7.4 7.5 -6.9 3.6 0.5 6 4.3 5.5 8.6 -0.6 4.3 -3.9 7.4 -7.5 6.9z" />

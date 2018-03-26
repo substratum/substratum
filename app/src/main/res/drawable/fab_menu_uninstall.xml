@@ -20,8 +20,8 @@
     android:width="24dp"
     android:height="24dp"
     android:tint="@color/fab_menu_icon_color"
-    android:viewportHeight="24"
-    android:viewportWidth="24">
+    android:viewportWidth="24"
+    android:viewportHeight="24">
     <path
         android:fillColor="#000000"
         android:fillType="evenOdd"

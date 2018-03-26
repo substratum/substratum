@@ -202,7 +202,7 @@
     <string name="menu_favorite_snackbar_cleared">%s verwijderd als app-snelkoppeling.</string>
     <string name="launcher_shortcut">Snelkoppeling in Launcher</string>
     <string name="launcher_shortcut_toast">Launcher-pictogram succesvol aangemaakt!</string>
-    <string name="changelog_title">%s thema wijzigingen</string>
+    <string name="changelog_title" formatted="false">%s thema wijzigingen</string>
     <string name="dialog_restart_systemui_title">Herstart Systeem-UI</string>
     <string name="dialog_restart_systemui_content">Dit zal een Systeem-UI herstart uitvoeren.</string>
     <string name="dialog_restart_reboot_title">Herstarten</string>

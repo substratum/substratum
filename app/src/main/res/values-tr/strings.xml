@@ -246,7 +246,7 @@
     <string name="menu_favorite_snackbar_cleared">%s uygulama kısayolu kaldırıldı.</string>
     <string name="launcher_shortcut">Başlatıcı Kısayolu</string>
     <string name="launcher_shortcut_toast">Başlatıcı simgesi başarıyla oluşturuldu!</string>
-    <string name="changelog_title">%s tema değişiklikleri</string>
+    <string name="changelog_title" formatted="false">%s tema değişiklikleri</string>
     <string name="dialog_restart_systemui_title">Sistem Arayüzünü Yeniden Başlat</string>
     <string name="dialog_restart_systemui_content">Cihazınızda bir Sistem Arayüzü yeniden başlatması gerçekleştirecektir.</string>
     <string name="dialog_restart_reboot_title">Yeniden başlat</string>

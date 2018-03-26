@@ -195,7 +195,7 @@
     <string name="menu_favorite_snackbar_cleared">Прекият път към %s е премахнат.</string>
     <string name="launcher_shortcut">Икона на лаунчер</string>
     <string name="launcher_shortcut_toast">Успешно създадохте икона във Вашия лаунчър!</string>
-    <string name="changelog_title">Лист с промени на темата %s</string>
+    <string name="changelog_title" formatted="false">Лист с промени на темата %s</string>
     <string name="dialog_restart_systemui_title">Рестартиране на SystemUI</string>
     <string name="dialog_restart_systemui_content">Това ще изпълни SystemUI рестартиране на вашето устройство.</string>
     <string name="dialog_restart_reboot_title">Рестартиране</string>

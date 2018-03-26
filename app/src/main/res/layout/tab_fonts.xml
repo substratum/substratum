@@ -55,9 +55,9 @@
                     style="?android:attr/indeterminateProgressStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="50dp"
                     android:indeterminate="true" />
 
                 <RelativeLayout
@@ -76,8 +76,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
                         android:layout_below="@id/image_placeholder"
+                        android:layout_margin="15dp"
                         android:gravity="center"
                         android:text="@string/font_placeholder_text"
                         android:textAllCaps="true"
@@ -104,8 +104,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
                         android:layout_below="@id/restore_image"
+                        android:layout_margin="15dp"
                         android:gravity="center"
                         android:text="@string/fonts_defaults_text"
                         android:textAllCaps="true"

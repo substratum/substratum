@@ -225,7 +225,7 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.   
     <string name="menu_favorite_snackbar_cleared">Atalho do aplicativo %s removido.</string>
     <string name="launcher_shortcut">Atalho no Launcher</string>
     <string name="launcher_shortcut_toast">Atalho criado com sucesso!</string>
-    <string name="changelog_title">Lista de alterações do tema %s</string>
+    <string name="changelog_title" formatted="false">Lista de alterações do tema %s</string>
     <string name="dialog_restart_systemui_title">Reiniciar SystemUI</string>
     <string name="dialog_restart_systemui_content">Isso fará com que a SystemUI do seu dispositivo reinicie.</string>
     <string name="dialog_restart_reboot_title">Reiniciar</string>

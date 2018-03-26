@@ -145,7 +145,7 @@
     <string name="menu_favorite_snackbar_cleared">%s एप्लिकेशन शॉर्टकट होने से निकाला गया।</string>
     <string name="launcher_shortcut">लॉन्चर पर शॉर्टकट</string>
     <string name="launcher_shortcut_toast">सफलतापूर्वक एक लांचर आइकन बनाया!</string>
-    <string name="changelog_title">%s थीम चैंजलॉग</string>
+    <string name="changelog_title" formatted="false">%s थीम चैंजलॉग</string>
     <string name="dialog_restart_systemui_title">सिस्टमUI पुनरारंभ करें</string>
     <string name="dialog_restart_systemui_content">यह आपके डिवाइस पर SystemUI पुनरारंभ करेंगे।</string>
     <string name="dialog_restart_reboot_title">रीबूट</string>

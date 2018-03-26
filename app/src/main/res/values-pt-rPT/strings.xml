@@ -225,7 +225,7 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="menu_favorite_snackbar_cleared">%s foi removido dos favoritos.</string>
     <string name="launcher_shortcut">Atalho na gaveta de aplicações</string>
     <string name="launcher_shortcut_toast">Icon criado com sucesso!</string>
-    <string name="changelog_title">Lista de alterações do tema %s</string>
+    <string name="changelog_title" formatted="false">Lista de alterações do tema %s</string>
     <string name="dialog_restart_systemui_title">Reiniciar IU do sist.</string>
     <string name="dialog_restart_systemui_content">Reinicia a IU do sist. do seu dispositivo.</string>
     <string name="dialog_restart_reboot_title">Reiniciar</string>

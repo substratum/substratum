@@ -36,19 +36,19 @@
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_toStartOf="@+id/play"
-            android:layout_alignParentTop="true"
             android:text="@{sounds.getWorkingTitle()}"
             android:textColor="@color/sounds_text"
             android:textSize="16sp"
@@ -58,8 +58,8 @@
             android:id="@+id/play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2.5dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="2.5dp"
             android:background="@android:color/transparent"
             android:src="@drawable/sounds_preview_play" />
 

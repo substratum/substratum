@@ -203,7 +203,7 @@
     <string name="menu_favorite_snackbar_cleared">从应用程序快捷方式中删除 %s。</string>
     <string name="launcher_shortcut">启动器上的快捷方式</string>
     <string name="launcher_shortcut_toast">成功创建启动器图标 ！</string>
-    <string name="changelog_title">%s 的主题更新日志</string>
+    <string name="changelog_title" formatted="false">%s 的主题更新日志</string>
     <string name="dialog_restart_systemui_title">重启系统界面</string>
     <string name="dialog_restart_systemui_content">重新启动系统界面</string>
     <string name="dialog_restart_reboot_title">重启</string>

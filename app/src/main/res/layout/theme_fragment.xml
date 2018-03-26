@@ -43,8 +43,8 @@
                         android:id="@+id/no_themes_installed"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
-                        android:layout_marginTop="50dp"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="50dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/no_themes_installed" />
 
@@ -52,11 +52,11 @@
                         android:id="@+id/no_themes_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/no_themes_installed"
+                        android:layout_gravity="center"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="15dp"
-                        android:layout_gravity="center"
-                        android:layout_below="@+id/no_themes_installed"
                         android:gravity="center"
                         android:text="@string/no_themes_title"
                         android:textAllCaps="true"
@@ -68,10 +68,10 @@
                         android:id="@+id/no_themes_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/no_themes_title"
+                        android:layout_gravity="center"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
-                        android:layout_gravity="center"
-                        android:layout_below="@+id/no_themes_title"
                         android:gravity="center"
                         android:text="@string/no_themes_description"
                         android:textAllCaps="true"
@@ -85,9 +85,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
-                    android:paddingBottom="15dp"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
                     android:paddingEnd="@dimen/activity_horizontal_margin"
-                    android:paddingStart="@dimen/activity_horizontal_margin" />
+                    android:paddingBottom="15dp" />
 
             </LinearLayout>
 

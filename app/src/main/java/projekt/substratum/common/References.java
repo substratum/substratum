@@ -232,6 +232,9 @@ public enum References {
     public static final boolean VALIDATE_WITH_LOGS = false;
     // Control the animation duration
     public static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
+    // Special permission for Samsung devices
+    public static final String SAMSUNG_OVERLAY_PERMISSION =
+            "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";
     static final String heroImageGridResourceName = "heroimage_grid";
@@ -240,9 +243,6 @@ public enum References {
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
-    // Special permission for Samsung devices
-    public static final String SAMSUNG_OVERLAY_PERMISSION =
-            "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
     // These values control the dynamic certification of substratum
     // We use java.lang.Boolean here rather than a normal boolean
     // since it being an Object allows us to have a third state - null,

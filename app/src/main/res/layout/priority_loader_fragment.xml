@@ -31,18 +31,18 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingEnd="15dp"
                 android:paddingStart="15dp"
-                android:paddingTop="10dp" />
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp" />
 
             <ProgressBar
                 android:id="@+id/loading_priorities"
                 style="?android:attr/indeterminateProgressStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="50dp"
-                android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="50dp"
                 android:indeterminate="true" />
 
             <RelativeLayout
@@ -57,8 +57,8 @@
                     android:id="@+id/no_themes_installed"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:layout_marginTop="50dp"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
                     android:importantForAccessibility="no"
                     android:src="@drawable/no_priorities_loaded" />
 
@@ -66,11 +66,11 @@
                     android:id="@+id/no_themes_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/no_themes_installed"
+                    android:layout_gravity="center"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_gravity="center"
-                    android:layout_below="@+id/no_themes_installed"
                     android:gravity="center"
                     android:text="@string/priority_no_multiple_overlays_title"
                     android:textAllCaps="true"
@@ -82,10 +82,10 @@
                     android:id="@+id/no_themes_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/no_themes_title"
+                    android:layout_gravity="center"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_gravity="center"
-                    android:layout_below="@+id/no_themes_title"
                     android:gravity="center"
                     android:text="@string/priority_no_multiple_overlays_text"
                     android:textAllCaps="true"

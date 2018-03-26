@@ -203,7 +203,7 @@
     <string name="menu_favorite_snackbar_cleared">Usuń %s ze skrótu aplikacji.</string>
     <string name="launcher_shortcut">Skrót w programie rozruchowym</string>
     <string name="launcher_shortcut_toast">Pomyślnie utworzono ikonę dla programu rozruchowego!</string>
-    <string name="changelog_title">lista zmian motywu %s</string>
+    <string name="changelog_title" formatted="false">lista zmian motywu %s</string>
     <string name="dialog_restart_systemui_title">Restart Interfejsu</string>
     <string name="dialog_restart_systemui_content">To działanie wykona restart Interfejsu na twoim urządzeniu.</string>
     <string name="dialog_restart_reboot_title">Uruchom ponownie</string>

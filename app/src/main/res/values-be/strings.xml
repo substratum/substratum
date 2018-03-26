@@ -175,7 +175,7 @@
     <string name="menu_favorite_snackbar_cleared">%s больш не з\'яўляецца цэтлікам праграмы.</string>
     <string name="launcher_shortcut">Цэтлік у лаунчэры</string>
     <string name="launcher_shortcut_toast">Паспяхова створаны цэтлік лаунчэра!</string>
-    <string name="changelog_title">Гісторыя змен %s</string>
+    <string name="changelog_title" formatted="false">Гісторыя змен %s</string>
     <string name="dialog_restart_systemui_title">Перазапусціць SystemUI</string>
     <string name="dialog_restart_systemui_content">Гэта дзеянне выканае перазапуск SystemUI на прыладзе.</string>
     <string name="dialog_restart_reboot_title">Перазапусціць</string>

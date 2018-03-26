@@ -228,7 +228,7 @@
     <string name="menu_favorite_snackbar_cleared">Se eliminó %s del acceso directo de la aplicación.</string>
     <string name="launcher_shortcut">Acceso directo en el launcher</string>
     <string name="launcher_shortcut_toast">Icono en el launcher creado con éxito!</string>
-    <string name="changelog_title">Cambios del tema %s</string>
+    <string name="changelog_title" formatted="false">Cambios del tema %s</string>
     <string name="dialog_restart_systemui_title">Reiniciar System UI</string>
     <string name="dialog_restart_systemui_content">Esto realizará un reinicio del SystemUI en su dispositivo.</string>
     <string name="dialog_restart_reboot_title">Reinicio</string>

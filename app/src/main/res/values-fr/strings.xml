@@ -141,7 +141,7 @@
     <string name="menu_favorite_snackbar_cleared">%s supprimé des raccourcis d\'application</string>
     <string name="launcher_shortcut">Raccourcis sur le Lanceur</string>
     <string name="launcher_shortcut_toast">Un icône sur le lanceur a été créé avec sucés !</string>
-    <string name="changelog_title">Note de version du thème %s</string>
+    <string name="changelog_title" formatted="false">Note de version du thème %s</string>
     <string name="dialog_restart_systemui_title">Redémarrage de l\'interface</string>
     <string name="dialog_restart_systemui_content">Effectue un redémarrage de l\'interface utilisateur de votre appareil</string>
     <string name="dialog_restart_reboot_title">Redémarrage</string>

@@ -397,7 +397,7 @@ public class ManagerFragment extends Fragment {
 
         assert getActivity() != null;
         updateMenuButtonState(menu.findItem(R.id.alphabetize));
-        if (!checkOMS(context)||
+        if (!checkOMS(context) ||
                 checkAndromeda(context) ||
                 MainActivity.instanceBasedAndromedaFailure) {
             menu.findItem(R.id.restart_systemui).setVisible(false);

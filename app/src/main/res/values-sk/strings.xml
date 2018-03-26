@@ -204,7 +204,7 @@
     <string name="menu_favorite_snackbar_cleared">Odstránený zástupca aplikácie %s.</string>
     <string name="launcher_shortcut">Odkaz na spúšťač</string>
     <string name="launcher_shortcut_toast">Ikona spúšťača bola úspešne vytvorená!</string>
-    <string name="changelog_title">%s zoznam zmien v téme</string>
+    <string name="changelog_title" formatted="false">%s zoznam zmien v téme</string>
     <string name="dialog_restart_systemui_title">Reštartovať systémové rozhranie</string>
     <string name="dialog_restart_systemui_content">Takto urobíte reštart SystemUI na vašom zariadení.</string>
     <string name="dialog_restart_reboot_title">Reštartovať</string>

@@ -46,9 +46,9 @@
         android:layout_above="@+id/button_bar_layout"
         android:layout_below="@+id/title"
         android:layout_alignParentStart="true"
-        android:paddingEnd="10dp"
         android:paddingStart="10dp"
-        android:paddingTop="15dp" />
+        android:paddingTop="15dp"
+        android:paddingEnd="10dp" />
 
     <android.support.v7.widget.ButtonBarLayout
         android:id="@+id/button_bar_layout"

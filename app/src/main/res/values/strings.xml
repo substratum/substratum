@@ -314,7 +314,7 @@
     <string name="launcher_shortcut">Shortcut on Launcher</string>
     <string name="launcher_shortcut_toast">Successfully created a launcher icon!</string>
 
-    <string name="changelog_title">%s theme changelog</string>
+    <string name="changelog_title" formatted="false">%s theme changelog</string>
 
     <string name="dialog_restart_systemui_title">Restart SystemUI</string>
     <string name="dialog_restart_systemui_content">This will perform a SystemUI restart on your device.</string>

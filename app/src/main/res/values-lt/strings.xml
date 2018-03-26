@@ -212,7 +212,7 @@
     <string name="menu_favorite_snackbar_cleared">Pašalinta %s būnant programos piktograma.</string>
     <string name="launcher_shortcut">Nuoroda paleidimo priemonėje</string>
     <string name="launcher_shortcut_toast">Sėkmingai sukūrėte paleidimo priemonės piktogramą!</string>
-    <string name="changelog_title">%s temos pakeitimų sąrašas</string>
+    <string name="changelog_title" formatted="false">%s temos pakeitimų sąrašas</string>
     <string name="dialog_restart_systemui_title">Paleisti iš naujo SistemosNS</string>
     <string name="dialog_restart_systemui_content">Tai paleis jūsų įrenginio SistemosNS iš naujo.</string>
     <string name="dialog_restart_reboot_title">Paleisti iš naujo</string>

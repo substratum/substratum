@@ -52,8 +52,8 @@
                     android:id="@+id/toggle_all_overlays_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/select_all"
                     android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/select_all"
                     android:paddingTop="8dp"
                     android:text="@string/select_to_toggle_all_overlays"
                     android:textColor="?android:attr/textColorPrimary"
@@ -63,8 +63,8 @@
                     android:id="@+id/select_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="6dp" />
 
             </RelativeLayout>
 
@@ -87,11 +87,11 @@
                     android:id="@+id/no_themes_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/no_themes_enabled"
+                    android:layout_gravity="center"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_gravity="center"
-                    android:layout_below="@+id/no_themes_enabled"
                     android:gravity="center"
                     android:text="@string/manager_no_overlays_title"
                     android:textAllCaps="true"
@@ -103,10 +103,10 @@
                     android:id="@+id/no_themes_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/no_themes_title"
+                    android:layout_gravity="center"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_gravity="center"
-                    android:layout_below="@+id/no_themes_title"
                     android:gravity="center"
                     android:text="@string/manager_no_overlays_text"
                     android:textAllCaps="true"
@@ -118,8 +118,8 @@
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_below="@+id/toggle_zone">
+                android:layout_below="@+id/toggle_zone"
+                android:layout_marginTop="3dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -146,8 +146,8 @@
             android:id="@+id/apply_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:layout_gravity="center|bottom|end"
+            android:layout_margin="16dp"
             android:src="@drawable/floating_action_button_icon"
             android:visibility="invisible"
             app:backgroundTint="@color/fab_background_color"

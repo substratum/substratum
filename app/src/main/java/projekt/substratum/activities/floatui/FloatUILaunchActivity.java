@@ -29,7 +29,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 

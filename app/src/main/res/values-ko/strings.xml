@@ -122,7 +122,7 @@
     <string name="menu_restore_info">정보 복원</string>
     <string name="menu_showcase_info">쇼케이스 정보</string>
     <string name="menu_favorite_snackbar">%s을 앱 바로가기로 설정 성공!</string>
-    <string name="changelog_title">%s 테마의 변경 내역</string>
+    <string name="changelog_title" formatted="false">%s 테마의 변경 내역</string>
     <string name="dialog_restart_systemui_title">시스템 UI 다시 시작</string>
     <string name="dialog_restart_systemui_content">기기의 SystemUI를 다시 시작합니다.</string>
     <string name="dialog_restart_reboot_title">다시 시작</string>

@@ -874,7 +874,9 @@ public class InformationActivity extends AppCompatActivity {
             currentShownLunchBar.show();
         }
         Thread currentThread = Substratum.currentThread;
-        if ((currentThread == null || !currentThread.isAlive()) && Systems.isSamsung(context)) {
+        if ((currentThread == null || !currentThread.isAlive()) &&
+                (Systems.isSamsung(context) ||
+                        (Systems.checkOreo() && Systems.isNewSamsungDevice()))) {
             Substratum.startSamsungPackageMonitor(context);
         }
     }

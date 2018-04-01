@@ -104,8 +104,8 @@ android {
 ext {
     leakCanaryVersion = '1.5.4'
     supportLibsVersion = '27.1.0'
-    firebaseVersion = '12.0.0'
-    glideVersion = '4.5.0'
+    firebaseVersion = '12.0.1'
+    glideVersion = '4.6.1'
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -135,7 +135,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.5'
 
     // APK Signer
-    implementation 'com.android.tools.build:apksig:3.0.1'
+    implementation 'com.android.tools.build:apksig:3.1.0'
 
     // App Intro
     implementation 'com.stephentuso:welcome:1.4.1'
@@ -144,12 +144,12 @@ dependencies {
     implementation 'com.gordonwong:material-sheet-fab:1.2.1'
 
     // About Libraries
-    implementation('com.mikepenz:aboutlibraries:6.0.2@aar') {
+    implementation('com.mikepenz:aboutlibraries:6.0.6@aar') {
         transitive = true
     }
 
     // Gesture RecyclerView
-    implementation 'com.thesurix.gesturerecycler:gesture-recycler:1.4.1'
+    implementation 'com.thesurix.gesturerecycler:gesture-recycler:1.5.0'
 
     // ZT Zip
     //noinspection GradleDependency
@@ -162,7 +162,7 @@ dependencies {
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
     // Floating App Head
-    implementation 'com.github.recruit-lifestyle:FloatingView:2.2.4'
+    implementation 'com.github.recruit-lifestyle:FloatingView:2.3.1'
 
     // Crash Activity
     implementation 'cat.ereza:customactivityoncrash:2.2.0'

@@ -52,7 +52,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
-import projekt.substratum.util.helpers.MD5;
 import projekt.substratum.util.helpers.Root;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -439,29 +438,19 @@ public enum ThemeManager {
                                     "/.andromeda/overlays.xml");
 
                     // Call Andromeda to output the file!
-                    SharedPreferences prefs =
-                            PreferenceManager.getDefaultSharedPreferences(context);
-                    if (!overlays.exists()) {
-                        Log.d("ThemeManager", "Fetching new file from Andromeda, please wait!");
-                        AndromedaService.listOverlays();
-                        int counter = 0;
-                        while (!overlays.exists() && (counter <= 20)) {
-                            try {
-                                Thread.sleep(100L);
-                                counter++;
-                                Log.d("ThemeManager",
-                                        "Substratum is still waiting for a response " +
-                                                "from Andromeda...");
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
+                    Log.d("ThemeManager", "Fetching new file from Andromeda, please wait!");
+                    AndromedaService.listOverlays();
+                    int counter = 0;
+                    while (!overlays.exists() && (counter <= 200)) {
+                        try {
+                            Thread.sleep(10L);
+                            counter++;
+                            Log.d("ThemeManager",
+                                    "Substratum is still waiting for a response " +
+                                            "from Andromeda...");
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
                         }
-                        if (overlays.exists()) {
-                            prefs.edit().putString("andromeda_overlays",
-                                    MD5.calculateMD5(overlays)).apply();
-                        }
-                    } else {
-                        Log.d("ThemeManager", "Queuing list using cached file!");
                     }
 
                     // Andromeda's file is done!

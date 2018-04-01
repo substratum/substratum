@@ -104,6 +104,7 @@ import static projekt.substratum.util.helpers.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment {
 
+    // TODO: Need more delay or change how we decide when to refresh the fragment
     private static final int MANAGER_FRAGMENT_INITIAL_DELAY = 500;
     public static MaterialSheetFab materialSheetFab;
     public static LayoutReloader layoutReloader;

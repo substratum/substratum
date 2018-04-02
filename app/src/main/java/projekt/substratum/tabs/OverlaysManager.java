@@ -596,7 +596,9 @@ enum OverlaysManager {
                 boolean needToWait =
                         !Systems.isNewSamsungDevice() &&
                                 Substratum.needToWaitInstall() &&
-                                Systems.checkOMS(context);
+                                Systems.checkOMS(context) &&
+                                !Systems.checkP();
+
                 if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();
                 }
@@ -1462,6 +1464,7 @@ enum OverlaysManager {
                                     o.substring(o.lastIndexOf('/') + 1, o.lastIndexOf('-'));
                             packages.add(packageName);
                             if (!Systems.isNewSamsungDevice() &&
+                                    !Systems.checkP() &&
                                     (checkThemeInterfacer(context) &&
                                             !Systems.isBinderInterfacer(context)) ||
                                     Systems.checkAndromeda(context)) {

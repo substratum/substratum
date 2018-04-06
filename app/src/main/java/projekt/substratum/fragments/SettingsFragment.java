@@ -625,7 +625,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     // Suppress exception
                 }
                 aboutAndromeda.setOnPreferenceClickListener(preference -> {
-                    launchExternalActivity(context, ANDROMEDA_PACKAGE, "InfoActivity");
+                    launchExternalActivity(context, ANDROMEDA_PACKAGE,
+                            Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE) > 19
+                                    ? "activities.InfoActivity" : "InfoActivity");
                     return false;
                 });
             } else {

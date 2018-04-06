@@ -587,6 +587,7 @@ public enum Systems {
                     "com.forpda.",
                     "zone.jasi2169."
             };
+            //noinspection ConstantConditions
             checkPackageSupported = blacklistedPackages.length != 0 && (
                     checkPackageRegex(context, blacklistedPackages) ||
                             spreadYourWingsAndFly(context, override) ||

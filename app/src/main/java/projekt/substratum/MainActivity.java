@@ -1150,7 +1150,7 @@ public class MainActivity extends AppCompatActivity implements
                         andromedaButton.setOnClickListener(view ->
                                 launchExternalActivity(context, ANDROMEDA_PACKAGE,
                                         Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE) > 19
-                                                ? "activities.InfoActivity" :"InfoActivity"));
+                                                ? "activities.InfoActivity" : "InfoActivity"));
                         andromedaOfflineButton.setVisibility(View.VISIBLE);
                         andromedaOfflineButton.setOnClickListener(v ->
                                 activity.progressDialog.cancel());

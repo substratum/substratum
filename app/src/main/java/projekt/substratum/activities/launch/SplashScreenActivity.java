@@ -60,6 +60,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkPackageSupport;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
+import static projekt.substratum.common.Systems.isSamsungDevice;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
@@ -171,7 +172,9 @@ public class SplashScreenActivity extends Activity {
                     timeoutCount++;
                 }
                 if (!prefs.contains(dateFormat.format(new Date()))) {
-                    Log.d(SUBSTRATUM_LOG, "Failed to withdraw blacklisted packages.");
+                    Log.e(SUBSTRATUM_LOG, "Failed to withdraw blacklisted packages...");
+                } else {
+                    Log.d(SUBSTRATUM_LOG, "Successfully withdrew blacklisted packages!");
                 }
 
                 if (isAndromedaDevice(context)) {
@@ -190,7 +193,7 @@ public class SplashScreenActivity extends Activity {
                         timeoutCount++;
                     }
                     if (!prefs2.contains("andromeda_exp_fp_" + andromedaVer)) {
-                        Log.d(SUBSTRATUM_LOG, "Failed to withdraw andromeda fingerprint.");
+                        Log.e(SUBSTRATUM_LOG, "Failed to withdraw andromeda fingerprint...");
                     } else {
                         String installed_directory =
                                 Packages.getInstalledDirectory(context, ANDROMEDA_PACKAGE);
@@ -201,11 +204,12 @@ public class SplashScreenActivity extends Activity {
                                     .putString("andromeda_installer", context.getPackageManager()
                                             .getInstallerPackageName(ANDROMEDA_PACKAGE))
                                     .apply();
+                            Log.d(SUBSTRATUM_LOG, "Successfully approved andromeda fingerprint!");
                         }
                     }
                 }
 
-                if (Systems.isSamsungDevice(context) &&
+                if (isSamsungDevice(context) &&
                         Packages.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
                     int sstVersion = Packages.getAppVersionCode(context, SST_ADDON_PACKAGE);
                     FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
@@ -222,7 +226,9 @@ public class SplashScreenActivity extends Activity {
                         timeoutCount++;
                     }
                     if (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
-                        Log.d(SUBSTRATUM_LOG, "Failed to withdraw sungstratum fingerprint.");
+                        Log.e(SUBSTRATUM_LOG, "Failed to withdraw sungstratum fingerprint...");
+                    } else {
+                        Log.d(SUBSTRATUM_LOG, "Successfully approved sungstratum fingerprint!");
                     }
 
                     keyRetrieval = new KeyRetrieval();

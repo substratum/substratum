@@ -18,21 +18,18 @@
 
 package projekt.substratum.services.binder;
 
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.service.notification.StatusBarNotification;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.R;
-import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.AndromedaService;
@@ -86,12 +83,9 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                     }
 
                     if (!AndromedaService.checkServerActivity()) {
-                        sendBadNotification(getApplicationContext());
                         failed = true;
                     }
                 }
-            } else {
-                sendBadNotification(getApplicationContext());
             }
         }).start();
     }
@@ -130,37 +124,5 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         iAndromedaInterface = null;
         bound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
-    }
-
-    private void sendBadNotification(Context context) {
-        NotificationManager mNotifyMgr =
-                (NotificationManager)
-                        getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
-        boolean isBadNotificationShowing = false;
-        int badNotificationId = 2017;
-        if (mNotifyMgr != null) {
-            StatusBarNotification[] notifications = mNotifyMgr.getActiveNotifications();
-            for (StatusBarNotification notification : notifications) {
-                if (notification.getId() == badNotificationId) {
-                    isBadNotificationShowing = true;
-                }
-            }
-        }
-        if ((mNotifyMgr != null) && !isBadNotificationShowing) {
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
-                    (getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
-            mBuilder.setContentTitle(
-                    getApplicationContext().getString(
-                            R.string.andromeda_notification_title_negation));
-            mBuilder.setContentText(
-                    getApplicationContext().getString(
-                            R.string.andromeda_notification_text_negation));
-            mBuilder.setOngoing(false);
-            mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
-            mNotifyMgr.notify(badNotificationId, mBuilder.build());
-        }
-
-        Broadcasts.sendAndromedaRefreshMessage(context);
-        stopSelf();
     }
 }

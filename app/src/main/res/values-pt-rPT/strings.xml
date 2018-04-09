@@ -59,6 +59,11 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
         esconder as sobreposições perigosas para o seu dispositivo, mas poderá desativar manualmente essa opção nas definições
         a seu próprio risco.\n\nSe por alguma razão encontrar problemas relacionados com um ecrã preto,
         por favor consulte o tópico no XDA acerca dos dois métodos de recuperação.    </string>
+    <string name="xiaomi_warning_content">A Xiaomi adicionou passos adicionais para prevenir que o substratum funcione tal como funciona neste
+        momento.\n\nTerá de ter as opções \"Instalar através de USB\" e \"Depuração USB (Definições de Segurança)\"
+        ativadas nas Opções de programador, assim como a habitual \"Depuração USB\".\n\nSem estas 
+        permissões, as sobreposições não serão instaladas!
+    </string>
     <string name="legacy_dialog_soft_reboot_title">É necessário reiniciar!</string>
     <string name="legacy_dialog_soft_reboot_text">A executar no sistema Resource Runtime Overlay (RRO). É necessário reiniciar após a adição ou remoção de sobreposições.\n\nApós confirmação nesta caixa de diálogo o dispositivo irá reiniciar automaticamente, por isso, certifique-se de que guardou o seu trabalho antes de continuar.    </string>
     <string name="activity_missing_toast">Desculpe, mas não foram encontradas aplicações capazes de lidar com este pedido!    </string>
@@ -293,6 +298,7 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
         permissões de armazenamento 
         ou a aplicação não funcionará corretamente!
     </string>
+    <string name="dialog_check">Verificar</string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_do_not_show_again">Não mostrar de novo</string>
     <string name="dialog_cancel">Cancelar</string>
@@ -321,7 +327,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="toast_andromeda_timed_out">O substratum não conseguiu ligar-se ao backend do Andromeda.</string>
     <string name="toast_could_not_uninstall">Sem sobreposições válidas selecionadas.</string>
     <string name="toast_samsung_prototype_alert">O Substratum irá esconder automaticamente sobreposições de sistema não suportadas pelo seu dispositivo!</string>
-    <string name="andromeda_debug_menu_alert">Está atualmente a usar uma compilação de depuração do substratum. Certifique-se que tem ativada a opção \"ignorar verificação\" no Andromeda depois de tocar oito vezes no cartão de ligação.</string>
     <string name="andromeda_disconnected">O cliente da área de trabalho do Andromeda necessita de se ligar ao seu dispositivo para funcionar com o substratum!\n\nAinda pode desinstalar sobreposições existentes que tenha instaladas no dispositivo através do modo offline.</string>
     <string name="andromeda_check_status">Verificar estado</string>
     <string name="andromeda_offline_mode">Modo offline</string>

@@ -28,10 +28,10 @@
     <string name="rooted_oms_dialog_warning_title">动态覆盖并应用</string>
     <string name="rooted_oms_dialog_warning_text">如果你从我们使用 Masquerade 作为后端时就已经使用 Substratum ，那你应该知道我们需要 root 权限才能充分利用 OMS ，这会导致系统变得极其缓慢！\n\n虽然我们有一种方法可以让 Substratum 无需使用 Masquerade 的模式，在这个模式下不会卸下任何已更改的资源。但由于这个模式会带来大量的配置文件发生变化，这将意味着 Substratum 在启用或停用时，会有可能出现卡顿问题！\n\n如果可以，我们强烈地建议您使用如 Andromeda 这样的不需要以 root 方式运行 Substratum 的第三方系统，或是集成了我们新指令集的定制系统，以便拥有更好的体验。\n\n若继续使用以 root 的方式运行 Substratum，将有可能会出现卡顿或性能问题，因为 Substratum 无法将任何配置更改保存到系统中！</string>
     <string name="interfacer_notification_title">Substratum与Interfacer已连接！</string>
-    <string name="interfacer_notification_text">背景主题服务已被禁用，激活并运行。</string>
+    <string name="interfacer_notification_text">后台主题服务已被禁用，激活并运行。</string>
     <string name="andromeda_notification_title">Substratum与Andromeda已连接！</string>
     <string name="andromeda_notification_title_negation">Substratum与Andromeda未连接</string>
-    <string name="andromeda_notification_text">背景主题服务已被禁用，激活并运行。</string>
+    <string name="andromeda_notification_text">后台主题服务已被禁用，激活并运行。</string>
     <string name="andromeda_notification_text_negation">Andromeda服务未运行，请重启桌面套组！</string>
     <string name="resource_commit_dialog_title">在 %s 中缺少资源</string>
     <string name="showcase_no_connection">主题展示需要网络连接才能正常工作！</string>
@@ -51,6 +51,8 @@
     <string name="warning_title">警告！</string>
     <string name="legacy_warning_content">我们之所以提供旧版是因为无法保证颜色的完全兼容。请确保您的设备刷写了第三方 recovery ，并知道如何从无限重启状态中恢复正常，而不会造成进一步的风险。\n\n因为需要系统层级的修改，所以我们无法修复旧版中未应用主题的项目。</string>
     <string name="samsung_warning_content">因为我们无法保证叠加层能完全兼容三星设备，所以我们对高风险叠加层进行了隐藏。您也可以手动关闭此功能。\n\n如果因应用高风险叠加层而导致黑屏，请参考我们 XDA 论坛上的两种解决方法。</string>
+    <string name="xiaomi_warning_content">小米添加了额外的步骤来阻止substratum工作. \n您需要在开发者选项中启用 \"通过 usb 安装\" 和 \"usb 调试 (安全设置)\", 以及通常的 \"usb 调试\". \n\n若没有这些权限,叠加层将不会被安装!
+    </string>
     <string name="legacy_dialog_soft_reboot_title">需要重新启动！</string>
     <string name="legacy_dialog_soft_reboot_text">在 Resource Runtime Overlay（RRO）系统上运行时，添加或删除叠加层都需要重新启动系统。\n\n继续下一步将自动重启您的设备，所以在操作前请务必确认您已经保存正在进行的工作。</string>
     <string name="activity_missing_toast">抱歉，暂时没有发现可以处理此请求的应用！    </string>
@@ -258,6 +260,7 @@
     <string name="select_to_toggle_all_overlays">全选</string>
     <string name="permission_not_granted_dialog_title">未授予权限</string>
     <string name="permission_not_granted_dialog_message1">请授予 Substratum 存储权限，否则应用将无法正常运行！</string>
+    <string name="dialog_check">检查</string>
     <string name="dialog_ok">确认</string>
     <string name="dialog_do_not_show_again">不再显示</string>
     <string name="dialog_cancel">取消</string>
@@ -284,7 +287,6 @@
     <string name="toast_andromeda_timed_out">Substratum 无法连接到 Andromeda 后端</string>
     <string name="toast_could_not_uninstall">没有选择有效的叠加层</string>
     <string name="toast_samsung_prototype_alert">Substratum 会自动隐藏不支持此设备的系统叠加层</string>
-    <string name="andromeda_debug_menu_alert">您当前运行的是 Substratum 调试版本。请先在连接卡连点 8 次，以确保在 Andromeda 启用 “旁路检测”。</string>
     <string name="andromeda_disconnected">Andromeda 客户端需要连接到您的设备才能运行 Substratum 的功能\n\n您仍可以通过离线模式卸载已安装的覆盖层</string>
     <string name="andromeda_check_status">检查状态</string>
     <string name="andromeda_offline_mode">离线模式</string>

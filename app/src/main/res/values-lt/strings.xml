@@ -53,6 +53,11 @@
     <string name="samsung_warning_content">\"Samsung\" palikymas teikiamas, bet mes negalime garantuoti visiško suderinamumo su spalvomis ir \"AOSP-built\" perdangomis. Mes pasirūpinome ir paslėpėme  pavojingas perdangas jūsų įrenginiui, tačiau rankiniu būdu galite tai išjungti nustatymuose savo nuožiūra.\n\nJei bet kokiu atveju susidursite su galima juodojo ekrano problema, prašome pasikonsultuoti mūsų \"XDA\" temoje dėl dviejų atkūrimo būdų.
 
     </string>
+    <string name="xiaomi_warning_content">Xiaomi pridėjo papildomų priemonių, kad \"substratum\" veiktu taip,
+        kaip turėtų.\n\nJūs turite turėti \"Įdiegti per USB\" ir \"USB derinimą (saugumo nustatymai)\"
+        įjungtus kūrėjo parinktyse taip pat, kaip įprastą \"USB derinimą\".\n\nBe šių
+        leidimų, perdangos nebus įdiegtos!
+    </string>
     <string name="legacy_dialog_soft_reboot_title">Būtina paleisti iš naujo!</string>
     <string name="legacy_dialog_soft_reboot_text">Naudojant \"Resource Runtime Overlay\" sistemą, būtina paleisti iš naujo po perdangų pridėjimo/pašalinimo.\n\nSekant šį dialogą jums automatiškai paleis įrenginį iš naujo, todėl būkite tikri, kad išsaugojote savo darbą prieš tęsdami.    </string>
     <string name="activity_missing_toast">Nebuvo rasta nei viena programėlė, kuri galėtu palaikyti šį prašymą. Atsiprašome!    </string>
@@ -271,6 +276,7 @@
     <string name="select_to_toggle_all_overlays">Pasirinkite, kad įjungti visas perdangas</string>
     <string name="permission_not_granted_dialog_title">Leidimai nesuteikti</string>
     <string name="permission_not_granted_dialog_message1">Prašome suteikti \"substratum\" saugyklos leidimą arba programėlė neveiks tinkamai!    </string>
+    <string name="dialog_check">Patikrinti</string>
     <string name="dialog_ok">Gerai</string>
     <string name="dialog_do_not_show_again">Daugiau nerodyti</string>
     <string name="dialog_cancel">Atšaukti</string>
@@ -297,7 +303,6 @@
     <string name="toast_andromeda_timed_out">\"Substratum\" negali prisijungti prie \"Andromeda\".</string>
     <string name="toast_could_not_uninstall">Nepasirinktos jokios galiojančios perdangos.</string>
     <string name="toast_samsung_prototype_alert">\"Substratum\", jūsų įrenginiui, automatiškai paslepia nepalaikomas sistemos perdangas!</string>
-    <string name="andromeda_debug_menu_alert">šiuo metu jūs naudojate \"substratum\" derinimo konstrukcija. įsitikinkite, kad \'apeiti patikra\' įjungtas po to, kai spustelėjote prisijungimo kortelę aštuonis kartus.</string>
     <string name="andromeda_disconnected">\"andromeda\" darbalaukio klientui reikia prisijungti prie jūsų įrenginio, kad galėtu funkcionuoti su \"substratum\"!\n\njūs vis dar galite išdiegti esamas perdangas, įdiegtas įrenginye, naudodami režimą neprisijungus.</string>
     <string name="andromeda_check_status">Patikrinti būseną</string>
     <string name="andromeda_offline_mode">Režimas neprisijungus</string>

@@ -60,6 +60,11 @@
       las capas peligrosas para su dispositivo, pero puede alternar esto de forma manual en la configuración
       a su propia responsabilidad.\n\nSi en cualquier caso llega a un problema con una posible pantalla negra,
       por favor, consulte nuestro hilo en XDA en los dos métodos de recuperación.    </string>
+    <string name="xiaomi_warning_content">Xiaomi ha añadido pasos adicionales para evitar que Substratum funcione
+        tal como está.\n\nNecesitará tener \"Instalar a través de USB\" y \"Depuración de USB (configuración de seguridad)\"
+        habilitado en las opciones de desarrollador, así como la \"depuración USB\".\n\nSin estos
+         permisos, las capas no serán instaladas!
+    </string>
     <string name="legacy_dialog_soft_reboot_title">¡Se requiere reiniciar!</string>
     <string name="legacy_dialog_soft_reboot_text">Ejecutando sobre el sistema Resource Runtime Overlay,
       es necesario reiniciar después de agregar o quitar capas.\n\n De continuar con esto
@@ -294,6 +299,7 @@
     <string name="permission_not_granted_dialog_message1">Por favor conceda el permiso de almacenamiento
       a Substratum
       o la aplicación no funcionará correctamente    </string>
+    <string name="dialog_check">Comprobar</string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_do_not_show_again">No volver a mostrar</string>
     <string name="dialog_cancel">Cancelar</string>
@@ -323,7 +329,6 @@
     <string name="toast_andromeda_timed_out">Substratum no se pudo conectar con el apoyo de Andromeda.</string>
     <string name="toast_could_not_uninstall">No se han seleccionado capas válidas.</string>
     <string name="toast_samsung_prototype_alert">¡Substratum ocultó automáticamente las capas del sistema no soportadas por su dispositivo!</string>
-    <string name="andromeda_debug_menu_alert">Actualmente está ejecutando una versión de depuración de Substrato. Asegúrese que tiene habilitado \'bypass check\' (control de derivación) en Andromeda después de hacer clic ocho veces en la tarjeta de conexión.</string>
     <string name="andromeda_disconnected">El cliente de escritorio de Andromeda necesita conectarse a su dispositivo para poder funcionar con Substratum\n\n Tú todavía puedes desinstalar las capas existentes que estén instaladas en el dispositivo utilizando el modo offline.</string>
     <string name="andromeda_check_status">Comprobar estado</string>
     <string name="andromeda_offline_mode">Modo Offline</string>

@@ -63,6 +63,11 @@
       saját belátása szerint.\n\nHa mégis probléma merül fel egy esetleges fekete képernyővel,
       kérjük, olvassa el az XDA témát a két helyreállítási módszerrel kapcsolatban.
     </string>
+    <string name="xiaomi_warning_content">A Xiaomi további lépéseket tett annak érdekében, hogy megakadályozza a
+        substratum működését.\n\nA Fejlesztői beállításokban engedélyeznie kell: \"Telepítés USB-n keresztül\" és
+        \"USB hibakeresés (biztonsági beállítások)\", valamint a szokásos \"USB hibakeresés\"-t.\n\nEzen engedélyek
+        nélkül a fedvények nem lesznek telepítve!
+    </string>
     <string name="legacy_dialog_soft_reboot_title">Újraindítás szükséges!</string>
     <string name="legacy_dialog_soft_reboot_text">Az Erőforrás Futtató Fedvény (RRO) rendszeren való futtatáshoz
       újraindítás szükséges a fedvények hozzáadása vagy eltávolítása után.\n\nEzen párbeszédpanelről
@@ -320,6 +325,7 @@
       engedélyt,
       különben az alkalmazás nem fog megfelelően működni!
     </string>
+    <string name="dialog_check">Ellenőrzés</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Ne jelenjen meg többet</string>
     <string name="dialog_cancel">Mégse</string>
@@ -350,7 +356,6 @@
     <string name="toast_andromeda_timed_out">Substratum nem tud kapcsolódni az Andromeda támogatáshoz.</string>
     <string name="toast_could_not_uninstall">Nincs érvényes kijelölt fedvény.</string>
     <string name="toast_samsung_prototype_alert">Substratum automatikusan elrejtette a készülékén nem támogatott rendszerfedvényeket!</string>
-    <string name="andromeda_debug_menu_alert">jelenleg a substratum egy hibakeresés alapú verzióját futtatja. győződjön meg róla, hogy az Andromedában engedélyezte a \"bypass check\" lehetőséget, miután a csatlakozási kártyára nyolcszor kattintott.</string>
     <string name="andromeda_disconnected">az andromeda asztali kliensnek csatlakoznia kell a készülékéhez, hogy együttműködhessen a substratummal!\n\naz eszközön lévő meglévő fedvényeket offline módban is eltávolíthatja.</string>
     <string name="andromeda_check_status">Állapot ellenőrzése</string>
     <string name="andromeda_offline_mode">Kapcsolat nélküli mód</string>

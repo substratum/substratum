@@ -49,6 +49,8 @@
     <string name="systemui_statusbar">ステータスバー</string>
     <string name="warning_title">警告！</string>
     <string name="legacy_warning_content">Legacyは、色の適用などの完全な互換性は保証できません。使用しているデバイスにカスタムリカバリが導入されていることを確認し、ブートループから復旧する方法を理解してから進むようにしてください。\n\nLegacyのテーマで一部適用されていない部分に関しましてはシステム側の変更が必要なため、修正することはできません。    </string>
+    <string name="samsung_warning_content">Samsung端末向けのサポートは行っておりますが、現状では色とAOSP向けオーバーレイの完全な互換性は保証できません。危険なオーバーレイを隠してしまわないようには気を付けていますが、任意で設定から手動でオフに切り替えることができます。\n\nもしブラックスクリーンに遭遇する問題があれば、私たちのXDAスレッドで回復のための二つの方法についてお問い合わせください。    </string>
+    <string name="xiaomi_warning_content">XiaomiはSubstratumの動作を妨害するために余計な手間を追加しました。\n\n「USB経由でインストール」と「USBデバッグ(セキュリティ設定)」を通常の「USBデバッグ」と同じようにデベロッパーオプションで有効にしてください。\n\nこれらの権限がないと、オーバーレイはインストールされません！</string>
     <string name="legacy_dialog_soft_reboot_title">再起動が必要です！</string>
     <string name="legacy_dialog_soft_reboot_text">Resource Runtime Overlay Systemで実行している場合、オーバーレイの追加または削除の変更を反映させる為に再起動する必要があります。\n\nこのダイアログを処理すると自動的にデバイスが再起動されるため、現在行っている作業を保存してから続行してください。    </string>
     <string name="activity_missing_toast">この要求を処理できるアプリが見つかりませんでした、すみません！    </string>
@@ -177,6 +179,7 @@
     <string name="accept">了解</string>
     <string name="deny">拒否</string>
     <string name="permission_explanation_title">アクセスの概要</string>
+    <string name="permission_explanation_text">Substratumはこれらの重要な権限が許可されないと、想定どおりに動作しない可能性があります。\n\n<b>ストレージ:</b>Substratumは/storage/emulated/0/substratum/にシステムのレスキューアーカイブを保存するために内部ストレージを利用する必要があります。\n\n<b>Firebase:</b>Substratumはコアサービスとセキュリティの強化を目的として、一元的でリアルタイムなデータベースから重要な情報をダウンロードするために、Google Firebaseを利用します。</string>
     <string name="priority_back_title">オーバーレイに戻る</string>
     <string name="menu_clean">インストール済みのオーバーレイを削除</string>
     <string name="menu_disable">インストール済みのオーバーレイを無効化</string>
@@ -208,6 +211,7 @@
     <string name="dialog_restart_soft_reboot_content">端末のソフトリブートを実行します。</string>
     <string name="studio_applying">読み込み中&#8230;</string>
     <string name="error_loading_theme_close">閉じる</string>
+    <string name="error_loading_theme_close_text">このテーマのパッケージ名は適切な鍵交換のため、マニフェストとコードのディレクトリに一致する必要があります。</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_dialog_title">LogChar デバッグレポート</string>
     <string name="logcat_dialog_copy_success">エラーログをクリップボードにコピーしました！</string>
@@ -354,20 +358,28 @@
     <string name="root_required_boot_animation">デバイスが暗号化されているため、ブートアニメーションを適用するにはRoot権限が必要です。</string>
     <string name="root_required_boot_animation_profile">デバイスが暗号化されているため、ブートアニメーションのバックアップと復元にはRoot権限が必要です。</string>
     <string name="per_app_apply">適用</string>
+    <string name="per_app_request_title">フロートUIの権限</string>
     <string name="error_activity_button_restart">再起動</string>
     <string name="error_activity_button_disable_overlays">助けて!</string>
     <string name="error_activity_log">スタックトレース</string>
+    <string name="error_activity_log_dialog_title">クラッシュスタックトレース</string>
     <string name="error_dialog_samsung">Substratum オーバーレイの問題</string>
     <string name="community_info_paid">有料</string>
     <string name="rom_status">サポート状況:</string>
     <string name="rom_status_supported">%s はコミュニティでサポートされています！</string>
     <string name="rom_status_unsupported">このROMはコミュニティでサポートされていません！</string>
+    <string name="rom_status_network">インターネットの確認が必要です&#8230;</string>
     <!-- Notification channel -->
     <string name="notification_channel_default">デフォルト</string>
+    <string name="notification_channel_ongoing">続行中</string>
+    <string name="notification_channel_ongoing_description">継続的な通知</string>
+    <string name="notification_channel_andromeda">テーマシステムの状態</string>
+    <string name="notification_channel_andromeda_description">テーマシステムの接続状態通知</string>
     <!-- Nav drawer -->
     <string name="nav_home">テーマ</string>
     <!-- Utilities -->
     <string name="nav_overlay_manager">管理</string>
+    <string name="nav_recovery">復元</string>
     <string name="nav_priorities">優先順位</string>
     <string name="nav_backup_restore">プロファイル</string>
     <string name="nav_settings">設定</string>

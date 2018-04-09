@@ -51,6 +51,7 @@
     <string name="warning_title">UPOZORNENIE!</string>
     <string name="legacy_warning_content">Staré systémy sú podporované tak ako-sú, nemôžeme zaručiť plnú kompatibilitu s farbami. Pred pokračovaním si skontrolujte, či máte vo vašom zariadení TWRP recovery a rozumiete ako obnoviť systém, ak náhodou skončíte v spúšťacej slučke  (bootloope).\n\nNa starých systémoch, ktoré nepodporujú zmenu tém, nemôžeme garantovať funkčnosť. Tieto systémy vyžadujú zmeny na strane ich systému.     </string>
     <string name="samsung_warning_content">Samsung podpora je poskytovaná tak, ako-je, pretože nemôžeme zaručiť plnú kompatibilitu s farbami a prekrytiami na báze AOSP. Postarali sme sa o skrytie nebezpečných prekrytí pre vaše zariadenie, podľa vlastného uváženia môžete túto možnosť ručne vypnúť v nastaveniach.\n\nV každom prípade, ak narazíte na problém s čiernou obrazovkou, prečítajte si naše vlákno XDA o dvoch spôsoboch obnovenia.   </string>
+    <string name="xiaomi_warning_content">Spoločnosť Xiaomi podnikla ďalšie kroky, aby zabránila Substratum fungovať.\n\nV Nastaveniach pre vývojárov musíte povoliť možnosti: \"Inštalovať cez USB\", \"Ladenie USB (Nastavenia zabezpečenia)\" ako aj zvyčajné \"Ladenie USB\".\n\ nBez týchto oprávnení by sa prekrytia nenainštalovali!</string>
     <string name="legacy_dialog_soft_reboot_title">Vyžaduje sa reštart!</string>
     <string name="legacy_dialog_soft_reboot_text">Systém funguje na princípe real-time prekrývania zdrojov, po pridaní alebo odobraní prekrytí je potrebné  reštartovať systém.\n\nPokračovaním v tomto dialógu sa vaše zariadenie automaticky reštartuje, tak si prosím pred pokračovaním uložte vašu prácu.</string>
     <string name="activity_missing_toast">Prepáčte, ale neboli nájdené žiadne aplikácie, ktoré by mohli zvládnuť túto požiadavku.
@@ -260,6 +261,7 @@
     <string name="select_to_toggle_all_overlays">Vyberte pre prepnutie všetkých prekrytí</string>
     <string name="permission_not_granted_dialog_title">Oprávnenia nie sú udelené</string>
     <string name="permission_not_granted_dialog_message1">Prosím, udeľte Substratum oprávenenia pre prístup k pamäti inak aplikácia nebude správne fungovať!</string>
+    <string name="dialog_check">Skontrolovať</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovať</string>
     <string name="dialog_cancel">Zrušiť</string>
@@ -286,7 +288,6 @@
     <string name="toast_andromeda_timed_out">Substratum sa nemohol spojiť s podporou Andromedy.</string>
     <string name="toast_could_not_uninstall">Nebolo zvolené žiadne platné prekrytie.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skryl nepodporované prekrytia systému pre vaše zariadenie!</string>
-    <string name="andromeda_debug_menu_alert">V súčasnosti prebieha ladenie zostavenia Substratum. Zaistite, aby bola v nastaveniach Andromeda zapnutá voľba \'bypass check\', nastavenia vyvoláte kliknutím na kartu pripojenia osemkrát.</string>
     <string name="andromeda_disconnected">Desktopový klient Andromeda sa musí pripojiť k vášmu zariadeniu, aby mohol fungovať so Substratum!\n\nExistujúce prekrytia nainštalované v zariadení môžete odinštalovať v offline režime.</string>
     <string name="andromeda_check_status">Skontrolovať stav</string>
     <string name="andromeda_offline_mode">Režim offline</string>

@@ -63,6 +63,11 @@
       kapatabilirsiniz.\n\nHer durumda olası bir siyah ekranla ilgili bir sorun yaşarsanız,
       lütfen iki kurtarma yöntemi hakkında XDA konumuzu kontrol edin.
     </string>
+    <string name="xiaomi_warning_content">Xiaomi, substratum\'un olduğu gibi çalışmasını önlemek için ek adımlar
+        ekledi.\n\nHer zamanki \"USB hata ayıklaması\" nın yanı sıra geliştirici seçeneklerinde \"USB
+        üzerinden yükle\" ve \"USB hata ayıklama (Güvenlik ayarları)\" seçeneğine sahip olmanız
+        gerekir.\n\nBu izinler olmadan, temalar yüklenmeyecektir!
+    </string>
     <string name="legacy_dialog_soft_reboot_title">Yeniden başlatma gereklidir!</string>
     <string name="legacy_dialog_soft_reboot_text">Kaynak Çalışma Zamanı Tema sisteminde çalışan temaları ekledikten
       veya kaldırdıktan sonra yeniden başlatma gerçekleştirmeniz gerekir.\n\nBu iletişim
@@ -323,6 +328,7 @@
       yada uygulama
       düzgün çalışmaz!
     </string>
+    <string name="dialog_check">Kontrol et</string>
     <string name="dialog_ok">TAMAM</string>
     <string name="dialog_do_not_show_again">Bir daha gösterme</string>
     <string name="dialog_cancel">İptal</string>
@@ -353,7 +359,6 @@
     <string name="toast_andromeda_timed_out">Substratum Andromeda arka ucuna bağlanamadı.</string>
     <string name="toast_could_not_uninstall">Geçerli temalar seçilmedi.</string>
     <string name="toast_samsung_prototype_alert">Substratum, cihazınız için desteklenmeyen sistem temalarını otomatik olarak gizledi!</string>
-    <string name="andromeda_debug_menu_alert">şu anda substratum için bir hata ayıklama derlemesi çalıştırıyorsunuz. sekiz kez bağlantı kartını tıkladıktan sonra Andromeda\'da \'bypass check\' özelliğini etkinleştirdiğinizden emin olun.</string>
     <string name="andromeda_disconnected">andromeda masaüstü istemcisi, substratum ile çalışabilmek için cihazınıza bağlanmalıdır!\n\nçevrimdışı modu kullanarak cihazda yüklü olan mevcut temaları kaldırmaya devam edebilirsiniz.</string>
     <string name="andromeda_check_status">Durumu kontrol et</string>
     <string name="andromeda_offline_mode">Çevrimdışı mod</string>

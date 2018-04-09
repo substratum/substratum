@@ -53,6 +53,7 @@
 \n\nNemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systému.    </string>
     <string name="samsung_warning_content">Samsung podpora je poskytována tak, jak je, protože nemůžeme zaručit plnou kompatibilitu s barvami a překrytím na bázi AOSP.
   Postarali jsme se o skrytí nebezpečných potahů pro vaše zařízení, podle vlastního uvážení můžete tuto možnost ručně vypnout v nastavení.\n\nPokud narazíte na problém s černou obrazovkou, přečtěte si naše vlákno XDA o dvou způsobech obnovení.    </string>
+    <string name="xiaomi_warning_content">Společnost Xiaomi podnikla další kroky, aby zabránila Substratum fungovat.\n\nV nastavení pro vývojáře musíte povolit možnosti: \"Instalovat přes USB\" a \"Ladění USB (Nastavení zabezpečení)\" jakož i obvyklé \"Ladění USB\".\n\nBez těchto oprávnění nebudou potahy nainstalovány!    </string>
     <string name="legacy_dialog_soft_reboot_title">Je potřeba restartovat!</string>
     <string name="legacy_dialog_soft_reboot_text">Běží na prostředkovém potahovém systému, je
         potřebné po přidání nebo odebrání potahů restartovat systém.\n\nPokračování s tímto
@@ -276,6 +277,7 @@ To znamená, že když má potah nejvyšší prioritu, budou zdroje potahů vyta
     <string name="select_to_toggle_all_overlays">Vybete pro přepnutí všech potahů</string>
     <string name="permission_not_granted_dialog_title">Oprávnění nejsou udělena</string>
     <string name="permission_not_granted_dialog_message1">Prosím, povolte Substratum oprávnění pro přístup k paměti, jinak nebude aplikace správně fungovat!    </string>
+    <string name="dialog_check">Zkontrolovat</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovat</string>
     <string name="dialog_cancel">Zrušit</string>
@@ -303,7 +305,6 @@ To znamená, že když má potah nejvyšší prioritu, budou zdroje potahů vyta
     <string name="toast_andromeda_timed_out">Substratum se nemohlo připojit k podpoře Andromeda.</string>
     <string name="toast_could_not_uninstall">Nebyly vybrány žádné platné potahy.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skrylo nepodporované potahy systému pro vaše zařízení!</string>
-    <string name="andromeda_debug_menu_alert">v současnosti probíhá ladění sestavení Substratum. Zajistěte, aby byla v nastaveníc Andromeda zapnuta volba \'bypass check\', nastavení vyvoláte kliknutím na kartu připojení osmkrát.</string>
     <string name="andromeda_disconnected">desktopový klient Andromeda se musí připojit k zařízení, aby mohl fungovat se Substratum!\n\nExistující potahy nainstalované v zařízení můžete odinstalovat v offline režimu.</string>
     <string name="andromeda_check_status">Zkontrolovat stav</string>
     <string name="andromeda_offline_mode">Režim offline</string>

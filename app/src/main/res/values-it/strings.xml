@@ -289,7 +289,6 @@
     <string name="toast_andromeda_timed_out">Substratum non è riuscito a connettersi con il backend di Andromeda.</string>
     <string name="toast_could_not_uninstall">Nessuna sovrapposizione valida selezionata.</string>
     <string name="toast_samsung_prototype_alert">Substratum ha nascosto automaticamente le sovrapposizioni di sistema non supportate dal tuo dispositivo!</string>
-    <string name="andromeda_debug_menu_alert">stai attualmente eseguendo una versione di debug di substratum. Assicurati di aver abilitato il \"bypass check\" in Andromeda dopo aver cliccato sulla scheda di connessione otto volte.</string>
     <string name="andromeda_disconnected">il client desktop di andromeda ha bisogno di connettersi al tuo dispositivo per essere in grado di funzionare con un substratum!\n\nPuoi ancora disinstallare le sovrapposizioni installate sul dispositivo usando la modalità offline.</string>
     <string name="andromeda_check_status">Controlla stato</string>
     <string name="andromeda_offline_mode">Modalità offline</string>

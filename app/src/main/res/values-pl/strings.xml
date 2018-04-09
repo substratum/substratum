@@ -52,6 +52,8 @@
     <string name="warning_title">UWAGA!</string>
     <string name="legacy_warning_content">Legacy jest dostarczane jak-jest, jako że nie możemy zagwarantować pełnej zgodności z kolorami. Upewnij się, że masz niestandardowe recovery w swoim urządzeniu  i wiesz, jak wyratować się z tzw. bootloopa przed przystąpieniem do dalszych kroków. \n\nNie możemy naprawić rzeczy, które nie są zmieniane przez motyw, ponieważ wymagają one zmiany po stronie systemu.    </string>
     <string name="samsung_warning_content">Wsparcie dla Samsunga dostarczone jest jak-jest, jako że nie możemy zagwarantować pełnej zgodności z kolorami i nakładkami zbudowanymi dla AOSP. Zatroszczyliśmy się o ukrycie niebezpiecznych nakładek dla Twojego urządzenia, ale możesz przełączać to ręcznie w ustawieniach według własnego uznania.\n\nJeżeli wystąpi u Ciebie problem z czarnym ekranem, zapoznaj się z naszym wątkiem na XDA na temat dwóch metod odzyskiwania.    </string>
+    <string name="xiaomi_warning_content">Xiaomi podjęło dodatkowe kroki, aby zabezpieczyć się przed działaniem
+Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj przez USB\" i \"Debugowanie USB (Ustawienia bezpieczeństwa)\",  jak również zwykłe \"Debugowanie USB\".\ \n\nBez tych uprawnień nakładki nie zostaną zainstalowane!    </string>
     <string name="legacy_dialog_soft_reboot_title">Wymagane ponowne uruchomienie!</string>
     <string name="legacy_dialog_soft_reboot_text">Działając na Resource Runtime Overlay system, wymagane jest wykonanie ponownego uruchomienia po dodaniu lub usunięciu nakładek.\n\n Kontynuowanie spowoduje automatyczne zrestartowanie urządzenia, dlatego prosimy wcześniej zapisać swoją pracę.    </string>
     <string name="activity_missing_toast">Nie znaleziono żadnych aplikacji które mogłyby to obsłużyć, przepraszamy!    </string>
@@ -255,6 +257,7 @@
     <string name="select_to_toggle_all_overlays">Wybierz, aby wybrać wszystkie nakładki</string>
     <string name="permission_not_granted_dialog_title">Uprawnienia nie zostały przyznane</string>
     <string name="permission_not_granted_dialog_message1">Proszę udzielić substratum uprawnień do pam. wewnętrznej, bo inaczej aplikacja nie będzie działać poprawnie!    </string>
+    <string name="dialog_check">Sprawdź</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Nie pokazuj ponownie</string>
     <string name="dialog_cancel">Anuluj</string>
@@ -281,7 +284,6 @@
     <string name="toast_andromeda_timed_out">Substratum nie może połączyć się z bazą danych Andromedy.</string>
     <string name="toast_could_not_uninstall">Nie wybrano prawidłowych nakładek.</string>
     <string name="toast_samsung_prototype_alert">Substratum automatycznie ukrył nieobsługiwane nakładki systemowe urządzenia!</string>
-    <string name="andromeda_debug_menu_alert">w tej chwili używasz debugowej kompilacji substratum. Upewnij się, że masz włączoną opcję \"obejścia\" w Andromedzie po osmiokrotnym kliknięciu karty połączenia.</string>
     <string name="andromeda_disconnected">klient pulpitu Andromedy musi połączyć się z twoim urządzeniem, aby móc działać z substratum!\n\n Nadal możesz odinstalować istniejące nakładki zainstalowane na urządzeniu w trybie offline.</string>
     <string name="andromeda_check_status">Sprawdź status</string>
     <string name="andromeda_offline_mode">Tryb offline</string>

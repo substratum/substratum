@@ -51,6 +51,7 @@
     <string name="warning_title">WAARSCHUWING!</string>
     <string name="legacy_warning_content">Legacy wordt verstrekt als-is, omdat wij geen volledige compatibiliteit met kleuren kunnen garanderen. Verzeker dat je een aangepaste recovery voor je apparaat hebt en begrijpt hoe je een bootloop herstelt alvorens het verder gaan.\n\nWij kunnen niets herstellen dat geen thema krijgt op legacy, omdat dit systeemwijzigingen vereist.</string>
     <string name="samsung_warning_content">Samsung ondersteuning wordt geleverd als-is, omdat wij geen volledige compatibiliteit met kleuren en AOSP-gebaseerde overlays kunnen garanderen. Wij hebben ervoor gezorgd dat schadelijke overlays worden verborgen voor je apparaat. Je kunt dit op eigen risico in-/uitschakelen in de instellingen.\n\nAls je te maken krijgt met een zwart scherm, raadpleeg ons XDA thread voor de twee herstelmethodes.</string>
+    <string name="xiaomi_warning_content"> Xiaomi heeft extra stappen toegevoegd om de werking van Substratum als-is te stoppen.\n\nHierom moet je \"Via USB installeren\" en \"USB debuggen (Veiligheidsinstellingen)\" inschakelen in de Ontwikkelaarsopties, naast de gebruikelijke \"USB debuggen\".\n\nZonder deze machtigingen kunnen overlays niet installeren!</string>
     <string name="legacy_dialog_soft_reboot_title">Herstart vereist!</string>
     <string name="legacy_dialog_soft_reboot_text">Wanneer je apparaat draait op het Resource Runtime Overlay systeem, is een herstart vereist na het toevoegen of verwijderen van overlays.\n\nAls je dit dialoog voortzet zal je apparaat automatisch herstarten, dus verzeker dat je al je werk hebt opgeslagen alvorens het doorgaan.</string>
     <string name="activity_missing_toast">Er waren geen apps gevonden die dit verzoek kunnen verwerken, sorry!</string>
@@ -252,6 +253,7 @@
     <string name="select_to_toggle_all_overlays">Kies om alle overlays te schakelen</string>
     <string name="permission_not_granted_dialog_title">Machtigingen niet verleend</string>
     <string name="permission_not_granted_dialog_message1">Verleen Substratum opslagmachtigingen, of de app zal onjuist functioneren!</string>
+    <string name="dialog_check">Check</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Niet opnieuw weergeven</string>
     <string name="dialog_cancel">Annuleren</string>
@@ -278,7 +280,6 @@
     <string name="toast_andromeda_timed_out">Substratum kan niet verbinden met de Andromeda backend.</string>
     <string name="toast_could_not_uninstall">Geen geldige overlays geselecteerd.</string>
     <string name="toast_samsung_prototype_alert">Substratum heeft automatisch niet-ondersteunde systeemoverlays verborgen voor jouw apparaat!</string>
-    <string name="andromeda_debug_menu_alert">je draait momenteel een debug build van substratum. verzeker dat je \'bypass check\' hebt ingeschakeld in Andromeda na acht keer tikken van de verbindingskaart.</string>
     <string name="andromeda_disconnected">de andromeda desktop client moet verbinding maken met je apparaat om te kunnen functioneren met substratum!\n\nje kunt geïnstalleerde overlays deïnstalleren met behulp van de offline modus.</string>
     <string name="andromeda_check_status">Status controleren</string>
     <string name="andromeda_offline_mode">Offline modus</string>

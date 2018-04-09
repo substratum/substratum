@@ -55,6 +55,10 @@ conhecimentos sobre como restaurar a partir de um bootloop antes de prosseguir.\
 corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibilidade, pois estas exigem mudanças ao nível do sistema.    </string>
     <string name="samsung_warning_content">O suporte para Samsung é fornecido como está, pois não podemos garantir compatibilidade total com cores e camadas construídas para AOSP. Nós cuidamos de esconder as camadas perigosas para o seu dispositivo, mas você pode mudar isso manualmente nas configurações, a seu critério.\n\nSe de qualquer forma você chegar a ter um problema com uma possível tela preta, consulte nosso tópico no XDA sobre os dois métodos de recuperação.
     </string>
+    <string name="xiaomi_warning_content">A Xiaomi adicionou passos extras para prevenir que o substratum funcione tal como ele é.\n\nVocê precisará ter as opções \"Instalar através de USB\" e \"Depuração USB (Definições de Segurança)\"
+        ativadas nas Opções de desenvolvedor, assim como a habitual \"Depuração USB\".\n\nSem estas 
+        permissões, as camadas não serão instaladas!
+    </string>
     <string name="legacy_dialog_soft_reboot_title">Reinício necessário!</string>
     <string name="legacy_dialog_soft_reboot_text">Executando no sistema Resource Runtime Overlay (RRO),
         é necessário reiniciar após a adição ou remoção de camadas.\n\nProsseguir com este
@@ -287,6 +291,7 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.   
     <string name="select_to_toggle_all_overlays">Selecione para alternar todas as camadas</string>
     <string name="permission_not_granted_dialog_title">Permissões não garantidas</string>
     <string name="permission_not_granted_dialog_message1">Por favor conceda ao Substratum permissões de armazenamento ou o aplicativo não funcionará corretamente!    </string>
+    <string name="dialog_check">Verificar</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Não mostrar novamente</string>
     <string name="dialog_cancel">Cancelar</string>
@@ -310,11 +315,10 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.   
     <string name="no_themes_description">favor instalar um tema compatível!</string>
     <string name="no_themes_description_search">\"%s\" não foi encontrado na lista de temas instalados&#8230;</string>
     <string name="no_overlays_description_search">\"%s\" não foi encontrado na lista de camadas instaladas&#8230;</string>
-    <string name="toast_andromeda_timed_out">O substratum não conseguiu ligar-se ao backend do Andromeda.</string>
+    <string name="toast_andromeda_timed_out">O substratum não conseguiu conectar-se ao backend do Andromeda.</string>
     <string name="toast_could_not_uninstall">Nenhuma camada válida selecionada.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticamente escondeu as sobreposições de sistema sem suporte para o seu dispositivo!</string>
-    <string name="andromeda_debug_menu_alert">Está atualmente a usar uma compilação de depuração do substratum. Certifique-se que tem ativada a opção \"ignorar verificação\" no Andromeda depois de tocar oito vezes no cartão de ligação.</string>
-    <string name="andromeda_disconnected">O cliente da área de trabalho do Andromeda necessita de se ligar ao seu dispositivo para funcionar com o substratum!\n\nAinda pode desinstalar sobreposições existentes que tenha instaladas no dispositivo através do modo offline.</string>
+    <string name="andromeda_disconnected">o cliente da área de trabalho do Andromeda necessita se conectar ao seu dispositivo para funcionar com o substratum!\n\nVocê ainda pode desinstalar camadas existentes instaladas no dispositivo usando o modo offline.</string>
     <string name="andromeda_check_status">Verificar status</string>
     <string name="andromeda_offline_mode">Modo offline</string>
     <string name="andromeda_no_root_dialog">Parece que você está num dispositivo Oreo com suporte a temas, um plugin foi lançado para torná-lo compatível!</string>

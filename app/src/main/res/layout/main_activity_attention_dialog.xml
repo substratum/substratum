@@ -151,4 +151,16 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/andromeda_debug_text"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/main_activity_alert_button_color"
+        android:text="@string/dialog_close_button"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
 </RelativeLayout>

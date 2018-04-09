@@ -445,9 +445,11 @@
     <string name="toast_andromeda_timed_out">Substratum could not connect to the Andromeda backend.</string>
     <string name="toast_could_not_uninstall">No valid overlays selected.</string>
 
+    <string name="dialog_close_button">Close Substratum</string>
     <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>
     <string name="andromeda_debug_menu_alert">you are currently running a debug build of substratum. ensure you have \'Allow debuggable substratum builds\' enabled in Andromeda\'s settings.</string>
     <string name="andromeda_disconnected">the andromeda desktop client needs to connect to your device to be able to function with substratum!\n\nyou can still uninstall existing overlays installed on the device using offline mode.</string>
+    <string name="andromeda_no_firebase">it seems that verification has failed. try force closing substratum and relaunching. if this issue persists, please try reinstalling the addon from Play Store!</string>
     <string name="andromeda_check_status">Check status</string>
     <string name="andromeda_offline_mode">Offline mode</string>
     <string name="andromeda_no_root_dialog">It seems that you are on a supported themable Oreo device, an addon was released to support this!</string>

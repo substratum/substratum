@@ -103,6 +103,7 @@ import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Activities.launchInternalActivity;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.MAIN_ACTIVITY_RECEIVER;
+import static projekt.substratum.common.Packages.getAppVersionCode;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_SYSTEM_VERSION_CHECK;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
@@ -119,6 +120,7 @@ import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 import static projekt.substratum.common.Systems.isSamsung;
@@ -1112,6 +1114,10 @@ public class MainActivity extends AppCompatActivity implements
                     TextView titleView = activity.progressDialog.findViewById(R.id.title);
                     TextView textView =
                             activity.progressDialog.findViewById(R.id.root_rejected_text);
+                    Button appCloseButton =
+                            activity.progressDialog.findViewById(R.id.close_button);
+                    appCloseButton.setOnClickListener(v -> System.exit(0)); // Brutally exit!
+                    appCloseButton.setVisibility(View.GONE);
                     if (isSamsungDevice(context)) {
                         TextView samsungTitle = activity.progressDialog.findViewById(
                                 R.id.sungstratum_title);
@@ -1141,30 +1147,39 @@ public class MainActivity extends AppCompatActivity implements
                                 activity.progressDialog.findViewById(R.id.andromeda_offline_button);
                         TextView andromedaDebugText =
                                 activity.progressDialog.findViewById(R.id.andromeda_debug_text);
-                        andromedaTitle.setText(R.string.andromeda_disconnected);
                         andromedaTitle.setVisibility(View.VISIBLE);
-                        Button andromedaButton = activity.progressDialog.findViewById(
-                                R.id.andromeda_button);
-                        andromedaButton.setText(R.string.andromeda_check_status);
-                        andromedaButton.setVisibility(View.VISIBLE);
-                        andromedaButton.setOnClickListener(view ->
-                                launchExternalActivity(context, ANDROMEDA_PACKAGE,
-                                        Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE) > 19
-                                                ? "activities.InfoActivity" : "InfoActivity"));
-                        andromedaOfflineButton.setVisibility(View.VISIBLE);
-                        andromedaOfflineButton.setOnClickListener(v ->
-                                activity.progressDialog.cancel());
-                        if (BuildConfig.DEBUG) {
-                            andromedaDebugText.setVisibility(View.VISIBLE);
+                        if (!checkAndromeda(context)) {
+                            andromedaTitle.setText(R.string.andromeda_no_firebase);
+                            appCloseButton.setVisibility(View.VISIBLE);
+                        } else {
+                            andromedaTitle.setText(R.string.andromeda_disconnected);
+                            Button andromedaButton = activity.progressDialog.findViewById(
+                                    R.id.andromeda_button);
+                            andromedaButton.setText(R.string.andromeda_check_status);
+                            andromedaButton.setVisibility(View.VISIBLE);
+                            andromedaButton.setOnClickListener(view ->
+                                    launchExternalActivity(context, ANDROMEDA_PACKAGE,
+                                            getAppVersionCode(context, ANDROMEDA_PACKAGE) > 19
+                                                    ? "activities.InfoActivity" : "InfoActivity"));
+                            andromedaOfflineButton.setVisibility(View.VISIBLE);
+                            andromedaOfflineButton.setOnClickListener(v ->
+                                    activity.progressDialog.cancel());
+                            if (BuildConfig.DEBUG) {
+                                andromedaDebugText.setVisibility(View.VISIBLE);
+                            }
+                            appCloseButton.setVisibility(View.VISIBLE);
                         }
-
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                         instanceBasedAndromedaFailure = true;
-                        activity.menuView.findViewById(R.id.tab_themes).setVisibility(View.GONE);
-                        activity.menuView.findViewById(R.id.tab_priorities).setVisibility(View.GONE);
-                        activity.menuView.findViewById(R.id.tab_profiles).setVisibility(View.GONE);
-                        activity.bottomBar.setSelectedItemId(R.id.tab_overlay_manager);
+                        activity.menuView.
+                                findViewById(R.id.tab_themes).setVisibility(View.GONE);
+                        activity.menuView.
+                                findViewById(R.id.tab_priorities).setVisibility(View.GONE);
+                        activity.menuView.
+                                findViewById(R.id.tab_profiles).setVisibility(View.GONE);
+                        activity.bottomBar.
+                                setSelectedItemId(R.id.tab_overlay_manager);
                     } else if (Systems.checkOreo() &&
                             !Packages.isPackageInstalled(context, ANDROMEDA_PACKAGE)) {
                         TextView andromedaTitle = activity.progressDialog.findViewById(

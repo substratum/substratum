@@ -64,7 +64,6 @@ public enum Theming {
      *
      * @param context     Self explanatory, bud.
      * @param packageName Theme to be launched
-     * @param themeMode   Filter mode
      */
     public static void launchTheme(Context context,
                                    String packageName) {
@@ -103,7 +102,6 @@ public enum Theming {
      *
      * @param context      Self explanatory, bud.
      * @param packageName  Theme to receive intent for
-     * @param themeMode    Filter mode
      * @param actionIntent Intent to be verified with a series of data
      * @return Returns an intent to launch the theme
      */

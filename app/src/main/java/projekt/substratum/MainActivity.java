@@ -690,8 +690,7 @@ public class MainActivity extends AppCompatActivity implements
      * Activate FloatUI
      */
     private void showFloatingHead() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                context);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putInt("float_tile", Tile.STATE_ACTIVE).apply();
         FloatUiTile.requestListeningState(context,
                 new ComponentName(context, FloatUiTile.class));
@@ -711,8 +710,7 @@ public class MainActivity extends AppCompatActivity implements
      * Deactivate FloatUI
      */
     private void hideFloatingHead() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                context);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putInt("float_tile", Tile.STATE_INACTIVE).apply();
         FloatUiTile.requestListeningState(context,
                 new ComponentName(context, FloatUiTile.class));

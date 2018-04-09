@@ -504,6 +504,10 @@ public enum Systems {
         if (!prefs.contains("rom_build_date")) {
             setROMVersion(context, false);
         }
+        if ((isSamsungDevice(context) || isNewSamsungDevice()) &&
+                !prefs.contains("samsung_migration_key")) {
+            prefs.edit().putInt("samsung_migration_key", Build.VERSION.SDK_INT).apply();
+        }
         String prop = getProp("ro.build.date.utc");
         return prefs.getInt("rom_build_date", 0) ==
                 (((prop != null) && !prop.isEmpty()) ? Integer.parseInt(prop) : 0);

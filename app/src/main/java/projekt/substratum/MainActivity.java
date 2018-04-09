@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity implements
 
         super.onCreate(savedInstanceState);
 
-        progressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
+        progressDialog = new Dialog(MainActivity.this, R.style.SubstratumBuilder_ActivityTheme);
         progressDialog.setCancelable(false);
 
         if (BuildConfig.DEBUG && !isSamsungDevice(context)) {

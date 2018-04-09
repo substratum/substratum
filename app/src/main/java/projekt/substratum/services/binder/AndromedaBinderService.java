@@ -54,8 +54,12 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         if (Systems.checkAndromeda(this) && !bound) {
             Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
-            if (!bindService(intent, this, Context.BIND_AUTO_CREATE)) {
-                stopSelf();
+            try {
+                if (!bindService(intent, this, Context.BIND_AUTO_CREATE)) {
+                    stopSelf();
+                }
+            } catch (Exception ignored) {
+                // Don't crash substratum on andromeda update
             }
         }
     }

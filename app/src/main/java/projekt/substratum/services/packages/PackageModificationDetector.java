@@ -48,6 +48,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.services.notification.UnsupportedThemeReceiver;
 
 import static projekt.substratum.common.Internal.THEME_PID;
+import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.metadataSamsungSupport;
 
@@ -80,6 +81,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
         if (packageName1.equals(SST_ADDON_PACKAGE)) {
             Broadcasts.sendKillMessage(context);
             return;
+        } else if (packageName1.equals(ANDROMEDA_PACKAGE)) {
+            System.exit(0);
         }
 
         if (Systems.isSamsungDevice(context) || MainActivity.instanceBasedAndromedaFailure) {

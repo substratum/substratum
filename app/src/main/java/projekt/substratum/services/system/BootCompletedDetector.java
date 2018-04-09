@@ -44,6 +44,7 @@ import static projekt.substratum.common.References.BOOT_COMPLETED;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.Resources.FRAMEWORK;
+import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SYSTEMUI;
 import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE_ENABLED;
 
@@ -91,10 +92,12 @@ public class BootCompletedDetector extends BroadcastReceiver {
             int comparison_value = prefs.getInt("samsung_migration_key", 0);
             if (comparison_value < Build.VERSION.SDK_INT) {
                 List<String> android = ThemeManager.listOverlaysForTarget(context, FRAMEWORK);
+                List<String> fwk = ThemeManager.listOverlaysForTarget(context, SAMSUNG_FRAMEWORK);
                 List<String> systemui = ThemeManager.listOverlaysForTarget(context, SYSTEMUI);
                 List<String> subs = ThemeManager.listOverlaysForTarget(context, SUBSTRATUM_PACKAGE);
                 ArrayList<String> overlaysToBeUninstalled = new ArrayList<>();
                 overlaysToBeUninstalled.addAll(android);
+                overlaysToBeUninstalled.addAll(fwk);
                 overlaysToBeUninstalled.addAll(systemui);
                 overlaysToBeUninstalled.addAll(subs);
                 ThemeManager.uninstallOverlay(context, overlaysToBeUninstalled);

@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">बुनियाद और Interfacer से जुड़े हैं!</string>
     <string name="interfacer_notification_text">पृष्ठभूमि विषय सेवाओं, बांध सक्रिय और चल रहे हैं ।</string>
     <string name="andromeda_notification_title">बुनियाद और एंड्रोमेडा से जुड़े हैं!</string>
-    <string name="andromeda_notification_title_negation">बुनियाद और एंड्रोमेडा नहीं जुड़े हैं</string>
     <string name="andromeda_notification_text">पृष्ठभूमि विषय सेवाओं, बांध सक्रिय और चल रहे हैं ।</string>
-    <string name="andromeda_notification_text_negation">एंड्रोमेडा की सेवा नहीं चल रही है, कृपया डेस्कटॉप सुइट को फिर से चलाएं!</string>
     <string name="resource_commit_dialog_title">%s में अनुपलब्ध संसाधन</string>
     <string name="failed_to_install_title_notification">OMS विषय स्थापित करने में विफल</string>
     <string name="actionbar_theme_count_loading">लोड हो रहा है...</string>
@@ -62,7 +60,6 @@
     <string name="overlays_variant_default_3">चूक बेस संस्करण...</string>
     <string name="overlays_variant_default_4">प्रकार4 वैरिएंट...</string>
     <string name="overlays_update_available">नवीन संस्करण उपलब्ध!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">संस्करण/प्रकार स्थापित नहीं है</string>
     <string name="shutdownanimation_dialog_apply_text">शट डाउन ऐनिमेशन संसाधित कर रहा है.. ।</string>
     <string name="shutdownanimation_dialog_apply_success">बंद एनीमेशन लागू!</string>
     <string name="shutdownanimation_dialog_apply_failed">शट डाउन ऐनिमेशन लागू करने में विफल.. ।</string>

@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">\"Substratum\" ir \"Interfacer\" yra prijungtos!</string>
     <string name="interfacer_notification_text">Fono temos paslaugos susietos, aktyvios ir veikia.</string>
     <string name="andromeda_notification_title">\"Substratum\" ir \"Andromeda\" prijungtos!</string>
-    <string name="andromeda_notification_title_negation">\"Substratum\" ir \"Andromeda\" nėra prijungtos</string>
     <string name="andromeda_notification_text">Fono temos paslaugos susietos, aktyvios ir veikia.</string>
-    <string name="andromeda_notification_text_negation">\"Andromeda\" paslauga neveikia. Prašome pakartoti darbalaukio rinkinį!</string>
     <string name="resource_commit_dialog_title">Trūksta išteklių %s</string>
     <string name="showcase_no_connection">temos vitrinos funkcionalumui reikalaujamas interneto ryšys!    </string>
     <string name="refused_to_install_notification_button">Pašalinti Temą</string>
@@ -99,7 +97,6 @@
     <string name="overlays_variant_default_4">tipo4 variantas&#8230;</string>
     <string name="overlays_up_to_date">NAUJAUSIA (%s)</string>
     <string name="overlays_update_available">Galimas atnaujinimas!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variantas neįdiegtas</string>
     <string name="shutdownanimation_placeholder_text">Prašome pasirinkti išjungimo animaciją išskleidžiamajame sąraše&#8230;</string>
     <string name="shutdownanimation_defaults_text">Tai išvalys bet kokias pasirinktines išjungimo animacijas, kurios buvo pritaikytos jūsų įrenginyje</string>
     <string name="shutdownanimation_dialog_apply_text">Išjungimo animacijos apdirbimas&#8230;</string>
@@ -520,9 +517,6 @@
     <string name="manage_space_reset_dialog_title">Iš naujo nustatyti konfigūraciją?</string>
     <string name="manage_space_reset_dialog_content">Po atstatymo programėlė bus uždaryta!</string>
     <string name="legacy_overlay_uninstall_warning_text">Jei jūs išdiegiate visas perdangas, prašome naudoti \"Substratum\" Išsigelėjimo ZIP, kad išvengtumėte galimo įkrovos kilpos.</string>
-    <string name="overlays_tab_package_ver_message">Įdiegta %s versija: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Versijos kodas sėkmingai nukopijuotas į iškarpinę!</string>
-    <string name="overlays_tab_package_ver_failure">Nepavyko paimti paketo versijos</string>
     <string name="locale_restart_message">Iš naujo paleiskite programą norėdami pakeisti kalbą</string>
     <string name="restart">Paleisti iš naujo</string>
 </resources>

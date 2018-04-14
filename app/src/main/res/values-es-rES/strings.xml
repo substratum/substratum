@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">¡Substratum e Interfacer están conectados!</string>
     <string name="interfacer_notification_text">Los servicios de tema en segundo plano están vinculados, activos y ejecutándose.</string>
     <string name="andromeda_notification_title">¡Substratum y Andromeda están conectados!</string>
-    <string name="andromeda_notification_title_negation">Substratum y Andromeda NO están conectados</string>
     <string name="andromeda_notification_text">Los servicios de tema en segundo plano están vinculados, activos y ejecutándose.</string>
-    <string name="andromeda_notification_text_negation">¡El servicio Andromeda no se está ejecutando, por favor vuelva a correr el paquete de escritorio!</string>
     <string name="resource_commit_dialog_title">Faltan recursos en %s</string>
     <string name="showcase_no_connection">¡El Mostrador requiere internet para funcionar!
     </string>
@@ -110,7 +108,6 @@
     <string name="overlays_variant_default_4">tipo4 variante&#8230;</string>
     <string name="overlays_up_to_date">ACTUALIZADO (%s)</string>
     <string name="overlays_update_available">¡Actualización disponible!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variante no instalada</string>
     <string name="shutdownanimation_placeholder_text">Seleccione una animación de apagado de la lista desplegable&#8230;</string>
     <string name="shutdownanimation_defaults_text">Esto borrará cualquier animación de apagado personalizada
         aplicada en el dispositivo</string>
@@ -547,9 +544,6 @@
     <string name="manage_space_reset_dialog_title">¿Restablecer configuración?</string>
     <string name="manage_space_reset_dialog_content">La aplicación se cerrará después de completar el reseteo!</string>
     <string name="legacy_overlay_uninstall_warning_text">Si está desinstalando todas las capas, utilice los ZIPs de Substratum Rescue para evitar posible bootloops.</string>
-    <string name="overlays_tab_package_ver_message">Versión de %s instalada: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">¡El código de versión se copió al portapapeles exitosamente!</string>
-    <string name="overlays_tab_package_ver_failure">Falló la captura de la versión del paquete</string>
     <string name="locale_restart_message">Reiniciar la aplicación para cambiar el idioma</string>
     <string name="restart">Reiniciar</string>
 </resources>

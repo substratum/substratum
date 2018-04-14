@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum и interfaced са свързани!</string>
     <string name="interfacer_notification_text">Фоновите услуги за тема са свързани, активни и работещи.</string>
     <string name="andromeda_notification_title">Substratum и Andromeda са свързани!</string>
-    <string name="andromeda_notification_title_negation">Substratum и Andromeda НЕ са свързани</string>
     <string name="andromeda_notification_text">Фоновите услуги за тема са свързани, активни и работещи.</string>
-    <string name="andromeda_notification_text_negation">Услугите на Andromeda не работят, моля пуснете програмата на компютър отново!</string>
     <string name="resource_commit_dialog_title">Липсват източници в %s</string>
     <string name="showcase_no_connection">каталогът на темите изисква интернет връзка,
       за да функционира!
@@ -92,7 +90,6 @@
     <string name="overlays_variant_default_4">вариант тип4&#8230;</string>
     <string name="overlays_up_to_date">АКТУАЛНА (%s)</string>
     <string name="overlays_update_available">Налично е обновяване!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Вариантът не е инсталиран</string>
     <string name="shutdownanimation_placeholder_text">Моля, изберете анимация за изключване от падащото
       меню&#8230;</string>
     <string name="shutdownanimation_dialog_apply_text">Изключващата анимация се обработва&#8230;</string>

@@ -41,7 +41,6 @@
     <string name="overlays_variant_default_2">type2 變體...</string>
     <string name="overlays_variant_default_3">預設基本變體...</string>
     <string name="overlays_update_available">有可用更新！\n（%s）</string>
-    <string name="overlays_overlay_not_installed">變體未安裝</string>
     <string name="bootanimation_dialog_apply_text">正在處理開機動畫...</string>
     <string name="bootanimation_dialog_apply_success">成功套用開機動畫！</string>
     <string name="bootanimation_dialog_apply_failed">開機動畫套用失敗</string>
@@ -149,7 +148,4 @@
     <string name="nav_backup_restore">設定檔</string>
     <string name="nav_settings">設定</string>
     <string name="clear_cache_button_loading">載入中&#8230;</string>
-    <string name="overlays_tab_package_ver_message">已安裝 %s 版本：%s</string>
-    <string name="overlays_tab_package_ver_message_copied">成功複製版本代碼到剪貼簿！</string>
-    <string name="overlays_tab_package_ver_failure">擷取安裝包版本失敗</string>
 </resources>

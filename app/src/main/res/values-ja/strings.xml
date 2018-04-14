@@ -29,9 +29,7 @@
     <string name="interfacer_notification_title">SubstratumとInterfacerが接続されました！</string>
     <string name="interfacer_notification_text">バックグラウンドテーマサービスは結合されて実行されており、アクティブです。</string>
     <string name="andromeda_notification_title">SubstratumとAndromedaが接続されました！</string>
-    <string name="andromeda_notification_title_negation">SubstratumとAndromedaが接続されていません</string>
     <string name="andromeda_notification_text">バックグラウンドテーマサービスは結合されて実行されており、アクティブです。</string>
-    <string name="andromeda_notification_text_negation">Andromedaのサービスが実行されていません、デスクトップスイートを再実行して下さい！</string>
     <string name="resource_commit_dialog_title">%s のリソースは見つかりませんでした</string>
     <string name="showcase_no_connection">ショーケースを機能させるためにはインターネット接続が必要です！</string>
     <string name="refused_to_install_notification_button">テーマを削除</string>
@@ -92,7 +90,6 @@
     <string name="overlays_variant_default_4">Type4 バリエーション...</string>
     <string name="overlays_up_to_date">最新 (%s)</string>
     <string name="overlays_update_available">更新が利用可能です！\n(%s)</string>
-    <string name="overlays_overlay_not_installed">バリアントがインストールされていない</string>
     <string name="shutdownanimation_placeholder_text">ドロップダウンリストからシャットダウンアニメーションを選択してください&#8230;</string>
     <string name="shutdownanimation_defaults_text">この操作はインストールしたカスタムシャットダウンアニメーションを初期化します</string>
     <string name="shutdownanimation_dialog_apply_text">シャットダウンアニメーションを処理しています&#8230;</string>
@@ -392,8 +389,6 @@
     <string name="manage_space_reset_text_desc">アプリケーションに問題がありますか？ もしくは、古いバージョンのSubstratumから最新バージョンへアップデートしましたか？ 古くなった構成をリセットすることは、問題のトラブルシューティングに役立ちます！</string>
     <string name="manage_space_reset_dialog_title">構成をリセットしますか？</string>
     <string name="manage_space_reset_dialog_content">リセット完了後にアプリが終了します！</string>
-    <string name="overlays_tab_package_ver_message_copied">バージョンコードをクリップボードにコピーしました！</string>
-    <string name="overlays_tab_package_ver_failure">パッケージバージョンを取得できませんでした</string>
     <string name="locale_restart_message">アプリの再起動後に言語が切り替わります</string>
     <string name="restart">再起動</string>
 </resources>

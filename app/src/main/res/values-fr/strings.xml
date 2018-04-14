@@ -28,9 +28,7 @@
     <string name="interfacer_notification_title">Substratum et Interfacer sont connectés !</string>
     <string name="interfacer_notification_text">Les services de thème d\'arrière-plan sont liés, actifs et en cours d\'exécution.</string>
     <string name="andromeda_notification_title">Substratum et Andromeda sont connectés !</string>
-    <string name="andromeda_notification_title_negation">Substratum et Andromeda ne sont pas connectés</string>
     <string name="andromeda_notification_text">Les services de thème d\'arrière-plan sont liés, actifs et en cours d\'exécution.</string>
-    <string name="andromeda_notification_text_negation">Les services d\'Andromeda ne sont pas en cours d\'exécution, veuillez relancer l\'application depuis votre ordinateur !</string>
     <string name="resource_commit_dialog_title">Ressources manquantes pour %s</string>
     <string name="refused_to_install_notification_button">Supprimer le thème</string>
     <string name="refused_to_install_text_notification">Échec de l\'installation de %s.</string>
@@ -58,7 +56,6 @@
     <string name="overlays_variant_default_3">Variante de base par défaut&#8230;</string>
     <string name="overlays_variant_default_4">variante type4&#8230;</string>
     <string name="overlays_update_available">Mise à jour disponible !\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variante non installée</string>
     <string name="shutdownanimation_dialog_apply_text">Installation de l\'animation d\'arrêt en cours&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Animation d’arrêt appliquée !</string>
     <string name="shutdownanimation_dialog_apply_failed">Échec de l\'installation de l\'animation d\'arrêt&#8230;</string>
@@ -383,7 +380,6 @@
     <string name="manage_space_reset_dialog_title">Réinitialiser ?</string>
     <string name="manage_space_reset_dialog_content">L\'application se fermera après la réinitialisation</string>
     <string name="legacy_overlay_uninstall_warning_text">Si vous désinstallez toutes les couches, s\'il vous plait, utilisez Substratum Rescue ZIPs pour eviter d\'éventuels bootloops.</string>
-    <string name="overlays_tab_package_ver_message">Version de %s installée : %s</string>
     <string name="locale_restart_message">Redémarrez l\'appli pour changer la langue</string>
     <string name="restart">Redémarrer</string>
 </resources>

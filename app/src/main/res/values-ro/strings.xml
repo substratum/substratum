@@ -24,9 +24,7 @@
     <string name="resource_not_validated">Angajamentele noi au fost unite!</string>
     <string name="interfacer_notification_text">Serviciile de fundal ale temei sunt unite, active și rulează.</string>
     <string name="andromeda_notification_title">Substratum și Andromeda sunt conectate!</string>
-    <string name="andromeda_notification_title_negation">Substratum și Andromeda NU sunt conectate</string>
     <string name="andromeda_notification_text">Serviciile de fundal ale temei sunt unite, active și rulează.</string>
-    <string name="andromeda_notification_text_negation">Serviciul Andromeda nu rulează, te rog repornește suita pentru desktop!</string>
     <string name="resource_commit_dialog_title">Lipsă de resurse în %s</string>
     <string name="failed_to_install_title_notification">Eroare instalare tema OMS</string>
     <string name="actionbar_theme_count_loading">încărcare&#8230;</string>
@@ -49,7 +47,6 @@
     <string name="overlays_variant_default_3">varianta bază implicit&#8230;</string>
     <string name="overlays_variant_default_4">varianta tip4&#8230;</string>
     <string name="overlays_update_available">Actualizare disponibilă\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variantă neinstalată</string>
     <string name="bootanimation_dialog_apply_success">Animație pornire aplicată!</string>
     <string name="bootanimation_dialog_apply_failed">Aplicare animație pornire eșuată&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Fundal ecran principal</string>

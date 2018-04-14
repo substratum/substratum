@@ -32,7 +32,6 @@
     <string name="overlays_variant_default_2">type2 variant&#8230;</string>
     <string name="overlays_variant_default_3">default base variant&#8230;</string>
     <string name="overlays_update_available">புதிய வரவு வந்துள்ளது!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">மாறுபாடு நிறுவப்படவில்லை</string>
     <string name="bootanimation_dialog_apply_text">துவக்க அனிமேஷனை செயலாக்கப்படுகிறது&#8230;</string>
     <string name="bootanimation_dialog_apply_success">துவக்க அனிமேஷன் வெற்றிகரமாக செயல்படுத்தப்பட்டது!</string>
     <string name="bootanimation_dialog_apply_failed">துவக்க அனிமேஷன் செயலாக்கம் தோல்வி&#8230;</string>

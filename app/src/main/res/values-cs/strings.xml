@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum a Interfacer jsou připojeni!</string>
     <string name="interfacer_notification_text">Služby pozadí motivu jsou propojeny, aktivní a běží.</string>
     <string name="andromeda_notification_title">Substratum a Andromeda jsou připojeni!</string>
-    <string name="andromeda_notification_title_negation">Substratum a Andromeda nejsou připojeni</string>
     <string name="andromeda_notification_text">Služby pozadí motivu jsou propojeny, aktivní a běží.</string>
-    <string name="andromeda_notification_text_negation">Andromeda neběží, restartujte aplikaci na svém počítači!</string>
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
     <string name="showcase_no_connection">ukázky motivů potřebují internetové připojení!    </string>
     <string name="refused_to_install_notification_button">Odstranit motiv</string>
@@ -100,7 +98,6 @@
     <string name="overlays_variant_default_4">typ4 varianta&#8230;</string>
     <string name="overlays_up_to_date">AKTUÁLNÍ (%s)</string>
     <string name="overlays_update_available">Dostupná aktualizace!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Varianta není nainstalována</string>
     <string name="shutdownanimation_placeholder_text">Prosím, vyberte animaci při vypnutí ze seznamu&#8230;</string>
     <string name="shutdownanimation_defaults_text">Toto vyčistí všechny vlastní animace při vypnutí
         aplikované na tomto zařízení</string>
@@ -526,9 +523,6 @@ restartuje po 3 sekundách.</string>
     <string name="manage_space_reset_dialog_title">Obnovit konfiguraci?</string>
     <string name="manage_space_reset_dialog_content">Aplikace se po dokončení restartu ukončí!</string>
     <string name="legacy_overlay_uninstall_warning_text">Pokud odinstalujete všechny potahy, prosím použijte záchranné Substratum zipy, abyste se vyhnuli možnému uvíznutí ve spouštěcí smyčce (bootloop).</string>
-    <string name="overlays_tab_package_ver_message">Nainstalované %s verze: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Kód verze byl úspěšně zkopírován do schránky!</string>
-    <string name="overlays_tab_package_ver_failure">Nepodařilo se zachytit verzi balíčku</string>
     <string name="locale_restart_message">Restartujte aplikaci pro přepnutí jazyka</string>
     <string name="restart">Restartovat</string>
 </resources>

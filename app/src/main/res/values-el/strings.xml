@@ -27,9 +27,7 @@
     <string name="interfacer_notification_title">Το Substratum και το Interfacer συνδέονται!</string>
     <string name="interfacer_notification_text">Οι υπηρεσίες του θέματος που τρέχουν στο παρασκήνιο είναι δεσμευμένες, ενεργές και τρέχουν.</string>
     <string name="andromeda_notification_title">Το Substratum και το Andromeda συνδέονται!</string>
-    <string name="andromeda_notification_title_negation">Το Substratum και το Andromeda ΔΕΝ συνδέονται</string>
     <string name="andromeda_notification_text">Οι υπηρεσίες του θέματος που τρέχουν στο παρασκήνιο είναι δεσμευμένες, ενεργές και τρέχουν.</string>
-    <string name="andromeda_notification_text_negation">Η υπηρεσία Andromeda δεν τρέχει, παρακαλώ επανεκκινήστε την σουήτα γραφείου!</string>
     <string name="resource_commit_dialog_title">Αγνοούμενοι πόροι σε %s</string>
     <string name="failed_to_install_title_notification">Απέτυχε η εγκατάσταση θέματος</string>
     <string name="actionbar_theme_count_loading">φόρτωση&#8230;</string>
@@ -54,7 +52,6 @@
     <string name="overlays_variant_default_3">παραλλαγή προεπιλεγμένης βάσης&#8230;</string>
     <string name="overlays_variant_default_4">παραλλαγή τύπου4&#8230;</string>
     <string name="overlays_update_available">Διαθέσιμη ενημέρωση!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Η παραλλαγή δεν έχει εγκατασταθεί</string>
     <string name="shutdownanimation_dialog_apply_text">Σχέδιο τερματισμού σε εξέλιξη&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Σχέδιο τερματισμού επιλέγη!</string>
     <string name="shutdownanimation_dialog_apply_failed">Αποτυχία εφαρμογής σχεδίου τερματισμού&#8230;</string>

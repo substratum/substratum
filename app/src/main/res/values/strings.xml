@@ -59,9 +59,7 @@
     <string name="interfacer_notification_title">Substratum and Interfacer are connected!</string>
     <string name="interfacer_notification_text">The background theme services are binded, active and running.</string>
     <string name="andromeda_notification_title">Substratum and Andromeda are connected!</string>
-    <string name="andromeda_notification_title_negation">Substratum and Andromeda are NOT connected</string>
     <string name="andromeda_notification_text">The background theme services are binded, active and running.</string>
-    <string name="andromeda_notification_text_negation">Andromeda\'s service is not running, please rerun the desktop suite!</string>
 
     <string name="resource_commit_dialog_title">Missing Resources in %s</string>
 
@@ -160,7 +158,6 @@
     <string name="overlays_variant_default_4">type4 variant&#8230;</string>
     <string name="overlays_up_to_date">UP-TO-DATE (%s)</string>
     <string name="overlays_update_available">Update available!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variant not installed</string>
 
     <string name="shutdownanimation_placeholder_text">Please select a shutdown animation from the dropdown
       list&#8230;</string>
@@ -739,9 +736,6 @@
     <string name="logs_placeholder" translatable="false">LOGS</string>
     <string name="app_title_placeholder" translatable="false">APP_TITLE</string>
     <string name="more_text_placeholder" translatable="false">MORE_TEXT</string>
-    <string name="overlays_tab_package_ver_message">Installed %s version: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Successfully copied version code to clipboard!</string>
-    <string name="overlays_tab_package_ver_failure">Failed to grab package version</string>
     <string name="locale_restart_message">Restart app to switch language</string>
     <string name="restart">Restart</string>
 

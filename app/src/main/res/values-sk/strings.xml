@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum a Interfacer sú spojení!</string>
     <string name="interfacer_notification_text">Služby pozadia témy sú prepojené, aktívne a bežiace.</string>
     <string name="andromeda_notification_title">Substratum a Andromeda sú spojení!</string>
-    <string name="andromeda_notification_title_negation">Substratum a Andromeda nie sú spojení</string>
     <string name="andromeda_notification_text">Služby pozadia témy sú prepojené, aktívne a bežiace.</string>
-    <string name="andromeda_notification_text_negation">Služba Andromeda nie je spustená, reštartujte aplikáciu v počítači!</string>
     <string name="resource_commit_dialog_title">Chýbajúce zdroje v %s</string>
     <string name="showcase_no_connection">Ukážky tém vyžadujú pripojenie k internetu!</string>
     <string name="refused_to_install_notification_button">Odstrániť tému</string>
@@ -94,7 +92,6 @@
     <string name="overlays_variant_default_4">variant typ4&#8230;</string>
     <string name="overlays_up_to_date">AKTUÁLNE (%s)</string>
     <string name="overlays_update_available">Je dostupná aktualizácia!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variant nie je nainštalovaný</string>
     <string name="shutdownanimation_placeholder_text">Prosím, vyberte z rozbaľovacieho zoznamu animáciu pri vypnutí&#8230;</string>
     <string name="shutdownanimation_defaults_text">Toto vymaže všetky vlastné animácie pri vypnutí aplikované na tomto zariadení</string>
     <string name="shutdownanimation_dialog_apply_text">Spracováva sa animácia pri vypnutí&#8230;</string>
@@ -504,9 +501,6 @@
     <string name="manage_space_reset_dialog_title">Resetovať konfiguráciu?</string>
     <string name="manage_space_reset_dialog_content">Aplikácia sa po dokončení resetu ukončí!</string>
     <string name="legacy_overlay_uninstall_warning_text">Ak odinštalujete všetky prekrytia, prosím použite záchranné Substratum ZIPy, aby ste sa vyhli možnému uviaznutiu v spúšťacej slučke (bootloop).</string>
-    <string name="overlays_tab_package_ver_message">Nainštalované %s verzia: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Kód verzie sa úspešne skopíroval do schránky!</string>
-    <string name="overlays_tab_package_ver_failure">Nepodarilo zachytiť verziu balíka</string>
     <string name="locale_restart_message">Reštartujte aplikáciu pre prepnutie jazyka</string>
     <string name="restart">Reštartovať</string>
 </resources>

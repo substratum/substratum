@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum і Interfacer злучаны!</string>
     <string name="interfacer_notification_text">Фонавыя працэсы звязаныя, актыўныя і запушчаны.</string>
     <string name="andromeda_notification_title">Substratum і Andromeda злучаны!</string>
-    <string name="andromeda_notification_title_negation">Substratum і Andromeda не злучаны</string>
     <string name="andromeda_notification_text">Фонавыя працэсы звязаныя, актыўныя і запушчаны.</string>
-    <string name="andromeda_notification_text_negation">Сэрвіс Andromeda ня запушчаны, калі ласка перазапусціце праграму на кампутары!</string>
     <string name="resource_commit_dialog_title">Адсутнічаюць рэсурсы ў %s</string>
     <string name="showcase_no_connection">каталог тэм патрабуе падлучэння да інтэрнэту!
     </string>
@@ -86,7 +84,6 @@
     <string name="overlays_variant_default_3">варыянт па змаўчанні&#8230;</string>
     <string name="overlays_variant_default_4">варыянт type4&#8230;</string>
     <string name="overlays_update_available">Даступна абнаўленне!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Варыянт не ўсталяваны</string>
     <string name="shutdownanimation_dialog_apply_text">Ужыванне анімацыі выключэння&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Анімацыя выключэння ўжыта!</string>
     <string name="shutdownanimation_dialog_apply_failed">Не ўдалося ўжыць анімацыю выключэння&#8230;</string>
@@ -445,9 +442,6 @@
     <string name="manage_space_reset_dialog_title">Скід канфігурацыі?</string>
     <string name="manage_space_reset_dialog_content">Праграма будзе зачынена пасля скіду!</string>
     <string name="legacy_overlay_uninstall_warning_text">Пры выдаленні ўсіх напластаванняў, калі ласка, выкарыстоўвайце ратаванне Substratum ZIP-каб пазбегнуць магчымага bootloops.</string>
-    <string name="overlays_tab_package_ver_message">Усталявана %s версія %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Код версіі скапіяваны ў буфер абмену!</string>
-    <string name="overlays_tab_package_ver_failure">Не атрымалася захапіць версію пакета</string>
     <string name="locale_restart_message">Перазапусціце праграму для пераключэння мовы</string>
     <string name="restart">Перазапусціць</string>
 </resources>

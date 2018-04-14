@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum és Interfacer össze van kötve!</string>
     <string name="interfacer_notification_text">A háttér témaszolgáltatások aktívak és futnak.</string>
     <string name="andromeda_notification_title">Substratum és Andromeda össze van kötve!</string>
-    <string name="andromeda_notification_title_negation">Substratum és Andromeda NINCS összekötve</string>
     <string name="andromeda_notification_text">A háttér témaszolgáltatások aktívak és futnak.</string>
-    <string name="andromeda_notification_text_negation">Androméda szolgáltatása nem fut, futtassa újra a desktop suite-et!</string>
     <string name="resource_commit_dialog_title">Hiányzó források itt: %s</string>
     <string name="showcase_no_connection">a téma-bemutatóhoz internetkapcsolat szükséges, hogy
       működjön!
@@ -115,7 +113,6 @@
     <string name="overlays_variant_default_4">type4 változat&#8230;</string>
     <string name="overlays_up_to_date">NAPRAKÉSZ (%s)</string>
     <string name="overlays_update_available">Frissítés érhető el!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Változat nincs telepítve</string>
     <string name="shutdownanimation_placeholder_text">Kérjük válasszon ki egy rendszerindítási animációt a
       legördülő listából&#8230;</string>
     <string name="shutdownanimation_defaults_text">Ez törli a készülékén alkalmazott egyéni
@@ -574,9 +571,6 @@
     <string name="manage_space_reset_dialog_title">Konfiguráció alaphelyzetbe?</string>
     <string name="manage_space_reset_dialog_content">Az alkalmazás bezárásra kerül a visszaállítás befejezése után!</string>
     <string name="legacy_overlay_uninstall_warning_text">Ha az összes fedvényt el akarja távolítani, használja a Substratum Mentési ZIP-eket a lehetséges bootloopok elkerülésére.</string>
-    <string name="overlays_tab_package_ver_message">Telepített %s verzió: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Verzió kód sikeresen vágólapra másolva!</string>
-    <string name="overlays_tab_package_ver_failure">A csomag verziója nem tölthető le</string>
     <string name="locale_restart_message">Alkalmazás újraindítása nyelv váltásához</string>
     <string name="restart">Újraindítás</string>
 </resources>

@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum ve Arayüz bağlı!</string>
     <string name="interfacer_notification_text">Arka plan tema hizmetleri bağlı, etkin ve çalışıyor.</string>
     <string name="andromeda_notification_title">Substratum ve Andromeda bağlı!</string>
-    <string name="andromeda_notification_title_negation">Substratum ve Andromeda bağlı DEĞİL</string>
     <string name="andromeda_notification_text">Arka plan tema hizmetleri bağlı, etkin ve çalışıyor.</string>
-    <string name="andromeda_notification_text_negation">Andromeda\'nın servisi çalışmıyor, lütfen masaüstü paketini tekrar çalıştırın!</string>
     <string name="resource_commit_dialog_title">%s Kaynakları Eksik</string>
     <string name="showcase_no_connection">tema vitrininin çalışması için internet bağlantısı
         gereklidir!
@@ -115,7 +113,6 @@
     <string name="overlays_variant_default_4">seçenek4 varyantı&#8230;</string>
     <string name="overlays_up_to_date">GÜNCEL (%s)</string>
     <string name="overlays_update_available">Güncelleme mevcut!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Varyant yüklü değil</string>
     <string name="shutdownanimation_placeholder_text">Lütfen açılan listeden bir önyükleme animasyonu
       seçin&#8230;</string>
     <string name="shutdownanimation_defaults_text">Bu, cihazınızda uygulanan tüm önyükleme
@@ -576,9 +573,6 @@
     <string name="manage_space_reset_dialog_title">Yapılandırmalar sıfırlansın mı?</string>
     <string name="manage_space_reset_dialog_content">Sıfırlama tamamlandıktan sonra uygulama kapanacak!</string>
     <string name="legacy_overlay_uninstall_warning_text">Tüm temaları kaldırıyorsanız, olası bir önyükleme döngüsünden kaçınmak için lütfen Substatum Kurtama Zip\'lerini kullanın.</string>
-    <string name="overlays_tab_package_ver_message">Yüklenen %s sürümü: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Sürüm kodu panoya başarıyla kopyalandı!</string>
-    <string name="overlays_tab_package_ver_failure">Paket sürümü alınamadı</string>
     <string name="locale_restart_message">Dili değiştirmek için uygulamayı yeniden başlatın</string>
     <string name="restart">Yeniden başlat</string>
 </resources>

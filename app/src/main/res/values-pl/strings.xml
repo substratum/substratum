@@ -31,9 +31,7 @@
     <string name="interfacer_notification_title">Substratum i Interfacer są połączone!</string>
     <string name="interfacer_notification_text">Usługi motywów w tle są powiązane, aktywne i działają.</string>
     <string name="andromeda_notification_title">Substratum i Andromeda są połączone!</string>
-    <string name="andromeda_notification_title_negation">Substratum i Andromeda nie są połączone</string>
     <string name="andromeda_notification_text">Usługi motywów w tle są powiązane, aktywne i działają.</string>
-    <string name="andromeda_notification_text_negation">Usługa Andromedy nie działa, należy ponownie uruchomić pakiet na komputerze!</string>
     <string name="resource_commit_dialog_title">Brakujące zasoby w %s</string>
     <string name="showcase_no_connection">prezentacja motywu do funkcjonowania wymaga połączenia z internetem!    </string>
     <string name="refused_to_install_notification_button">Usuń motyw</string>
@@ -95,7 +93,6 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="overlays_variant_default_4">wariant typ4&#8230;</string>
     <string name="overlays_up_to_date">AKTUALNE (%s)</string>
     <string name="overlays_update_available">Aktualizacja dostępna!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Wariantu nie zainstalowano</string>
     <string name="shutdownanimation_placeholder_text">Proszę wybrać z listy animację wyłączania&#8230;</string>
     <string name="shutdownanimation_defaults_text">Spowoduje to usunięcie wszelkich animacji wyłączania zastosowanych w urządzeniu</string>
     <string name="shutdownanimation_dialog_apply_text">Animacja wyłączenia jest przetwarzana&#8230;</string>
@@ -499,9 +496,6 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="manage_space_reset_dialog_title">Zresetować konfigurację?</string>
     <string name="manage_space_reset_dialog_content">Aplikacja zostanie zamknięta po zakończeniu resetowania!</string>
     <string name="legacy_overlay_uninstall_warning_text">Jeśli odinstalujesz wszystkie nakładki, użyj plików odzyskiwania, aby uniknąć możliwego zapętlenia podczas uruchamiania się systemu.</string>
-    <string name="overlays_tab_package_ver_message">Zainstalowana wersja %s: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Pomyślnie skopiowano kod wersji do schowka!</string>
-    <string name="overlays_tab_package_ver_failure">Nie można pobrać wersji pakietu</string>
     <string name="locale_restart_message">Uruchom ponownie aplikację, aby zmienić język</string>
     <string name="restart">Uruchom ponownie</string>
 </resources>

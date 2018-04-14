@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum e Interfacer estão conectados!</string>
     <string name="interfacer_notification_text">Os serviços de plano de fundo de temas estão conectados, ativos e funcionando.</string>
     <string name="andromeda_notification_title">Substratum e Andromeda estão conectados!</string>
-    <string name="andromeda_notification_title_negation">Substratum e Andromeda não estão conectados</string>
     <string name="andromeda_notification_text">Os serviços de plano de fundo de temas estão conectados, ativos e funcionando.</string>
-    <string name="andromeda_notification_text_negation">O serviço Andromeda não está funcionando, por favor reabra o programa do Desktop!</string>
     <string name="resource_commit_dialog_title">Faltam recursos em %s</string>
     <string name="showcase_no_connection">o mostruário de temas requer uma conexão com a Internet para
       funcionar!    </string>
@@ -104,7 +102,6 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="overlays_variant_default_4">variante de tipo4&#8230;</string>
     <string name="overlays_up_to_date">ATUALIZADO (%s)</string>
     <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variante não instalada</string>
     <string name="shutdownanimation_placeholder_text">Por favor, selecione uma animação de encerramento da lista&#8230;</string>
     <string name="shutdownanimation_defaults_text">Isto vai limpar qualquer animação de encerramento personalizada
         aplicada em seu dispositivo</string>
@@ -534,9 +531,6 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.   
     <string name="manage_space_reset_dialog_title">Redefinir a configuração?</string>
     <string name="manage_space_reset_dialog_content">O app vai fechar após a conclusão da redefinição!</string>
     <string name="legacy_overlay_uninstall_warning_text">Se você estiver desinstalando todas as camadas, use os ZIPs Substratum Rescue para evitar possíveis bootloops.</string>
-    <string name="overlays_tab_package_ver_message">Instalado %s versão: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Código da versão copiado para a área de transferência com sucesso!</string>
-    <string name="overlays_tab_package_ver_failure">Falha ao obter a versão do pacote</string>
     <string name="locale_restart_message">Reinicie o aplicativo para mudar o idioma</string>
     <string name="restart">Reiniciar</string>
 </resources>

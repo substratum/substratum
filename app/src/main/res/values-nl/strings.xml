@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum en Interfacer zijn verbonden!</string>
     <string name="interfacer_notification_text">De achtergrond themaservices zijn gebonden, actief en worden uitgevoerd.</string>
     <string name="andromeda_notification_title">Substratum en Andromeda zijn verbonden!</string>
-    <string name="andromeda_notification_title_negation">Substratum en Andromeda zijn NIET verbonden</string>
     <string name="andromeda_notification_text">De achtergrond themaservices zijn gebonden, actief en worden uitgevoerd.</string>
-    <string name="andromeda_notification_text_negation">Andromeda\'s service wordt niet uitgevoerd. Voer de desktopsuite opnieuw uit!</string>
     <string name="resource_commit_dialog_title">Ontbrekende bronnen in %s</string>
     <string name="showcase_no_connection">de thema showcase vereist een internetverbinding om te functioneren!</string>
     <string name="refused_to_install_notification_button">Thema verwijderen</string>
@@ -93,7 +91,6 @@
     <string name="overlays_variant_default_4">type4 variant&#8230;</string>
     <string name="overlays_up_to_date">UP-TO-DATE (%s)</string>
     <string name="overlays_update_available">Update beschikbaar!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variant niet geïnstalleerd</string>
     <string name="shutdownanimation_placeholder_text">Kies een afsluitanimatie uit de keuzelijst&#8230;</string>
     <string name="shutdownanimation_defaults_text">Dit zal iedere toegepaste afsluitanimatie op het apparaat ongedaan maken</string>
     <string name="shutdownanimation_dialog_apply_text">Afsluitanimatie wordt verwerkt&#8230;</string>
@@ -496,9 +493,6 @@
     <string name="manage_space_reset_dialog_title">Configuratie resetten?</string>
     <string name="manage_space_reset_dialog_content">De app zal sluiten nadat de reset is voltooid!</string>
     <string name="legacy_overlay_uninstall_warning_text">Als je alle overlays wilt deïnstalleren, gebruik de Substratum Rescue ZIPs om bootloops te voorkomen.</string>
-    <string name="overlays_tab_package_ver_message">Geïnstalleerde %s versie: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Versiecode succesvol gekopieerd naar klembord!</string>
-    <string name="overlays_tab_package_ver_failure">Pakketversie verkrijgen mislukt</string>
     <string name="locale_restart_message">App herstarten om van taal te wisselen</string>
     <string name="restart">Herstarten</string>
 </resources>

@@ -1461,8 +1461,7 @@ public class Overlays extends Fragment {
                                 argument,
                                 loadOverlays.currentOverlays,
                                 Systems.checkOMS(overlays.context),
-                                attention,
-                                overlays.getActivityView());
+                                attention);
                 loadOverlays.adapterList.add(overlaysItem);
             } catch (Exception e) {
                 e.printStackTrace();

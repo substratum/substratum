@@ -21,7 +21,6 @@ package projekt.substratum.adapters.tabs.overlays;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 import android.widget.SpinnerAdapter;
 
 import java.io.Serializable;
@@ -43,7 +42,6 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class OverlaysItem implements Serializable {
 
-    public String versionName;
     public String attention;
     public boolean isVariantChosen;
     public boolean isVariantChosen1;
@@ -52,6 +50,7 @@ public class OverlaysItem implements Serializable {
     public boolean isVariantChosen4;
     public boolean isVariantChosen5;
     public boolean variantMode;
+    String versionName;
     private String themeName;
     private String packageName;
     private VariantAdapter array;
@@ -62,11 +61,9 @@ public class OverlaysItem implements Serializable {
     private Context context;
     private Drawable appIcon;
     private boolean themeOms;
-    private View activityView;
     private String name;
     private String targetVersion;
     private boolean isSelected;
-    private boolean isVariantInstalled;
     private int spinnerSelection;
     private int spinnerSelection2;
     private int spinnerSelection3;
@@ -94,8 +91,7 @@ public class OverlaysItem implements Serializable {
                         String baseResources,
                         Collection enabledOverlays,
                         boolean themeOms,
-                        String attention,
-                        View activityView) {
+                        String attention) {
         super();
         this.themeName = themeName;
         this.name = name;
@@ -117,15 +113,6 @@ public class OverlaysItem implements Serializable {
         this.enabledOverlays.addAll(enabledOverlays);
         this.appIcon = Packages.getAppIcon(context, packageName);
         this.attention = attention;
-        this.activityView = activityView;
-        this.isVariantInstalled = isPackageInstalled(context,
-                this.getPackageName() + '.' + this.getThemeName() +
-                        ((!this.getBaseResources().isEmpty()) ?
-                                '.' + this.getBaseResources() : ""));
-    }
-
-    View getActivityView() {
-        return activityView;
     }
 
     boolean isDeviceOMS() {
@@ -361,7 +348,10 @@ public class OverlaysItem implements Serializable {
     }
 
     public boolean isVariantInstalled() {
-        return isVariantInstalled;
+        return isPackageInstalled(context,
+                this.getPackageName() + '.' + this.getThemeName() +
+                        ((!this.getBaseResources().isEmpty()) ?
+                                '.' + this.getBaseResources() : ""));
     }
 
     public String getTargetVersion() {

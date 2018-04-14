@@ -35,7 +35,6 @@
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
     <string name="overlays_update_available">Uppdatering tillgänglig!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variant inte installerad</string>
     <string name="wallpaper_downloading">Laddar bilden till cache&#8230;</string>
     <string name="wallpaper_allscreen_success">Både hem och låsskärmens bakgrundsbilder konfigurerad!    </string>
     <string name="sounds_alarm">Alarm</string>

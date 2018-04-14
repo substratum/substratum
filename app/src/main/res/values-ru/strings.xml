@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum и Interfacer соединены!</string>
     <string name="interfacer_notification_text">Фоновые процессы связаны, активны и запущены.</string>
     <string name="andromeda_notification_title">Substratum и Andromeda соединены!</string>
-    <string name="andromeda_notification_title_negation">Substratum и Andromeda НЕ соединены</string>
     <string name="andromeda_notification_text">Фоновые процессы связаны, активны и запущены.</string>
-    <string name="andromeda_notification_text_negation">Сервис Andromeda не запущен, пожалуйста перезапустите приложение на компьютере!</string>
     <string name="resource_commit_dialog_title">Отсутствуют ресурсы в %s</string>
     <string name="failed_to_install_title_notification">Не удалось установить OMS тему</string>
     <string name="actionbar_theme_count_loading">загрузка&#8230;</string>
@@ -61,7 +59,6 @@
     <string name="overlays_variant_default_3">Вариант по умолчанию&#8230;</string>
     <string name="overlays_variant_default_4">Вариант type4&#8230;</string>
     <string name="overlays_update_available">Доступно обновление!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Вариация не установлена</string>
     <string name="shutdownanimation_dialog_apply_text">Применение анимации выключения&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Анимация выключения применена!</string>
     <string name="shutdownanimation_dialog_apply_failed">Не удалось применить анимацию выключения&#8230;</string>
@@ -416,8 +413,5 @@
     <string name="manage_space_reset_dialog_title">Сбросить параметры?</string>
     <string name="manage_space_reset_dialog_content">Приложение закроется по завершению сброса!</string>
     <string name="legacy_overlay_uninstall_warning_text">При удалении всех наслоений, пожалуйста, используйте архивы восстановления Substratum во избежание возможных вечных загрузок.</string>
-    <string name="overlays_tab_package_ver_message">Установлено %s версия %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Код версии скопирован в буфер обмена!</string>
-    <string name="overlays_tab_package_ver_failure">Не удалось получить версии пакета</string>
     <string name="restart">Перезапустить</string>
 </resources>

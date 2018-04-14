@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum und Interfacer sind verbunden!</string>
     <string name="interfacer_notification_text">Die Theme-Hintergrunddienste sind gebunden, aktiv und laufen.</string>
     <string name="andromeda_notification_title">Substratum und Andromeda sind verbunden!</string>
-    <string name="andromeda_notification_title_negation">Substratum und Andromeda sind NICHT verbunden</string>
     <string name="andromeda_notification_text">Die Theme-Hintergrunddienste sind gebunden, aktiv und laufen.</string>
-    <string name="andromeda_notification_text_negation">Andromeda-Dienst wird nicht ausgeführt, bitte starte die Desktop-Suite erneut!</string>
     <string name="resource_commit_dialog_title">Fehlende Ressourcen in %s</string>
     <string name="showcase_no_connection">Für Themes-Showcase ist eine Internetverbindung erforderlich!</string>
     <string name="refused_to_install_notification_button">Entferne Theme</string>
@@ -90,7 +88,6 @@
     <string name="overlays_variant_default_3">Standard Basis Variante&#8230;</string>
     <string name="overlays_variant_default_4">Typ4 Variante&#8230;</string>
     <string name="overlays_update_available">Aktualisierung verfügbar!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variante nicht installiert</string>
     <string name="shutdownanimation_placeholder_text">Bitte wähle eine Shutdown-Animation aus der Liste&#8230;</string>
     <string name="shutdownanimation_defaults_text">Dadurch werden alle benutzerdefinierten Shutdown-Animationen entfernt, die auf deinem Gerät angewendet sind</string>
     <string name="shutdownanimation_dialog_apply_text">Shutdown-Animation wird aktiviert&#8230;</string>
@@ -490,9 +487,6 @@ eingerichtet&#8230;</string>
     <string name="manage_space_reset_dialog_title">Konfiguration zurücksetzen?</string>
     <string name="manage_space_reset_dialog_content">Die App wird sich schließen nachdem das Zurücksetzen abgeschlossen ist!</string>
     <string name="legacy_overlay_uninstall_warning_text">Wenn du alle Overlays deinstallieren verwende bitte die Substratum Rettungs-ZIPs, um mögliche Bootloops zu verhindern.</string>
-    <string name="overlays_tab_package_ver_message">%s Version %s installiert</string>
-    <string name="overlays_tab_package_ver_message_copied">Versions-Code erfolgreich in die Zwischenablage kopiert!</string>
-    <string name="overlays_tab_package_ver_failure">Fehler beim Erfassen der Paket-Version</string>
     <string name="locale_restart_message">Starten sie die App neu um die Sprache zu wechseln</string>
     <string name="restart">Neustart</string>
 </resources>

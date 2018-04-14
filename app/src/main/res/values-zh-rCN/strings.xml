@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum与Interfacer已连接！</string>
     <string name="interfacer_notification_text">后台主题服务已被禁用，激活并运行。</string>
     <string name="andromeda_notification_title">Substratum与Andromeda已连接！</string>
-    <string name="andromeda_notification_title_negation">Substratum与Andromeda未连接</string>
     <string name="andromeda_notification_text">后台主题服务已被禁用，激活并运行。</string>
-    <string name="andromeda_notification_text_negation">Andromeda服务未运行，请重启桌面套组！</string>
     <string name="resource_commit_dialog_title">在 %s 中缺少资源</string>
     <string name="showcase_no_connection">主题展示需要网络连接才能正常工作！</string>
     <string name="refused_to_install_notification_button">移除主题</string>
@@ -94,7 +92,6 @@
     <string name="overlays_variant_default_4">type4 变量</string>
     <string name="overlays_up_to_date">最新 (%s)</string>
     <string name="overlays_update_available">有可用更新！\n（%s）</string>
-    <string name="overlays_overlay_not_installed">变量未安装</string>
     <string name="shutdownanimation_placeholder_text">请从下拉列表中选择一个关机动画&#8230;</string>
     <string name="shutdownanimation_defaults_text">这将清除您应用的所有自定义关机动画</string>
     <string name="shutdownanimation_dialog_apply_text">正在处理关机动画...</string>
@@ -502,9 +499,6 @@
     <string name="manage_space_reset_dialog_title">您确定要重置所有配置吗？</string>
     <string name="manage_space_reset_dialog_content">应用程序会在重置完成后自动关闭</string>
     <string name="legacy_overlay_uninstall_warning_text">如果您正在卸载所有叠加层，请使用 Substratum 救援系统，以避免设备变砖。</string>
-    <string name="overlays_tab_package_ver_message">已安装的 %s 版本： %s</string>
-    <string name="overlays_tab_package_ver_message_copied">已将版本代码复制到剪贴板</string>
-    <string name="overlays_tab_package_ver_failure">未能获取包版本</string>
     <string name="locale_restart_message">重新启动应用以切换语言</string>
     <string name="restart">重新开始</string>
 </resources>

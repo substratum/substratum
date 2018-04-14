@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum và Interfacer được kết nối!</string>
     <string name="interfacer_notification_text">Các dịch vụ chủ đề nền được kết hợp, hoạt động và chạy.</string>
     <string name="andromeda_notification_title">Substratum và Andromeda được kết nối!</string>
-    <string name="andromeda_notification_title_negation">Substratum và Andromeda KHÔNG kết nối</string>
     <string name="andromeda_notification_text">Các dịch vụ chủ đề nền được kết hợp, hoạt động và chạy.</string>
-    <string name="andromeda_notification_text_negation">Dịch vụ của Andromeda không chạy, hãy chạy lại bộ máy tính để bàn!</string>
     <string name="resource_commit_dialog_title">Thiếu nguồn trong %s</string>
     <string name="showcase_no_connection">trình diễn chủ đề yêu cầu kết nối internet với
       chức năng!
@@ -104,7 +102,6 @@
     <string name="overlays_variant_default_4">phiên bản type4&#8230;</string>
     <string name="overlays_up_to_date">THÔNG TIN MỚI NHẤT (%s)</string>
     <string name="overlays_update_available">Cập nhật khả dụng!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Biến thể không được cài đặt</string>
     <string name="shutdownanimation_placeholder_text">Vui lòng chọn một hình động tắt máy từ trình đơn thả xuống
       danh sách&#8230;</string>
     <string name="shutdownanimation_defaults_text">Thao tác này sẽ xóa bất kỳ hình động tắt máy tùy chỉnh nào
@@ -539,9 +536,6 @@
     <string name="manage_space_reset_dialog_title">Đặt lại cấu hình?</string>
     <string name="manage_space_reset_dialog_content">Ứng dụng này sẽ đóng sau khi quá trình thiết lập lại hoàn tất!</string>
     <string name="legacy_overlay_uninstall_warning_text">Nếu bạn đang gỡ cài đặt tất cả lớp, xin vui lòng sử dụng Substratum cứu ZIPs để tránh có thể bootloops.</string>
-    <string name="overlays_tab_package_ver_message">Phiên bản %s cài đặt: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Thành công sao chép phiên bản mã vào bảng tạm!</string>
-    <string name="overlays_tab_package_ver_failure">Thất bại để lấy gói phiên bản</string>
     <string name="locale_restart_message">Khởi động lại ứng dụng để chuyển đổi ngôn ngữ</string>
     <string name="restart">Khởi động lại</string>
 </resources>

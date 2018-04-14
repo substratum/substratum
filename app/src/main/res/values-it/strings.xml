@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum e Interfacer sono collegati!</string>
     <string name="interfacer_notification_text">I servizi del tema di sfondo sono legati, attivi e in esecuzione.</string>
     <string name="andromeda_notification_title">Substratum e Andromeda sono collegati!</string>
-    <string name="andromeda_notification_title_negation">Substratum e Andromeda NON sono collegati</string>
     <string name="andromeda_notification_text">I servizi del tema di sfondo sono legati, attivi e in esecuzione.</string>
-    <string name="andromeda_notification_text_negation">Il servizio di Andromeda non è in esecuzione, si prega di rieseguire la suite desktop!</string>
     <string name="resource_commit_dialog_title">Risorse mancanti in %s</string>
     <string name="showcase_no_connection">La vetrina dei temi richiede una connessione ad internet per funzionare!    </string>
     <string name="refused_to_install_notification_button">Rimuovi tema</string>
@@ -96,7 +94,6 @@
     <string name="overlays_variant_default_4">tipo4 variante&#8230;</string>
     <string name="overlays_up_to_date">AGGIORNATO (%s)</string>
     <string name="overlays_update_available">Aggiornamento disponibile!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variante non installata</string>
     <string name="shutdownanimation_placeholder_text">Si prega di selezionare un\'animazione di spegnimento dalla seguente
         lista&#8230;</string>
     <string name="shutdownanimation_defaults_text">Questo cancellerà tutte le animazioni di spegnimento personalizzate         applicate sul tuo dispositivo</string>
@@ -506,9 +503,6 @@
     <string name="manage_space_reset_dialog_title">Reimpostare la configurazione?</string>
     <string name="manage_space_reset_dialog_content">L\'applicazione si chiuderà dopo il reset sarà completo!</string>
     <string name="legacy_overlay_uninstall_warning_text">Se stai disinstallando tutte le sovrapposizioni, per favore usa Substratum Rescue ZIPs per evitare eventuali bootloops.</string>
-    <string name="overlays_tab_package_ver_message">Versione di %s installata: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Copia del codice della versione negli appunti avvenuta con successo!</string>
-    <string name="overlays_tab_package_ver_failure">Impossibile ottenere la versione del pacchetto</string>
     <string name="locale_restart_message">Riavvia l\'app per cambiare lingua</string>
     <string name="restart">Riavvia</string>
 </resources>

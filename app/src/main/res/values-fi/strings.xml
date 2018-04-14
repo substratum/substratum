@@ -29,9 +29,7 @@
     <string name="interfacer_notification_title">Substratum ja Interfacer on yhdistetty!</string>
     <string name="interfacer_notification_text">Teeman taustapalvelut on yhdistetty, aktiiviset ja käynnissä.</string>
     <string name="andromeda_notification_title">Substratum ja Andromeda on yhdistetty!</string>
-    <string name="andromeda_notification_title_negation">Substratum ja Andromeda EIVÄT ole yhdistetty</string>
     <string name="andromeda_notification_text">Teeman taustapalvelut on yhdistetty, aktiiviset ja käynnissä.</string>
-    <string name="andromeda_notification_text_negation">Andromedan palvelut eivät ole käynnissä, uudelleenkäynnistä tietokoneohjelma!</string>
     <string name="resource_commit_dialog_title">Puuttuvat Resurssit %s</string>
     <string name="refused_to_install_notification_button">Poista Teema</string>
     <string name="refused_to_install_title_notification">Teemantekijä hylkäsi teeman Samsungilla.</string>
@@ -83,7 +81,6 @@
     <string name="overlays_variant_default_4">tyyppi4 variantti&#8230;</string>
     <string name="overlays_up_to_date">AJANTASALLA (%s)</string>
     <string name="overlays_update_available">Päivitys saatavilla!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Varianttia ei asennettu</string>
     <string name="shutdownanimation_dialog_apply_text">Sammumisanimaatio on käsittelyssä&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Sammumisanimaatio asetettu!</string>
     <string name="shutdownanimation_dialog_apply_failed">Sammumisanimaation asettaminen epäonnistui&#8230;</string>
@@ -359,8 +356,5 @@
     <string name="manage_space_reset_dialog_title">Nollaa kokoonpano?</string>
     <string name="manage_space_reset_dialog_content">Tämä sovellus sulkeutuu kun resetointi on valmis!</string>
     <string name="legacy_overlay_uninstall_warning_text">Jos olet poistamassa kaikkia päällyksiä, käytäthän Substratum Rescue ZIP: ja välttääksesi mahdollisia käynnistyskierteitä.</string>
-    <string name="overlays_tab_package_ver_message">Asennettu %s versio: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Versiokoodi kopioitiin onnistuneesti leikepöydälle!</string>
-    <string name="overlays_tab_package_ver_failure">Pakkausversion haku epäonnistui</string>
     <string name="restart">Käynnistä Uudelleen</string>
 </resources>

@@ -47,7 +47,6 @@
     <string name="overlays_variant_default_2">type2 타입...</string>
     <string name="overlays_variant_default_3">기본 타입...</string>
     <string name="overlays_update_available">새로운 버전이 있습니다.\n(%s)</string>
-    <string name="overlays_overlay_not_installed">해당 타입이 설치되지 않음</string>
     <string name="bootanimation_dialog_apply_text">부트 애니메이션 적용 중...</string>
     <string name="bootanimation_dialog_apply_success">부트 애니메이션 적용 완료!</string>
     <string name="bootanimation_dialog_apply_failed">부트 애니메이션 적용 실패...</string>

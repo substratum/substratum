@@ -46,7 +46,6 @@ import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.common.Systems;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.databinding.SplashscreenActivityBinding;
 import projekt.substratum.util.helpers.MD5;

@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">O Substratum e o Interfacer estão ligados!</string>
     <string name="interfacer_notification_text">Os serviços de temas em segundo plano estão ativados e em execução.</string>
     <string name="andromeda_notification_title">O Substratum e o Andromeda estão ligados!</string>
-    <string name="andromeda_notification_title_negation">O Substratum e o Andromeda NÃO estão ligados</string>
     <string name="andromeda_notification_text">Os serviços de temas em segundo plano estão ativados e em execução.</string>
-    <string name="andromeda_notification_text_negation">O serviço do Andromeda não está em execução. Por favor, execute novamente a suíte do ambiente de trabalho!</string>
     <string name="resource_commit_dialog_title">Recursos em falta em %s</string>
     <string name="showcase_no_connection">o expositor de temas requer uma ligação de internet para
         funcionar!
@@ -105,7 +103,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="overlays_variant_default_4">variante de tipo 4&#8230;</string>
     <string name="overlays_up_to_date">ATUALIZADA (%s)</string>
     <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Variável não instalada</string>
     <string name="shutdownanimation_placeholder_text">Por favor, selecione uma animação de encerramento através da lista suspensa&#8230;</string>
     <string name="shutdownanimation_defaults_text">Isto irá limpar qualquer animação personalizada de encerramento
         que esteja aplicada no seu dispositivo</string>
@@ -543,9 +540,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="manage_space_reset_dialog_title">Repor definições?</string>
     <string name="manage_space_reset_dialog_content">A aplicação irá fechar após a conclusão da reposição!</string>
     <string name="legacy_overlay_uninstall_warning_text">Se estiver a desinstalar todas as sobreposições, por favor utilize os ZIPs de recuperação do Substratum para evitar possíveis problemas no arranque.</string>
-    <string name="overlays_tab_package_ver_message">Versão instalada de %s: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Código da versão copiado para a área de transferência com sucesso!</string>
-    <string name="overlays_tab_package_ver_failure">Falha ao obter a versão do pacote</string>
     <string name="locale_restart_message">Reinicie a aplicação para mudar o idioma</string>
     <string name="restart">Reiniciar</string>
 </resources>

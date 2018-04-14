@@ -30,9 +30,7 @@
     <string name="interfacer_notification_title">Substratum dan Interfacer terhubung!</string>
     <string name="interfacer_notification_text">Latar belakang tema layanan telah digabungkan, aktif dan berjalan.</string>
     <string name="andromeda_notification_title">Substratum dan Andromeda terhubung!</string>
-    <string name="andromeda_notification_title_negation">Subbtratum dan Andromeda tidak terhubung</string>
     <string name="andromeda_notification_text">Latar belakang tema layanan telah digabungkan, aktif dan berjalan.</string>
-    <string name="andromeda_notification_text_negation">Layanan Andromeda tidak berjalan, silakan jalankan kembali desktop suite!</string>
     <string name="resource_commit_dialog_title">Sumber yang hilang di %s</string>
     <string name="failed_to_install_title_notification">Gagal memasang tema OMS</string>
     <string name="actionbar_theme_count_loading">memuat&#8230;</string>
@@ -63,7 +61,6 @@
     <string name="overlays_variant_default_3">varian basis standar&#8230;</string>
     <string name="overlays_variant_default_4">varian tipe 4&#8230;</string>
     <string name="overlays_update_available">Pembaruan tersedia!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Varian tidak terpasang</string>
     <string name="shutdownanimation_dialog_apply_text">Animasi boot sedang memproses&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Animasi boot telah diterapkan!</string>
     <string name="shutdownanimation_dialog_apply_failed">Animasi boot gagal diterapkan&#8230;</string>
@@ -416,8 +413,5 @@
     <string name="manage_space_reset_dialog_title">Setel ulang konfigurasi?</string>
     <string name="manage_space_reset_dialog_content">Aplikasi ini akan ditutup setelah penyetelan ulang selesai!</string>
     <string name="legacy_overlay_uninstall_warning_text">Jika anda mencopot semua lapisan, silahkan gunakan Substratum Rescue Zips untuk menghindari kemungkinan bootloop.</string>
-    <string name="overlays_tab_package_ver_message">Terinstal %s versi: %s</string>
-    <string name="overlays_tab_package_ver_message_copied">Versi kode berhasil disalin ke clipboard!</string>
-    <string name="overlays_tab_package_ver_failure">Gagal mendapatkan versi paket</string>
     <string name="restart">Mulai ulang</string>
 </resources>

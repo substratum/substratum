@@ -134,7 +134,8 @@ public class Substratum extends Application {
         Log.d("Substratum",
                 "The overlay package refresher for Samsung devices has been fully loaded.");
         PackageManager pm = context.getPackageManager();
-        List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
+        List<ApplicationInfo> currentApps =
+                pm.getInstalledApplications(PackageManager.GET_META_DATA);
         initialPackageCount = currentApps.size();
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -148,7 +149,8 @@ public class Substratum extends Application {
                     }
                     currentThread = null;
                 }
-                List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
+                List<ApplicationInfo> currentApps =
+                        pm.getInstalledApplications(PackageManager.GET_META_DATA);
                 if (initialPackageCount != currentApps.size()) {
                     initialPackageCount = currentApps.size();
                     Broadcasts.sendOverlayRefreshMessage(context);

@@ -43,6 +43,7 @@ import projekt.substratum.common.References;
 import static projekt.substratum.common.References.COMMON_PACKAGE;
 import static projekt.substratum.common.References.ENABLE_AAPT_OUTPUT;
 import static projekt.substratum.common.References.SAMSUNG_OVERLAY_PERMISSION;
+import static projekt.substratum.common.Resources.allowedForSamsungPermission;
 import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.getDeviceID;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
@@ -109,7 +110,7 @@ public enum CompilerCommands {
             rootElement.setAttribute("android:versionName", versionName);
 
             // Special permissions for special devices
-            if (isNewSamsungDevice()) {
+            if (isNewSamsungDevice() && allowedForSamsungPermission(targetPackage)) {
                 Element permissionElement = document.createElement("uses-permission");
                 permissionElement.setAttribute("android:name", SAMSUNG_OVERLAY_PERMISSION);
                 rootElement.appendChild(permissionElement);

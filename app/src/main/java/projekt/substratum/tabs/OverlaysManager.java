@@ -151,7 +151,7 @@ enum OverlaysManager {
         }
         overlays.currentInstance.reset();
         overlays.overlayItemList = overlays.overlaysAdapter.getOverlayList();
-
+        overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
         for (int i = 0; i < overlays.overlayItemList.size(); i++) {
             OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
             if (overlays.context != null) {
@@ -232,6 +232,7 @@ enum OverlaysManager {
                     }
                 }
             } else {
+                overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
                 for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                     FileOperations.mountRW();
                     FileOperations.delete(overlays.context, current_directory +
@@ -295,6 +296,7 @@ enum OverlaysManager {
                         try {
                             overlays.overlayItemList = overlays.overlaysAdapter.getOverlayList();
                             overlays.getCurrentOverlays();
+                            overlays.overlaysAdapter.refreshOverlayStateList(context);
                             for (int i = 0; i < overlays.overlayItemList.size(); i++) {
                                 OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
                                 currentOverlay.setSelected(false);
@@ -542,6 +544,7 @@ enum OverlaysManager {
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 }
+                overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
                 overlays.overlaysAdapter.notifyDataSetChanged();
                 if (overlays.toggleAll.isChecked()) overlays.toggleAll.setChecked(false);
             }
@@ -1323,19 +1326,19 @@ enum OverlaysManager {
 
                     if (activity != null) {
                         if (overlays.currentInstance.finalRunner.isEmpty()) {
-                            if (overlays.baseSpinner.getSelectedItemPosition() == 0) {
-                                activity.runOnUiThread(() ->
-                                        overlays.overlaysAdapter.notifyDataSetChanged());
-                            } else {
-                                activity.runOnUiThread(() ->
-                                        overlays.overlaysAdapter.notifyDataSetChanged());
-                            }
+                            activity.runOnUiThread(() -> {
+                                overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
+                                overlays.overlaysAdapter.notifyDataSetChanged();
+                            });
                         } else {
-                            activity.runOnUiThread(() ->
-                                    overlays.progressBar.setVisibility(View.VISIBLE));
-                            if (overlays.toggleAll.isChecked())
-                                activity.runOnUiThread(() -> overlays.toggleAll.setChecked(false));
-                            activity.runOnUiThread(() -> overlays.overlaysAdapter.notifyDataSetChanged());
+                            activity.runOnUiThread(() -> {
+                                overlays.progressBar.setVisibility(View.VISIBLE);
+                                if (overlays.toggleAll.isChecked())
+                                    activity.runOnUiThread(() ->
+                                            overlays.toggleAll.setChecked(false));
+                                overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
+                                overlays.overlaysAdapter.notifyDataSetChanged();
+                            });
                         }
                         activity.runOnUiThread(() -> overlays.progressBar.setVisibility(View.GONE));
                     }
@@ -1352,6 +1355,7 @@ enum OverlaysManager {
                             try {
                                 overlays.overlayItemList = overlays.overlaysAdapter.getOverlayList();
                                 overlays.getCurrentOverlays();
+                                overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
                                 for (int i = 0; i < overlays.overlayItemList.size(); i++) {
                                     OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
                                     currentOverlay.setSelected(false);

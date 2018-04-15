@@ -42,7 +42,6 @@ import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.Systems.checkOMS;
-import static projekt.substratum.common.Systems.isNewSamsungDevice;
 import static projekt.substratum.common.Systems.isSamsungDevice;
 
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
@@ -57,7 +56,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     public OverlaysAdapter(List<OverlaysItem> overlayInfo, Context context) {
         super();
         overlayList = overlayInfo;
-        overlayStateList = ThemeManager.listAllOverlays(context);
+        refreshOverlayStateList(context);
     }
 
     /**
@@ -88,7 +87,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewBinding.overlayState.setVisibility(View.VISIBLE);
                 if (overlaysItem.isOverlayEnabled()) {
                     changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_ENABLED);
-                } else if (isNewSamsungDevice() && !overlayStateList.contains(packageToCheck)) {
+                } else if (!overlayStateList.contains(packageToCheck)) {
                     changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_UNKNOWN);
                 } else {
                     changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_DISABLED);
@@ -211,6 +210,10 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         return overlaysItem.getPackageName() + '.' + overlaysItem.getThemeName() +
                 '.' + packageName + (!overlaysItem.getBaseResources().isEmpty() ?
                 '.' + overlaysItem.getBaseResources() : "");
+    }
+
+    public void refreshOverlayStateList(Context context) {
+        overlayStateList = ThemeManager.listAllOverlays(context);
     }
 
     @NonNull

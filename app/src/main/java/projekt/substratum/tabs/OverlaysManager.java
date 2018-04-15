@@ -95,6 +95,7 @@ import static projekt.substratum.common.Resources.inNexusFilter;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.isNewSamsungDevice;
 import static projekt.substratum.common.Systems.isSystemSecurityPatchNewer;
 
 enum OverlaysManager {
@@ -1304,8 +1305,10 @@ enum OverlaysManager {
                                 new AlertDialog.Builder(overlays.context);
                         alertDialogBuilder.setTitle(
                                 overlays.getString(R.string.new_stock_commits_title));
-                        alertDialogBuilder.setMessage(
-                                overlays.getString(R.string.new_stock_commits_text));
+                        String message = overlays.getString(R.string.new_stock_commits_text);
+                        if (isNewSamsungDevice()) message += "\n\n" +
+                                overlays.getString(R.string.new_stock_commits_text_samsung);
+                        alertDialogBuilder.setMessage(message);
                         alertDialogBuilder.setPositiveButton(
                                 R.string.dialog_ok,
                                 (dialog, id12) -> {

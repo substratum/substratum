@@ -131,14 +131,12 @@ public enum Packages {
      * @param enabled     Check whether it is enabled or frozen
      * @return True, if it fits all criteria above
      */
-    public static boolean isPackageInstalled(
-            Context context,
-            String packageName,
-            boolean enabled) {
+    public static boolean isPackageInstalled(Context context,
+                                             String packageName,
+                                             boolean enabled) {
         try {
-            ApplicationInfo ai = context.getPackageManager().getApplicationInfo
-                    (packageName, 0);
             PackageManager pm = context.getPackageManager();
+            ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             if (enabled) return ai.enabled;
             // if package doesn't exist, an Exception will be thrown, so return true in every case

@@ -294,7 +294,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         prefs.edit().putBoolean("force_english_locale", true).apply();
                         Snackbar lunchbar = Lunchbar.make(getView(),
                                 getString(R.string.locale_restart_message),
-                                Snackbar.LENGTH_INDEFINITE);
+                                Snackbar.LENGTH_LONG);
                         lunchbar.setAction(getString(R.string.restart), v ->
                                 new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                         lunchbar.show();
@@ -303,7 +303,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         prefs.edit().putBoolean("force_english_locale", false).apply();
                         Snackbar lunchbar = Lunchbar.make(getView(),
                                 getString(R.string.locale_restart_message),
-                                Snackbar.LENGTH_INDEFINITE);
+                                Snackbar.LENGTH_LONG);
                         lunchbar.setAction(getString(R.string.restart), v ->
                                 new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                         lunchbar.show();
@@ -378,7 +378,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 sheetDialog.dismiss();
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
-                        Snackbar.LENGTH_INDEFINITE);
+                        Snackbar.LENGTH_LONG);
                 lunchbar.setAction(getString(R.string.restart), v ->
                         new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                 lunchbar.show();
@@ -388,7 +388,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 sheetDialog.dismiss();
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
-                        Snackbar.LENGTH_INDEFINITE);
+                        Snackbar.LENGTH_LONG);
                 lunchbar.setAction(getString(R.string.restart), v ->
                         new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                 lunchbar.show();
@@ -398,7 +398,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 sheetDialog.dismiss();
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
-                        Snackbar.LENGTH_INDEFINITE);
+                        Snackbar.LENGTH_LONG);
                 lunchbar.setAction(getString(R.string.restart), v ->
                         new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
                 lunchbar.show();

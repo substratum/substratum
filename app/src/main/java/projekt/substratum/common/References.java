@@ -106,6 +106,7 @@ public enum References {
     public static final boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
     @SuppressWarnings("WeakerAccess")
     public static final Integer OVERLAY_UPDATE_RANGE = 815; // Overlays require updating since ver
+    public static final String SECURITY_UPDATE_WARN_AFTER = "2018-02-01";
     // These are specific log tags for different classes
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
@@ -598,6 +599,7 @@ public enum References {
         editor.remove("previous_logchar_cleanup");
         editor.remove("seen_legacy_warning");
         editor.remove("rooted_oms_dismissal");
+        editor.remove("new_stock_dismissal");
         editor.remove("xiaomi_enable_development");
         editor.remove("legacy_dismissal");
         editor2.clear();

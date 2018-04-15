@@ -81,6 +81,7 @@ import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.common.References.SECURITY_UPDATE_WARN_AFTER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
@@ -92,7 +93,9 @@ import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
 import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 import static projekt.substratum.common.Resources.inNexusFilter;
 import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.isSystemSecurityPatchNewer;
 
 enum OverlaysManager {
     ;
@@ -1285,6 +1288,41 @@ enum OverlaysManager {
                 }
                 InformationActivity.shouldRestartActivity = false;
                 InformationActivity.compilingProcess = false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Overlays overlays = ref.get();
+            Context context = refContext.get();
+            if ((context != null) && (overlays != null)) {
+                if (isSystemSecurityPatchNewer(SECURITY_UPDATE_WARN_AFTER) &&
+                        !checkSubstratumService(context)) {
+                    if (!overlays.prefs.getBoolean("new_stock_dismissal", false)) {
+                        AlertDialog.Builder alertDialogBuilder =
+                                new AlertDialog.Builder(overlays.context);
+                        alertDialogBuilder.setTitle(
+                                overlays.getString(R.string.new_stock_commits_title));
+                        alertDialogBuilder.setMessage(
+                                overlays.getString(R.string.new_stock_commits_text));
+                        alertDialogBuilder.setPositiveButton(
+                                R.string.dialog_ok,
+                                (dialog, id12) -> {
+                                    overlays.progressBar.setVisibility(View.GONE);
+                                    dialog.dismiss();
+                                });
+                        alertDialogBuilder.setNeutralButton(
+                                R.string.dialog_do_not_show_again, (dialog, id1) -> {
+                                    overlays.prefs.edit().putBoolean(
+                                            "new_stock_dismissal", true).apply();
+                                    overlays.progressBar.setVisibility(View.GONE);
+                                    dialog.dismiss();
+                                });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+                }
             }
         }
 

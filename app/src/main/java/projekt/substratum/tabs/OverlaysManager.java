@@ -1325,22 +1325,17 @@ enum OverlaysManager {
                     }
 
                     if (activity != null) {
-                        if (overlays.currentInstance.finalRunner.isEmpty()) {
-                            activity.runOnUiThread(() -> {
-                                overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
-                                overlays.overlaysAdapter.notifyDataSetChanged();
-                            });
-                        } else {
-                            activity.runOnUiThread(() -> {
+                        activity.runOnUiThread(() -> {
+                            if (!overlays.currentInstance.finalRunner.isEmpty()) {
                                 overlays.progressBar.setVisibility(View.VISIBLE);
                                 if (overlays.toggleAll.isChecked())
                                     activity.runOnUiThread(() ->
                                             overlays.toggleAll.setChecked(false));
-                                overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
-                                overlays.overlaysAdapter.notifyDataSetChanged();
-                            });
-                        }
-                        activity.runOnUiThread(() -> overlays.progressBar.setVisibility(View.GONE));
+                            }
+                            overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
+                            overlays.overlaysAdapter.notifyDataSetChanged();
+                            overlays.progressBar.setVisibility(View.GONE);
+                        });
                     }
 
                     List<String> toAnalyze = new ArrayList<>();

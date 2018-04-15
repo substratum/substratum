@@ -1460,7 +1460,6 @@ public class Overlays extends Fragment {
                                 overlays.themeVersion,
                                 argument,
                                 loadOverlays.currentOverlays,
-                                Systems.checkOMS(overlays.context),
                                 attention);
                 loadOverlays.adapterList.add(overlaysItem);
             } catch (Exception e) {

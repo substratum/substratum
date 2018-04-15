@@ -60,7 +60,6 @@ public class OverlaysItem implements Serializable {
     private VariantAdapter array5;
     private Context context;
     private Drawable appIcon;
-    private boolean themeOms;
     private String name;
     private String targetVersion;
     private boolean isSelected;
@@ -90,7 +89,6 @@ public class OverlaysItem implements Serializable {
                         String versionName,
                         String baseResources,
                         Collection enabledOverlays,
-                        boolean themeOms,
                         String attention) {
         super();
         this.themeName = themeName;
@@ -104,7 +102,6 @@ public class OverlaysItem implements Serializable {
         this.array5 = adapter5;
         this.context = context;
         this.versionName = versionName;
-        this.themeOms = themeOms;
         if (this.baseResources != null)
             this.baseResources =
                     baseResources.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
@@ -113,10 +110,6 @@ public class OverlaysItem implements Serializable {
         this.enabledOverlays.addAll(enabledOverlays);
         this.appIcon = Packages.getAppIcon(context, packageName);
         this.attention = attention;
-    }
-
-    boolean isDeviceOMS() {
-        return themeOms;
     }
 
     public String getThemeName() {

@@ -34,7 +34,6 @@ import java.io.File;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.databinding.TabOverlaysItemBinding;
 import projekt.substratum.util.views.SheetDialog;
@@ -42,9 +41,16 @@ import projekt.substratum.util.views.SheetDialog;
 import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
+import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.isNewSamsungDevice;
+import static projekt.substratum.common.Systems.isSamsungDevice;
 
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
 
+    private static final String INSTALLED_ENABLED = "INSTALLED_ENABLED";
+    private static final String INSTALLED_UNKNOWN = "INSTALLED_UNKNOWN";
+    private static final String INSTALLED_DISABLED = "INSTALLED_DISABLED";
+    private static final String NOT_INSTALLED = "NOT_INSTALLED";
     private List<OverlaysItem> overlayList;
     private List<String> overlayStateList;
 
@@ -70,7 +76,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                              List<String> overlayStateList,
                                              TabOverlaysItemBinding viewBinding,
                                              @Nullable String packageName) {
-        if (overlaysItem.isDeviceOMS()) {
+        if (checkOMS(context)) {
             // This includes everything from custom ROMs to stock Oreo devices...
             String packageToCheck;
             if (packageName != null) {
@@ -78,85 +84,128 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             } else {
                 packageToCheck = overlaysItem.getFullOverlayParameters();
             }
-            boolean installationCheck = isPackageInstalled(context, packageToCheck);
-            if (installationCheck) {
+            if (isPackageInstalled(context, packageToCheck)) {
                 viewBinding.overlayState.setVisibility(View.VISIBLE);
-                if ((packageName == null) ?
-                        overlaysItem.compareInstalledOverlay() :
-                        !overlaysItem.compareInstalledVariantOverlay(packageName)) {
-                    viewBinding.overlayState.setText(
-                            String.format(
-                                    context.getString(R.string.overlays_update_available),
-                                    overlaysItem.versionName)
-                    );
-                    viewBinding.overlayState.setTextColor(
-                            context.getColor(R.color.overlay_update_available));
-                } else {
-                    viewBinding.overlayState.setText(
-                            String.format(
-                                    context.getString(R.string.overlays_up_to_date),
-                                    overlaysItem.versionName)
-                    );
-                    viewBinding.overlayState.setTextColor(
-                            context.getColor(R.color.overlay_update_not_needed));
-                }
                 if (overlaysItem.isOverlayEnabled()) {
-                    viewBinding.overlayTargetPackageName.setTextColor(
-                            context.getColor(R.color.overlay_installed_list_entry));
+                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_ENABLED);
+                } else if (isNewSamsungDevice() && !overlayStateList.contains(packageToCheck)) {
+                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_UNKNOWN);
                 } else {
-                    if (Systems.isNewSamsungDevice() &&
-                            !overlayStateList.contains(packageToCheck)) {
-                        viewBinding.overlayTargetPackageName.setTextColor(
-                                context.getColor(R.color.overlay_installed_not_active));
-                    } else {
-                        viewBinding.overlayTargetPackageName.setTextColor(
-                                context.getColor(R.color.overlay_not_enabled_list_entry));
-                    }
+                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_DISABLED);
                 }
             } else {
-                viewBinding.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_installed_list_entry));
+                changeOverlayTargetPackageNameTint(viewBinding, context, NOT_INSTALLED);
                 viewBinding.overlayState.setVisibility(View.GONE);
             }
+        } else if (isSamsungDevice(context)) {
+            // Nougat based Samsung check
+            changeOverlayTargetPackageNameTint(viewBinding, context,
+                    (overlaysItem.isOverlayEnabled() ? INSTALLED_ENABLED : NOT_INSTALLED));
+            viewBinding.overlayState.setVisibility(
+                    overlaysItem.isOverlayEnabled() ? View.VISIBLE : View.GONE);
         } else {
-            if (Systems.isSamsungDevice(context)) {
-                // Nougat based Samsung check
-                if (overlaysItem.isOverlayEnabled()) {
-                    viewBinding.overlayTargetPackageName.setTextColor(
-                            context.getColor(R.color.overlay_installed_list_entry));
-                } else {
-                    viewBinding.overlayTargetPackageName.setTextColor(
-                            context.getColor(R.color.overlay_not_installed_list_entry));
-                }
-            } else {
-                // At this point, the object is an RRO formatted check
-                File file = new File(PIXEL_NEXUS_DIR);
-                File file2 = new File(LEGACY_NEXUS_DIR);
-                if (file.exists() || file2.exists()) {
-                    File filer1 = new File(
-                            file.getAbsolutePath() + '/' +
-                                    overlaysItem.getPackageName() + '.' +
-                                    overlaysItem.getThemeName() + ".apk");
-                    File filer2 = new File(
-                            file2.getAbsolutePath() + '/' +
-                                    overlaysItem.getPackageName() + '.' +
-                                    overlaysItem.getThemeName() + ".apk");
-                    if (filer1.exists() || filer2.exists()) {
-                        viewBinding.overlayTargetPackageName.setTextColor(
-                                context.getColor(R.color.overlay_installed_list_entry));
-                    } else {
-                        viewBinding.overlayTargetPackageName.setTextColor(
-                                context.getColor(R.color.overlay_not_installed_list_entry));
-                    }
-                }
+            // Nougat based RRO/Legacy check
+            File file = new File(PIXEL_NEXUS_DIR);
+            File file2 = new File(LEGACY_NEXUS_DIR);
+            if (file.exists() || file2.exists()) {
+                String directoryAppend =
+                        '/' + overlaysItem.getPackageName() +
+                                '.' + overlaysItem.getThemeName() + ".apk";
+                File filer1 = new File(file.getAbsolutePath() + directoryAppend);
+                File filer2 = new File(file2.getAbsolutePath() + directoryAppend);
+                changeOverlayTargetPackageNameTint(viewBinding, context,
+                        (filer1.exists() || filer2.exists() ? INSTALLED_ENABLED : NOT_INSTALLED));
+                viewBinding.overlayState.setVisibility(
+                        overlaysItem.isOverlayEnabled() ? View.VISIBLE : View.GONE);
             }
+        }
+        // Now let's check if the state needs changing...
+        if (viewBinding.overlayState.getVisibility() == View.VISIBLE) {
+            changeOverlayState(
+                    viewBinding,
+                    context,
+                    overlaysItem,
+                    ((packageName == null) ?
+                            overlaysItem.compareInstalledOverlay() :
+                            !overlaysItem.compareInstalledVariantOverlay(packageName))
+            );
         }
     }
 
+    /**
+     * Helper function to set the text and text color with one call
+     *
+     * @param binding      View binding
+     * @param context      Context
+     * @param overlaysItem Object of the overlay
+     * @param update       State of the overlay (to update, or it's up to date)
+     */
+    private static void changeOverlayState(TabOverlaysItemBinding binding,
+                                           Context context,
+                                           OverlaysItem overlaysItem,
+                                           boolean update) {
+        binding.overlayState.setText(
+                String.format(
+                        context.getString(update ?
+                                R.string.overlays_update_available :
+                                R.string.overlays_up_to_date),
+                        overlaysItem.versionName)
+        );
+        binding.overlayState.setTextColor(
+                context.getColor((update ?
+                        R.color.overlay_update_available :
+                        R.color.overlay_update_not_needed)
+                )
+        );
+    }
+
+    /**
+     * Helper function to set the color of the package name based on the state
+     *
+     * @param binding View binding
+     * @param context Context
+     * @param state   What state the overlay should reflect
+     */
+    private static void changeOverlayTargetPackageNameTint(TabOverlaysItemBinding binding,
+                                                           Context context,
+                                                           String state) {
+        switch (state) {
+            case INSTALLED_ENABLED:
+                binding.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_installed_list_entry));
+                break;
+            case INSTALLED_DISABLED:
+                binding.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_enabled_list_entry));
+                break;
+            case INSTALLED_UNKNOWN:
+                binding.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_installed_not_active));
+                break;
+            case NOT_INSTALLED:
+                binding.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_installed_list_entry));
+                break;
+        }
+    }
+
+    /**
+     * Helper function to clean out the text to remove all non-acceptable package name strings
+     *
+     * @param optionSpinnerText Text to be cleaned
+     * @return Cleaned text
+     */
     private static String sanitizeSpinnerText(String optionSpinnerText) {
         return optionSpinnerText.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
     }
 
+    /**
+     * Helper function to obtain the theme's variant package name as a whole with all types
+     *
+     * @param overlaysItem Overlay object
+     * @param packageName  Package name of initial theme
+     * @return Theorized package name with all the variant info
+     */
     private static String getThemeVariantPackageName(OverlaysItem overlaysItem,
                                                      String packageName) {
         return overlaysItem.getPackageName() + '.' + overlaysItem.getThemeName() +
@@ -173,8 +222,17 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         return new ViewHolder(itemLayoutView);
     }
 
+    /**
+     * Adapter listener object that reflects to the user's spinner dropdown selection
+     *
+     * @param context       Context
+     * @param overlaysItem  Overlay object
+     * @param viewHolder    View holder
+     * @param spinnerNumber Spinner selection
+     * @return Listener object that dynamically changes based on user selection
+     */
     private AdapterView.OnItemSelectedListener overlayAdapterListener(Context context,
-                                                                      OverlaysItem current_object,
+                                                                      OverlaysItem overlaysItem,
                                                                       ViewHolder viewHolder,
                                                                       int spinnerNumber) {
         return new AdapterView.OnItemSelectedListener() {
@@ -193,31 +251,31 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                        long id) {
                 switch (spinnerNumber) {
                     case 1:
-                        current_object.setSelectedVariant(pos);
-                        current_object.setSelectedVariantName(arg0.getSelectedItem().toString());
+                        overlaysItem.setSelectedVariant(pos);
+                        overlaysItem.setSelectedVariantName(arg0.getSelectedItem().toString());
                         break;
                     case 2:
-                        current_object.setSelectedVariant2(pos);
-                        current_object.setSelectedVariantName2(arg0.getSelectedItem().toString());
+                        overlaysItem.setSelectedVariant2(pos);
+                        overlaysItem.setSelectedVariantName2(arg0.getSelectedItem().toString());
                         break;
                     case 3:
-                        current_object.setSelectedVariant3(pos);
-                        current_object.setSelectedVariantName3(arg0.getSelectedItem().toString());
+                        overlaysItem.setSelectedVariant3(pos);
+                        overlaysItem.setSelectedVariantName3(arg0.getSelectedItem().toString());
                         break;
                     case 4:
-                        current_object.setSelectedVariant4(pos);
-                        current_object.setSelectedVariantName4(arg0.getSelectedItem().toString());
+                        overlaysItem.setSelectedVariant4(pos);
+                        overlaysItem.setSelectedVariantName4(arg0.getSelectedItem().toString());
                         break;
                     case 5:
-                        current_object.setSelectedVariant5(pos);
-                        current_object.setSelectedVariantName5(arg0.getSelectedItem().toString());
+                        overlaysItem.setSelectedVariant5(pos);
+                        overlaysItem.setSelectedVariantName5(arg0.getSelectedItem().toString());
                         break;
                 }
 
                 if (pos == 0) {
                     OverlaysAdapter.changeVisibleOptions(
                             context,
-                            current_object,
+                            overlaysItem,
                             overlayStateList,
                             viewHolderBinding,
                             null
@@ -276,7 +334,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     }
                     OverlaysAdapter.changeVisibleOptions(
                             context,
-                            current_object,
+                            overlaysItem,
                             overlayStateList,
                             viewHolderBinding,
                             packageName

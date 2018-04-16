@@ -302,6 +302,7 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_alphabetize">Change Sorting Mode</string>
+    <string name="menu_state">Sort by Overlay State</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_showcase">Showcase</string>
     <string name="menu_filter">Filter</string>

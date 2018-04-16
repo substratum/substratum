@@ -398,10 +398,15 @@ public class ManagerFragment extends Fragment {
 
         assert getActivity() != null;
         updateMenuButtonState(menu.findItem(R.id.alphabetize));
+        updateSortingMenuButtonState(menu.findItem(R.id.sort_by_state));
         if (!checkOMS(context) ||
                 checkAndromeda(context) ||
                 MainActivity.instanceBasedAndromedaFailure) {
             menu.findItem(R.id.restart_systemui).setVisible(false);
+        }
+        if (!checkOMS(context)) {
+            menu.findItem(R.id.sort_by_state).setVisible(false);
+            prefs.edit().remove("manager_sorting_mode").apply();
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -421,6 +426,25 @@ public class ManagerFragment extends Fragment {
     }
 
     /**
+     * Update the options menu icons
+     *
+     * @param menuItem Object of menu item
+     */
+    private void updateSortingMenuButtonState(MenuItem menuItem) {
+        String sortingMode = prefs.getString("manager_sorting_mode", "default");
+        switch (sortingMode) {
+            case "default":
+                menuItem.setIcon(R.drawable.toolbar_manager_all);
+                break;
+            case "enabled":
+                menuItem.setIcon(R.drawable.toolbar_manager_enabled);
+                break;
+            case "disabled":
+                menuItem.setIcon(R.drawable.toolbar_manager_disabled);
+        }
+    }
+
+    /**
      * Assign actions to every option when they are selected
      *
      * @param item Object of menu item
@@ -431,26 +455,51 @@ public class ManagerFragment extends Fragment {
         if (materialSheetFab.isSheetVisible()) {
             materialSheetFab.hideSheet();
         } else {
-            if (item.getItemId() == R.id.alphabetize) {
-                boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
-                if (alphabetize) {
-                    prefs.edit().putBoolean("alphabetize_overlays", false).apply();
-                } else {
-                    prefs.edit().putBoolean("alphabetize_overlays", true).apply();
-                }
-                updateMenuButtonState(item);
-                if (!alphabetize) refreshThemeName();
-                if (layoutReloader != null && !layoutReloader.isCancelled()) {
-                    layoutReloader.cancel(true);
-                    layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
-                    layoutReloader.execute();
-                } else {
-                    layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
-                    layoutReloader.execute();
-                }
-                assert getActivity() != null;
-                getActivity().invalidateOptionsMenu();
-                return true;
+            switch (item.getItemId()) {
+                case R.id.alphabetize:
+                    boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
+                    if (alphabetize) {
+                        prefs.edit().putBoolean("alphabetize_overlays", false).apply();
+                    } else {
+                        prefs.edit().putBoolean("alphabetize_overlays", true).apply();
+                    }
+                    updateMenuButtonState(item);
+                    if (!alphabetize) refreshThemeName();
+                    if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                        layoutReloader.cancel(true);
+                        layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                        layoutReloader.execute();
+                    } else {
+                        layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                        layoutReloader.execute();
+                    }
+                    assert getActivity() != null;
+                    getActivity().invalidateOptionsMenu();
+                    return true;
+                case R.id.sort_by_state:
+                    String sortingMode = prefs.getString("manager_sorting_mode", "default");
+                    switch (sortingMode) {
+                        case "default":
+                            prefs.edit().putString("manager_sorting_mode", "enabled").apply();
+                            break;
+                        case "enabled":
+                            prefs.edit().putString("manager_sorting_mode", "disabled").apply();
+                            break;
+                        case "disabled":
+                            prefs.edit().putString("manager_sorting_mode", "default").apply();
+                            break;
+                    }
+                    if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                        layoutReloader.cancel(true);
+                        layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                        layoutReloader.execute();
+                    } else {
+                        layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                        layoutReloader.execute();
+                    }
+                    assert getActivity() != null;
+                    getActivity().invalidateOptionsMenu();
+                    return true;
             }
         }
         return super.onOptionsItemSelected(item);
@@ -548,13 +597,28 @@ public class ManagerFragment extends Fragment {
                     fragment.activatedOverlays = new ArrayList<>();
 
                     if (Systems.checkOMS(fragment.context)) {
-                        fragment.activatedOverlays = new ArrayList<>(
+                        fragment.activatedOverlays = new ArrayList<>();
+
+                        List<String> enabledOverlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context, STATE_ENABLED));
                         List<String> disabledOverlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context, STATE_DISABLED));
-                        List<String> allOverlays = new ArrayList<>(
-                                fragment.activatedOverlays);
-                        allOverlays.addAll(disabledOverlays);
+
+                        List<String> allOverlays = new ArrayList<>();
+                        switch (fragment.prefs.getString("manager_sorting_mode", "default")) {
+                            case "default":
+                                fragment.activatedOverlays = new ArrayList<>(enabledOverlays);
+                                allOverlays.addAll(enabledOverlays);
+                                allOverlays.addAll(disabledOverlays);
+                                break;
+                            case "enabled":
+                                fragment.activatedOverlays = new ArrayList<>(enabledOverlays);
+                                allOverlays.addAll(enabledOverlays);
+                                break;
+                            case "disabled":
+                                allOverlays.addAll(disabledOverlays);
+                                break;
+                        }
                         Collections.sort(allOverlays);
 
                         // Create the map for {package name: package identifier}
@@ -572,8 +636,6 @@ public class ManagerFragment extends Fragment {
                                         References.metadataOverlayParent);
                                 if ((metadata != null) && !metadata.isEmpty()) {
                                     combined.append(Packages.getPackageName(context, metadata));
-                                } else {
-                                    combined.append("");
                                 }
                                 combined.append(getPackageName(context,
                                         getOverlayTarget(context, allOverlays.get(i))));
@@ -715,8 +777,7 @@ public class ManagerFragment extends Fragment {
                     fragment.noOverlaysEnabled.setVisibility(View.GONE);
                     fragment.recyclerView.setVisibility(View.VISIBLE);
                 }
-                if (!fragment.prefs.getBoolean("manager_disabled_overlays", true) ||
-                        !Systems.checkOMS(fragment.context)) {
+                if (!Systems.checkOMS(fragment.context)) {
                     fragment.enableSelected.setVisibility(View.GONE);
                 }
                 if (fragment.firstRun == null) fragment.firstRun = false;
@@ -749,7 +810,7 @@ public class ManagerFragment extends Fragment {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
-                if ((result != null) && "unauthorized".equals(result)) {
+                if ("unauthorized".equals(result)) {
                     Toast.makeText(context,
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();

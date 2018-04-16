@@ -51,6 +51,7 @@ import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
@@ -73,6 +74,7 @@ public class Substratum extends Application {
     private static final String BINDER_TAG = "BinderService";
     private static final FinishReceiver finishReceiver = new FinishReceiver();
     public static int initialPackageCount = 0;
+    public static int initialOverlayCount = 0;
     public static Thread currentThread;
     private static Substratum substratum;
     private static boolean isWaiting;
@@ -137,6 +139,7 @@ public class Substratum extends Application {
         List<ApplicationInfo> currentApps =
                 pm.getInstalledApplications(PackageManager.GET_META_DATA);
         initialPackageCount = currentApps.size();
+        initialOverlayCount = ThemeManager.listAllOverlays(context).size();
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -151,7 +154,10 @@ public class Substratum extends Application {
                 }
                 List<ApplicationInfo> currentApps =
                         pm.getInstalledApplications(PackageManager.GET_META_DATA);
-                if (initialPackageCount != currentApps.size()) {
+                List<String> listOfThemes = ThemeManager.listAllOverlays(context);
+                if (initialPackageCount != currentApps.size() ||
+                        (initialOverlayCount >= 1 && initialOverlayCount != listOfThemes.size())) {
+                    initialOverlayCount = ThemeManager.listAllOverlays(context).size();
                     initialPackageCount = currentApps.size();
                     Broadcasts.sendOverlayRefreshMessage(context);
                 }

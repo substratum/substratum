@@ -104,7 +104,7 @@
 
     <string name="new_stock_commits_title">Reboot required!</string>
     <string name="new_stock_commits_text">After the March security patch, Google implemented a check on overlays which needs a reboot to activate an installed/updated overlay!</string>
-    <string name="new_stock_commits_text_samsung">SAMSUNG USER! We have added a few things to newly compiled overlays which Samsung uses to identify their overlays! This means you may need to wait until your overlays are installed before rebooting as Samsung added delays and blocks for overlay detection on installs! All systemui overlays must be enabled before rebooting or you will need to reboot and do again the whole process!</string>
+    <string name="new_stock_commits_text_samsung">SAMSUNG USER! We have added a few things to newly compiled overlays which Samsung uses to identify their overlays! This means you may need to wait until your overlays are installed before rebooting as Samsung added delays and blocks for overlay detection on installs! All SystemUI overlays must be enabled before rebooting or you will need to reboot and do again the whole process!</string>
     <string name="new_stock_commits_text_pink">As such, this overlay will be in pink and enable/disable state will be disabled until a reboot.</string>
 
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>

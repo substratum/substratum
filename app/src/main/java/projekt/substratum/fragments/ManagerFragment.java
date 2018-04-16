@@ -432,15 +432,26 @@ public class ManagerFragment extends Fragment {
      */
     private void updateSortingMenuButtonState(MenuItem menuItem) {
         String sortingMode = prefs.getString("manager_sorting_mode", "default");
+        String assignedMode = context.getString(R.string.menu_state_prefix);
         switch (sortingMode) {
             case "default":
                 menuItem.setIcon(R.drawable.toolbar_manager_all);
+                menuItem.setTitle(
+                        String.format(assignedMode,
+                                context.getString(R.string.menu_state_default)));
                 break;
             case "enabled":
                 menuItem.setIcon(R.drawable.toolbar_manager_enabled);
+                menuItem.setTitle(
+                        String.format(assignedMode,
+                                context.getString(R.string.menu_state_enabled)));
                 break;
             case "disabled":
                 menuItem.setIcon(R.drawable.toolbar_manager_disabled);
+                menuItem.setTitle(
+                        String.format(assignedMode,
+                                context.getString(R.string.menu_state_disabled)));
+                break;
         }
     }
 

@@ -138,7 +138,8 @@ public enum Resources {
     // These packages will be exempt from having the Samsung overlay permission added onto it
     private static final String[] SAMSUNG_PERMISSION_BLACKLIST_PACKAGES = {
             "com.sec.android.app.music",
-            "com.sec.android.app.voicenote"
+            "com.sec.android.app.voicenote",
+            "com.wssyncmldm"
     };
 
     // Filter to adjust framework elements

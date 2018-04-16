@@ -1305,9 +1305,14 @@ enum OverlaysManager {
                                 new AlertDialog.Builder(overlays.context);
                         alertDialogBuilder.setTitle(
                                 overlays.getString(R.string.new_stock_commits_title));
+                        // Start of message
                         String message = overlays.getString(R.string.new_stock_commits_text);
+                        // If user is Samsung
                         if (isNewSamsungDevice()) message += "\n\n" +
                                 overlays.getString(R.string.new_stock_commits_text_samsung);
+                        // Explain the pink state
+                        if (!isNewSamsungDevice()) message += "\n\n" +
+                                overlays.getString(R.string.new_stock_commits_text_pink);
                         alertDialogBuilder.setMessage(message);
                         alertDialogBuilder.setPositiveButton(
                                 R.string.dialog_ok,

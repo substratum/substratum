@@ -27,7 +27,7 @@
     <color name="lunchbar_background">@android:color/white</color>
     <color name="lunchbar_text">@android:color/black</color>
 
-    <color name="bottombar_bar_background">@color/colorPrimary</color>
+    <drawable name="bottombar_bar_background">@color/colorPrimary</drawable>
     <color name="bottombar_icon_inactive_tint">#64000000</color>
 
     <color name="main_activity_alert_button_color">#df3b3b3b</color>

@@ -111,8 +111,6 @@
     <string name="fab_menu_swap_toggle">Inaktivera andra teman</string>
     <string name="fab_menu_swap_toggle_legacy">Ta bort alla befintliga</string>
     <string name="team_title_two">Substratum-översättare</string>
-    <string name="team_button_two">Visa översättare</string>
-    <string name="team_button_two_contribute">Bidra nu!</string>
     <string name="team_ivan_description">Plattform &amp; funktioner</string>
     <string name="team_harsh_description">Plattform &amp; funktioner</string>
     <string name="slide_1_title">välkommen till substratum</string>

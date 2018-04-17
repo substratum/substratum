@@ -265,15 +265,8 @@
     <string name="team_title_one">Основатели Substratum</string>
     <string name="team_text_one">Создавая пользовательскую часть, мы также совещались с дизайнерами тем, чтобы у сообщества был чудесный движок!</string>
     <string name="team_title_two">Переводчики Substratum</string>
-    <string name="team_text_two">Огромная благодарность этим переводчикам, они делают Substratum доступнее каждому во всем мире!</string>
-    <string name="team_button_two">Показать переводчиков</string>
-    <string name="team_button_two_contribute">Внести вклад!</string>
     <string name="team_title_three">Содействовавшие развитию Substratum</string>
-    <string name="team_text_three">Приятно, когда сообщество собирается ради приложения, работающего у всех нас!</string>
-    <string name="team_button_three">Показать участников</string>
     <string name="team_title_four">Причастные к Layers</string>
-    <string name="team_text_four">Эти люди создали для вас Layers Manager в прошлом и с тех пор реализовали многое, чтобы сегодня был Substratum!</string>
-    <string name="team_button_four">Показать участников</string>
     <string name="team_nicholas_description">Организатор разработки</string>
     <string name="team_syko_description">Исследователь системы</string>
     <string name="team_ivan_description">Платформа и возможности</string>

@@ -245,15 +245,8 @@
     <string name="team_title_one">Chefs d\'équipe de Substratum</string>
     <string name="team_text_one">Non seulement nous avons créé quelque chose qui fonctionne pour les utilisateurs, mais nous avons en plus travaillé en collaboration avec des concepteurs de thèmes, afin d\'offrir ce merveilleux moteur de thème à la communauté !</string>
     <string name="team_title_two">Traducteurs de Substratum</string>
-    <string name="team_text_two">Un grand merci à ces traducteurs pour mettre à disposition de tous Substratum à travers le monde !</string>
-    <string name="team_button_two">Afficher les traducteurs</string>
-    <string name="team_button_two_contribute">Participez !</string>
     <string name="team_title_three">Collaborateurs de Substratum</string>
-    <string name="team_text_three">Que c\'est génial, une communauté unie participant à la création d\'une application qui fonctionne pour nous tous !</string>
-    <string name="team_button_three">Afficher les collaborateurs</string>
     <string name="team_title_four">Collaborateurs de \"Layers\"</string>
-    <string name="team_text_four">Ces personnes vous ont apporté le \"Gestionnaire Layers\" par le passé, et ont depuis continué à faire de grandes choses pour la préparation Substratum !</string>
-    <string name="team_button_four">Afficher les collaborateurs</string>
     <string name="team_nicholas_description">Coordonnateur du développement</string>
     <string name="team_syko_description">Fureteur du système</string>
     <string name="team_ivan_description">Plate-forme et fonctionnalités</string>

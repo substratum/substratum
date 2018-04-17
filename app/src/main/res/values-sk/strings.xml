@@ -350,15 +350,8 @@
     <string name="team_title_one">Vodcovia Substratum</string>
     <string name="team_text_one">Nielen, že sme vytvorili niečo, čo funguje pre používateľov, ale spolupracujeme aj s tvorcami tém, aby sme vytvorili výborného správcu tém pre komunitu!</string>
     <string name="team_title_two">Prekladatelia Substratum</string>
-    <string name="team_text_two">Obrovská vďaka týmto prekladateľom za to, že sprístupnili Substratum všetkým na celom svete!</string>
-    <string name="team_button_two">Zobraziť prekladateľov</string>
-    <string name="team_button_two_contribute">Prispejte!</string>
     <string name="team_title_three">Prispievatelia pre Substratum</string>
-    <string name="team_text_three">Je výborné, keď sa komunita spojí a spoločne vytvorí aplikáciu, ktorá funguje pre nás všetkých!</string>
-    <string name="team_button_three">Zobraziť prispievateľov</string>
     <string name="team_title_four">Prispievatelia pre Layers</string>
-    <string name="team_text_four">Títo ľudia vám v minulosti priniesli Layers Manager a urobili veľa skvelej práce, aby sme my mohli priniesť Substratum!</string>
-    <string name="team_button_four">Zobraziť prispievateľov</string>
     <string name="team_nicholas_description">Koordinátor vývoja</string>
     <string name="team_syko_description">Systémový výskumník</string>
     <string name="team_ivan_description">Platforma &amp; funkcie</string>

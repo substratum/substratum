@@ -40,6 +40,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -78,6 +79,7 @@ import projekt.substratum.util.readers.ReadResourcesFile;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
+import static projekt.substratum.common.Activities.launchActivityUrl;
 import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Internal.SUPPORTED_ROMS_FILE;
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE;
@@ -106,6 +108,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Dialog dialog;
     private Context context;
     private SharedPreferences prefs;
+
+    private void launchTeamLink(int team_link) {
+        if (getActivity() != null) {
+            launchActivityUrl(
+                    context,
+                    References.getView(getActivity()),
+                    team_link);
+        }
+    }
 
     @SuppressLint("StringFormatMatches")
     @Override
@@ -137,7 +148,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     View sheetView =
                             View.inflate(context, R.layout.about_substratum_sheet_dialog, null);
                     LinearLayout translatorsView = sheetView.findViewById(R.id.translators);
+                    LinearLayout contributorsView = sheetView.findViewById(R.id.contributors);
+                    LinearLayout layersView = sheetView.findViewById(R.id.layers_contributors);
                     LinearLayout githubSourceView = sheetView.findViewById(R.id.github_source);
+                    LinearLayout teamView = sheetView.findViewById(R.id.team);
                     translatorsView.setOnClickListener(v -> {
                         new TranslatorContributionDialog(this).execute();
                         sheetDialog.cancel();
@@ -161,6 +175,64 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                         .show();
                             }
                         }
+                        sheetDialog.cancel();
+                    });
+                    contributorsView.setOnClickListener(v -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setItems(
+                                getResources().getStringArray(R.array.substratum_contributors),
+                                (dialog, item) -> {
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                        sheetDialog.cancel();
+                    });
+                    layersView.setOnClickListener(v -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setItems(
+                                getResources().getStringArray(R.array.layers_contributors),
+                                (dialog, item) -> {
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                        sheetDialog.cancel();
+                    });
+                    teamView.setOnClickListener(v -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setPositiveButton(android.R.string.ok,
+                                (dialog, which) -> dialog.cancel());
+
+                        View teamViewLayout = View.inflate(context, R.layout.team_dialog, null);
+                        CardView nicholasCard = teamViewLayout.findViewById(R.id.nicholas_card);
+                        CardView sykoCard = teamViewLayout.findViewById(R.id.syko_card);
+                        CardView ivanCard = teamViewLayout.findViewById(R.id.ivan_card);
+                        CardView surgeCard = teamViewLayout.findViewById(R.id.surge_card);
+                        CardView georgeCard = teamViewLayout.findViewById(R.id.george_card);
+                        CardView nathanCard = teamViewLayout.findViewById(R.id.nathan_card);
+                        CardView charCard = teamViewLayout.findViewById(R.id.char_card);
+                        CardView harshCard = teamViewLayout.findViewById(R.id.harsh_card);
+
+                        nicholasCard.setOnClickListener(v2 ->
+                                launchTeamLink(R.string.team_nicholas_link));
+                        sykoCard.setOnClickListener(v2 ->
+                                launchTeamLink(R.string.team_syko_link));
+                        ivanCard.setOnClickListener(v2 ->
+                                launchTeamLink(R.string.team_ivan_link));
+                        surgeCard.setOnClickListener(v2 ->
+                                launchTeamLink(R.string.team_surge_link));
+                        georgeCard.setOnClickListener(v2 ->
+                                launchTeamLink(R.string.team_george_link));
+                        nathanCard.setOnClickListener(v2 ->
+                                launchTeamLink(R.string.team_nathan_link));
+                        charCard.setOnClickListener(v2 ->
+                                launchTeamLink(R.string.team_char_link));
+                        harshCard.setOnClickListener(v2 ->
+                                launchTeamLink(R.string.team_harsh_link));
+
+                        builder.setView(teamViewLayout);
+
+                        AlertDialog alert = builder.create();
+                        alert.show();
                         sheetDialog.cancel();
                     });
                     sheetDialog.setContentView(sheetView);

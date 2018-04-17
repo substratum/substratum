@@ -422,15 +422,8 @@
     <string name="team_title_one">Substratum Liderleri</string>
     <string name="team_text_one">Kullanıcılar için işe yarayan bir şeyler yapmamızın yanı sıra, topluluk için harika bir tema motoru haline getirmek için tema geliştiricileri ile birlikte çalıştık!</string>
     <string name="team_title_two">Substratum Çevirmenleri</string>
-    <string name="team_text_two">Substratum\'u dünyadaki herkese ulaştırdığı için tüm çevirmenlere çok teşekkür ederiz!</string>
-    <string name="team_button_two">Çevirmenleri Göster</string>
-    <string name="team_button_two_contribute">Hemen Katkıda Bulunun!</string>
     <string name="team_title_three">Substratum\'a Katkıda Bulunanlar</string>
-    <string name="team_text_three">Asıl harika olan şey, hepimizin işine yarayan bir uygulama oluşturmak için topluluğun bir araya gelmesi ve birlik olmasıdır!</string>
-    <string name="team_button_three">Katkıda Bulunanları Göster</string>
     <string name="team_title_four">Layers\'a Katkıda Bulunanlar</string>
-    <string name="team_text_four">Bu insanlar geçmişte size Layers Manager\'ı getirdiler ve o zamandan beri Substratum\'u bizim için hazır hale getirmekte çok güzel şeyler yapmaya devam ettiler!</string>
-    <string name="team_button_four">Katkıda Bulunanları Göster</string>
     <string name="team_nicholas_description">Geliştirme Koordinatörü</string>
     <string name="team_syko_description">Sistem Araştırmacısı</string>
     <string name="team_ivan_description">Platform &amp; Özellikler</string>

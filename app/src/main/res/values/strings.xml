@@ -34,7 +34,6 @@
     <string name="interfacer_github" translatable="false">https://github.com/substratum/interfacer</string>
     <string name="interfacer_github_commits" translatable="false">https://github.com/substratum/interfacer/commits/n-rootless</string>
     <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/substratum/substratum/dev/showcase.xml</string>
-    <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
     <string name="validator_n_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker_n.xml"</string>
     <string name="validator_o_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker_o.xml"</string>
     <string name="validator_n_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist_n.xml"</string>
@@ -527,25 +526,13 @@
 
     <string name="team_title_one">Leaders of Substratum</string>
     <string name="team_text_one">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
-
-    <string name="team_title_two">Translators</string>
-    <string name="team_text_two">A huge thank you to these translators for bringing Substratum to everyone around the world!</string>
+    <string name="team_title_two">Substratum Translators</string>
     <string name="translator_name">Name</string>
     <string name="translator_languages">Languages</string>
     <string name="translator_words">Words</string>
-
     <string name="github_repository">GitHub Repository</string>
-
-    <string name="team_button_two">Show Translators</string>
-    <string name="team_button_two_contribute">Contribute Now!</string>
-
     <string name="team_title_three">Substratum Contributors</string>
-    <string name="team_text_three">What\'s great is when the community comes together and unifies to create an app that works for all of us!</string>
-    <string name="team_button_three">Show Contributors</string>
-
     <string name="team_title_four">Layers Contributors</string>
-    <string name="team_text_four">These people brought you Layers Manager in the past and have since went on to do many great things in getting Substratum ready for us!</string>
-    <string name="team_button_four">Show Contributors</string>
 
     <string name="team_nicholas" translatable="false">Nicholas Chum</string>
     <string name="team_nicholas_description">Development Coordinator</string>

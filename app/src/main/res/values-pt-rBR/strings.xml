@@ -380,15 +380,8 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.   
     <string name="team_title_one">Líderes do Substratum</string>
     <string name="team_text_one">Não somente criamos algo que funciona para os usuários, como também trabalhamos em conjunto com criadores de temas para torná-lo um maravilhoso motor de temas para a comunidade!</string>
     <string name="team_title_two">Tradutores do Substratum</string>
-    <string name="team_text_two">Um enorme obrigado a estes tradutores por levar o Substratum a todos, ao redor do mundo!</string>
-    <string name="team_button_two">Mostrar Tradutores</string>
-    <string name="team_button_two_contribute">Contribua agora!</string>
     <string name="team_title_three">Contribuidores do Substratum</string>
-    <string name="team_text_three">O bacana é quando a comunidade se junta e unifica para criar um aplicativo que funciona para todos nós!</string>
-    <string name="team_button_three">Mostrar Contribuidores</string>
     <string name="team_title_four">Contribuidores do Layers</string>
-    <string name="team_text_four">Essas pessoas trouxeram para você o Layers Manager no passado e desde então passaram a contribuir com muitas coisas incríveis deixando o Substratum pronto para nós!</string>
-    <string name="team_button_four">Mostrar Contribuidores</string>
     <string name="team_nicholas_description">Coordenador de desenvolvimento</string>
     <string name="team_syko_description">Pesquisador do sistema</string>
     <string name="team_ivan_description">Plataforma &amp; Características</string>

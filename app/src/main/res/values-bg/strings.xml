@@ -287,15 +287,8 @@
     <string name="team_title_one">Лидерите на Substratum</string>
     <string name="team_text_one">Не само създадохме нещо, което работи за потребители, но ние работихме заедно с програмисти, за да го направию един прекрасен двигател за общността!</string>
     <string name="team_title_two">Преводачи на Substratum</string>
-    <string name="team_text_two">Огромно благодаря на тези преводачи за привеждане на Substratum за всички по целия свят!</string>
-    <string name="team_button_two">Покажи преводачи</string>
-    <string name="team_button_two_contribute">Направи своя принос сега!</string>
     <string name="team_title_three">Сътрудници на Substratum</string>
-    <string name="team_text_three">Какво е страхотно е, когато общността идва заедно и се обединява да създаде един приложение, което работи за всички нас!</string>
-    <string name="team_button_three">Покажи контрибутори</string>
     <string name="team_title_four">Layers контрибутори</string>
-    <string name="team_text_four">Тези хора Ви създадоха Layers Manager в миналото и продължиха да се направи много велики неща в Substratum за нас!</string>
-    <string name="team_button_four">Покажи контрибутори</string>
     <string name="team_nicholas_description">Организатор на разработката</string>
     <string name="team_syko_description">Системен изследовател</string>
     <string name="team_ivan_description">Платформа &amp; Характеристики</string>

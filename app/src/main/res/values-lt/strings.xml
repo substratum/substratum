@@ -366,15 +366,8 @@
     <string name="team_title_one">\"Substratum\" Lyderiai</string>
     <string name="team_text_one">Mes ne tik sukūrėme kažką, kas dirba vartotojams, bet mes dirbome kartu su apipavidalintojais, kad sukurti nuostabų apipavidalinimo variklį bendruomenei!</string>
     <string name="team_title_two">\"Substratum\" Vertėjai</string>
-    <string name="team_text_two">Labai dėkojame šiems vertėjams, kad pristatė \"Substratum\" žmonėms visame pasaulyje!</string>
-    <string name="team_button_two">Rodyti Vertėjus</string>
-    <string name="team_button_two_contribute">Prisidėkite Dabar!</string>
     <string name="team_title_three">\"Substratum\" Bendraautoriai</string>
-    <string name="team_text_three">Puiku, kai bendruomenė ateina kartu ir juos vienija sukurti programėlę, kuri veikia mums visiems!</string>
-    <string name="team_button_three">Rodyti Bendraautorius</string>
     <string name="team_title_four">Sluoksnių Bendraautoriai</string>
-    <string name="team_text_four">Šie žmonės pristatė jums \"Layers Manager\" ir padarė labai puikių dalykų, kad galėtume jums pristatyti \"Substratum\"!</string>
-    <string name="team_button_four">Rodyti Bendraautorius</string>
     <string name="team_nicholas_description">Kūrimo Koordinatorius</string>
     <string name="team_syko_description">Sistemos Tyrėjas</string>
     <string name="team_ivan_description">Platforma ir Funkcijos</string>

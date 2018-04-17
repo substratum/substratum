@@ -339,14 +339,8 @@ eingerichtet&#8230;</string>
     <string name="team_title_one">Chefs bei Substratum</string>
     <string name="team_text_one">Wir erschufen nicht nur etwas, was für die Nutzer funktioniert, sondern wir arbeiteten außerdem mit den Theme-Entwicklern zusammen, um es zu einer wunderbaren Theming-Engine für die Community zu machen!</string>
     <string name="team_title_two">Substratum-Übersetzer</string>
-    <string name="team_text_two">Ein großes Dankeschön an diese Übersetzer, die Substratum der ganzen Welt zugänglich machen!</string>
-    <string name="team_button_two">Übersetzer anzeigen</string>
-    <string name="team_button_two_contribute">Mach jetzt mit!</string>
     <string name="team_title_three">Substratum-Mitwirkende</string>
-    <string name="team_button_three">Mitwirkende anzeigen</string>
     <string name="team_title_four">Layers-Mitwirkende</string>
-    <string name="team_text_four">Diese Leute haben in der Vergangenheit bereits den Layers-Manager verwirklicht und haben auch seitdem viel dazu beigetragen, dass Substratum uns jetzt zur Verfügung steht!</string>
-    <string name="team_button_four">Mitwirkende anzeigen</string>
     <string name="team_nicholas_description">Entwicklungs-Koordinator</string>
     <string name="team_syko_description">System Forscher</string>
     <string name="team_ivan_description">Plattform &amp; Funktionen</string>

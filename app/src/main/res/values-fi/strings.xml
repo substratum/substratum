@@ -251,15 +251,8 @@
     <string name="team_title_one">Substratumin Johtajat</string>
     <string name="team_text_one">Emme ainoastaan luoneet jotain joka toimii käyttäjille, vaan me työskentelimme yhdessä teemantekijöiden kanssa tehdäksemme siitä loistavan teemakoneen yhteisölle!</string>
     <string name="team_title_two">Substratumin Kääntäjät</string>
-    <string name="team_text_two">Valtava kiitos näille kääntäjille, he toivat Substratumin jokaiselle maailmalla!</string>
-    <string name="team_button_two">Näytä Kääntäjät</string>
-    <string name="team_button_two_contribute">Avusta Nyt!</string>
     <string name="team_title_three">Substratumin Avustajat</string>
-    <string name="team_text_three">Mikä on hienoa on se, kun yhteisö tulee yhteen ja yhdessä luo sovelluksen joka toimii meille jokaiselle!</string>
-    <string name="team_button_three">Näytä Avustajat</string>
     <string name="team_title_four">Layersin Avustajat</string>
-    <string name="team_text_four">Nämä henkilöt toivat sinulle Layers Managerin aikaisemmin ja ovat siltä ajalta lähteneet tekemään monia hienoja asioista saadakseen Substratumin valmiiksi meille!</string>
-    <string name="team_button_four">Näytä Avustajat</string>
     <string name="team_nicholas_description">Kehittäjäkoordinaattori</string>
     <string name="team_syko_description">Järjestelmän Tutkija</string>
     <string name="team_ivan_description">Alusta &amp; Ominaisuudet</string>

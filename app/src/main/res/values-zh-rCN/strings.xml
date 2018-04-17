@@ -349,15 +349,8 @@
     <string name="team_title_one">Substratum 领导者</string>
     <string name="team_text_one">我们与主题制作者们共同创造了一个完美的主题引擎，希望它能为用户带来更好的体验！</string>
     <string name="team_title_two">Substratum 翻译者</string>
-    <string name="team_text_two">这些人把 Substratum 介绍给了全世界，我们对他们的努力表示衷心感谢！</string>
-    <string name="team_button_two">显示翻译者</string>
-    <string name="team_button_two_contribute">贡献翻译</string>
     <string name="team_title_three">Substratum 贡献者</string>
-    <string name="team_text_three">当社区团结合作，共同创造一个适用于我们所有人的应用程序，这件事是最棒的！</string>
-    <string name="team_button_three">显示贡献者</string>
     <string name="team_title_four">Layers 贡献者</string>
-    <string name="team_text_four">这些人以前为您带来了 Layers Manager ，并继续为 Substratum 的到来做了很多重要的事！</string>
-    <string name="team_button_four">显示贡献者</string>
     <string name="team_nicholas_description">发展协调者</string>
     <string name="team_syko_description">系统研究者</string>
     <string name="team_ivan_description">平台和功能</string>

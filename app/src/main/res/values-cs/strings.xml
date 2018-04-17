@@ -371,15 +371,8 @@ To znamená, že když má potah nejvyšší prioritu, budou zdroje potahů vyta
     <string name="team_title_one">Leaders of Substratum</string>
     <string name="team_text_one">Nejenže jsme vytvořily něco co funguje pro uživatele, ale také jsme spolupracovali s tvůrci motivů, aby jsme vytvořily úžasný program na vytváření motivů pro komunitu!</string>
     <string name="team_title_two">Překladatelé Substratum</string>
-    <string name="team_text_two">Velké díky těmto překladatelům, že zpřístupnili Substratum všem na celém světě!</string>
-    <string name="team_button_two">Zobrazit překladatele</string>
-    <string name="team_button_two_contribute">Přispějte!</string>
     <string name="team_title_three">Přispěvatelé Substratum</string>
-    <string name="team_text_three">Je skvělé, když se komunita spojují a sjednoceně vytvoří aplikaci, která funguje pro všechny z nás!</string>
-    <string name="team_button_three">Zobrazit přispěvatele</string>
     <string name="team_title_four">Přispěvatelé Layers</string>
-    <string name="team_text_four">Tito lidé vám v minulosti přinesli Layers Manager a udělali spoustu skvělé práce, abychom my mohli přinést Substratum!</string>
-    <string name="team_button_four">Zobrazit přispěvatele</string>
     <string name="team_nicholas_description">Koordinátor vývoje</string>
     <string name="team_syko_description">Výzkumník systému</string>
     <string name="team_ivan_description">Platformy &amp; funkce</string>

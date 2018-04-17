@@ -265,15 +265,8 @@
     <string name="team_title_one">Pemimpin dari Substratum</string>
     <string name="team_text_one">Kami tidak hanya membuat sesuatu yang berguna bagi pengguna, tetapi kami bekerja dengan pembuat tema untuk membuat mesin tema bagi komunitas!</string>
     <string name="team_title_two">Penerjemah Substratum</string>
-    <string name="team_text_two">Terima kasih yang sebesar-besarnya kepada transator berikut yang telah membawa Substratum bagi seluruh orang di dunia!</string>
-    <string name="team_button_two">Tampilkan Translator</string>
-    <string name="team_button_two_contribute">Berkontribusi Sekarang!</string>
     <string name="team_title_three">Kontributor Substratum</string>
-    <string name="team_text_three">Yang terhebat adalah ketika komunitas datang dan bekerjasama untuk membuat aplikasi ini bekerja bagi kami!</string>
-    <string name="team_button_three">Tampilkan Kontributor</string>
     <string name="team_title_four">Layers Kontributor</string>
-    <string name="team_text_four">Orang-orang inilah yang membawakan mu Layers Manager di waktu yang lalu sebelum melakukan banyak hal hebat untuk mendapatkan Substratum bekerja untuk kita!</string>
-    <string name="team_button_four">Tampilkan Kontributor</string>
     <string name="team_nicholas_description">Koordinator Pengembangan</string>
     <string name="team_syko_description">Peneliti Sistem</string>
     <string name="team_ivan_description">Program &amp; Fitur</string>

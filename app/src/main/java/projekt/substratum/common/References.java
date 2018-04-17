@@ -888,7 +888,7 @@ public enum References {
                                                                      translators) {
         TableLayout table = new TableLayout(context);
         table.setPadding(30, 10, 30, 10);
-        
+
         final int size_of_row_text = 10;
 
         // Dialog title

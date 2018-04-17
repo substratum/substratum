@@ -346,15 +346,8 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="team_title_one">Liderzy Substratum</string>
     <string name="team_text_one">Nie tylko stworzyliśmy coś, co służy naszym użytkownikom, ale współpracowaliśmy z twórcami motywów aby stworzyć ten wspaniały silnik motywów dla społeczności!</string>
     <string name="team_title_two">Tłumaczenia Substratum</string>
-    <string name="team_text_two">Ogromne podziękowania dla tych tłumaczy za wprowadzenie Substratum dla każdego na świecie!</string>
-    <string name="team_button_two">Pokaż tłumaczy</string>
-    <string name="team_button_two_contribute">Przyczyń się teraz!</string>
     <string name="team_title_three">Współtwórcy Substratum</string>
-    <string name="team_text_three">Wspaniale, gdy społeczność łączy się w celu stworzenia aplikacji, która działa dla nas wszystkich!</string>
-    <string name="team_button_three">Pokaż współtwórców</string>
     <string name="team_title_four">Współautorzy warstw</string>
-    <string name="team_text_four">Te osoby przyniosły ci Menedżer warstw w przeszłości i mają wspaniałe pomysły, aby zrobić Substratum gotowe dla nas!</string>
-    <string name="team_button_four">Pokaż współtwórców</string>
     <string name="team_nicholas_description">Koordynator rozwoju</string>
     <string name="team_syko_description">Badacz systemu</string>
     <string name="team_ivan_description">Platforma &amp; Funkcje</string>

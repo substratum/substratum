@@ -291,13 +291,8 @@
     <string name="fab_menu_swap_toggle_legacy">すべてを削除する</string>
     <string name="team_title_one">Substratumのリーダーたち</string>
     <string name="team_title_two">Substratumの翻訳者</string>
-    <string name="team_text_two">世界中の皆さんにSubstratumを知ってもらう為にこれらの翻訳者には、大変感謝しています！</string>
-    <string name="team_button_two">翻訳者を表示</string>
-    <string name="team_button_two_contribute">貢献する！</string>
     <string name="team_title_three">Substratumの貢献者</string>
-    <string name="team_button_three">貢献者を表示</string>
     <string name="team_title_four">Layersの貢献者</string>
-    <string name="team_button_four">貢献者を表示</string>
     <string name="team_ivan_description">プラットフォームと機能</string>
     <string name="team_surge_description">バイナリとアルゴリズム</string>
     <string name="team_harsh_description">プラットフォームと機能</string>

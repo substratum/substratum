@@ -389,15 +389,8 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="team_title_one">Líderes do Substratum</string>
     <string name="team_text_one">Não só criamos algo que funcionasse para os utilizadores, como também trabalhamos em conjunto com criadores de temas para criar um motor de temas incrível para a comunidade!</string>
     <string name="team_title_two">Tradutores do Substratum</string>
-    <string name="team_text_two">Um enorme agradecimento para estes tradutores por tornarem o Substratum possível para todos em todo o mundo!</string>
-    <string name="team_button_two">Mostrar tradutores</string>
-    <string name="team_button_two_contribute">Ajude agora!</string>
     <string name="team_title_three">Contribuidores do Substratum</string>
-    <string name="team_text_three">Fixe é quando a comunidade se une para criar uma aplicação que funciona para todos nós!</string>
-    <string name="team_button_three">Mostrar contribuidores</string>
     <string name="team_title_four">Contribuidores de Camadas</string>
-    <string name="team_text_four">Estas pessoas ofereceram-lhe o Gestor de Camadas no passado e desde então têm realizado muitas coisas boas para conseguirem disponibilizar o Substratum para todos nós!</string>
-    <string name="team_button_four">Mostrar contribuidores</string>
     <string name="team_nicholas_description">Coordenador de Desenvolvimento</string>
     <string name="team_syko_description">Investigador de Sistemas</string>
     <string name="team_ivan_description">Plataforma e Funcionalidades</string>

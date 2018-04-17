@@ -419,15 +419,8 @@
     <string name="team_title_one">Substratum Vezetői</string>
     <string name="team_text_one">Nem csak létrehoztunk valamit, ami működik a felhasználók számára, hanem szorosan együttműködtünk a témafejlesztőkkel, hogy a Substratum egy csodálatos témakezelési-motorja legyen a közösségnek!</string>
     <string name="team_title_two">Substratum Fordítók</string>
-    <string name="team_text_two">Hatalmas köszönet ezeknek fordítóknak, hogy a Substratum mindenkinek elérhető szerte a világon!</string>
-    <string name="team_button_two">Fordítók megjelenítése</string>
-    <string name="team_button_two_contribute">Hozzájárulás most!</string>
     <string name="team_title_three">Substratum Közreműködők</string>
-    <string name="team_text_three">Milyen nagyszerű, amikor a közösség összejön és összefog, hogy egy olyan alkalmazást készítsen, ami mindannyiunk számára működik!</string>
-    <string name="team_button_three">Közreműködők megjelenítése</string>
     <string name="team_title_four">Rétegek Közreműködők</string>
-    <string name="team_text_four">Ezek az emberek hozták létre korábban a Réteg-kezelőt és azóta rengeteg nagyszerű dolgot tettek, hogy a Substratum elkészüljön számunkra!</string>
-    <string name="team_button_four">Közreműködők megjelenítése</string>
     <string name="team_nicholas_description">Fejlesztés koordinátor</string>
     <string name="team_syko_description">Rendszer kutató</string>
     <string name="team_ivan_description">Platform és Funkciók</string>

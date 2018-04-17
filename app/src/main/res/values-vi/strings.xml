@@ -386,15 +386,8 @@
     <string name="team_title_one">Nhà lãnh đạo của Substratum</string>
     <string name="team_text_one">Không chỉ chúng tôi đã tạo ra một cái gì đó mà làm việc cho người sử dụng, nhưng chúng tôi đã làm việc cùng với themers để làm cho nó một công cụ tuyệt vời theming cho cộng đồng!</string>
     <string name="team_title_two">Substratum phiên dịch</string>
-    <string name="team_text_two">Một lớn cảm ơn bạn cho các dịch giả mang Substratum để tất cả mọi người trên khắp thế giới!</string>
-    <string name="team_button_two">Hiển thị phiên dịch</string>
-    <string name="team_button_two_contribute">Đóng góp bây giờ!</string>
     <string name="team_title_three">Những người đóng góp substratum</string>
-    <string name="team_text_three">Điều tuyệt vời là khi cộng đồng đến với nhau và hợp nhất để tạo ra một ứng dụng mà làm việc cho tất cả chúng ta!</string>
-    <string name="team_button_three">Hiển thị những người đóng góp</string>
     <string name="team_title_four">Những người đóng góp lớp</string>
-    <string name="team_text_four">Những người mang lại cho bạn lớp trưởng trong quá khứ và có kể từ khi đã đi vào để làm nhiều điều tuyệt vời trong việc Substratum đã sẵn sàng cho chúng tôi!</string>
-    <string name="team_button_four">Hiển thị những người đóng góp</string>
     <string name="team_nicholas_description">Điều phối viên phát triển</string>
     <string name="team_syko_description">Nhà nghiên cứu hệ thống</string>
     <string name="team_ivan_description">Tính năng nền tảng &amp;amp</string>

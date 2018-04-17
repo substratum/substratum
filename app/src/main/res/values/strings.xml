@@ -148,7 +148,7 @@
 
     <string name="app_theme_title">App theme</string>
     <string name="app_theme_text">App theme set to: %s</string>
-    <string name="app_theme_disabled">All</string>
+    <string name="app_theme_disabled">Default</string>
     <string name="app_theme_auto">Automatic</string>
     <string name="app_theme_dark">Dark</string>
     <string name="app_theme_change">Restart app to switch themes</string>
@@ -303,7 +303,7 @@
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_alphabetize">Change Sorting Mode</string>
     <string name="menu_state_prefix">Overlay state: %s</string>
-    <string name="menu_state_default">Default</string>
+    <string name="menu_state_default">All</string>
     <string name="menu_state_enabled">Enabled</string>
     <string name="menu_state_disabled">Disabled</string>
     <string name="menu_search">Play Store Themes</string>

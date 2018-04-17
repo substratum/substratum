@@ -182,10 +182,10 @@
                         android:text="@string/fab_menu_enable_disable" />
 
                     <TextView
-                        android:id="@+id/enable_selected"
+                        android:id="@+id/uninstall"
                         style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                        android:drawableStart="@drawable/fab_menu_enable"
-                        android:text="@string/fab_menu_enable" />
+                        android:drawableStart="@drawable/fab_menu_uninstall"
+                        android:text="@string/fab_menu_uninstall" />
 
                     <TextView
                         android:id="@+id/disable_selected"
@@ -194,10 +194,10 @@
                         android:text="@string/fab_menu_disable" />
 
                     <TextView
-                        android:id="@+id/uninstall"
+                        android:id="@+id/enable_selected"
                         style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                        android:drawableStart="@drawable/fab_menu_uninstall"
-                        android:text="@string/fab_menu_uninstall" />
+                        android:drawableStart="@drawable/fab_menu_enable"
+                        android:text="@string/fab_menu_enable" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </io.codetail.widget.RevealLinearLayout>

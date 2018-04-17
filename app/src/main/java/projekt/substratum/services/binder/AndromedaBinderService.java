@@ -90,12 +90,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         }).start();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        iAndromedaInterface = null;
-    }
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -106,23 +100,40 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     public void onServiceConnected(ComponentName name, IBinder service) {
         iAndromedaInterface = IAndromedaInterface.Stub.asInterface(service);
         bound = true;
-        Log.d(TAG, "Substratum has successfully binded with the Andromeda module.");
-        if ((iAndromedaInterface != null) && AndromedaService.checkServerActivity()) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                    getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
-            builder.setContentTitle(getString(R.string.andromeda_notification_title))
-                    .setContentText(getString(R.string.andromeda_notification_text))
-                    .setSmallIcon(R.drawable.notification_icon);
-            startForeground(2018, builder.build());
-        } else {
+        try {
+            if ((iAndromedaInterface != null) && AndromedaService.checkServerActivity()) {
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                        getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+                builder.setContentTitle(getString(R.string.andromeda_notification_title))
+                        .setContentText(getString(R.string.andromeda_notification_text))
+                        .setSmallIcon(R.drawable.notification_icon);
+                startForeground(2018, builder.build());
+                Log.d(TAG, "Substratum has successfully binded with the Andromeda module.");
+            } else {
+                stopSelf();
+            }
+        } catch (Exception e) {
             stopSelf();
         }
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName name) {
+    public void onDestroy() {
+        super.onDestroy();
         iAndromedaInterface = null;
         bound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
+
+    }
+
+    @Override
+    public void onBindingDied(ComponentName name) {
+        onDestroy();
+    }
+
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+        onDestroy();
     }
 }

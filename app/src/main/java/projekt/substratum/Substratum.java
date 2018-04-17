@@ -231,13 +231,21 @@ public class Substratum extends Application {
 
         // Dynamically check which theme engine is running at the moment
         if (isAndromedaDevice(this.getApplicationContext())) {
+            boolean startBinderService = this.startBinderService(AndromedaBinderService.class);
             Log.d(BINDER_TAG, "Successful to start the Andromeda binder service: " +
-                    (this.startBinderService(AndromedaBinderService.class) ? "Success!" :
-                            "Failed"));
+                    (startBinderService ? "Success!" : "Failed"));
+            if (!startBinderService) {
+                this.stopService(
+                        new Intent(this.getApplicationContext(), AndromedaBinderService.class));
+            }
         } else if (isBinderInterfacer(this.getApplicationContext())) {
+            boolean startBinderService = this.startBinderService(InterfacerBinderService.class);
             Log.d(BINDER_TAG, "Successful to start the Interfacer binder service: " +
-                    (this.startBinderService(InterfacerBinderService.class) ? "Success!" :
-                            "Failed"));
+                    (startBinderService ? "Success!" : "Failed"));
+            if (!startBinderService) {
+                this.stopService(
+                        new Intent(this.getApplicationContext(), InterfacerBinderService.class));
+            }
         }
 
         // Implicit broadcasts must be declared

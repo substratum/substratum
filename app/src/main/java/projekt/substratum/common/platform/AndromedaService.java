@@ -26,8 +26,6 @@ import projekt.substratum.services.binder.AndromedaBinderService;
 public enum AndromedaService {
     ;
 
-    private static IAndromedaInterface andromedaInterface = getAndromedaInterface();
-
     /**
      * Obtain the current binded Andromeda interface
      *
@@ -44,7 +42,7 @@ public enum AndromedaService {
      */
     public static boolean checkServerActivity() {
         try {
-            return andromedaInterface.checkServerActivity();
+            return getAndromedaInterface().checkServerActivity();
         } catch (Exception ignored) {
         }
         return false;
@@ -58,7 +56,7 @@ public enum AndromedaService {
      */
     static boolean enableOverlays(List<String> overlays) {
         try {
-            return andromedaInterface.enableOverlay(overlays);
+            return getAndromedaInterface().enableOverlay(overlays);
         } catch (Exception ignored) {
         }
         return false;
@@ -72,7 +70,7 @@ public enum AndromedaService {
      */
     static boolean disableOverlays(List<String> overlays) {
         try {
-            return andromedaInterface.disableOverlay(overlays);
+            return getAndromedaInterface().disableOverlay(overlays);
         } catch (Exception ignored) {
         }
         return false;
@@ -85,7 +83,7 @@ public enum AndromedaService {
      */
     public static boolean listOverlays() {
         try {
-            return andromedaInterface.listOverlays();
+            return getAndromedaInterface().listOverlays();
         } catch (Exception ignored) {
         }
         return false;
@@ -99,7 +97,7 @@ public enum AndromedaService {
      */
     static boolean installOverlays(List<String> overlays) {
         try {
-            return andromedaInterface.installPackage(overlays);
+            return getAndromedaInterface().installPackage(overlays);
         } catch (Exception ignored) {
         }
         return false;
@@ -113,7 +111,7 @@ public enum AndromedaService {
      */
     static boolean uninstallOverlays(List<String> overlays) {
         try {
-            return andromedaInterface.uninstallPackage(overlays);
+            return getAndromedaInterface().uninstallPackage(overlays);
         } catch (Exception ignored) {
         }
         return false;
@@ -127,7 +125,7 @@ public enum AndromedaService {
      */
     static boolean setPriority(List<String> overlays) {
         try {
-            return andromedaInterface.changePriority(overlays);
+            return getAndromedaInterface().changePriority(overlays);
         } catch (Exception ignored) {
         }
         return false;

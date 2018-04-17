@@ -24,7 +24,6 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -467,6 +466,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             LinearLayout dark = sheetView.findViewById(R.id.dark);
             disabled.setOnClickListener(view -> {
                 prefs.edit().putString(APP_THEME, DEFAULT_THEME).apply();
+                app_theme.setSummary(String.format(getString(R.string.app_theme_text),
+                        getString(R.string.app_theme_disabled)));
                 sheetDialog.dismiss();
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
@@ -477,6 +478,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             });
             auto.setOnClickListener(view -> {
                 prefs.edit().putString(APP_THEME, AUTO_THEME).apply();
+                app_theme.setSummary(String.format(getString(R.string.app_theme_text),
+                        getString(R.string.app_theme_auto)));
                 sheetDialog.dismiss();
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
@@ -487,6 +490,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             });
             dark.setOnClickListener(view -> {
                 prefs.edit().putString(APP_THEME, DARK_THEME).apply();
+                app_theme.setSummary(String.format(getString(R.string.app_theme_text),
+                        getString(R.string.app_theme_dark)));
                 sheetDialog.dismiss();
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),

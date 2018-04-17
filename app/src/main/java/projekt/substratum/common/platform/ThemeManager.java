@@ -21,6 +21,7 @@ package projekt.substratum.common.platform;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.om.OM;
 import android.content.om.OverlayInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -29,6 +30,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.support.annotation.RestrictTo;
 import android.util.Log;
@@ -364,9 +366,16 @@ public enum ThemeManager {
             }
             // Now let's assume everything that gets through will now be only in OMS ROMs
             Map<String, List<OverlayInfo>> allOverlays = null;
-            if (checkSubstratumService(context)) {
+            if (substratumService) {
                 // For direct calls with the Substratum service
                 allOverlays = SubstratumService.getAllOverlays();
+            } else if (themeInterfacer) {
+                // The ol' way
+                try {
+                    allOverlays = OM.get().getAllOverlays(Process.myUid() / 100000);
+                } catch (Exception e) {
+                    // Ummmmmmmmmm
+                }
             }
             if (allOverlays != null) {
                 switch (secondaryState) {

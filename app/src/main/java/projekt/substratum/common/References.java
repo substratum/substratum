@@ -22,6 +22,7 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -37,6 +38,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Typeface;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -50,12 +52,18 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -89,6 +97,7 @@ import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.TranslatorParser;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
@@ -872,6 +881,95 @@ public enum References {
             return getView(activity).findViewById(R.id.coordinator_layout);
         }
         return null;
+    }
+
+    public static AlertDialog.Builder invokeTranslatorDialog(Context context,
+                                                             List<TranslatorParser.Translator>
+                                                                     translators) {
+        TableLayout table = new TableLayout(context);
+        final int size_of_row_text = 10;
+
+        // Dialog title
+        TableRow columnHeaders = new TableRow(context);
+        TableRow titleRow = new TableRow(context);
+        TextView title = new TextView(context);
+        title.setText(context.getString(R.string.team_title_two));
+        title.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+        title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        title.setPadding(0, 20, 0, 20);
+        titleRow.setGravity(Gravity.CENTER);
+        titleRow.addView(title);
+
+        // Equivalent column sizes params
+        TableRow.LayoutParams equivalentParams = new TableRow.LayoutParams();
+        equivalentParams.width = 0;
+        equivalentParams.weight = (float) 0.33;
+
+        // Titles
+        TextView nameColumn = new TextView(context);
+        nameColumn.setText(context.getString(R.string.translator_name));
+        nameColumn.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        nameColumn.setGravity(Gravity.CENTER_HORIZONTAL);
+        nameColumn.setLayoutParams(equivalentParams);
+
+        TextView languageColumn = new TextView(context);
+        languageColumn.setText(context.getString(R.string.translator_languages));
+        languageColumn.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        languageColumn.setGravity(Gravity.CENTER_HORIZONTAL);
+        languageColumn.setLayoutParams(equivalentParams);
+
+        TextView translatedWordsColumn = new TextView(context);
+        translatedWordsColumn.setText(context.getString(R.string.translator_words));
+        translatedWordsColumn.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        translatedWordsColumn.setGravity(Gravity.CENTER_HORIZONTAL);
+        translatedWordsColumn.setLayoutParams(equivalentParams);
+
+        columnHeaders.addView(nameColumn);
+        columnHeaders.addView(languageColumn);
+        columnHeaders.addView(translatedWordsColumn);
+        columnHeaders.setPadding(0, 10, 0, 30);
+
+        table.addView(titleRow);
+        table.addView(columnHeaders);
+
+        for (int i = 0; i < translators.size(); i++) {
+            TableRow rowLows = new TableRow(context);
+
+            TextView contributor = new TextView(context);
+            contributor.setText(translators.get(i).contributorName);
+            contributor.setTextSize(size_of_row_text);
+            contributor.setTypeface(Typeface.DEFAULT_BOLD);
+            contributor.setGravity(Gravity.CENTER_HORIZONTAL);
+            contributor.setLayoutParams(equivalentParams);
+
+            String langs = translators.get(i).languages.toString();
+            langs = langs.substring(1, langs.length() - 1);
+            TextView languages = new TextView(context);
+            languages.setText(langs);
+            languages.setTextSize(size_of_row_text);
+            languages.setTypeface(Typeface.DEFAULT_BOLD);
+            languages.setGravity(Gravity.CENTER_HORIZONTAL);
+            languages.setLayoutParams(equivalentParams);
+
+            TextView translated = new TextView(context);
+            translated.setText(String.valueOf(translators.get(i).translated_words));
+            translated.setTextSize(size_of_row_text);
+            translated.setTypeface(Typeface.DEFAULT_BOLD);
+            translated.setGravity(Gravity.CENTER_HORIZONTAL);
+            translated.setLayoutParams(equivalentParams);
+
+            rowLows.addView(contributor);
+            rowLows.addView(languages);
+            rowLows.addView(translated);
+            table.addView(rowLows);
+        }
+        ScrollView sv = new ScrollView(context);
+        sv.addView(table);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(sv);
+        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.cancel());
+        return builder;
     }
 
     /**

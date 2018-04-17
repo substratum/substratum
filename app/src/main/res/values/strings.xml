@@ -528,8 +528,14 @@
     <string name="team_title_one">Leaders of Substratum</string>
     <string name="team_text_one">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
 
-    <string name="team_title_two">Substratum Translators</string>
+    <string name="team_title_two">Translators</string>
     <string name="team_text_two">A huge thank you to these translators for bringing Substratum to everyone around the world!</string>
+    <string name="translator_name">Name</string>
+    <string name="translator_languages">Languages</string>
+    <string name="translator_words">Words</string>
+
+    <string name="github_repository">GitHub Repository</string>
+
     <string name="team_button_two">Show Translators</string>
     <string name="team_button_two_contribute">Contribute Now!</string>
 

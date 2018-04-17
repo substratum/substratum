@@ -51,6 +51,7 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -70,6 +71,7 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.FileDownloader;
+import projekt.substratum.util.helpers.TranslatorParser;
 import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
@@ -131,24 +133,38 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         aboutSubstratum.setIcon(context.getDrawable(R.mipmap.main_launcher));
         aboutSubstratum.setOnPreferenceClickListener(
                 preference -> {
-                    try {
-                        String sourceURL;
-                        if (BuildConfig.DEBUG) {
-                            sourceURL = getString(R.string.substratum_github_commits);
-                        } else {
-                            sourceURL = getString(R.string.substratum_github);
+                    SheetDialog sheetDialog = new SheetDialog(context);
+                    View sheetView =
+                            View.inflate(context, R.layout.about_substratum_sheet_dialog, null);
+                    LinearLayout translatorsView = sheetView.findViewById(R.id.translators);
+                    LinearLayout githubSourceView = sheetView.findViewById(R.id.github_source);
+                    translatorsView.setOnClickListener(v -> {
+                        new TranslatorContributionDialog(this).execute();
+                        sheetDialog.cancel();
+                    });
+                    githubSourceView.setOnClickListener(v -> {
+                        try {
+                            String sourceURL;
+                            if (BuildConfig.DEBUG) {
+                                sourceURL = getString(R.string.substratum_github_commits);
+                            } else {
+                                sourceURL = getString(R.string.substratum_github);
+                            }
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (ActivityNotFoundException activityNotFoundException) {
+                            if (getActivity() != null) {
+                                Lunchbar.make(References.getView(getActivity()),
+                                        getString(R.string.activity_missing_toast),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
                         }
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(sourceURL));
-                        startActivity(i);
-                    } catch (ActivityNotFoundException activityNotFoundException) {
-                        if (getActivity() != null) {
-                            Lunchbar.make(References.getView(getActivity()),
-                                    getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
-                        }
-                    }
+                        sheetDialog.cancel();
+                    });
+                    sheetDialog.setContentView(sheetView);
+                    sheetDialog.show();
                     return false;
                 });
 
@@ -816,6 +832,58 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     }
             );
+        }
+    }
+
+    /**
+     * Loads the Translator Contribution Dialog asynchronously with multiple dialogs
+     */
+    private static class TranslatorContributionDialog extends AsyncTask<String, Integer,
+            ArrayList<String>> {
+
+        private WeakReference<SettingsFragment> ref;
+        private WeakReference<AlertDialog.Builder> alertDialogBuilder;
+
+        TranslatorContributionDialog(SettingsFragment settingsFragment) {
+            super();
+            ref = new WeakReference<>(settingsFragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                if (settingsFragment.getActivity() != null) {
+                    settingsFragment.dialog = new Dialog(settingsFragment.getActivity());
+                    settingsFragment.dialog.setContentView(R.layout.validator_dialog);
+                    settingsFragment.dialog.setCancelable(false);
+                    settingsFragment.dialog.show();
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> result) {
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                settingsFragment.dialog.cancel();
+                if (alertDialogBuilder.get() != null) alertDialogBuilder.get().show();
+            }
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(String... strings) {
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                InputStream inputStream =
+                        ref.get().getResources().openRawResource(R.raw.translators);
+                TranslatorParser csvFile = new TranslatorParser(inputStream);
+                List<TranslatorParser.Translator> translators = csvFile.read();
+                alertDialogBuilder = new WeakReference<>(
+                        References.invokeTranslatorDialog(ref.get().context, translators));
+            }
+            return null;
         }
     }
 

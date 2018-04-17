@@ -24,6 +24,7 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -183,6 +184,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 getResources().getStringArray(R.array.substratum_contributors),
                                 (dialog, item) -> {
                                 });
+                        builder.setPositiveButton(
+                                android.R.string.ok, (dialog, which) -> dialog.cancel());
                         AlertDialog alert = builder.create();
                         alert.show();
                         sheetDialog.cancel();
@@ -193,15 +196,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 getResources().getStringArray(R.array.layers_contributors),
                                 (dialog, item) -> {
                                 });
+                        builder.setPositiveButton(
+                                android.R.string.ok, (dialog, which) -> dialog.cancel());
                         AlertDialog alert = builder.create();
                         alert.show();
                         sheetDialog.cancel();
                     });
                     teamView.setOnClickListener(v -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setPositiveButton(android.R.string.ok,
-                                (dialog, which) -> dialog.cancel());
-
                         View teamViewLayout = View.inflate(context, R.layout.team_dialog, null);
                         CardView nicholasCard = teamViewLayout.findViewById(R.id.nicholas_card);
                         CardView sykoCard = teamViewLayout.findViewById(R.id.syko_card);
@@ -230,6 +232,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 launchTeamLink(R.string.team_harsh_link));
 
                         builder.setView(teamViewLayout);
+                        builder.setPositiveButton(
+                                android.R.string.ok, (dialog, which) -> dialog.cancel());
 
                         AlertDialog alert = builder.create();
                         alert.show();

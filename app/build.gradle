@@ -104,7 +104,7 @@ android {
 ext {
     leakCanaryVersion = '1.5.4'
     supportLibsVersion = '27.1.1'
-    firebaseVersion = '12.0.1'
+    firebaseVersion = '15.0.0'
     glideVersion = '4.6.1'
 }
 dependencies {
@@ -135,7 +135,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.5'
 
     // APK Signer
-    implementation 'com.android.tools.build:apksig:3.1.0'
+    implementation 'com.android.tools.build:apksig:3.1.1'
 
     // App Intro
     implementation 'com.stephentuso:welcome:1.4.1'

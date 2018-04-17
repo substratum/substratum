@@ -435,22 +435,22 @@ public class ManagerFragment extends Fragment {
         String assignedMode = context.getString(R.string.menu_state_prefix);
         switch (sortingMode) {
             case "default":
+                String message = String.format(assignedMode,
+                        context.getString(R.string.menu_state_default));
                 menuItem.setIcon(R.drawable.toolbar_manager_all);
-                menuItem.setTitle(
-                        String.format(assignedMode,
-                                context.getString(R.string.menu_state_default)));
+                menuItem.setTitle(message);
                 break;
             case "enabled":
+                String message2 = String.format(assignedMode,
+                        context.getString(R.string.menu_state_enabled));
                 menuItem.setIcon(R.drawable.toolbar_manager_enabled);
-                menuItem.setTitle(
-                        String.format(assignedMode,
-                                context.getString(R.string.menu_state_enabled)));
+                menuItem.setTitle(message2);
                 break;
             case "disabled":
+                String message3 = String.format(assignedMode,
+                        context.getString(R.string.menu_state_disabled));
                 menuItem.setIcon(R.drawable.toolbar_manager_disabled);
-                menuItem.setTitle(
-                        String.format(assignedMode,
-                                context.getString(R.string.menu_state_disabled)));
+                menuItem.setTitle(message3);
                 break;
         }
     }
@@ -488,16 +488,26 @@ public class ManagerFragment extends Fragment {
                     getActivity().invalidateOptionsMenu();
                     return true;
                 case R.id.sort_by_state:
+                    String assignedMode = context.getString(R.string.menu_state_prefix);
                     String sortingMode = prefs.getString("manager_sorting_mode", "default");
                     switch (sortingMode) {
                         case "default":
+                            String message = String.format(assignedMode,
+                                    context.getString(R.string.menu_state_enabled));
                             prefs.edit().putString("manager_sorting_mode", "enabled").apply();
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                             break;
                         case "enabled":
+                            String message2 = String.format(assignedMode,
+                                    context.getString(R.string.menu_state_disabled));
                             prefs.edit().putString("manager_sorting_mode", "disabled").apply();
+                            Toast.makeText(context, message2, Toast.LENGTH_SHORT).show();
                             break;
                         case "disabled":
+                            String message3 = String.format(assignedMode,
+                                    context.getString(R.string.menu_state_default));
                             prefs.edit().putString("manager_sorting_mode", "default").apply();
+                            Toast.makeText(context, message3, Toast.LENGTH_SHORT).show();
                             break;
                     }
                     if (layoutReloader != null && !layoutReloader.isCancelled()) {

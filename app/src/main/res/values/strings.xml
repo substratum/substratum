@@ -148,7 +148,7 @@
 
     <string name="app_theme_title">App theme</string>
     <string name="app_theme_text">App theme set to: %s</string>
-    <string name="app_theme_disabled">Default</string>
+    <string name="app_theme_disabled">All</string>
     <string name="app_theme_auto">Automatic</string>
     <string name="app_theme_dark">Dark</string>
     <string name="app_theme_change">Restart app to switch themes</string>

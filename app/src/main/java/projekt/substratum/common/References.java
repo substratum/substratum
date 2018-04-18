@@ -602,6 +602,7 @@ public enum References {
         editor.putBoolean("systemui_recreate", true);
         editor.putBoolean("hide_app_checkbox", false);
         editor.putBoolean("auto_disable_target_overlays", false);
+        editor.putBoolean("lite_mode", false);
         editor.putString(APP_THEME, DEFAULT_THEME);
         editor.putInt("grid_style_cards_count", DEFAULT_GRID_COUNT);
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);

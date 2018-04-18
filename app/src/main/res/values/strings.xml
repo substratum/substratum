@@ -146,6 +146,9 @@
     <string name="grid_size_title">Theme display column adjustment</string>
     <string name="grid_size_text">Column count is set to (default %d): %d</string>
 
+    <string name="lite_mode_title">Lite Mode</string>
+    <string name="lite_mode_text">Allows certain UI elements to load in reserved power mode.</string>
+
     <string name="app_theme_title">App theme</string>
     <string name="app_theme_text">App theme set to: %s</string>
     <string name="app_theme_disabled">Default</string>
@@ -238,7 +241,7 @@
     <string name="settings_about_samsung">sungstratum version</string>
     <string name="settings_about_oms_rro_version">Theme platform:</string>
     <string name="settings_about_oms_version_do">Dynamic Overlays (OMS)</string>
-    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
+    <string name="settings_about_oms_version_7">Projekt OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
 
     <string name="settings_about_system_version">System platform</string>

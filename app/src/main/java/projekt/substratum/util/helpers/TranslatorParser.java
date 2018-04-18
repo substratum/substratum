@@ -18,13 +18,22 @@
 
 package projekt.substratum.util.helpers;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.os.AsyncTask;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import projekt.substratum.R;
+import projekt.substratum.common.References;
+import projekt.substratum.fragments.SettingsFragment;
 
 public class TranslatorParser {
     private InputStream inputStream;
@@ -81,6 +90,58 @@ public class TranslatorParser {
                 this.translated_words = Integer.valueOf(translated_words);
             } catch (Exception ignored) {
             }
+        }
+    }
+
+    /**
+     * Loads the Translator Contribution Dialog asynchronously with multiple dialogs
+     */
+    public static class TranslatorContributionDialog extends AsyncTask<String, Integer,
+            ArrayList<String>> {
+
+        private WeakReference<SettingsFragment> ref;
+        private WeakReference<AlertDialog.Builder> alertDialogBuilder;
+
+        public TranslatorContributionDialog(SettingsFragment settingsFragment) {
+            super();
+            ref = new WeakReference<>(settingsFragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                if (settingsFragment.getActivity() != null) {
+                    settingsFragment.dialog = new Dialog(settingsFragment.getActivity());
+                    settingsFragment.dialog.setContentView(R.layout.validator_dialog);
+                    settingsFragment.dialog.setCancelable(false);
+                    settingsFragment.dialog.show();
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> result) {
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                settingsFragment.dialog.cancel();
+                if (alertDialogBuilder.get() != null) alertDialogBuilder.get().show();
+            }
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(String... strings) {
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                InputStream inputStream =
+                        ref.get().getResources().openRawResource(R.raw.translators);
+                TranslatorParser csvFile = new TranslatorParser(inputStream);
+                List<TranslatorParser.Translator> translators = csvFile.read();
+                alertDialogBuilder = new WeakReference<>(
+                        References.invokeTranslatorDialog(ref.get().context, translators));
+            }
+            return null;
         }
     }
 }

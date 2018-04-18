@@ -38,6 +38,11 @@
             android:title="@string/settings_about_andromeda" />
 
         <Preference
+            android:key="about_samsung"
+            android:summary="@string/settings_about_interfacer_not_installed"
+            android:title="@string/settings_about_samsung" />
+
+        <Preference
             android:key="about_interfacer"
             android:summary="@string/settings_about_interfacer_not_installed"
             android:title="@string/settings_about_interfacer" />
@@ -70,6 +75,20 @@
             android:layout_height="match_parent"
             android:key="manage_space"
             android:title="@string/settings_manage_space_title" />
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="show_dangerous_samsung_overlays"
+            android:summary="@string/settings_samsung_show_dangerous_overlays_text"
+            android:title="@string/settings_samsung_show_dangerous_overlays" />
+
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="legacy_priority_switcher"
+            android:summary="@string/legacy_preference_priority_text"
+            android:title="@string/legacy_preference_priority_title" />
 
         <CheckBoxPreference
             android:layout_width="match_parent"
@@ -170,6 +189,13 @@
             android:key="app_theme"
             android:summary="@string/app_theme_text"
             android:title="@string/app_theme_title" />
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="lite_mode"
+            android:summary="@string/lite_mode_text"
+            android:title="@string/lite_mode_title" />
 
         <Preference
             android:layout_width="match_parent"

@@ -515,21 +515,22 @@ public class InformationActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        heroImage.setContentDescription(themeName);
 
         // Hero Image
-        Drawable heroImage = getPackageHeroImage(
-                getApplicationContext(),
-                themePid,
-                false);
-        if (heroImage != null) {
-            try {
-                heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
-            } catch (Exception ignored) {
-            }
+        try {
+            Drawable hero = getPackageHeroImage(getApplicationContext(), themePid, false);
+            heroImageBitmap = ((BitmapDrawable) hero).getBitmap();
+        } catch (Exception ignored) {
         }
         dominantColor = heroImageBitmap == null ?
                 Color.TRANSPARENT : getDominantColor(getApplicationContext(), heroImageBitmap);
+
+        if (prefs.getBoolean("lite_mode", false)) {
+            heroImage.setVisibility(View.GONE);
+            appBarLayout.setExpanded(false);
+        } else {
+            heroImage.setContentDescription(themeName);
+        }
 
         // Set the AppBarLayout to have the background color of the dominant color in hero
         appBarLayout.setBackgroundColor(dominantColor);
@@ -555,11 +556,7 @@ public class InformationActivity extends AppCompatActivity {
 
         // Create material sheet FAB
         materialSheetFab = new MaterialSheetFab<>(
-                floatingActionButton,
-                sheetView,
-                overlay,
-                sheetColor,
-                fabColor);
+                floatingActionButton, sheetView, overlay, sheetColor, fabColor);
 
         // Okay, time for the meat of the reloader
         new LayoutLoader(this).execute("");
@@ -670,11 +667,7 @@ public class InformationActivity extends AppCompatActivity {
             String format = String.format(
                     getString(R.string.information_activity_theme_improperly_setup),
                     themeName);
-            Toast.makeText(
-                    this,
-                    format,
-                    Toast.LENGTH_SHORT
-            ).show();
+            Toast.makeText(this, format, Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -876,7 +869,8 @@ public class InformationActivity extends AppCompatActivity {
         Thread currentThread = Substratum.currentThread;
         if ((currentThread == null || !currentThread.isAlive()) &&
                 (Systems.isSamsung(context) ||
-                        (Systems.checkOreo() && Systems.isNewSamsungDevice()))) {
+                        (Systems.checkOreo() &&
+                                Systems.isNewSamsungDevice()))) {
             Substratum.startSamsungPackageMonitor(context);
         }
     }
@@ -1265,7 +1259,7 @@ public class InformationActivity extends AppCompatActivity {
                             setStatusBarColor(Color.parseColor("#ffff00"));
                     informationActivity.floatingActionButton.setBackgroundTintList(
                             ColorStateList.valueOf(Color.parseColor("#ffff00")));
-                } else {
+                } else if (!informationActivity.prefs.getBoolean("lite_mode", false)) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(
                             informationActivity.byteArray, 0, informationActivity.byteArray.length);
                     informationActivity.heroImage.setImageBitmap(bitmap);
@@ -1276,7 +1270,9 @@ public class InformationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... sUrl) {
             InformationActivity informationActivity = ref.get();
-            if (informationActivity != null && informationActivity.heroImageBitmap != null) {
+            if (informationActivity != null &&
+                    informationActivity.heroImageBitmap != null &&
+                    !informationActivity.prefs.getBoolean("lite_mode", false)) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 informationActivity.heroImageBitmap.compress(PNG, 100, stream);
                 informationActivity.byteArray = stream.toByteArray();

@@ -75,6 +75,7 @@ public class OverlaysItem implements Serializable {
     private String variantSelected5 = "";
     private String baseResources = "";
     private List<Object> enabledOverlays;
+    private int colorState = 0;
 
     public OverlaysItem(String themeName,
                         String name,
@@ -110,6 +111,14 @@ public class OverlaysItem implements Serializable {
         this.enabledOverlays.addAll(enabledOverlays);
         this.appIcon = Packages.getAppIcon(context, packageName);
         this.attention = attention;
+    }
+
+    int getColorState() {
+        return this.colorState;
+    }
+
+    void setColorState(int colorState) {
+        this.colorState = colorState;
     }
 
     public String getThemeName() {

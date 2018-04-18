@@ -94,24 +94,47 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_DISABLED);
                 }
             } else {
-                List<String> installedElsewhere =
-                        ThemeManager.listEnabledOverlaysForTarget(
-                                context, overlaysItem.getPackageName());
-                if (installedElsewhere.size() > 0) {
-                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_ELSEWHERE);
+                if (overlaysItem.getColorState() == 0) {
+                    List<String> installedElsewhere =
+                            ThemeManager.listEnabledOverlaysForTarget(
+                                    context, overlaysItem.getPackageName());
+                    if (installedElsewhere.size() > 0) {
+                        overlaysItem.setColorState(
+                                context.getColor(R.color.overlay_not_enabled_elsewhere_list_entry));
+                        changeOverlayTargetPackageNameTint(
+                                viewBinding, context, INSTALLED_ELSEWHERE);
+                    } else {
+                        overlaysItem.setColorState(
+                                context.getColor(R.color.overlay_not_installed_list_entry));
+                        changeOverlayTargetPackageNameTint(
+                                viewBinding, context, NOT_INSTALLED);
+                    }
                 } else {
-                    changeOverlayTargetPackageNameTint(viewBinding, context, NOT_INSTALLED);
+                    changeOverlayTargetPackageNameTint(
+                            viewBinding, context, String.valueOf(overlaysItem.getColorState()));
                 }
                 viewBinding.overlayState.setVisibility(View.GONE);
             }
         } else if (isSamsungDevice(context)) {
             // Nougat based Samsung check
-            List<String> installedElsewhere =
-                    ThemeManager.listEnabledOverlaysForTarget(
-                            context, overlaysItem.getPackageName());
-            changeOverlayTargetPackageNameTint(viewBinding, context,
-                    (overlaysItem.isOverlayEnabled() ? INSTALLED_ENABLED :
-                            installedElsewhere.size() > 0 ? INSTALLED_ELSEWHERE : NOT_INSTALLED));
+            if (overlaysItem.getColorState() == 0) {
+                List<String> installedElsewhere =
+                        ThemeManager.listEnabledOverlaysForTarget(
+                                context, overlaysItem.getPackageName());
+                if (overlaysItem.isOverlayEnabled()) {
+                    overlaysItem.setColorState(
+                            context.getColor(R.color.overlay_installed_list_entry));
+                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_ENABLED);
+                } else if (installedElsewhere.size() > 0) {
+                    overlaysItem.setColorState(
+                            context.getColor(R.color.overlay_not_enabled_elsewhere_list_entry));
+                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_ELSEWHERE);
+                } else {
+                    overlaysItem.setColorState(
+                            context.getColor(R.color.overlay_not_installed_list_entry));
+                    changeOverlayTargetPackageNameTint(viewBinding, context, NOT_INSTALLED);
+                }
+            }
             viewBinding.overlayState.setVisibility(
                     overlaysItem.isOverlayEnabled() ? View.VISIBLE : View.GONE);
         } else {
@@ -200,6 +223,9 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             case NOT_INSTALLED:
                 binding.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_not_installed_list_entry));
+                break;
+            default:
+                binding.overlayTargetPackageName.setTextColor(Integer.valueOf(state));
                 break;
         }
     }

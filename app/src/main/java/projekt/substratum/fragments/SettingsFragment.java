@@ -87,12 +87,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public Dialog dialog;
     public Context context;
     private SharedPreferences prefs;
+    @SuppressLint("StaticFieldLeak")
+    private static SettingsFragment settingsFragment;
+
+    public static SettingsFragment getInstance() {
+        return settingsFragment;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        settingsFragment = null;
+    }
 
     @SuppressLint("StringFormatMatches")
     @Override
     public void onCreatePreferences(
             Bundle bundle,
             String s) {
+        settingsFragment = this;
         context = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
 

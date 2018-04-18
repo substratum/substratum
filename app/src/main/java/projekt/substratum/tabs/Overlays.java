@@ -163,6 +163,7 @@ import static projekt.substratum.util.helpers.MapUtils.sortMapByValues;
 public class Overlays extends Fragment {
 
     public static AsyncTask mainLoader = null;
+    public static RecyclerView recyclerView;
     // Theme instance based variables, used globally amongst all Overlays* files
     public String themeName;
     public String themePid;
@@ -187,7 +188,6 @@ public class Overlays extends Fragment {
     public Switch toggleAll;
     public Spinner baseSpinner;
     Context context;
-    RecyclerView recyclerView;
     TextView toggleAllOverlaysText;
     RelativeLayout toggleZone;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -647,6 +647,10 @@ public class Overlays extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        recyclerView.invalidate();
+        recyclerView = null;
+
         try {
             localBroadcastManager.unregisterReceiver(refreshReceiver);
         } catch (IllegalArgumentException ignored) {

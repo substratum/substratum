@@ -327,6 +327,16 @@ public class MainActivity extends AppCompatActivity implements
         bottomBarShadow = binding.bottomBarShadow;
         bottomBar = binding.bottomBar;
 
+        toolbar.setOnClickListener(v -> {
+            if (ManagerFragment.recyclerView != null)
+                ManagerFragment.recyclerView.smoothScrollToPosition(0);
+            if (ThemeFragment.recyclerView != null)
+                ThemeFragment.recyclerView.smoothScrollToPosition(0);
+            if (SettingsFragment.getInstance() != null) {
+                SettingsFragment.getInstance().getListView().smoothScrollToPosition(0);
+            }
+        });
+
         cleanLogCharReportsIfNecessary();
         Theming.refreshInstalledThemesPref(context);
 

@@ -18,6 +18,7 @@
 
 package projekt.substratum.tabs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
@@ -53,13 +54,21 @@ import static projekt.substratum.common.Internal.THEME_WALLPAPER;
 public class Wallpapers extends Fragment {
 
     public static AsyncTask<String, Integer, String> mainLoader = null;
+    @SuppressLint("StaticFieldLeak")
+    public static RecyclerView recyclerView;
     private ProgressBar materialProgressBar;
     private View noNetwork;
     private View noWallpapers;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
     private String wallpaperUrl;
     private Context context;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        recyclerView.invalidate();
+        recyclerView = null;
+    }
 
     @Override
     public View onCreateView(

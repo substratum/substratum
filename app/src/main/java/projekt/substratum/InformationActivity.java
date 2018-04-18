@@ -47,6 +47,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.RestrictTo;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
@@ -157,6 +158,7 @@ public class InformationActivity extends AppCompatActivity {
     Toolbar toolbar;
     TabLayout tabLayout;
     CollapsingToolbarLayout collapsingToolbar;
+    TextView toolbarCollapsedTitle;
     ViewPager viewPager;
     AppBarLayout appBarLayout;
     CardView sheetView;
@@ -451,6 +453,7 @@ public class InformationActivity extends AppCompatActivity {
         toolbar = binding.toolbar;
         tabLayout = binding.tabs;
         collapsingToolbar = binding.collapsingToolbarTabbedLayout;
+        toolbarCollapsedTitle = binding.toolbarCollapsedTitle;
         viewPager = binding.viewpager;
         appBarLayout = binding.appbar;
         sheetView = binding.fabSheet;
@@ -527,7 +530,12 @@ public class InformationActivity extends AppCompatActivity {
 
         if (prefs.getBoolean("lite_mode", false)) {
             heroImage.setVisibility(View.GONE);
-            appBarLayout.setExpanded(false);
+            appBarLayout.setExpanded(false, false);
+            CoordinatorLayout.LayoutParams lp =
+                    (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+            lp.height = (int) getResources().getDimension(R.dimen.toolbar_height);
+            toolbarCollapsedTitle.setVisibility(View.VISIBLE);
+            toolbarCollapsedTitle.setText(themeName);
         } else {
             heroImage.setContentDescription(themeName);
         }

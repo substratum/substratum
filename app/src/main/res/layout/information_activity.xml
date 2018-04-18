@@ -71,7 +71,18 @@
                         android:layout_height="?attr/actionBarSize"
                         app:layout_collapseMode="pin"
                         app:layout_scrollFlags="scroll|enterAlways"
-                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                        <TextView
+                            android:id="@+id/toolbar_collapsed_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:layout_gravity="center_vertical|start"
+                            android:gravity="center_vertical|start"
+                            android:textAppearance="@style/CollapsedAppBar"
+                            android:visibility="gone" />
+
+                    </android.support.v7.widget.Toolbar>
 
                     <android.support.design.widget.TabLayout
                         android:layout_width="match_parent"

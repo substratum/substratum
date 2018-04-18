@@ -160,6 +160,11 @@ public class ShowcaseActivity extends AppCompatActivity {
         navigationView = binding.navigationView;
         drawerLayout = binding.drawerLayout;
 
+        toolbar.setOnClickListener(v -> {
+            if (ShowcaseTab.recyclerView != null)
+                ShowcaseTab.recyclerView.smoothScrollToPosition(0);
+        });
+
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

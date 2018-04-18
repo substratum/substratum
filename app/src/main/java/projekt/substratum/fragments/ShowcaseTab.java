@@ -18,6 +18,7 @@
 
 package projekt.substratum.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
@@ -58,10 +59,18 @@ import static projekt.substratum.common.References.SHOWCASE_SHUFFLE_COUNT;
 public class ShowcaseTab extends Fragment {
 
     ProgressBar materialProgressBar;
-    RecyclerView recyclerView;
+    @SuppressLint("StaticFieldLeak")
+    public static RecyclerView recyclerView;
     private int currentTabPosition;
     private String currentTabAddress;
     private Context context;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        recyclerView.invalidate();
+        recyclerView = null;
+    }
 
     @Override
     public View onCreateView(

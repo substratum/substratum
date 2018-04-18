@@ -182,25 +182,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         CardView charCard = teamViewLayout.findViewById(R.id.char_card);
                         CardView harshCard = teamViewLayout.findViewById(R.id.harsh_card);
 
-                        if (getActivity() != null) {
-                            View lbV = References.getView(getActivity());
-                            nicholasCard.setOnClickListener(v2 ->
-                                    launchActivityUrl(context, lbV, R.string.team_nicholas_link));
-                            sykoCard.setOnClickListener(v2 ->
-                                    launchActivityUrl(context, lbV, R.string.team_syko_link));
-                            ivanCard.setOnClickListener(v2 ->
-                                    launchActivityUrl(context, lbV, R.string.team_ivan_link));
-                            surgeCard.setOnClickListener(v2 ->
-                                    launchActivityUrl(context, lbV, R.string.team_surge_link));
-                            georgeCard.setOnClickListener(v2 ->
-                                    launchActivityUrl(context, lbV, R.string.team_george_link));
-                            nathanCard.setOnClickListener(v2 ->
-                                    launchActivityUrl(context, lbV, R.string.team_nathan_link));
-                            charCard.setOnClickListener(v2 ->
-                                    launchActivityUrl(context, lbV, R.string.team_char_link));
-                            harshCard.setOnClickListener(v2 ->
-                                    launchActivityUrl(context, lbV, R.string.team_harsh_link));
-                        }
+                        nicholasCard.setOnClickListener(v2 ->
+                                launchActivityUrl(context, R.string.team_nicholas_link));
+                        sykoCard.setOnClickListener(v2 ->
+                                launchActivityUrl(context, R.string.team_syko_link));
+                        ivanCard.setOnClickListener(v2 ->
+                                launchActivityUrl(context, R.string.team_ivan_link));
+                        surgeCard.setOnClickListener(v2 ->
+                                launchActivityUrl(context, R.string.team_surge_link));
+                        georgeCard.setOnClickListener(v2 ->
+                                launchActivityUrl(context, R.string.team_george_link));
+                        nathanCard.setOnClickListener(v2 ->
+                                launchActivityUrl(context, R.string.team_nathan_link));
+                        charCard.setOnClickListener(v2 ->
+                                launchActivityUrl(context, R.string.team_char_link));
+                        harshCard.setOnClickListener(v2 ->
+                                launchActivityUrl(context, R.string.team_harsh_link));
+                        
                         builder.setView(teamViewLayout);
                         builder.setPositiveButton(
                                 android.R.string.ok, (dialog, which) -> dialog.cancel());

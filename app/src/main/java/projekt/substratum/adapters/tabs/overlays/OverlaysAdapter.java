@@ -47,6 +47,7 @@ import static projekt.substratum.common.Systems.isSamsungDevice;
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
 
     private static final String INSTALLED_ENABLED = "INSTALLED_ENABLED";
+    private static final String INSTALLED_ELSEWHERE = "INSTALLED_ELSEWHERE";
     private static final String INSTALLED_UNKNOWN = "INSTALLED_UNKNOWN";
     private static final String INSTALLED_DISABLED = "INSTALLED_DISABLED";
     private static final String NOT_INSTALLED = "NOT_INSTALLED";
@@ -93,7 +94,14 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_DISABLED);
                 }
             } else {
-                changeOverlayTargetPackageNameTint(viewBinding, context, NOT_INSTALLED);
+                List<String> installedElsewhere =
+                        ThemeManager.listEnabledOverlaysForTarget(
+                                context, overlaysItem.getPackageName());
+                if (installedElsewhere.size() > 0) {
+                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_ELSEWHERE);
+                } else {
+                    changeOverlayTargetPackageNameTint(viewBinding, context, NOT_INSTALLED);
+                }
                 viewBinding.overlayState.setVisibility(View.GONE);
             }
         } else if (isSamsungDevice(context)) {
@@ -180,6 +188,10 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             case INSTALLED_UNKNOWN:
                 binding.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_installed_not_active));
+                break;
+            case INSTALLED_ELSEWHERE:
+                binding.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_enabled_elsewhere_list_entry));
                 break;
             case NOT_INSTALLED:
                 binding.overlayTargetPackageName.setTextColor(

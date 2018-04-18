@@ -198,7 +198,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 launchActivityUrl(context, R.string.team_char_link));
                         harshCard.setOnClickListener(v2 ->
                                 launchActivityUrl(context, R.string.team_harsh_link));
-                        
+
                         builder.setView(teamViewLayout);
                         builder.setPositiveButton(
                                 android.R.string.ok, (dialog, which) -> dialog.cancel());

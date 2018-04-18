@@ -21,10 +21,12 @@ package projekt.substratum.adapters.tabs.wallpapers;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -108,7 +110,11 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         });
         viewHolderBinding.setWallpaperItem(wallpaperItem);
         viewHolderBinding.executePendingBindings();
-        setRecyclerViewAnimations(viewHolderBinding.wallpaperImage);
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(wallpaperItem.getContext());
+        if (!prefs.getBoolean("lite_mode", false)) {
+            setRecyclerViewAnimations(viewHolderBinding.wallpaperImage);
+        }
     }
 
     @Override

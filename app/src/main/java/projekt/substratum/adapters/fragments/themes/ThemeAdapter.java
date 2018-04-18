@@ -29,6 +29,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,8 +62,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         this.information = information;
     }
 
+    @NonNull
     @Override
-    public ThemeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
+    public ThemeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
                                                       int i) {
         View view = LayoutInflater.from(
                 viewGroup.getContext()).inflate(
@@ -71,7 +73,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder,
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder,
                                  int pos) {
         ThemeItem themeItem = this.information.get(pos);
         this.context = themeItem.getContext();
@@ -79,15 +81,12 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
 
         viewHolderBinding.themeCard.setOnClickListener(
-                v -> Theming.launchTheme(this.context,
-                        themeItem.getThemePackage()
-                ));
+                v -> Theming.launchTheme(this.context, themeItem.getThemePackage()));
 
         viewHolderBinding.themeCard.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
             if (Packages.isUserApp(this.context, themeItem.getThemePackage())) {
-                Vibrator v = (Vibrator) this.context.getSystemService(Context
-                        .VIBRATOR_SERVICE);
+                Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
                 if (v != null) {
                     v.vibrate(30L);
                 }
@@ -224,7 +223,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         });
         viewHolderBinding.setThemeItem(themeItem);
         viewHolderBinding.executePendingBindings();
-        setRecyclerViewAnimations(viewHolderBinding.themePreviewImage);
+        if (!prefs.getBoolean("lite_mode", false)) {
+            setRecyclerViewAnimations(viewHolderBinding.themePreviewImage);
+        }
     }
 
     @Override

@@ -402,7 +402,7 @@ public enum Systems {
     }
 
     public static boolean isSamsungDevice(Context context) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) return false;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) return false;
         if (isSamsungDevice != null) return isSamsungDevice;
         if (context != null) {
             List<String> listOfFeatures =
@@ -420,7 +420,7 @@ public enum Systems {
      * @return True, if it passes all Samsung tests
      */
     public static boolean isNewSamsungDevice() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 &&
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 &&
                 new File("/system/etc/permissions/com.samsung.device.xml").exists();
     }
 

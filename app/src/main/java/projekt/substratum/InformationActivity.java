@@ -303,6 +303,8 @@ public class InformationActivity extends AppCompatActivity {
      * Sets the toolbar icons to be dark
      */
     private void setDarkToolbarIcons() {
+        toolbarCollapsedTitle.setTextColor(
+                getColor(R.color.information_activity_dark_icon_mode));
         collapsingToolbar.setCollapsedTitleTextColor(
                 getColor(R.color.information_activity_dark_icon_mode));
         collapsingToolbar.setExpandedTitleColor(
@@ -336,6 +338,8 @@ public class InformationActivity extends AppCompatActivity {
      * Sets the toolbar icons to be light
      */
     private void setLightToolbarIcons() {
+        toolbarCollapsedTitle.setTextColor(
+                getColor(R.color.information_activity_light_icon_mode));
         collapsingToolbar.setCollapsedTitleTextColor(
                 getColor(R.color.information_activity_light_icon_mode));
         collapsingToolbar.setExpandedTitleColor(

@@ -21,6 +21,7 @@ package projekt.substratum.adapters.fragments.themes;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 
 import static projekt.substratum.common.References.dynamicallyResize;
 
@@ -62,7 +63,7 @@ public class ThemeItem {
     }
 
     public void setThemeDrawable(Drawable drawable) {
-        this.themeDrawable = dynamicallyResize(drawable);
+        this.themeDrawable = drawable instanceof VectorDrawable ? drawable : dynamicallyResize(drawable);
     }
 
     public Activity getActivity() {

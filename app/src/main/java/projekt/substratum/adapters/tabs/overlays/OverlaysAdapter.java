@@ -117,24 +117,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             }
         } else if (isSamsungDevice(context)) {
             // Nougat based Samsung check
-            if (overlaysItem.getColorState() == 0) {
-                List<String> installedElsewhere =
-                        ThemeManager.listEnabledOverlaysForTarget(
-                                context, overlaysItem.getPackageName());
-                if (overlaysItem.isOverlayEnabled()) {
-                    overlaysItem.setColorState(
-                            context.getColor(R.color.overlay_installed_list_entry));
-                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_ENABLED);
-                } else if (installedElsewhere.size() > 0) {
-                    overlaysItem.setColorState(
-                            context.getColor(R.color.overlay_not_enabled_elsewhere_list_entry));
-                    changeOverlayTargetPackageNameTint(viewBinding, context, INSTALLED_ELSEWHERE);
-                } else {
-                    overlaysItem.setColorState(
-                            context.getColor(R.color.overlay_not_installed_list_entry));
-                    changeOverlayTargetPackageNameTint(viewBinding, context, NOT_INSTALLED);
-                }
-            }
+            changeOverlayTargetPackageNameTint(viewBinding, context,
+                    (overlaysItem.isOverlayEnabled() ? INSTALLED_ENABLED : NOT_INSTALLED));
             viewBinding.overlayState.setVisibility(
                     overlaysItem.isOverlayEnabled() ? View.VISIBLE : View.GONE);
         } else {

@@ -81,7 +81,7 @@ public class SubstratumCrash extends Activity {
         );
 
         if (isSystemFault && !isRomBuilderFault) {
-            Activities.launchInternalActivity(getApplicationContext(), SystemCrash.class);
+            Activities.launchInternalActivity(this, SystemCrash.class);
             finishAffinity();
         }
 

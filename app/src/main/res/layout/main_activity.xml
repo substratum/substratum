@@ -31,8 +31,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:elevation="@dimen/action_bar_elevation"
-            android:theme="@style/ToolbarTheme"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:theme="@style/ToolbarTheme">
 
             <LinearLayout
                 android:layout_width="wrap_content"

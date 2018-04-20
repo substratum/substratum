@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -30,13 +29,11 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,11 +53,7 @@ import static projekt.substratum.common.Internal.BOOT_ANIMATION_APPLIED;
 import static projekt.substratum.common.Internal.HOME_WALLPAPER;
 import static projekt.substratum.common.Internal.LOCK_WALLPAPER;
 import static projekt.substratum.common.Internal.SOUNDS_APPLIED;
-import static projekt.substratum.common.References.APP_THEME;
-import static projekt.substratum.common.References.AUTO_THEME;
-import static projekt.substratum.common.References.DARK_THEME;
 import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
-import static projekt.substratum.common.References.DEFAULT_THEME;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
@@ -72,13 +65,11 @@ import static projekt.substratum.common.Resources.isSoundsSupported;
 public enum Restore {
     ;
 
-    public static void invoke(Context context, Activity activity) {
+    public static void invoke(Context context) {
+        Activity activity = (Activity) context;
+
         SheetDialog sheetDialog = new SheetDialog(activity);
         View sheetView = View.inflate(context, R.layout.restore_sheet_dialog, null);
-
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(context);
-        String selectedTheme = prefs.getString(APP_THEME, DEFAULT_THEME);
 
         LinearLayout disableAll = sheetView.findViewById(R.id.disable_all);
         LinearLayout uninstallAll = sheetView.findViewById(R.id.uninstall_all);
@@ -88,71 +79,6 @@ public enum Restore {
         LinearLayout homeWallpaper = sheetView.findViewById(R.id.home_wallpaper);
         LinearLayout lockWallpaper = sheetView.findViewById(R.id.lock_wallpaper);
         LinearLayout bothWallpapers = sheetView.findViewById(R.id.both_wallpapers);
-
-        // Doing this because for some reason the dark theme does not take charge
-        if (context.getResources().getBoolean(R.bool.forceAppDarkTheme) ||
-                selectedTheme.equals(DARK_THEME) ||
-                selectedTheme.equals(AUTO_THEME)) {
-            Boolean isNight;
-            if (selectedTheme.equals(AUTO_THEME)) {
-                Calendar cal = Calendar.getInstance();
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                isNight = hour < 6 || hour > 18;
-            } else {
-                isNight = true;
-            }
-
-            if (isNight) {
-                sheetView.setBackgroundColor(context.getColor(R.color
-                        .bottom_sheet_dialog_background_night));
-
-                ColorStateList icon_tint = new ColorStateList(
-                        new int[][]{
-                                new int[]{android.R.attr.state_checked},
-                                new int[]{}
-                        },
-                        new int[]{
-                                context.getColor(R.color.bottom_sheet_dialog_icons_night),
-                                context.getColor(R.color.bottom_sheet_dialog_icons_night)
-                        });
-
-                int textTint = context.getColor(R.color.bottom_sheet_dialog_text_night);
-
-                TextView disable = disableAll.findViewById(R.id.disable_text);
-                disable.setTextColor(textTint);
-                disable.setCompoundDrawableTintList(icon_tint);
-
-                TextView uninstall = uninstallAll.findViewById(R.id.uninstall_text);
-                uninstall.setTextColor(textTint);
-                uninstall.setCompoundDrawableTintList(icon_tint);
-
-                TextView bootanimation =
-                        restoreBootanimation.findViewById(R.id.restore_bootanimation_text);
-                bootanimation.setTextColor(textTint);
-                bootanimation.setCompoundDrawableTintList(icon_tint);
-
-                TextView sounds = restoreSounds.findViewById(R.id.restore_sounds_text);
-                sounds.setTextColor(textTint);
-                sounds.setCompoundDrawableTintList(icon_tint);
-
-                TextView fonts = restoreSystemFont.findViewById(R.id.restore_font_text);
-                fonts.setTextColor(textTint);
-                fonts.setCompoundDrawableTintList(icon_tint);
-
-                TextView home_wall = homeWallpaper.findViewById(R.id.restore_home_wallpaper_text);
-                home_wall.setTextColor(textTint);
-                home_wall.setCompoundDrawableTintList(icon_tint);
-
-                TextView lock_wall = lockWallpaper.findViewById(R.id.restore_lock_wallpaper_text);
-                lock_wall.setTextColor(textTint);
-                lock_wall.setCompoundDrawableTintList(icon_tint);
-
-                TextView both_walls =
-                        bothWallpapers.findViewById(R.id.restore_both_wallpapers_text);
-                both_walls.setTextColor(textTint);
-                both_walls.setCompoundDrawableTintList(icon_tint);
-            }
-        }
 
         View view = activity.findViewById(R.id.drawer_container);
 

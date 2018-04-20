@@ -513,7 +513,7 @@ public class MainActivity extends AppCompatActivity implements
                 launchInternalActivity(this, ShowcaseActivity.class);
                 return true;
             case R.id.rescue:
-                Restore.invoke(context, this);
+                Restore.invoke(this);
                 return true;
 
             // Begin OMS based options

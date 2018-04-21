@@ -30,6 +30,7 @@ import dalvik.system.DexClassLoader;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isSamsungDevice;
@@ -228,6 +229,8 @@ public enum Resources {
         if (checkSubstratumService(context)) {
             Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
             return true;
+        } else if (checkOreo() && !checkSubstratumService(context)) {
+            return false;
         }
         try {
             final Class<?> cls = Class.forName("android.graphics.Typeface");

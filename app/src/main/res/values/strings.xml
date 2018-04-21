@@ -277,7 +277,7 @@
     <string name="manage_wallpaper_lock_toast">Lock screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_all_toast">Wallpaper restored successfully!</string>
 
-    <string name="adapter_uninstalling">Now removing %s&#8230;</string>
+    <string name="adapter_uninstalling" formatted="false">Now removing %s&#8230;</string>
 
     <string name="plugin_template">Plugin</string>
 
@@ -305,7 +305,7 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_alphabetize">Change Sorting Mode</string>
-    <string name="menu_state_prefix">Overlay state: %s</string>
+    <string name="menu_state_prefix" formatted="false">Overlay state: %s</string>
     <string name="menu_state_default">All</string>
     <string name="menu_state_enabled">Enabled</string>
     <string name="menu_state_disabled">Disabled</string>
@@ -316,8 +316,8 @@
     <string name="menu_restore_info">Restore info</string>
     <string name="menu_showcase_info">Showcase info</string>
 
-    <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
-    <string name="menu_favorite_snackbar_cleared">Removed %s from being an app shortcut.</string>
+    <string name="menu_favorite_snackbar" formatted="false">Successfully set %s as an app shortcut!</string>
+    <string name="menu_favorite_snackbar_cleared" formatted="false">Removed %s from being an app shortcut.</string>
 
     <string name="launcher_shortcut">Shortcut on Launcher</string>
     <string name="launcher_shortcut_toast">Successfully created a launcher icon!</string>
@@ -341,13 +341,13 @@
     <string name="logcat_snackbar_text">Target application/overlay outdated or mismatched configuration selected&#8230;</string>
     <string name="logcat_dialog_title">LogChar Debug Report</string>
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
-    <string name="logcat_email_subject" translatable="false">
+    <string name="logcat_email_subject" translatable="false" formatted="false">
       %s: Theme Bug Report</string>
-    <string name="logcat_email_body" translatable="false">
+    <string name="logcat_email_body" translatable="false" formatted="false">
       Hey %s,\n\nI have an issue with %s, and would
       like to see if you could help me resolve this issue.
     </string>
-    <string name="logcat_attachment_body" translatable="false">
+    <string name="logcat_attachment_body" translatable="false" formatted="false">
       Theme Name:\n%s\n\nDevice:\n%s\n\nROM:\n%s\n\nSubstratum Version:\n%s\n\nTheme Version:\n%s\n\nTarget Package(s):\n%s\nReport:\n%s
     </string>
     <string name="logcat_send">Send</string>
@@ -380,7 +380,7 @@
     </string>
     <string name="delete_dialog_okay">Delete</string>
     <string name="delete_dialog_title">Delete profile</string>
-    <string name="delete_dialog_text">Are you sure you want to delete \"%s\"?</string>
+    <string name="delete_dialog_text" formatted="false">Are you sure you want to delete \"%s\"?</string>
     <string name="restore">Restore Card</string>
     <string name="restore_card_content">When a profile is loaded, your current setup is completely
       wiped and \"restore theme\" would take on the updated changes.
@@ -405,7 +405,7 @@
     </string>
     <string name="profile_edittext_title">New Profile:</string>
     <string name="profile_edittext_whitespace_warning_toast">Cannot use whitespace inside profile name!</string>
-    <string name="toast_backup_success">Current overlay list saved to
+    <string name="toast_backup_success" formatted="false">Current overlay list saved to
       \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
     <string name="profile_restoration_message">Processing profile restoration&#8230;</string>
@@ -434,7 +434,7 @@
     <string name="root_rejected_title">could not fall back to rooted mode</string>
     <string name="root_rejected_text">there are no other theme engines able to be utilized on this device at this current time&#8230;</string>
 
-    <string name="toast_activity_finished">%s was just updated, relaunching for new
+    <string name="toast_activity_finished" formatted="false">%s was just updated, relaunching for new
         changes!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
     <string name="toast_compiled_missing">One or more overlays cannot compile due to missing configurations under this set up&#8230;</string>
@@ -445,9 +445,9 @@
     <string name="no_themes_title">no themes found&#8230;</string>
     <string name="no_overlays_title">no overlays found&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
-    <string name="no_themes_description_search">\"%s\" was not found in the list of themes
+    <string name="no_themes_description_search" formatted="false">\"%s\" was not found in the list of themes
         installed&#8230;</string>
-    <string name="no_overlays_description_search">\"%s\" was not found in the list of
+    <string name="no_overlays_description_search" formatted="false">\"%s\" was not found in the list of
         overlays installed&#8230;</string>
 
     <string name="toast_andromeda_timed_out">Substratum could not connect to the Andromeda backend.</string>
@@ -476,12 +476,12 @@
     <string name="notification_theme_updated_content">Resources successfully updated.</string>
 
     <string name="notification_initial_title">Substratum is running</string>
-    <string name="notification_initial_title_upgrade_intent">Upgrading %s\'s
+    <string name="notification_initial_title_upgrade_intent" formatted="false">Upgrading %s\'s
         overlays&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
-    <string name="notification_done_upgrade_title">Overlay refresh has completed for %s!</string>
-    <string name="notification_done_upgrade_title_warning">Overlay refresh partially completed for %s!</string>
-    <string name="notification_done_upgrade_title_failed">Missing or unbuildable configuration:\n\n%s</string>
+    <string name="notification_done_upgrade_title" formatted="false">Overlay refresh has completed for %s!</string>
+    <string name="notification_done_upgrade_title_warning" formatted="false">Overlay refresh partially completed for %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Missing or unbuildable configuration:\n\n%s</string>
     <string name="notification_done_update_text">All overlays for this app have been updated.</string>
     <string name="notification_done_upgrade_text">All overlays for this theme have been updated.</string>
     <string name="notification_no_errors_found">No errors while installing selected overlays</string>
@@ -590,12 +590,12 @@
     <string name="profile_empty_warning">Please select all the profiles you want enabled!</string>
     <string name="profile_notification_title_day">Day</string>
     <string name="profile_notification_title_night">Night</string>
-    <string name="profile_notification_title">%s profile</string>
+    <string name="profile_notification_title" formatted="false">%s profile</string>
     <string name="profile_pending_notification">Profile will be changed after screen is off.</string>
     <string name="profile_success_notification">Profile successfully applied!</string>
     <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
     <string name="profile_failed_info_notification">Touch for more information</string>
-    <string name="profile_compile_progress">Compiling %d of %d:\n%s</string>
+    <string name="profile_compile_progress" formatted="false">Compiling %d of %d:\n%s</string>
     <string name="profile_compile_processing">Now processing your saved overlay states&#8230;</string>
 
     <string name="theme_debug_mode_title">Legacy compiler fallback bypass</string>
@@ -663,14 +663,14 @@
     <string name="per_app_notification_summary">FloatUI is dynamically filtering your apps!</string>
     <string name="per_app_notification_framework_show">Show Android System overlays</string>
     <string name="per_app_notification_framework_hide">Hide Android System overlays</string>
-    <string name="per_app_toast_no_overlays">There are no overlays configurable for %s!</string>
+    <string name="per_app_toast_no_overlays" formatted="false">There are no overlays configurable for %s!</string>
     <string name="per_app_apply">Apply</string>
     <string name="per_app_request_title">FloatUI Permissions</string>
     <string name="per_app_draw_over_other_apps_request">Please grant Substratum "draw over other apps" for the floating UI and "Usage stats" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_usage_stats_request">Please grant Substratum "usage access" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_manual_grant">Please manually grant Substratum "usage access" permissions and "draw over other apps" in App Settings to use FloatUI!</string>
 
-    <string name="notification_overlay_found_specific">An overlay for %s is in %s!</string>
+    <string name="notification_overlay_found_specific" formatted="false">An overlay for %s is in %s!</string>
     <string name="notification_overlay_found_description">You can open the theme by clicking on this notification!</string>
 
     <string name="system_crash_text">Your system reloaded substratum\'s resources. The app will
@@ -689,11 +689,11 @@
 
     <string name="interfacer_not_authorized_toast">This version of Substratum is not authorized and will not work with the system Interfacer module.</string>
 
-    <string name="app_crash_title">%s keeps stopping&#8230;</string>
+    <string name="app_crash_title" formatted="false">%s keeps stopping&#8230;</string>
     <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>
 
     <string name="rom_status">Support status:</string>
-    <string name="rom_status_supported">%s is community supported!</string>
+    <string name="rom_status_supported" formatted="false">%s is community supported!</string>
     <string name="rom_status_unsupported">this rom is not community supported!</string>
     <string name="rom_status_network">internet check required&#8230;</string>
 

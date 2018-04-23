@@ -29,6 +29,7 @@ import dalvik.system.DexClassLoader;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.checkSubstratumService;
@@ -95,7 +96,8 @@ public enum Resources {
     private static final String[] SAMSUNG_PERMISSION_BLACKLIST_PACKAGES = {
             "com.sec.android.app.music",
             "com.sec.android.app.voicenote",
-            "com.wssyncmldm"
+            "com.wssyncmldm",
+            SUBSTRATUM_PACKAGE
     };
 
     // Filter to adjust framework elements

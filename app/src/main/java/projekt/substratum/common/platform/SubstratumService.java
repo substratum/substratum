@@ -23,6 +23,7 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,22 @@ import projekt.substratum.platform.SubstratumServiceBridge;
 public enum SubstratumService {
     ;
     private static final String TAG = "SubstratumService";
+    private static final String[] EXPECTED_METHODS = {
+            "installOverlay",
+            "uninstallOverlay",
+            "switchOverlay",
+            "setPriority",
+            "restartSystemUI",
+            "copy",
+            "move",
+            "mkdir",
+            "deleteDirectory",
+            "applyBootanimation",
+            "applyFonts",
+            "applyProfile",
+            "applyShutdownAnimation",
+            "getAllOverlays"
+    };
     private static final int uid = Process.myUid() / 100000;
     private static final ISubstratumService service = SubstratumServiceBridge.get();
 
@@ -186,6 +203,28 @@ public enum SubstratumService {
             service.applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
         } catch (Exception e) {
             Log.e(TAG, "There was an exception when trying to apply profile", e);
+        }
+    }
+
+    public static boolean checkApi() {
+        try {
+            Method[] methods = ISubstratumService.class.getMethods();
+            for (String expectedMethod : EXPECTED_METHODS) {
+                boolean methodFound = false;
+                for (Method method : methods) {
+                    if (expectedMethod.equals(method.getName())) {
+                        methodFound = true;
+                        break;
+                    }
+                }
+                if (!methodFound) {
+                    Log.wtf(TAG, "Expected method not found: " + expectedMethod);
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }

@@ -46,6 +46,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import projekt.substratum.BuildConfig;
+import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
@@ -310,6 +311,10 @@ public enum Systems {
             setAndCheckSubstratumService(context);
         }
         return prefs.getBoolean("substratum_service_present", false);
+    }
+
+    public static boolean checkSubstratumServiceApi(Context context) {
+        return !checkSubstratumService(context) || SubstratumService.checkApi();
     }
 
     /**

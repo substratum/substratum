@@ -423,6 +423,10 @@
     <string name="dialog_do_not_show_again">Do not show again</string>
     <string name="dialog_cancel">Cancel</string>
 
+    <string name="sysserv_api_check_dialog_title">API Check Failed</string>
+    <string name="sysserv_api_check_dialog_text">The ROM you are currently on has the outdated version of our backend system. Please inform us through our Telegram chat what ROM you are on and we will contact them. Thanks!</string>
+    <string name="sysserv_api_check_help_link">https://t.me/joinchat/BTodxkJMTTTgYmCfPL7IIA</string>
+
     <string name="clean_dialog_body">Do you want to clean all overlays for this theme?</string>
     <string name="disable_dialog_body">Do you want to disable all overlays for this theme?</string>
     <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?

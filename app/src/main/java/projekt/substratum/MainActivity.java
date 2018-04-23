@@ -121,6 +121,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.checkSubstratumServiceApi;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 import static projekt.substratum.common.Systems.isSamsung;
@@ -465,6 +466,18 @@ public class MainActivity extends AppCompatActivity implements
                                 finishAffinity())
                         .setCancelable(false)
                         .show();
+                return;
+            } else if (!checkSubstratumServiceApi(context)) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.sysserv_api_check_dialog_title)
+                        .setMessage(R.string.sysserv_api_check_dialog_text)
+                        .setPositiveButton(getString(R.string.dialog_ok), (dialogInterface, i) -> {
+                            launchActivityUrl(context, R.string.sysserv_api_check_help_link);
+                            finishAffinity();
+                        })
+                        .setCancelable(false)
+                        .show();
+                return;
             }
         }
         new RootRequester(this).execute();

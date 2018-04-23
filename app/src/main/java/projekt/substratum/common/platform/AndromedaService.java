@@ -68,7 +68,7 @@ public enum AndromedaService {
      * @param overlays List of overlays
      * @return True, if succeeded.
      */
-    static boolean disableOverlays(List<String> overlays) {
+    public static boolean disableOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().disableOverlay(overlays);
         } catch (Exception ignored) {

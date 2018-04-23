@@ -24,8 +24,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.platform.AndromedaService;
+import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.ProfileManager;
 
+import static projekt.substratum.common.platform.ThemeManager.listEnabledOverlaysForTarget;
 import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE_ENABLED;
 
 public class SubstratumUpdateReceiver extends BroadcastReceiver {
@@ -37,6 +45,15 @@ public class SubstratumUpdateReceiver extends BroadcastReceiver {
         boolean scheduleProfileEnabled = prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false);
         if (scheduleProfileEnabled) {
             ProfileManager.updateScheduledProfile(context);
+        }
+
+        List<String> overlays = listEnabledOverlaysForTarget(context, context.getPackageName());
+        ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
+        if (Systems.checkAndromeda(context)) {
+            if (!AndromedaService.checkServerActivity()) {
+                prefs.edit().putStringSet("to_be_disabled_overlays", new TreeSet<>(overlays))
+                        .apply();
+            }
         }
     }
 }

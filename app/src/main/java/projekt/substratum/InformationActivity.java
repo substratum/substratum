@@ -522,14 +522,6 @@ public class InformationActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        toolbar.setOnClickListener(v -> {
-            if (Overlays.recyclerView != null) {
-                Overlays.recyclerView.smoothScrollToPosition(0);
-            }
-            if (Wallpapers.recyclerView != null) {
-                Wallpapers.recyclerView.smoothScrollToPosition(0);
-            }
-        });
 
         // Hero Image
         try {

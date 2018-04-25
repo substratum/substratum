@@ -18,7 +18,6 @@
 
 package projekt.substratum.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -72,8 +71,7 @@ public class ThemeFragment extends Fragment {
 
     private static final int THEME_FRAGMENT_INITIAL_DELAY = 300;
     public static AsyncTask layoutReloader;
-    @SuppressLint("StaticFieldLeak")
-    public static RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private View cardView;
     private Context context;
@@ -280,10 +278,6 @@ public class ThemeFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        recyclerView.invalidate();
-        recyclerView = null;
-
         try {
             localBroadcastManager.unregisterReceiver(refreshReceiver);
         } catch (IllegalArgumentException ignored) {

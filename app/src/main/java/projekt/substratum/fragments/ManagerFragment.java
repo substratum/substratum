@@ -18,7 +18,6 @@
 
 package projekt.substratum.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -111,8 +110,7 @@ public class ManagerFragment extends Fragment {
     public static LayoutReloader layoutReloader;
     private RelativeLayout toggleZone;
     private RelativeLayout noOverlaysEnabled;
-    @SuppressLint("StaticFieldLeak")
-    public static RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private ProgressBar loadingBar;
     private FloatingActionMenu floatingActionButton;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -554,10 +552,6 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        recyclerView.invalidate();
-        recyclerView = null;
-
         if (Systems.checkThemeInterfacer(context)) {
             try {
                 context.unregisterReceiver(finishReceiver);

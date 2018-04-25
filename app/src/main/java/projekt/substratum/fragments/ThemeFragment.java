@@ -225,6 +225,13 @@ public class ThemeFragment extends Fragment {
     }
 
     /**
+     * Scroll up the RecyclerView smoothly
+     */
+    public void scrollUp() {
+        recyclerView.smoothScrollToPosition(0);
+    }
+
+    /**
      * Obtain an instance of this fragment
      *
      * @return Returns an instance of Theme Fragment

@@ -18,12 +18,16 @@
 
 package projekt.substratum.tabs;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +52,7 @@ import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudWallpaperFile;
 
 import static projekt.substratum.common.Internal.CURRENT_WALLPAPERS;
+import static projekt.substratum.common.Internal.START_JOB_ACTION;
 import static projekt.substratum.common.Internal.THEME_WALLPAPER;
 
 public class Wallpapers extends Fragment {
@@ -60,6 +65,15 @@ public class Wallpapers extends Fragment {
     private RecyclerView recyclerView;
     private String wallpaperUrl;
     private Context context;
+    private JobReceiver jobReceiver;
+    private LocalBroadcastManager localBroadcastManager;
+
+    /**
+     * Scroll up the RecyclerView smoothly
+     */
+    public void scrollUp() {
+        recyclerView.smoothScrollToPosition(0);
+    }
 
     @Override
     public View onCreateView(
@@ -91,7 +105,22 @@ public class Wallpapers extends Fragment {
             swipeRefreshLayout.setRefreshing(false);
         });
         refreshLayout();
+
+        jobReceiver = new JobReceiver();
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+        localBroadcastManager.registerReceiver(jobReceiver,
+                new IntentFilter(getClass().getSimpleName() + START_JOB_ACTION));
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            localBroadcastManager.unregisterReceiver(jobReceiver);
+        } catch (final IllegalArgumentException ignored) {
+            // unregistered already
+        }
     }
 
     private void refreshLayout() {
@@ -198,6 +227,17 @@ public class Wallpapers extends Fragment {
                 FileDownloader.init(wallpapers.context, sUrl[0], "", sUrl[1]);
             }
             return null;
+        }
+    }
+
+    /**
+     * Receiver to pick data up from InformationActivity to start the process of scroll up
+     */
+    class JobReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            if (!isAdded()) return;
+            scrollUp();
         }
     }
 }

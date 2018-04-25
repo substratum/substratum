@@ -328,6 +328,17 @@ public class MainActivity extends AppCompatActivity implements
         bottomBarShadow = binding.bottomBarShadow;
         bottomBar = binding.bottomBar;
 
+        toolbar.setOnClickListener(v -> {
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main);
+            if (currentFragment instanceof ThemeFragment) {
+                ((ThemeFragment) currentFragment).scrollUp();
+            } else if (currentFragment instanceof ManagerFragment) {
+                ((ManagerFragment) currentFragment).scrollUp();
+            } else if (currentFragment instanceof SettingsFragment) {
+                ((SettingsFragment) currentFragment).scrollUp();
+            }
+        });
+
         cleanLogCharReportsIfNecessary();
         Theming.refreshInstalledThemesPref(context);
 

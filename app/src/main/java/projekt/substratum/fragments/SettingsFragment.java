@@ -88,6 +88,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public Context context;
     private SharedPreferences prefs;
 
+    /**
+     * Scroll up the ListView smoothly
+     */
+    public void scrollUp() {
+        getListView().smoothScrollToPosition(0);
+    }
+
     @SuppressLint("StringFormatMatches")
     @Override
     public void onCreatePreferences(

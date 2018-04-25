@@ -30,6 +30,7 @@ public enum Internal {
     public static final String DISABLE_MODE = "DISABLE";
     public static final String ENABLE_DISABLE = "EnableDisable";
     public static final String MIX_AND_MATCH = "MixAndMatchMode";
+    public static final String SCROLL_UP = "ScrollUp";
     // Encrypted theme asset algorithm parameters
     public static final String ENCRYPTION_KEY_EXTRA = "encryption_key";
     public static final String IV_ENCRYPTION_KEY_EXTRA = "iv_encrypt_key";

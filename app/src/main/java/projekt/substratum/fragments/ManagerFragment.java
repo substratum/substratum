@@ -144,6 +144,13 @@ public class ManagerFragment extends Fragment {
     }
 
     /**
+     * Scroll up the RecyclerView smoothly
+     */
+    public void scrollUp() {
+        recyclerView.smoothScrollToPosition(0);
+    }
+
+    /**
      * Callable function to simulate the swipe refresh layout to be refreshing the whole list
      */
     public void setSwipeRefreshLayoutRefreshing() {

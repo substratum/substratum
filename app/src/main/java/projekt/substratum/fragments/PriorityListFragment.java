@@ -70,6 +70,7 @@ public class PriorityListFragment extends Fragment {
     FloatingActionButton applyFab;
     ProgressBar headerProgress;
     private Context context;
+    private MainActivity activity;
 
     /**
      * Creating the options menu (3dot overflow menu)
@@ -116,14 +117,13 @@ public class PriorityListFragment extends Fragment {
      */
     private void onBackPressed() {
         Fragment fragment = new PriorityLoaderFragment();
-        assert getActivity() != null;
-        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentManager fm = activity.getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.setCustomAnimations(
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         transaction.replace(R.id.main, fragment);
         transaction.commit();
-        ((MainActivity) getActivity()).switchToDefaultToolbarText();
+        activity.switchToDefaultToolbarText();
     }
 
     @Override
@@ -260,5 +260,11 @@ public class PriorityListFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (MainActivity) context;
     }
 }

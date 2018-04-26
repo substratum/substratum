@@ -9,3 +9,4 @@
 *.apk
 keystore.properties
 *.jks
+output.json

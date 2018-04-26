@@ -358,13 +358,9 @@
 
     <string name="priority_instructions_title">Instructions</string>
     <string name="priority_instructions_content">With the dynamic priority system, you can adjust
-      the overlay priorities as layers in terms of levels. What this means is that when an
-      overlay has the highest priority, resources from the overlay will be pulled from the
-      highest overlay first, then the second highest.
-      \n
-      \nFor Oreo devices, the top overlay is the highest.
-      \n
-      \nFor Nougat devices, the bottom overlay is the highest (inverted).
+      the overlay priorities as layers in terms of levels. What this means is the highest
+      priority overlay will be loaded last and replace the resources on all of the overlays with
+      lower priority and so on.
     </string>
     <string name="priority_no_multiple_overlays_title">no apps with multiple overlays</string>
     <string name="priority_no_multiple_overlays_text">enable two or more overlays on one app to use

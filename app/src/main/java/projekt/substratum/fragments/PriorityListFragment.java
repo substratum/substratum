@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Animatable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -168,12 +167,8 @@ public class PriorityListFragment extends Fragment {
                     Packages.getOverlayParentIcon(context, o)));
             workableList.add(o);
         }
-        // On Android Oreo and above, the list is properly reflected now, where the top holds to
-        // highest priority while the bottom holds the lowest, unlike M and N
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Collections.reverse(workableList);
-            Collections.reverse(prioritiesList);
-        }
+        Collections.reverse(workableList);
+        Collections.reverse(prioritiesList);
         PriorityAdapter adapter = new PriorityAdapter(
                 context,
                 R.layout.priority_overlay_item);
@@ -247,6 +242,7 @@ public class PriorityListFragment extends Fragment {
             colorAnimation.start();
 
             headerProgress.setVisibility(View.VISIBLE);
+            Collections.reverse(workableList);
             ThemeManager.setPriority(context, workableList);
             if (Packages.needsRecreate(context, workableList)) {
                 Handler handler = new Handler();

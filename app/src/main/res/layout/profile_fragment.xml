@@ -200,7 +200,8 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/cardListView2"
                     android:layout_margin="15dp"
-                    card_view:cardBackgroundColor="@color/theme_card_background"
+                    android:backgroundTint="@color/main_screen_card_background"
+                    card_view:cardBackgroundColor="@color/main_screen_card_background"
                     card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
                     card_view:cardElevation="@dimen/main_screen_card_corner_elevation">
 

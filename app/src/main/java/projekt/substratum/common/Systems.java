@@ -381,8 +381,8 @@ public enum Systems {
      * @return True, if Samsung
      */
     public static boolean isSamsung(Context context) {
-        boolean isTouchWiz = isSamsungDevice(context);
-        if (!isTouchWiz) return false;
+        if (!isSamsungDevice(context)) return false;
+        if (isNewSamsungDeviceAndromeda(context)) return true;
 
         SharedPreferences prefs =
                 context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
@@ -407,6 +407,7 @@ public enum Systems {
     }
 
     public static boolean isSamsungDevice(Context context) {
+        if (isNewSamsungDeviceAndromeda(context)) return true;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) return false;
         if (isSamsungDevice != null) return isSamsungDevice;
         if (context != null) {
@@ -427,6 +428,18 @@ public enum Systems {
     public static boolean isNewSamsungDevice() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
                 new File("/system/etc/permissions/com.samsung.device.xml").exists();
+    }
+
+    /**
+     * Checks if the system supports sungstromeda mode
+     *
+     * @param context Context
+     * @return True, if the device can utilize both sungstratum + andromeda mode on Oreo onwards
+     */
+    public static boolean isNewSamsungDeviceAndromeda(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean sungstromeda = prefs.getBoolean("sungstromeda_mode", true);
+        return sungstromeda && isNewSamsungDevice() && checkAndromeda(context);
     }
 
     /**

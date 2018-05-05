@@ -76,7 +76,10 @@ import static projekt.substratum.common.References.MAX_PRIORITY;
 import static projekt.substratum.common.References.MIN_PRIORITY;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.Resources.SYSTEMUI;
+import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkPackageSupport;
+import static projekt.substratum.common.Systems.isNewSamsungDevice;
+import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
 import static projekt.substratum.common.commands.FileOperations.delete;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -106,7 +109,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         boolean isSamsung = Systems.isSamsungDevice(context);
         boolean isOMS = Systems.checkOMS(context);
         boolean hasThemeInterfacer = Systems.checkThemeInterfacer(context);
-        boolean hasAndromeda = Systems.checkAndromeda(context);
+        boolean hasAndromeda = checkAndromeda(context);
 
         // Initialize the XML file
         addPreferencesFromResource(R.xml.preference_fragment);
@@ -546,7 +549,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getPreferenceManager().findPreference("theme_updater");
         CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
                 getPreferenceManager().findPreference("hide_app_checkbox");
+        CheckBoxPreference sungstromeda_mode = (CheckBoxPreference)
+                getPreferenceManager().findPreference("sungstromeda_mode");
+
         hide_app_checkbox.setVisible(false);
+        sungstromeda_mode.setVisible(false);
+
+        if (isNewSamsungDevice() && checkAndromeda(context)) {
+            sungstromeda_mode.setVisible(true);
+            sungstromeda_mode.setChecked(prefs.getBoolean("sungstromeda_mode", true));
+            sungstromeda_mode.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        prefs.edit().putBoolean("sungstromeda_mode",
+                                (Boolean) newValue).apply();
+                        sungstromeda_mode.setChecked((Boolean) newValue);
+                        new Handler().postDelayed(() ->
+                                Substratum.restartSubstratum(context), 1000L);
+                        return false;
+                    });
+        }
 
         if (isOMS) {
             aboutSamsung.setVisible(false);
@@ -727,14 +748,32 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
             );
         } else {
-            aboutAndromeda.setVisible(false);
+            aboutAndromeda.setVisible(Systems.isNewSamsungDeviceAndromeda(context));
             aboutInterfacer.setVisible(false);
             crashReceiver.setVisible(false);
             overlay_updater.setVisible(false);
             theme_updater.setVisible(false);
 
+            // Sungstromeda mode
+            if (isNewSamsungDeviceAndromeda(context)) {
+                aboutAndromeda.setIcon(Packages.getAppIcon(context, ANDROMEDA_PACKAGE));
+                sungstromeda_mode.setVisible(true);
+                try {
+                    PackageInfo info =
+                            context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
+                    aboutAndromeda.setSummary(info.versionName + " (" + info.versionCode + ')');
+                } catch (Exception ignored) {
+                }
+                aboutAndromeda.setOnPreferenceClickListener(preference -> {
+                    launchExternalActivity(context, ANDROMEDA_PACKAGE,
+                            Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE) > 19
+                                    ? "activities.InfoActivity" : "InfoActivity");
+                    return false;
+                });
+            }
+
             // About Samsung
-            if (isSamsung) {
+            if (isSamsung && !Systems.isNewSamsungDeviceAndromeda(context)) {
                 aboutSamsung.setVisible(true);
                 aboutSamsung.setIcon(Packages.getAppIcon(context, SST_ADDON_PACKAGE));
                 try {
@@ -772,6 +811,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             return false;
                         }
                 );
+            } else {
+                aboutSamsung.setVisible(false);
             }
 
             @SuppressLint("StringFormatMatches") String formatted =

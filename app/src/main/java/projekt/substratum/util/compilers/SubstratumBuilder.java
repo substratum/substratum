@@ -442,7 +442,7 @@ public class SubstratumBuilder {
         // 9. Install the APK silently
         // Superuser needed as this requires elevated privileges to run these commands
         if (!hasErroredOut) {
-            if (themeOms) {
+            if (themeOms && !Systems.isNewSamsungDeviceAndromeda(context)) {
                 specialSnowflake = false;
                 if (Resources.FRAMEWORK.equals(overlayPackage) ||
                         "projekt.substratum".equals(overlayPackage)) {
@@ -607,7 +607,7 @@ public class SubstratumBuilder {
                 }
             }
         } catch (IOException ioe) {
-            if (Systems.checkOMS(context)) {
+            if (Systems.checkOMS(context) || Systems.isNewSamsungDeviceAndromeda(context)) {
                 Log.d(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
                         "detected and has been whitelisted to continue moving forward " +
                         "with overlay compilation.");

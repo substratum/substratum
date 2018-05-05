@@ -36,11 +36,7 @@
     <color name="floatui_dialog_button_color">@color/colorAccent</color>
 
     <color name="bottom_sheet_dialog_background">@color/main_screen_card_background</color>
-    <color name="bottom_sheet_dialog_background_night">#212021</color>
     <color name="bottom_sheet_dialog_icons">@color/material_drawer_icon_color</color>
-    <color name="bottom_sheet_dialog_icons_night">@android:color/white</color>
-    <color name="bottom_sheet_dialog_text">@android:color/black</color>
-    <color name="bottom_sheet_dialog_text_night">@android:color/white</color>
 
     <color name="error_icons">@android:color/white</color>
 

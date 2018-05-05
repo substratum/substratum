@@ -75,24 +75,6 @@ public class TranslatorParser {
         return resultList;
     }
 
-    public class Translator {
-
-        public String contributorName;
-        public List<String> languages;
-        public Integer translated_words = 0;
-
-        Translator(String contributor_name,
-                   String languages,
-                   String translated_words) {
-            this.contributorName = contributor_name;
-            this.languages = Arrays.asList(languages.split("; "));
-            try {
-                this.translated_words = Integer.valueOf(translated_words);
-            } catch (Exception ignored) {
-            }
-        }
-    }
-
     /**
      * Loads the Translator Contribution Dialog asynchronously with multiple dialogs
      */
@@ -142,6 +124,24 @@ public class TranslatorParser {
                         References.invokeTranslatorDialog(ref.get().context, translators));
             }
             return null;
+        }
+    }
+
+    public class Translator {
+
+        public String contributorName;
+        public List<String> languages;
+        public Integer translated_words = 0;
+
+        Translator(String contributor_name,
+                   String languages,
+                   String translated_words) {
+            this.contributorName = contributor_name;
+            this.languages = Arrays.asList(languages.split("; "));
+            try {
+                this.translated_words = Integer.valueOf(translated_words);
+            } catch (Exception ignored) {
+            }
         }
     }
 }

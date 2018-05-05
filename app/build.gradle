@@ -102,10 +102,9 @@ android {
 }
 
 ext {
-    leakCanaryVersion = '1.5.4'
     supportLibsVersion = '27.1.1'
     firebaseVersion = '15.0.0'
-    glideVersion = '4.6.1'
+    glideVersion = '4.7.1'
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -122,9 +121,9 @@ dependencies {
     implementation "com.android.support:preference-v14:$supportLibsVersion"
 
     // Firebase
-    implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-crash:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:$firebaseVersion"
+    implementation "com.google.firebase:firebase-core:15.0.2"
+    implementation "com.google.firebase:firebase-crash:15.0.2"
+    implementation "com.google.firebase:firebase-database:15.0.1"
 
     // Image Downloading and Caching
     implementation "com.github.bumptech.glide:glide:$glideVersion"
@@ -135,7 +134,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.5'
 
     // APK Signer
-    implementation 'com.android.tools.build:apksig:3.1.1'
+    implementation 'com.android.tools.build:apksig:3.1.2'
 
     // App Intro
     implementation 'com.stephentuso:welcome:1.4.1'

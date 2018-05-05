@@ -58,9 +58,9 @@ import static projekt.substratum.common.References.SHOWCASE_SHUFFLE_COUNT;
 
 public class ShowcaseTab extends Fragment {
 
-    ProgressBar materialProgressBar;
     @SuppressLint("StaticFieldLeak")
     public static RecyclerView recyclerView;
+    ProgressBar materialProgressBar;
     private int currentTabPosition;
     private String currentTabAddress;
     private Context context;

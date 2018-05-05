@@ -20,6 +20,7 @@
     <string name="app_name" translatable="false">substratum</string>
     <string name="legacy_app_name" translatable="false">substratum legacy</string>
     <string name="samsung_app_name" translatable="false">sungstratum</string>
+    <string name="samsung_oreo_app_name" translatable="false">sungstromeda</string>
     <string name="showcase">showcase</string>
 
     <string name="android">Android version:</string>
@@ -598,6 +599,11 @@
     <string name="profile_compile_progress" formatted="false">Compiling %d of %d:\n%s</string>
     <string name="profile_compile_processing">Now processing your saved overlay states&#8230;</string>
 
+    <string name="sungstromeda_mode_manager_warning_text">On a Samsung device, we use a special overlay permission that allows overlays to stick on reboot.\n\nWith this change, overlays will no longer show in Settings, so to list all overlays, please connect the device to Andromeda or run the app in rooted mode.\n\nDon\'t worry, you are still able to uninstall overlays by opening the corresponding theme!</string>
+    <string name="sungstromeda_mode_manager_warning_title">Samsung Permission Alert</string>
+
+    <string name="sungstromeda_mode_title">Sungstromeda mode</string>
+    <string name="sungstromeda_mode_summary">Use Substratum in Sungstromeda mode for legacy handling of overlays.</string>
     <string name="theme_debug_mode_title">Legacy compiler fallback bypass</string>
     <string name="theme_debug_mode_summary">This will stop the app from using the legacy compiler fallback mechanism to help themes when they reach an unrecoverable state.</string>
     <string name="logchar_dialog_title_delete_title">ATTENTION</string>

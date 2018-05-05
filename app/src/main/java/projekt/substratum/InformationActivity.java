@@ -947,7 +947,7 @@ public class InformationActivity extends AppCompatActivity {
                 (!isOMS && !Root.checkRootAccess())) {
             menu.findItem(R.id.restart_systemui).setVisible(false);
         }
-        if (!isOMS) {
+        if (Systems.isNewSamsungDeviceAndromeda(context) || !isOMS) {
             menu.findItem(R.id.disable).setVisible(false);
             menu.findItem(R.id.enable).setVisible(false);
         }

@@ -423,8 +423,8 @@ public class ProfileFragment extends Fragment {
         });
 
         if (Systems.checkOMS(context) &&
-            (Systems.checkThemeInterfacer(getContext()) ||
-                Systems.checkSubstratumService(getContext()))) {
+                (Systems.checkThemeInterfacer(getContext()) ||
+                        Systems.checkSubstratumService(getContext()))) {
             dayNightSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
                 if (b) {
                     scheduledProfileLayout.expand();

@@ -211,7 +211,9 @@ public class MainActivity extends AppCompatActivity implements
 
     public void switchToDefaultToolbarText() {
         showToolbarHamburger();
-        if (Systems.isSamsung(context)) {
+        if (Systems.isNewSamsungDeviceAndromeda(context)) {
+            switchToStockToolbar(getString(R.string.samsung_oreo_app_name));
+        } else if (Systems.isSamsung(context)) {
             switchToStockToolbar(getString(R.string.samsung_app_name));
         } else if (!Systems.checkOMS(context)) {
             switchToStockToolbar(getString(R.string.legacy_app_name));
@@ -247,7 +249,9 @@ public class MainActivity extends AppCompatActivity implements
         if ((searchView != null) && !searchView.isIconified()) {
             searchView.setIconified(true);
         }
-        if (Systems.isSamsung(context)) {
+        if (Systems.isNewSamsungDeviceAndromeda(context)) {
+            switchToStockToolbar(getString(R.string.samsung_oreo_app_name));
+        } else if (Systems.isSamsung(context)) {
             switchToStockToolbar(getString(R.string.samsung_app_name));
         } else if (!Systems.checkOMS(context)) {
             switchToStockToolbar(getString(R.string.legacy_app_name));
@@ -271,7 +275,9 @@ public class MainActivity extends AppCompatActivity implements
         if ((searchView != null) && !searchView.isIconified()) {
             searchView.setIconified(true);
         }
-        if (Systems.isSamsung(context)) {
+        if (Systems.isNewSamsungDeviceAndromeda(context)) {
+            switchToStockToolbar(getString(R.string.samsung_oreo_app_name));
+        } else if (Systems.isSamsung(context)) {
             switchToStockToolbar(getString(R.string.samsung_app_name));
         } else if (!Systems.checkOMS(context)) {
             switchToStockToolbar(getString(R.string.legacy_app_name));
@@ -366,7 +372,9 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         supportActionBar = getSupportActionBar();
-        if (Systems.isSamsung(context)) {
+        if (Systems.isNewSamsungDeviceAndromeda(context)) {
+            switchToStockToolbar(getString(R.string.samsung_oreo_app_name));
+        } else if (Systems.isSamsung(context)) {
             switchToStockToolbar(getString(R.string.samsung_app_name));
         } else if (!Systems.checkOMS(context)) {
             switchToStockToolbar(getString(R.string.legacy_app_name));
@@ -1140,7 +1148,7 @@ public class MainActivity extends AppCompatActivity implements
                             activity.progressDialog.findViewById(R.id.close_button);
                     appCloseButton.setOnClickListener(v -> System.exit(0)); // Brutally exit!
                     appCloseButton.setVisibility(View.GONE);
-                    if (isSamsungDevice(context)) {
+                    if (isSamsungDevice(context) && !Systems.isNewSamsungDeviceAndromeda(context)) {
                         TextView samsungTitle = activity.progressDialog.findViewById(
                                 R.id.sungstratum_title);
                         Button samsungButton = activity.progressDialog.findViewById(
@@ -1256,7 +1264,8 @@ public class MainActivity extends AppCompatActivity implements
                             e.printStackTrace();
                         }
                     }
-                    return !AndromedaService.checkServerActivity();
+                    return !Systems.isNewSamsungDeviceAndromeda(context) &&
+                            !AndromedaService.checkServerActivity();
                 }
 
                 // Check for Substratum Service

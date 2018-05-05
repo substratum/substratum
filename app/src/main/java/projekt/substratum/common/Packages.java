@@ -88,6 +88,7 @@ import static projekt.substratum.common.Resources.allowedSystemUIOverlay;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 
 public enum Packages {
@@ -691,7 +692,7 @@ public enum Packages {
                     // support samsung intentionally!
                     boolean samsungSupport =
                             appInfo.metaData.getBoolean(metadataSamsungSupport, true);
-                    if (!samsungSupport &&
+                    if (!samsungSupport && !isNewSamsungDeviceAndromeda(context) &&
                             (Systems.isSamsungDevice(context) || Systems.isNewSamsungDevice())) {
                         canContinue = false;
                     } else {

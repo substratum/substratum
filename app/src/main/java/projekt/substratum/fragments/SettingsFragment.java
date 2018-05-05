@@ -258,7 +258,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 : (system_service ?
                 getString(R.string.settings_system_status_ss) :
                 (isSamsung ?
-                        getString(R.string.settings_system_status_samsung) :
+                        (isNewSamsungDeviceAndromeda(context) ?
+                                getString(R.string.settings_system_status_samsung_andromeda) :
+                                getString(R.string.settings_system_status_samsung)) :
                         hasAndromeda ?
                                 getString(R.string.settings_system_status_andromeda) :
                                 getString(R.string.settings_system_status_rooted))))

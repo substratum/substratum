@@ -96,7 +96,6 @@ public enum Resources {
     private static final String[] SAMSUNG_PERMISSION_BLACKLIST_PACKAGES = {
             "com.sec.android.app.music",
             "com.sec.android.app.voicenote",
-            "com.wssyncmldm",
             SUBSTRATUM_PACKAGE
     };
 

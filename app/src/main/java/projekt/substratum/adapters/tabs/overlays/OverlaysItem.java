@@ -31,7 +31,10 @@ import java.util.List;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
 
+import static projekt.substratum.common.Packages.getLiveOverlayVersion;
+import static projekt.substratum.common.Packages.getOverlayMetadataInt;
 import static projekt.substratum.common.Packages.isPackageInstalled;
+import static projekt.substratum.common.References.metadataOverlayVersion;
 import static projekt.substratum.common.Resources.SETTINGS;
 import static projekt.substratum.common.Resources.SETTINGS_ICONS;
 import static projekt.substratum.common.Resources.SYSTEMUI;
@@ -51,6 +54,7 @@ public class OverlaysItem implements Serializable {
     public boolean isVariantChosen5;
     public boolean variantMode;
     String versionName;
+    int overlayVersion;
     private String themeName;
     private String packageName;
     private VariantAdapter array;
@@ -78,6 +82,7 @@ public class OverlaysItem implements Serializable {
     private int colorState = 0;
 
     public OverlaysItem(String themeName,
+                        String themePid,
                         String name,
                         String packageName,
                         boolean isSelected,
@@ -103,6 +108,7 @@ public class OverlaysItem implements Serializable {
         this.array5 = adapter5;
         this.context = context;
         this.versionName = versionName;
+        this.overlayVersion = getLiveOverlayVersion(context, themePid, packageName);
         if (this.baseResources != null)
             this.baseResources =
                     baseResources.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
@@ -299,9 +305,14 @@ public class OverlaysItem implements Serializable {
 
     boolean compareInstalledOverlay() {
         try {
-            PackageInfo pinfo =
-                    context.getPackageManager().getPackageInfo(getFullOverlayParameters(), 0);
-            return !pinfo.versionName.equals(versionName);
+            if (overlayVersion != 0) {
+                return getOverlayMetadataInt(context, getFullOverlayParameters(),
+                        metadataOverlayVersion) < overlayVersion;
+            } else {
+                PackageInfo pinfo =
+                        context.getPackageManager().getPackageInfo(getFullOverlayParameters(), 0);
+                return !pinfo.versionName.equals(versionName);
+            }
         } catch (Exception ignored) {
         }
         return true;
@@ -315,10 +326,16 @@ public class OverlaysItem implements Serializable {
             base = '.' + base;
         }
         try {
-            PackageInfo packageInfo =
-                    context.getPackageManager().getPackageInfo(
-                            packageName + '.' + themeName + variant + base, 0);
-            return packageInfo.versionName.equals(versionName);
+            if (overlayVersion != 0) {
+                return getOverlayMetadataInt(context,
+                        packageName + '.' + themeName + variant + base,
+                        metadataOverlayVersion) < overlayVersion;
+            } else {
+                PackageInfo packageInfo =
+                        context.getPackageManager().getPackageInfo(
+                                packageName + '.' + themeName + variant + base, 0);
+                return packageInfo.versionName.equals(versionName);
+            }
         } catch (Exception ignored) {
         }
         return false;

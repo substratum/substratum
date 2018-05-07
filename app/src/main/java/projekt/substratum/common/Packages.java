@@ -68,8 +68,8 @@ import static projekt.substratum.common.References.metadataAuthor;
 import static projekt.substratum.common.References.metadataName;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataOverlayTarget;
-import static projekt.substratum.common.References.metadataOverlayVersion;
 import static projekt.substratum.common.References.metadataSamsungSupport;
+import static projekt.substratum.common.References.metadataThemeVersion;
 import static projekt.substratum.common.References.metadataVersion;
 import static projekt.substratum.common.References.resourceChangelog;
 import static projekt.substratum.common.Resources.FRAMEWORK;
@@ -309,7 +309,7 @@ public enum Packages {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     packageName, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                return appInfo.metaData.getInt(metadataOverlayVersion);
+                return appInfo.metaData.getInt(metadataThemeVersion);
             }
         } catch (Exception ignored) {
         }
@@ -434,6 +434,29 @@ public enum Packages {
         } catch (Exception ignored) {
         }
         return null;
+    }
+
+    /**
+     * Grab a specified metadata from a theme
+     *
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
+     * @param metadata    Name of the metadata to be acquired
+     * @return Returns a string of the metadata's output
+     */
+    public static int getOverlayMetadataInt(
+            Context context,
+            String packageName,
+            String metadata) {
+        try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                    packageName, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                return appInfo.metaData.getInt(metadata);
+            }
+        } catch (Exception ignored) {
+        }
+        return 0;
     }
 
     /**
@@ -808,5 +831,23 @@ public enum Packages {
         } catch (Exception ignored) {
         }
         return null;
+    }
+
+    public static int getLiveOverlayVersion(Context context,
+                                            String themePackageName,
+                                            String packageName) {
+        try {
+            Context otherContext = context.createPackageContext(themePackageName, 0);
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(otherContext.getAssets().open(
+                            "overlays/" + packageName + "/version")))) {
+                return Integer.valueOf(reader.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

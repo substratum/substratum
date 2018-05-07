@@ -51,6 +51,7 @@ import projekt.substratum.common.commands.CompilerCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 
+import static projekt.substratum.common.Packages.getLiveOverlayVersion;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
@@ -224,6 +225,11 @@ public class SubstratumBuilder {
                     "The priority for this overlay is " + legacyPriority);
         }
 
+        String overlayVersionCode =
+                String.valueOf(getLiveOverlayVersion(context, themeParent, targetPackage));
+        Log.d(References.SUBSTRATUM_BUILDER,
+                "The version for this overlay is " + overlayVersionCode);
+
         if (!hasErroredOut) {
             File root = new File(workArea + "/AndroidManifest.xml");
             try (FileWriter fw = new FileWriter(root);
@@ -240,6 +246,7 @@ public class SubstratumBuilder {
                                         parse2VariantName,
                                         parse2BaseName,
                                         versionName,
+                                        overlayVersionCode,
                                         targetPackage,
                                         themeParent,
                                         themeOms,
@@ -265,6 +272,7 @@ public class SubstratumBuilder {
                                             parse2VariantName,
                                             parse2BaseName,
                                             versionName,
+                                            overlayVersionCode,
                                             targetPackage,
                                             themeParent,
                                             themeOms,
@@ -289,6 +297,7 @@ public class SubstratumBuilder {
                                             parse2VariantName,
                                             parse2BaseName,
                                             versionName,
+                                            overlayVersionCode,
                                             targetPackage,
                                             themeParent,
                                             themeOms,

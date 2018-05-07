@@ -1047,10 +1047,12 @@ public class Overlays extends Fragment {
         private String parsedThemeName;
         private ArrayList<OverlaysItem> adapterList;
         private List<String> currentOverlays;
+        private String themePid;
 
         LoadOverlays(Overlays fragment) {
             super();
             ref = new WeakReference<>(fragment);
+            themePid = ref.get().themePid;
         }
 
         static void setViews(Overlays fragment, boolean state) {
@@ -1456,6 +1458,7 @@ public class Overlays extends Fragment {
                 OverlaysItem overlaysItem =
                         new OverlaysItem(
                                 loadOverlays.parsedThemeName,
+                                loadOverlays.themePid,
                                 packageName,
                                 packageIdentifier,
                                 false,

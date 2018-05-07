@@ -174,7 +174,8 @@ public enum References {
             References.metadataOverlayType3,
             References.metadataOverlayType4
     };
-    public static final String metadataOverlayVersion = "Substratum_Version";
+    public static final String metadataOverlayVersion = "Substratum_OverlayVersion";
+    public static final String metadataThemeVersion = "Substratum_Version";
     public static final String metadataSamsungSupport = "Substratum_Samsung";
     public static final String resourceChangelog = "ThemeChangelog";
     // These strings control the folders to detect in the assets

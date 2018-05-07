@@ -80,6 +80,7 @@ public enum CompilerCommands {
                                                String variantName,
                                                String baseVariantName,
                                                String versionName,
+                                               String overlayVersion,
                                                String targetPackage,
                                                String themeParent,
                                                boolean themeOms,
@@ -173,10 +174,14 @@ public enum CompilerCommands {
             metadataOverlayType4.setAttribute("android:value", type4);
             applicationElement.appendChild(metadataOverlayType4);
 
+            Element metadataThemeVersion = document.createElement("meta-data");
+            metadataThemeVersion.setAttribute("android:name", References.metadataThemeVersion);
+            metadataThemeVersion.setAttribute("android:value", String.valueOf(BuildConfig.VERSION_CODE));
+            applicationElement.appendChild(metadataThemeVersion);
+
             Element metadataOverlayVersion = document.createElement("meta-data");
             metadataOverlayVersion.setAttribute("android:name", References.metadataOverlayVersion);
-            metadataOverlayVersion.setAttribute("android:value", String.valueOf(BuildConfig
-                    .VERSION_CODE));
+            metadataOverlayVersion.setAttribute("android:value", String.valueOf(overlayVersion));
             applicationElement.appendChild(metadataOverlayVersion);
 
             rootElement.appendChild(applicationElement);

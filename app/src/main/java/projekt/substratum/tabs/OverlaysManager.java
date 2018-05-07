@@ -711,10 +711,10 @@ enum OverlaysManager {
                             if (created.exists()) {
                                 FileOperations.delete(context, created.getAbsolutePath());
                             }
-                            FileOperations.createNewFolder(context, created
-                                    .getAbsolutePath());
-                            String listDir = OVERLAYS_DIR + '/' + currentOverlay +
-                                    unparsedSuffix;
+                            FileOperations.createNewFolder(context, created.getAbsolutePath());
+                            String versionFile = OVERLAYS_DIR + '/' + currentOverlay + "/version";
+                            String priorityFile = OVERLAYS_DIR + '/' + currentOverlay + "/priority";
+                            String listDir = OVERLAYS_DIR + '/' + currentOverlay + unparsedSuffix;
 
                             FileOperations.copyFileOrDir(
                                     overlays.themeAssetManager,
@@ -723,6 +723,24 @@ enum OverlaysManager {
                                     listDir,
                                     overlays.themeCipher
                             );
+
+                            FileOperations.copyFileOrDir(
+                                    overlays.themeAssetManager,
+                                    versionFile,
+                                    workingDirectory + "/version",
+                                    versionFile,
+                                    overlays.themeCipher
+                            );
+
+                            if (!checkOMS(context)) {
+                                FileOperations.copyFileOrDir(
+                                        overlays.themeAssetManager,
+                                        priorityFile,
+                                        workingDirectory + "/priority",
+                                        priorityFile,
+                                        overlays.themeCipher
+                                );
+                            }
 
                             if (useType3CommonDir) {
                                 String type3Dir = OVERLAYS_DIR + '/' +

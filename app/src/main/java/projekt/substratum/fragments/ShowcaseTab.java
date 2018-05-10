@@ -150,7 +150,7 @@ public class ShowcaseTab extends Fragment {
             super.onPreExecute();
             ShowcaseTab showcaseTab = ref.get();
             if (showcaseTab != null) {
-                showcaseTab.recyclerView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
                 showcaseTab.materialProgressBar.setVisibility(View.VISIBLE);
             }
         }
@@ -162,8 +162,8 @@ public class ShowcaseTab extends Fragment {
             ShowcaseTab showcaseTab = ref.get();
             if (showcaseTab != null) {
                 ShowcaseAdapter mAdapter = new ShowcaseAdapter(result);
-                showcaseTab.recyclerView.setAdapter(mAdapter);
-                showcaseTab.recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.setVisibility(View.VISIBLE);
                 showcaseTab.materialProgressBar.setVisibility(View.GONE);
             }
         }

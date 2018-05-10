@@ -320,9 +320,7 @@ public class ProfileFragment extends Fragment {
                                     dialog2.show();
                                 }
                                 selectedBackup.add(items[which]);
-                            } else if (selectedBackup.contains(items[which])) {
-                                selectedBackup.remove(items[which]);
-                            }
+                            } else selectedBackup.remove(items[which]);
                         })
                         .setPositiveButton(R.string.profile_dialog_ok, null)
                         .setNegativeButton(R.string.dialog_cancel, null)

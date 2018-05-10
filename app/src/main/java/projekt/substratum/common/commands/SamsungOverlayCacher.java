@@ -74,7 +74,7 @@ public class SamsungOverlayCacher {
             StreamResult result = new StreamResult(
                     new File(EXTERNAL_STORAGE_SAMSUNG_OVERLAY_CACHE));
             transformer.transform(source, result);
-        } catch (ParserConfigurationException | TransformerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -142,7 +142,7 @@ public class SamsungOverlayCacher {
                 }
             }
             return returnOverlays;
-        } catch (ParserConfigurationException | IOException | SAXException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

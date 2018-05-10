@@ -37,6 +37,7 @@ import java.util.List;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.commands.SamsungOverlayCacher;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.ProfileManager;
 
@@ -76,6 +77,10 @@ public class BootCompletedDetector extends BroadcastReceiver {
             new References.Markdown(context);
             if (Systems.isSamsungDevice(context) || Systems.isNewSamsungDevice()) {
                 checkSamsungMigration();
+            }
+            if (Systems.isNewSamsungDevice() || Systems.isNewSamsungDeviceAndromeda(context)) {
+                SamsungOverlayCacher samsungOverlayCacher = new SamsungOverlayCacher(context);
+                samsungOverlayCacher.getOverlays(true);
             }
         }
     }

@@ -59,6 +59,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.commands.SamsungOverlayCacher;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.helpers.Root;
@@ -97,6 +98,7 @@ import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
+import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
 import static projekt.substratum.common.Systems.isSystemSecurityPatchNewer;
 
 enum OverlaysManager {
@@ -465,6 +467,18 @@ enum OverlaysManager {
                         break;
                     case COMPILE_ENABLE:
                     case COMPILE_UPDATE:
+                        if (isNewSamsungDevice() || isNewSamsungDeviceAndromeda(context)) {
+                            SamsungOverlayCacher samsungOverlayCacher =
+                                    new SamsungOverlayCacher(context);
+                            for (int i = 0; i <
+                                    overlays.currentInstance.checkedOverlays.size(); i++) {
+                                String packageName =
+                                        overlays.currentInstance.checkedOverlays.get(i)
+                                                .getFullOverlayParameters();
+                                samsungOverlayCacher.updateSamsungCache(packageName);
+                            }
+                        }
+
                         new finishUpdateFunction(overlays, state).execute();
                         if (overlays.currentInstance.hasFailed) {
                             overlays.failedFunction(context);

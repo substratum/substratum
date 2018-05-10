@@ -195,6 +195,9 @@ public enum References {
     // These strings control the directories that Substratum uses
     public static final String EXTERNAL_STORAGE_CACHE = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + "/.substratum/";
+    public static final String EXTERNAL_STORAGE_SAMSUNG_OVERLAY_CACHE =
+            Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.samsung_overlays.xml";
     public static final String LOGCHAR_DIR = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + "/substratum" + File.separator + "LogCharReports";
     public static final String SUBSTRATUM_BUILDER_CACHE = "/SubstratumBuilder/";
@@ -610,7 +613,6 @@ public enum References {
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);
         editor.remove("previous_logchar_cleanup");
         editor.remove("seen_legacy_warning");
-        editor.remove("seen_samsung_permission_warning");
         editor.remove("rooted_oms_dismissal");
         editor.remove("new_stock_dismissal");
         editor.remove("xiaomi_enable_development");

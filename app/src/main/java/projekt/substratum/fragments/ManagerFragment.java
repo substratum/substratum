@@ -358,25 +358,6 @@ public class ManagerFragment extends Fragment {
                         .setMessage(R.string.legacy_overlay_uninstall_warning_text)
                         .show();
             }
-
-        if (Systems.isNewSamsungDevice() &&
-                !prefs.getBoolean("seen_samsung_permission_warning", false))
-            if (getActivity() != null) {
-                new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Dialog_Alert)
-                        .setNeutralButton(R.string.dialog_do_not_show_again,
-                                (dialogInterface, i) -> {
-                                    prefs.edit().putBoolean(
-                                            "seen_samsung_permission_warning", true).apply();
-                                    dialogInterface.dismiss();
-                                })
-                        .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {
-                            dialogInterface.dismiss();
-                        })
-                        .setTitle(R.string.sungstromeda_mode_manager_warning_title)
-                        .setCancelable(false)
-                        .setMessage(R.string.sungstromeda_mode_manager_warning_text)
-                        .show();
-            }
         return view;
     }
 

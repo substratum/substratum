@@ -29,7 +29,6 @@ import dalvik.system.DexClassLoader;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
-import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.checkSubstratumService;

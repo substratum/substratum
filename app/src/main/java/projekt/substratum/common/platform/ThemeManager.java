@@ -755,6 +755,7 @@ public enum ThemeManager {
                 );
             }
         } else if (MainActivity.instanceBasedAndromedaFailure ||
+                (Systems.isNewSamsungDeviceAndromeda(context)) ||
                 (Systems.isSamsungDevice(context) &&
                         !Root.checkRootAccess() &&
                         !Root.requestRootAccess())) {

@@ -83,18 +83,17 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     List<String> stateAll = ThemeManager.listAllOverlays(context);
 
                     ArrayList<String> allOverlays = new ArrayList<>();
-                    for (int j = 0; j < stateAll.size(); j++) {
+                    for (String overlay : stateAll) {
                         try {
-                            String current = stateAll.get(j);
                             ApplicationInfo appInfo =
                                     context.getPackageManager().getApplicationInfo(
-                                            current, PackageManager.GET_META_DATA);
+                                            overlay, PackageManager.GET_META_DATA);
                             if ((appInfo.metaData != null) &&
                                     (appInfo.metaData.getString(metadataOverlayParent) != null)) {
                                 String parent =
                                         appInfo.metaData.getString(metadataOverlayParent);
                                 if ((parent != null) && parent.equals(packageName1)) {
-                                    allOverlays.add(current);
+                                    allOverlays.add(overlay);
                                 }
                             }
                         } catch (Exception e) {
@@ -145,9 +144,9 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
 
                     // Clear off the old preserved list of themes with the new batch
                     Set<String> installed = new TreeSet<>();
-                    List<ResolveInfo> allThemes = Packages.getThemes(context);
-                    for (int i = 0; i < allThemes.size(); i++) {
-                        installed.add(allThemes.get(i).activityInfo.packageName);
+                    List<ResolveInfo> themes = Packages.getThemes(context);
+                    for (ResolveInfo theme : themes) {
+                        installed.add(theme.activityInfo.packageName);
                     }
                     editor.putStringSet("installed_themes", installed);
                     editor.apply();

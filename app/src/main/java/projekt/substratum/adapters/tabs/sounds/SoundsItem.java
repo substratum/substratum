@@ -30,9 +30,9 @@ import static projekt.substratum.common.Internal.RINGTONE;
 import static projekt.substratum.common.Internal.UNLOCK;
 
 public class SoundsItem {
-    private String absolutePath;
-    private Context context;
-    private String title;
+    private final String absolutePath;
+    private final Context context;
+    private final String title;
 
     public SoundsItem(Context context,
                       String title,

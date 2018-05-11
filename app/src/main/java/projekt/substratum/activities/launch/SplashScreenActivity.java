@@ -70,7 +70,7 @@ public class SplashScreenActivity extends Activity {
     private static final long DELAY_SHOW_PROGRESS_BAR = 2500;
     private ProgressBar progressBar;
     private Intent intent;
-    private boolean firstRun = false;
+    private boolean firstRun;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,13 +119,13 @@ public class SplashScreenActivity extends Activity {
     }
 
     static class CheckSamsung extends AsyncTask<Void, Void, Void> {
-        private WeakReference<SplashScreenActivity> ref;
-        private Handler handler = new Handler();
+        private final WeakReference<SplashScreenActivity> ref;
+        private final Handler handler = new Handler();
         private SharedPreferences prefs;
         private SharedPreferences.Editor editor;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
-        private Runnable runnable = new Runnable() {
+        private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 if (securityIntent != null) {

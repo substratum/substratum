@@ -171,7 +171,7 @@ public class Overlays extends Fragment {
     public Cipher themeCipher;
     public boolean encrypted = false;
     public boolean mixAndMatchMode = false;
-    public OverlaysInstance currentInstance = OverlaysInstance.getInstance();
+    public final OverlaysInstance currentInstance = OverlaysInstance.getInstance();
     public SubstratumBuilder compileInstance;
     public List<OverlaysItem> overlayItemList;
     public List<String> currentInstanceOverlays;
@@ -188,10 +188,8 @@ public class Overlays extends Fragment {
     public Switch toggleAll;
     public Spinner baseSpinner;
     Context context;
-    RecyclerView recyclerView;
-    TextView toggleAllOverlaysText;
-    RelativeLayout toggleZone;
-    SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     // RecyclerView temporaries
     private Integer recyclerViewPosition;
     // Broadcast receivers
@@ -203,7 +201,7 @@ public class Overlays extends Fragment {
     /**
      * Scroll up the RecyclerView smoothly
      */
-    public void scrollUp() {
+    private void scrollUp() {
         recyclerView.smoothScrollToPosition(0);
     }
 
@@ -284,8 +282,8 @@ public class Overlays extends Fragment {
         toggleAll = viewBinding.toggleAllOverlays;
         baseSpinner = viewBinding.type3Spinner;
         recyclerView = viewBinding.overlayRecyclerView;
-        toggleAllOverlaysText = viewBinding.toggleAllOverlaysText;
-        toggleZone = viewBinding.toggleZone;
+        TextView toggleAllOverlaysText = viewBinding.toggleAllOverlaysText;
+        RelativeLayout toggleZone = viewBinding.toggleZone;
         swipeRefreshLayout = viewBinding.swipeRefreshLayout;
 
         context = getContext();
@@ -370,8 +368,7 @@ public class Overlays extends Fragment {
                 (buttonView, isChecked) -> {
                     try {
                         overlayItemList = overlaysAdapter.getOverlayList();
-                        for (int i = 0; i < overlayItemList.size(); i++) {
-                            OverlaysItem currentOverlay = overlayItemList.get(i);
+                        for (OverlaysItem currentOverlay : overlayItemList) {
                             currentOverlay.setSelected(isChecked);
                             overlaysAdapter.notifyDataSetChanged();
                         }
@@ -385,8 +382,7 @@ public class Overlays extends Fragment {
             try {
                 toggleAll.setChecked(!toggleAll.isChecked());
                 overlayItemList = overlaysAdapter.getOverlayList();
-                for (int i = 0; i < overlayItemList.size(); i++) {
-                    OverlaysItem currentOverlay = overlayItemList.get(i);
+                for (OverlaysItem currentOverlay : overlayItemList) {
                     currentOverlay.setSelected(toggleAll.isChecked());
                     overlaysAdapter.notifyDataSetChanged();
                 }
@@ -463,8 +459,7 @@ public class Overlays extends Fragment {
             }
 
             if (stringArray.size() > 1) {
-                for (int i = 0; i < stringArray.size(); i++) {
-                    String current = stringArray.get(i);
+                for (String current : stringArray) {
                     if (!"res".equals(current) &&
                             !current.contains(".") &&
                             (current.length() >= 6) &&
@@ -914,16 +909,16 @@ public class Overlays extends Fragment {
      * clients that support attaching files.
      */
     private static class SendErrorReport extends AsyncTask<Void, Void, File> {
-        private WeakReference<Context> ref;
-        private String themePid;
-        private String errorLog;
-        private String themeName;
-        private String themeAuthor;
-        private String themeEmail;
-        private String emailSubject;
-        private String emailBody;
-        private String failedPackages;
-        private boolean autosaveInstance;
+        private final WeakReference<Context> ref;
+        private final String themePid;
+        private final String errorLog;
+        private final String themeName;
+        private final String themeAuthor;
+        private final String themeEmail;
+        private final String emailSubject;
+        private final String emailBody;
+        private final String failedPackages;
+        private final boolean autosaveInstance;
         private ProgressDialog progressDialog;
 
         SendErrorReport(Context context,
@@ -1043,11 +1038,11 @@ public class Overlays extends Fragment {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static class LoadOverlays extends AsyncTask<String, Integer, String> {
-        private WeakReference<Overlays> ref;
+        private final WeakReference<Overlays> ref;
         private String parsedThemeName;
         private ArrayList<OverlaysItem> adapterList;
         private List<String> currentOverlays;
-        private String themePid;
+        private final String themePid;
 
         LoadOverlays(Overlays fragment) {
             super();
@@ -1158,15 +1153,14 @@ public class Overlays extends Fragment {
             Map<String, String> unsortedMap = new HashMap<>();
 
             // Then let's convert all the package names to their app names
-            for (int i = 0; i < values.size(); i++) {
+            for (String value : values) {
                 try {
-                    String target = values.get(i);
                     String packageName = "";
                     boolean succeeded = false;
 
-                    if (allowedSystemUIOverlay(target)) {
+                    if (allowedSystemUIOverlay(value)) {
                         // Check if the overlay matches one of the custom packages from SystemUI
-                        switch (target) {
+                        switch (value) {
                             case SYSTEMUI_HEADERS:
                                 packageName = overlays.getString(R.string.systemui_headers);
                                 succeeded = true;
@@ -1184,17 +1178,17 @@ public class Overlays extends Fragment {
                                 succeeded = true;
                                 break;
                         }
-                    } else if (allowedSettingsOverlay(target)) {
+                    } else if (allowedSettingsOverlay(value)) {
                         // If not SystemUI, check if it is part of the Settings
-                        switch (target) {
+                        switch (value) {
                             case SETTINGS_ICONS:
                                 packageName = overlays.getString(R.string.settings_icons);
                                 succeeded = true;
                                 break;
                         }
-                    } else if (allowedFrameworkOverlay(target)) {
+                    } else if (allowedFrameworkOverlay(value)) {
                         // Finally, if not Settings, check if it is part of the Android Framework
-                        switch (target) {
+                        switch (value) {
                             case SAMSUNG_FRAMEWORK:
                                 packageName = overlays.getString(R.string.samsung_framework);
                                 succeeded = true;
@@ -1204,12 +1198,12 @@ public class Overlays extends Fragment {
                                 succeeded = true;
                                 break;
                         }
-                    } else if (allowedAppOverlay(target)) {
+                    } else if (allowedAppOverlay(value)) {
                         // The filter passes, just toss in the app into the list
-                        packageName = Packages.getPackageName(overlays.context, target);
+                        packageName = Packages.getPackageName(overlays.context, value);
                         succeeded = true;
                     }
-                    if (succeeded) unsortedMap.put(target, packageName);
+                    if (succeeded) unsortedMap.put(value, packageName);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return null;
@@ -1271,8 +1265,7 @@ public class Overlays extends Fragment {
 
                     // Are there any type2's in the overlay folder?
                     boolean type2checker = false;
-                    for (int i = 0; i < typeArray.size(); i++) {
-                        String type = typeArray.get(i);
+                    for (String type : typeArray) {
                         if (type != null && type.startsWith("type2_")) {
                             type2checker = true;
                             break;
@@ -1299,8 +1292,7 @@ public class Overlays extends Fragment {
 
                     // Are there any type4's in the overlay folder?
                     boolean type4checker = false;
-                    for (int i = 0; i < typeArray.size(); i++) {
-                        String type = typeArray.get(i);
+                    for (String type : typeArray) {
                         if (type != null && type.startsWith("type4_")) {
                             type4checker = true;
                             break;
@@ -1327,8 +1319,7 @@ public class Overlays extends Fragment {
 
                     // Are there any attention files in the overlay folder?
                     boolean attentionPresent = false;
-                    for (int i = 0; i < typeArray.size(); i++) {
-                        String type = typeArray.get(i);
+                    for (String type : typeArray) {
                         if (type != null && (type.equals("attention") ||
                                 type.equals("attention" + ENCRYPTED_FILE_EXTENSION))) {
                             attentionPresent = true;
@@ -1358,9 +1349,7 @@ public class Overlays extends Fragment {
 
                     // Finally, check if the assets/overlays folder actually has anything inside
                     if (typeArray.size() > 1) {
-                        for (int i = 0; i < typeArray.size(); i++) {
-                            String current = typeArray.get(i);
-
+                        for (String current : typeArray) {
                             // Filter out the assets/overlays/overlay_name/res
                             if (current.contains(XML_EXTENSION)) {
                                 // We need to find out whether the themer decided to add

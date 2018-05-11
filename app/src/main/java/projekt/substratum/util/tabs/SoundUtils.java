@@ -99,7 +99,7 @@ public class SoundUtils {
     }
 
     private static class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
-        private WeakReference<SoundUtils> ref;
+        private final WeakReference<SoundUtils> ref;
 
         private SoundsHandlerAsync(SoundUtils soundUtils) {
             super();
@@ -160,7 +160,7 @@ public class SoundUtils {
      * Receiver to wait for the process to be complete
      */
     static class FinishReceiver extends BroadcastReceiver {
-        private WeakReference<SoundUtils> soundRef;
+        private final WeakReference<SoundUtils> soundRef;
 
         private FinishReceiver(SoundUtils soundUtils) {
             super();

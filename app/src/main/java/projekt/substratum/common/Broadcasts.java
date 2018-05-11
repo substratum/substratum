@@ -32,7 +32,6 @@ import projekt.substratum.services.packages.PackageModificationDetector;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 
-import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.MAIN_ACTIVITY_RECEIVER;
@@ -81,18 +80,6 @@ public enum Broadcasts {
                 "A crucial action has been conducted by the user and " +
                         "Substratum is now shutting down!");
         Intent intent = new Intent(MAIN_ACTIVITY_RECEIVER);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-    }
-
-    /**
-     * Andromeda may have been disconnected, kill all open activities except MainActivity
-     *
-     * @param context Context
-     */
-    public static void sendAndromedaRefreshMessage(Context context) {
-        Log.d("AndromedaReceiver",
-                "Andromeda has been killed, notifying the MainActivity now!");
-        Intent intent = new Intent(ANDROMEDA_RECEIVER);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

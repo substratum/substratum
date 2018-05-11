@@ -42,10 +42,10 @@ import static projekt.substratum.common.References.soundsFolder;
 
 public class IATabsAdapter extends FragmentStatePagerAdapter {
 
-    private Integer numOfTabs;
-    private String wallpaperUrl;
-    private Bundle bundle;
-    private HashMap<String, Boolean> extras;
+    private final Integer numOfTabs;
+    private final String wallpaperUrl;
+    private final Bundle bundle;
+    private final HashMap<String, Boolean> extras;
     private List<Object> packageChecker;
 
     public IATabsAdapter(FragmentManager fragmentManager,

@@ -133,13 +133,13 @@ public class OverlayUpdater extends BroadcastReceiver {
 
     private static class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
-        int notificationPriority = Notification.PRIORITY_MAX;
+        final int notificationPriority = Notification.PRIORITY_MAX;
         @SuppressLint("StaticFieldLeak")
-        private Context context;
-        private String packageName;
-        private StringBuilder errorLogs = new StringBuilder();
-        private int id;
-        private Handler handler = new Handler();
+        private final Context context;
+        private final String packageName;
+        private final StringBuilder errorLogs = new StringBuilder();
+        private final int id;
+        private final Handler handler = new Handler();
         private NotificationManager notificationManager;
         private NotificationCompat.Builder builder;
         private List<String> installedOverlays;
@@ -147,7 +147,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
-        private Runnable runnable = new Runnable() {
+        private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "Waiting for encryption key handshake approval...");
@@ -562,7 +562,7 @@ public class OverlayUpdater extends BroadcastReceiver {
     }
 
     static class UpdaterLogs extends BroadcastReceiver {
-        public static void invokeLogCharDialog(Context context, String errorLogs) {
+        static void invokeLogCharDialog(Context context, String errorLogs) {
             AlertDialog.Builder builder = new AlertDialog.Builder
                     (context)
                     .setTitle(R.string.logcat_dialog_title)

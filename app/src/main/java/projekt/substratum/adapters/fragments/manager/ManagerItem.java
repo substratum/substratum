@@ -40,8 +40,8 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class ManagerItem implements Serializable {
 
-    private Context context;
-    private String name;
+    private final Context context;
+    private final String name;
     private String type1a;
     private String type1b;
     private String type1c;
@@ -121,10 +121,6 @@ public class ManagerItem implements Serializable {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isSelected() {
         return this.isSelected;
     }
@@ -152,7 +148,7 @@ public class ManagerItem implements Serializable {
         return this.type1a;
     }
 
-    public void setType1a(String name) {
+    private void setType1a(String name) {
         this.type1a = name;
     }
 
@@ -160,7 +156,7 @@ public class ManagerItem implements Serializable {
         return this.type1b;
     }
 
-    public void setType1b(String name) {
+    private void setType1b(String name) {
         this.type1b = name;
     }
 
@@ -168,7 +164,7 @@ public class ManagerItem implements Serializable {
         return this.type1c;
     }
 
-    public void setType1c(String name) {
+    private void setType1c(String name) {
         this.type1c = name;
     }
 
@@ -176,7 +172,7 @@ public class ManagerItem implements Serializable {
         return this.type2;
     }
 
-    public void setType2(String name) {
+    private void setType2(String name) {
         this.type2 = name;
     }
 
@@ -184,7 +180,7 @@ public class ManagerItem implements Serializable {
         return this.type3;
     }
 
-    public void setType3(String name) {
+    private void setType3(String name) {
         this.type3 = name;
     }
 
@@ -192,7 +188,7 @@ public class ManagerItem implements Serializable {
         return this.type4;
     }
 
-    public void setType4(String name) {
+    private void setType4(String name) {
         this.type4 = name;
     }
 

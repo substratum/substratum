@@ -112,7 +112,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public class GlideClear extends AsyncTask<Void, Void, Void> {
+    class GlideClear extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPostExecute(Void result) {

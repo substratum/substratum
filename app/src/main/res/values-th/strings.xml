@@ -50,12 +50,12 @@
   <string name="new_stock_commits_title">จำเป็นต้องรีบูท!</string>
   <string name="legacy_dialog_soft_reboot_title">จำเป็นต้องรีบูท!</string>
   <string name="abort_overlay_toast_success">หน้าตาทั้งหมด ได้ถูกทำการถอนการติดตั้งแล้ว!</string>
-  <string name="rescue_toast">กำลังช่วยกู้ระบบของคุณ...</string>
+  <string name="rescue_toast">กำลังช่วยกู้ระบบของคุณ…</string>
   <string name="reboot_awaiting_manager_title">ไม่สามารถอ่าน Overlay ได้</string>
   <string name="backend_not_authorized_title">ตัวรุ่น Debug ของ Substratum ไม่ได้รับการอนุญาต</string>
-  <string name="overlays_variant_default_3">ตัวแปรพื้นฐานเริ่มต้น...</string>
+  <string name="overlays_variant_default_3">ตัวแปรพื้นฐานเริ่มต้น…</string>
   <string name="overlays_update_available">มีอัพเดต!\n(%s)</string>
-  <string name="app_crash_title" formatted="false">%s กำลังหยุด...</string>
+  <string name="app_crash_title" formatted="false">%s กำลังหยุด…</string>
   <string name="app_crash_content">Overlays ที่เปิดทั้งหมดสำหรับแอปนี้ ได้ปิดลงแล้ว.</string>
   <!-- Notification channel -->
   <!-- Nav drawer -->

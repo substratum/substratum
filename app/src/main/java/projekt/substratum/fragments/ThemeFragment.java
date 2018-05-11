@@ -105,7 +105,6 @@ public class ThemeFragment extends Fragment {
             } catch (Exception ignored) {
             }
             themeItem.setContext(context);
-            themeItem.setActivity(activity);
             themes.add(themeItem);
         }
         return themes;
@@ -335,7 +334,7 @@ public class ThemeFragment extends Fragment {
      * The core structure to reload the layout asynchronously
      */
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        private WeakReference<ThemeFragment> fragment;
+        private final WeakReference<ThemeFragment> fragment;
         private HashMap<String, String[]> substratumPackages;
         private ArrayList<ThemeItem> themeItems;
 

@@ -85,12 +85,12 @@
     <string name="app_theme_dark">ダーク</string>
     <string name="app_theme_change">アプリの再起動後にテーマが切り替わります</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
-    <string name="overlays_variant_default_1a">Type1A バリエーション...</string>
-    <string name="overlays_variant_default_1b">Type1B バリエーション...</string>
-    <string name="overlays_variant_default_1c">Type1C バリエーション...</string>
-    <string name="overlays_variant_default_2">Type2 バリエーション...</string>
-    <string name="overlays_variant_default_3">既定基本バリアント...</string>
-    <string name="overlays_variant_default_4">Type4 バリエーション...</string>
+    <string name="overlays_variant_default_1a">Type1A バリエーション…</string>
+    <string name="overlays_variant_default_1b">Type1B バリエーション…</string>
+    <string name="overlays_variant_default_1c">Type1C バリエーション…</string>
+    <string name="overlays_variant_default_2">Type2 バリエーション…</string>
+    <string name="overlays_variant_default_3">既定基本バリアント…</string>
+    <string name="overlays_variant_default_4">Type4 バリエーション…</string>
     <string name="overlays_up_to_date">最新 (%s)</string>
     <string name="overlays_update_available">更新が利用可能です！\n(%s)</string>
     <string name="shutdownanimation_placeholder_text">ドロップダウンリストからシャットダウンアニメーションを選択してください&#8230;</string>
@@ -102,7 +102,7 @@
     <string name="bootanimation_default_spinner">ブートアニメーションを選択してください&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">デフォルトのブートアニメーションを復元する&#8230;</string>
     <string name="bootanimation_defaults_text">この操作はインストールしたカスタムブートアニメーションを初期化します</string>
-    <string name="bootanimation_dialog_apply_text">ブートアニメーションを処理中です...</string>
+    <string name="bootanimation_dialog_apply_text">ブートアニメーションを処理中です…</string>
     <string name="bootanimation_dialog_apply_success">ブートアニメーションが適用されました！</string>
     <string name="bootanimation_dialog_apply_failed">ブートアニメーションの適用に失敗しました&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">ホーム画面の壁紙</string>
@@ -116,12 +116,12 @@
     <string name="wallpaper_lockscreen_success">ロック画面の壁紙を設定しました！</string>
     <string name="wallpaper_lockscreen_error">ロック画面の壁紙を設定できませんでした</string>
     <string name="wallpaper_no_connection">テーマの壁紙を利用するにはインターネット接続が必要です&#8230;</string>
-    <string name="wallpaper_no_wallpapers">ロードされた壁紙データベースは空のようです...</string>
+    <string name="wallpaper_no_wallpapers">ロードされた壁紙データベースは空のようです…</string>
     <string name="font_placeholder_text">ドロップダウンリストからフォントパックを選択してください&#8230;</string>
     <string name="font_default_spinner">フォントパックを選択してください&#8230;</string>
     <string name="font_spinner_set_defaults">デフォルトのフォントを復元&#8230;</string>
     <string name="fonts_defaults_text">この操作はインストールしたカスタムフォントを初期化します</string>
-    <string name="font_dialog_apply_text">フォントパックを処理中です...</string>
+    <string name="font_dialog_apply_text">フォントパックを処理中です…</string>
     <string name="font_dialog_apply_success">フォントパックが適用されました！</string>
     <string name="font_dialog_apply_failed">フォントパックの適用に失敗しました&#8230;</string>
     <string name="sounds_placeholder_text">ドロップダウンリストからサウンドパックを選択してください&#8230;</string>
@@ -265,7 +265,7 @@
     <string name="notification_done_upgrade_text">このテーマのすべてのオーバーレイが更新されました。</string>
     <string name="notification_no_errors_found">選択されたオーバーレイのインストール中にエラーは発生しませんでした</string>
     <string name="notification_some_errors_found">オーバーレイのインストール中にエラーが発生しました</string>
-    <string name="notification_processing_n">テーマのオーバーレイを作成中...</string>
+    <string name="notification_processing_n">テーマのオーバーレイを作成中…</string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">助けて!</string>
     <string name="shortcut_rescue_disabled">助けて!</string>
@@ -321,7 +321,7 @@
     <string name="profile_notification_title" formatted="false">%sのプロファイル</string>
     <string name="profile_pending_notification">画面が消灯した後、プロファイルが変更されます。</string>
     <string name="profile_success_notification">プロファイルが正常に適用されました！</string>
-    <string name="profile_failed_notification">プロファイルの適用に失敗しました...</string>
+    <string name="profile_failed_notification">プロファイルの適用に失敗しました…</string>
     <string name="profile_failed_info_notification">詳細についてはここをタッチ</string>
     <string name="logchar_dialog_title_delete_title">注意</string>
     <string name="break_compilation_dialog_title">警告</string>

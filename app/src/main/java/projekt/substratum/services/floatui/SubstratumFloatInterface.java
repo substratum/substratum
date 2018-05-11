@@ -149,11 +149,11 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 Toast.makeText(getApplicationContext(), format, Toast.LENGTH_SHORT).show();
             } else {
                 finalCheck = new ArrayList<>();
-                for (int j = 0; j < toBeShown.size(); j++) {
+                for (String overlay : toBeShown) {
                     boolean isEnabled = enabledOverlaysForForegroundPackage
-                            .contains(toBeShown.get(j));
+                            .contains(overlay);
                     ManagerItem managerItem = new ManagerItem(
-                            getApplicationContext(), toBeShown.get(j), isEnabled);
+                            getApplicationContext(), overlay, isEnabled);
                     if (isEnabled) {
                         managerItem.setSelected(true);
                     }

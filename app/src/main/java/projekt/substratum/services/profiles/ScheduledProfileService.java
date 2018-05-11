@@ -109,7 +109,7 @@ public class ScheduledProfileService extends JobService {
     }
 
     private static class ApplyProfile extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ScheduledProfileService> ref;
+        private final WeakReference<ScheduledProfileService> ref;
 
         ApplyProfile(ScheduledProfileService service) {
             super();
@@ -174,28 +174,28 @@ public class ScheduledProfileService extends JobService {
                 List<String> system = new ArrayList<>();
                 StringBuilder dialogMessage = new StringBuilder();
                 if (overlays.exists()) {
-                    List<List<String>> profile =
+                    List<List<String>> profiles =
                             ProfileManager.readProfileStatePackageWithTargetPackage(processed, 5);
                     system = ProfileManager.readProfileStatePackage(processed, 4);
                     system.addAll(ProfileManager.readProfileStatePackage(processed, 5));
 
                     // Now process the overlays to be enabled
-                    for (int i = 0, size = profile.size(); i < size; i++) {
-                        String packageName = profile.get(i).get(0);
-                        String targetPackage = profile.get(i).get(1);
+                    for (List<String> profile : profiles) {
+                        String packageName = profile.get(0);
+                        String targetPackage = profile.get(1);
                         if (Packages.isPackageInstalled(context, targetPackage)) {
                             if (system.contains(packageName)) {
                                 toBeRun.add(packageName);
                             } else {
-                                cannotRunOverlays.add(profile.get(i));
+                                cannotRunOverlays.add(profile);
                             }
                         }
                     }
 
                     // Parse non-exist profile overlay packages
-                    for (int i = 0; i < cannotRunOverlays.size(); i++) {
-                        String packageName = cannotRunOverlays.get(i).get(0);
-                        String targetPackage = cannotRunOverlays.get(i).get(1);
+                    for (List<String> cannotRunOverlay : cannotRunOverlays) {
+                        String packageName = cannotRunOverlay.get(0);
+                        String targetPackage = cannotRunOverlay.get(1);
                         String packageDetail = packageName.replace(targetPackage + '.', "");
                         String detailSplit = Arrays.toString(packageDetail.split("\\."))
                                 .replace("[", "")

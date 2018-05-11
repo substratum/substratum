@@ -19,7 +19,6 @@
 package projekt.substratum.common.systems;
 
 public class ProfileItem {
-    private final String packageName;
     private String targetPackage;
     private String parentTheme;
     private String type1a;
@@ -31,11 +30,7 @@ public class ProfileItem {
 
     ProfileItem(final String packageName) {
         super();
-        this.packageName = packageName;
-    }
-
-    public String getPackageName() {
-        return this.packageName;
+        String overlayTargetPackageName = packageName;
     }
 
     public String getTargetPackage() {

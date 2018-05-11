@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,15 +39,16 @@ import projekt.substratum.databinding.ShowcaseItemBinding;
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
 public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHolder> {
-    private List<ShowcaseItem> information;
+    private final List<ShowcaseItem> information;
 
     public ShowcaseAdapter(List<ShowcaseItem> information) {
         super();
         this.information = information;
     }
 
+    @NonNull
     @Override
-    public ShowcaseAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
+    public ShowcaseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
                                                          int i) {
         View view = LayoutInflater.from(
                 viewGroup.getContext()).inflate(R.layout.showcase_item, viewGroup, false);
@@ -54,7 +56,7 @@ public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder,
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder,
                                  int pos) {
         ShowcaseItem showcaseItem = this.information.get(pos);
         Context context = showcaseItem.getContext();
@@ -78,7 +80,7 @@ public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ShowcaseItemBinding binding;
+        final ShowcaseItemBinding binding;
 
         ViewHolder(View view) {
             super(view);

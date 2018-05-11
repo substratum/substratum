@@ -38,18 +38,18 @@
   <string name="legacy_dialog_soft_reboot_title">需要重新啟動！</string>
   <string name="abort_overlay_toast_success">所有覆蓋層已經卸載！</string>
   <string name="overlays_variant_substitute">%s&#8230;</string>
-  <string name="overlays_variant_default_1a">type1a 變體...</string>
-  <string name="overlays_variant_default_1b">type1b 變體...</string>
-  <string name="overlays_variant_default_1c">type1c 變體...</string>
-  <string name="overlays_variant_default_2">type2 變體...</string>
-  <string name="overlays_variant_default_3">預設基本變體...</string>
+  <string name="overlays_variant_default_1a">type1a 變體…</string>
+  <string name="overlays_variant_default_1b">type1b 變體…</string>
+  <string name="overlays_variant_default_1c">type1c 變體…</string>
+  <string name="overlays_variant_default_2">type2 變體…</string>
+  <string name="overlays_variant_default_3">預設基本變體…</string>
   <string name="overlays_update_available">有可用更新！\n（%s）</string>
-  <string name="bootanimation_dialog_apply_text">正在處理開機動畫...</string>
+  <string name="bootanimation_dialog_apply_text">正在處理開機動畫…</string>
   <string name="bootanimation_dialog_apply_success">成功套用開機動畫！</string>
   <string name="bootanimation_dialog_apply_failed">開機動畫套用失敗</string>
   <string name="wallpaper_dialog_wallpaper">主畫面桌布</string>
   <string name="wallpaper_dialog_lockscreen">鎖定畫面桌布</string>
-  <string name="wallpaper_downloading">正在將圖像載入到快取...</string>
+  <string name="wallpaper_downloading">正在將圖像載入到快取…</string>
   <string name="wallpaper_allscreen_success">主畫面和鎖定畫面牆紙都已設定完畢！    </string>
   <string name="wallpaper_allscreen_error">無法設定主畫面和鎖定畫面牆紙    </string>
   <string name="wallpaper_homescreen_success">成功套用主畫面牆紙！</string>
@@ -74,7 +74,7 @@
   <string name="theme_information_tab_four">音效套件</string>
   <string name="theme_information_tab_five">牆紙</string>
   <string name="uninstall_dialog_text">你確定要解除安裝此主題嗎？</string>
-  <string name="manage_dialog_performing">還原為預設值...</string>
+  <string name="manage_dialog_performing">還原為預設值…</string>
   <string name="manage_bootanimation_toast">開機動畫已成功還原！</string>
   <string name="manage_fonts_toast">字體還原成功！</string>
   <string name="manage_sounds_toast">預設音效已成功還原！</string>
@@ -84,7 +84,7 @@
   <string name="manage_wallpaper_home_toast">主螢幕桌布已成功還原！</string>
   <string name="manage_wallpaper_lock_toast">鎖定螢幕桌布已成功還原！</string>
   <string name="manage_wallpaper_all_toast">桌布已成功還原！</string>
-  <string name="adapter_uninstalling" formatted="false">正在刪除 %s...</string>
+  <string name="adapter_uninstalling" formatted="false">正在刪除 %s…</string>
   <string name="plugin_template">外掛</string>
   <string name="accept">同意</string>
   <string name="deny">拒絕</string>

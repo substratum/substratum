@@ -54,7 +54,7 @@ import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
-    private List<ThemeItem> information;
+    private final List<ThemeItem> information;
     private Context context;
 
     public ThemeAdapter(List<ThemeItem> information) {
@@ -234,7 +234,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ThemeEntryCardBinding binding;
+        final ThemeEntryCardBinding binding;
 
         ViewHolder(View view) {
             super(view);

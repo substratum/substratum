@@ -86,7 +86,7 @@ public class OverlayFound extends BroadcastReceiver {
 
     private static class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<OverlayFound> ref;
+        private final WeakReference<OverlayFound> ref;
         private NotificationManager notificationManager;
         private NotificationCompat.Builder builder;
         private List<ResolveInfo> installedThemes;
@@ -110,8 +110,8 @@ public class OverlayFound extends BroadcastReceiver {
         @Override
         protected void onPostExecute(String result) {
             if (!matchingCriteria.isEmpty()) {
-                for (int i = 0; i < matchingCriteria.size(); i++) {
-                    bundleNotifications(matchingCriteria.get(i));
+                for (String criteria : matchingCriteria) {
+                    bundleNotifications(criteria);
                 }
             }
         }
@@ -146,8 +146,8 @@ public class OverlayFound extends BroadcastReceiver {
             OverlayFound overlayFound = ref.get();
             if (overlayFound != null) {
                 matchingCriteria = new ArrayList<>();
-                for (int i = 0; i < installedThemes.size(); i++) {
-                    String themePid = installedThemes.get(i).activityInfo.packageName;
+                for (ResolveInfo installedTheme : installedThemes) {
+                    String themePid = installedTheme.activityInfo.packageName;
                     Log.d(TAG, "Searching theme for themable overlay: " + themePid);
                     try {
                         Resources themeResources = overlayFound.context.getPackageManager()

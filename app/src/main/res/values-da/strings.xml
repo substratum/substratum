@@ -22,7 +22,7 @@
   <string name="device">Enhedsmodel:</string>
   <string name="resource_checker_dialog_quit">Afslut</string>
   <string name="failed_to_install_title_notification">Det lykkedes ikke at installere OMS tema</string>
-  <string name="actionbar_theme_count_loading">indlæser...</string>
+  <string name="actionbar_theme_count_loading">indlæser…</string>
   <string name="actionbar_search">Søg</string>
   <string name="actionbar_changelog">Tema ændringslog</string>
   <string name="settings_icons">Indstillinger for ikoner</string>

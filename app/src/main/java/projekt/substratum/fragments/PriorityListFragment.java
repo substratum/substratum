@@ -66,9 +66,8 @@ import static projekt.substratum.common.platform.ThemeManager.listEnabledOverlay
 
 public class PriorityListFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    FloatingActionButton applyFab;
-    ProgressBar headerProgress;
+    private FloatingActionButton applyFab;
+    private ProgressBar headerProgress;
     private Context context;
     private MainActivity activity;
 
@@ -138,7 +137,7 @@ public class PriorityListFragment extends Fragment {
                 DataBindingUtil.inflate(inflater, R.layout.priority_list_fragment, container, false);
         View view = viewBinding.getRoot();
         headerProgress = viewBinding.priorityHeaderLoadingBar;
-        recyclerView = viewBinding.recyclerView;
+        RecyclerView recyclerView = viewBinding.recyclerView;
         applyFab = viewBinding.profileApplyFab;
 
         setHasOptionsMenu(true);

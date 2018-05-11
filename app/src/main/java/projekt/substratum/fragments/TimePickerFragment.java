@@ -33,7 +33,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.References;
 
 
-public class TimePickerFragment extends DialogFragment implements
+class TimePickerFragment extends DialogFragment implements
         TimePickerDialog.OnTimeSetListener {
 
     public static final int FLAG_START_TIME = 1;

@@ -125,27 +125,5 @@ public enum Root {
             return null;
         }
 
-        public void close() {
-            try {
-                if (bufferedWriter != null) {
-                    bufferedWriter.write("exit\n");
-                    bufferedWriter.flush();
-
-                    bufferedWriter.close();
-                }
-
-                if (bufferedReader != null)
-                    bufferedReader.close();
-
-                if (process != null) {
-                    process.waitFor();
-                    process.destroy();
-                }
-
-                closed = true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

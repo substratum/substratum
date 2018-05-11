@@ -75,8 +75,8 @@ public class Substratum extends Application {
 
     private static final String BINDER_TAG = "BinderService";
     private static final FinishReceiver finishReceiver = new FinishReceiver();
-    public static int initialPackageCount = 0;
-    public static int initialOverlayCount = 0;
+    private static int initialPackageCount = 0;
+    private static int initialOverlayCount = 0;
     public static Thread currentThread;
     private static Substratum substratum;
     private static boolean isWaiting;

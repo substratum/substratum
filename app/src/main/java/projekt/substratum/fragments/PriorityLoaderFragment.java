@@ -56,9 +56,9 @@ import static projekt.substratum.common.platform.ThemeManager.listTargetWithMult
 
 public class PriorityLoaderFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    ProgressBar materialProgressBar;
-    RelativeLayout emptyView;
+    private RecyclerView recyclerView;
+    private ProgressBar materialProgressBar;
+    private RelativeLayout emptyView;
     private List<PrioritiesInterface> prioritiesList;
     private List<String> appList;
     private PriorityAdapter adapter;
@@ -124,7 +124,7 @@ public class PriorityLoaderFragment extends Fragment {
 
     private static class LoadPrioritizedOverlays extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<PriorityLoaderFragment> ref;
+        private final WeakReference<PriorityLoaderFragment> ref;
 
         LoadPrioritizedOverlays(PriorityLoaderFragment priorityLoaderFragment) {
             super();

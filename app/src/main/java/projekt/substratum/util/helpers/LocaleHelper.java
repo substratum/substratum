@@ -28,7 +28,7 @@ import java.util.Locale;
 
 public class LocaleHelper extends android.content.ContextWrapper {
 
-    public LocaleHelper(Context base) {
+    private LocaleHelper(Context base) {
         super(base);
     }
 

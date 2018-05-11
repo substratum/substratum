@@ -81,12 +81,11 @@ public enum AndromedaService {
      *
      * @return True, if succeeded.
      */
-    public static boolean listOverlays() {
+    public static void listOverlays() {
         try {
-            return getAndromedaInterface().listOverlays();
+            getAndromedaInterface().listOverlays();
         } catch (Exception ignored) {
         }
-        return false;
     }
 
     /**

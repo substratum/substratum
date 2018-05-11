@@ -20,6 +20,7 @@ package projekt.substratum.adapters.fragments.manager;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,22 +36,23 @@ import projekt.substratum.databinding.ManagerItemBinding;
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
 
-    private List<ManagerItem> overlayList;
+    private final List<ManagerItem> overlayList;
 
     public ManagerAdapter(List<ManagerItem> overlays) {
         super();
         this.overlayList = overlays;
     }
 
+    @NonNull
     @Override
-    public ManagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public ManagerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                         int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.manager_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder,
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder,
                                  int position) {
         final ManagerItem managerItem = overlayList.get(position);
         ManagerItemBinding viewHolderBinding = viewHolder.getBinding();

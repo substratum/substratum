@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,7 +49,7 @@ import projekt.substratum.util.helpers.FileDownloader;
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
-    private List<WallpaperItem> information;
+    private final List<WallpaperItem> information;
     private ProgressDialog mProgressDialog;
     private Context context;
     private PowerManager.WakeLock mWakeLock;
@@ -59,8 +60,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         this.information = information;
     }
 
+    @NonNull
     @Override
-    public WallpaperAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
+    public WallpaperAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
                                                           int i) {
         View view = LayoutInflater.from(
                 viewGroup.getContext()).inflate(R.layout.tab_wallpaper_item, viewGroup, false);
@@ -68,7 +70,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder,
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder,
                                  int pos) {
         WallpaperItem wallpaperItem = information.get(pos);
         TabWallpaperItemBinding viewHolderBinding = viewHolder.getBinding();
@@ -124,8 +126,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
     private static class downloadWallpaper extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<WallpaperAdapter> ref;
-        private WeakReference<Activity> activity;
+        private final WeakReference<WallpaperAdapter> ref;
+        private final WeakReference<Activity> activity;
         private String wallpaperLink;
         private String extension;
         private String directoryOutput;
@@ -225,7 +227,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TabWallpaperItemBinding binding;
+        final TabWallpaperItemBinding binding;
 
         ViewHolder(View view) {
             super(view);

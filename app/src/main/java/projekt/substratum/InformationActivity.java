@@ -156,24 +156,13 @@ public class InformationActivity extends AppCompatActivity {
     public static boolean compilingProcess = false;
     public static boolean shouldRestartActivity = false;
     private static List<String> tabChecker;
-    Toolbar toolbar;
-    TabLayout tabLayout;
-    CollapsingToolbarLayout collapsingToolbar;
-    TextView toolbarCollapsedTitle;
-    ViewPager viewPager;
-    AppBarLayout appBarLayout;
-    CardView sheetView;
-    DimOverlayFrameLayout overlay;
-    Switch enableSwap;
-    TextView compileEnableSelected;
-    TextView compileUpdateSelected;
-    TextView disableSelected;
-    FloatingActionMenu floatingActionButton;
-    View fabMenuDivider;
-    LinearLayout enableZone;
-    TextView enableSelected;
-    TextView enableDisableSelected;
-    ImageView heroImage;
+    private TabLayout tabLayout;
+    private CollapsingToolbarLayout collapsingToolbar;
+    private TextView toolbarCollapsedTitle;
+    private ViewPager viewPager;
+    private AppBarLayout appBarLayout;
+    private FloatingActionMenu floatingActionButton;
+    private ImageView heroImage;
 
     private String themeName;
     private String themePid;
@@ -455,23 +444,23 @@ public class InformationActivity extends AppCompatActivity {
         InformationActivityBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.information_activity);
 
-        toolbar = binding.toolbar;
+        Toolbar toolbar = binding.toolbar;
         tabLayout = binding.tabs;
         collapsingToolbar = binding.collapsingToolbarTabbedLayout;
         toolbarCollapsedTitle = binding.toolbarCollapsedTitle;
         viewPager = binding.viewpager;
         appBarLayout = binding.appbar;
-        sheetView = binding.fabSheet;
-        overlay = binding.overlay;
-        enableSwap = binding.enableSwap;
-        compileEnableSelected = binding.compileEnableSelected;
-        compileUpdateSelected = binding.compileUpdateSelected;
-        disableSelected = binding.disableSelected;
+        CardView sheetView = binding.fabSheet;
+        DimOverlayFrameLayout overlay = binding.overlay;
+        Switch enableSwap = binding.enableSwap;
+        TextView compileEnableSelected = binding.compileEnableSelected;
+        TextView compileUpdateSelected = binding.compileUpdateSelected;
+        TextView disableSelected = binding.disableSelected;
         floatingActionButton = binding.applyFab;
-        fabMenuDivider = binding.fabMenuDivider;
-        enableZone = binding.enable;
-        enableSelected = binding.enableSelected;
-        enableDisableSelected = binding.enableDisableSelected;
+        View fabMenuDivider = binding.fabMenuDivider;
+        LinearLayout enableZone = binding.enable;
+        TextView enableSelected = binding.enableSelected;
+        TextView enableDisableSelected = binding.enableDisableSelected;
         heroImage = binding.heroImage;
 
         localBroadcastManager = LocalBroadcastManager.getInstance(context);
@@ -578,13 +567,13 @@ public class InformationActivity extends AppCompatActivity {
             Context otherContext = context.createPackageContext
                     (themePid, 0);
             AssetManager am = otherContext.getAssets();
-            List foundFolders = Arrays.asList(am.list(""));
+            String[] foundFolders = am.list("");
             tabChecker = new ArrayList<>();
             if (!Systems.checkOMS(context)) {
-                for (int i = 0; i < foundFolders.size(); i++) {
+                for (String foundFolder : foundFolders) {
                     if (Resources.allowedForLegacy
-                            (foundFolders.get(i).toString())) {
-                        tabChecker.add(foundFolders.get(i).toString());
+                            (foundFolder.toString())) {
+                        tabChecker.add(foundFolder.toString());
                     }
                 }
             } else {
@@ -1027,19 +1016,18 @@ public class InformationActivity extends AppCompatActivity {
                             List<String> stateAll = ThemeManager.listAllOverlays(context);
 
                             ArrayList<String> allOverlays = new ArrayList<>();
-                            for (int j = 0; j < stateAll.size(); j++) {
+                            for (String state : stateAll) {
                                 try {
-                                    String current = stateAll.get(j);
                                     ApplicationInfo appInfo = context
                                             .getPackageManager().getApplicationInfo(
-                                                    current, PackageManager.GET_META_DATA);
+                                                    state, PackageManager.GET_META_DATA);
                                     if ((appInfo.metaData != null) &&
                                             (appInfo.metaData.getString(
                                                     metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
                                         if ((parent != null) && parent.equals(themePid)) {
-                                            allOverlays.add(current);
+                                            allOverlays.add(state);
                                         }
                                     }
                                 } catch (Exception ignored) {
@@ -1073,19 +1061,18 @@ public class InformationActivity extends AppCompatActivity {
                                     context, ThemeManager.STATE_ENABLED);
 
                             ArrayList<String> allOverlays = new ArrayList<>();
-                            for (int j = 0; j < stateAll.size(); j++) {
+                            for (String state : stateAll) {
                                 try {
-                                    String current = stateAll.get(j);
                                     ApplicationInfo appInfo = context
                                             .getPackageManager().getApplicationInfo(
-                                                    current, PackageManager.GET_META_DATA);
+                                                    state, PackageManager.GET_META_DATA);
                                     if ((appInfo.metaData != null) &&
                                             (appInfo.metaData.getString(
                                                     metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
                                         if ((parent != null) && parent.equals(themePid)) {
-                                            allOverlays.add(current);
+                                            allOverlays.add(state);
                                         }
                                     }
                                 } catch (Exception ignored) {
@@ -1120,19 +1107,18 @@ public class InformationActivity extends AppCompatActivity {
                                     context, ThemeManager.STATE_DISABLED);
 
                             ArrayList<String> allOverlays = new ArrayList<>();
-                            for (int j = 0; j < stateAll.size(); j++) {
+                            for (String state : stateAll) {
                                 try {
-                                    String current = stateAll.get(j);
                                     ApplicationInfo appInfo = context
                                             .getPackageManager().getApplicationInfo(
-                                                    current, PackageManager.GET_META_DATA);
+                                                    state, PackageManager.GET_META_DATA);
                                     if ((appInfo.metaData != null) &&
                                             (appInfo.metaData.getString(
                                                     metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
                                         if ((parent != null) && parent.equals(themePid)) {
-                                            allOverlays.add(current);
+                                            allOverlays.add(state);
                                         }
                                     }
                                 } catch (Exception ignored) {
@@ -1162,7 +1148,7 @@ public class InformationActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.dialog_ok, (dialog, id12) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
-                            new uninstallTheme(this).execute("");
+                            new uninsttheme(this).execute("");
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id1) -> {
                             // User cancelled the dialog
@@ -1260,7 +1246,7 @@ public class InformationActivity extends AppCompatActivity {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         LayoutLoader(InformationActivity informationActivity) {
             super();
@@ -1315,7 +1301,7 @@ public class InformationActivity extends AppCompatActivity {
      * Class to create the app shortcut on the launcher
      */
     private static class AppShortcutCreator extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         AppShortcutCreator(InformationActivity informationActivity) {
             super();
@@ -1363,7 +1349,7 @@ public class InformationActivity extends AppCompatActivity {
      * Class to remove all app shortcuts on the launcher
      */
     private static class AppShortcutClearer extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         AppShortcutClearer(InformationActivity informationActivity) {
             super();
@@ -1407,10 +1393,10 @@ public class InformationActivity extends AppCompatActivity {
     /**
      * Class to uninstall the current theme, of which closes out the theme just to end gracefully
      */
-    private static class uninstallTheme extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+    private static class uninsttheme extends AsyncTask<String, Integer, String> {
+        private final WeakReference<InformationActivity> ref;
 
-        uninstallTheme(InformationActivity informationActivity) {
+        uninsttheme(InformationActivity informationActivity) {
             super();
             ref = new WeakReference<>(informationActivity);
         }

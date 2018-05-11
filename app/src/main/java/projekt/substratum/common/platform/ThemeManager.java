@@ -88,7 +88,7 @@ public enum ThemeManager {
      * <p>
      * NOTE: Deprecation at the OMS3 level. We no longer support OMS3 commands.
      */
-    public static final String disableOverlay = "cmd overlay disable";
+    private static final String disableOverlay = "cmd overlay disable";
     // State values of OverlayInfo
     public static final int STATE_MISSING_TARGET = (SDK_INT >= O) ? 0 : 1;
     public static final int STATE_DISABLED = (SDK_INT >= O) ? 2 : 4;
@@ -593,8 +593,8 @@ public enum ThemeManager {
     public static boolean isOverlay(Context context,
                                     String packageName) {
         List<String> overlays = listAllOverlays(context);
-        for (int i = 0; i < overlays.size(); i++) {
-            if (overlays.get(i).equals(packageName)) {
+        for (String overlay : overlays) {
+            if (overlay.equals(packageName)) {
                 return true;
             }
         }
@@ -612,9 +612,9 @@ public enum ThemeManager {
                                                    String packageName) {
         List<String> list = new ArrayList<>();
         List<String> overlays = listAllOverlays(context);
-        for (int i = 0; i < overlays.size(); i++) {
-            if (getOverlayParent(context, overlays.get(i)).equals(packageName)) {
-                list.add(overlays.get(i));
+        for (String overlay : overlays) {
+            if (getOverlayParent(context, overlay).equals(packageName)) {
+                list.add(overlay);
             }
         }
         return list;
@@ -755,8 +755,8 @@ public enum ThemeManager {
                 (Systems.isSamsungDevice(context) &&
                         !Root.checkRootAccess() &&
                         !Root.requestRootAccess())) {
-            for (int i = 0; i < overlays.size(); i++) {
-                Uri packageURI = Uri.parse("package:" + overlays.get(i));
+            for (String overlay : overlays) {
+                Uri packageURI = Uri.parse("package:" + overlay);
                 Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
                 context.startActivity(uninstallIntent);
             }

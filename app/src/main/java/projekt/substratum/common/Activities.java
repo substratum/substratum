@@ -23,12 +23,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.widget.Toast;
-
 import projekt.substratum.R;
-import projekt.substratum.util.views.Lunchbar;
 
 public enum Activities {
     ;
@@ -49,28 +45,6 @@ public enum Activities {
             Toast.makeText(context,
                     context.getString(R.string.activity_missing_toast),
                     Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * Launches a specified activity URL but on error, throws a LunchBar
-     *
-     * @param context  Self explanatory, bud.
-     * @param view     RootView of the activity for the LunchBar to be invoked
-     * @param resource Link to be launched
-     */
-    public static void launchActivityUrl(Context context,
-                                         View view,
-                                         int resource) {
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(context.getString(resource)));
-            context.startActivity(i);
-        } catch (ActivityNotFoundException activityNotFoundException) {
-            Lunchbar.make(view,
-                    context.getString(R.string.activity_missing_toast),
-                    Snackbar.LENGTH_LONG)
-                    .show();
         }
     }
 

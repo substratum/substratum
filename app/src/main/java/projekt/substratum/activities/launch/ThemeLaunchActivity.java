@@ -52,7 +52,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_LAUNCHER_CLASS;
 public class ThemeLaunchActivity extends Activity {
 
     private String packageName;
-    private boolean legacyTheme = false;
+    private boolean legacyTheme;
 
     /**
      * Launch the theme

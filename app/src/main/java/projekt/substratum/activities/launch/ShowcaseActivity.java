@@ -197,7 +197,7 @@ public class ShowcaseActivity extends AppCompatActivity {
      */
     private static class DownloadTabs extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<ShowcaseActivity> showcaseActivityWR;
+        private final WeakReference<ShowcaseActivity> showcaseActivityWR;
 
         DownloadTabs(ShowcaseActivity activity) {
             super();

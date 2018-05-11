@@ -153,7 +153,7 @@ public class ManagerFragment extends Fragment {
     /**
      * Callable function to simulate the swipe refresh layout to be refreshing the whole list
      */
-    public void setSwipeRefreshLayoutRefreshing() {
+    private void setSwipeRefreshLayoutRefreshing() {
         if (searchView.isIconified()) {
             if ((firstRun != null) && recyclerView.isShown() && !firstRun) {
                 if (layoutReloader != null && !layoutReloader.isCancelled()) {
@@ -254,16 +254,14 @@ public class ManagerFragment extends Fragment {
                     try {
                         overlayList = mAdapter.getOverlayManagerList();
                         if (isChecked) {
-                            for (int i = 0; i < overlayList.size(); i++) {
-                                ManagerItem currentOverlay = overlayList.get(i);
+                            for (ManagerItem currentOverlay : overlayList) {
                                 if (!currentOverlay.isSelected()) {
                                     currentOverlay.setSelected(true);
                                 }
                                 mAdapter.notifyDataSetChanged();
                             }
                         } else {
-                            for (int i = 0; i < overlayList.size(); i++) {
-                                ManagerItem currentOverlay = overlayList.get(i);
+                            for (ManagerItem currentOverlay : overlayList) {
                                 if (currentOverlay.isSelected()) {
                                     currentOverlay.setSelected(false);
                                 }
@@ -299,18 +297,14 @@ public class ManagerFragment extends Fragment {
                     overlayList = mAdapter
                             .getOverlayManagerList();
                     if (toggleAll.isChecked()) {
-                        for (int i = 0; i < overlayList.size(); i++) {
-                            ManagerItem currentOverlay = overlayList
-                                    .get(i);
+                        for (ManagerItem currentOverlay : overlayList) {
                             if (!currentOverlay.isSelected()) {
                                 currentOverlay.setSelected(true);
                             }
                             mAdapter.notifyDataSetChanged();
                         }
                     } else {
-                        for (int i = 0; i < overlayList.size(); i++) {
-                            ManagerItem currentOverlay = overlayList
-                                    .get(i);
+                        for (ManagerItem currentOverlay : overlayList) {
                             if (currentOverlay.isSelected()) {
                                 currentOverlay.setSelected(false);
                             }
@@ -538,10 +532,10 @@ public class ManagerFragment extends Fragment {
      */
     private void refreshThemeName() {
         if ((overlayList != null) && !overlayList.isEmpty()) {
-            for (int i = 0; i < overlayList.size(); i++) {
-                Context context = overlayList.get(i).getContext();
-                String packageName = overlayList.get(i).getName();
-                if (overlayList.get(i).getThemeName() == null) {
+            for (ManagerItem overlay : overlayList) {
+                Context context = overlay.getContext();
+                String packageName = overlay.getName();
+                if (overlay.getThemeName() == null) {
                     String metadata = getOverlayMetadata(
                             context, packageName, References.metadataOverlayParent);
                     if ((metadata != null) && !metadata.isEmpty()) {
@@ -549,7 +543,7 @@ public class ManagerFragment extends Fragment {
                                 context.getString(R.string.manager_theme_name),
                                 getPackageName(context, metadata),
                                 Typeface.BOLD);
-                        overlayList.get(i).setThemeName(pName.toString());
+                        overlay.setThemeName(pName.toString());
                     }
                 }
             }
@@ -587,8 +581,8 @@ public class ManagerFragment extends Fragment {
      * The beef of reloading the whole manager's list
      */
     private static class LayoutReloader extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManagerFragment> ref;
-        private WeakReference<String> userInput;
+        private final WeakReference<ManagerFragment> ref;
+        private final WeakReference<String> userInput;
         private int currentPosition;
 
         private LayoutReloader(ManagerFragment fragment, String input) {
@@ -632,41 +626,41 @@ public class ManagerFragment extends Fragment {
                         List<String> disabledOverlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context, STATE_DISABLED));
 
-                        List<String> allOverlays = new ArrayList<>();
+                        List<String> overlays = new ArrayList<>();
                         switch (fragment.prefs.getString("manager_sorting_mode", "default")) {
                             case "default":
                                 fragment.activatedOverlays = new ArrayList<>(enabledOverlays);
-                                allOverlays.addAll(enabledOverlays);
-                                allOverlays.addAll(disabledOverlays);
+                                overlays.addAll(enabledOverlays);
+                                overlays.addAll(disabledOverlays);
                                 break;
                             case "enabled":
                                 fragment.activatedOverlays = new ArrayList<>(enabledOverlays);
-                                allOverlays.addAll(enabledOverlays);
+                                overlays.addAll(enabledOverlays);
                                 break;
                             case "disabled":
-                                allOverlays.addAll(disabledOverlays);
+                                overlays.addAll(disabledOverlays);
                                 break;
                         }
-                        Collections.sort(allOverlays);
+                        Collections.sort(overlays);
 
                         // Create the map for {package name: package identifier}
                         Map<String, String> unsortedMap = new HashMap<>();
 
                         // Then let's convert all the package names to their app names
-                        for (int i = 0; i < allOverlays.size(); i++) {
+                        for (String overlay : overlays) {
                             boolean canContinue = true;
                             final String userInputString = userInput.get();
                             if (userInputString != null && !userInputString.isEmpty()) {
                                 StringBuilder combined = new StringBuilder();
                                 String metadata = Packages.getOverlayMetadata(
                                         context,
-                                        allOverlays.get(i),
+                                        overlay,
                                         References.metadataOverlayParent);
                                 if ((metadata != null) && !metadata.isEmpty()) {
                                     combined.append(Packages.getPackageName(context, metadata));
                                 }
                                 combined.append(getPackageName(context,
-                                        getOverlayTarget(context, allOverlays.get(i))));
+                                        getOverlayTarget(context, overlay)));
                                 if (!combined.toString().toLowerCase(Locale.US).contains(
                                         userInputString.toLowerCase(Locale.US))) {
                                     canContinue = false;
@@ -676,7 +670,7 @@ public class ManagerFragment extends Fragment {
                                 try {
                                     ApplicationInfo applicationInfo = context
                                             .getPackageManager()
-                                            .getApplicationInfo(allOverlays.get(i), 0);
+                                            .getApplicationInfo(overlay, 0);
                                     String packageTitle = context.getPackageManager()
                                             .getApplicationLabel(applicationInfo).toString();
                                     String targetApplication = Packages.getOverlayTarget(
@@ -685,7 +679,7 @@ public class ManagerFragment extends Fragment {
 
                                     if (isPackageInstalled(context, targetApplication)) {
                                         unsortedMap.put(
-                                                allOverlays.get(i),
+                                                overlay,
                                                 getPackageName(context, targetApplication));
                                     }
                                 } catch (Exception ignored) {
@@ -817,7 +811,7 @@ public class ManagerFragment extends Fragment {
      * OMS Enable Function
      */
     private static class RunEnable extends AsyncTask<String, Integer, String> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunEnable(ManagerFragment fragment) {
             super();
@@ -914,7 +908,7 @@ public class ManagerFragment extends Fragment {
      * RRO Disable Function
      */
     private static class RunDisable extends AsyncTask<Void, Void, String> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunDisable(ManagerFragment fragment) {
             super();
@@ -1135,7 +1129,7 @@ public class ManagerFragment extends Fragment {
      * OMS Enable/Disable function
      */
     private static class RunEnableDisable extends AsyncTask<String, Integer, String> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunEnableDisable(ManagerFragment fragment) {
             super();
@@ -1156,7 +1150,7 @@ public class ManagerFragment extends Fragment {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
-                if ((result != null) && "unauthorized".equals(result)) {
+                if ("unauthorized".equals(result)) {
                     Toast.makeText(context,
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();
@@ -1234,7 +1228,7 @@ public class ManagerFragment extends Fragment {
      * Uninstall function
      */
     private static class RunUninstall extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunUninstall(ManagerFragment fragment) {
             super();
@@ -1331,7 +1325,7 @@ public class ManagerFragment extends Fragment {
      * Concluding function to end the update process gracefully
      */
     private static class FinishReceiver extends BroadcastReceiver {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private FinishReceiver(ManagerFragment fragment) {
             super();

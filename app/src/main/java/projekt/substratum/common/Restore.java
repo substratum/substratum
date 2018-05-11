@@ -186,7 +186,7 @@ public enum Restore {
      */
     private static class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
         ArrayList<String> finalCommandsArray;
-        private WeakReference<Activity> ref;
+        private final WeakReference<Activity> ref;
         private boolean withUninstall;
         private ProgressDialog alertDialog;
 
@@ -309,7 +309,7 @@ public enum Restore {
      * Clear applied boot animation
      */
     private static class BootAnimationClearer extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Activity> ref;
+        private final WeakReference<Activity> ref;
         private ProgressDialog alertDialog;
 
         private BootAnimationClearer(Activity activity) {
@@ -367,7 +367,7 @@ public enum Restore {
      * Clear the applied fonts
      */
     private static class FontsClearer extends AsyncTask<String, Integer, String> {
-        private WeakReference<Activity> ref;
+        private final WeakReference<Activity> ref;
         private ProgressDialog alertDialog;
 
         private FontsClearer(Activity activity) {
@@ -430,7 +430,7 @@ public enum Restore {
      * Clear all applied sounds
      */
     private static class SoundsClearer extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Activity> ref;
+        private final WeakReference<Activity> ref;
         private ProgressDialog alertDialog;
 
         private SoundsClearer(Activity activity) {

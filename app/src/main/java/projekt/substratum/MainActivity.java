@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements
     public SearchView searchView;
     public TextView actionbarContent;
     private TextView actionbarTitle;
-    Toolbar toolbar;
-    BottomNavigationView bottomBar;
+    private Toolbar toolbar;
+    private BottomNavigationView bottomBar;
     private ActionBar supportActionBar;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog progressDialog;
@@ -843,8 +843,7 @@ public class MainActivity extends AppCompatActivity implements
      * based on whether there is no root, or Andromeda mode has been disconnected.
      */
     private static class RootRequester extends AsyncTask<Void, Void, Boolean> {
-        boolean isRunning = true;
-        private WeakReference<MainActivity> ref;
+        private final WeakReference<MainActivity> ref;
 
         private RootRequester(MainActivity activity) {
             super();
@@ -1066,7 +1065,6 @@ public class MainActivity extends AppCompatActivity implements
 
         private void showDialogOrNot(boolean passthrough) {
             MainActivity activity = ref.get();
-            isRunning = false;
             if (activity != null) {
                 Context context = activity.context;
                 if (passthrough) {
@@ -1232,7 +1230,7 @@ public class MainActivity extends AppCompatActivity implements
      * This will not work for Samsung or RRO Legacy as the intended purpose allows.
      */
     public static class DoCleanUp extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Context> ref;
+        private final WeakReference<Context> ref;
 
         public DoCleanUp(Context context) {
             super();
@@ -1288,8 +1286,8 @@ public class MainActivity extends AppCompatActivity implements
      * Accompaniment function for {@link #cleanLogCharReportsIfNecessary()}
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public static class ClearLogs extends AsyncTask<Void, Void, Void> {
-        private WeakReference<MainActivity> ref;
+    static class ClearLogs extends AsyncTask<Void, Void, Void> {
+        private final WeakReference<MainActivity> ref;
 
         ClearLogs(MainActivity activity) {
             super();

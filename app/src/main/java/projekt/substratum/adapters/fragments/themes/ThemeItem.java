@@ -32,7 +32,6 @@ public class ThemeItem {
     private String themePackage;
     private Drawable themeDrawable;
     private Context themeContext;
-    private Activity activity;
 
     public String getThemeName() {
         return this.themeName;
@@ -64,14 +63,6 @@ public class ThemeItem {
 
     public void setThemeDrawable(Drawable drawable) {
         this.themeDrawable = drawable instanceof VectorDrawable ? drawable : dynamicallyResize(drawable);
-    }
-
-    public Activity getActivity() {
-        return this.activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
     }
 
     public Context getContext() {

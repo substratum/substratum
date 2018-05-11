@@ -25,7 +25,7 @@ import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 
 class OverlaysInstance {
 
-    private static volatile OverlaysInstance ourInstance = new OverlaysInstance();
+    private static final OverlaysInstance ourInstance = new OverlaysInstance();
     boolean hasFailed;
     Integer failCount;
     StringBuilder failedPackages;

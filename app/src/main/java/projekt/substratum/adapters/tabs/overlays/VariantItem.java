@@ -21,8 +21,8 @@ package projekt.substratum.adapters.tabs.overlays;
 import java.io.Serializable;
 
 public class VariantItem implements Serializable {
-    private String variantName;
-    private boolean forceHidden;
+    private final String variantName;
+    private final boolean forceHidden;
     private String variantHex;
     private int color;
 

@@ -36,9 +36,9 @@ import projekt.substratum.common.References;
 import projekt.substratum.fragments.SettingsFragment;
 
 public class TranslatorParser {
-    private InputStream inputStream;
+    private final InputStream inputStream;
 
-    public TranslatorParser(InputStream inputStream) {
+    private TranslatorParser(InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
@@ -50,7 +50,7 @@ public class TranslatorParser {
      * @throws RuntimeException If CSV file could not be read
      */
     @SuppressWarnings("unchecked")
-    public List<Translator> read() throws RuntimeException {
+    private List<Translator> read() throws RuntimeException {
         List<Translator> resultList = new ArrayList();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -81,7 +81,7 @@ public class TranslatorParser {
     public static class TranslatorContributionDialog extends AsyncTask<String, Integer,
             ArrayList<String>> {
 
-        private WeakReference<SettingsFragment> ref;
+        private final WeakReference<SettingsFragment> ref;
         private WeakReference<AlertDialog.Builder> alertDialogBuilder;
 
         public TranslatorContributionDialog(SettingsFragment settingsFragment) {
@@ -129,8 +129,8 @@ public class TranslatorParser {
 
     public class Translator {
 
-        public String contributorName;
-        public List<String> languages;
+        public final String contributorName;
+        public final List<String> languages;
         public Integer translated_words = 0;
 
         Translator(String contributor_name,

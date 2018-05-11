@@ -215,7 +215,7 @@ public class SubstratumBuilder {
                         )))) {
                     legacyPriority = Integer.parseInt(reader.readLine());
                 } catch (IOException ignored) {
-                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                    dumpErrorLogs(overlayPackage,
                             "There was an error parsing priority file!");
                     legacyPriority =
                             prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY);
@@ -316,11 +316,11 @@ public class SubstratumBuilder {
                         }
                     }
             } catch (Exception e) {
-                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage, e.getMessage());
-                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                dumpErrorLogs(overlayPackage, e.getMessage());
+                dumpErrorLogs(overlayPackage,
                         "There was an exception creating a new Manifest file!");
                 hasErroredOut = true;
-                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                dumpErrorLogs(overlayPackage,
                         "Installation of \"" + overlayPackage + "\" has failed.");
             }
         }
@@ -374,18 +374,18 @@ public class SubstratumBuilder {
                 if (alignedAPK.isFile()) {
                     Log.d(References.SUBSTRATUM_BUILDER, "Zipalign successful!");
                 } else {
-                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                    dumpErrorLogs(overlayPackage,
                             "Zipalign has failed!");
                     hasErroredOut = true;
-                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                    dumpErrorLogs(overlayPackage,
                             "Zipalign of \"" + overlayPackage + "\" has failed.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                dumpErrorLogs(overlayPackage,
                         "Unfortunately, there was an exception trying to zipalign a new APK");
                 hasErroredOut = true;
-                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                dumpErrorLogs(overlayPackage,
                         "Installation of \"" + overlayPackage + "\" has failed.");
             } finally {
                 if (nativeApp != null) {
@@ -440,10 +440,10 @@ public class SubstratumBuilder {
                 Log.d(References.SUBSTRATUM_BUILDER, "APK successfully signed!");
             } catch (Throwable t) {
                 t.printStackTrace();
-                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                dumpErrorLogs(overlayPackage,
                         "APK could not be signed. " + t.toString());
                 hasErroredOut = true;
-                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                dumpErrorLogs(overlayPackage,
                         "Installation of \"" + overlayPackage + "\" has failed.");
             }
         }
@@ -465,11 +465,11 @@ public class SubstratumBuilder {
                                 overlayName + "-signed.apk");
                         Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
                     } catch (Exception e) {
-                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                        dumpErrorLogs(overlayPackage,
                                 "Overlay APK has failed to install! \" (Exception) " +
                                         "[Error: " + e.getMessage() + ']');
                         hasErroredOut = true;
-                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                        dumpErrorLogs(overlayPackage,
                                 "Installation of \"" + overlayPackage + "\" has failed.");
                     }
                 } else {
@@ -587,7 +587,7 @@ public class SubstratumBuilder {
                                     overlayPackage, additionalVariant, assetReplacement,
                                     true, context, noCacheDir);
                         } else {
-                            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                            dumpErrorLogs(overlayPackage,
                                     line);
                             errored = true;
                         }
@@ -595,7 +595,7 @@ public class SubstratumBuilder {
                 }
                 if (errored) {
                     hasErroredOut = true;
-                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                    dumpErrorLogs(overlayPackage,
                             "Installation of \"" + overlayPackage + "\" has failed.");
                 } else {
                     // We need this Process to be waited for before moving on to the next function.
@@ -607,10 +607,10 @@ public class SubstratumBuilder {
                         Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
                         return true;
                     } else {
-                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                        dumpErrorLogs(overlayPackage,
                                 "Overlay APK creation has failed!");
                         hasErroredOut = true;
-                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+                        dumpErrorLogs(overlayPackage,
                                 "Installation of \"" + overlayPackage + "\" has failed.");
                     }
                 }
@@ -626,10 +626,10 @@ public class SubstratumBuilder {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+            dumpErrorLogs(overlayPackage,
                     "Unfortunately, there was an exception trying to create a new APK");
             hasErroredOut = true;
-            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlayPackage,
+            dumpErrorLogs(overlayPackage,
                     "Installation of \"" + overlayPackage + "\" has failed.");
         } finally {
             if (nativeApp != null) {
@@ -641,14 +641,12 @@ public class SubstratumBuilder {
 
     /**
      * Save a series of error logs to be callable
-     *
-     * @param tag     Internal logcat tag
-     * @param overlay Overlay that has failed to compile
+     *  @param overlay Overlay that has failed to compile
      * @param message Failure message
      */
-    private void dumpErrorLogs(String tag, String overlay, String message) {
+    private void dumpErrorLogs(String overlay, String message) {
         if (!message.isEmpty()) {
-            Log.e(tag, message);
+            Log.e(References.SUBSTRATUM_BUILDER, message);
             if (errorLogs.isEmpty()) {
                 errorLogs = "» [" + overlay + "]: " + message;
             } else {

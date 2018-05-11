@@ -68,7 +68,7 @@ public enum Resources {
             "UnsupportedOperationException"
     };
 
-    public static final String[] ALLOWED_SOUNDS = {
+    private static final String[] ALLOWED_SOUNDS = {
             "alarm.mp3",
             "alarm.ogg",
             "notification.mp3",

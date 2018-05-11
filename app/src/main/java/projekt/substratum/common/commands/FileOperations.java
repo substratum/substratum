@@ -51,6 +51,7 @@ import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public enum FileOperations {
     ;
 
@@ -536,20 +537,19 @@ public enum FileOperations {
 
     /**
      * DirectAssets Mode Functions
-     *
-     * @param assetManager Take the asset manager context from the theme package
+     *  @param assetManager Take the asset manager context from the theme package
      * @param listDir      The expected list directory inside the assets folder
      * @param destination  Output directory on where we should be caching
      * @param remember     Should be the same as listDir, so we strip out the unnecessary prefix
-     *                     so it only extracts to a specified folder without the asset manager's
-     *                     list structure.
+*                     so it only extracts to a specified folder without the asset manager's
+*                     list structure.
      * @param cipher       Encryption key
      */
-    public static boolean copyFileOrDir(final AssetManager assetManager,
-                                        final String listDir,
-                                        final String destination,
-                                        final String remember,
-                                        final Cipher cipher) {
+    public static void copyFileOrDir(final AssetManager assetManager,
+                                     final String listDir,
+                                     final String destination,
+                                     final String remember,
+                                     final Cipher cipher) {
         if (ENABLE_DIRECT_ASSETS_LOGGING) {
             Log.d(DA_LOG, "DirectAssets copy function is now running...");
             Log.d(DA_LOG, "Source: " + listDir);
@@ -570,7 +570,7 @@ public enum FileOperations {
                     Log.d(DA_LOG,
                             "Folder does not need to be copied on non-matching system version: " +
                                     Build.VERSION.SDK_INT + " is smaller than " + parsedVer + ".");
-                return false;
+                return;
             } else {
                 if (ENABLE_DIRECT_ASSETS_LOGGING)
                     Log.d(DA_LOG,
@@ -605,12 +605,10 @@ public enum FileOperations {
                             cipher);
                 }
             }
-            return true;
         } catch (final IOException ex) {
             if (ENABLE_DIRECT_ASSETS_LOGGING)
                 Log.e(DA_LOG, "An IOException has been reached: " + ex.getMessage());
         }
-        return false;
     }
 
     /**

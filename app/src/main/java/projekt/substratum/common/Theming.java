@@ -51,9 +51,9 @@ public enum Theming {
 
         // Initial parse of what is installed on the device
         Set<String> installed_themes = new TreeSet<>();
-        List<ResolveInfo> all_themes = Packages.getThemes(context);
-        for (int i = 0; i < all_themes.size(); i++) {
-            installed_themes.add(all_themes.get(i).activityInfo.packageName);
+        List<ResolveInfo> themes = Packages.getThemes(context);
+        for (ResolveInfo theme : themes) {
+            installed_themes.add(theme.activityInfo.packageName);
         }
         editor.putStringSet("installed_themes", installed_themes);
         editor.apply();
@@ -105,9 +105,9 @@ public enum Theming {
      * @param actionIntent Intent to be verified with a series of data
      * @return Returns an intent to launch the theme
      */
-    public static Intent themeIntent(Context context,
-                                     String packageName,
-                                     String actionIntent) {
+    private static Intent themeIntent(Context context,
+                                      String packageName,
+                                      String actionIntent) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             boolean shouldDebug = projekt.substratum.BuildConfig.DEBUG;
             String TAG = "ThemeLauncher";
@@ -129,7 +129,7 @@ public enum Theming {
             intentActivity.putExtra(Internal.THEME_OMS, !Systems.checkOMS(context));
             intentActivity.putExtra(Internal.NOTIFICATION, false);
             if (shouldDebug) Log.d(TAG, "Obtaining APK signature hash...");
-            intentActivity.putExtra(Internal.THEME_HASHPASSTHROUGH, hashPassthrough(context, false));
+            intentActivity.putExtra(Internal.THEME_HASHPASSTHROUGH, hashPassthrough(context));
             if (shouldDebug) Log.d(TAG, "Checking for certification...");
             intentActivity.putExtra(Internal.THEME_CERTIFIED, checkPackageSupport(context, false));
             if (shouldDebug) Log.d(TAG, "Starting Activity...");

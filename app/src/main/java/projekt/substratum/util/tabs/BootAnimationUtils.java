@@ -115,14 +115,14 @@ public class BootAnimationUtils {
     private static class BootAnimationHandlerAsync extends AsyncTask<String, Integer, String> {
 
         @SuppressLint("StaticFieldLeak")
-        private Context context;
+        private final Context context;
         @SuppressLint("StaticFieldLeak")
-        private View view;
-        private String themePid;
-        private SharedPreferences prefs;
-        private boolean encrypted;
-        private Cipher cipher;
-        private boolean shutdownAnimation;
+        private final View view;
+        private final String themePid;
+        private final SharedPreferences prefs;
+        private final boolean encrypted;
+        private final Cipher cipher;
+        private final boolean shutdownAnimation;
         private ProgressDialog progress;
         private boolean hasFailed;
 
@@ -475,11 +475,8 @@ public class BootAnimationUtils {
                             String backupScriptPath =
                                     context.getFilesDir().getAbsolutePath() + '/' +
                                             BACKUP_SCRIPT;
-                            OutputStream out = null;
-                            InputStream in = null;
-                            try {
-                                out = new FileOutputStream(backupScriptPath);
-                                in = assetManager.open(BACKUP_SCRIPT);
+                            try (OutputStream out = new FileOutputStream(backupScriptPath);
+                                 InputStream in = assetManager.open(BACKUP_SCRIPT)) {
                                 byte[] buffer = new byte[BYTE_ACCESS_RATE];
                                 int read;
                                 while ((read = in.read(buffer)) != -1) {
@@ -487,20 +484,6 @@ public class BootAnimationUtils {
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
-                            } finally {
-                                if (in != null) {
-                                    try {
-                                        in.close();
-                                    } catch (IOException ignored) {
-
-                                    }
-                                }
-                                if (out != null) {
-                                    try {
-                                        out.close();
-                                    } catch (IOException ignored) {
-                                    }
-                                }
                             }
                             FileOperations.copy(context, context.getFilesDir()
                                     .getAbsolutePath() +

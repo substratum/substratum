@@ -40,7 +40,7 @@
     <string name="new_stock_commits_title">يتطلب إعادة التشغل!</string>
     <string name="legacy_dialog_soft_reboot_title">يتطلب إعادة التشغل!</string>
     <string name="abort_overlay_toast_success">تم إلغاء تثبيت جميع التراكبات!</string>
-    <string name="rescue_toast">جار إنقاذ النظام ...</string>
+    <string name="rescue_toast">جار إنقاذ النظام …</string>
     <string name="bootanimation_dialog_apply_text">جار معالجة الرسوم المتحركة في التمهيد&#8230;</string>
     <string name="bootanimation_dialog_apply_success">تم تطبيق رسوم التمهيد المتحركة!</string>
     <string name="bootanimation_dialog_apply_failed">فشل تطبيق رسوم التمهيد المتحركة&#8230;</string>

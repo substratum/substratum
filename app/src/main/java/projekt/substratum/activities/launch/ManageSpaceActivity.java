@@ -130,7 +130,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
      * Clear the cache of the application
      */
     private static class ClearCache extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManageSpaceActivity> ref;
+        private final WeakReference<ManageSpaceActivity> ref;
 
         ClearCache(ManageSpaceActivity activity) {
             super();
@@ -159,7 +159,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
      * Clear the saved LogChars
      */
     private static class ClearLogs extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManageSpaceActivity> ref;
+        private final WeakReference<ManageSpaceActivity> ref;
 
         ClearLogs(ManageSpaceActivity activity) {
             super();
@@ -194,7 +194,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
      * Reset the application to the near-out-of-box experience
      */
     private static class ResetApp extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManageSpaceActivity> ref;
+        private final WeakReference<ManageSpaceActivity> ref;
 
         ResetApp(ManageSpaceActivity activity) {
             super();

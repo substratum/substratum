@@ -20,6 +20,7 @@ package projekt.substratum.adapters.fragments.settings;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,15 +38,16 @@ import static projekt.substratum.common.Internal.PHONE;
 import static projekt.substratum.common.Internal.PHONE_COMMON_FRAMEWORK;
 
 public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.ViewHolder> {
-    private List<ValidatorInfo> information;
+    private final List<ValidatorInfo> information;
 
     public ValidatorAdapter(List<ValidatorInfo> information) {
         super();
         this.information = information;
     }
 
+    @NonNull
     @Override
-    public ValidatorAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
+    public ValidatorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
                                                           int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.validator_dialog_entry, viewGroup, false);
@@ -53,7 +55,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder,
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder,
                                  int pos) {
         ValidatorInfo validatorInfo = this.information.get(pos);
         Context context = validatorInfo.getContext();
@@ -89,23 +91,23 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
 
                 StringBuilder errorLogs = new StringBuilder();
                 if (!boolErrors.isEmpty()) {
-                    for (int i = 0; i < boolErrors.size(); i++) {
-                        errorLogs.append(boolErrors.get(i)).append('\n');
+                    for (String boolError : boolErrors) {
+                        errorLogs.append(boolError).append('\n');
                     }
                 }
                 if (!colorErrors.isEmpty()) {
-                    for (int i = 0; i < colorErrors.size(); i++) {
-                        errorLogs.append(colorErrors.get(i)).append('\n');
+                    for (String colorError : colorErrors) {
+                        errorLogs.append(colorError).append('\n');
                     }
                 }
                 if (!dimenErrors.isEmpty()) {
-                    for (int i = 0; i < dimenErrors.size(); i++) {
-                        errorLogs.append(dimenErrors.get(i)).append('\n');
+                    for (String dimenError : dimenErrors) {
+                        errorLogs.append(dimenError).append('\n');
                     }
                 }
                 if (!styleErrors.isEmpty()) {
-                    for (int i = 0; i < styleErrors.size(); i++) {
-                        errorLogs.append(styleErrors.get(i)).append('\n');
+                    for (String styleError : styleErrors) {
+                        errorLogs.append(styleError).append('\n');
                     }
                 }
 
@@ -139,7 +141,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ValidatorDialogEntryBinding binding;
+        final ValidatorDialogEntryBinding binding;
 
         ViewHolder(View view) {
             super(view);

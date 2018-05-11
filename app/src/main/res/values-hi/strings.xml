@@ -36,7 +36,7 @@
     <string name="resource_commit_dialog_title">%s में अनुपलब्ध संसाधन</string>
     <string name="refused_to_install_notification_button">थीम निकालें</string>
     <string name="failed_to_install_title_notification">OMS विषय स्थापित करने में विफल</string>
-    <string name="actionbar_theme_count_loading">लोड हो रहा है...</string>
+    <string name="actionbar_theme_count_loading">लोड हो रहा है…</string>
     <string name="actionbar_search">खोजें</string>
     <string name="actionbar_changelog">विषय परिवर्तन सूचि</string>
     <string name="settings_icons">सेटिंग्स चिह्न</string>
@@ -48,7 +48,7 @@
     <string name="new_stock_commits_title">फ़ोन रिबूट करना जरूरी है!</string>
     <string name="legacy_dialog_soft_reboot_title">फ़ोन रिबूट करना जरूरी है!</string>
     <string name="abort_overlay_toast_success">सभी ओवरले अस्थापित हो चुके हैं!</string>
-    <string name="rescue_toast">आपके सिस्टम बचाव कर रहे हैं...</string>
+    <string name="rescue_toast">आपके सिस्टम बचाव कर रहे हैं…</string>
     <string name="reboot_awaiting_manager_title">ओवरले पढ़ने में त्रुटि</string>
     <string name="backend_not_authorized_title">बुनियाद डीबग बिल्ड अधिकृत नहीं है!</string>
     <string name="backend_not_authorized_text">अपने कस्टम ROM के साथ बुनियाद के इस बिल्ड का उपयोग करने के लिए, सक्षम करें \' बल डेवलपर विकल्प में हर विषय एप्लिकेशन को अधिकृत \'. \n\n एनआईएफ यह वहाँ नहीं है, लापता रक्षार्थ के लिए अपने ROM देव से संपर्क करें!</string>
@@ -57,21 +57,21 @@
     <string name="grid_size_title">विषयवस्तु प्रदर्शन स्तंभ समायोजन</string>
     <string name="grid_size_text">स्तंभ संख्या (डिफ़ॉल्ट %d) पर सेट है: %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
-    <string name="overlays_variant_default_1a">टाइप1a प्रकार...</string>
-    <string name="overlays_variant_default_1b">टाइप1b प्रकार...</string>
-    <string name="overlays_variant_default_1c">टाइप1c प्रकार...</string>
-    <string name="overlays_variant_default_2">टाइप2 प्रकार...</string>
-    <string name="overlays_variant_default_3">चूक बेस संस्करण...</string>
-    <string name="overlays_variant_default_4">प्रकार4 वैरिएंट...</string>
+    <string name="overlays_variant_default_1a">टाइप1a प्रकार…</string>
+    <string name="overlays_variant_default_1b">टाइप1b प्रकार…</string>
+    <string name="overlays_variant_default_1c">टाइप1c प्रकार…</string>
+    <string name="overlays_variant_default_2">टाइप2 प्रकार…</string>
+    <string name="overlays_variant_default_3">चूक बेस संस्करण…</string>
+    <string name="overlays_variant_default_4">प्रकार4 वैरिएंट…</string>
     <string name="overlays_update_available">नवीन संस्करण उपलब्ध!\n(%s)</string>
     <string name="shutdownanimation_dialog_apply_text">शट डाउन ऐनिमेशन संसाधित कर रहा है.. ।</string>
     <string name="shutdownanimation_dialog_apply_success">बंद एनीमेशन लागू!</string>
     <string name="shutdownanimation_dialog_apply_failed">शट डाउन ऐनिमेशन लागू करने में विफल.. ।</string>
     <string name="bootanimation_default_spinner">कृपया किसी बूट ऐनिमेशन का चयन करें.. ।</string>
     <string name="bootanimation_spinner_set_defaults">डिफ़ॉल्ट बूट ऐनिमेशन पुनर्स्थापित करें.. ।</string>
-    <string name="bootanimation_dialog_apply_text">बूट एनीमेशन संसाधित हो रहा है...</string>
+    <string name="bootanimation_dialog_apply_text">बूट एनीमेशन संसाधित हो रहा है…</string>
     <string name="bootanimation_dialog_apply_success">बूट एनिमेशन लागू!</string>
-    <string name="bootanimation_dialog_apply_failed">बूट एनिमेशन लागू करने में विफल...</string>
+    <string name="bootanimation_dialog_apply_failed">बूट एनिमेशन लागू करने में विफल…</string>
     <string name="wallpaper_dialog_wallpaper">होम स्क्रीन वॉलपेपर</string>
     <string name="wallpaper_dialog_lockscreen">लॉक स्क्रीन वॉलपेपर</string>
     <string name="wallpaper_downloading">कैश में छवि लोड हो रहा है.. ।</string>
@@ -81,14 +81,14 @@
     <string name="wallpaper_homescreen_error">होम स्क्रीन वॉलपेपर सेट करने में असमर्थ</string>
     <string name="wallpaper_lockscreen_success">Lockscreen वॉलपेपर विन्यस्त!</string>
     <string name="wallpaper_lockscreen_error">लॉक स्क्रीन वॉलपेपर सेट करने में असमर्थ</string>
-    <string name="font_dialog_apply_text">फ़ॉन्ट पैक संसाधित हो रहा है...</string>
+    <string name="font_dialog_apply_text">फ़ॉन्ट पैक संसाधित हो रहा है…</string>
     <string name="font_dialog_apply_success">फ़ॉन्ट पैक लागू हो गया है!</string>
-    <string name="font_dialog_apply_failed">फ़ॉन्ट पैक लागू करने में विफल रहा है...</string>
+    <string name="font_dialog_apply_failed">फ़ॉन्ट पैक लागू करने में विफल रहा है…</string>
     <string name="sounds_dialog_apply_success">ध्वनि पैक लागू!</string>
-    <string name="sounds_dialog_apply_failed">ध्वनि पैक को लागू करने में विफल...</string>
-    <string name="sounds_default_spinner">कृपया एक ध्वनि पैक का चयन करें...</string>
+    <string name="sounds_dialog_apply_failed">ध्वनि पैक को लागू करने में विफल…</string>
+    <string name="sounds_default_spinner">कृपया एक ध्वनि पैक का चयन करें…</string>
     <string name="fonts_dialog_permissions_grant_toast2">दो बुनियाद अपने सिस्टम फोंट नियंत्रण करने के लिए, आप \' को संशोधित प्रणाली सेटिंग्स को अनुमति दें \' सक्षम होना चाहिए ।      </string>
-    <string name="error_loading_pack">ऐसा लगता है जैसे इस पैक को सही ढंग से सेट नहीं किया गया...</string>
+    <string name="error_loading_pack">ऐसा लगता है जैसे इस पैक को सही ढंग से सेट नहीं किया गया…</string>
     <string name="sounds_alarm">अलार्म</string>
     <string name="sounds_notification">सूचना</string>
     <string name="sounds_ringtone">रिंगटोन</string>
@@ -122,7 +122,7 @@
     <string name="manage_wallpaper_home_toast">घर स्क्रीन वॉलपेपर सफलतापूर्वक बहाल!</string>
     <string name="manage_wallpaper_lock_toast">लॉक स्क्रीन वॉलपेपर सफलतापूर्वक बहाल!</string>
     <string name="manage_wallpaper_all_toast">वॉलपेपर सफलतापूर्वक बहाल!</string>
-    <string name="adapter_uninstalling" formatted="false">अब %s को हटा रहे है...</string>
+    <string name="adapter_uninstalling" formatted="false">अब %s को हटा रहे है…</string>
     <string name="plugin_template">प्लगइन</string>
     <string name="accept">स्वीकार करें</string>
     <string name="deny">इनकार</string>
@@ -163,7 +163,7 @@
     <string name="logcat_dialog_title">LogChar रिपोर्ट डीबग करें</string>
     <string name="logcat_dialog_copy_success">सफलतापूर्वक त्रुटि लॉग की क्लिपबोर्ड पर प्रतिलिपि बनाई गई।</string>
     <string name="logcat_send">भेजना</string>
-    <string name="logcat_email_activity">... का उपयोग कर बग रिपोर्ट भेजें</string>
+    <string name="logcat_email_activity">… का उपयोग कर बग रिपोर्ट भेजें</string>
     <string name="logcat_email_activity_error">कोई ई-मेल क्लाइंट स्थापित नहीं हैं।</string>
     <string name="logcat_email_xposed_check">ऐक्सपोसेड फ्रेमवर्क</string>
     <string name="logcat_processing_dialog">संसाधन त्रुटि रिपोर्ट</string>
@@ -174,7 +174,7 @@
     <string name="delete_dialog_text" formatted="false">आप सुनिश्चित करें कि आप \"%s\" को हटाना चाहते हैं?</string>
     <string name="restore">कार्ड को पुनर्स्थापित करें</string>
     <string name="remove_dialog_later">बाद में</string>
-    <string name="restore_dialog_okay">जारी रखें...</string>
+    <string name="restore_dialog_okay">जारी रखें…</string>
     <string name="backup_button">बैकअप वर्तमान स्थिति</string>
     <string name="backup_no_overlays">आपके वर्तमान सेट अप में कोई अधिव्यापन नहीं हैं ।</string>
     <string name="restore_button">प्रोफ़ाइल पुनर्स्थापित करें</string>
@@ -182,7 +182,7 @@
     <string name="dialog_cancel">रद्द करें</string>
     <string name="uninstall_dialog_body">थीम को अस्थापित करे</string>
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="break_compilation_dialog_continue">जारी रखें...</string>
+    <string name="break_compilation_dialog_continue">जारी रखें…</string>
     <string name="profile_wallpaper">वॉलपेपर</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->

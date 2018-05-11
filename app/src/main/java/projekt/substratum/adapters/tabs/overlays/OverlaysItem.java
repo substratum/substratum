@@ -45,26 +45,26 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class OverlaysItem implements Serializable {
 
-    public String attention;
+    public final String attention;
     public boolean isVariantChosen;
     public boolean isVariantChosen1;
     public boolean isVariantChosen2;
     public boolean isVariantChosen3;
     public boolean isVariantChosen4;
     public boolean isVariantChosen5;
-    public boolean variantMode;
-    String versionName;
-    int overlayVersion;
-    private String themeName;
-    private String packageName;
-    private VariantAdapter array;
-    private VariantAdapter array2;
-    private VariantAdapter array3;
-    private VariantAdapter array4;
-    private VariantAdapter array5;
-    private Context context;
-    private Drawable appIcon;
-    private String name;
+    public final boolean variantMode;
+    final String versionName;
+    private final int overlayVersion;
+    private final String themeName;
+    private final String packageName;
+    private final VariantAdapter array;
+    private final VariantAdapter array2;
+    private final VariantAdapter array3;
+    private final VariantAdapter array4;
+    private final VariantAdapter array5;
+    private final Context context;
+    private final Drawable appIcon;
+    private final String name;
     private String targetVersion;
     private boolean isSelected;
     private int spinnerSelection;
@@ -133,10 +133,6 @@ public class OverlaysItem implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     Drawable getAppIcon() {

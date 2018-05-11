@@ -150,20 +150,15 @@ public class ProfileFragment extends Fragment {
     public static int nightMinute;
     public static int dayHour;
     public static int dayMinute;
-    ProgressBar headerProgress;
-    EditText backupName;
-    Button backupButton;
-    Spinner profileSelector;
-    ImageButton imageButton;
-    Button restoreButton;
-    CardView scheduledProfileCard;
-    ExpandableLayout scheduledProfileLayout;
-    Switch dayNightSwitch;
-    Button startTime;
-    Button endTime;
-    Spinner dayProfile;
-    Spinner nightProfile;
-    Button applyScheduledProfileButton;
+    private ProgressBar headerProgress;
+    private EditText backupName;
+    private Button backupButton;
+    private Spinner profileSelector;
+    private ExpandableLayout scheduledProfileLayout;
+    private Button startTime;
+    private Button endTime;
+    private Spinner dayProfile;
+    private Spinner nightProfile;
     private Context context;
     private List<String> list;
     private String backupGetText;
@@ -232,16 +227,16 @@ public class ProfileFragment extends Fragment {
         backupName = viewBinding.backupCardProfileNameEntry;
         backupButton = viewBinding.backupCardActionButton;
         profileSelector = viewBinding.restoreCardProfileSelectSpinner;
-        imageButton = viewBinding.restoreCardDeleteButton;
-        restoreButton = viewBinding.restoreCardActionButton;
-        scheduledProfileCard = viewBinding.scheduledProfilesCard;
+        ImageButton imageButton = viewBinding.restoreCardDeleteButton;
+        Button restoreButton = viewBinding.restoreCardActionButton;
+        CardView scheduledProfileCard = viewBinding.scheduledProfilesCard;
         scheduledProfileLayout = viewBinding.scheduledProfileCardContentContainer;
-        dayNightSwitch = viewBinding.scheduledProfilesEnableSwitch;
+        Switch dayNightSwitch = viewBinding.scheduledProfilesEnableSwitch;
         startTime = viewBinding.nightStartTime;
         endTime = viewBinding.nightEndTime;
         dayProfile = viewBinding.daySpinner;
         nightProfile = viewBinding.nightSpinner;
-        applyScheduledProfileButton = viewBinding.applyScheduleButton;
+        Button applyScheduledProfileButton = viewBinding.applyScheduleButton;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         headerProgress.setVisibility(View.GONE);
@@ -540,7 +535,7 @@ public class ProfileFragment extends Fragment {
      */
     private static class BackupFunction extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<ProfileFragment> ref;
+        private final WeakReference<ProfileFragment> ref;
 
         BackupFunction(ProfileFragment profileFragment) {
             super();
@@ -791,10 +786,10 @@ public class ProfileFragment extends Fragment {
      * Restore function to restore a profile on the device
      */
     private static class RestoreFunction extends AsyncTask<String, Integer, String> {
-        ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled
+        final ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled
         List<String> system = new ArrayList<>(); // All installed overlays
         String profile_name;
-        private WeakReference<ProfileFragment> ref;
+        private final WeakReference<ProfileFragment> ref;
 
         RestoreFunction(ProfileFragment profileFragment) {
             super();
@@ -983,21 +978,21 @@ public class ProfileFragment extends Fragment {
                                     + PROFILE_DIRECTORY + profile_name + "/overlay_state.xml");
 
                     if (overlays.exists()) {
-                        List<List<String>> profile =
+                        List<List<String>> profiles =
                                 ProfileManager.readProfileStatePackageWithTargetPackage(
                                         profile_name, STATE_ENABLED);
                         system = ThemeManager.listAllOverlays(profileFragment.context);
 
                         // Now process the overlays to be enabled
-                        for (int i = 0, size = profile.size(); i < size; i++) {
-                            String packageName = profile.get(i).get(0);
-                            String targetPackage = profile.get(i).get(1);
+                        for (List<String> profile : profiles) {
+                            String packageName = profile.get(0);
+                            String targetPackage = profile.get(1);
                             if (Packages.isPackageInstalled(profileFragment.context,
                                     targetPackage)) {
                                 if (system.contains(packageName)) {
                                     to_be_run.add(packageName);
                                 } else {
-                                    profileFragment.cannotRunOverlays.add(profile.get(i));
+                                    profileFragment.cannotRunOverlays.add(profile);
                                 }
                             }
                         }
@@ -1055,9 +1050,9 @@ public class ProfileFragment extends Fragment {
      * Continue the restore when the profile pauses
      */
     private static class ContinueRestore extends AsyncTask<Void, String, Void> {
-        private static String TAG = "ContinueRestore";
-        private Handler handler = new Handler();
-        private WeakReference<ProfileFragment> ref;
+        private static final String TAG = "ContinueRestore";
+        private final Handler handler = new Handler();
+        private final WeakReference<ProfileFragment> ref;
         private String profileName;
         private List<List<String>> toBeCompiled;
         private ArrayList<String> toBeRun;
@@ -1065,7 +1060,7 @@ public class ProfileFragment extends Fragment {
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
-        private Runnable runnable = new Runnable() {
+        private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "Waiting for encryption key handshake approval...");

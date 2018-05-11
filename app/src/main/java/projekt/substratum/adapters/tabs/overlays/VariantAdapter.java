@@ -36,7 +36,7 @@ import projekt.substratum.databinding.TabOverlaysPreviewItemBinding;
 
 public class VariantAdapter extends ArrayAdapter<VariantItem> {
 
-    private Context context;
+    private final Context context;
 
     public VariantAdapter(Context context,
                           List<VariantItem> variantItemArrayList) {

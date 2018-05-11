@@ -19,6 +19,7 @@
 package projekt.substratum.adapters.tabs.sounds;
 
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,22 +32,23 @@ import projekt.substratum.databinding.TabSoundsItemBinding;
 
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.ViewHolder> {
 
-    private List<SoundsItem> soundsList;
+    private final List<SoundsItem> soundsList;
 
     public SoundsAdapter(List<SoundsItem> soundsList) {
         super();
         this.soundsList = soundsList;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.tab_sounds_item, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder,
+    public void onBindViewHolder(@NonNull ViewHolder holder,
                                  int position) {
         final SoundsItem sounds = soundsList.get(position);
         TabSoundsItemBinding viewHolderBinding = holder.getBinding();

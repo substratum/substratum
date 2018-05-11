@@ -41,7 +41,7 @@ public class ValidatorUtils {
      */
     public static class checkROMSupportList extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<SettingsFragment> ref;
+        private final WeakReference<SettingsFragment> ref;
 
         public checkROMSupportList(SettingsFragment settingsFragment) {
             super();
@@ -107,7 +107,7 @@ public class ValidatorUtils {
     public static class downloadRepositoryList extends AsyncTask<String, Integer,
             ArrayList<String>> {
 
-        private WeakReference<SettingsFragment> ref;
+        private final WeakReference<SettingsFragment> ref;
 
         public downloadRepositoryList(SettingsFragment settingsFragment) {
             super();
@@ -144,16 +144,16 @@ public class ValidatorUtils {
                 dialog2.setContentView(R.layout.validator_dialog_inner);
                 RecyclerView recyclerView = dialog2.findViewById(R.id.recycler_view);
                 ArrayList<ValidatorInfo> validatorInfos = new ArrayList<>();
-                for (int i = 0; i < result.size(); i++) {
-                    boolean validated = !erroredPackages.contains(result.get(i));
+                for (String resultItem : result) {
+                    boolean validated = !erroredPackages.contains(resultItem);
                     ValidatorInfo validatorInfo = new ValidatorInfo(
                             settingsFragment.context,
-                            result.get(i),
+                            resultItem,
                             validated,
-                            result.get(i).endsWith(".common"));
+                            resultItem.endsWith(".common"));
 
                     for (int x = 0; x < settingsFragment.errors.size(); x++) {
-                        if (result.get(i).equals(settingsFragment.errors.get(x).getPackageName())) {
+                        if (resultItem.equals(settingsFragment.errors.get(x).getPackageName())) {
                             validatorInfo.setPackageError(settingsFragment.errors.get(x));
                             break;
                         }
@@ -211,8 +211,7 @@ public class ValidatorUtils {
                                         VALIDATOR_CACHE_DIR + "resource_whitelist.xml");
 
                 settingsFragment.errors = new ArrayList<>();
-                for (int i = 0; i < repositories.size(); i++) {
-                    Repository repository = repositories.get(i);
+                for (Repository repository : repositories) {
                     // Now we have to check all the packages
                     String packageName = repository.getPackageName();
                     ValidatorError validatorError = new ValidatorError(packageName);
@@ -236,28 +235,28 @@ public class ValidatorUtils {
                                                     VALIDATOR_CACHE_DIR + tempPackageName +
                                                     ".bools.xml",
                                             "bool");
-                            for (int j = 0; j < bools.size(); j++) {
+                            for (String bool : bools) {
                                 boolean validated = Packages.validateResource(
                                         settingsFragment.context,
                                         tempPackageName,
-                                        bools.get(j),
+                                        bool,
                                         "bool");
                                 if (validated) {
                                     if (VALIDATE_WITH_LOGS)
-                                        Log.d("BoolCheck", "Resource exists: " + bools.get(j));
+                                        Log.d("BoolCheck", "Resource exists: " + bool);
                                 } else {
                                     boolean bypassed = false;
-                                    for (int x = 0; x < whitelist.size(); x++) {
-                                        String currentPackage = whitelist.get(x)
+                                    for (ValidatorFilter aWhitelist : whitelist) {
+                                        String currentPackage = aWhitelist
                                                 .getPackageName();
-                                        List<String> currentWhitelist = whitelist.get(x)
+                                        List<String> currentWhitelist = aWhitelist
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
-                                            if (currentWhitelist.contains(bools.get(j))) {
+                                            if (currentWhitelist.contains(bool)) {
                                                 if (VALIDATE_WITH_LOGS)
                                                     Log.d("BoolCheck",
                                                             "Resource bypassed using filter: " +
-                                                                    bools.get(j));
+                                                                    bool);
                                                 bypassed = true;
                                                 break;
                                             }
@@ -266,12 +265,12 @@ public class ValidatorUtils {
                                     if (!bypassed) {
                                         if (VALIDATE_WITH_LOGS)
                                             Log.e("BoolCheck",
-                                                    "Resource does not exist: " + bools.get(j));
+                                                    "Resource does not exist: " + bool);
                                         has_errored = true;
                                         validatorError.addBoolError(
                                                 '{' + settingsFragment.getString(
                                                         R.string.resource_boolean) + "} " +
-                                                        bools.get(j));
+                                                        bool);
                                     }
                                 }
                             }
@@ -285,28 +284,28 @@ public class ValidatorUtils {
                                             .getCacheDir().getAbsolutePath() +
                                             VALIDATOR_CACHE_DIR + tempPackageName + ".colors.xml",
                                     "color");
-                            for (int j = 0; j < colors.size(); j++) {
+                            for (String color : colors) {
                                 boolean validated = Packages.validateResource(
                                         settingsFragment.context,
                                         tempPackageName,
-                                        colors.get(j),
+                                        color,
                                         "color");
                                 if (validated) {
                                     if (VALIDATE_WITH_LOGS)
-                                        Log.d("ColorCheck", "Resource exists: " + colors.get(j));
+                                        Log.d("ColorCheck", "Resource exists: " + color);
                                 } else {
                                     boolean bypassed = false;
-                                    for (int x = 0; x < whitelist.size(); x++) {
-                                        String currentPackage = whitelist.get(x)
+                                    for (ValidatorFilter aWhitelist : whitelist) {
+                                        String currentPackage = aWhitelist
                                                 .getPackageName();
-                                        List<String> currentWhitelist = whitelist.get(x)
+                                        List<String> currentWhitelist = aWhitelist
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
-                                            if (currentWhitelist.contains(colors.get(j))) {
+                                            if (currentWhitelist.contains(color)) {
                                                 if (VALIDATE_WITH_LOGS)
                                                     Log.d("ColorCheck",
                                                             "Resource bypassed using filter: " +
-                                                                    colors.get(j));
+                                                                    color);
                                                 bypassed = true;
                                                 break;
                                             }
@@ -315,12 +314,12 @@ public class ValidatorUtils {
                                     if (!bypassed) {
                                         if (VALIDATE_WITH_LOGS)
                                             Log.e("ColorCheck",
-                                                    "Resource does not exist: " + colors.get(j));
+                                                    "Resource does not exist: " + color);
                                         has_errored = true;
                                         validatorError.addBoolError(
                                                 '{' + settingsFragment.getString(
                                                         R.string.resource_color) + "} " +
-                                                        colors.get(j));
+                                                        color);
                                     }
                                 }
                             }
@@ -333,28 +332,28 @@ public class ValidatorUtils {
                                     settingsFragment.context.getCacheDir().getAbsolutePath() +
                                             VALIDATOR_CACHE_DIR + tempPackageName +
                                             ".dimens.xml", "dimen");
-                            for (int j = 0; j < dimens.size(); j++) {
+                            for (String dimen : dimens) {
                                 boolean validated = Packages.validateResource(
                                         settingsFragment.context,
                                         tempPackageName,
-                                        dimens.get(j),
+                                        dimen,
                                         "dimen");
                                 if (validated) {
                                     if (VALIDATE_WITH_LOGS)
-                                        Log.d("DimenCheck", "Resource exists: " + dimens.get(j));
+                                        Log.d("DimenCheck", "Resource exists: " + dimen);
                                 } else {
                                     boolean bypassed = false;
-                                    for (int x = 0; x < whitelist.size(); x++) {
-                                        String currentPackage = whitelist.get(x)
+                                    for (ValidatorFilter aWhitelist : whitelist) {
+                                        String currentPackage = aWhitelist
                                                 .getPackageName();
-                                        List<String> currentWhitelist = whitelist.get(x)
+                                        List<String> currentWhitelist = aWhitelist
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
-                                            if (currentWhitelist.contains(dimens.get(j))) {
+                                            if (currentWhitelist.contains(dimen)) {
                                                 if (VALIDATE_WITH_LOGS)
                                                     Log.d("DimenCheck",
                                                             "Resource bypassed using filter: " +
-                                                                    dimens.get(j));
+                                                                    dimen);
                                                 bypassed = true;
                                                 break;
                                             }
@@ -363,13 +362,13 @@ public class ValidatorUtils {
                                     if (!bypassed) {
                                         if (VALIDATE_WITH_LOGS)
                                             Log.e("DimenCheck",
-                                                    "Resource does not exist: " + dimens.get(j));
+                                                    "Resource does not exist: " + dimen);
                                         has_errored = true;
                                         validatorError.addBoolError(
                                                 '{' + settingsFragment.getString(
                                                         R.string.resource_dimension) + '}' +
                                                         ' ' +
-                                                        dimens.get(j));
+                                                        dimen);
                                     }
                                 }
                             }
@@ -383,28 +382,28 @@ public class ValidatorUtils {
                                             .getCacheDir().getAbsolutePath() +
                                             VALIDATOR_CACHE_DIR + tempPackageName + ".styles.xml",
                                     "style");
-                            for (int j = 0; j < styles.size(); j++) {
+                            for (String style : styles) {
                                 boolean validated = Packages.validateResource(
                                         settingsFragment.context,
                                         tempPackageName,
-                                        styles.get(j),
+                                        style,
                                         "style");
                                 if (validated) {
                                     if (VALIDATE_WITH_LOGS)
-                                        Log.d("StyleCheck", "Resource exists: " + styles.get(j));
+                                        Log.d("StyleCheck", "Resource exists: " + style);
                                 } else {
                                     boolean bypassed = false;
-                                    for (int x = 0; x < whitelist.size(); x++) {
-                                        String currentPackage = whitelist.get(x)
+                                    for (ValidatorFilter aWhitelist : whitelist) {
+                                        String currentPackage = aWhitelist
                                                 .getPackageName();
-                                        List<String> currentWhitelist = whitelist.get(x)
+                                        List<String> currentWhitelist = aWhitelist
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
-                                            if (currentWhitelist.contains(styles.get(j))) {
+                                            if (currentWhitelist.contains(style)) {
                                                 if (VALIDATE_WITH_LOGS)
                                                     Log.d("StyleCheck",
                                                             "Resource bypassed using filter: " +
-                                                                    styles.get(j));
+                                                                    style);
                                                 bypassed = true;
                                                 break;
                                             }
@@ -413,12 +412,12 @@ public class ValidatorUtils {
                                     if (!bypassed) {
                                         if (VALIDATE_WITH_LOGS)
                                             Log.e("StyleCheck",
-                                                    "Resource does not exist: " + styles.get(j));
+                                                    "Resource does not exist: " + style);
                                         has_errored = true;
                                         validatorError.addBoolError(
                                                 '{' + settingsFragment.getString(
                                                         R.string.resource_style) + "} " +
-                                                        styles.get(j));
+                                                        style);
                                     }
                                 }
                             }

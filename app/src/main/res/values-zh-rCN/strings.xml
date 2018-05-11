@@ -102,12 +102,12 @@
   <string name="overlays_update_available">有可用更新！\n（%s）</string>
   <string name="shutdownanimation_placeholder_text">请从下拉列表中选择一个关机动画&#8230;</string>
   <string name="shutdownanimation_defaults_text">这将清除您应用的所有自定义关机动画</string>
-  <string name="shutdownanimation_dialog_apply_text">正在处理关机动画...</string>
+  <string name="shutdownanimation_dialog_apply_text">正在处理关机动画…</string>
   <string name="shutdownanimation_dialog_apply_success">关机动画应用成功！</string>
   <string name="shutdownanimation_dialog_apply_failed">关机动画无法应用......</string>
-  <string name="bootanimation_placeholder_text">请从下拉列表中选择一个开机动画...</string>
-  <string name="bootanimation_default_spinner">请选择一个开机动画...</string>
-  <string name="bootanimation_spinner_set_defaults">还原到默认的开机动画...</string>
+  <string name="bootanimation_placeholder_text">请从下拉列表中选择一个开机动画…</string>
+  <string name="bootanimation_default_spinner">请选择一个开机动画…</string>
+  <string name="bootanimation_spinner_set_defaults">还原到默认的开机动画…</string>
   <string name="bootanimation_defaults_text">这将清除您的设备上应用的所有自定义开机动画</string>
   <string name="bootanimation_dialog_apply_text">正在处理开机动画</string>
   <string name="bootanimation_dialog_apply_success">成功应用开机动画</string>
@@ -125,18 +125,18 @@
   <string name="wallpaper_no_connection">使用主题壁纸需要互联网连接&#8230;</string>
   <string name="wallpaper_no_wallpapers">似乎已加载的壁纸数据库是空的&#8230;</string>
   <string name="font_placeholder_text">请从下拉列表中选择一个字体包&#8230;</string>
-  <string name="font_default_spinner">请选择一个字体包...</string>
+  <string name="font_default_spinner">请选择一个字体包…</string>
   <string name="font_spinner_set_defaults">还原到默认字体&#8230;</string>
   <string name="fonts_defaults_text">这将清除您设备上应用的所有自定义字体</string>
   <string name="font_dialog_apply_text">正在处理字体包</string>
   <string name="font_dialog_apply_success">成功应用字体包</string>
   <string name="font_dialog_apply_failed">字体包应用失败</string>
   <string name="sounds_placeholder_text">请从下拉列表中选择一个音效包&#8230;</string>
-  <string name="sounds_spinner_set_defaults">恢复默认音效...    </string>
+  <string name="sounds_spinner_set_defaults">恢复默认音效…    </string>
   <string name="sounds_spinner_defaults_text">这将清除您设备上应用的所有自定义音效</string>
   <string name="sounds_dialog_apply_success">成功应用音效包</string>
   <string name="sounds_dialog_apply_failed">音效包应用失败</string>
-  <string name="sounds_default_spinner">请选择一个音效包...</string>
+  <string name="sounds_default_spinner">请选择一个音效包…</string>
   <string name="fonts_dialog_permissions_grant_toast2">要使 Substratum 控制您的系统字体，您必须启用“允许修改系统设置”。    </string>
   <string name="error_loading_pack">看来这个主题包并没有被正确设置&#8230;</string>
   <string name="sounds_alarm">闹钟铃声</string>
@@ -181,7 +181,7 @@
   <string name="manage_wallpaper_home_toast">成功还原主屏幕壁纸</string>
   <string name="manage_wallpaper_lock_toast">成功还原锁屏壁纸</string>
   <string name="manage_wallpaper_all_toast">成功还原壁纸</string>
-  <string name="adapter_uninstalling" formatted="false">正在删除 %s...</string>
+  <string name="adapter_uninstalling" formatted="false">正在删除 %s…</string>
   <string name="plugin_template">插件</string>
   <string name="accept">接受</string>
   <string name="deny">拒绝</string>
@@ -259,7 +259,7 @@
   <string name="profile_edittext_title">新的配置文件：</string>
   <string name="profile_edittext_whitespace_warning_toast">文件名称中不能含有空格</string>
   <string name="toast_backup_success" formatted="false">当前叠加层列表已保存到 \"/storage/emulated/0/substratum/profiles/%s\"</string>
-  <string name="profile_restoration_message">正在处理备份的配置文件...</string>
+  <string name="profile_restoration_message">正在处理备份的配置文件…</string>
   <string name="spinner_default_item">选择一个配置&#8230;</string>
   <string name="select_to_toggle_all_overlays">全选</string>
   <string name="permission_not_granted_dialog_title">未授予权限</string>

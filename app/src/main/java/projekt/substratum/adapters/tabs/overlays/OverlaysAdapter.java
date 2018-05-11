@@ -51,7 +51,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     private static final String INSTALLED_UNKNOWN = "INSTALLED_UNKNOWN";
     private static final String INSTALLED_DISABLED = "INSTALLED_DISABLED";
     private static final String NOT_INSTALLED = "NOT_INSTALLED";
-    private List<OverlaysItem> overlayList;
+    private final List<OverlaysItem> overlayList;
     private List<String> overlayStateList;
 
     public OverlaysAdapter(List<OverlaysItem> overlayInfo, Context context) {
@@ -266,7 +266,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                                                       int spinnerNumber) {
         return new AdapterView.OnItemSelectedListener() {
 
-            TabOverlaysItemBinding viewHolderBinding = viewHolder.getBinding();
+            final TabOverlaysItemBinding viewHolderBinding = viewHolder.getBinding();
 
             String setPackageName(String packageName, AdapterView<?> arg0) {
                 return packageName + arg0.getSelectedItem().toString()
@@ -472,7 +472,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TabOverlaysItemBinding binding;
+        final TabOverlaysItemBinding binding;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);

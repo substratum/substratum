@@ -23,6 +23,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -51,8 +52,8 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, GestureViewHolder> {
 
-    private Context context;
-    private int mItemResId;
+    private final Context context;
+    private final int mItemResId;
 
     public PriorityAdapter(Context context,
                            @LayoutRes int itemResId) {
@@ -61,8 +62,9 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         mItemResId = itemResId;
     }
 
+    @NonNull
     @Override
-    public GestureViewHolder onCreateViewHolder(ViewGroup parent,
+    public GestureViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                 int viewType) {
         if (viewType == PrioritiesInterface.PrioritiesItemType.CONTENT.ordinal()) {
             View itemView = LayoutInflater.from(
@@ -275,12 +277,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
         private String name;
 
-        public PrioritiesHeader(String name) {
-            super();
-            this.name = name;
-        }
-
-        public CharSequence getName() {
+        CharSequence getName() {
             return name;
         }
 
@@ -292,20 +289,18 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private static class PriorityObjectAdapter extends GestureViewHolder {
 
-        TextView cardText;
-        ImageView appIcon;
-        TextView tvDesc;
-        TextView type1a;
-        TextView type1b;
-        TextView type1c;
-        TextView type2;
-        TextView type3;
-        View view;
-        private ImageView itemDrag;
+        final TextView cardText;
+        final ImageView appIcon;
+        final TextView tvDesc;
+        final TextView type1a;
+        final TextView type1b;
+        final TextView type1c;
+        final TextView type2;
+        final TextView type3;
+        private final ImageView itemDrag;
 
         PriorityObjectAdapter(View view) {
             super(view);
-            this.view = view;
             this.cardText = view.findViewById(R.id.card_text);
             this.itemDrag = view.findViewById(R.id.card_drag);
             this.appIcon = view.findViewById(R.id.app_icon);
@@ -336,7 +331,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private static class HeaderViewAdapter extends GestureViewHolder {
 
-        TextView headerText;
+        final TextView headerText;
 
         HeaderViewAdapter(View view) {
             super(view);

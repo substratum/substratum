@@ -60,7 +60,7 @@ public class ShowcaseTab extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     public static RecyclerView recyclerView;
-    ProgressBar materialProgressBar;
+    private ProgressBar materialProgressBar;
     private int currentTabPosition;
     private String currentTabAddress;
     private Context context;
@@ -138,7 +138,7 @@ public class ShowcaseTab extends Fragment {
      * https://github.com/substratum/database
      */
     private static class downloadResources extends AsyncTask<String, Integer, ArrayList> {
-        private WeakReference<ShowcaseTab> ref;
+        private final WeakReference<ShowcaseTab> ref;
 
         downloadResources(ShowcaseTab showcaseTab) {
             super();

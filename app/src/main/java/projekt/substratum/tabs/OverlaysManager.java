@@ -291,9 +291,9 @@ enum OverlaysManager {
         if ((overlays != null) && (context != null)) {
             if (!overlays.currentInstance.finalRunner.isEmpty()) {
                 List<String> to_analyze = new ArrayList<>();
-                List<OverlaysItem> totality = overlays.currentInstance.checkedOverlays;
-                for (int i = 0; i < totality.size(); i++) {
-                    to_analyze.add(totality.get(i).getPackageName());
+                List<OverlaysItem> allOverlays = overlays.currentInstance.checkedOverlays;
+                for (OverlaysItem overlay : allOverlays) {
+                    to_analyze.add(overlay.getPackageName());
                 }
                 if (Packages.needsRecreate(context, to_analyze)) {
                     Handler handler = new Handler();
@@ -332,10 +332,10 @@ enum OverlaysManager {
      */
     static class compileFunction extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<Overlays> ref;
+        private final WeakReference<Overlays> ref;
         private String currentPackageName = "";
         private String currentDialogOverlay;
-        private String state;
+        private final String state;
 
         compileFunction(Overlays overlays, String state) {
             super();
@@ -1077,8 +1077,8 @@ enum OverlaysManager {
      * Concluding function to end the enabling process gracefully
      */
     static class finishEnableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         finishEnableFunction(Overlays overlays) {
             super();
@@ -1106,10 +1106,10 @@ enum OverlaysManager {
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         List<String> allInstalledOverlays = ThemeManager.listAllOverlays
                                 (context);
-                        for (int i = 0; i < allInstalledOverlays.size(); i++) {
-                            if (!Packages.getOverlayParent(context, allInstalledOverlays.get(i))
+                        for (String installedOverlay : allInstalledOverlays) {
+                            if (!Packages.getOverlayParent(context, installedOverlay)
                                     .equals(overlays.themePid)) {
-                                disableBeforeEnabling.add(allInstalledOverlays.get(i));
+                                disableBeforeEnabling.add(installedOverlay);
                             }
                         }
                         ThemeManager.disableOverlay(context, disableBeforeEnabling);
@@ -1134,8 +1134,8 @@ enum OverlaysManager {
      * Concluding function to end the disabling process gracefully
      */
     static class finishDisableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         finishDisableFunction(Overlays overlays) {
             super();
@@ -1180,8 +1180,8 @@ enum OverlaysManager {
      * Concluding function to end the swapping process gracefully
      */
     static class finishEnableDisableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         finishEnableDisableFunction(Overlays overlays) {
             super();
@@ -1226,10 +1226,10 @@ enum OverlaysManager {
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         List<String> allInstalledOverlays = ThemeManager.listAllOverlays
                                 (context);
-                        for (int i = 0; i < allInstalledOverlays.size(); i++) {
+                        for (String installedOverlay : allInstalledOverlays) {
                             if (!Packages.getOverlayParent(context,
-                                    allInstalledOverlays.get(i)).equals(overlays.themePid)) {
-                                disableBeforeEnabling.add(allInstalledOverlays.get(i));
+                                    installedOverlay).equals(overlays.themePid)) {
+                                disableBeforeEnabling.add(installedOverlay);
                             }
                         }
                         ThemeManager.disableOverlay(context, disableBeforeEnabling);
@@ -1252,9 +1252,9 @@ enum OverlaysManager {
      * Concluding function to end the update process gracefully
      */
     static class finishUpdateFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
-        private String state;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
+        private final String state;
 
         finishUpdateFunction(Overlays overlays, String state) {
             super();
@@ -1383,16 +1383,16 @@ enum OverlaysManager {
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         List<String> allInstalledOverlays = ThemeManager.listAllOverlays
                                 (context);
-                        for (String p : allInstalledOverlays) {
+                        for (String installedOverlay : allInstalledOverlays) {
                             if (!overlays.themePid.equals(Packages.
-                                    getOverlayParent(context, p))) {
-                                disableBeforeEnabling.add(p);
+                                    getOverlayParent(context, installedOverlay))) {
+                                disableBeforeEnabling.add(installedOverlay);
                             } else {
                                 for (OverlaysItem oi : overlays.currentInstance.checkedOverlays) {
                                     String targetOverlay = oi.getPackageName();
                                     if (targetOverlay.equals(
-                                            Packages.getOverlayTarget(context, p))) {
-                                        disableBeforeEnabling.add(p);
+                                            Packages.getOverlayTarget(context, installedOverlay))) {
+                                        disableBeforeEnabling.add(installedOverlay);
                                     }
                                 }
                             }
@@ -1419,9 +1419,9 @@ enum OverlaysManager {
                     }
 
                     List<String> toAnalyze = new ArrayList<>();
-                    List<OverlaysItem> totality = overlays.currentInstance.checkedOverlays;
-                    for (int i = 0; i < totality.size(); i++) {
-                        toAnalyze.add(totality.get(i).getPackageName());
+                    List<OverlaysItem> allOverlays = overlays.currentInstance.checkedOverlays;
+                    for (OverlaysItem overlay : allOverlays) {
+                        toAnalyze.add(overlay.getPackageName());
                     }
                     if (Packages.needsRecreate(context, toAnalyze)) {
                         new Handler(Looper.getMainLooper()).postDelayed(() -> {

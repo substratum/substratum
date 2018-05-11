@@ -145,6 +145,6 @@ public class SamsungOverlayCacher {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 }

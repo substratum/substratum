@@ -80,12 +80,14 @@ public class SamsungOverlayCacher {
     }
 
     public void updateSamsungCache(String overlay) {
-        ArrayList<String> overlayList = new ArrayList<>();
-        overlayList.add(overlay);
-        updateSamsungCache(overlayList);
+        if (!getOverlays(false).contains(overlay)) {
+            ArrayList<String> overlayList = new ArrayList<>();
+            overlayList.add(overlay);
+            updateSamsungCache(overlayList);
+        }
     }
 
-    public void updateSamsungCache(List<String> overlays) {
+    private void updateSamsungCache(List<String> overlays) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();

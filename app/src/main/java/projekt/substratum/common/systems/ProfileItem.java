@@ -30,7 +30,6 @@ public class ProfileItem {
 
     ProfileItem(final String packageName) {
         super();
-        String overlayTargetPackageName = packageName;
     }
 
     public String getTargetPackage() {

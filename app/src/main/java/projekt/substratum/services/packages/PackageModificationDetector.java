@@ -56,7 +56,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
     private static final String TAG = "SubstratumDetector";
 
-    public static PendingIntent getPendingIntent(Context context, String packageName) {
+    static PendingIntent getPendingIntent(Context context, String packageName) {
         Intent myIntent = new Intent(context, AppShortcutLaunch.class);
         myIntent.putExtra(THEME_PID, packageName);
         return PendingIntent.getActivity(

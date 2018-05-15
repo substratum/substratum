@@ -18,7 +18,6 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;

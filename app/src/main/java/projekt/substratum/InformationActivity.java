@@ -572,7 +572,7 @@ public class InformationActivity extends AppCompatActivity {
             if (!Systems.checkOMS(context)) {
                 for (String foundFolder : foundFolders) {
                     if (Resources.allowedForLegacy
-                            (foundFolder.toString())) {
+                            (foundFolder)) {
                         tabChecker.add(foundFolder.toString());
                     }
                 }

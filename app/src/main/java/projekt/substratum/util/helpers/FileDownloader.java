@@ -21,16 +21,14 @@ package projekt.substratum.util.helpers;
 import android.content.Context;
 import android.os.NetworkOnMainThreadException;
 import android.util.Log;
+import projekt.substratum.common.References;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import projekt.substratum.common.References;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 
@@ -73,31 +71,24 @@ public enum FileDownloader {
             }
 
             // Once the cache folder is created, start downloading the file
-            HttpURLConnection connection = null;
-            OutputStream output = null;
-            InputStream input = null;
-            try {
-                URL url = new URL(fileUrl);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
+            URL url = new URL(fileUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            String outputDir = context.getCacheDir().getAbsolutePath() + '/' +
+                    destinationFileOrFolder +
+                    (outputFile != null && !outputFile.isEmpty() ? '/' + outputFile : "");
+            Log.d(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);
+            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                Log.e("Server returned HTTP", connection.getResponseCode()
+                        + " " + connection.getResponseMessage());
+            }
+            connection.connect();
+            try (OutputStream output = new FileOutputStream(outputDir);
+                 InputStream input = connection.getInputStream()) {
 
                 // Expect HTTP 200 OK, so we don't mistakenly save error report
                 // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    Log.e("Server returned HTTP", connection.getResponseCode()
-                            + " " + connection.getResponseMessage());
-                }
 
                 // Download the file
-                input = connection.getInputStream();
-
-                String outputDir = context.getCacheDir().getAbsolutePath() + '/' +
-                        destinationFileOrFolder +
-                        (outputFile != null && !outputFile.isEmpty() ? '/' + outputFile : "");
-
-                Log.d(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);
-
-                output = new FileOutputStream(outputDir);
 
                 // Begin writing the data into the file
                 byte[] data = new byte[BYTE_ACCESS_RATE];
@@ -108,16 +99,7 @@ public enum FileDownloader {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                try {
-                    if (output != null)
-                        output.close();
-                    if (input != null)
-                        input.close();
-                } catch (IOException ignored) {
-                }
-
-                if (connection != null)
-                    connection.disconnect();
+                connection.disconnect();
                 Log.d("FileDownloader",
                         "File download function has concluded for '" + fileUrl + "'.");
             }

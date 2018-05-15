@@ -1148,7 +1148,7 @@ public class InformationActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.dialog_ok, (dialog, id12) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
-                            new uninsttheme(this).execute("");
+                            new uninstallTheme(this).execute("");
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id1) -> {
                             // User cancelled the dialog
@@ -1393,10 +1393,10 @@ public class InformationActivity extends AppCompatActivity {
     /**
      * Class to uninstall the current theme, of which closes out the theme just to end gracefully
      */
-    private static class uninsttheme extends AsyncTask<String, Integer, String> {
+    private static class uninstallTheme extends AsyncTask<String, Integer, String> {
         private final WeakReference<InformationActivity> ref;
 
-        uninsttheme(InformationActivity informationActivity) {
+        uninstallTheme(InformationActivity informationActivity) {
             super();
             ref = new WeakReference<>(informationActivity);
         }

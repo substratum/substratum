@@ -105,7 +105,6 @@
 
     <color name="overlay_installed_not_active">#ff4081</color>
     <color name="overlay_installed_list_entry">#00c853</color>
-    <color name="overlay_not_enabled_elsewhere_list_entry">#00b0ff</color>
     <color name="overlay_not_enabled_list_entry">#ef6c00</color>
     <color name="overlay_not_installed_list_entry">#4c000000</color>
     <color name="overlay_update_available">#d4b400</color>

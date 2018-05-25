@@ -24,15 +24,19 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/window_bg</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="android:navigationBarDividerColor">@color/navigation_bar_divider</item>
         <item name="android:statusBarColor">@color/statusBarColor</item>
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
+        <item name="android:windowLightNavigationBar">@bool/windowLightNavigationBar</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="AppTheme.InformationActivity" parent="AppTheme">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -41,6 +45,8 @@
         <item name="android:navigationBarColor">@color/splashscreen_background</item>
         <item name="android:statusBarColor">@color/splashscreen_background</item>
         <item name="android:windowLightStatusBar">@bool/SplashscreenWindowLightStatusBar</item>
+        <item name="android:windowLightNavigationBar">@bool/SplashscreenWindowLightNavigationBar
+        </item>
     </style>
 
 </resources>

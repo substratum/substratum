@@ -106,7 +106,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
-                } catch (ActivityNotFoundException activityNotFoundException) {
+                } catch (final ActivityNotFoundException ignored) {
                     Lunchbar.make(masterView,
                             getString(R.string.activity_missing_toast),
                             Snackbar.LENGTH_LONG)
@@ -173,10 +173,10 @@ public class ShowcaseActivity extends AppCompatActivity {
         }
         toolbar.setNavigationOnClickListener((view) -> onBackPressed());
 
-        File showcase_directory =
+        File showcaseDirectory =
                 new File(getApplicationContext().getCacheDir() + SHOWCASE_CACHE);
-        if (!showcase_directory.exists()) {
-            boolean made = showcase_directory.mkdir();
+        if (!showcaseDirectory.exists()) {
+            boolean made = showcaseDirectory.mkdir();
             if (!made)
                 Log.e(TAG, "Could not make showcase directory...");
         }
@@ -209,9 +209,8 @@ public class ShowcaseActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (result == null) {
+            if (result == null)
                 return;
-            }
 
             ShowcaseActivity activity = showcaseActivityWR.get();
 
@@ -220,9 +219,9 @@ public class ShowcaseActivity extends AppCompatActivity {
                 if (resultant.endsWith("-temp.xml")) {
                     String existing = MD5.calculateMD5(new File(activity.getCacheDir() +
                             SHOWCASE_CACHE + showcaseTabsFile));
-                    String new_file = MD5.calculateMD5(new File(activity.getCacheDir() +
+                    String newFile = MD5.calculateMD5(new File(activity.getCacheDir() +
                             SHOWCASE_CACHE + showcaseTabsTempFile));
-                    if ((existing != null) && !existing.equals(new_file)) {
+                    if ((existing != null) && !existing.equals(newFile)) {
                         // MD5s don't match
                         File renameMe = new File(activity.getCacheDir() +
                                 SHOWCASE_CACHE + showcaseTabsTempFile);

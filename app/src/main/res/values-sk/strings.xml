@@ -50,7 +50,7 @@
     <string name="systemui_statusbar">Ikony na stavovom riadku</string>
     <string name="warning_title">UPOZORNENIE!</string>
     <string name="legacy_warning_content">Staré systémy sú podporované tak ako-sú, nemôžeme zaručiť plnú kompatibilitu s farbami. Pred pokračovaním si skontrolujte, či máte vo vašom zariadení TWRP recovery a rozumiete ako obnoviť systém, ak náhodou skončíte v spúšťacej slučke  (bootloope).\n\nNa starých systémoch, ktoré nepodporujú zmenu tém, nemôžeme garantovať funkčnosť. Tieto systémy vyžadujú zmeny na strane ich systému.       </string>
-    <string name="samsung_warning_content">Samsung podpora je poskytovaná tak, ako-je, pretože nemôžeme zaručiť plnú kompatibilitu s farbami a prekrytiami na báze AOSP. Postarali sme sa o skrytie nebezpečných prekrytí pre vaše zariadenie, podľa vlastného uváženia môžete túto možnosť ručne vypnúť v nastaveniach.\n\nV každom prípade, ak narazíte na problém s čiernou obrazovkou, prečítajte si naše vlákno XDA o dvoch spôsoboch obnovenia.     </string>
+    <string name="samsung_warning_content">Samsung podpora je poskytovaná tak, ako-je, pretože nemôžeme zaručiť plnú kompatibilitu s farbami a prekrytiami na báze AOSP. Postarali sme sa o skrytie nebezpečných prekrytí pre vaše zariadenie, podľa vlastného uváženia môžete túto možnosť ručne vypnúť v nastaveniach.\n\nV každom prípade, ak narazíte na problém s čiernou obrazovkou, prečítajte si naše vlákno XDA o dvoch spôsoboch obnovenia.   </string>
     <string name="xiaomi_warning_content">Spoločnosť Xiaomi podnikla ďalšie kroky, aby zabránila Substratum fungovať.\n\nV Nastaveniach pre vývojárov musíte povoliť možnosti: \"Inštalovať cez USB\", \"Ladenie USB (Nastavenia zabezpečenia)\" ako aj zvyčajné \"Ladenie USB\".\n\ nBez týchto oprávnení by sa prekrytia nenainštalovali!</string>
     <string name="new_stock_commits_title">Vyžaduje sa reštart!</string>
     <string name="new_stock_commits_text">Po marcovej bezpečnostnej záplate spoločnosť Google implementovala kontrolu prekrytí, ktorá potrebuje reštart pre aktiváciu nainštalovaného/aktualizovaného prekrytia!</string>
@@ -163,7 +163,7 @@
     <string name="theme_information_tab_five">Tapety na plochu</string>
     <string name="theme_information_tab_six">Animácia pri vypnutí</string>
     <string name="uninstall_dialog_text">Naozaj chcete odinštalovať túto tému?</string>
-    <string name="manage_dialog_performing">Obnovenie do predvoleného stavu…</string>
+    <string name="manage_dialog_performing">Obnovenie do predvoleného stavu...</string>
     <string name="manage_bootanimation_title">Obnoviť spúšťaciu animáciu</string>
     <string name="manage_bootanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
     <string name="manage_shutdownanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
@@ -225,7 +225,7 @@
     <string name="error_loading_theme_close">Zavrieť</string>
     <string name="error_loading_theme_close_text">Názov balíka tejto témy sa musí zhodovať s názvom v adresároch manifestov a kódov pre správnu výmenu kľúčov.</string>
     <string name="logcat_snackbar_button">Správy protokolu LogChar</string>
-    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia…</string>
+    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia...</string>
     <string name="logcat_dialog_title">Správy protokolu ladenia \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Protokol chýb sa úspešne skopíroval do schránky!</string>
     <string name="logcat_send">Odoslať</string>

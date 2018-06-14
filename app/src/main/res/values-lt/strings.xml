@@ -246,6 +246,12 @@
     <string name="logcat_email_xposed_check">\"Xposed\" Struktūra</string>
     <string name="logcat_processing_dialog">Apdorojimo klaidos ataskaita</string>
     <string name="priority_instructions_title">Instrukcijos</string>
+    <string name="priority_instructions_content">Su dinaminę prioriteto sistema, jūs galiti koreguoti
+      perdangų prioritetus, lyginant juos su sluoksniais. Tai reiškia, kad aukščiausias
+      perdangos prioritetas bus užkrautas paskutinis ir pakeis resursus visoms perdangoms su
+      žemesniu prioritetu ir t. t.
+    
+      </string>
     <string name="priority_no_multiple_overlays_title">jokių programėlių su keliomis perdangomis</string>
     <string name="priority_no_multiple_overlays_text">įjunkite dvi ar daugiau perdangų vienai programėlei, kad galėtumėte mane naudoti!      </string>
     <string name="manager_no_overlays_title">neįdiegta jokių perdangų</string>
@@ -281,6 +287,8 @@
     <string name="dialog_do_not_show_again">Daugiau nerodyti</string>
     <string name="dialog_cancel">Atšaukti</string>
     <string name="sysserv_api_check_dialog_title">API Tikrinimas Nepavyko</string>
+    <string name="sysserv_api_check_dialog_text">Jūsų šiuo metu naudojamas \"ROM\" turi pasenusią mūsų sistemos versiją. Prašome informuoti mus per \"Telegram\" pokalbį, kokį ROM naudojate ir mes su jais susisieksime. Dėkojame!</string>
+    <string name="sysserv_api_check_help_link">https://t.me/joinchat/BTodxkJMTTTgYmCfPL7IIA</string>
     <string name="clean_dialog_body">Ar jūs norite išvalyti visas perdangas šiai temai?</string>
     <string name="disable_dialog_body">Ar jūs norite išjungti visas perdangas šiai temai?</string>
     <string name="enable_dialog_body">Ar jūs norite įjungti visas įdiegtas perdangas šiai temai?      </string>
@@ -420,6 +428,7 @@
     <string name="profile_compile_progress" formatted="false">Kompiliuojama %d iš %d\n%s</string>
     <string name="profile_compile_processing">Dabar apdorojamos jūsų išsaugotų perdangų būseną&#8230;</string>
     <string name="sungstromeda_mode_title">\"Sungstromeda\" režimas</string>
+    <string name="sungstromeda_mode_summary">Naudoti \"Substratum\" \"Sungstromeda\" režime senų perdangų tvarkymui.</string>
     <string name="theme_debug_mode_title">\"Legacy\" kompiliatoriaus atsarginis aplinkelis</string>
     <string name="theme_debug_mode_summary">Tai sustabdys programą naudoti \"legacy\" kompiliatoriaus atsarginį mechanizmą, kad padėti temoms, kai jie pasiekia nepataisoma būklę.</string>
     <string name="logchar_dialog_title_delete_title">DĖMESIO</string>

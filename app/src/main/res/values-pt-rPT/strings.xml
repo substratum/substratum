@@ -18,542 +18,542 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licensestranslatable="false"translatable="false" translatable="false" />.
   -->
 <resources>
-  <string name="showcase">expositor</string>
-  <string name="android">Versão Android:</string>
-  <string name="device">Modelo do dispositivo:</string>
-  <string name="resource_checker">Validador de submissões</string>
-  <string name="resource_checker_commons">Framework</string>
-  <string name="resource_checker_dialog_quit">Sair</string>
-  <string name="resource_not_validated">Foram fundidas novas submissões!</string>
-  <string name="resource_needs_internet">Por favor, ligue-se à Internet para validar as submissões da sua ROM!</string>
-  <string name="resource_validated">Todas as submissões estão intactas!</string>
-  <string name="rooted_oms_dialog_warning_title">Sobreposições Dinâmicas e Root</string>
-  <string name="rooted_oms_dialog_warning_text">Se estava connosco quando o masquerade era o nosso sistema, deve saber que para fazermos muitas das coisas com o OMS necessitávamos de root. Nesse tempo o sistema era extremamente lento!\n\nTambém tínhamos um modo em que o Substratum podia ser executado sem o Masquerade, que não libertava qualquer alteração de recursos da nossa própria aplicação, causando atrasos (lags) no Substratum ao ativar/desativar, uma vez que as alterações de configurações são extremamente pesadas!\n\nSe possível, recomendamos que use uma variante sem root como o Andromeda ou uma ROM personalizada com os nossos novos desenvolvimentos, para que possa usufruir de maior rapidez ao usar os temas.\n\nAo continuar a usar a variante com root, irão haver lags e problemas de performance com a aplicação devido ao Substratum não conseguir libertar qualquer alteração das configurações para o sistema!</string>
-  <string name="interfacer_notification_title">O Substratum e o Interfacer estão ligados!</string>
-  <string name="interfacer_notification_text">Os serviços de temas em segundo plano estão ativados e em execução.</string>
-  <string name="andromeda_notification_title">O Substratum e o Andromeda estão ligados!</string>
-  <string name="andromeda_notification_text">Os serviços de temas em segundo plano estão ativados e em execução.</string>
-  <string name="resource_commit_dialog_title">Recursos em falta em %s</string>
-  <string name="showcase_no_connection">o expositor de temas requer uma ligação de internet para
+    <string name="showcase">expositor</string>
+    <string name="android">Versão Android:</string>
+    <string name="device">Modelo do dispositivo:</string>
+    <string name="resource_checker">Validador de submissões</string>
+    <string name="resource_checker_commons">Framework</string>
+    <string name="resource_checker_dialog_quit">Sair</string>
+    <string name="resource_not_validated">Foram fundidas novas submissões!</string>
+    <string name="resource_needs_internet">Por favor, ligue-se à Internet para validar as submissões da sua ROM!</string>
+    <string name="resource_validated">Todas as submissões estão intactas!</string>
+    <string name="rooted_oms_dialog_warning_title">Sobreposições Dinâmicas e Root</string>
+    <string name="rooted_oms_dialog_warning_text">Se estava connosco quando o masquerade era o nosso sistema, deve saber que para fazermos muitas das coisas com o OMS necessitávamos de root. Nesse tempo o sistema era extremamente lento!\n\nTambém tínhamos um modo em que o Substratum podia ser executado sem o Masquerade, que não libertava qualquer alteração de recursos da nossa própria aplicação, causando atrasos (lags) no Substratum ao ativar/desativar, uma vez que as alterações de configurações são extremamente pesadas!\n\nSe possível, recomendamos que use uma variante sem root como o Andromeda ou uma ROM personalizada com os nossos novos desenvolvimentos, para que possa usufruir de maior rapidez ao usar os temas.\n\nAo continuar a usar a variante com root, irão haver lags e problemas de performance com a aplicação devido ao Substratum não conseguir libertar qualquer alteração das configurações para o sistema!</string>
+    <string name="interfacer_notification_title">O Substratum e o Interfacer estão ligados!</string>
+    <string name="interfacer_notification_text">Os serviços de temas em segundo plano estão ativados e em execução.</string>
+    <string name="andromeda_notification_title">O Substratum e o Andromeda estão ligados!</string>
+    <string name="andromeda_notification_text">Os serviços de temas em segundo plano estão ativados e em execução.</string>
+    <string name="resource_commit_dialog_title">Recursos em falta em %s</string>
+    <string name="showcase_no_connection">o expositor de temas requer uma ligação de internet para
         funcionar!
-    </string>
-  <string name="refused_to_install_notification_button">Remover tema</string>
-  <string name="refused_to_install_title_notification">O Themer rejeitou o tema instalado neste Samsung.</string>
-  <string name="refused_to_install_text_notification">Falha ao instalar %s.</string>
-  <string name="failed_to_install_title_notification">Falha ao instalar o tema OMS</string>
-  <string name="failed_to_install_text_notification">Falha ao instalar %s.</string>
-  <string name="actionbar_theme_count_loading">a carregar&#8230;</string>
-  <string name="actionbar_search">Procurar</string>
-  <string name="actionbar_changelog">Lista de alterações do tema</string>
-  <string name="settings_icons">Ícones das Definições</string>
-  <string name="systemui_headers">Cabeçalhos da IU do sist.</string>
-  <string name="systemui_navigation">Navegação da IU do sist.</string>
-  <string name="systemui_qs_tiles">Mosaicos das definições rápidas da IU do sist.</string>
-  <string name="systemui_statusbar">Ícones da Barra de Estado da IU do sist.</string>
-  <string name="warning_title">AVISO!</string>
-  <string name="legacy_warning_content">A compatibilidade é fornecida tal como está, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
+      </string>
+    <string name="refused_to_install_notification_button">Remover tema</string>
+    <string name="refused_to_install_title_notification">O Themer rejeitou o tema instalado neste Samsung.</string>
+    <string name="refused_to_install_text_notification">Falha ao instalar %s.</string>
+    <string name="failed_to_install_title_notification">Falha ao instalar o tema OMS</string>
+    <string name="failed_to_install_text_notification">Falha ao instalar %s.</string>
+    <string name="actionbar_theme_count_loading">a carregar&#8230;</string>
+    <string name="actionbar_search">Procurar</string>
+    <string name="actionbar_changelog">Lista de alterações do tema</string>
+    <string name="settings_icons">Ícones das Definições</string>
+    <string name="systemui_headers">Cabeçalhos da IU do sist.</string>
+    <string name="systemui_navigation">Navegação da IU do sist.</string>
+    <string name="systemui_qs_tiles">Mosaicos das definições rápidas da IU do sist.</string>
+    <string name="systemui_statusbar">Ícones da Barra de Estado da IU do sist.</string>
+    <string name="warning_title">AVISO!</string>
+    <string name="legacy_warning_content">A compatibilidade é fornecida tal como está, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
 conhecimentos sobre como recuperar de um bootloop antes de prosseguir.\n\nNão podemos
-corrigir coisas que não estão a receber temas em modo de compatibilidade, uma vez que exigem mudanças ao nível do sistema.    </string>
-  <string name="samsung_warning_content">O suporte para dispositivos Samsung é disponibilizado tal como está, uma vez que
+corrigir coisas que não estão a receber temas em modo de compatibilidade, uma vez que exigem mudanças ao nível do sistema.      </string>
+    <string name="samsung_warning_content">O suporte para dispositivos Samsung é disponibilizado tal como está, uma vez que
         não podemos garantir uma completa compatibilidade com cores e sobreposições do próprio AOSP. Tivemos o cuidado de
         esconder as sobreposições perigosas para o seu dispositivo, mas poderá desativar manualmente essa opção nas definições
         a seu próprio risco.\n\nSe por alguma razão encontrar problemas relacionados com um ecrã preto,
-        por favor consulte o tópico no XDA acerca dos dois métodos de recuperação.    </string>
-  <string name="xiaomi_warning_content">A Xiaomi adicionou passos adicionais para prevenir que o substratum funcione tal como funciona neste
+        por favor consulte o tópico no XDA acerca dos dois métodos de recuperação.      </string>
+    <string name="xiaomi_warning_content">A Xiaomi adicionou passos adicionais para prevenir que o substratum funcione tal como funciona neste
         momento.\n\nTerá de ter as opções \"Instalar através de USB\" e \"Depuração USB (Definições de Segurança)\"
         ativadas nas Opções de programador, assim como a habitual \"Depuração USB\".\n\nSem estas 
         permissões, as sobreposições não serão instaladas!
-    </string>
-  <string name="new_stock_commits_title">É necessário reiniciar!</string>
-  <string name="new_stock_commits_text">Com o patch de segurança de Março de 2018, a Google implementou uma validação às sobreposições que faz com que seja necessário reiniciar o dispositivo para ativar sobreposições instaladas/atualizadas!</string>
-  <string name="new_stock_commits_text_samsung">UTILIZADOR SAMSUNG! Adicionámos algumas coisas às sobreposições compiladas recentemente, coisas que a Samsung utiliza para identificar as suas próprias sobreposições. Isto significa que poderá precisar de esperar até que as suas sobreposições sejam instaladas antes de reiniciar o dispositivo, uma vez que a Samsung adicionou atrasos e bloqueios para a deteção de instalações de sobreposições.</string>
-  <string name="new_stock_commits_text_pink">Como tal, esta sobreposição ficará a cor-de-rosa e a possibilidade de ativar/desativar só ficará disponível depois de reiniciar.</string>
-  <string name="legacy_dialog_soft_reboot_title">É necessário reiniciar!</string>
-  <string name="legacy_dialog_soft_reboot_text">A executar no sistema Resource Runtime Overlay (RRO). É necessário reiniciar após a adição ou remoção de sobreposições.\n\nApós confirmação nesta caixa de diálogo o dispositivo irá reiniciar automaticamente, por isso, certifique-se de que guardou o seu trabalho antes de continuar.    </string>
-  <string name="activity_missing_toast">Desculpe, mas não foram encontradas aplicações capazes de lidar com este pedido!    </string>
-  <string name="abort_overlay_toast_success">Todas as sobreposições foram desinstaladas!</string>
-  <string name="rescue_toast">A recuperar o seu sistema&#8230;</string>
-  <string name="reboot_awaiting_manager_title">ERRO AO LER A SOBREPOSIÇÃO</string>
-  <string name="manager_theme_name">Tema: %s</string>
-  <string name="manager_type1a">Tipo1a: %s</string>
-  <string name="manager_type1b">Tipo1b: %s</string>
-  <string name="manager_type1c">Tipo1c: %s</string>
-  <string name="manager_type2">Tipo2: %s</string>
-  <string name="manager_type3">Tipo3: %s</string>
-  <string name="manager_type4">Tipo4: %s</string>
-  <string name="priorities_theme_name">Tema:</string>
-  <string name="priorities_type1a">Tipo1a:</string>
-  <string name="priorities_type1b">Tipo1b:</string>
-  <string name="priorities_type1c">Tipo1c:</string>
-  <string name="priorities_type2">Tipo2:</string>
-  <string name="priorities_type3">Tipo3:</string>
-  <string name="backend_not_authorized_title">Compilação de depuração do Substratum não autorizada!</string>
-  <string name="backend_not_authorized_text">Para usar esta compilação com a sua ROM personalizada, por favor ative \"Forçar autorização de todas as aplicações de temas\" nas Opções de Programador.\n\nSe não encontrar essa opção, por favor aborde o desenvolvedor da ROM sobre a falta dos últimos desenvolvimentos!</string>
-  <string name="information_activity_theme_improperly_setup">\"%s\" não tem recursos de tema disponíveis!</string>
-  <string name="legacy_preference_priority_title">Prioridade de ajuste de sobreposições</string>
-  <string name="legacy_preference_priority_text" formatted="false">Prioridade definida como: %d (padrão %d)</string>
-  <string name="grid_size_title">Colunas do visualizador de temas</string>
-  <string name="grid_size_text">O número de colunas está definido para: %d (padrão %d)</string>
-  <string name="lite_mode_title">Modo Leve</string>
-  <string name="lite_mode_text">Permite que certos elementos da IU sejam carregados no modo de poupança de energia.</string>
-  <string name="app_theme_title">Tema da aplicação</string>
-  <string name="app_theme_text">Tema da aplicação definido: %s</string>
-  <string name="app_theme_disabled">Predefinido</string>
-  <string name="app_theme_auto">Automático</string>
-  <string name="app_theme_dark">Escuro</string>
-  <string name="app_theme_change">Reinicie a aplicação para mudar de tema</string>
-  <string name="overlays_variant_substitute">%s&#8230;</string>
-  <string name="overlays_variant_default_1a">variante de tipo1a&#8230;</string>
-  <string name="overlays_variant_default_1b">variante de tipo1b&#8230;</string>
-  <string name="overlays_variant_default_1c">variante de tipo1c&#8230;</string>
-  <string name="overlays_variant_default_2">variante de tipo2&#8230;</string>
-  <string name="overlays_variant_default_3">variável da base padrão&#8230;</string>
-  <string name="overlays_variant_default_4">variante de tipo 4&#8230;</string>
-  <string name="overlays_up_to_date">ATUALIZADA (%s)</string>
-  <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
-  <string name="shutdownanimation_placeholder_text">Por favor, selecione uma animação de encerramento através da lista suspensa&#8230;</string>
-  <string name="shutdownanimation_defaults_text">Isto irá limpar qualquer animação personalizada de encerramento
+      </string>
+    <string name="new_stock_commits_title">É necessário reiniciar!</string>
+    <string name="new_stock_commits_text">Com o patch de segurança de Março de 2018, a Google implementou uma validação às sobreposições que faz com que seja necessário reiniciar o dispositivo para ativar sobreposições instaladas/atualizadas!</string>
+    <string name="new_stock_commits_text_samsung">UTILIZADOR SAMSUNG! Adicionámos algumas coisas às sobreposições compiladas recentemente, coisas que a Samsung utiliza para identificar as suas próprias sobreposições. Isto significa que poderá precisar de esperar até que as suas sobreposições sejam instaladas antes de reiniciar o dispositivo, uma vez que a Samsung adicionou atrasos e bloqueios para a deteção de instalações de sobreposições.</string>
+    <string name="new_stock_commits_text_pink">Como tal, esta sobreposição ficará a cor-de-rosa e a possibilidade de ativar/desativar só ficará disponível depois de reiniciar.</string>
+    <string name="legacy_dialog_soft_reboot_title">É necessário reiniciar!</string>
+    <string name="legacy_dialog_soft_reboot_text">A executar no sistema Resource Runtime Overlay (RRO). É necessário reiniciar após a adição ou remoção de sobreposições.\n\nApós confirmação nesta caixa de diálogo o dispositivo irá reiniciar automaticamente, por isso, certifique-se de que guardou o seu trabalho antes de continuar.      </string>
+    <string name="activity_missing_toast">Desculpe, mas não foram encontradas aplicações capazes de lidar com este pedido!      </string>
+    <string name="abort_overlay_toast_success">Todas as sobreposições foram desinstaladas!</string>
+    <string name="rescue_toast">A recuperar o seu sistema&#8230;</string>
+    <string name="reboot_awaiting_manager_title">ERRO AO LER A SOBREPOSIÇÃO</string>
+    <string name="manager_theme_name">Tema: %s</string>
+    <string name="manager_type1a">Tipo1a: %s</string>
+    <string name="manager_type1b">Tipo1b: %s</string>
+    <string name="manager_type1c">Tipo1c: %s</string>
+    <string name="manager_type2">Tipo2: %s</string>
+    <string name="manager_type3">Tipo3: %s</string>
+    <string name="manager_type4">Tipo4: %s</string>
+    <string name="priorities_theme_name">Tema:</string>
+    <string name="priorities_type1a">Tipo1a:</string>
+    <string name="priorities_type1b">Tipo1b:</string>
+    <string name="priorities_type1c">Tipo1c:</string>
+    <string name="priorities_type2">Tipo2:</string>
+    <string name="priorities_type3">Tipo3:</string>
+    <string name="backend_not_authorized_title">Compilação de depuração do Substratum não autorizada!</string>
+    <string name="backend_not_authorized_text">Para usar esta compilação com a sua ROM personalizada, por favor ative \"Forçar autorização de todas as aplicações de temas\" nas Opções de Programador.\n\nSe não encontrar essa opção, por favor aborde o desenvolvedor da ROM sobre a falta dos últimos desenvolvimentos!</string>
+    <string name="information_activity_theme_improperly_setup">\"%s\" não tem recursos de tema disponíveis!</string>
+    <string name="legacy_preference_priority_title">Prioridade de ajuste de sobreposições</string>
+    <string name="legacy_preference_priority_text" formatted="false">Prioridade definida como: %d (padrão %d)</string>
+    <string name="grid_size_title">Colunas do visualizador de temas</string>
+    <string name="grid_size_text">O número de colunas está definido para: %d (padrão %d)</string>
+    <string name="lite_mode_title">Modo Leve</string>
+    <string name="lite_mode_text">Permite que certos elementos da IU sejam carregados no modo de poupança de energia.</string>
+    <string name="app_theme_title">Tema da aplicação</string>
+    <string name="app_theme_text">Tema da aplicação definido: %s</string>
+    <string name="app_theme_disabled">Predefinido</string>
+    <string name="app_theme_auto">Automático</string>
+    <string name="app_theme_dark">Escuro</string>
+    <string name="app_theme_change">Reinicie a aplicação para mudar de tema</string>
+    <string name="overlays_variant_substitute">%s&#8230;</string>
+    <string name="overlays_variant_default_1a">variante de tipo1a&#8230;</string>
+    <string name="overlays_variant_default_1b">variante de tipo1b&#8230;</string>
+    <string name="overlays_variant_default_1c">variante de tipo1c&#8230;</string>
+    <string name="overlays_variant_default_2">variante de tipo2&#8230;</string>
+    <string name="overlays_variant_default_3">variável da base padrão&#8230;</string>
+    <string name="overlays_variant_default_4">variante de tipo 4&#8230;</string>
+    <string name="overlays_up_to_date">ATUALIZADA (%s)</string>
+    <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
+    <string name="shutdownanimation_placeholder_text">Por favor, selecione uma animação de encerramento através da lista suspensa&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Isto irá limpar qualquer animação personalizada de encerramento
         que esteja aplicada no seu dispositivo</string>
-  <string name="shutdownanimation_dialog_apply_text">A processar animação de encerramento&#8230;</string>
-  <string name="shutdownanimation_dialog_apply_success">Animação de encerramento aplicada!</string>
-  <string name="shutdownanimation_dialog_apply_failed">Falha ao aplicar a animação de encerramento&#8230;</string>
-  <string name="bootanimation_placeholder_text">Por favor, selecione uma animação de arranque através da lista suspensa&#8230;</string>
-  <string name="bootanimation_default_spinner">Por favor, selecione uma animação de arranque&#8230;</string>
-  <string name="bootanimation_spinner_set_defaults">Repor a animação de arranque predefinida&#8230;</string>
-  <string name="bootanimation_defaults_text">Isto irá limpar qualquer animação personalizada de arranque
+    <string name="shutdownanimation_dialog_apply_text">A processar animação de encerramento&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Animação de encerramento aplicada!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Falha ao aplicar a animação de encerramento&#8230;</string>
+    <string name="bootanimation_placeholder_text">Por favor, selecione uma animação de arranque através da lista suspensa&#8230;</string>
+    <string name="bootanimation_default_spinner">Por favor, selecione uma animação de arranque&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Repor a animação de arranque predefinida&#8230;</string>
+    <string name="bootanimation_defaults_text">Isto irá limpar qualquer animação personalizada de arranque
         que esteja aplicada no seu dispositivo</string>
-  <string name="bootanimation_dialog_apply_text">A processar a animação de arranque&#8230;</string>
-  <string name="bootanimation_dialog_apply_success">Animação de boot aplicada!</string>
-  <string name="bootanimation_dialog_apply_failed">Animação de boot falhou ao aplicar&#8230;</string>
-  <string name="wallpaper_dialog_wallpaper">Imagem de fundo do Ecrã Inicial</string>
-  <string name="wallpaper_dialog_lockscreen">Imagem de fundo do Ecrã de Bloqueio</string>
-  <string name="wallpaper_dialog_wallpaper_both">Imagem de fundo do ecrã inicial e do ecrã de bloqueio</string>
-  <string name="wallpaper_downloading">Carregando a imagem para dentro do cache&#8230;</string>
-  <string name="wallpaper_allscreen_success">Ambas as imagens de fundo do Ecrã Inicial e do Ecrã de Bloqueio foram configuradas!</string>
-  <string name="wallpaper_allscreen_error">Não foi possível aplicar as imagens de fundo do Ecrã Inicial e Ecrã de Bloqueio</string>
-  <string name="wallpaper_homescreen_success">A imagem de fundo do Ecrã Inicial foi configurada!</string>
-  <string name="wallpaper_homescreen_error">Não foi possível aplicar a imagem de fundo do Ecrã Inicial</string>
-  <string name="wallpaper_lockscreen_success">Imagem de fundo do Ecrã de Bloqueio configurada!</string>
-  <string name="wallpaper_lockscreen_error">Não foi possível aplicar a imagem de fundo do Ecrã de Bloqueio</string>
-  <string name="wallpaper_no_connection">É necessária uma ligação à internet para utilizar imagens de fundo do tema&#8230;</string>
-  <string name="wallpaper_no_wallpapers">Parece que a base de dados de imagens de fundo está vazia&#8230;</string>
-  <string name="font_placeholder_text">Por favor, escolha um pacote de tipos de letra 
+    <string name="bootanimation_dialog_apply_text">A processar a animação de arranque&#8230;</string>
+    <string name="bootanimation_dialog_apply_success">Animação de boot aplicada!</string>
+    <string name="bootanimation_dialog_apply_failed">Animação de boot falhou ao aplicar&#8230;</string>
+    <string name="wallpaper_dialog_wallpaper">Imagem de fundo do Ecrã Inicial</string>
+    <string name="wallpaper_dialog_lockscreen">Imagem de fundo do Ecrã de Bloqueio</string>
+    <string name="wallpaper_dialog_wallpaper_both">Imagem de fundo do ecrã inicial e do ecrã de bloqueio</string>
+    <string name="wallpaper_downloading">Carregando a imagem para dentro do cache&#8230;</string>
+    <string name="wallpaper_allscreen_success">Ambas as imagens de fundo do Ecrã Inicial e do Ecrã de Bloqueio foram configuradas!</string>
+    <string name="wallpaper_allscreen_error">Não foi possível aplicar as imagens de fundo do Ecrã Inicial e Ecrã de Bloqueio</string>
+    <string name="wallpaper_homescreen_success">A imagem de fundo do Ecrã Inicial foi configurada!</string>
+    <string name="wallpaper_homescreen_error">Não foi possível aplicar a imagem de fundo do Ecrã Inicial</string>
+    <string name="wallpaper_lockscreen_success">Imagem de fundo do Ecrã de Bloqueio configurada!</string>
+    <string name="wallpaper_lockscreen_error">Não foi possível aplicar a imagem de fundo do Ecrã de Bloqueio</string>
+    <string name="wallpaper_no_connection">É necessária uma ligação à internet para utilizar imagens de fundo do tema&#8230;</string>
+    <string name="wallpaper_no_wallpapers">Parece que a base de dados de imagens de fundo está vazia&#8230;</string>
+    <string name="font_placeholder_text">Por favor, escolha um pacote de tipos de letra 
         a partir da lista&#8230;</string>
-  <string name="font_default_spinner">Por favor, selecione um pacote de tipos de letra&#8230;</string>
-  <string name="font_spinner_set_defaults">Repor os tipos de letra predefinidos&#8230;</string>
-  <string name="fonts_defaults_text">Isto irá limpar quaisquer tipos de letra personalizados 
+    <string name="font_default_spinner">Por favor, selecione um pacote de tipos de letra&#8230;</string>
+    <string name="font_spinner_set_defaults">Repor os tipos de letra predefinidos&#8230;</string>
+    <string name="fonts_defaults_text">Isto irá limpar quaisquer tipos de letra personalizados 
         aplicados neste dispositivo</string>
-  <string name="font_dialog_apply_text">A processar pacote do tipo de letra&#8230;</string>
-  <string name="font_dialog_apply_success">O pacote do tipo de letra foi aplicado!</string>
-  <string name="font_dialog_apply_failed">Falha ao aplicar o pacote do tipo de letra&#8230;</string>
-  <string name="sounds_placeholder_text">Por favor, escolha um pacote de sons
+    <string name="font_dialog_apply_text">A processar pacote do tipo de letra&#8230;</string>
+    <string name="font_dialog_apply_success">O pacote do tipo de letra foi aplicado!</string>
+    <string name="font_dialog_apply_failed">Falha ao aplicar o pacote do tipo de letra&#8230;</string>
+    <string name="sounds_placeholder_text">Por favor, escolha um pacote de sons
         a partir da lista&#8230;</string>
-  <string name="sounds_spinner_set_defaults">Repor os sons predefinidos&#8230;
-    </string>
-  <string name="sounds_spinner_defaults_text">Isto irá limpar quaisquer sons personalizados
+    <string name="sounds_spinner_set_defaults">Repor os sons predefinidos&#8230;
+      </string>
+    <string name="sounds_spinner_defaults_text">Isto irá limpar quaisquer sons personalizados
         aplicados neste dispositivo</string>
-  <string name="sounds_dialog_apply_success">Pacote de sons aplicado!</string>
-  <string name="sounds_dialog_apply_failed">Falha ao aplicar pacote de sons&#8230;</string>
-  <string name="sounds_default_spinner">Por favor, selecione um pacote de sons&#8230;</string>
-  <string name="fonts_dialog_permissions_grant_toast2">Para permitir que o Substratum controle os tipos de letra do 
-        sistema, deve ativar \"Permitir modificar definições do sistema\".    </string>
-  <string name="error_loading_pack">Parece que este pacote não foi aplicado
+    <string name="sounds_dialog_apply_success">Pacote de sons aplicado!</string>
+    <string name="sounds_dialog_apply_failed">Falha ao aplicar pacote de sons&#8230;</string>
+    <string name="sounds_default_spinner">Por favor, selecione um pacote de sons&#8230;</string>
+    <string name="fonts_dialog_permissions_grant_toast2">Para permitir que o Substratum controle os tipos de letra do 
+        sistema, deve ativar \"Permitir modificar definições do sistema\".      </string>
+    <string name="error_loading_pack">Parece que este pacote não foi aplicado
         corretamente&#8230;</string>
-  <string name="sounds_alarm">Alarme</string>
-  <string name="sounds_notification">Notificação</string>
-  <string name="sounds_ringtone">Toques</string>
-  <string name="sounds_effect_tick">Sons de Touch do Sistema</string>
-  <string name="sounds_lock_sound">Sons de Bloqueio do Ecrã</string>
-  <string name="sounds_unlock_sound">Sons de Desbloqueio do Ecrã</string>
-  <string name="settings_about_substratum">Versão do Substratum</string>
-  <string name="settings_about_interfacer">Versão do Interfacer</string>
-  <string name="settings_about_interfacer_not_installed">Não instalado</string>
-  <string name="settings_about_andromeda">versão andromeda</string>
-  <string name="settings_about_samsung">versão sungstratum</string>
-  <string name="settings_about_oms_rro_version">Plataforma de temas:</string>
-  <string name="settings_about_oms_version_do">Sobreposições Dinâmicas (OMS)</string>
-  <string name="settings_about_oms_version_7">Projeto OMS</string>
-  <string name="settings_about_rro_version_2">RRO2 (Compatibilidade)</string>
-  <string name="settings_about_system_version">Plataforma do sistema</string>
-  <string name="theme_information_tab_one">Sobreposições</string>
-  <string name="theme_information_tab_two">Animações de arranque</string>
-  <string name="theme_information_tab_three">Pacotes de tipos de letra</string>
-  <string name="theme_information_tab_four">Pacotes de Sons</string>
-  <string name="theme_information_tab_five">Imagens de Fundo</string>
-  <string name="theme_information_tab_six">Animações de encerramento</string>
-  <string name="uninstall_dialog_text">Tem a certeza que deseja desinstalar este tema?</string>
-  <string name="manage_dialog_performing">Restaurando ao padrão&#8230;</string>
-  <string name="manage_bootanimation_title">Repor a animação de arranque</string>
-  <string name="manage_bootanimation_toast">Animação de Boot restaurada com sucesso!</string>
-  <string name="manage_shutdownanimation_toast">Animação de encerramento reposta com sucesso!</string>
-  <string name="manage_fonts_title">Repor o tipo de letra do sistema</string>
-  <string name="manage_fonts_toast">Tipos de letra restaurados com sucesso!</string>
-  <string name="manage_sounds_title">Repor os sons do sistema</string>
-  <string name="manage_sounds_toast">Áudio padrão restaurado com sucesso!</string>
-  <string name="manage_system_overlay_disable">Desativar todas as sobreposições ativas</string>
-  <string name="manage_system_overlay_uninstall">Remove todas as sobreposições instaladas</string>
-  <string name="manage_system_overlay_toast">Tema do Sistema está agora restaurando&#8230;</string>
-  <string name="manage_system_overlay_uninstall_toast">As sobreposições estão a ser desinstaladas em segundo plano&#8230;</string>
-  <string name="manage_system_not_permitted">Por favor, selecione uma sobreposição válida para alterar os estados.</string>
-  <string name="manage_wallpaper_home">Repor a imagem de fundo do ecrã inicial</string>
-  <string name="manage_wallpaper_lock">Repor a imagem de fundo do ecrã de bloqueio</string>
-  <string name="manage_wallpaper_all">Repor a imagem de fundo do ecrã inicial e do ecrã de bloqueio</string>
-  <string name="manage_wallpaper_home_toast">Imagem de fundo do Ecrã Inicial restaurada com sucesso!</string>
-  <string name="manage_wallpaper_lock_toast">Imagem de fundo do Ecrã de Bloqueio restaurada com sucesso!</string>
-  <string name="manage_wallpaper_all_toast">Imagem de fundo restaurada com sucesso!</string>
-  <string name="adapter_uninstalling" formatted="false">Removendo agora %s&#8230;</string>
-  <string name="plugin_template">Plugin</string>
-  <string name="accept">Accept</string>
-  <string name="deny">Negar</string>
-  <string name="permission_explanation_title">Visão geral de permissões</string>
-  <string name="permission_explanation_text">O Substratum pode não funcionar como esperado se
+    <string name="sounds_alarm">Alarme</string>
+    <string name="sounds_notification">Notificação</string>
+    <string name="sounds_ringtone">Toques</string>
+    <string name="sounds_effect_tick">Sons de Touch do Sistema</string>
+    <string name="sounds_lock_sound">Sons de Bloqueio do Ecrã</string>
+    <string name="sounds_unlock_sound">Sons de Desbloqueio do Ecrã</string>
+    <string name="settings_about_substratum">Versão do Substratum</string>
+    <string name="settings_about_interfacer">Versão do Interfacer</string>
+    <string name="settings_about_interfacer_not_installed">Não instalado</string>
+    <string name="settings_about_andromeda">versão andromeda</string>
+    <string name="settings_about_samsung">versão sungstratum</string>
+    <string name="settings_about_oms_rro_version">Plataforma de temas:</string>
+    <string name="settings_about_oms_version_do">Sobreposições Dinâmicas (OMS)</string>
+    <string name="settings_about_oms_version_7">Projeto OMS</string>
+    <string name="settings_about_rro_version_2">RRO2 (Compatibilidade)</string>
+    <string name="settings_about_system_version">Plataforma do sistema</string>
+    <string name="theme_information_tab_one">Sobreposições</string>
+    <string name="theme_information_tab_two">Animações de arranque</string>
+    <string name="theme_information_tab_three">Pacotes de tipos de letra</string>
+    <string name="theme_information_tab_four">Pacotes de Sons</string>
+    <string name="theme_information_tab_five">Imagens de Fundo</string>
+    <string name="theme_information_tab_six">Animações de encerramento</string>
+    <string name="uninstall_dialog_text">Tem a certeza que deseja desinstalar este tema?</string>
+    <string name="manage_dialog_performing">Restaurando ao padrão&#8230;</string>
+    <string name="manage_bootanimation_title">Repor a animação de arranque</string>
+    <string name="manage_bootanimation_toast">Animação de Boot restaurada com sucesso!</string>
+    <string name="manage_shutdownanimation_toast">Animação de encerramento reposta com sucesso!</string>
+    <string name="manage_fonts_title">Repor o tipo de letra do sistema</string>
+    <string name="manage_fonts_toast">Tipos de letra restaurados com sucesso!</string>
+    <string name="manage_sounds_title">Repor os sons do sistema</string>
+    <string name="manage_sounds_toast">Áudio padrão restaurado com sucesso!</string>
+    <string name="manage_system_overlay_disable">Desativar todas as sobreposições ativas</string>
+    <string name="manage_system_overlay_uninstall">Remove todas as sobreposições instaladas</string>
+    <string name="manage_system_overlay_toast">Tema do Sistema está agora restaurando&#8230;</string>
+    <string name="manage_system_overlay_uninstall_toast">As sobreposições estão a ser desinstaladas em segundo plano&#8230;</string>
+    <string name="manage_system_not_permitted">Por favor, selecione uma sobreposição válida para alterar os estados.</string>
+    <string name="manage_wallpaper_home">Repor a imagem de fundo do ecrã inicial</string>
+    <string name="manage_wallpaper_lock">Repor a imagem de fundo do ecrã de bloqueio</string>
+    <string name="manage_wallpaper_all">Repor a imagem de fundo do ecrã inicial e do ecrã de bloqueio</string>
+    <string name="manage_wallpaper_home_toast">Imagem de fundo do Ecrã Inicial restaurada com sucesso!</string>
+    <string name="manage_wallpaper_lock_toast">Imagem de fundo do Ecrã de Bloqueio restaurada com sucesso!</string>
+    <string name="manage_wallpaper_all_toast">Imagem de fundo restaurada com sucesso!</string>
+    <string name="adapter_uninstalling" formatted="false">Removendo agora %s&#8230;</string>
+    <string name="plugin_template">Plugin</string>
+    <string name="accept">Accept</string>
+    <string name="deny">Negar</string>
+    <string name="permission_explanation_title">Visão geral de permissões</string>
+    <string name="permission_explanation_text">O Substratum pode não funcionar como esperado se
         não tiver estas permissões essenciais garantidas.\n\n<b>Armazenamento: </b> O Substratum precisa de utilizar o seu
         armazenamento interno para guardar os ficheiros de recuperação, localizados em
         /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
         O Substratum utiliza o Firebase da Google para transferir em tempo real informações essenciais
         da nossa base de dados centralizada para melhorar serviços base e obter atualizações de segurança.
-    </string>
-  <string name="priority_back_title">Voltar para as sobreposições</string>
-  <string name="menu_clean">Limpar sobreposições</string>
-  <string name="menu_disable">Desativar sobreposições instaladas</string>
-  <string name="menu_enable">Ativar sobreposições instaladas</string>
-  <string name="menu_favorite">Favorito</string>
-  <string name="menu_unfavorite">Remover favorito</string>
-  <string name="menu_rate">Avaliar o tema</string>
-  <string name="menu_soft_reboot">Reinício de Software</string>
-  <string name="menu_reboot_device">Reiniciar Dispositivo</string>
-  <string name="menu_per_app">Interface Flutuante</string>
-  <string name="menu_restart_systemui">Reiniciar IU do sist.</string>
-  <string name="menu_alphabetize">Alterar o modo de classificação</string>
-  <string name="menu_state_prefix" formatted="false">Estado da sobreposição: %s</string>
-  <string name="menu_state_default">Todos</string>
-  <string name="menu_state_enabled">Ativado</string>
-  <string name="menu_state_disabled">Desativado</string>
-  <string name="menu_search">Temas na Play Store</string>
-  <string name="menu_showcase">Expositor</string>
-  <string name="menu_filter">Filtro</string>
-  <string name="menu_uninstall">Desinstalar</string>
-  <string name="menu_restore_info">Repor informação</string>
-  <string name="menu_showcase_info">Informação do Expositor</string>
-  <string name="menu_favorite_snackbar" formatted="false">%s foi definido como favorito com sucesso!</string>
-  <string name="menu_favorite_snackbar_cleared" formatted="false">%s foi removido dos favoritos.</string>
-  <string name="launcher_shortcut">Atalho na gaveta de aplicações</string>
-  <string name="launcher_shortcut_toast">Icon criado com sucesso!</string>
-  <string name="changelog_title" formatted="false">Lista de alterações do tema %s</string>
-  <string name="dialog_restart_systemui_title">Reiniciar IU do sist.</string>
-  <string name="dialog_restart_systemui_content">Reinicia a IU do sist. do seu dispositivo.</string>
-  <string name="dialog_restart_reboot_title">Reiniciar</string>
-  <string name="dialog_restart_reboot_content">Isto irá reiniciar o seu dispositivo.</string>
-  <string name="dialog_restart_soft_reboot_title">Reinício de Software</string>
-  <string name="dialog_restart_soft_reboot_content">Isto irá realizar uma reinicialização suave no seu dispositivo.</string>
-  <string name="studio_applying">A carregar&#8230;</string>
-  <string name="error_loading_theme_close">Fechar</string>
-  <string name="error_loading_theme_close_text">O nome do pacote deste tema tem de coincidir com o manifesto e pastas do código para uma troca de chaves adequada.</string>
-  <string name="logcat_snackbar_button">LogChar</string>
-  <string name="logcat_snackbar_text">Aplicação/sobreposição desatualizada ou configuração incompatível selecionada&#8230;</string>
-  <string name="logcat_dialog_title">Relatório de depuração LogChar</string>
-  <string name="logcat_dialog_copy_success">Log copiado para a área de transferência com sucesso!</string>
-  <string name="logcat_send">Enviar</string>
-  <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
-  <string name="logcat_email_activity_error">Não há clientes de email instalados.</string>
-  <string name="logcat_email_xposed_check">Xposed Framework</string>
-  <string name="logcat_processing_dialog">Relatório de erros de processamento</string>
-  <string name="priority_instructions_title">Instruções</string>
-  <string name="priority_instructions_content">Com o sistema de prioridades dinâmicas, pode ajustar
+      </string>
+    <string name="priority_back_title">Voltar para as sobreposições</string>
+    <string name="menu_clean">Limpar sobreposições</string>
+    <string name="menu_disable">Desativar sobreposições instaladas</string>
+    <string name="menu_enable">Ativar sobreposições instaladas</string>
+    <string name="menu_favorite">Favorito</string>
+    <string name="menu_unfavorite">Remover favorito</string>
+    <string name="menu_rate">Avaliar o tema</string>
+    <string name="menu_soft_reboot">Reinício de Software</string>
+    <string name="menu_reboot_device">Reiniciar Dispositivo</string>
+    <string name="menu_per_app">Interface Flutuante</string>
+    <string name="menu_restart_systemui">Reiniciar IU do sist.</string>
+    <string name="menu_alphabetize">Alterar o modo de classificação</string>
+    <string name="menu_state_prefix" formatted="false">Estado da sobreposição: %s</string>
+    <string name="menu_state_default">Todos</string>
+    <string name="menu_state_enabled">Ativado</string>
+    <string name="menu_state_disabled">Desativado</string>
+    <string name="menu_search">Temas na Play Store</string>
+    <string name="menu_showcase">Expositor</string>
+    <string name="menu_filter">Filtro</string>
+    <string name="menu_uninstall">Desinstalar</string>
+    <string name="menu_restore_info">Repor informação</string>
+    <string name="menu_showcase_info">Informação do Expositor</string>
+    <string name="menu_favorite_snackbar" formatted="false">%s foi definido como favorito com sucesso!</string>
+    <string name="menu_favorite_snackbar_cleared" formatted="false">%s foi removido dos favoritos.</string>
+    <string name="launcher_shortcut">Atalho na gaveta de aplicações</string>
+    <string name="launcher_shortcut_toast">Icon criado com sucesso!</string>
+    <string name="changelog_title" formatted="false">Lista de alterações do tema %s</string>
+    <string name="dialog_restart_systemui_title">Reiniciar IU do sist.</string>
+    <string name="dialog_restart_systemui_content">Reinicia a IU do sist. do seu dispositivo.</string>
+    <string name="dialog_restart_reboot_title">Reiniciar</string>
+    <string name="dialog_restart_reboot_content">Isto irá reiniciar o seu dispositivo.</string>
+    <string name="dialog_restart_soft_reboot_title">Reinício de Software</string>
+    <string name="dialog_restart_soft_reboot_content">Isto irá realizar uma reinicialização suave no seu dispositivo.</string>
+    <string name="studio_applying">A carregar&#8230;</string>
+    <string name="error_loading_theme_close">Fechar</string>
+    <string name="error_loading_theme_close_text">O nome do pacote deste tema tem de coincidir com o manifesto e pastas do código para uma troca de chaves adequada.</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Aplicação/sobreposição desatualizada ou configuração incompatível selecionada&#8230;</string>
+    <string name="logcat_dialog_title">Relatório de depuração LogChar</string>
+    <string name="logcat_dialog_copy_success">Log copiado para a área de transferência com sucesso!</string>
+    <string name="logcat_send">Enviar</string>
+    <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
+    <string name="logcat_email_activity_error">Não há clientes de email instalados.</string>
+    <string name="logcat_email_xposed_check">Xposed Framework</string>
+    <string name="logcat_processing_dialog">Relatório de erros de processamento</string>
+    <string name="priority_instructions_title">Instruções</string>
+    <string name="priority_instructions_content">Com o sistema de prioridades dinâmicas, pode ajustar
         as prioridades das sobreposições de camadas em níveis. Isto significa que
         a sobreposição com a maior prioridade irá ser carregada por último e substituirá os recursos de todas as sobreposições com 
         prioridades mais baixas, e assim sucessivamente.
-    </string>
-  <string name="priority_no_multiple_overlays_title">nenhuma aplicação com múltiplas sobreposições</string>
-  <string name="priority_no_multiple_overlays_text">ative duas ou mais sobreposições numa aplicação para poder usar-me!    </string>
-  <string name="manager_no_overlays_title">nenhuma sobreposição instalada</string>
-  <string name="manager_no_overlays_text">compile uma sobreposição para para poder usar-me!</string>
-  <string name="backup">Cópia de segurança das Sobreposições</string>
-  <string name="backup_card_content">Esta funcionalidade faz uma cópia da lista das suas sobreposições ativas atualmente 
+      </string>
+    <string name="priority_no_multiple_overlays_title">nenhuma aplicação com múltiplas sobreposições</string>
+    <string name="priority_no_multiple_overlays_text">ative duas ou mais sobreposições numa aplicação para poder usar-me!      </string>
+    <string name="manager_no_overlays_title">nenhuma sobreposição instalada</string>
+    <string name="manager_no_overlays_text">compile uma sobreposição para para poder usar-me!</string>
+    <string name="backup">Cópia de segurança das Sobreposições</string>
+    <string name="backup_card_content">Esta funcionalidade faz uma cópia da lista das suas sobreposições ativas atualmente 
       e guarda-a em \"/storage/emulated/0/substratum/profiles/\".
-    </string>
-  <string name="delete_dialog_okay">Eliminar</string>
-  <string name="delete_dialog_title">Eliminar perfil</string>
-  <string name="delete_dialog_text" formatted="false">Tem a certeza de que deseja eliminar \"%s\"?</string>
-  <string name="restore">Repor Sobreposições</string>
-  <string name="restore_card_content">Quando um perfil é carregado, as suas definições atuais são completamente
-        apagadas e a reposição do tema irá aplicar as alterações atualizadas.    </string>
-  <string name="remove_dialog_later">Depois</string>
-  <string name="restore_dialog_okay">Continuar</string>
-  <string name="restore_dialog_title">Estas sobreposições serão instaladas para repor completamente
+      </string>
+    <string name="delete_dialog_okay">Eliminar</string>
+    <string name="delete_dialog_title">Eliminar perfil</string>
+    <string name="delete_dialog_text" formatted="false">Tem a certeza de que deseja eliminar \"%s\"?</string>
+    <string name="restore">Repor Sobreposições</string>
+    <string name="restore_card_content">Quando um perfil é carregado, as suas definições atuais são completamente
+        apagadas e a reposição do tema irá aplicar as alterações atualizadas.      </string>
+    <string name="remove_dialog_later">Depois</string>
+    <string name="restore_dialog_okay">Continuar</string>
+    <string name="restore_dialog_title">Estas sobreposições serão instaladas para repor completamente
         o seu perfil:
-    </string>
-  <string name="backup_button">GUARDAR ESTADO ATUAL</string>
-  <string name="backup_no_overlays">Não há sobreposições na sua configuração atual.</string>
-  <string name="restore_button">REPOR PERFIL</string>
-  <string name="restore_button_none_selected_toast">Por favor, selecione um perfil
-        da lista suspensa para repô-lo!    </string>
-  <string name="profile_delete_button_none_selected_toast">Por favor, selecione um perfil
-        através da lista suspensa antes de tentar eliminar um perfil!    </string>
-  <string name="profile_edittext_hint">por favor, insira um nome para o seu perfil&#8230;</string>
-  <string name="profile_edittext_empty_toast">Por favor, introduza um nome para o seu perfil antes de guardar a cópia de segurança!    </string>
-  <string name="profile_edittext_title">Novo Perfil:</string>
-  <string name="profile_edittext_whitespace_warning_toast">Não é possível usar o espaço em branco dentro o nome do perfil!</string>
-  <string name="toast_backup_success" formatted="false">Lista atual de sobreposições guardada em \"/storage/emulated/0/substratum/profiles/%s\"    </string>
-  <string name="profile_restoration_message">A processar a reposição do perfil&#8230;</string>
-  <string name="spinner_default_item">selecione um perfil&#8230;</string>
-  <string name="select_to_toggle_all_overlays">Ativar/desativar todas as sobreposições</string>
-  <string name="permission_not_granted_dialog_title">Permissões não garantidas</string>
-  <string name="permission_not_granted_dialog_message1">Por favor, conceda ao Substratum
+      </string>
+    <string name="backup_button">GUARDAR ESTADO ATUAL</string>
+    <string name="backup_no_overlays">Não há sobreposições na sua configuração atual.</string>
+    <string name="restore_button">REPOR PERFIL</string>
+    <string name="restore_button_none_selected_toast">Por favor, selecione um perfil
+        da lista suspensa para repô-lo!      </string>
+    <string name="profile_delete_button_none_selected_toast">Por favor, selecione um perfil
+        através da lista suspensa antes de tentar eliminar um perfil!      </string>
+    <string name="profile_edittext_hint">por favor, insira um nome para o seu perfil&#8230;</string>
+    <string name="profile_edittext_empty_toast">Por favor, introduza um nome para o seu perfil antes de guardar a cópia de segurança!      </string>
+    <string name="profile_edittext_title">Novo Perfil:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Não é possível usar o espaço em branco dentro o nome do perfil!</string>
+    <string name="toast_backup_success" formatted="false">Lista atual de sobreposições guardada em \"/storage/emulated/0/substratum/profiles/%s\"      </string>
+    <string name="profile_restoration_message">A processar a reposição do perfil&#8230;</string>
+    <string name="spinner_default_item">selecione um perfil&#8230;</string>
+    <string name="select_to_toggle_all_overlays">Ativar/desativar todas as sobreposições</string>
+    <string name="permission_not_granted_dialog_title">Permissões não garantidas</string>
+    <string name="permission_not_granted_dialog_message1">Por favor, conceda ao Substratum
         permissões de armazenamento 
         ou a aplicação não funcionará corretamente!
-    </string>
-  <string name="dialog_check">Verificar</string>
-  <string name="dialog_ok">Ok</string>
-  <string name="dialog_do_not_show_again">Não mostrar de novo</string>
-  <string name="dialog_cancel">Cancelar</string>
-  <string name="sysserv_api_check_dialog_title">A verificação da API falhou</string>
-  <string name="sysserv_api_check_dialog_text">A ROM que está a usar tem uma versão desatualizada no nosso sistema de backend. Por favor, informe-nos através do chat do Telegram que ROM está a utilizar e nós iremos entrar em contacto com os seus desenvolvedores. Obrigado!</string>
-  <string name="sysserv_api_check_help_link">https://t.me/joinchat/BTodxkJMTTTgYmCfPL7IIA</string>
-  <string name="clean_dialog_body">Deseja limpar todas as sobreposições deste tema?</string>
-  <string name="disable_dialog_body">Deseja desativar todas as sobreposições deste tema?</string>
-  <string name="enable_dialog_body">Deseja ativar todas as sobreposições instaladas deste tema?    </string>
-  <string name="uninstall_dialog_body">Desinstalar</string>
-  <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
-  <string name="sb_phase_2_loader">a construir e instalar a sobreposição</string>
-  <string name="root_rejected_title">não foi possível reverter para o modo de root</string>
-  <string name="root_rejected_text">não existem atualmente outros motores de temas possíveis de serem utilizados neste dispositivo&#8230;</string>
-  <string name="toast_activity_finished" formatted="false">%s foi atualizado. A reiniciar para aplicar as alterações!</string>
-  <string name="toast_compiled_updated">Sobreposições selecionadas atualizadas!</string>
-  <string name="toast_compiled_missing">Uma ou mais sobreposições não podem ser compiladas devido à falta de configurações nestas definições&#8230;</string>
-  <string name="toast_compiled_updated_with_errors">Sobreposições selecionadas atualizadas com alguns erros!</string>
-  <string name="toast_disabled3">Por favor, compile esta sobreposições antes de aplicá-la!</string>
-  <string name="toast_disabled5">Por favor, selecione uma sobreposição válida antes de executar esta ação.</string>
-  <string name="toast_disabled6">Sobreposições selecionadas removidas!</string>
-  <string name="no_themes_title">nenhum tema encontrado&#8230;</string>
-  <string name="no_overlays_title">não foram encontradas sobreposições&#8230;</string>
-  <string name="no_themes_description">por favor, instale um tema compatível!</string>
-  <string name="no_themes_description_search" formatted="false">\"%s\" não foi encontrado na lista de temas
+      </string>
+    <string name="dialog_check">Verificar</string>
+    <string name="dialog_ok">Ok</string>
+    <string name="dialog_do_not_show_again">Não mostrar de novo</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="sysserv_api_check_dialog_title">A verificação da API falhou</string>
+    <string name="sysserv_api_check_dialog_text">A ROM que está a usar tem uma versão desatualizada no nosso sistema de backend. Por favor, informe-nos através do chat do Telegram que ROM está a utilizar e nós iremos entrar em contacto com os seus desenvolvedores. Obrigado!</string>
+    <string name="sysserv_api_check_help_link">https://t.me/joinchat/BTodxkJMTTTgYmCfPL7IIA</string>
+    <string name="clean_dialog_body">Deseja limpar todas as sobreposições deste tema?</string>
+    <string name="disable_dialog_body">Deseja desativar todas as sobreposições deste tema?</string>
+    <string name="enable_dialog_body">Deseja ativar todas as sobreposições instaladas deste tema?      </string>
+    <string name="uninstall_dialog_body">Desinstalar</string>
+    <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
+    <string name="sb_phase_2_loader">a construir e instalar a sobreposição</string>
+    <string name="root_rejected_title">não foi possível reverter para o modo de root</string>
+    <string name="root_rejected_text">não existem atualmente outros motores de temas possíveis de serem utilizados neste dispositivo&#8230;</string>
+    <string name="toast_activity_finished" formatted="false">%s foi atualizado. A reiniciar para aplicar as alterações!</string>
+    <string name="toast_compiled_updated">Sobreposições selecionadas atualizadas!</string>
+    <string name="toast_compiled_missing">Uma ou mais sobreposições não podem ser compiladas devido à falta de configurações nestas definições&#8230;</string>
+    <string name="toast_compiled_updated_with_errors">Sobreposições selecionadas atualizadas com alguns erros!</string>
+    <string name="toast_disabled3">Por favor, compile esta sobreposições antes de aplicá-la!</string>
+    <string name="toast_disabled5">Por favor, selecione uma sobreposição válida antes de executar esta ação.</string>
+    <string name="toast_disabled6">Sobreposições selecionadas removidas!</string>
+    <string name="no_themes_title">nenhum tema encontrado&#8230;</string>
+    <string name="no_overlays_title">não foram encontradas sobreposições&#8230;</string>
+    <string name="no_themes_description">por favor, instale um tema compatível!</string>
+    <string name="no_themes_description_search" formatted="false">\"%s\" não foi encontrado na lista de temas
         instalados&#8230;</string>
-  <string name="no_overlays_description_search" formatted="false">\"%s\" não foi encontrada na lista de
+    <string name="no_overlays_description_search" formatted="false">\"%s\" não foi encontrada na lista de
         sobreposições instaladas&#8230;</string>
-  <string name="toast_andromeda_timed_out">O substratum não conseguiu ligar-se ao backend do Andromeda.</string>
-  <string name="toast_could_not_uninstall">Sem sobreposições válidas selecionadas.</string>
-  <string name="dialog_close_button">Fechar o substratum</string>
-  <string name="toast_samsung_prototype_alert">O Substratum irá esconder automaticamente sobreposições de sistema não suportadas pelo seu dispositivo!</string>
-  <string name="andromeda_debug_menu_alert">está atualmente a executar uma compilação de depuração do substratum. certifique-se de que tem a opção \"Permitir compilações de depuração do substratum\" ativada nas definições do Andromeda.</string>
-  <string name="andromeda_disconnected">O cliente da área de trabalho do Andromeda necessita de se ligar ao seu dispositivo para funcionar com o substratum!\n\nAinda pode desinstalar sobreposições existentes que tenha instaladas no dispositivo através do modo offline.</string>
-  <string name="andromeda_no_firebase">parece que a verificação falhou. tente forçar o encerramento do substratum e voltar a iniciar. se o problema persistir, por favor tente reinstalar o addon da Play Store!</string>
-  <string name="andromeda_check_status">Verificar estado</string>
-  <string name="andromeda_offline_mode">Modo offline</string>
-  <string name="andromeda_no_root_dialog">Parece que está a utilizar um dispositivo suportado com Android Oreo. Foi lançado um plugin para torná-lo compatível!</string>
-  <string name="andromeda_no_root_dialog_button">Transferir agora!</string>
-  <string name="samsung_prototype_no_root_dialog">Parece que está a utilizar um dispositivo Samsung suportado. Foi lançado um plugin para torná-lo compatível!</string>
-  <string name="samsung_prototype_no_root_dialog_button">Transferir agora!</string>
-  <string name="samsung_prototype_no_firebase_dialog">Parece que está a utilizar um dispositivo Samsung suportado, mas o Firebase não pôde ser verificado. Por favor, tente utilizar uma VPN e reinstale a aplicação do Substratum, uma vez que o seu país pode tê-la bloqueado!</string>
-  <string name="samsung_prototype_reinstall_dialog">Parece que está a utilizar um dispositivo Samsung suportado com o addon da Samsung instalado. Contudo, a verificação falhou. Por favor, tente reinstalar o addon a partir da PlayStore!</string>
-  <string name="samsung_framework">Samsung Common Framework</string>
-  <string name="lg_framework">LG Common Framework</string>
-  <string name="notification_theme_installed">instalado</string>
-  <string name="notification_theme_updated">atualizado</string>
-  <string name="notification_theme_installed_content">Tema instalado com sucesso.</string>
-  <string name="notification_theme_updated_content">Recursos atualizados com sucesso.</string>
-  <string name="notification_initial_title">O Substratum está em execução</string>
-  <string name="notification_initial_title_upgrade_intent" formatted="false">A atualizar as sobreposições de %s&#8230;</string>
-  <string name="notification_done_title">Compilação do tema completa</string>
-  <string name="notification_done_upgrade_title" formatted="false">A atualização da sobreposição para %s foi concluída!</string>
-  <string name="notification_done_upgrade_title_warning" formatted="false">A atualização da sobreposição para %s foi parcialmente concluída!</string>
-  <string name="notification_done_upgrade_title_failed" formatted="false">Configuração em falta ou incorreta:\n\n%s</string>
-  <string name="notification_done_update_text">Todas as sobreposições desta aplicação foram atualizadas.</string>
-  <string name="notification_done_upgrade_text">Todas as sobreposições deste tema foram atualizadas.</string>
-  <string name="notification_no_errors_found">Não ocorreram erros ao instalar as sobreposições selecionadas</string>
-  <string name="notification_some_errors_found">Ocorreu um erro durante a instalação da sobreposição</string>
-  <string name="notification_processing">A processar sobreposições para</string>
-  <string name="notification_processing_n">A preparar sobreposições do tema&#8230;</string>
-  <string name="shortcut_floatui">Interface Flutuante</string>
-  <string name="shortcut_rescue">Salvem-me!</string>
-  <string name="shortcut_rescue_disabled">Salvem-me!</string>
-  <string name="shortcut_store">Expositor de Temas</string>
-  <string name="shortcut_store_disabled">Expositor de Temas</string>
-  <string name="shortcut_overlay_manager">Gestor de Sobreposições</string>
-  <string name="shortcut_overlay_manager_disabled">Gestor de Sobreposições</string>
-  <string name="settings_title">Sobre</string>
-  <string name="settings_title_1">Preferências do utilizador</string>
-  <string name="settings_title_3">Aplicação de temas</string>
-  <string name="settings_title_clickable">Preferências do sistema</string>
-  <string name="vibrate_on_compiled">Notificar após o tema ser compilado</string>
-  <string name="vibrate_on_compiled_description">Quando o tema for compilado, notificar o utilizador através de vibração de que a compilação foi finalizada.</string>
-  <string name="manage_notification_channel">Gerir notificações</string>
-  <string name="hide_app_icon">Mostrar ícone da aplicação</string>
-  <string name="hide_app_icon_toast_enabled">O ícone da aplicação foi removido da sua gaveta de aplicações!</string>
-  <string name="hide_app_icon_toast_disabled">O ícone da aplicação foi adicionado à gaveta de aplicações!</string>
-  <string name="hide_app_icon_not_supported">Mudança não suportada</string>
-  <string name="hide_app_icon_supported">Isto irá permitir que alterne entre ter o ícone da gaveta de aplicações visível ou invisível no seu ecrã inicial.</string>
-  <string name="disable_completion">Todas as sobreposições deste tema estão a ser desativadas&#8230;</string>
-  <string name="enable_completion">Todas as sobreposições instaladas deste tema estão agora a ser ativadas&#8230;</string>
-  <string name="logchar_autosave_title">Manter relatórios LogChar</string>
-  <string name="logchar_autosave_subtext">Todos os relatórios de LogChar serão armazenados em /storage/emulated/0/substratum/LogCharReports /.</string>
-  <string name="auto_disable_target_overlays">Auto-desativar outras sobreposições para o alvo</string>
-  <string name="auto_disable_target_overlays_on">Outras sobreposições alvo serão desativadas quando instalar/ativar uma nova sobreposição</string>
-  <string name="auto_disable_target_overlays_off">Outras sobreposições alvo irão permanecer inalteradas quando instalar/ativar uma nova sobreposição</string>
-  <string name="fab_menu_compile_enable">Compilar e Ativar</string>
-  <string name="fab_menu_compile_update">Compilar e Atualizar</string>
-  <string name="fab_menu_compile_install">Instalar selecionados</string>
-  <string name="fab_menu_uninstall">Desinstalar selecionados</string>
-  <string name="fab_menu_disable">Desativar seleção</string>
-  <string name="fab_menu_enable">Ativar seleção</string>
-  <string name="fab_menu_enable_disable">Alterar os estados das sobreposições</string>
-  <string name="fab_menu_swap_toggle">Desativar outros temas</string>
-  <string name="fab_menu_swap_toggle_legacy">Remover todos existentes</string>
-  <string name="team_title_one">Líderes do Substratum</string>
-  <string name="team_text_one">Não só criamos algo que funcionasse para os utilizadores, como também trabalhamos em conjunto com criadores de temas para criar um motor de temas incrível para a comunidade!</string>
-  <string name="team_title_two">Tradutores do Substratum</string>
-  <string name="translator_name">Nome</string>
-  <string name="translator_languages">Línguas</string>
-  <string name="translator_words">Palavras</string>
-  <string name="github_repository">Repositório GitHub</string>
-  <string name="team_title_three">Contribuidores do Substratum</string>
-  <string name="team_title_four">Contribuidores de Camadas</string>
-  <string name="team_nicholas_description">Coordenador de Desenvolvimento</string>
-  <string name="team_syko_description">Investigador de Sistemas</string>
-  <string name="team_ivan_description">Plataforma e Funcionalidades</string>
-  <string name="team_surge_description">Binários e Algoritmos</string>
-  <string name="team_char_description">Apoio e Organização Comunitária</string>
-  <string name="team_harsh_description">Plataforma e Funcionalidades</string>
-  <string name="slide_1_title">bem-vindo ao Substratum</string>
-  <string name="slide_1_text">um motor de temas simples mas potente com base no serviço de gestor de sobreposições da Sony</string>
-  <string name="slide_2_title">uma nova interface de utilizador</string>
-  <string name="slide_2_text">adora os seus temas? apresentamos uma linda interface baseada em cartões para expor cada um dos temas instalados no seu dispositivo!</string>
-  <string name="slide_3_title">aplicação de temas por aplicação no seu melhor</string>
-  <string name="slide_3_text">não tem a certeza se quer o seu Google+ com tal tema? tudo bem, escolha apenas o que quer personalizar a partir da lista de sobreposições!</string>
-  <string name="slide_4_title">compilar? ativar? desativar? onde?</string>
-  <string name="slide_4_text">para começar a usar o tema, pode compilar (faça isto em primeiro lugar!), ativar ou desativar cada sobreposição diretamente no seu dispositivo ao tocar no botão de ação flutuante após a seleção das sobreposições.</string>
-  <string name="slide_5_title">enquanto compilamos as suas sobreposições&#8230;</string>
-  <string name="slide_5_text">Pode voltar às suas aplicações enquanto deixa que as sobreposições compilem em segundo plano, já que este processo pode demorar um pouco. Basta verificar o painel de notificações para ver o progresso!</string>
-  <string name="slide_6_title">esperamos que goste da nossa criação!</string>
-  <string name="slide_6_text">agradecemos por ter lido esta introdução e esperamos que goste de usar o Substratum tanto quanto nós gostámos de desenvolvê-lo!</string>
-  <string name="scheduled_night_profile">Agendamento de Perfis Contextualizados</string>
-  <string name="scheduled_profile_card_content">Esta função dá-lhe a possibilidade de alternar automaticamente entre perfis com base em horários especificados.</string>
-  <string name="scheduled_profile_apply_success">Perfil agendado aplicado com sucesso!</string>
-  <string name="scheduled_profile_disable_success">Perfil agendado desativado com sucesso!</string>
-  <string name="active_time">Horário noturno</string>
-  <string name="start_time">Início</string>
-  <string name="end_time">Fim</string>
-  <string name="day_profile">Perfil diurno</string>
-  <string name="night_profile">Perfil noturno</string>
-  <string name="apply">Aplicar</string>
-  <string name="time_empty_warning">Configurar hora de início e fim!</string>
-  <string name="time_equal_warning">Por favor, escolha horários de ativação diferentes!</string>
-  <string name="profile_empty_warning">Por favor, selecione todos os perfis que quer ativados!</string>
-  <string name="profile_notification_title_day">Dia</string>
-  <string name="profile_notification_title_night">Noite</string>
-  <string name="profile_notification_title" formatted="false">Perfil de %s</string>
-  <string name="profile_pending_notification">O peefil será alterado após o ecrã desligar.</string>
-  <string name="profile_success_notification">Perfil aplicado com sucesso!</string>
-  <string name="profile_failed_notification">Falha ao aplicar perfil&#8230;</string>
-  <string name="profile_failed_info_notification">Toque para mais informações</string>
-  <string name="profile_compile_progress" formatted="false">A compilar %d de %d:\n%s</string>
-  <string name="profile_compile_processing">A guardar os estados das suas sobreposições&#8230;</string>
-  <string name="sungstromeda_mode_title">Modo Sungstromeda</string>
-  <string name="sungstromeda_mode_summary">Utilize o Substratum no modo Sungstromeda para usar o tratamento antigo de sobreposições.</string>
-  <string name="theme_debug_mode_title">Ignorar reversão para o compilador antigo</string>
-  <string name="theme_debug_mode_summary">Isto irá impedir a aplicação de utilizar o mecanismo de reversão para o compilador antigo de forma a auxiliar os temas caso atinjam um estado irrecuperável.</string>
-  <string name="logchar_dialog_title_delete_title">ATENÇÃO</string>
-  <string name="logchar_dialog_title_delete_content">Isto irá apagar todos os registos atualmente guardados. Se prosseguir, todos os registos serão apagados e não serão guardados mais registos.</string>
-  <string name="break_compilation_dialog_title">AVISO</string>
-  <string name="break_compilation_dialog_content">Isto pode parar completamente o processo de compilação. Ative esta opção apenas se souber o que está a fazer!</string>
-  <string name="break_compilation_dialog_continue">Continuar</string>
-  <string name="theme_safety_dialog_title">AVISO</string>
-  <string name="theme_safety_dialog_content">Esta é uma funcionalidade fundamental para recuperação em caso de encerramentos forçados derivados de sobreposições problemáticas! Se se encontrar com problemas, pode utilizar o botão \"Salvem-me!\" no atalho da aplicação do Substratum. Se isso não for possível, a sua última opção passará por \"flashar\" os ficheiros de recuperação localizados em /storage/emulated/0/substratum/.</string>
-  <string name="profile_dialog_title">selecione os itens de que deseja fazer cópia de segurança</string>
-  <string name="profile_no_selection_warning">Por favor, selecione pelo menos uma opção!</string>
-  <string name="profile_boot_animation">Animação de Boot</string>
-  <string name="profile_font">Tipos de Letra</string>
-  <string name="profile_overlay">Sobreposições</string>
-  <string name="profile_sound">Sons</string>
-  <string name="profile_wallpaper">Imagens de Fundo</string>
-  <string name="profile_dialog_ok">Ok</string>
-  <string name="settings_system_status">Certificação do sistema</string>
-  <string name="settings_system_status_andromeda">Modo Andromeda</string>
-  <string name="settings_system_status_rooted">Modo root</string>
-  <string name="settings_system_status_rootless">Modo de Interfacer</string>
-  <string name="settings_system_status_ss">Modo de serviço do Substratum</string>
-  <string name="settings_system_status_samsung">Modo Samsung</string>
-  <string name="settings_system_status_samsung_andromeda">Samsung + modo Andromeda</string>
-  <string name="settings_system_status_certified">Certificado</string>
-  <string name="settings_system_status_uncertified">Não certificado</string>
-  <string name="settings_title_automation">Automação</string>
-  <string name="settings_auto_updater_title">Atualização de sobreposições de aplicações</string>
-  <string name="settings_auto_updater_text">Compilar e instalar automaticamente uma versão atualizada de todas as sobreposições para a aplicação recentemente atualizada e com tema aplicado.</string>
-  <string name="settings_theme_auto_updater_title">Atualização de sobreposições dos temas</string>
-  <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
-  <string name="settings_theme_auto_updater_text">Compilar e instalar automaticamente uma versão atualizada de todas as sobreposições para o tema recentemente atualizado.</string>
-  <string name="settings_theme_auto_updater_dialog_text">Por favor, NÃO mantenha o Instalador de Pacotes aberto em primeiro plano enquanto a notificação estiver ativa. As sobreposições de framework tendem a reiniciar o Instalador de Pacotes, causando quantidades indefinidas de recompilações!</string>
-  <string name="settings_auto_alert_title">Alerta de nova sobreposições instalável</string>
-  <string name="settings_auto_alert_text">Mostrar uma notificação quando uma aplicação recentemente instalada tiver uma sobreposição disponível num tema.</string>
-  <string name="settings_force_english_title">Forçar a língua inglesa</string>
-  <string name="settings_force_english_text">Forçar a aplicação a usar a língua inglesa.</string>
-  <string name="settings_manage_space_title">Gerir a utilização do armazenamento</string>
-  <string name="settings_samsung_show_dangerous_overlays">Permitir sobreposições perigosas</string>
-  <string name="settings_samsung_show_dangerous_overlays_text">Mostrar todas as sobreposições habitualmente perigosas para os dispositivos Samsung se o tema não as suportar.</string>
-  <string name="settings_samsung_show_dangerous_overlays_warning_title">AVISO</string>
-  <string name="settings_samsung_show_dangerous_overlays_warning">Escondemos as sobreposições perigosas por alguma razão, mas se tem a certeza de que as quer ativar, por favor siga as instruções no nosso tópico do XDA!</string>
-  <string name="settings_crash_receiver_title">Recetor de Segurança para Encerramentos Forçados de Temas</string>
-  <string name="settings_crash_receiver_text">Desativar automaticamente uma sobreposição quando forem detetados encerramentos forçados de forma repetitiva numa aplicação com a sobreposição aplicada.</string>
-  <string name="overlays_outdated">Sobreposições desatualizadas</string>
-  <string name="overlays_outdated_message">A partir da versão 816 (inclusivé), a nossa assinatura para assinar as sobreposições foi alterada para prevenir possíveis desajustes futuros.\n\nIsto significa que as suas sobreposições instaladas devem ser limpas de forma a serem instaladas novas atualizações de temas, caso contrário irá obter mensagens eternamente a alertarem-no de que as suas sobreposições necessitam de ser atualizadas!\n\nEsta mensagem não irá ser mostrada quando todas as sobreposições forem compiladas através do novo Substratum.</string>
-  <string name="root_required_title">Root necessário</string>
-  <string name="root_required_boot_animation">O seu dispositivo está encriptado, por isso será necessário root para aplicar animações de arranque.</string>
-  <string name="root_required_boot_animation_profile">O seu dispositivo está encriptado. Por isso, será necessário root para realizar cópias de segurança e restauros de animações de arranque.</string>
-  <string name="per_app_notification_summary">A Interface Flutuante está a filtrar as suas aplicações dinamicamente!</string>
-  <string name="per_app_notification_framework_show">Mostrar sobreposições do Sistema Android</string>
-  <string name="per_app_notification_framework_hide">Esconder sobreposições do Sistema Android</string>
-  <string name="per_app_toast_no_overlays" formatted="false">Não há sobreposições configuráveis para %s!</string>
-  <string name="per_app_apply">Aplicar</string>
-  <string name="per_app_request_title">Permissões da Interface Flutuante</string>
-  <string name="per_app_draw_over_other_apps_request">Por favor, conceda ao Substratum permissões de \"Desenhar sobre outras aplicações\" para a IU Flutuante e \"Acesso de utilização\" para aceder à aplicação em primeiro plano, de forma a corresponder os alvos do tema.</string>
-  <string name="per_app_usage_stats_request">Por favor, conceda ao Substratum permissões de \"Acesso de utilização\" da aplicação em primeiro plano, de forma a corresponder os alvos do tema.</string>
-  <string name="per_app_manual_grant">Por favor, conceda manualmente ao Substratum permissões de \"Desenhar sobre outras aplicações\" e \"Acesso de utilização\" nas Definições da aplicação para poder utilizar a Interface Flutuante!</string>
-  <string name="notification_overlay_found_specific" formatted="false">Uma sobreposição para %s está em %s!</string>
-  <string name="notification_overlay_found_description">Pode abrir o tema clicando nesta notificação!</string>
-  <string name="system_crash_text">O seu sistema recarregou os recursos do Substratum. A aplicação
+    <string name="toast_andromeda_timed_out">O substratum não conseguiu ligar-se ao backend do Andromeda.</string>
+    <string name="toast_could_not_uninstall">Sem sobreposições válidas selecionadas.</string>
+    <string name="dialog_close_button">Fechar o substratum</string>
+    <string name="toast_samsung_prototype_alert">O Substratum irá esconder automaticamente sobreposições de sistema não suportadas pelo seu dispositivo!</string>
+    <string name="andromeda_debug_menu_alert">está atualmente a executar uma compilação de depuração do substratum. certifique-se de que tem a opção \"Permitir compilações de depuração do substratum\" ativada nas definições do Andromeda.</string>
+    <string name="andromeda_disconnected">O cliente da área de trabalho do Andromeda necessita de se ligar ao seu dispositivo para funcionar com o substratum!\n\nAinda pode desinstalar sobreposições existentes que tenha instaladas no dispositivo através do modo offline.</string>
+    <string name="andromeda_no_firebase">parece que a verificação falhou. tente forçar o encerramento do substratum e voltar a iniciar. se o problema persistir, por favor tente reinstalar o addon da Play Store!</string>
+    <string name="andromeda_check_status">Verificar estado</string>
+    <string name="andromeda_offline_mode">Modo offline</string>
+    <string name="andromeda_no_root_dialog">Parece que está a utilizar um dispositivo suportado com Android Oreo. Foi lançado um plugin para torná-lo compatível!</string>
+    <string name="andromeda_no_root_dialog_button">Transferir agora!</string>
+    <string name="samsung_prototype_no_root_dialog">Parece que está a utilizar um dispositivo Samsung suportado. Foi lançado um plugin para torná-lo compatível!</string>
+    <string name="samsung_prototype_no_root_dialog_button">Transferir agora!</string>
+    <string name="samsung_prototype_no_firebase_dialog">Parece que está a utilizar um dispositivo Samsung suportado, mas o Firebase não pôde ser verificado. Por favor, tente utilizar uma VPN e reinstale a aplicação do Substratum, uma vez que o seu país pode tê-la bloqueado!</string>
+    <string name="samsung_prototype_reinstall_dialog">Parece que está a utilizar um dispositivo Samsung suportado com o addon da Samsung instalado. Contudo, a verificação falhou. Por favor, tente reinstalar o addon a partir da PlayStore!</string>
+    <string name="samsung_framework">Samsung Common Framework</string>
+    <string name="lg_framework">LG Common Framework</string>
+    <string name="notification_theme_installed">instalado</string>
+    <string name="notification_theme_updated">atualizado</string>
+    <string name="notification_theme_installed_content">Tema instalado com sucesso.</string>
+    <string name="notification_theme_updated_content">Recursos atualizados com sucesso.</string>
+    <string name="notification_initial_title">O Substratum está em execução</string>
+    <string name="notification_initial_title_upgrade_intent" formatted="false">A atualizar as sobreposições de %s&#8230;</string>
+    <string name="notification_done_title">Compilação do tema completa</string>
+    <string name="notification_done_upgrade_title" formatted="false">A atualização da sobreposição para %s foi concluída!</string>
+    <string name="notification_done_upgrade_title_warning" formatted="false">A atualização da sobreposição para %s foi parcialmente concluída!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Configuração em falta ou incorreta:\n\n%s</string>
+    <string name="notification_done_update_text">Todas as sobreposições desta aplicação foram atualizadas.</string>
+    <string name="notification_done_upgrade_text">Todas as sobreposições deste tema foram atualizadas.</string>
+    <string name="notification_no_errors_found">Não ocorreram erros ao instalar as sobreposições selecionadas</string>
+    <string name="notification_some_errors_found">Ocorreu um erro durante a instalação da sobreposição</string>
+    <string name="notification_processing">A processar sobreposições para</string>
+    <string name="notification_processing_n">A preparar sobreposições do tema&#8230;</string>
+    <string name="shortcut_floatui">Interface Flutuante</string>
+    <string name="shortcut_rescue">Salvem-me!</string>
+    <string name="shortcut_rescue_disabled">Salvem-me!</string>
+    <string name="shortcut_store">Expositor de Temas</string>
+    <string name="shortcut_store_disabled">Expositor de Temas</string>
+    <string name="shortcut_overlay_manager">Gestor de Sobreposições</string>
+    <string name="shortcut_overlay_manager_disabled">Gestor de Sobreposições</string>
+    <string name="settings_title">Sobre</string>
+    <string name="settings_title_1">Preferências do utilizador</string>
+    <string name="settings_title_3">Aplicação de temas</string>
+    <string name="settings_title_clickable">Preferências do sistema</string>
+    <string name="vibrate_on_compiled">Notificar após o tema ser compilado</string>
+    <string name="vibrate_on_compiled_description">Quando o tema for compilado, notificar o utilizador através de vibração de que a compilação foi finalizada.</string>
+    <string name="manage_notification_channel">Gerir notificações</string>
+    <string name="hide_app_icon">Mostrar ícone da aplicação</string>
+    <string name="hide_app_icon_toast_enabled">O ícone da aplicação foi removido da sua gaveta de aplicações!</string>
+    <string name="hide_app_icon_toast_disabled">O ícone da aplicação foi adicionado à gaveta de aplicações!</string>
+    <string name="hide_app_icon_not_supported">Mudança não suportada</string>
+    <string name="hide_app_icon_supported">Isto irá permitir que alterne entre ter o ícone da gaveta de aplicações visível ou invisível no seu ecrã inicial.</string>
+    <string name="disable_completion">Todas as sobreposições deste tema estão a ser desativadas&#8230;</string>
+    <string name="enable_completion">Todas as sobreposições instaladas deste tema estão agora a ser ativadas&#8230;</string>
+    <string name="logchar_autosave_title">Manter relatórios LogChar</string>
+    <string name="logchar_autosave_subtext">Todos os relatórios de LogChar serão armazenados em /storage/emulated/0/substratum/LogCharReports /.</string>
+    <string name="auto_disable_target_overlays">Auto-desativar outras sobreposições para o alvo</string>
+    <string name="auto_disable_target_overlays_on">Outras sobreposições alvo serão desativadas quando instalar/ativar uma nova sobreposição</string>
+    <string name="auto_disable_target_overlays_off">Outras sobreposições alvo irão permanecer inalteradas quando instalar/ativar uma nova sobreposição</string>
+    <string name="fab_menu_compile_enable">Compilar e Ativar</string>
+    <string name="fab_menu_compile_update">Compilar e Atualizar</string>
+    <string name="fab_menu_compile_install">Instalar selecionados</string>
+    <string name="fab_menu_uninstall">Desinstalar selecionados</string>
+    <string name="fab_menu_disable">Desativar seleção</string>
+    <string name="fab_menu_enable">Ativar seleção</string>
+    <string name="fab_menu_enable_disable">Alterar os estados das sobreposições</string>
+    <string name="fab_menu_swap_toggle">Desativar outros temas</string>
+    <string name="fab_menu_swap_toggle_legacy">Remover todos existentes</string>
+    <string name="team_title_one">Líderes do Substratum</string>
+    <string name="team_text_one">Não só criamos algo que funcionasse para os utilizadores, como também trabalhamos em conjunto com criadores de temas para criar um motor de temas incrível para a comunidade!</string>
+    <string name="team_title_two">Tradutores do Substratum</string>
+    <string name="translator_name">Nome</string>
+    <string name="translator_languages">Línguas</string>
+    <string name="translator_words">Palavras</string>
+    <string name="github_repository">Repositório GitHub</string>
+    <string name="team_title_three">Contribuidores do Substratum</string>
+    <string name="team_title_four">Contribuidores de Camadas</string>
+    <string name="team_nicholas_description">Coordenador de Desenvolvimento</string>
+    <string name="team_syko_description">Investigador de Sistemas</string>
+    <string name="team_ivan_description">Plataforma e Funcionalidades</string>
+    <string name="team_surge_description">Binários e Algoritmos</string>
+    <string name="team_char_description">Apoio e Organização Comunitária</string>
+    <string name="team_harsh_description">Plataforma e Funcionalidades</string>
+    <string name="slide_1_title">bem-vindo ao Substratum</string>
+    <string name="slide_1_text">um motor de temas simples mas potente com base no serviço de gestor de sobreposições da Sony</string>
+    <string name="slide_2_title">uma nova interface de utilizador</string>
+    <string name="slide_2_text">adora os seus temas? apresentamos uma linda interface baseada em cartões para expor cada um dos temas instalados no seu dispositivo!</string>
+    <string name="slide_3_title">aplicação de temas por aplicação no seu melhor</string>
+    <string name="slide_3_text">não tem a certeza se quer o seu Google+ com tal tema? tudo bem, escolha apenas o que quer personalizar a partir da lista de sobreposições!</string>
+    <string name="slide_4_title">compilar? ativar? desativar? onde?</string>
+    <string name="slide_4_text">para começar a usar o tema, pode compilar (faça isto em primeiro lugar!), ativar ou desativar cada sobreposição diretamente no seu dispositivo ao tocar no botão de ação flutuante após a seleção das sobreposições.</string>
+    <string name="slide_5_title">enquanto compilamos as suas sobreposições&#8230;</string>
+    <string name="slide_5_text">Pode voltar às suas aplicações enquanto deixa que as sobreposições compilem em segundo plano, já que este processo pode demorar um pouco. Basta verificar o painel de notificações para ver o progresso!</string>
+    <string name="slide_6_title">esperamos que goste da nossa criação!</string>
+    <string name="slide_6_text">agradecemos por ter lido esta introdução e esperamos que goste de usar o Substratum tanto quanto nós gostámos de desenvolvê-lo!</string>
+    <string name="scheduled_night_profile">Agendamento de Perfis Contextualizados</string>
+    <string name="scheduled_profile_card_content">Esta função dá-lhe a possibilidade de alternar automaticamente entre perfis com base em horários especificados.</string>
+    <string name="scheduled_profile_apply_success">Perfil agendado aplicado com sucesso!</string>
+    <string name="scheduled_profile_disable_success">Perfil agendado desativado com sucesso!</string>
+    <string name="active_time">Horário noturno</string>
+    <string name="start_time">Início</string>
+    <string name="end_time">Fim</string>
+    <string name="day_profile">Perfil diurno</string>
+    <string name="night_profile">Perfil noturno</string>
+    <string name="apply">Aplicar</string>
+    <string name="time_empty_warning">Configurar hora de início e fim!</string>
+    <string name="time_equal_warning">Por favor, escolha horários de ativação diferentes!</string>
+    <string name="profile_empty_warning">Por favor, selecione todos os perfis que quer ativados!</string>
+    <string name="profile_notification_title_day">Dia</string>
+    <string name="profile_notification_title_night">Noite</string>
+    <string name="profile_notification_title" formatted="false">Perfil de %s</string>
+    <string name="profile_pending_notification">O peefil será alterado após o ecrã desligar.</string>
+    <string name="profile_success_notification">Perfil aplicado com sucesso!</string>
+    <string name="profile_failed_notification">Falha ao aplicar perfil&#8230;</string>
+    <string name="profile_failed_info_notification">Toque para mais informações</string>
+    <string name="profile_compile_progress" formatted="false">A compilar %d de %d:\n%s</string>
+    <string name="profile_compile_processing">A guardar os estados das suas sobreposições&#8230;</string>
+    <string name="sungstromeda_mode_title">Modo Sungstromeda</string>
+    <string name="sungstromeda_mode_summary">Utilize o Substratum no modo Sungstromeda para usar o tratamento antigo de sobreposições.</string>
+    <string name="theme_debug_mode_title">Ignorar reversão para o compilador antigo</string>
+    <string name="theme_debug_mode_summary">Isto irá impedir a aplicação de utilizar o mecanismo de reversão para o compilador antigo de forma a auxiliar os temas caso atinjam um estado irrecuperável.</string>
+    <string name="logchar_dialog_title_delete_title">ATENÇÃO</string>
+    <string name="logchar_dialog_title_delete_content">Isto irá apagar todos os registos atualmente guardados. Se prosseguir, todos os registos serão apagados e não serão guardados mais registos.</string>
+    <string name="break_compilation_dialog_title">AVISO</string>
+    <string name="break_compilation_dialog_content">Isto pode parar completamente o processo de compilação. Ative esta opção apenas se souber o que está a fazer!</string>
+    <string name="break_compilation_dialog_continue">Continuar</string>
+    <string name="theme_safety_dialog_title">AVISO</string>
+    <string name="theme_safety_dialog_content">Esta é uma funcionalidade fundamental para recuperação em caso de encerramentos forçados derivados de sobreposições problemáticas! Se se encontrar com problemas, pode utilizar o botão \"Salvem-me!\" no atalho da aplicação do Substratum. Se isso não for possível, a sua última opção passará por \"flashar\" os ficheiros de recuperação localizados em /storage/emulated/0/substratum/.</string>
+    <string name="profile_dialog_title">selecione os itens de que deseja fazer cópia de segurança</string>
+    <string name="profile_no_selection_warning">Por favor, selecione pelo menos uma opção!</string>
+    <string name="profile_boot_animation">Animação de Boot</string>
+    <string name="profile_font">Tipos de Letra</string>
+    <string name="profile_overlay">Sobreposições</string>
+    <string name="profile_sound">Sons</string>
+    <string name="profile_wallpaper">Imagens de Fundo</string>
+    <string name="profile_dialog_ok">Ok</string>
+    <string name="settings_system_status">Certificação do sistema</string>
+    <string name="settings_system_status_andromeda">Modo Andromeda</string>
+    <string name="settings_system_status_rooted">Modo root</string>
+    <string name="settings_system_status_rootless">Modo de Interfacer</string>
+    <string name="settings_system_status_ss">Modo de serviço do Substratum</string>
+    <string name="settings_system_status_samsung">Modo Samsung</string>
+    <string name="settings_system_status_samsung_andromeda">Samsung + modo Andromeda</string>
+    <string name="settings_system_status_certified">Certificado</string>
+    <string name="settings_system_status_uncertified">Não certificado</string>
+    <string name="settings_title_automation">Automação</string>
+    <string name="settings_auto_updater_title">Atualização de sobreposições de aplicações</string>
+    <string name="settings_auto_updater_text">Compilar e instalar automaticamente uma versão atualizada de todas as sobreposições para a aplicação recentemente atualizada e com tema aplicado.</string>
+    <string name="settings_theme_auto_updater_title">Atualização de sobreposições dos temas</string>
+    <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
+    <string name="settings_theme_auto_updater_text">Compilar e instalar automaticamente uma versão atualizada de todas as sobreposições para o tema recentemente atualizado.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Por favor, NÃO mantenha o Instalador de Pacotes aberto em primeiro plano enquanto a notificação estiver ativa. As sobreposições de framework tendem a reiniciar o Instalador de Pacotes, causando quantidades indefinidas de recompilações!</string>
+    <string name="settings_auto_alert_title">Alerta de nova sobreposições instalável</string>
+    <string name="settings_auto_alert_text">Mostrar uma notificação quando uma aplicação recentemente instalada tiver uma sobreposição disponível num tema.</string>
+    <string name="settings_force_english_title">Forçar a língua inglesa</string>
+    <string name="settings_force_english_text">Forçar a aplicação a usar a língua inglesa.</string>
+    <string name="settings_manage_space_title">Gerir a utilização do armazenamento</string>
+    <string name="settings_samsung_show_dangerous_overlays">Permitir sobreposições perigosas</string>
+    <string name="settings_samsung_show_dangerous_overlays_text">Mostrar todas as sobreposições habitualmente perigosas para os dispositivos Samsung se o tema não as suportar.</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">AVISO</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning">Escondemos as sobreposições perigosas por alguma razão, mas se tem a certeza de que as quer ativar, por favor siga as instruções no nosso tópico do XDA!</string>
+    <string name="settings_crash_receiver_title">Recetor de Segurança para Encerramentos Forçados de Temas</string>
+    <string name="settings_crash_receiver_text">Desativar automaticamente uma sobreposição quando forem detetados encerramentos forçados de forma repetitiva numa aplicação com a sobreposição aplicada.</string>
+    <string name="overlays_outdated">Sobreposições desatualizadas</string>
+    <string name="overlays_outdated_message">A partir da versão 816 (inclusivé), a nossa assinatura para assinar as sobreposições foi alterada para prevenir possíveis desajustes futuros.\n\nIsto significa que as suas sobreposições instaladas devem ser limpas de forma a serem instaladas novas atualizações de temas, caso contrário irá obter mensagens eternamente a alertarem-no de que as suas sobreposições necessitam de ser atualizadas!\n\nEsta mensagem não irá ser mostrada quando todas as sobreposições forem compiladas através do novo Substratum.</string>
+    <string name="root_required_title">Root necessário</string>
+    <string name="root_required_boot_animation">O seu dispositivo está encriptado, por isso será necessário root para aplicar animações de arranque.</string>
+    <string name="root_required_boot_animation_profile">O seu dispositivo está encriptado. Por isso, será necessário root para realizar cópias de segurança e restauros de animações de arranque.</string>
+    <string name="per_app_notification_summary">A Interface Flutuante está a filtrar as suas aplicações dinamicamente!</string>
+    <string name="per_app_notification_framework_show">Mostrar sobreposições do Sistema Android</string>
+    <string name="per_app_notification_framework_hide">Esconder sobreposições do Sistema Android</string>
+    <string name="per_app_toast_no_overlays" formatted="false">Não há sobreposições configuráveis para %s!</string>
+    <string name="per_app_apply">Aplicar</string>
+    <string name="per_app_request_title">Permissões da Interface Flutuante</string>
+    <string name="per_app_draw_over_other_apps_request">Por favor, conceda ao Substratum permissões de \"Desenhar sobre outras aplicações\" para a IU Flutuante e \"Acesso de utilização\" para aceder à aplicação em primeiro plano, de forma a corresponder os alvos do tema.</string>
+    <string name="per_app_usage_stats_request">Por favor, conceda ao Substratum permissões de \"Acesso de utilização\" da aplicação em primeiro plano, de forma a corresponder os alvos do tema.</string>
+    <string name="per_app_manual_grant">Por favor, conceda manualmente ao Substratum permissões de \"Desenhar sobre outras aplicações\" e \"Acesso de utilização\" nas Definições da aplicação para poder utilizar a Interface Flutuante!</string>
+    <string name="notification_overlay_found_specific" formatted="false">Uma sobreposição para %s está em %s!</string>
+    <string name="notification_overlay_found_description">Pode abrir o tema clicando nesta notificação!</string>
+    <string name="system_crash_text">O seu sistema recarregou os recursos do Substratum. A aplicação
         irá reiniciar em 3 segundos.</string>
-  <string name="error_activity_title">Pedimos desculpa por esta falha!</string>
-  <string name="error_activity_text">por favor, perdoe-nos&#8230;</string>
-  <string name="error_activity_button_restart">Reiniciar</string>
-  <string name="error_activity_button_disable_overlays">Salvem-me!</string>
-  <string name="error_activity_log">Stacktrace</string>
-  <string name="error_activity_log_dialog_title">Stacktrace de Falhas</string>
-  <string name="error_dialog_samsung">Problema com Sobreposições do Substratum</string>
-  <string name="error_dialog_samsung_text">Infelizmente, parece haver um problema com uma sobreposição instalada visando o Substratum que terá de ser manualmente desinstalada através das Definições.</string>
-  <string name="community_info_paid">Pago</string>
-  <string name="interfacer_not_authorized_toast">Esta versão do Substratum não é autorizada e não funcionará com o módulo do System Interfacer.</string>
-  <string name="app_crash_title" formatted="false">%s continua a parar&#8230;</string>
-  <string name="app_crash_content">Todas as sobreposições ativadas para esta aplicação foram desativadas.</string>
-  <string name="rom_status">Estado do suporte:</string>
-  <string name="rom_status_supported" formatted="false">%s é suportada pela comunidade!</string>
-  <string name="rom_status_unsupported">esta ROM não é suportada pela comunidade!</string>
-  <string name="rom_status_network">necessário verificar internet&#8230;</string>
-  <!-- Notification channel -->
-  <string name="notification_channel_default">Predefinido</string>
-  <string name="notification_channel_default_description">Notificações principais (tema novo ou atualizado, compilação do tema concluída, etc.)</string>
-  <string name="notification_channel_ongoing">Em curso</string>
-  <string name="notification_channel_ongoing_description">Notificações em curso</string>
-  <string name="notification_channel_andromeda">Estado do tema do sistema</string>
-  <string name="notification_channel_andromeda_description">Notificação do estado da ligação do tema do sistema</string>
-  <!-- Nav drawer -->
-  <string name="nav_home">Temas</string>
-  <!-- Utilities -->
-  <string name="nav_overlay_manager">Gestor</string>
-  <string name="nav_recovery">Recuperação</string>
-  <string name="nav_priorities">Prioridades</string>
-  <string name="nav_backup_restore">Perfis</string>
-  <string name="nav_settings">Definições</string>
-  <string name="title_activity_manage_space">Gerir a utilização do armazenamento</string>
-  <string name="manage_space_cache_text_title">Limpar cache</string>
-  <string name="manage_space_logs_text_title">Apagar relatórios guardados</string>
-  <string name="clear_cache_button_loading">A carregar&#8230;</string>
-  <string name="manage_space_cache_counter_title">Apagar a cache local irá remover todos os ficheiros usados pelo compilador de temas e transferências. Todos os pacotes de temas e configurações de utilizador serão mantidos tal como estão.\n\nDependendo do tamanho da cache, pode demorar alguns segundos a completar.</string>
-  <string name="manage_space_reset_text_title">Repor definições</string>
-  <string name="manage_space_reset_text_desc">Está a ter problemas com a aplicação? Ou fez recentemente a atualização de uma versão muito antiga do Substratum? Uma limpeza das definições irá ajudar a solucionar o problema!</string>
-  <string name="manage_space_reset_dialog_title">Repor definições?</string>
-  <string name="manage_space_reset_dialog_content">A aplicação irá fechar após a conclusão da reposição!</string>
-  <string name="legacy_overlay_uninstall_warning_text">Se estiver a desinstalar todas as sobreposições, por favor utilize os ZIPs de recuperação do Substratum para evitar possíveis problemas no arranque.</string>
-  <string name="locale_restart_message">Reinicie a aplicação para mudar o idioma</string>
-  <string name="restart">Reiniciar</string>
+    <string name="error_activity_title">Pedimos desculpa por esta falha!</string>
+    <string name="error_activity_text">por favor, perdoe-nos&#8230;</string>
+    <string name="error_activity_button_restart">Reiniciar</string>
+    <string name="error_activity_button_disable_overlays">Salvem-me!</string>
+    <string name="error_activity_log">Stacktrace</string>
+    <string name="error_activity_log_dialog_title">Stacktrace de Falhas</string>
+    <string name="error_dialog_samsung">Problema com Sobreposições do Substratum</string>
+    <string name="error_dialog_samsung_text">Infelizmente, parece haver um problema com uma sobreposição instalada visando o Substratum que terá de ser manualmente desinstalada através das Definições.</string>
+    <string name="community_info_paid">Pago</string>
+    <string name="interfacer_not_authorized_toast">Esta versão do Substratum não é autorizada e não funcionará com o módulo do System Interfacer.</string>
+    <string name="app_crash_title" formatted="false">%s continua a parar&#8230;</string>
+    <string name="app_crash_content">Todas as sobreposições ativadas para esta aplicação foram desativadas.</string>
+    <string name="rom_status">Estado do suporte:</string>
+    <string name="rom_status_supported" formatted="false">%s é suportada pela comunidade!</string>
+    <string name="rom_status_unsupported">esta ROM não é suportada pela comunidade!</string>
+    <string name="rom_status_network">necessário verificar internet&#8230;</string>
+    <!-- Notification channel -->
+    <string name="notification_channel_default">Predefinido</string>
+    <string name="notification_channel_default_description">Notificações principais (tema novo ou atualizado, compilação do tema concluída, etc.)</string>
+    <string name="notification_channel_ongoing">Em curso</string>
+    <string name="notification_channel_ongoing_description">Notificações em curso</string>
+    <string name="notification_channel_andromeda">Estado do tema do sistema</string>
+    <string name="notification_channel_andromeda_description">Notificação do estado da ligação do tema do sistema</string>
+    <!-- Nav drawer -->
+    <string name="nav_home">Temas</string>
+    <!-- Utilities -->
+    <string name="nav_overlay_manager">Gestor</string>
+    <string name="nav_recovery">Recuperação</string>
+    <string name="nav_priorities">Prioridades</string>
+    <string name="nav_backup_restore">Perfis</string>
+    <string name="nav_settings">Definições</string>
+    <string name="title_activity_manage_space">Gerir a utilização do armazenamento</string>
+    <string name="manage_space_cache_text_title">Limpar cache</string>
+    <string name="manage_space_logs_text_title">Apagar relatórios guardados</string>
+    <string name="clear_cache_button_loading">A carregar&#8230;</string>
+    <string name="manage_space_cache_counter_title">Apagar a cache local irá remover todos os ficheiros usados pelo compilador de temas e transferências. Todos os pacotes de temas e configurações de utilizador serão mantidos tal como estão.\n\nDependendo do tamanho da cache, pode demorar alguns segundos a completar.</string>
+    <string name="manage_space_reset_text_title">Repor definições</string>
+    <string name="manage_space_reset_text_desc">Está a ter problemas com a aplicação? Ou fez recentemente a atualização de uma versão muito antiga do Substratum? Uma limpeza das definições irá ajudar a solucionar o problema!</string>
+    <string name="manage_space_reset_dialog_title">Repor definições?</string>
+    <string name="manage_space_reset_dialog_content">A aplicação irá fechar após a conclusão da reposição!</string>
+    <string name="legacy_overlay_uninstall_warning_text">Se estiver a desinstalar todas as sobreposições, por favor utilize os ZIPs de recuperação do Substratum para evitar possíveis problemas no arranque.</string>
+    <string name="locale_restart_message">Reinicie a aplicação para mudar o idioma</string>
+    <string name="restart">Reiniciar</string>
 </resources>

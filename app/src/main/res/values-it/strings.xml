@@ -242,6 +242,8 @@
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Elaborazione dei report degli errori</string>
     <string name="priority_instructions_title">Istruzioni</string>
+    <string name="priority_instructions_content">Con il sistema di priorità dinamico, è possibile regolare le priorità di sovrapposizione come strati in termini di livelli. 
+Ciò significa che la sovrapposizione con la priorità più alta verrà caricata per ultima e sostituirà le risorse di tutte le sovrapposizioni con le priorità più basse e così via.      </string>
     <string name="priority_no_multiple_overlays_title">nessuna applicazione con sovrapposizioni multiple</string>
     <string name="priority_no_multiple_overlays_text">abilita due o più sovrapposizioni su un\'app per usarmi!      </string>
     <string name="manager_no_overlays_title">nessuna sovrapposizione installata</string>
@@ -275,6 +277,9 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Non visualizzare di nuovo</string>
     <string name="dialog_cancel">Cancella</string>
+    <string name="sysserv_api_check_dialog_title">Controllo delle API fallito</string>
+    <string name="sysserv_api_check_dialog_text">La ROM attualmente in uso ha una versione obsoleta del nostro sistema di back-end. Per favore informaci attraverso la nostra chat di Telegram su quale ROM sei e li contatteremo. Grazie!</string>
+    <string name="sysserv_api_check_help_link">https://t.me/joinchat/BTodxkJMTTTgYmCfPL7IIA</string>
     <string name="clean_dialog_body">Vuoi eliminare tutte le sovrapposizioni per questo tema?</string>
     <string name="disable_dialog_body">Vuoi disabilitare tutte le sovrapposizioni per questo tema?</string>
     <string name="enable_dialog_body">Vuoi abilitare tutte le sovrapposizioni installate per questo tema?</string>
@@ -412,6 +417,8 @@
     <string name="profile_failed_info_notification">Premi per ulteriori informazioni</string>
     <string name="profile_compile_progress" formatted="false">Compilazione %d di %d:\n%s</string>
     <string name="profile_compile_processing">Elaborazione delle sovrapposizioni salvate&#8230;</string>
+    <string name="sungstromeda_mode_title">Modalità Sungstromeda</string>
+    <string name="sungstromeda_mode_summary">Usare Substratum nella modalità Sungstromeda per la gestione legacy delle sovrapposizioni.</string>
     <string name="theme_debug_mode_title">Bypass del fallimento del compilatore legacy</string>
     <string name="theme_debug_mode_summary">Questo impedisce all\'applicazione di utilizzare il meccanismo di fallimento del compilatore precedente per aiutare i temi quando raggiungono uno stato non recuperabile.</string>
     <string name="logchar_dialog_title_delete_title">ATTENZIONE</string>
@@ -435,6 +442,7 @@
     <string name="settings_system_status_rootless">Modalità interfaccia</string>
     <string name="settings_system_status_ss">Modalità di servizio di Substratum</string>
     <string name="settings_system_status_samsung">Modalità Samsung</string>
+    <string name="settings_system_status_samsung_andromeda">Modalità Samsung + Andromeda</string>
     <string name="settings_system_status_certified">Certificato</string>
     <string name="settings_system_status_uncertified">Non certificato</string>
     <string name="settings_title_automation">Automazione</string>

@@ -112,7 +112,7 @@
     <string name="app_theme_auto">Otomatik</string>
     <string name="app_theme_dark">Koyu</string>
     <string name="app_theme_change">Temayı değiştirmek için uygulamayı yeniden başlatın</string>
-    <string name="overlays_variant_substitute">%s…</string>
+    <string name="overlays_variant_substitute">%s...</string>
     <string name="overlays_variant_default_1a">seçenek1a varyantı&#8230;</string>
     <string name="overlays_variant_default_1b">seçenek1b varyantı&#8230;</string>
     <string name="overlays_variant_default_1c">seçenek1c varyantı&#8230;</string>

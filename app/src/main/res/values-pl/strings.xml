@@ -182,7 +182,7 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="manage_wallpaper_home_toast">Tapeta ekranu głównego pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta ekranu blokady pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_all_toast">Tapeta pomyślnie przywrócona!</string>
-    <string name="adapter_uninstalling" formatted="false">Usuwanie %s…</string>
+    <string name="adapter_uninstalling" formatted="false">Usuwanie %s...</string>
     <string name="plugin_template">Wtyczka</string>
     <string name="accept">Akceptuj</string>
     <string name="deny">Odmów</string>
@@ -229,7 +229,7 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="logcat_dialog_title">Raport debugowania LogChar</string>
     <string name="logcat_dialog_copy_success">Pomyślnie skopiowano dziennik błędów do schowka!</string>
     <string name="logcat_send">Wyślij</string>
-    <string name="logcat_email_activity">Wyślij raport błędu za pomocą…</string>
+    <string name="logcat_email_activity">Wyślij raport błędu za pomocą...</string>
     <string name="logcat_email_activity_error">Brak zainstalowanych klientów poczty elektronicznej.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Przetwarzanie raportu o błędzie</string>
@@ -261,7 +261,7 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="toast_backup_success" formatted="false">Zapisano aktualną listę nakładek do \"/storage/emulated/0/substratum/profiles/%s\"
       </string>
     <string name="profile_restoration_message">Przetwarzanie przywracania profilu&#8230;</string>
-    <string name="spinner_default_item">wybierz profil…</string>
+    <string name="spinner_default_item">wybierz profil...</string>
     <string name="select_to_toggle_all_overlays">Wybierz, aby wybrać wszystkie nakładki</string>
     <string name="permission_not_granted_dialog_title">Uprawnienia nie zostały przyznane</string>
     <string name="permission_not_granted_dialog_message1">Proszę udzielić substratum uprawnień do pam. wewnętrznej, bo inaczej aplikacja nie będzie działać poprawnie!      </string>
@@ -269,6 +269,7 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Nie pokazuj ponownie</string>
     <string name="dialog_cancel">Anuluj</string>
+    <string name="sysserv_api_check_dialog_title">Sprawdzanie API nie powiodło się</string>
     <string name="clean_dialog_body">Czy chcesz wyczyścić wszystkie nakładki dla tego motywu?</string>
     <string name="disable_dialog_body">Czy chcesz wyłączyć wszystkie nakładki dla tego motywu?</string>
     <string name="enable_dialog_body">Czy chcesz włączyć wszystkie zainstalowane nakładki dla tego motywu?      </string>
@@ -406,6 +407,7 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="profile_failed_info_notification">Dotknij, aby uzyskać więcej informacji</string>
     <string name="profile_compile_progress" formatted="false">Kompilacja %d z %d:\n%s</string>
     <string name="profile_compile_processing">Teraz są przetwarzane zapisane stany twoich nakładek&#8230;</string>
+    <string name="sungstromeda_mode_title">Tryb Sungstromeda</string>
     <string name="theme_debug_mode_title">Pominięcie rezerwy starszej wersji kompilatora</string>
     <string name="theme_debug_mode_summary">To pozwoli na zaprzestanie używania przez aplikację mechanizmu awaryjnego starszego kompilatora, gdy motywy osiągną stan nie do odzyskania.</string>
     <string name="logchar_dialog_title_delete_title">UWAGA</string>

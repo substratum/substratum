@@ -245,6 +245,10 @@
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Zpracování zprávy o chybách</string>
     <string name="priority_instructions_title">Pokyny</string>
+    <string name="priority_instructions_content">S dynamickým prioritním systémem můžete upravit
+priority překrývání jako jsou vrstvy z hlediska úrovní. To znamená, že nejvyšší
+prioritní překrytí se načte naposledy a nahradí zdroje na všech překrytí s
+nižší prioritou.      </string>
     <string name="priority_no_multiple_overlays_title">žádné aplikace s více potahy</string>
     <string name="priority_no_multiple_overlays_text">aby jste mě mohli používat, povolte dva nebo více potahů na jednu aplikaci!      </string>
     <string name="manager_no_overlays_title">nejsou nainstalovány žádné potahy</string>
@@ -283,6 +287,9 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovat</string>
     <string name="dialog_cancel">Zrušit</string>
+    <string name="sysserv_api_check_dialog_title">Kontrola API selhala</string>
+    <string name="sysserv_api_check_dialog_text">ROM, kterou právě používáte, má zastaralou verzi našeho podpůrného systému. Prosím informujte nás prostřednictvím našeho telegramu o tom, jakou ROM používáte a my se spojíme s autory. Díky!</string>
+    <string name="sysserv_api_check_help_link">https://t.me/joinchat/BTodxkJMTTTgYmCfPL7IIA</string>
     <string name="clean_dialog_body">Chcete vyčistit všechny potahy pro tento motiv?</string>
     <string name="disable_dialog_body">Chcete vypnout všechny potahy pro tento motiv?</string>
     <string name="enable_dialog_body">Chcete zapnout všechny potahy pro tento motiv?      </string>
@@ -425,6 +432,8 @@
     <string name="profile_failed_info_notification">Klikněte pro více informací</string>
     <string name="profile_compile_progress" formatted="false">Kompilace %d z %d:\n%s</string>
     <string name="profile_compile_processing">Probíhá zpracování dříve uložených nastavení potahů&#8230;</string>
+    <string name="sungstromeda_mode_title">Režim Sungstromeda</string>
+    <string name="sungstromeda_mode_summary">Použít Substratum v režimu Sungstromeda pro starší správu potahů.</string>
     <string name="theme_debug_mode_title">Vynechání starého mechanismu kompilace</string>
     <string name="theme_debug_mode_summary">Umožní aplikaci přestat používat původní mechanismus kompilace s cílem pomoci motivu, pokud se dostane do neřešitelné situace.</string>
     <string name="logchar_dialog_title_delete_title">POZOR</string>
@@ -448,6 +457,7 @@
     <string name="settings_system_status_rootless">Režim interfaceru</string>
     <string name="settings_system_status_ss">Servisní režim Substratum</string>
     <string name="settings_system_status_samsung">Režim Samsung</string>
+    <string name="settings_system_status_samsung_andromeda">Režim Samsung + Andromeda</string>
     <string name="settings_system_status_certified">Certifikováno</string>
     <string name="settings_system_status_uncertified">Necertifikováno</string>
     <string name="settings_title_automation">Automatizace</string>

@@ -262,6 +262,8 @@
     <string name="logcat_email_xposed_check">Khung Xposed</string>
     <string name="logcat_processing_dialog">Đang xử lý báo cáo lỗi</string>
     <string name="priority_instructions_title">Hướng dẫn</string>
+    <string name="priority_instructions_content">Với hệ thống năng động ưu tiên, bạn có thể điều chỉnh ưu tiên lớp phủ là lớp về mức độ. Điều này có nghĩa là lớp phủ ưu tiên cao nhất sẽ được nạp cuối và thay thế các nguồn tài nguyên trên tất cả các lớp với ưu tiên thấp hơn và vân vân.
+      </string>
     <string name="priority_no_multiple_overlays_title">không có ứng dụng có lớp phủ nhiều lớp</string>
     <string name="priority_no_multiple_overlays_text">cho phép hai lớp phủ hoặc nhiều hơn trên một ứng dụng để sử dụng
       tôi!      </string>
@@ -301,6 +303,9 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Đừng hiện cho tôi xem nữa</string>
     <string name="dialog_cancel">Huỷ</string>
+    <string name="sysserv_api_check_dialog_title">Kiểm tra API đã thất bại</string>
+    <string name="sysserv_api_check_dialog_text">ROM bạn đang vào có các phiên bản lỗi thời của hệ thống phụ trợ của chúng tôi. Xin vui lòng thông báo cho chúng tôi thông qua trò chuyện chúng tôi bức điện ROM những gì bạn đang ở trên và chúng tôi sẽ liên hệ với họ. Cảm ơn!</string>
+    <string name="sysserv_api_check_help_link">https://t.me/joinchat/BTodxkJMTTTgYmCfPL7IIA</string>
     <string name="clean_dialog_body">Bạn có muốn để làm sạch tất cả các lớp phủ cho chủ đề này?</string>
     <string name="disable_dialog_body">Bạn có muốn vô hiệu hoá tất cả các lớp phủ cho chủ đề này?</string>
     <string name="enable_dialog_body">Bạn có muốn kích hoạt tất cả lớp phủ cho chủ đề này?      </string>
@@ -439,6 +444,8 @@
     <string name="profile_failed_info_notification">Liên lạc để biết thêm thông tin</string>
     <string name="profile_compile_progress" formatted="false">Biên dịch %d %d: \n%s</string>
     <string name="profile_compile_processing">Bây giờ xử lý kỳ lớp phủ đã lưu của bạn&#8230;</string>
+    <string name="sungstromeda_mode_title">Chế độ Sungstromeda</string>
+    <string name="sungstromeda_mode_summary">Sử dụng Substratum trong chế độ Sungstromeda các thao tác di sản của lớp phủ.</string>
     <string name="theme_debug_mode_title">Trình biên dịch di sản dự phòng tránh</string>
     <string name="theme_debug_mode_summary">Điều này sẽ ngăn chặn các ứng dụng bằng cách sử dụng cơ chế dự phòng di sản biên dịch để giúp chủ đề khi chúng đạt đến trạng thái không thể khôi phục.</string>
     <string name="logchar_dialog_title_delete_title">CHÚ Ý</string>
@@ -462,6 +469,7 @@
     <string name="settings_system_status_rootless">Interfacer chế độ</string>
     <string name="settings_system_status_ss">Substratum dịch vụ chế độ</string>
     <string name="settings_system_status_samsung">Chế độ Samsung</string>
+    <string name="settings_system_status_samsung_andromeda">Samsung + Andromeda chế độ</string>
     <string name="settings_system_status_certified">Chứng nhận</string>
     <string name="settings_system_status_uncertified">Uncertified</string>
     <string name="settings_title_automation">Tự động hóa</string>

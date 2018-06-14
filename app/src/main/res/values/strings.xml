@@ -65,7 +65,7 @@
 
     <string name="showcase_no_connection">the theme showcase requires an internet connection to
       function!
-    </string>
+      </string>
 
     <string name="refused_to_install_notification_button">Remove Theme</string>
     <string name="refused_to_install_title_notification">Themer rejected theme installed on Samsung.</string>
@@ -89,18 +89,18 @@
       an understanding on how to restore from a bootloop before proceeding any further.\n\nWe
       cannot fix things that are not getting themed on legacy because they require system side
       changes.
-    </string>
+      </string>
     <string name="samsung_warning_content">Samsung support is provided as-is as we cannot guarantee
       full compatibility with colors and AOSP-built overlays. We have taken the care of hiding
       the dangerous overlays for your device, but you can toggle this off manually in settings
       at your own discretion.\n\nIf at any case you reach an issue with a possible black screen,
       please consult our XDA thread on the two methods of recovery.
-    </string>
+      </string>
     <string name="xiaomi_warning_content">Xiaomi added extra steps to prevent substratum from working
         as-is.\n\nYou will need to have \"Install via USB\" and \"USB debugging (Security settings)\"
         enabled in Developer options as well as the usual \"USB debugging\".\n\nWithout these
         permissions, overlays will not be installed!
-    </string>
+      </string>
 
     <string name="new_stock_commits_title">Reboot required!</string>
     <string name="new_stock_commits_text">After the March security patch, Google implemented a check on overlays which needs a reboot to activate an installed/updated overlay!</string>
@@ -112,11 +112,11 @@
       is required to perform a reboot after adding or removing overlays.\n\nProceeding with this
       dialog would automatically reboot your device, so please be sure to have saved your work
       before continuing.
-    </string>
+      </string>
 
     <string name="activity_missing_toast">There were no apps found that could handle this
       request, sorry!
-    </string>
+      </string>
     <string name="abort_overlay_toast_success">All overlays uninstalled!</string>
     <string name="rescue_toast">Rescuing your system&#8230;</string>
 
@@ -190,9 +190,9 @@
     <string name="wallpaper_dialog_wallpaper_both">Home and lock screen wallpapers</string>
     <string name="wallpaper_downloading">Loading the image into the cache&#8230;</string>
     <string name="wallpaper_allscreen_success">Both home and lock screen wallpapers configured!
-    </string>
+      </string>
     <string name="wallpaper_allscreen_error">Unable to set both home and lock screen wallpapers
-    </string>
+      </string>
     <string name="wallpaper_homescreen_success">Homescreen wallpaper configured!</string>
     <string name="wallpaper_homescreen_error">Unable to set homescreen wallpaper</string>
     <string name="wallpaper_lockscreen_success">Lockscreen wallpaper configured!</string>
@@ -215,7 +215,7 @@
     <string name="sounds_placeholder_text">Please select a sound pack from the dropdown
       list&#8230;</string>
     <string name="sounds_spinner_set_defaults">Restore to default sounds&#8230;
-    </string>
+      </string>
     <string name="sounds_spinner_defaults_text">This will clear out any custom sounds
       applied on your device</string>
     <string name="sounds_dialog_apply_success">Sound pack applied!</string>
@@ -223,7 +223,7 @@
     <string name="sounds_default_spinner">Please select a sound pack&#8230;</string>
     <string name="fonts_dialog_permissions_grant_toast2">To let Substratum control your system
       fonts, you must enable \'Allow modify system settings\'.
-    </string>
+      </string>
 
     <string name="error_loading_pack">It seems like this pack was not set up
       correctly&#8230;</string>
@@ -291,7 +291,7 @@
       /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
       Substratum utilizes Google\'s Firebase to download crucial information from our
       centralized real-time database to improve core services and security enhancements.
-    </string>
+      </string>
 
     <string name="priority_back_title">Back to overlays</string>
 
@@ -347,10 +347,10 @@
     <string name="logcat_email_body" translatable="false" formatted="false">
       Hey %s,\n\nI have an issue with %s, and would
       like to see if you could help me resolve this issue.
-    </string>
+      </string>
     <string name="logcat_attachment_body" translatable="false" formatted="false">
       Theme Name:\n%s\n\nDevice:\n%s\n\nROM:\n%s\n\nSubstratum Version:\n%s\n\nTheme Version:\n%s\n\nTarget Package(s):\n%s\nReport:\n%s
-    </string>
+      </string>
     <string name="logcat_send">Send</string>
     <string name="logcat_email_activity">Send bug report using&#8230;</string>
     <string name="logcat_email_activity_error">There are no email clients installed.</string>
@@ -362,11 +362,11 @@
       the overlay priorities as layers in terms of levels. What this means is the highest
       priority overlay will be loaded last and replace the resources on all of the overlays with
       lower priority and so on.
-    </string>
+      </string>
     <string name="priority_no_multiple_overlays_title">no apps with multiple overlays</string>
     <string name="priority_no_multiple_overlays_text">enable two or more overlays on one app to use
       me!
-    </string>
+      </string>
 
     <string name="manager_no_overlays_title">no overlays installed</string>
     <string name="manager_no_overlays_text">compile one overlay to be able to use me!</string>
@@ -374,37 +374,37 @@
     <string name="backup">Backup Card</string>
     <string name="backup_card_content">This function makes a copy of your currently enabled overlays
       list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.
-    </string>
+      </string>
     <string name="delete_dialog_okay">Delete</string>
     <string name="delete_dialog_title">Delete profile</string>
     <string name="delete_dialog_text" formatted="false">Are you sure you want to delete \"%s\"?</string>
     <string name="restore">Restore Card</string>
     <string name="restore_card_content">When a profile is loaded, your current setup is completely
       wiped and \"restore theme\" would take on the updated changes.
-    </string>
+      </string>
     <string name="remove_dialog_later">Later</string>
     <string name="restore_dialog_okay">Continue</string>
     <string name="restore_dialog_title">These overlays will be installed to restore your profile
       completely:
-    </string>
+      </string>
     <string name="backup_button">BACKUP CURRENT STATE</string>
     <string name="backup_no_overlays">There are no overlays in your current set up.</string>
     <string name="restore_button">RESTORE PROFILE</string>
     <string name="restore_button_none_selected_toast">Please select a profile from the dropdown list
       before trying to restore a profile!
-    </string>
+      </string>
     <string name="profile_delete_button_none_selected_toast">Please select a profile from the
       dropdown list before trying to delete a profile!
-    </string>
+      </string>
     <string name="profile_edittext_hint">please type a name for your profile&#8230;</string>
     <string name="profile_edittext_empty_toast">Please enter a name for your profile before backing
       up!
-    </string>
+      </string>
     <string name="profile_edittext_title">New Profile:</string>
     <string name="profile_edittext_whitespace_warning_toast">Cannot use whitespace inside profile name!</string>
     <string name="toast_backup_success" formatted="false">Current overlay list saved to
       \"/storage/emulated/0/substratum/profiles/%s\"
-    </string>
+      </string>
     <string name="profile_restoration_message">Processing profile restoration&#8230;</string>
     <string name="spinner_default_item">select a profile&#8230;</string>
 
@@ -414,7 +414,7 @@
     <string name="permission_not_granted_dialog_message1">Please grant substratum storage
       permissions
       or the app will not function properly!
-    </string>
+      </string>
     <string name="dialog_check">Check</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Do not show again</string>
@@ -427,7 +427,7 @@
     <string name="clean_dialog_body">Do you want to clean all overlays for this theme?</string>
     <string name="disable_dialog_body">Do you want to disable all overlays for this theme?</string>
     <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?
-    </string>
+      </string>
     <string name="uninstall_dialog_body">Uninstall Theme</string>
 
     <string name="sb_phase_1_loader">extracting theme</string>

@@ -277,6 +277,11 @@
     <string name="logcat_email_xposed_check">Xposed keretrendszer</string>
     <string name="logcat_processing_dialog">Hibajelentés feldolgozása</string>
     <string name="priority_instructions_title">Utasítások</string>
+    <string name="priority_instructions_content">A dinamikus prioritási rendszerrel a fedvény prioritásokat
+      rétegenként állíthatja be szintek szerint. Ez azt jelenti, hogy a legmagasabb prioritású
+      fedvény kerül utoljára betöltésre és lecseréli az összes alacsonyabb prioritású és az
+      alatta lévő összes fedvény erőforrását.
+      </string>
     <string name="priority_no_multiple_overlays_title">nincs több fedvényű alkalmazás</string>
     <string name="priority_no_multiple_overlays_text">használatomhoz engedélyezzen két vagy több fedvényt
       egyetlen alkalmazáson!
@@ -329,6 +334,9 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Ne jelenjen meg többet</string>
     <string name="dialog_cancel">Mégse</string>
+    <string name="sysserv_api_check_dialog_title">API ellenőrzés sikertelen</string>
+    <string name="sysserv_api_check_dialog_text">A jelenleg használt ROM-nak a támogatói rendszerünk elavult verziójával rendelkezik. Kérjük, tájékoztasson minket a Telegram chat segítségével, hogy milyen ROM-on van, és mi kapcsolatba lépünk velük. Köszönjük!</string>
+    <string name="sysserv_api_check_help_link">https://t.me/joinchat/BTodxkJMTTTgYmCfPL7IIA</string>
     <string name="clean_dialog_body">A téma összes fedvényét tisztítani szeretné?</string>
     <string name="disable_dialog_body">A téma összes fedvényét le szeretné tiltani?</string>
     <string name="enable_dialog_body">A téma minden telepített fedvényét engedélyezni szeretné?
@@ -471,6 +479,8 @@
     <string name="profile_failed_info_notification">További információkért érintse meg</string>
     <string name="profile_compile_progress" formatted="false">%d / %d összeállítása:\n%s</string>
     <string name="profile_compile_processing">Mentett fedvény állapotok feldolgozása&#8230;</string>
+    <string name="sungstromeda_mode_title">Sungstromeda mód</string>
+    <string name="sungstromeda_mode_summary">Használja a Substratumot a Sungstromeda módban a korábbi fedvények kezeléséhez.</string>
     <string name="theme_debug_mode_title">Elavult összeállítási mechanizmus megkerülése</string>
     <string name="theme_debug_mode_summary">Ez megakadályozza, hogy az alkalmazás a témákat segítve az elavult összeállítási mechanizmust használja, ha azok egy javíthatatlan állapotot érnek el.</string>
     <string name="logchar_dialog_title_delete_title">FIGYELEM</string>
@@ -495,6 +505,7 @@
     <string name="settings_system_status_rootless">Interfacer mód</string>
     <string name="settings_system_status_ss">Substratum szervíz mód</string>
     <string name="settings_system_status_samsung">Samsung mód</string>
+    <string name="settings_system_status_samsung_andromeda">Samsung + Andromeda mód</string>
     <string name="settings_system_status_certified">Hitelesített</string>
     <string name="settings_system_status_uncertified">Nem hitelesített</string>
     <string name="settings_title_automation">Automatizálás</string>

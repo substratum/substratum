@@ -40,6 +40,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -138,6 +139,7 @@ public enum Packages {
         try {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
+            if (!new File(ai.sourceDir).exists()) return false;
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             if (enabled) return ai.enabled;
             // if package doesn't exist, an Exception will be thrown, so return true in every case

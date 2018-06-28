@@ -34,6 +34,7 @@ public class SubstratumTile extends TileService {
     public void onClick() {
         try {
             Intent intent = new Intent(this, LauncherActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityAndCollapse(intent);
         } catch (ActivityNotFoundException ignored) {
             // At this point, the app is most likely hidden and set to only open from Settings

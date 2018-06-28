@@ -224,7 +224,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // System Platform
         systemPlatform = getPreferenceManager().findPreference("system_platform");
-        if (isOMS && !hasAndromeda) {
+        if (isOMS && !hasAndromeda && !Systems.checkP()) {
             new ValidatorUtils.checkROMSupportList(this).execute(
                     getString(R.string.supported_roms_url),
                     SUPPORTED_ROMS_FILE);
@@ -237,7 +237,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         platformSummary.append(String.format("%s ", getString(R.string
                 .settings_about_oms_rro_version)));
         platformSummary.append((isOMS ?
-                (Systems.checkOreo() ? getString(R.string.settings_about_oms_version_do) :
+                (Systems.checkOreo() || Systems.checkP() ? getString(R.string.settings_about_oms_version_do) :
                         getString(R.string.settings_about_oms_version_7)) :
                 getString(R.string.settings_about_rro_version_2)));
         systemPlatform.setSummary(platformSummary);
@@ -245,32 +245,36 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // System Status
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
-        boolean full_oms = isOMS && Systems.checkSubstratumFeature(context);
+        boolean fullOms = isOMS && Systems.checkSubstratumFeature(context);
         boolean interfacer = hasThemeInterfacer && !isSamsung;
-        boolean system_service = Systems.checkSubstratumService(getContext()) && !isSamsung;
+        boolean systemService = Systems.checkSubstratumService(getContext()) && !isSamsung;
         boolean verified = !checkPackageSupport(context, false);
         boolean certified = verified;
-        if (isOMS && interfacer || system_service) {
-            certified = verified && full_oms;
+        if (isOMS && interfacer || systemService) {
+            certified = verified && fullOms;
         }
-        systemStatus.setSummary((interfacer
-                ? getString(R.string.settings_system_status_rootless)
-                : (system_service ?
-                getString(R.string.settings_system_status_ss) :
-                (isSamsung ?
-                        (isNewSamsungDeviceAndromeda(context) ?
-                                getString(R.string.settings_system_status_samsung_andromeda) :
-                                getString(R.string.settings_system_status_samsung)) :
-                        hasAndromeda ?
-                                getString(R.string.settings_system_status_andromeda) :
-                                getString(R.string.settings_system_status_rooted))))
+        String themeSystem;
+        if (interfacer) {
+            themeSystem = getString(R.string.settings_system_status_rootless);
+        } else if (systemService) {
+            themeSystem = getString(R.string.settings_system_status_ss);
+        } else if (isSamsung) {
+            themeSystem = isNewSamsungDeviceAndromeda(context) ?
+                    getString(R.string.settings_system_status_samsung_andromeda) :
+                    getString(R.string.settings_system_status_samsung);
+        } else if (hasAndromeda) {
+            themeSystem = getString(R.string.settings_system_status_andromeda);
+        } else {
+            themeSystem = getString(R.string.settings_system_status_rooted);
+        }
+        systemStatus.setSummary(themeSystem
                 + " (" + (certified ? getString(R.string.settings_system_status_certified) :
                 getString(R.string.settings_system_status_uncertified)) + ')'
         );
         systemStatus.setIcon(certified ?
                 context.getDrawable(R.drawable.system_status_certified)
                 : context.getDrawable(R.drawable.system_status_uncertified));
-        if (BuildConfig.DEBUG && isOMS && (interfacer || system_service) && !hasAndromeda) {
+        if (BuildConfig.DEBUG && isOMS && (interfacer || systemService) && !hasAndromeda) {
             systemStatus.setOnPreferenceClickListener(preference -> {
                 if (References.isNetworkAvailable(context)) {
                     new ValidatorUtils.downloadRepositoryList(this).execute("");

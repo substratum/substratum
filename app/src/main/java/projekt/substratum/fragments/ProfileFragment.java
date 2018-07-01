@@ -326,7 +326,7 @@ public class ProfileFragment extends Fragment {
                         backupGetText = backupName.getText().toString();
                         BackupFunction backupFunction = new BackupFunction(this);
                         backupFunction.execute();
-                        Log.d(References.SUBSTRATUM_LOG, selectedBackup.toString());
+                        Substratum.log(References.SUBSTRATUM_LOG, selectedBackup.toString());
                         dialog.dismiss();
                         backupName.getText().clear();
                     } else {
@@ -590,11 +590,11 @@ public class ProfileFragment extends Fragment {
                         NO_MEDIA);
                 try {
                     if (!nomediaFile.createNewFile()) {
-                        Log.d(References.SUBSTRATUM_LOG, "Could not create .nomedia file or" +
+                        Substratum.log(References.SUBSTRATUM_LOG, "Could not create .nomedia file or" +
                                 " file already exist!");
                     }
                 } catch (IOException e) {
-                    Log.d(References.SUBSTRATUM_LOG, "Could not create .nomedia file!");
+                    Substratum.log(References.SUBSTRATUM_LOG, "Could not create .nomedia file!");
                     e.printStackTrace();
                 }
 
@@ -690,7 +690,7 @@ public class ProfileFragment extends Fragment {
                     File profileThemeFolder = new File(profileDir, "theme");
                     if (profileThemeFolder.list() != null) {
                         if (profileThemeFolder.list().length == 0) {
-                            Log.d(References.SUBSTRATUM_LOG,
+                            Substratum.log(References.SUBSTRATUM_LOG,
                                     "Profile theme directory is empty! delete " +
                                             (profileThemeFolder.delete() ? "success" : "failed"));
                         }
@@ -1062,12 +1062,12 @@ public class ProfileFragment extends Fragment {
         private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "Waiting for encryption key handshake approval...");
+                Substratum.log(TAG, "Waiting for encryption key handshake approval...");
                 if (securityIntent != null) {
-                    Log.d(TAG, "Encryption key handshake approved!");
+                    Substratum.log(TAG, "Encryption key handshake approved!");
                     handler.removeCallbacks(runnable);
                 } else {
-                    Log.d(TAG, "Encryption key still null...");
+                    Substratum.log(TAG, "Encryption key still null...");
                     try {
                         Thread.sleep(500L);
                     } catch (InterruptedException e) {
@@ -1177,7 +1177,7 @@ public class ProfileFragment extends Fragment {
                                 (metadataEncryptionValue) &&
                                 !theme.equals(prevTheme)) {
                             prevTheme = theme;
-                            Log.d(TAG, "This overlay for " +
+                            Substratum.log(TAG, "This overlay for " +
                                     Packages.getPackageName(profileFragment.context, theme) +
                                     " is encrypted, passing handshake to the theme package...");
                             encrypted = true;
@@ -1354,7 +1354,7 @@ public class ProfileFragment extends Fragment {
                         );
                         if (sb.hasErroredOut) {
                             // TODO: Handle failed compilation
-                            Log.d(TAG, "Failed to compile profile...");
+                            Substratum.log(TAG, "Failed to compile profile...");
                         } else {
                             if (sb.specialSnowflake || sb.noInstall.length() > 0) {
                                 profileFragment.lateInstall.add(sb.noInstall);

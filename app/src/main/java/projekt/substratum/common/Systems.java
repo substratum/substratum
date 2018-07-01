@@ -243,36 +243,36 @@ public enum Systems {
                     Boolean isOMSRunning = isServiceRunning(IOverlayManager.class,
                             context.getApplicationContext());
                     if (isOMSRunning || checkOreo()) {
-                        Log.d(SUBSTRATUM_LOG,
+                        Substratum.log(SUBSTRATUM_LOG,
                                 "This device fully supports the Overlay Manager Service...");
                         foundOms = true;
                     } else {
                         String out = Root.runCommand("cmd overlay").split("\n")[0];
                         if ("The overlay manager has already been initialized.".equals(out) ||
                                 "Overlay manager (overlay) commands:".equals(out)) {
-                            Log.d(SUBSTRATUM_LOG,
+                            Substratum.log(SUBSTRATUM_LOG,
                                     "This device fully supports the Overlay Manager Service...");
                             foundOms = true;
                         }
                     }
                 } else {
-                    Log.d(SUBSTRATUM_LOG, "Sony Mobile Overlay Manager Service found, " +
+                    Substratum.log(SUBSTRATUM_LOG, "Sony Mobile Overlay Manager Service found, " +
                             "falling back to RRO2 for vendor bypass...");
                 }
             }
 
             if (foundOms && !isSamsungDevice(context)) {
                 prefs.edit().putBoolean("oms_state", true).apply();
-                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with Dynamic Overlay / " +
+                Substratum.log(SUBSTRATUM_LOG, "Initializing Substratum with Dynamic Overlay / " +
                         "Overlay Manager Service support!");
             } else {
                 prefs.edit().putBoolean("oms_state", false).apply();
-                Log.d(SUBSTRATUM_LOG,
+                Substratum.log(SUBSTRATUM_LOG,
                         "Initializing Substratum with Runtime Resource Overlay support!");
             }
         } catch (Exception e) {
             prefs.edit().putBoolean("oms_state", false).apply();
-            Log.d(SUBSTRATUM_LOG, "Initializing Substratum with Runtime Resource Overlay support!");
+            Substratum.log(SUBSTRATUM_LOG, "Initializing Substratum with Runtime Resource Overlay support!");
         }
     }
 
@@ -704,11 +704,11 @@ public enum Systems {
                             if (current.contains(".")) {
                                 current = current.split("\\.")[1];
                             }
-                            Log.d(SUBSTRATUM_LOG, "Supported ROM: " + current);
+                            Substratum.log(SUBSTRATUM_LOG, "Supported ROM: " + current);
                             supportedRom = current;
                             supported = true;
                         } else {
-                            Log.d(SUBSTRATUM_LOG, "Supported ROM: " + value);
+                            Substratum.log(SUBSTRATUM_LOG, "Supported ROM: " + value);
                             supportedRom = value;
                             supported = true;
                         }
@@ -740,12 +740,12 @@ public enum Systems {
                                     if (current.contains(".")) {
                                         current = current.split("\\.")[1];
                                     }
-                                    Log.d(SUBSTRATUM_LOG,
+                                    Substratum.log(SUBSTRATUM_LOG,
                                             "Supported ROM (1): " + current);
                                     supportedRom = current;
                                     supported = true;
                                 } else {
-                                    Log.d(SUBSTRATUM_LOG,
+                                    Substratum.log(SUBSTRATUM_LOG,
                                             "Supported ROM (1): " + value);
                                     supportedRom = value;
                                     supported = true;

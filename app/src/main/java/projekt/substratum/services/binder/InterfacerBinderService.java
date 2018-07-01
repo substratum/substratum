@@ -26,10 +26,10 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import projekt.substratum.IInterfacerInterface;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
@@ -92,13 +92,13 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     public void onServiceConnected(ComponentName name, IBinder service) {
         interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
         bound = true;
-        Log.d(TAG, "Substratum has successfully binded with the Interfacer module.");
+        Substratum.log(TAG, "Substratum has successfully binded with the Interfacer module.");
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
         interfacerInterface = null;
         bound = false;
-        Log.d(TAG, "Substratum has successfully unbinded with the Interfacer module.");
+        Substratum.log(TAG, "Substratum has successfully unbinded with the Interfacer module.");
     }
 }

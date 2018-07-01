@@ -131,7 +131,7 @@ public class Substratum extends Application {
      * Stop the ongoing package detection on Samsung
      */
     static void stopSamsungPackageMonitor() {
-        Log.d("Substratum",
+        log("Substratum",
                 "The overlay package refresher for Samsung devices is now stopping!");
         shouldStopThread = true;
     }
@@ -142,7 +142,7 @@ public class Substratum extends Application {
      * @param context Context!
      */
     static void startSamsungPackageMonitor(Context context) {
-        Log.d("Substratum",
+        log("Substratum",
                 "The overlay package refresher for Samsung devices has been fully loaded.");
         PackageManager pm = context.getPackageManager();
         List<ApplicationInfo> currentApps =
@@ -208,6 +208,12 @@ public class Substratum extends Application {
         return weakSelf.get().preferences;
     }
 
+    public static void log(final String TAG, final String message) {
+        if (BuildConfig.DEBUG)
+            return;
+        Log.d(TAG, message);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -242,7 +248,7 @@ public class Substratum extends Application {
         // Dynamically check which theme engine is running at the moment
         if (isAndromedaDevice(this.getApplicationContext())) {
             boolean startBinderService = this.startBinderService(AndromedaBinderService.class);
-            Log.d(BINDER_TAG, "Successful to start the Andromeda binder service: " +
+            log(BINDER_TAG, "Successful to start the Andromeda binder service: " +
                     (startBinderService ? "Success!" : "Failed"));
             if (!startBinderService) {
                 this.stopService(
@@ -250,7 +256,7 @@ public class Substratum extends Application {
             }
         } else if (isBinderInterfacer(this.getApplicationContext())) {
             boolean startBinderService = this.startBinderService(InterfacerBinderService.class);
-            Log.d(BINDER_TAG, "Successful to start the Interfacer binder service: " +
+            log(BINDER_TAG, "Successful to start the Interfacer binder service: " +
                     (startBinderService ? "Success!" : "Failed"));
             if (!startBinderService) {
                 this.stopService(
@@ -325,19 +331,19 @@ public class Substratum extends Application {
         try {
             if (className.equals(AndromedaBinderService.class)) {
                 if (this.checkServiceActivation(AndromedaBinderService.class)) {
-                    Log.d(BINDER_TAG,
+                    log(BINDER_TAG,
                             "This session will utilize the connected Andromeda Binder service!");
                 } else {
-                    Log.d(BINDER_TAG,
+                    log(BINDER_TAG,
                             "Substratum is now connecting to the Andromeda Binder service...");
                     this.startService(new Intent(this.getApplicationContext(),
                             AndromedaBinderService.class));
                 }
             } else if (className.equals(InterfacerBinderService.class)) {
                 if (this.checkServiceActivation(InterfacerBinderService.class)) {
-                    Log.d(BINDER_TAG, "This session will utilize the connected Binder service!");
+                    log(BINDER_TAG, "This session will utilize the connected Binder service!");
                 } else {
-                    Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
+                    log(BINDER_TAG, "Substratum is now connecting to the Binder service...");
                     Intent i = new Intent(this.getApplicationContext(),
                             InterfacerBinderService.class);
                     this.startService(i);
@@ -400,7 +406,7 @@ public class Substratum extends Application {
                 String check = Packages.getOverlayParent(context, packageName);
                 if (check != null) {
                     isWaiting = false;
-                    Log.d("Substratum", "PACKAGE_ADDED: " + packageName);
+                    log("Substratum", "PACKAGE_ADDED: " + packageName);
                 }
             }
         }

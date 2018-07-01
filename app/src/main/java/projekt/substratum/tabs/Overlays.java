@@ -318,16 +318,16 @@ public class Overlays extends Fragment {
                             new SecretKeySpec(encryptionKey, SECRET_KEY_SPEC),
                             new IvParameterSpec(ivEncryptKey)
                     );
-                    Log.d(SUBSTRATUM_BUILDER, "Loading substratum theme in encrypted assets mode.");
+                    Substratum.log(SUBSTRATUM_BUILDER, "Loading substratum theme in encrypted assets mode.");
                     encrypted = true;
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d(SUBSTRATUM_BUILDER,
+                    Substratum.log(SUBSTRATUM_BUILDER,
                             "Loading substratum theme in decrypted assets mode due to an exception.");
                     decryptedAssetsExceptionReached = true;
                 }
             } else {
-                Log.d(SUBSTRATUM_BUILDER, "Loading substratum theme in decrypted assets mode.");
+                Substratum.log(SUBSTRATUM_BUILDER, "Loading substratum theme in decrypted assets mode.");
             }
 
             if (decryptedAssetsExceptionReached) {
@@ -358,7 +358,7 @@ public class Overlays extends Fragment {
 
         File workArea = new File(EXTERNAL_STORAGE_CACHE);
         if (!workArea.exists() && workArea.mkdir()) {
-            Log.d(SUBSTRATUM_BUILDER,
+            Substratum.log(SUBSTRATUM_BUILDER,
                     "Updating the internal storage with proper file directories...");
         }
 
@@ -472,7 +472,7 @@ public class Overlays extends Fragment {
                     baseSpinner.setVisibility(View.VISIBLE);
                     baseSpinner.setAdapter(adapter1);
                     try {
-                        Log.d(SUBSTRATUM_BUILDER,
+                        Substratum.log(SUBSTRATUM_BUILDER,
                                 "Assigning the spinner position: " +
                                         prefs2.getInt(themePid, 0));
                         if (prefs2.getInt(themePid, 0) <= type3.size() - 1) {
@@ -482,7 +482,7 @@ public class Overlays extends Fragment {
                         }
                     } catch (Exception e) {
                         // Should be OutOfBounds, but let's catch everything
-                        Log.d(SUBSTRATUM_BUILDER, "Falling back to default spinner position due to an error...");
+                        Substratum.log(SUBSTRATUM_BUILDER, "Falling back to default spinner position due to an error...");
                         prefs2.edit().putInt(themePid, 0).apply();
                         baseSpinner.setSelection(0);
                     }
@@ -728,7 +728,7 @@ public class Overlays extends Fragment {
             return new VariantItem(formatter, hex);
         } catch (Exception e) {
             // When erroring out, put the default spinner text
-            Log.d(SUBSTRATUM_BUILDER, "Falling back to default base variant text...");
+            Substratum.log(SUBSTRATUM_BUILDER, "Falling back to default base variant text...");
             String hex = null;
             if (encrypted) {
                 try (InputStream input = FileOperations.getInputStream(
@@ -779,7 +779,7 @@ public class Overlays extends Fragment {
             return new VariantItem(String.format(
                     getString(R.string.overlays_variant_substitute), reader.readLine()), null);
         } catch (Exception e) {
-            Log.d(SUBSTRATUM_BUILDER, "Falling back to default base variant text...");
+            Substratum.log(SUBSTRATUM_BUILDER, "Falling back to default base variant text...");
             switch (typeValue) {
                 case 2:
                     return new VariantItem(
@@ -897,7 +897,7 @@ public class Overlays extends Fragment {
                 mainLoader = new LoadOverlays(this).execute("");
             }
         } else {
-            Log.d(SUBSTRATUM_LOG,
+            Substratum.log(SUBSTRATUM_LOG,
                     "Overlay compilation in progress, will skip refreshing layout until the end.");
         }
     }
@@ -1574,7 +1574,7 @@ public class Overlays extends Fragment {
             } else if (!compileDialog.isShowing()) {
                 refreshList();
             } else {
-                Log.d(SUBSTRATUM_BUILDER,
+                Substratum.log(SUBSTRATUM_BUILDER,
                         "Refresh overlays has been cancelled during compilation phase...");
             }
         }

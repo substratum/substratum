@@ -21,12 +21,13 @@ package projekt.substratum.common.analytics;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import projekt.substratum.Substratum;
 
 public enum PackageAnalytics {
     ;
@@ -46,9 +47,9 @@ public enum PackageAnalytics {
                 .replaceAll(",", ".");
         String free = humanReadableByteCount(Runtime.getRuntime().freeMemory())
                 .replaceAll(",", ".");
-        Log.d(RUNTIME_TAG, "Max Memory: " + max);
-        Log.d(RUNTIME_TAG, "Total Memory: " + total);
-        Log.d(RUNTIME_TAG, "Free Memory: " + free);
+        Substratum.log(RUNTIME_TAG, "Max Memory: " + max);
+        Substratum.log(RUNTIME_TAG, "Total Memory: " + total);
+        Substratum.log(RUNTIME_TAG, "Free Memory: " + free);
         return new Float[]{
                 Float.valueOf(max.replaceAll("[a-zA-Z]", "")),
                 Float.valueOf(total.replaceAll("[a-zA-Z]", "")),
@@ -82,10 +83,10 @@ public enum PackageAnalytics {
             String text = format.format(date);
             String text2 = format2.format(date);
 
-            Log.d(PACKAGE_TAG, "Package Information for: " + packageName);
-            Log.d(PACKAGE_TAG, "Installation date: " + text);
-            Log.d(PACKAGE_TAG, "Installation time: " + text2);
-            Log.d(PACKAGE_TAG, "Installation location: " + installer);
+            Substratum.log(PACKAGE_TAG, "Package Information for: " + packageName);
+            Substratum.log(PACKAGE_TAG, "Installation date: " + text);
+            Substratum.log(PACKAGE_TAG, "Installation time: " + text2);
+            Substratum.log(PACKAGE_TAG, "Installation location: " + installer);
         } catch (Exception ignored) {
         }
     }

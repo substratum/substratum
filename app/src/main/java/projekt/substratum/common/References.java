@@ -461,7 +461,7 @@ public enum References {
                 if (shortcutManager != null) {
                     shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
                 }
-                Log.d(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
+                Substratum.log(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -479,7 +479,7 @@ public enum References {
             if (shortcutManager != null) {
                 shortcutManager.removeAllDynamicShortcuts();
             }
-            Log.d(SUBSTRATUM_LOG, "Successfully removed all dynamic app shortcuts!");
+            Substratum.log(SUBSTRATUM_LOG, "Successfully removed all dynamic app shortcuts!");
         }
     }
 
@@ -741,7 +741,7 @@ public enum References {
         if (prefs.contains(date)) {
             Set<String> pref = prefs.getStringSet(date, new HashSet<>());
             if (checkPackageRegex(context, pref.toArray(new String[pref.size()]))) {
-                Log.d("PatcherDatabase",
+                Substratum.log("PatcherDatabase",
                         "The database has triggered a primary level blacklist package.");
                 uncertified = true;
                 return true;
@@ -805,7 +805,7 @@ public enum References {
             File logcharFolder = new File(Environment.getExternalStorageDirectory() +
                     File.separator + "substratum" + File.separator + "LogCharReports");
             if (!logcharFolder.exists() && logcharFolder.mkdirs()) {
-                Log.d("LogChar Utility", "Created LogChar directory!");
+                Substratum.log("LogChar Utility", "Created LogChar directory!");
             }
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(

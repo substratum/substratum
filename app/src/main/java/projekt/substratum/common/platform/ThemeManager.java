@@ -301,7 +301,7 @@ public enum ThemeManager {
      * @param context Context
      */
     public static void restartSystemUI(Context context) {
-        Log.d(References.SUBSTRATUM_LOG, "Restarting SystemUI");
+        Substratum.log(References.SUBSTRATUM_LOG, "Restarting SystemUI");
         if (checkSubstratumService(context)) {
             SubstratumService.restartSystemUi();
         } else if (checkThemeInterfacer(context)) {
@@ -450,14 +450,14 @@ public enum ThemeManager {
                                     "/.andromeda/overlays.xml");
 
                     // Call Andromeda to output the file!
-                    Log.d("ThemeManager", "Fetching new file from Andromeda, please wait!");
+                    Substratum.log("ThemeManager", "Fetching new file from Andromeda, please wait!");
                     AndromedaService.listOverlays();
                     int counter = 0;
                     while (!overlays.exists() && (counter <= 200)) {
                         try {
                             Thread.sleep(10L);
                             counter++;
-                            Log.d("ThemeManager",
+                            Substratum.log("ThemeManager",
                                     "Substratum is still waiting for a response " +
                                             "from Andromeda...");
                         } catch (InterruptedException e1) {

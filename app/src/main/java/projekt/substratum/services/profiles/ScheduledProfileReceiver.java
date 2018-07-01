@@ -30,9 +30,9 @@ import android.content.SharedPreferences;
 import android.os.PersistableBundle;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Broadcasts;
 
 import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE_TYPE_EXTRA;
@@ -56,7 +56,7 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
                 .POWER_SERVICE);
         if (powerManager != null) {
             if (!powerManager.isInteractive()) {
-                Log.d(TAG, extra + " profile will be applied.");
+                Substratum.log(TAG, extra + " profile will be applied.");
                 prefs.edit().remove(SCHEDULED_PROFILE_TYPE_EXTRA).apply();
                 Broadcasts.unregisterProfileScreenOffReceiver(context.getApplicationContext());
 
@@ -76,7 +76,7 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
                     jobScheduler.schedule(jobInfo);
                 }
             } else {
-                Log.d(TAG, extra + " profile will be applied after screen off...");
+                Substratum.log(TAG, extra + " profile will be applied after screen off...");
                 NotificationManager notificationManager =
                         (NotificationManager) context.getSystemService(Context
                                 .NOTIFICATION_SERVICE);

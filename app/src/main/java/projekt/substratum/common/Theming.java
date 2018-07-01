@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
-import android.util.Log;
 
 import java.util.List;
 import java.util.Set;
@@ -108,9 +107,8 @@ public enum Theming {
                                       String packageName,
                                       String actionIntent) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
-            boolean shouldDebug = projekt.substratum.BuildConfig.DEBUG;
             String TAG = "ThemeLauncher";
-            if (shouldDebug) Log.d(TAG, "Creating new intent");
+            Substratum.log(TAG, "Creating new intent");
             Intent intentActivity;
             if (actionIntent.equals(TEMPLATE_GET_KEYS)) {
                 intentActivity = new Intent();
@@ -119,19 +117,19 @@ public enum Theming {
             }
             intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intentActivity.putExtra(Internal.THEME_PACKAGE, packageName);
-            if (shouldDebug) Log.d(TAG, "Assigning action to intent...");
+            Substratum.log(TAG, "Assigning action to intent...");
             intentActivity.setAction(actionIntent);
-            if (shouldDebug) Log.d(TAG, "Assigning package name to intent...");
+            Substratum.log(TAG, "Assigning package name to intent...");
             intentActivity.setPackage(packageName);
             intentActivity.putExtra(Internal.THEME_CALLER, context.getPackageName());
-            if (shouldDebug) Log.d(TAG, "Checking for theme system type...");
+            Substratum.log(TAG, "Checking for theme system type...");
             intentActivity.putExtra(Internal.THEME_OMS, !Systems.checkOMS(context));
             intentActivity.putExtra(Internal.NOTIFICATION, false);
-            if (shouldDebug) Log.d(TAG, "Obtaining APK signature hash...");
+            Substratum.log(TAG, "Obtaining APK signature hash...");
             intentActivity.putExtra(Internal.THEME_HASHPASSTHROUGH, hashPassthrough(context));
-            if (shouldDebug) Log.d(TAG, "Checking for certification...");
+            Substratum.log(TAG, "Checking for certification...");
             intentActivity.putExtra(Internal.THEME_CERTIFIED, checkPackageSupport(context, false));
-            if (shouldDebug) Log.d(TAG, "Starting Activity...");
+            Substratum.log(TAG, "Starting Activity...");
             return intentActivity;
         } else {
             return null;

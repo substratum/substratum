@@ -237,7 +237,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
         if (replacing) {
             // We need to check if this is a new install or not
-            Log.d(TAG, '\'' + packageName1 + "' has been updated.");
+            Substratum.log(TAG, '\'' + packageName1 + "' has been updated.");
             NotificationManager notificationManager = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder builder = new

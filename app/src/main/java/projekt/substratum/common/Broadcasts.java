@@ -25,6 +25,7 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.services.crash.AppCrashReceiver;
 import projekt.substratum.services.packages.OverlayFound;
 import projekt.substratum.services.packages.OverlayUpdater;
@@ -61,7 +62,7 @@ public enum Broadcasts {
     static void sendLocalizedKeyMessage(Context context,
                                         byte[] encryptionKey,
                                         byte[] ivEncryptKey) {
-        Log.d("KeyRetrieval",
+        Substratum.log("KeyRetrieval",
                 "The system has completed the handshake for keys retrieval " +
                         "and is now passing it to the activity...");
         Intent intent = new Intent(KEY_RETRIEVAL);
@@ -76,7 +77,7 @@ public enum Broadcasts {
      * @param context Context
      */
     public static void sendKillMessage(Context context) {
-        Log.d("SubstratumKiller",
+        Substratum.log("SubstratumKiller",
                 "A crucial action has been conducted by the user and " +
                         "Substratum is now shutting down!");
         Intent intent = new Intent(MAIN_ACTIVITY_RECEIVER);
@@ -89,7 +90,7 @@ public enum Broadcasts {
      * @param context Context
      */
     public static void sendRefreshMessage(Context context) {
-        Log.d("ThemeFragmentRefresher",
+        Substratum.log("ThemeFragmentRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");
         Intent intent = new Intent(THEME_FRAGMENT_REFRESH);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
@@ -101,7 +102,7 @@ public enum Broadcasts {
      * @param context Context
      */
     public static void sendOverlayRefreshMessage(Context context) {
-        Log.d("OverlayRefresher",
+        Substratum.log("OverlayRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");
         Intent intent = new Intent(OVERLAY_REFRESH);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
@@ -115,7 +116,7 @@ public enum Broadcasts {
      */
     public static void sendActivityFinisherMessage(Context context,
                                                    String packageName) {
-        Log.d("ThemeInstaller",
+        Substratum.log("ThemeInstaller",
                 "A theme has been installed, sending update signal to app for further processing!");
         Intent intent = new Intent(ACTIVITY_FINISHER);
         intent.putExtra(Internal.THEME_PID, packageName);
@@ -166,7 +167,7 @@ public enum Broadcasts {
             context.getApplicationContext().registerReceiver(
                     new PackageModificationDetector(), intentPackageFullyRemoved);
 
-            Log.d(SUBSTRATUM_LOG,
+            Substratum.log(SUBSTRATUM_LOG,
                     "Successfully registered broadcast receivers for Substratum functionality!");
         } catch (Exception e) {
             Log.e(SUBSTRATUM_LOG,
@@ -208,7 +209,7 @@ public enum Broadcasts {
             context.getApplicationContext().registerReceiver(
                     new KeyRetriever(), intentGetKeys);
 
-            Log.d(SUBSTRATUM_LOG, "Successfully registered key retrieval receiver!");
+            Substratum.log(SUBSTRATUM_LOG, "Successfully registered key retrieval receiver!");
         } catch (Exception e) {
             Log.e(SUBSTRATUM_LOG, "Failed to register key retrieval receiver...");
         }

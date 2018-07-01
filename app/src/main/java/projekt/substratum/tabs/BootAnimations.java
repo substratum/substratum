@@ -377,7 +377,7 @@ public class BootAnimations extends Fragment {
             final File checkFile = new File(file_location);
             final int fileSize = Integer.parseInt(
                     String.valueOf(checkFile.length() / 1024L / 1024L));
-            Log.d(TAG, "Managing bootanimation with size: " + fileSize + "MB");
+            Substratum.log(TAG, "Managing bootanimation with size: " + fileSize + "MB");
 
             if (fileSize <= 5) {
                 return 1;
@@ -464,11 +464,11 @@ public class BootAnimations extends Fragment {
             final BootAnimations bootAnimations = ref.get();
             if (bootAnimations != null) {
                 try {
-                    Log.d(TAG, "Loaded boot animation contains " +
+                    Substratum.log(TAG, "Loaded boot animation contains " +
                             bootAnimations.previewImages.size() + " frames.");
 
                     if (bootAnimations.bootAnimationSelector.getSelectedItemPosition() > 1) {
-                        Log.d(TAG, "Displaying bootanimation after render task complete!");
+                        Substratum.log(TAG, "Displaying bootanimation after render task complete!");
                         bootAnimations.previewHandler.post(bootAnimations.previewRunnable);
                     }
                     bootAnimations.progressBar.setVisibility(View.GONE);
@@ -488,18 +488,18 @@ public class BootAnimations extends Fragment {
                             bootAnimations.context.getCacheDir(), BOOTANIMATION_CACHE);
 
                     if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
-                        Log.d(TAG, "Bootanimation folder created");
+                        Substratum.log(TAG, "Bootanimation folder created");
                     }
                     final File cacheDirectory2 = new File(bootAnimations.context.getCacheDir(),
                             BOOTANIMATION_PREVIEW_CACHE);
                     if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
-                        Log.d(TAG, "Bootanimation work folder created");
+                        Substratum.log(TAG, "Bootanimation work folder created");
                     } else {
                         FileOperations.delete(bootAnimations.context,
                                 bootAnimations.context.getCacheDir().getAbsolutePath() +
                                         BOOTANIMATION_PREVIEW_CACHE);
                         final boolean created = cacheDirectory2.mkdirs();
-                        if (created) Log.d(TAG, "Bootanimation folder recreated");
+                        if (created) Substratum.log(TAG, "Bootanimation folder recreated");
                     }
 
                     // Copy the bootanimation.zip from assets/bootanimation of the theme's assets

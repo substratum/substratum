@@ -58,6 +58,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import projekt.substratum.Substratum;
+
 import static projekt.substratum.common.Internal.BOOTANIMATION;
 import static projekt.substratum.common.Internal.BOOTANIMATION_BU;
 import static projekt.substratum.common.Internal.BOOTANIMATION_CACHE;
@@ -187,23 +189,23 @@ public class BootAnimationUtils {
             hasFailed = false;
 
             // Move the file from assets folder to a new working area
-            Log.d(TAG, "Copying over the selected boot animation to working directory...");
+            Substratum.log(TAG, "Copying over the selected boot animation to working directory...");
 
             File cacheDirectory = new File(context.getCacheDir(), BOOTANIMATION_CACHE);
             if (!cacheDirectory.exists() && cacheDirectory.mkdirs())
-                Log.d(TAG, "Bootanimation folder created");
+                Substratum.log(TAG, "Bootanimation folder created");
 
             File cacheDirectory2 = new File(context.getCacheDir(),
                     BOOTANIMATION_CREATION_CACHE);
             if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
-                Log.d(TAG, "Bootanimation work folder created");
+                Substratum.log(TAG, "Bootanimation work folder created");
             } else {
                 FileOperations.delete(
                         context,
                         context.getCacheDir().getAbsolutePath() +
                                 BOOTANIMATION_CREATION_CACHE);
                 boolean created = cacheDirectory2.mkdirs();
-                if (created) Log.d(TAG, "Bootanimation folder recreated");
+                if (created) Substratum.log(TAG, "Bootanimation folder recreated");
             }
 
             String bootanimation = sUrl[0];
@@ -214,7 +216,7 @@ public class BootAnimationUtils {
 
             // Now let's take out desc.txt from the theme's assets (bootanimation.zip) and parse it
             if (!hasFailed) {
-                Log.d(TAG, "Analyzing integrity of boot animation descriptor file...");
+                Substratum.log(TAG, "Analyzing integrity of boot animation descriptor file...");
                 if (cipher != null) {
                     try {
                         Context otherContext = context.createPackageContext(this
@@ -267,7 +269,7 @@ public class BootAnimationUtils {
                 File to = new File(workingDirectory, bootanimation + ".zip");
                 boolean rename = from.renameTo(to);
                 if (rename)
-                    Log.d(TAG, "Boot Animation successfully moved to new directory");
+                    Substratum.log(TAG, "Boot Animation successfully moved to new directory");
             }
 
             if (!hasFailed) {
@@ -292,7 +294,7 @@ public class BootAnimationUtils {
 
             // Begin parsing of the file (desc.txt) and parse the first line
             if (!hasFailed) {
-                Log.d(TAG, "Calculating hardware display density metrics " +
+                Substratum.log(TAG, "Calculating hardware display density metrics " +
                         "and resizing the bootanimation...");
                 BufferedReader reader = null;
                 try (OutputStream os = new FileOutputStream(
@@ -398,7 +400,7 @@ public class BootAnimationUtils {
             }
 
             if (!hasFailed) {
-                Log.d(TAG,
+                Substratum.log(TAG,
                         "Finalizing the boot animation descriptor file and " +
                                 "committing changes to the archive...");
 
@@ -414,14 +416,14 @@ public class BootAnimationUtils {
             }
 
             if (!hasFailed) {
-                Log.d(TAG, "Moving boot animation to theme directory " +
+                Substratum.log(TAG, "Moving boot animation to theme directory " +
                         "and setting correct contextual parameters...");
                 boolean isEncrypted = Systems.getDeviceEncryptionStatus(context) > 1;
                 File themeDirectory;
                 if (Systems.checkOMS(context)) {
                     if ((!isEncrypted || shutdownAnimation) &&
                             Systems.checkSubstratumFeature(context)) {
-                        Log.d(TAG, "Data partition on the current device is decrypted, using " +
+                        Substratum.log(TAG, "Data partition on the current device is decrypted, using " +
                                 "dedicated theme bootanimation slot...");
                         themeDirectory = new File(DATA_SYSTEM);
                         if (!themeDirectory.exists()) {
@@ -431,12 +433,12 @@ public class BootAnimationUtils {
                             FileOperations.createNewFolder(context, DATA_SYSTEM);
                         }
                     } else {
-                        Log.d(TAG, "Data partition on the current device is encrypted, using " +
+                        Substratum.log(TAG, "Data partition on the current device is encrypted, using " +
                                 "dedicated encrypted bootanimation slot...");
                         themeDirectory = new File(SYSTEM_MEDIA);
                     }
                 } else {
-                    Log.d("BootAnimationUtils",
+                    Substratum.log("BootAnimationUtils",
                             "Current device is on substratum legacy, " +
                                     "using system bootanimation slot...");
                     themeDirectory = new File(SYSTEM_MEDIA);
@@ -446,7 +448,7 @@ public class BootAnimationUtils {
                         .getAbsolutePath() + BOOTANIMATION_CREATION_CACHE +
                         "scaled-" + bootanimation + ".zip");
                 if (scaledBootAnimCheck.exists()) {
-                    Log.d(TAG, "Scaled boot animation created by Substratum verified!");
+                    Substratum.log(TAG, "Scaled boot animation created by Substratum verified!");
                 } else {
                     hasFailed = true;
                     Log.e(TAG, "Scaled boot animation created by Substratum NOT verified!");
@@ -500,10 +502,10 @@ public class BootAnimationUtils {
 
                     if (backupDirectory.exists()) {
                         if (backupScript.exists()) {
-                            Log.d(TAG, "Old bootanimation is backed up, ready to go!");
+                            Substratum.log(TAG, "Old bootanimation is backed up, ready to go!");
                         }
                     } else if (!bootAnimationCheck.exists() && !backupDirectory.exists()) {
-                        Log.d(TAG, "There is no predefined bootanimation on this device, " +
+                        Substratum.log(TAG, "There is no predefined bootanimation on this device, " +
                                 "injecting a brand new default bootanimation...");
                     } else {
                         hasFailed = true;
@@ -525,7 +527,7 @@ public class BootAnimationUtils {
                     editor.putString(BOOT_ANIMATION_APPLIED, themePid);
                 }
                 editor.apply();
-                Log.d(TAG, "Boot animation installed!");
+                Substratum.log(TAG, "Boot animation installed!");
                 FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                         BOOTANIMATION_CREATION_CACHE);
             } else {

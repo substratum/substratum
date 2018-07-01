@@ -131,7 +131,7 @@ enum OverlaysManager {
                 compile.execute("");
             }
             for (OverlaysItem overlay : overlays.currentInstance.checkedOverlays) {
-                Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
+                Substratum.log("OverlayTargetPackageKiller", "Killing package : " + overlay
                         .getPackageName());
                 overlays.activityManager.killBackgroundProcesses(overlay.getPackageName());
             }
@@ -190,7 +190,7 @@ enum OverlaysManager {
                     compile.execute("");
                 }
                 for (OverlaysItem overlay : overlays.currentInstance.checkedOverlays) {
-                    Log.d("OverlayTargetPackageKiller", "Killing package: " +
+                    Substratum.log("OverlayTargetPackageKiller", "Killing package: " +
                             overlay.getPackageName());
                     overlays.activityManager.killBackgroundProcesses(overlay.getPackageName());
                 }
@@ -347,7 +347,7 @@ enum OverlaysManager {
         protected void onPreExecute() {
             super.onPreExecute();
             Overlays overlays = ref.get();
-            Log.d(SUBSTRATUM_BUILDER,
+            Substratum.log(SUBSTRATUM_BUILDER,
                     "Substratum is proceeding with your actions and is now actively running...");
             if (overlays != null) {
                 Context context = overlays.getActivity();
@@ -775,9 +775,9 @@ enum OverlaysManager {
                                 // Type 1a
                                 if (checked.isVariantChosen1) {
                                     type1a = checked.getSelectedVariantName();
-                                    Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
+                                    Substratum.log(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
                                             checked.getSelectedVariantName() + '"');
-                                    Log.d(SUBSTRATUM_BUILDER, "Moving variant file to: " +
+                                    Substratum.log(SUBSTRATUM_BUILDER, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1a.xml");
 
                                     String toCopy =
@@ -802,9 +802,9 @@ enum OverlaysManager {
                                 // Type 1b
                                 if (checked.isVariantChosen2) {
                                     type1b = checked.getSelectedVariantName2();
-                                    Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
+                                    Substratum.log(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
                                             checked.getSelectedVariantName2() + '"');
-                                    Log.d(SUBSTRATUM_BUILDER, "Moving variant file to: " +
+                                    Substratum.log(SUBSTRATUM_BUILDER, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1b.xml");
 
                                     String toCopy =
@@ -828,9 +828,9 @@ enum OverlaysManager {
                                 // Type 1c
                                 if (checked.isVariantChosen3) {
                                     type1c = checked.getSelectedVariantName3();
-                                    Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
+                                    Substratum.log(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
                                             checked.getSelectedVariantName3() + '"');
-                                    Log.d(SUBSTRATUM_BUILDER, "Moving variant file to: " +
+                                    Substratum.log(SUBSTRATUM_BUILDER, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1c.xml");
 
                                     String toCopy =
@@ -908,7 +908,7 @@ enum OverlaysManager {
                                             overlays.themeCipher);
 
                                     // Let's get started
-                                    Log.d(SUBSTRATUM_BUILDER, "Currently processing package" +
+                                    Substratum.log(SUBSTRATUM_BUILDER, "Currently processing package" +
                                             " \"" + checked.getFullOverlayParameters() + "\"...");
 
                                     overlays.compileInstance = new SubstratumBuilder();
@@ -933,7 +933,7 @@ enum OverlaysManager {
                                             false
                                     );
                                 } else {
-                                    Log.d(SUBSTRATUM_BUILDER, "Currently processing package" +
+                                    Substratum.log(SUBSTRATUM_BUILDER, "Currently processing package" +
                                             " \"" + checked.getFullOverlayParameters() + "\"...");
                                     overlays.compileInstance = new SubstratumBuilder();
                                     overlays.compileInstance.beginAction(
@@ -1000,7 +1000,7 @@ enum OverlaysManager {
                                     }
                                 }
                             } else {
-                                Log.d(SUBSTRATUM_BUILDER, "Currently processing package" +
+                                Substratum.log(SUBSTRATUM_BUILDER, "Currently processing package" +
                                         " \"" + currentOverlay + '.' + themeNameParsed +
                                         "\"...");
                                 overlays.compileInstance = new SubstratumBuilder();

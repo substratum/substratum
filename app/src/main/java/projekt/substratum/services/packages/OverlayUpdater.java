@@ -151,12 +151,12 @@ public class OverlayUpdater extends BroadcastReceiver {
         private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "Waiting for encryption key handshake approval...");
+                Substratum.log(TAG, "Waiting for encryption key handshake approval...");
                 if (securityIntent != null) {
-                    Log.d(TAG, "Encryption key handshake approved!");
+                    Substratum.log(TAG, "Encryption key handshake approved!");
                     handler.removeCallbacks(runnable);
                 } else {
-                    Log.d(TAG, "Encryption key still null...");
+                    Substratum.log(TAG, "Encryption key still null...");
                     try {
                         Thread.sleep(500L);
                     } catch (InterruptedException e) {
@@ -277,10 +277,10 @@ public class OverlayUpdater extends BroadcastReceiver {
         @Override
         protected String doInBackground(String... sUrl) {
             if (!installedOverlays.isEmpty()) {
-                Log.d(TAG, '\'' + packageName +
+                Substratum.log(TAG, '\'' + packageName +
                         "' was just updated with overlays present, updating...");
                 for (int i = 0; i < installedOverlays.size(); i++) {
-                    Log.d(TAG, "Current overlay found in stash: " + installedOverlays.get(i));
+                    Substratum.log(TAG, "Current overlay found in stash: " + installedOverlays.get(i));
 
                     builder.setProgress(100, (int) (((double) (i + 1) /
                             (double) installedOverlays.size()) * 100.0), false);
@@ -322,7 +322,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             Packages.getOverlayMetadata(context, theme, metadataEncryption);
 
                     if ((encryptCheck != null) && encryptCheck.equals(metadataEncryptionValue)) {
-                        Log.d(TAG, "This overlay for " +
+                        Substratum.log(TAG, "This overlay for " +
                                 Packages.getPackageName(context, theme) +
                                 " is encrypted, passing handshake to the theme package...");
                         encrypted = true;

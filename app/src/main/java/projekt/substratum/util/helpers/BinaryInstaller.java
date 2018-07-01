@@ -25,6 +25,7 @@ import android.util.Log;
 import java.io.File;
 import java.util.Arrays;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 
@@ -57,7 +58,7 @@ public enum BinaryInstaller {
         if (!aapt.isFile() || forced) {
             inject(context, aaptPath);
         } else if (aapt.exists()) {
-            Log.d(References.SUBSTRATUM_LOG,
+            Substratum.log(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler " +
                             "and Substratum is locked and loaded!");
         } else {
@@ -81,14 +82,14 @@ public enum BinaryInstaller {
             FileOperations.copyFromAsset(context, "aapt" + ("ARM64".equals(architecture) ?
                     "64" :
                     ""), aaptPath);
-            Log.d(References.SUBSTRATUM_LOG,
+            Substratum.log(References.SUBSTRATUM_LOG,
                     "Android Asset Packaging Tool (" + architecture + ") " +
                             "has been added into the compiler directory.");
         } else {
             // Take account for x86 devices
             try {
                 FileOperations.copyFromAsset(context, "aaptx86", aaptPath);
-                Log.d(References.SUBSTRATUM_LOG,
+                Substratum.log(References.SUBSTRATUM_LOG,
                         "Android Asset Packaging Tool (x86) " +
                                 "has been added into the compiler directory.");
             } catch (Exception ignored) {
@@ -121,14 +122,14 @@ public enum BinaryInstaller {
             FileOperations.copyFromAsset(context, "zipalign" + ("ARM64".equals(architecture) ?
                     "64" :
                     ""), zipalignPath);
-            Log.d(References.SUBSTRATUM_LOG,
+            Substratum.log(References.SUBSTRATUM_LOG,
                     "ZipAlign (" + architecture + ") " +
                             "has been added into the compiler directory.");
         } else {
             // Take account for x86 devices
             try {
                 FileOperations.copyFromAsset(context, "zipalign86", zipalignPath);
-                Log.d(References.SUBSTRATUM_LOG,
+                Substratum.log(References.SUBSTRATUM_LOG,
                         "ZipAlign (x86) " +
                                 "has been added into the compiler directory.");
             } catch (Exception ignored) {

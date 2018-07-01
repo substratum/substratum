@@ -171,7 +171,7 @@ public class SplashScreenActivity extends Activity {
                 if (!prefs.contains(dateFormat.format(new Date()))) {
                     Log.e(SUBSTRATUM_LOG, "Failed to withdraw blacklisted packages...");
                 } else {
-                    Log.d(SUBSTRATUM_LOG, "Successfully withdrew blacklisted packages!");
+                    Substratum.log(SUBSTRATUM_LOG, "Successfully withdrew blacklisted packages!");
                 }
 
                 if (isAndromedaDevice(context)) {
@@ -201,7 +201,7 @@ public class SplashScreenActivity extends Activity {
                                     .putString("andromeda_installer", context.getPackageManager()
                                             .getInstallerPackageName(ANDROMEDA_PACKAGE))
                                     .apply();
-                            Log.d(SUBSTRATUM_LOG, "Successfully approved andromeda fingerprint!");
+                            Substratum.log(SUBSTRATUM_LOG, "Successfully approved andromeda fingerprint!");
                         }
                     }
                 }
@@ -225,7 +225,7 @@ public class SplashScreenActivity extends Activity {
                     if (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
                         Log.e(SUBSTRATUM_LOG, "Failed to withdraw sungstratum fingerprint...");
                     } else {
-                        Log.d(SUBSTRATUM_LOG, "Successfully approved sungstratum fingerprint!");
+                        Substratum.log(SUBSTRATUM_LOG, "Successfully approved sungstratum fingerprint!");
                     }
 
                     keyRetrieval = new KeyRetrieval();

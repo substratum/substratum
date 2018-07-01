@@ -75,6 +75,7 @@ import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 import com.theartofdev.edmodo.cropper.CropImage;
 import org.apache.commons.io.output.ByteArrayOutputStream;
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.activities.IATabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Internal;
@@ -1231,7 +1232,7 @@ public class InformationActivity extends AppCompatActivity {
                     context.getCacheDir().getAbsolutePath();
             File deleted = new File(workingDirectory);
             FileOperations.delete(context, deleted.getAbsolutePath());
-            if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
+            if (!deleted.exists()) Substratum.log(References.SUBSTRATUM_BUILDER,
                     "Successfully cleared Substratum cache!");
         }
     }
@@ -1449,7 +1450,7 @@ public class InformationActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (!Packages.isPackageInstalled(context, themePid)) {
-                Log.d("ThemeUninstaller",
+                Substratum.log("ThemeUninstaller",
                         "The theme was uninstalled, so the activity is now closing!");
                 Broadcasts.sendRefreshMessage(context);
                 finish();
@@ -1480,7 +1481,7 @@ public class InformationActivity extends AppCompatActivity {
                         packageName.equals(themePid)) {
                     String themeUpdatedToastText = String.format(
                             getString(R.string.toast_activity_finished), themeName);
-                    Log.d(SUBSTRATUM_LOG,
+                    Substratum.log(SUBSTRATUM_LOG,
                             themeName + " was just updated, now closing InformationActivity...");
                     Toast.makeText(context, themeUpdatedToastText, Toast.LENGTH_LONG).show();
                     finish();
@@ -1488,7 +1489,7 @@ public class InformationActivity extends AppCompatActivity {
                             Theming.launchTheme(context, themePid), 500L);
                 }
             } else if (compilingProcess) {
-                Log.d(SUBSTRATUM_LOG,
+                Substratum.log(SUBSTRATUM_LOG,
                         "Tried to restart activity but theme was compiling, delaying...");
                 shouldRestartActivity = true;
             }

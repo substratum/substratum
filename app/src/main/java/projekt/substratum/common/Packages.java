@@ -722,7 +722,7 @@ public enum Packages {
                             packageName
                     };
                     returnMap.put(appInfo.metaData.getString(metadataName), data);
-                    Log.d(PACKAGE_TAG, "Loaded Substratum Theme: [" + packageName + ']');
+                    Substratum.log(PACKAGE_TAG, "Loaded Substratum Theme: [" + packageName + ']');
                     if (ENABLE_PACKAGE_LOGGING)
                         PackageAnalytics.logPackageInfo(context, packageName);
                 } else {

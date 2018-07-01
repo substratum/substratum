@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.activities.profiles.ProfileErrorInfoActivity;
@@ -135,7 +134,7 @@ public class ScheduledProfileService extends JobService {
                         break;
                 }
 
-                Log.d(TAG, "Processing...");
+                Substratum.log(TAG, "Processing...");
                 String titleParse = String.format(
                         service.getString(R.string.profile_notification_title),
                         profileName);

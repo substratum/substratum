@@ -18,8 +18,6 @@
 
 package projekt.substratum.util.readers;
 
-import android.util.Log;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -32,6 +30,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.fragments.settings.Repository;
 import projekt.substratum.common.References;
 
@@ -60,7 +59,7 @@ public enum ReadRepositoriesFile {
                 if ((int) node.getNodeType() == (int) Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     Repository current = new Repository(element.getAttribute("name"));
-                    Log.d(References.SUBSTRATUM_VALIDATOR,
+                    Substratum.log(References.SUBSTRATUM_VALIDATOR,
                             "Pulling live resources from '" + current.getPackageName() + "'!");
                     try {
                         String bools =

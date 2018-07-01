@@ -49,6 +49,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import projekt.substratum.Substratum;
+
 import static projekt.substratum.common.Packages.getLiveOverlayVersion;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
@@ -205,7 +207,7 @@ public class SubstratumBuilder {
             File workAreaArray = new File(workArea);
 
             if (Arrays.asList(workAreaArray.list()).contains("priority")) {
-                Log.d(References.SUBSTRATUM_BUILDER,
+                Substratum.log(References.SUBSTRATUM_BUILDER,
                         "A specified priority file has been found for this overlay!");
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(new FileInputStream(
@@ -219,13 +221,13 @@ public class SubstratumBuilder {
                             prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY);
                 }
             }
-            Log.d(References.SUBSTRATUM_BUILDER,
+            Substratum.log(References.SUBSTRATUM_BUILDER,
                     "The priority for this overlay is " + legacyPriority);
         }
 
         String overlayVersionCode =
                 String.valueOf(getLiveOverlayVersion(context, themeParent, targetPackage));
-        Log.d(References.SUBSTRATUM_BUILDER,
+        Substratum.log(References.SUBSTRATUM_BUILDER,
                 "The version for this overlay is " + overlayVersionCode);
 
         if (!hasErroredOut) {
@@ -337,7 +339,7 @@ public class SubstratumBuilder {
                     context,
                     noCacheDir);
 
-            if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Running commands: " + commands);
+            if (ENABLE_DIRECT_ASSETS_LOGGING) Substratum.log(DA_LOG, "Running commands: " + commands);
 
             hasErroredOut = !runAAPTShellCommands(
                     commands,
@@ -366,11 +368,11 @@ public class SubstratumBuilder {
                 nativeApp = Runtime.getRuntime().exec(commands);
 
                 // We need this Process to be waited for before moving on to the next function.
-                Log.d(References.SUBSTRATUM_BUILDER, "Aligning APK now...");
+                Substratum.log(References.SUBSTRATUM_BUILDER, "Aligning APK now...");
                 nativeApp.waitFor();
                 File alignedAPK = new File(destination);
                 if (alignedAPK.isFile()) {
-                    Log.d(References.SUBSTRATUM_BUILDER, "Zipalign successful!");
+                    Substratum.log(References.SUBSTRATUM_BUILDER, "Zipalign successful!");
                 } else {
                     dumpErrorLogs(overlayPackage,
                             "Zipalign has failed!");
@@ -410,7 +412,7 @@ public class SubstratumBuilder {
                 char[] keyPass = "overlay".toCharArray();
 
                 if (!key.exists()) {
-                    Log.d(SUBSTRATUM_BUILDER, "Loading keystore...");
+                    Substratum.log(SUBSTRATUM_BUILDER, "Loading keystore...");
                     FileOperations.copyFromAsset(context, "key", key.getAbsolutePath());
                 }
 
@@ -433,7 +435,7 @@ public class SubstratumBuilder {
                         .build()
                         .sign();
 
-                Log.d(References.SUBSTRATUM_BUILDER, "APK successfully signed!");
+                Substratum.log(References.SUBSTRATUM_BUILDER, "APK successfully signed!");
             } catch (Throwable t) {
                 t.printStackTrace();
                 dumpErrorLogs(overlayPackage,
@@ -467,7 +469,7 @@ public class SubstratumBuilder {
                         try {
                             ThemeManager.installOverlay(context, EXTERNAL_STORAGE_CACHE +
                                     overlayName + "-signed.apk");
-                            Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
+                            Substratum.log(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
                         } catch (Exception e) {
                             dumpErrorLogs(overlayPackage,
                                     "Overlay APK has failed to install! \" (Exception) " +
@@ -477,7 +479,7 @@ public class SubstratumBuilder {
                                     "Installation of \"" + overlayPackage + "\" has failed.");
                         }
                     } else {
-                        Log.d(References.SUBSTRATUM_BUILDER,
+                        Substratum.log(References.SUBSTRATUM_BUILDER,
                                 "Returning compiled APK path for later installation...");
                         noInstall = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                     }
@@ -485,7 +487,7 @@ public class SubstratumBuilder {
                     boolean isSamsung = Systems.isSamsungDevice(context);
                     if (isSamsung) {
                         // Take account for Samsung's package manager installation mode
-                        Log.d(References.SUBSTRATUM_BUILDER,
+                        Substratum.log(References.SUBSTRATUM_BUILDER,
                                 "Requesting PackageManager to launch signed overlay APK for " +
                                         "Samsung environment...");
                         noInstall = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
@@ -541,7 +543,7 @@ public class SubstratumBuilder {
                     context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
             File deleted = new File(workingDirectory);
             FileOperations.delete(context, deleted.getAbsolutePath());
-            if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
+            if (!deleted.exists()) Substratum.log(References.SUBSTRATUM_BUILDER,
                     "Successfully cleared compilation cache!");
         }
         return !hasErroredOut;
@@ -604,12 +606,12 @@ public class SubstratumBuilder {
                             "Installation of \"" + overlayPackage + "\" has failed.");
                 } else {
                     // We need this Process to be waited for before moving on to the next function.
-                    Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation is running now...");
+                    Substratum.log(References.SUBSTRATUM_BUILDER, "Overlay APK creation is running now...");
                     nativeApp.waitFor();
                     File unsignedAPK = new File(workArea + '/' + overlayPackage + '.' +
                             themeName + "-unsigned.apk");
                     if (unsignedAPK.isFile()) {
-                        Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
+                        Substratum.log(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
                         return true;
                     } else {
                         dumpErrorLogs(overlayPackage,
@@ -622,7 +624,7 @@ public class SubstratumBuilder {
             }
         } catch (IOException ioe) {
             if (Systems.checkOMS(context) || Systems.isNewSamsungDeviceAndromeda(context)) {
-                Log.d(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
+                Substratum.log(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
                         "detected and has been whitelisted to continue moving forward " +
                         "with overlay compilation.");
                 return !hasErroredOut;

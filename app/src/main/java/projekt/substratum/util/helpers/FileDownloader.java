@@ -30,6 +30,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import projekt.substratum.Substratum;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 
 public enum FileDownloader {
@@ -76,7 +77,7 @@ public enum FileDownloader {
             String outputDir = context.getCacheDir().getAbsolutePath() + '/' +
                     destinationFileOrFolder +
                     (outputFile != null && !outputFile.isEmpty() ? '/' + outputFile : "");
-            Log.d(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);
+            Substratum.log(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 Log.e("Server returned HTTP", connection.getResponseCode()
                         + " " + connection.getResponseMessage());
@@ -100,7 +101,7 @@ public enum FileDownloader {
                 e.printStackTrace();
             } finally {
                 connection.disconnect();
-                Log.d("FileDownloader",
+                Substratum.log("FileDownloader",
                         "File download function has concluded for '" + fileUrl + "'.");
             }
         } catch (Exception e) {

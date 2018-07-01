@@ -35,6 +35,8 @@ import projekt.substratum.common.platform.ThemeManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import projekt.substratum.Substratum;
+
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.common.References.CRASH_PACKAGE_NAME;
 import static projekt.substratum.common.References.CRASH_REPEATING;
@@ -93,7 +95,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                     packageName);
             if (!overlays.isEmpty()) {
                 for (String overlay : overlays) {
-                    Log.d("AppCrashReciever", String.format("Disabling overlay %s for package " +
+                    Substratum.log("AppCrashReciever", String.format("Disabling overlay %s for package " +
                             "%s", overlay, packageName));
                 }
 
@@ -107,7 +109,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
             switch (sharedPreferences.getInt("sysui_crash_count", 0)) {
                 case 0:
                 case 1:
-                    Log.d("AppCrashReceiver",
+                    Substratum.log("AppCrashReceiver",
                             String.format("SystemUI crash count %s",
                                     sharedPreferences.getInt("sysui_crash_count", 1)));
                     sharedPreferences.edit().putInt("sysui_crash_count",
@@ -115,7 +117,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                                     0) + 1).apply();
                     break;
                 case 2:
-                    Log.d("AppCrashReceiver", "Disabling all SystemUI overlays now.");
+                    Substratum.log("AppCrashReceiver", "Disabling all SystemUI overlays now.");
                     sharedPreferences.edit().remove("sysui_crash_count").apply();
                     AppCrashReceiver.postNotificationAndDisableOverlays(context,
                             AppCrashReceiver.getApplicationLabel(context, packageName),

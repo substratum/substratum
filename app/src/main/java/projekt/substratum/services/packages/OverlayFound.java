@@ -28,7 +28,6 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Broadcasts;
@@ -145,7 +144,7 @@ public class OverlayFound extends BroadcastReceiver {
                 matchingCriteria = new ArrayList<>();
                 for (ResolveInfo installedTheme : installedThemes) {
                     String themePid = installedTheme.activityInfo.packageName;
-                    Log.d(TAG, "Searching theme for themable overlay: " + themePid);
+                    Substratum.log(TAG, "Searching theme for themable overlay: " + themePid);
                     try {
                         Resources themeResources = overlayFound.context.getPackageManager()
                                 .getResourcesForApplication(themePid);
@@ -153,7 +152,7 @@ public class OverlayFound extends BroadcastReceiver {
                         String[] listArray = themeAssetManager.list("overlays");
                         List<String> list = Arrays.asList(listArray);
                         if (list.contains(overlayFound.packageName)) {
-                            Log.d(TAG, "Found in theme: " + themePid);
+                            Substratum.log(TAG, "Found in theme: " + themePid);
                             matchingCriteria.add(themePid);
                         }
                     } catch (Exception ignored) {

@@ -406,18 +406,18 @@ public class Sounds extends Fragment {
                     final File cacheDirectory = new File(sounds.context.getCacheDir(),
                             SOUNDS_CACHE);
                     if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
-                        Log.d(TAG, "Sounds folder created");
+                        Substratum.log(TAG, "Sounds folder created");
                     }
                     final File cacheDirectory2 = new File(sounds.context.getCacheDir(),
                             SOUNDS_PREVIEW_CACHE);
                     if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
-                        Log.d(TAG, "Sounds work folder created");
+                        Substratum.log(TAG, "Sounds work folder created");
                     } else {
                         FileOperations.delete(sounds.context,
                                 sounds.context.getCacheDir().getAbsolutePath() +
                                         SOUNDS_PREVIEW_CACHE);
                         final boolean created = cacheDirectory2.mkdirs();
-                        if (created) Log.d(TAG, "Sounds folder recreated");
+                        if (created) Substratum.log(TAG, "Sounds folder recreated");
                     }
 
                     // Copy the sounds.zip from assets/sounds of the theme's assets

@@ -37,6 +37,8 @@ import projekt.substratum.util.views.Lunchbar;
 
 import java.lang.ref.WeakReference;
 
+import projekt.substratum.Substratum;
+
 import static projekt.substratum.common.Internal.JOB_COMPLETE;
 import static projekt.substratum.common.Internal.SOUNDS_APPLIED;
 import static projekt.substratum.common.Internal.SOUNDS_CREATION_CACHE;
@@ -141,7 +143,7 @@ public class SoundUtils {
                     SharedPreferences.Editor editor = soundUtils.prefs.edit();
                     editor.putString(SOUNDS_APPLIED, soundUtils.themePid);
                     editor.apply();
-                    Log.d("SoundUtils", "Sound pack installed!");
+                    Substratum.log("SoundUtils", "Sound pack installed!");
                     FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                             SOUNDS_CREATION_CACHE);
                 } else {

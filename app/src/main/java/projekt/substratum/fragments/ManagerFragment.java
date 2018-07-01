@@ -1015,18 +1015,18 @@ public class ManagerFragment extends Fragment {
                                         (VENDOR_DIR.substring(1, VENDOR_DIR.length()) +
                                                 fragment.overlaysList.get(i).getName())
                                                 .replace("/", "@") + ".apk@idmap";
-                                Log.d(getClass().getSimpleName(),
+                                Substratum.log(getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
                                                 legacy_resource_idmap + '\'');
 
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
                                         legacy_resource_idmap);
-                                Log.d(getClass().getSimpleName(),
+                                Substratum.log(getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
                                                 pixel_resource_idmap + '\'');
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
                                         pixel_resource_idmap);
-                                Log.d(getClass().getSimpleName(),
+                                Substratum.log(getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
                                                 vendor_resource_idmap + '\'');
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
@@ -1351,7 +1351,7 @@ public class ManagerFragment extends Fragment {
     class RefreshReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("ManagerRefresher", "A package has been modified, now refreshing the list...");
+            Substratum.log("ManagerRefresher", "A package has been modified, now refreshing the list...");
             if (layoutReloader != null && !layoutReloader.isCancelled()) {
                 layoutReloader.cancel(true);
                 layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);

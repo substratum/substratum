@@ -22,7 +22,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +41,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 
 import static projekt.substratum.common.Systems.checkPackageSupport;
@@ -72,7 +72,7 @@ public enum FirebaseAnalytics {
             firebaseDatabase = FirebaseDatabase.getInstance();
             firebaseDatabase.setPersistenceEnabled(true);
             String token = FirebaseInstanceId.getInstance().getToken();
-            Log.d(References.SUBSTRATUM_LOG, "Firebase Registration Token: " + token);
+            Substratum.log(References.SUBSTRATUM_LOG, "Firebase Registration Token: " + token);
         }
         return firebaseDatabase.getReference();
     }

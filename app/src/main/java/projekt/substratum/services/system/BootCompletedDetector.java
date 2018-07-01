@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
 import com.bumptech.glide.Glide;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
@@ -58,7 +57,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
                 EXTERNAL_STORAGE_CACHE);
         FileOperations.delete(context, deleted.getAbsolutePath());
         if (!deleted.exists())
-            Log.d(TAG,
+            Substratum.log(TAG,
                     "Successfully cleared the temporary compilation folder on " +
                             "the external storage.");
     }

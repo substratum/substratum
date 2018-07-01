@@ -58,6 +58,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
+import projekt.substratum.Substratum;
 import projekt.substratum.activities.launch.ShowcaseActivity;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements
                     context,
                     overlay);
             if ((current_version <= OVERLAY_UPDATE_RANGE) && (current_version != 0)) {
-                Log.d("OverlayOutdatedCheck",
+                Substratum.log("OverlayOutdatedCheck",
                         "An overlay is returning " + current_version +
                                 " as Substratum's version, " +
                                 "this overlay is out of date, please uninstall and reinstall!");
@@ -294,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements
         progressDialog.setCancelable(false);
 
         if (BuildConfig.DEBUG && !isSamsungDevice(context)) {
-            Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
+            Substratum.log(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
         }
         MainActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         actionbarContent = binding.themeCount;
@@ -480,7 +481,7 @@ public class MainActivity extends AppCompatActivity implements
         if (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15L) {
             prefs.edit().putLong("previous_logchar_cleanup", currentDate.getTime()).apply();
             new ClearLogs(this).execute();
-            Log.d(SUBSTRATUM_LOG, "LogChar reports were wiped from the storage");
+            Substratum.log(SUBSTRATUM_LOG, "LogChar reports were wiped from the storage");
         }
     }
 
@@ -785,7 +786,7 @@ public class MainActivity extends AppCompatActivity implements
                         if (!deleted) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to delete directory");
                     } else {
-                        Log.d(References.SUBSTRATUM_LOG, "Deleting old cache dir: " + directory);
+                        Substratum.log(References.SUBSTRATUM_LOG, "Deleting old cache dir: " + directory);
                     }
                     if (!directory.exists()) {
                         boolean made = directory.mkdirs();
@@ -793,7 +794,7 @@ public class MainActivity extends AppCompatActivity implements
                                 "Unable to create directory");
                     } else {
                         References.injectRescueArchives(context);
-                        Log.d(References.SUBSTRATUM_LOG, "Successfully made dir: " + directory);
+                        Substratum.log(References.SUBSTRATUM_LOG, "Successfully made dir: " + directory);
                     }
                     File cacheDirectory = new File(getCacheDir(),
                             SUBSTRATUM_BUILDER_CACHE);
@@ -809,7 +810,7 @@ public class MainActivity extends AppCompatActivity implements
                                 .getAbsolutePath() +
                                 SUBSTRATUM_BUILDER_CACHE + file.getName());
                     }
-                    Log.d(SUBSTRATUM_BUILDER, "The cache has been flushed!");
+                    Substratum.log(SUBSTRATUM_BUILDER, "The cache has been flushed!");
                     References.injectRescueArchives(context);
                 } else {
                     // permission was not granted, show closing dialog

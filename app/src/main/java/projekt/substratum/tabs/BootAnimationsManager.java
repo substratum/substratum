@@ -19,8 +19,8 @@
 package projekt.substratum.tabs;
 
 import android.content.Context;
-import android.util.Log;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
@@ -60,7 +60,7 @@ public enum BootAnimationsManager {
         // Check to see if device is decrypted with theme interface
         if (getDeviceEncryptionStatus(context) <= 1) {
             if (checkSubstratumService(context)) {
-                Log.d("BootAnimationUtils",
+                Substratum.log("BootAnimationUtils",
                         "No-root option has been enabled with the inclusion of substratum service...");
                 if (shutdownAnimation) {
                     SubstratumService.setShutdownAnimation(location);
@@ -68,13 +68,13 @@ public enum BootAnimationsManager {
                     SubstratumService.setBootAnimation(location);
                 }
             } else if (checkThemeInterfacer(context)) {
-                Log.d(TAG, "No-root option has been enabled with the inclusion of theme interfacer...");
+                Substratum.log(TAG, "No-root option has been enabled with the inclusion of theme interfacer...");
                 ThemeInterfacerService.setBootAnimation(location);
             }
         } else {
             // We will mount system, make our directory, copy the bootanimation
             // zip into place, set proper permissions, then unmount
-            Log.d(TAG, "Root option has been enabled");
+            Substratum.log(TAG, "Root option has been enabled");
             FileOperations.mountRW();
             FileOperations.mountRWData();
             FileOperations.setPermissions(THEME_755, themeDirectory);

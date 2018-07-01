@@ -21,11 +21,12 @@ package projekt.substratum.common;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 
 import java.util.Arrays;
 
 import dalvik.system.DexClassLoader;
+
+import projekt.substratum.Substratum;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
@@ -181,7 +182,7 @@ public enum Resources {
     @SuppressWarnings("JavaReflectionMemberAccess")
     public static boolean isFontsSupported(Context context) {
         if (checkSubstratumService(context)) {
-            Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
+            Substratum.log(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
             return true;
         } else if (checkOreo() && !checkSubstratumService(context)) {
             return false;
@@ -191,7 +192,7 @@ public enum Resources {
             cls.getDeclaredMethod("getSystemFontDirLocation");
             cls.getDeclaredMethod("getThemeFontConfigLocation");
             cls.getDeclaredMethod("getThemeFontDirLocation");
-            Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
+            Substratum.log(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
             return true;
         } catch (final Exception ignored) {
             return false;
@@ -212,7 +213,7 @@ public enum Resources {
     // This method checks whether custom shutdown animation is supported by the system
     public static boolean isShutdownAnimationSupported(Context context) {
         if (checkSubstratumService(context)) {
-            Log.d(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
+            Substratum.log(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
             return true;
         }
         try {
@@ -223,7 +224,7 @@ public enum Resources {
             cls.getDeclaredMethod("themeShutdownAnimationExists");
             cls.getDeclaredMethod("startShutdownAnimation");
             cls.getDeclaredMethod("stopShutdownAnimation");
-            Log.d(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
+            Substratum.log(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
             return true;
         } catch (Exception ignored) {
         }

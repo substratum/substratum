@@ -20,13 +20,14 @@ package projekt.substratum.activities.crash;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import projekt.substratum.LaunchActivity;
 import projekt.substratum.R;
-import projekt.substratum.common.Activities;
 
 public class SystemCrash extends Activity {
 
@@ -41,7 +42,10 @@ public class SystemCrash extends Activity {
 
         new Handler().postDelayed(() -> {
             dialog.dismiss();
-            Activities.launchInternalActivity(getApplicationContext(), LaunchActivity.class);
+            final Context context = getApplicationContext();
+            Intent intent = new Intent(context, LaunchActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
             finishAffinity();
         }, 3000);
     }

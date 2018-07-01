@@ -64,6 +64,8 @@ import static projekt.substratum.common.Resources.isSoundsSupported;
 public enum Restore {
     ;
 
+    private static final SharedPreferences.Editor editor = Substratum.getPreferences().edit();
+
     public static void invoke(Context context) {
         Activity activity = (Activity) context;
 
@@ -335,9 +337,6 @@ public enum Restore {
                 View view = activity.findViewById(R.id.drawer_container);
                 if (alertDialog != null) alertDialog.dismiss();
 
-                SharedPreferences prefs = Substratum.getPreferences();
-
-                SharedPreferences.Editor editor = prefs.edit();
                 editor.remove(BOOT_ANIMATION_APPLIED).apply();
 
                 if (view != null) {
@@ -394,10 +393,7 @@ public enum Restore {
                 Context context = activity.getApplicationContext();
                 if (References.ENABLE_EXTRAS_DIALOG && alertDialog != null) alertDialog.dismiss();
 
-                SharedPreferences prefs = Substratum.getPreferences();
-                SharedPreferences.Editor editor = prefs.edit();
                 editor.remove(BOOT_ANIMATION_APPLIED).apply();
-                editor.apply();
 
                 if (Systems.checkSubstratumService(context) ||
                         Systems.checkThemeInterfacer(context)) {
@@ -452,8 +448,6 @@ public enum Restore {
                 View view = activity.findViewById(R.id.drawer_container);
                 if (alertDialog != null) alertDialog.dismiss();
 
-                SharedPreferences prefs = Substratum.getPreferences();
-                SharedPreferences.Editor editor = prefs.edit();
                 editor.remove(SOUNDS_APPLIED).apply();
 
                 if (view != null) {

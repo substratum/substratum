@@ -103,7 +103,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             Bundle bundle,
             String s) {
         context = getContext();
-        prefs = Substratum.getPreferences();
 
         boolean isSamsung = Systems.isSamsungDevice(context);
         boolean isOMS = Systems.checkOMS(context);

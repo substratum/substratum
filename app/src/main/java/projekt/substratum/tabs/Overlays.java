@@ -287,7 +287,6 @@ public class Overlays extends Fragment {
         swipeRefreshLayout = viewBinding.swipeRefreshLayout;
 
         context = getContext();
-        prefs = Substratum.getPreferences();
         activityManager = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
         notifyManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         compileDialog = new SheetDialog(context);

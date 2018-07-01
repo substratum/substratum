@@ -38,7 +38,6 @@ public class AppIntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs = Substratum.getPreferences();
         if (prefs.getBoolean("first_run", true) && !isLowEnd()) {
             welcomeScreen = new WelcomeHelper(this, AppIntro.class);
             welcomeScreen.show(savedInstanceState);

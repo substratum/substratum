@@ -137,8 +137,6 @@ public class Fonts extends Fragment {
             return null;
         }
 
-        prefs = Substratum.getPreferences();
-
         try {
             fontSelector = setThemeExtraLists(context,
                     themePid,

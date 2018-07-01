@@ -156,7 +156,6 @@ public class BootAnimations extends Fragment {
         }
 
         previewHandlerThread.start();
-        prefs = Substratum.getPreferences();
 
         if (shutdownBootAnimation) {
             placeholderText.setText(R.string.shutdownanimation_placeholder_text);

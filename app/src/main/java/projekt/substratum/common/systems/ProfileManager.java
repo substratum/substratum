@@ -95,13 +95,14 @@ public enum ProfileManager {
     private static final String METADATA_PROFILE_TYPE4 = "type4";
     private static final String DAY = "day";
 
+    private static final SharedPreferences prefs = Substratum.getPreferences();
+
     /**
      * Update the scheduled profile
      *
      * @param context Context
      */
     public static void updateScheduledProfile(Context context) {
-        SharedPreferences prefs = Substratum.getPreferences();
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
@@ -174,7 +175,6 @@ public enum ProfileManager {
                                               String nightProfile,
                                               Integer nightHour,
                                               Integer nightMinute) {
-        SharedPreferences prefs = Substratum.getPreferences();
         SharedPreferences.Editor editor = prefs.edit();
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context
                 .ALARM_SERVICE);
@@ -245,8 +245,7 @@ public enum ProfileManager {
      * @param context Context
      */
     public static void disableScheduledProfile(Context context) {
-        SharedPreferences.Editor editor =
-                Substratum.getPreferences().edit();
+        SharedPreferences.Editor editor = prefs.edit();
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);

@@ -138,7 +138,6 @@ public class Sounds extends Fragment {
             return null;
         }
 
-        prefs = Substratum.getPreferences();
         progressBar.setVisibility(View.GONE);
         errorLoadingPack.setVisibility(View.GONE);
 

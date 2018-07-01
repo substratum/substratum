@@ -26,15 +26,14 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.References;
+import projekt.substratum.common.platform.ThemeManager;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import projekt.substratum.R;
-import projekt.substratum.common.References;
-import projekt.substratum.common.platform.ThemeManager;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.common.References.CRASH_PACKAGE_NAME;
@@ -80,8 +79,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
-                (context);
+        SharedPreferences sharedPreferences = Substratum.getPreferences();
         boolean enabled = sharedPreferences.getBoolean("crash_receiver", true);
         if (!enabled) return;
 

@@ -22,15 +22,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 
 public class FloatUiButtonReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Substratum.getPreferences();
         if (prefs.getBoolean("floatui_show_android_system_overlays", true)) {
             prefs.edit().putBoolean("floatui_show_android_system_overlays", false).apply();
         } else {

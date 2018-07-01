@@ -19,11 +19,8 @@
 package projekt.substratum;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-
 import projekt.substratum.activities.launch.SplashScreenActivity;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -35,11 +32,8 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(Substratum.getInstance());
-
         Intent intent = new Intent(this, SplashScreenActivity.class);
-        intent.putExtra("first_run", prefs.getBoolean("first_run", true));
+        intent.putExtra("first_run", Substratum.getPreferences().getBoolean("first_run", true));
         this.startActivity(intent);
         this.finish();
     }

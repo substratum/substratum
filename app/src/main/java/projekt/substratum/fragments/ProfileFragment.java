@@ -34,7 +34,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -146,10 +145,10 @@ import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE
 
 public class ProfileFragment extends Fragment {
 
-    public static int nightHour;
-    public static int nightMinute;
-    public static int dayHour;
-    public static int dayMinute;
+    static int nightHour;
+    static int nightMinute;
+    static int dayHour;
+    static int dayMinute;
     private ProgressBar headerProgress;
     private EditText backupName;
     private Button backupButton;
@@ -176,7 +175,7 @@ public class ProfileFragment extends Fragment {
      * @param hour   Hour
      * @param minute Minute
      */
-    public static void setNightProfileStart(int hour, int minute) {
+    static void setNightProfileStart(int hour, int minute) {
         nightHour = hour;
         nightMinute = minute;
     }
@@ -187,7 +186,7 @@ public class ProfileFragment extends Fragment {
      * @param hour   Hour
      * @param minute Minute
      */
-    public static void setDayProfileStart(int hour, int minute) {
+    static void setDayProfileStart(int hour, int minute) {
         dayHour = hour;
         dayMinute = minute;
     }
@@ -238,7 +237,7 @@ public class ProfileFragment extends Fragment {
         nightProfile = viewBinding.nightSpinner;
         Button applyScheduledProfileButton = viewBinding.applyScheduleButton;
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Substratum.getPreferences();
         headerProgress.setVisibility(View.GONE);
 
         // Create a user viewable directory for profiles

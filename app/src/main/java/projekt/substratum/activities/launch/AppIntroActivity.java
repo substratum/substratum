@@ -21,11 +21,8 @@ package projekt.substratum.activities.launch;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-
 import com.stephentuso.welcome.WelcomeHelper;
-
 import projekt.substratum.MainActivity;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
@@ -35,13 +32,13 @@ import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
 public class AppIntroActivity extends AppCompatActivity {
 
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private WelcomeHelper welcomeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs = PreferenceManager.getDefaultSharedPreferences(Substratum.getInstance());
+        prefs = Substratum.getPreferences();
         if (prefs.getBoolean("first_run", true) && !isLowEnd()) {
             welcomeScreen = new WelcomeHelper(this, AppIntro.class);
             welcomeScreen.show(savedInstanceState);

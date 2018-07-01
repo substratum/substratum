@@ -29,7 +29,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -60,6 +59,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
@@ -97,7 +97,7 @@ public class Fonts extends Fragment {
     private Spinner fontSelector;
     private String themePid;
     private ProgressDialog progressDialog;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private AsyncTask current;
     private boolean paused;
     private JobReceiver jobReceiver;
@@ -137,7 +137,7 @@ public class Fonts extends Fragment {
             return null;
         }
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = Substratum.getPreferences();
 
         try {
             fontSelector = setThemeExtraLists(context,

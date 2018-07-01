@@ -31,7 +31,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
-import android.preference.PreferenceManager;
 import android.support.annotation.RestrictTo;
 import android.util.Log;
 import android.widget.Toast;
@@ -45,6 +44,7 @@ import java.util.stream.Collectors;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
@@ -144,7 +144,7 @@ public enum ThemeManager {
         if (overlays.isEmpty()) return;
         overlays.removeAll(Arrays.asList(PIXEL_OVERLAY_PACKAGES));
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPrefs = Substratum.getPreferences();
 
         if (sharedPrefs.getBoolean("auto_disable_target_overlays", false)) {
             for (String overlay : overlays) {

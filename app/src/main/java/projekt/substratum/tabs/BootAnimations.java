@@ -31,7 +31,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -66,6 +65,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.databinding.TabBootanimationsBinding;
@@ -103,7 +103,7 @@ public class BootAnimations extends Fragment {
     private Spinner bootAnimationSelector;
     private String themePid;
     private ProgressDialog mProgressDialog;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private AsyncTask current;
     private boolean paused;
     private JobReceiver jobReceiver;
@@ -156,7 +156,7 @@ public class BootAnimations extends Fragment {
         }
 
         previewHandlerThread.start();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = Substratum.getPreferences();
 
         if (shutdownBootAnimation) {
             placeholderText.setText(R.string.shutdownanimation_placeholder_text);

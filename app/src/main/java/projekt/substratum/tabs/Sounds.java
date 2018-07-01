@@ -27,7 +27,6 @@ import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -62,6 +61,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
 import projekt.substratum.adapters.tabs.sounds.SoundsItem;
 import projekt.substratum.common.commands.FileOperations;
@@ -99,7 +99,7 @@ public class Sounds extends Fragment {
     private String themePid;
     private ArrayList<SoundsItem> wordList;
     private int previousPosition;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private AsyncTask current;
     private boolean paused;
     private JobReceiver jobReceiver;
@@ -138,7 +138,7 @@ public class Sounds extends Fragment {
             return null;
         }
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = Substratum.getPreferences();
         progressBar.setVisibility(View.GONE);
         errorLoadingPack.setVisibility(View.GONE);
 

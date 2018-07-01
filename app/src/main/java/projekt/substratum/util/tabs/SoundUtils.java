@@ -25,18 +25,17 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-
-import java.lang.ref.WeakReference;
-
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.tabs.SoundsManager;
 import projekt.substratum.util.views.Lunchbar;
+
+import java.lang.ref.WeakReference;
 
 import static projekt.substratum.common.Internal.JOB_COMPLETE;
 import static projekt.substratum.common.Internal.SOUNDS_APPLIED;
@@ -51,7 +50,7 @@ public class SoundUtils {
     private String themePid;
     private boolean hasFailed;
     private boolean ringtone;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private View view;
 
     /**
@@ -78,7 +77,6 @@ public class SoundUtils {
         this.context = context;
         this.themePid = themePid;
         this.view = view;
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         new SoundsHandlerAsync(this).execute(arguments);
     }
 

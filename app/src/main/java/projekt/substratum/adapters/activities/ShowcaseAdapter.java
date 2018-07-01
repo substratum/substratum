@@ -19,22 +19,20 @@
 package projekt.substratum.adapters.activities;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
-import java.util.Locale;
-
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.databinding.ShowcaseItemBinding;
+
+import java.util.List;
+import java.util.Locale;
 
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
@@ -67,9 +65,7 @@ public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHo
                 Packages.isPackageInstalled(context, showcaseItem.getThemePackage()));
         viewHolderBinding.setShowcaseItem(showcaseItem);
         viewHolderBinding.executePendingBindings();
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(showcaseItem.getContext());
-        if (!prefs.getBoolean("lite_mode", false)) {
+        if (!Substratum.getPreferences().getBoolean("lite_mode", false)) {
             setRecyclerViewAnimations(viewHolderBinding.backgroundImage);
         }
     }

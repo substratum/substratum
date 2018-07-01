@@ -30,16 +30,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.activities.profiles.ProfileErrorInfoActivity;
@@ -54,6 +45,13 @@ import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 import projekt.substratum.tabs.WallpapersManager;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
@@ -73,7 +71,7 @@ public class ScheduledProfileService extends JobService {
     private static final int NOTIFICATION_ID = 1023;
     private static final String TAG = "ScheduledProfile";
     private Context context;
-    private SharedPreferences prefs;
+    private static SharedPreferences prefs = Substratum.getPreferences();
     private String extra;
     private NotificationManager notificationManager;
     private NotificationCompat.Builder builder;
@@ -83,7 +81,6 @@ public class ScheduledProfileService extends JobService {
     public boolean onStartJob(JobParameters params) {
         context = this;
         jobParameters = params;
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         builder = new NotificationCompat.Builder(context, References
@@ -156,7 +153,6 @@ public class ScheduledProfileService extends JobService {
             ScheduledProfileService service = ref.get();
             if (service != null) {
                 Context context = service.context;
-                SharedPreferences prefs = service.prefs;
 
                 String type;
                 if (service.extra.equals(NIGHT)) {
@@ -289,7 +285,6 @@ public class ScheduledProfileService extends JobService {
             ScheduledProfileService service = ref.get();
             if (service != null) {
                 Context context = service.context;
-                SharedPreferences prefs = service.prefs;
 
                 // Create new alarm
                 boolean isNight = service.extra.equals(NIGHT);

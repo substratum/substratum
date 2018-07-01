@@ -43,7 +43,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.annotation.RestrictTo;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -71,23 +70,11 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.gordonwong.materialsheetfab.DimOverlayFrameLayout;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 import com.theartofdev.edmodo.cropper.CropImage;
-
 import org.apache.commons.io.output.ByteArrayOutputStream;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-
 import projekt.substratum.adapters.activities.IATabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Internal;
@@ -109,6 +96,15 @@ import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 import static android.graphics.Bitmap.CompressFormat.PNG;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
@@ -169,7 +165,7 @@ public class InformationActivity extends AppCompatActivity {
     private boolean uninstalled = false;
     private byte[] byteArray;
     private Bitmap heroImageBitmap;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private ProgressDialog mProgressDialog;
     private MenuItem favorite;
     private boolean shouldDarken;
@@ -438,7 +434,6 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         context = getApplicationContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         super.onCreate(savedInstanceState);
         InformationActivityBinding binding =
@@ -573,7 +568,7 @@ public class InformationActivity extends AppCompatActivity {
                 for (String foundFolder : foundFolders) {
                     if (Resources.allowedForLegacy
                             (foundFolder)) {
-                        tabChecker.add(foundFolder.toString());
+                        tabChecker.add(foundFolder);
                     }
                 }
             } else {

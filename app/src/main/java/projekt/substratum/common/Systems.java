@@ -28,7 +28,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -46,6 +45,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import projekt.substratum.BuildConfig;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.helpers.Root;
@@ -79,6 +79,7 @@ public enum Systems {
      */
     private static Boolean isSamsungDevice = null;
     static Boolean checkPackageSupported;
+    static SharedPreferences prefs = Substratum.getPreferences();
 
     /**
      * This method is used to determine whether there the system is initiated with OMS
@@ -88,7 +89,6 @@ public enum Systems {
     public static Boolean checkOMS(Context context) {
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
         if (!BYPASS_SYSTEM_VERSION_CHECK) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!prefs.contains("oms_state")) {
                 setAndCheckOMS(context);
             }
@@ -140,7 +140,6 @@ public enum Systems {
     public static int checkThemeSystemModule(Context context,
                                              boolean firstLaunch) {
         if (context != null) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!firstLaunch &&
                     prefs.contains("current_theme_mode") &&
                     prefs.getInt("current_theme_mode", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
@@ -233,7 +232,6 @@ public enum Systems {
      * @param context If you haven't gotten this by now, better start reading Android docs
      */
     public static void setAndCheckOMS(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().remove("oms_state").apply();
         try {
             boolean foundOms = false;
@@ -296,12 +294,10 @@ public enum Systems {
     /**
      * Set a retained property to refer to rather than constantly calling the SS state
      *
-     * @param context If you haven't gotten this by now, better start reading Android docs
      */
-    public static void setAndCheckSubstratumService(Context context) {
+    public static void setAndCheckSubstratumService() {
         StringBuilder check = References.runShellCommand("cmd -l");
         Boolean present = check != null && check.toString().contains("substratum");
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putBoolean("substratum_service_present", false).apply();
         if (present) {
             prefs.edit().putBoolean("substratum_service_present", true).apply();
@@ -315,9 +311,8 @@ public enum Systems {
      */
     public static boolean checkSubstratumService(Context context) {
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (!prefs.contains("substratum_service_present")) {
-            setAndCheckSubstratumService(context);
+            setAndCheckSubstratumService();
         }
         return prefs.getBoolean("substratum_service_present", false);
     }
@@ -339,8 +334,7 @@ public enum Systems {
             return false;
         }
 
-        SharedPreferences prefs =
-                context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         String fingerprint = prefs.getString("andromeda_fp", "o");
         String expFingerprint = prefs.getString(
                 "andromeda_exp_fp_" + Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE), "0");
@@ -393,8 +387,7 @@ public enum Systems {
         if (!isSamsungDevice(context)) return false;
         if (isNewSamsungDeviceAndromeda(context)) return true;
 
-        SharedPreferences prefs =
-                context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
 
         boolean debuggingValue = prefs.getBoolean("sungstratum_debug", true);
         boolean installer = prefs.getBoolean("sungstratum_installer", false);
@@ -446,7 +439,6 @@ public enum Systems {
      * @return True, if the device can utilize both sungstratum + andromeda mode on Oreo onwards
      */
     public static boolean isNewSamsungDeviceAndromeda(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         boolean sungstromeda = prefs.getBoolean("sungstromeda_mode", true);
         return sungstromeda && isNewSamsungDevice() && checkAndromeda(context);
     }
@@ -550,9 +542,8 @@ public enum Systems {
      * @return True, if clean
      */
     public static Boolean checkROMVersion(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (!prefs.contains("rom_build_date")) {
-            setROMVersion(context, false);
+            setROMVersion(false);
         }
         if ((isSamsungDevice(context) || isNewSamsungDevice()) &&
                 !prefs.contains("samsung_migration_key")) {
@@ -566,12 +557,9 @@ public enum Systems {
     /**
      * Retain the ROM version in the Shared Preferences of the app
      *
-     * @param context CONTEXT!!!
      * @param force   Do not dynamically set it, instead, force!
      */
-    public static void setROMVersion(Context context,
-                                     boolean force) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    public static void setROMVersion(boolean force) {
         if (!prefs.contains("rom_build_date") || force) {
             String prop = getProp("ro.build.date.utc");
             prefs.edit().putInt("rom_build_date",

@@ -31,7 +31,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +43,16 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 import android.widget.Toast;
+import jp.co.recruit_lifestyle.android.floatingview.FloatingViewListener;
+import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
+import projekt.substratum.adapters.fragments.manager.ManagerItem;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
+import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.services.notification.FloatUiButtonReceiver;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,22 +61,12 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import jp.co.recruit_lifestyle.android.floatingview.FloatingViewListener;
-import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
-import projekt.substratum.R;
-import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
-import projekt.substratum.adapters.fragments.manager.ManagerItem;
-import projekt.substratum.common.Packages;
-import projekt.substratum.common.References;
-import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.services.notification.FloatUiButtonReceiver;
-
 public class SubstratumFloatInterface extends Service implements FloatingViewListener {
 
     private static final int NOTIFICATION_ID = 92781162;
     private FloatingViewManager floatingViewManager;
     private List<ManagerItem> finalCheck;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private boolean triggerServiceRestart, triggerSystemuiRestart;
     private ManagerAdapter adapter;
 
@@ -310,8 +309,6 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
                 References.ONGOING_NOTIFICATION_CHANNEL_ID);
         builder.setWhen(System.currentTimeMillis());
-        prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
         if (prefs.getBoolean("floatui_show_android_system_overlays", true)) {
             builder.addAction(android.R.color.transparent, getString(R.string
                     .per_app_notification_framework_hide), btPendingIntent);

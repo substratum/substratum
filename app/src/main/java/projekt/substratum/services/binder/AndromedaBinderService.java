@@ -28,17 +28,16 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Set;
-
 import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.AndromedaService;
 
-import static android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences;
+import java.util.ArrayList;
+import java.util.Set;
+
 import static projekt.substratum.common.References.ANDROMEDA_BINDED;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 
@@ -114,7 +113,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                         .setSmallIcon(R.drawable.notification_icon);
                 startForeground(2018, builder.build());
 
-                SharedPreferences prefs = getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences prefs = Substratum.getPreferences();
                 Set<String> overlays = prefs.getStringSet("to_be_disabled_overlays", null);
                 if (overlays != null) {
                     AndromedaService.disableOverlays(new ArrayList<>(overlays));

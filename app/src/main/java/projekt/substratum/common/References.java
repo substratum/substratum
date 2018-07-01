@@ -49,7 +49,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.TypedValue;
@@ -64,6 +63,16 @@ import android.widget.SpinnerAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import projekt.substratum.InformationActivity;
+import projekt.substratum.LauncherActivity;
+import projekt.substratum.MainActivity;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
+import projekt.substratum.common.analytics.FirebaseAnalytics;
+import projekt.substratum.services.profiles.ScheduledProfileReceiver;
+import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.TranslatorParser;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -87,17 +96,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-
-import projekt.substratum.InformationActivity;
-import projekt.substratum.LauncherActivity;
-import projekt.substratum.MainActivity;
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
-import projekt.substratum.common.analytics.FirebaseAnalytics;
-import projekt.substratum.services.profiles.ScheduledProfileReceiver;
-import projekt.substratum.util.helpers.BinaryInstaller;
-import projekt.substratum.util.helpers.TranslatorParser;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
@@ -584,8 +582,7 @@ public enum References {
      * @param context Context
      */
     public static void loadDefaultConfig(Context context) {
-        SharedPreferences.Editor editor =
-                PreferenceManager.getDefaultSharedPreferences(context).edit();
+        SharedPreferences.Editor editor = Substratum.getPreferences().edit();
         SharedPreferences.Editor editor2 =
                 context.getSharedPreferences("base_variant", Context.MODE_PRIVATE).edit();
         editor.putBoolean("show_app_icon", true);
@@ -738,8 +735,7 @@ public enum References {
         if (uncertified != null && !override) {
             return uncertified;
         }
-        SharedPreferences prefs = context
-                .getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
         String date = dateFormat.format(new Date());
         if (prefs.contains(date)) {
@@ -850,8 +846,7 @@ public enum References {
         Bitmap b = ((BitmapDrawable) image).getBitmap();
 
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        int gridCount = PreferenceManager.getDefaultSharedPreferences(
-                Substratum.getInstance()).getInt("grid_style_cards_count", 1);
+        int gridCount = Substratum.getPreferences().getInt("grid_style_cards_count", 1);
         float targetWidthSize = (float) screenWidth / gridCount;
 
         int width = image.getIntrinsicWidth();

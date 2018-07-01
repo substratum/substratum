@@ -28,7 +28,6 @@ import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -56,6 +55,7 @@ import java.util.TreeMap;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.Packages;
@@ -77,7 +77,6 @@ public class ThemeFragment extends Fragment {
     private Context context;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
-    private SharedPreferences prefs;
     private boolean firstBoot = true;
     private ThemeAdapter themeAdapter;
 
@@ -86,12 +85,10 @@ public class ThemeFragment extends Fragment {
      *
      * @param map      Map of packages that have been processed
      * @param context  Self explantory, bud
-     * @param activity Activity of the calling function
      * @return Returns an ArrayList to be used to parse further data
      */
     private static ArrayList<ThemeItem> prepareData(Map<String, String[]> map,
-                                                    Context context,
-                                                    Activity activity) {
+                                                    Context context) {
         ArrayList<ThemeItem> themes = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
             ThemeItem themeItem = new ThemeItem();
@@ -115,17 +112,16 @@ public class ThemeFragment extends Fragment {
      *
      * @param themeFragment      Theme Fragment
      * @param context            Self explanatory, bud
-     * @param prefs              Shared Preferences instance
      * @param activity           Activity of calling function
      * @param substratumPackages List of collected substratum packages
      * @param themeItems         List of collected themes
      */
     private static void refreshLayout(ThemeFragment themeFragment,
-                                      SharedPreferences prefs,
                                       Context context,
                                       Activity activity,
                                       Map<String, String[]> substratumPackages,
                                       ArrayList<ThemeItem> themeItems) {
+        SharedPreferences prefs = Substratum.getPreferences();
 
         TextView cardViewText = themeFragment.cardView.findViewById(R.id.no_themes_description);
         ImageView cardViewImage = themeFragment.cardView.findViewById(R.id.no_themes_installed);
@@ -299,7 +295,6 @@ public class ThemeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         context = getContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         ThemeFragmentBinding viewBinding =
                 DataBindingUtil.inflate(inflater, R.layout.theme_fragment, container, false);
         View view = viewBinding.getRoot();
@@ -350,7 +345,6 @@ public class ThemeFragment extends Fragment {
             if (themeFragment != null) {
                 refreshLayout(
                         themeFragment,
-                        themeFragment.prefs,
                         themeFragment.context,
                         themeFragment.getActivity(),
                         this.substratumPackages,
@@ -368,8 +362,7 @@ public class ThemeFragment extends Fragment {
                 Map<String, String[]> map = new TreeMap<>(substratumPackages);
                 themeItems = prepareData(
                         map,
-                        themeFragment.context,
-                        themeFragment.getActivity()
+                        themeFragment.context
                 );
                 try {
                     Thread.sleep((long)

@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.LocaleList;
-import android.preference.PreferenceManager;
+import projekt.substratum.Substratum;
 
 import java.util.Locale;
 
@@ -34,9 +34,7 @@ public class LocaleHelper extends android.content.ContextWrapper {
 
     public static LocaleHelper wrap(Context context) {
         Resources resources = context.getResources();
-        boolean forceEnglish =
-                PreferenceManager.getDefaultSharedPreferences(context)
-                        .getBoolean("force_english_locale", false);
+        boolean forceEnglish = Substratum.getPreferences().getBoolean("force_english_locale", false);
         Configuration configuration = resources.getConfiguration();
 
         Locale chosenLocale = forceEnglish ? Locale.US : Locale.getDefault();

@@ -21,10 +21,16 @@ package projekt.substratum.util.compilers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.util.Log;
-
 import com.android.apksig.ApkSigner;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.commands.CompilerCommands;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.ThemeManager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,14 +48,6 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import projekt.substratum.common.Packages;
-import projekt.substratum.common.References;
-import projekt.substratum.common.Resources;
-import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.CompilerCommands;
-import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.Packages.getLiveOverlayVersion;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
@@ -162,8 +160,7 @@ public class SubstratumBuilder {
             Log.e(SUBSTRATUM_BUILDER, "Could not create compilation folder on external storage...");
         }
         hasErroredOut = false;
-        debug = PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("theme_debug", false);
+        debug = Substratum.getPreferences().getBoolean("theme_debug", false);
 
         // 2. Set work area to asset chosen based on the parameter passed into this class
         String workArea = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
@@ -202,7 +199,7 @@ public class SubstratumBuilder {
             targetPackage = SYSTEMUI;
         }
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Substratum.getPreferences();
         int legacyPriority = prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY);
         if (!Systems.checkOMS(context)) {
             File workAreaArray = new File(workArea);

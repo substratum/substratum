@@ -22,13 +22,13 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 
@@ -60,8 +60,7 @@ public class FloatUILaunchActivity extends AppCompatActivity {
      * @param show True to show, false to hide
      */
     private void triggerFloatingHead(boolean show) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+        SharedPreferences prefs = Substratum.getPreferences();
         int active = (show) ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
         prefs.edit().putInt("float_tile", active).apply();
         FloatUiTile.requestListeningState(getApplicationContext(),

@@ -27,21 +27,20 @@ import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
+import projekt.substratum.common.platform.ThemeManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
-import projekt.substratum.R;
-import projekt.substratum.common.Broadcasts;
-import projekt.substratum.common.Packages;
-import projekt.substratum.common.References;
-import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.Packages.getBitmapFromDrawable;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
@@ -68,14 +67,12 @@ public class OverlayFound extends BroadcastReceiver {
 
             if (packageName.equals(SST_ADDON_PACKAGE) ||
                     packageName.equals(ANDROMEDA_PACKAGE)) {
-                SharedPreferences prefs =
-                        context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 Broadcasts.sendKillMessage(context);
             }
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean toUpdate = prefs.getBoolean("overlay_alert", false);
+            boolean toUpdate = Substratum.getPreferences().getBoolean("overlay_alert", false);
             if (!toUpdate) return;
 
             // When the package is being updated, continue.

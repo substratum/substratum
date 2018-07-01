@@ -22,14 +22,19 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.support.annotation.NonNull;
@@ -54,14 +59,24 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 import projekt.substratum.activities.launch.ShowcaseActivity;
-import projekt.substratum.common.*;
+import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
+import projekt.substratum.common.Restore;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.AndromedaService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.databinding.MainActivityBinding;
-import projekt.substratum.fragments.*;
+import projekt.substratum.fragments.ManagerFragment;
+import projekt.substratum.fragments.PriorityListFragment;
+import projekt.substratum.fragments.PriorityLoaderFragment;
+import projekt.substratum.fragments.ProfileFragment;
+import projekt.substratum.fragments.SettingsFragment;
+import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
@@ -79,12 +94,34 @@ import java.util.concurrent.TimeUnit;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS;
-import static projekt.substratum.common.Activities.*;
+import static projekt.substratum.common.Activities.launchActivityUrl;
+import static projekt.substratum.common.Activities.launchExternalActivity;
+import static projekt.substratum.common.Activities.launchInternalActivity;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.MAIN_ACTIVITY_RECEIVER;
 import static projekt.substratum.common.Packages.getAppVersionCode;
-import static projekt.substratum.common.References.*;
-import static projekt.substratum.common.Systems.*;
+import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
+import static projekt.substratum.common.References.BYPASS_SYSTEM_VERSION_CHECK;
+import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
+import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.LOGCHAR_DIR;
+import static projekt.substratum.common.References.NO_THEME_ENGINE;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+import static projekt.substratum.common.References.OVERLAY_UPDATE_RANGE;
+import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
+import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
+import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
+import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
+import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.checkSubstratumServiceApi;
+import static projekt.substratum.common.Systems.checkThemeSystemModule;
+import static projekt.substratum.common.Systems.checkUsagePermissions;
+import static projekt.substratum.common.Systems.isSamsung;
+import static projekt.substratum.common.Systems.isSamsungDevice;
 import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.platform.ThemeManager.uninstallOverlay;
 
@@ -108,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements
     private ActionBar supportActionBar;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog progressDialog;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private LocalBroadcastManager localBroadcastManager;
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
@@ -250,7 +287,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         context = getApplicationContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         super.onCreate(savedInstanceState);
 
@@ -292,9 +328,9 @@ public class MainActivity extends AppCompatActivity implements
                     new IntentFilter(ANDROMEDA_RECEIVER));
         }
 
-        Systems.setROMVersion(context, false);
+        Systems.setROMVersion(false);
         Systems.setAndCheckOMS(context);
-        Systems.setAndCheckSubstratumService(context);
+        Systems.setAndCheckSubstratumService();
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -457,8 +493,7 @@ public class MainActivity extends AppCompatActivity implements
     @SuppressWarnings("LocalCanBeFinal")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences prefs = context.getSharedPreferences(
-                "substratum_state", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
@@ -654,7 +689,7 @@ public class MainActivity extends AppCompatActivity implements
      * Activate FloatUI
      */
     private void showFloatingHead() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Substratum.getPreferences();
         prefs.edit().putInt("float_tile", Tile.STATE_ACTIVE).apply();
         FloatUiTile.requestListeningState(context,
                 new ComponentName(context, FloatUiTile.class));
@@ -674,7 +709,7 @@ public class MainActivity extends AppCompatActivity implements
      * Deactivate FloatUI
      */
     private void hideFloatingHead() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Substratum.getPreferences();
         prefs.edit().putInt("float_tile", Tile.STATE_INACTIVE).apply();
         FloatUiTile.requestListeningState(context,
                 new ComponentName(context, FloatUiTile.class));
@@ -892,9 +927,9 @@ public class MainActivity extends AppCompatActivity implements
 
                                 if (!Systems.checkROMVersion(context)) {
                                     activity.prefs.edit().remove("oms_state").apply();
-                                    Systems.setROMVersion(context, true);
+                                    Systems.setROMVersion(true);
                                     Systems.setAndCheckOMS(context);
-                                    Systems.setAndCheckSubstratumService(context);
+                                    Systems.setAndCheckSubstratumService();
                                     activity.recreate();
                                 }
 
@@ -965,10 +1000,10 @@ public class MainActivity extends AppCompatActivity implements
                             .show();
                 } else {
                     if (!Systems.checkROMVersion(context)) {
-                        Systems.setROMVersion(context, true);
+                        Systems.setROMVersion(true);
                         activity.prefs.edit().remove("oms_state").apply();
                         Systems.setAndCheckOMS(context);
-                        Systems.setAndCheckSubstratumService(context);
+                        Systems.setAndCheckSubstratumService();
                         activity.recreate();
                     }
 

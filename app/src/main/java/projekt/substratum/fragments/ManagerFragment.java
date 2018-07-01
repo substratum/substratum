@@ -32,7 +32,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -120,7 +119,7 @@ public class ManagerFragment extends Fragment {
     private TextView textView;
     private ArrayList<String> activatedOverlays;
     private ManagerAdapter mAdapter;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
     private List<ManagerItem> overlaysList;
     private Boolean firstRun;
     private List<ManagerItem> overlayList;
@@ -195,7 +194,7 @@ public class ManagerFragment extends Fragment {
         setHasOptionsMenu(true);
 
         context = Substratum.getInstance();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = Substratum.getPreferences();
 
         ManagerFragmentBinding managerFragmentBinding =
                 DataBindingUtil.inflate(inflater, R.layout.manager_fragment, container, false);

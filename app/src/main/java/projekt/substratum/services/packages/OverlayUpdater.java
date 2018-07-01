@@ -33,7 +33,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.preference.PreferenceManager;
+
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -47,6 +47,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
@@ -106,7 +107,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
             // When the package is being updated, continue.
             boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences prefs = Substratum.getPreferences();
             if (replacing && !Packages.getThemesArray(context).contains(packageName)) {
                 // When the package is replacing, and also not a theme, update the overlays too!
                 boolean toUpdate = prefs.getBoolean("overlay_updater", false);

@@ -26,7 +26,6 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -34,17 +33,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.databinding.TabWallpaperItemBinding;
+import projekt.substratum.util.helpers.FileDownloader;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.List;
-
-import projekt.substratum.R;
-import projekt.substratum.databinding.TabWallpaperItemBinding;
-import projekt.substratum.util.helpers.FileDownloader;
 
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
@@ -53,7 +51,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     private ProgressDialog mProgressDialog;
     private Context context;
     private PowerManager.WakeLock mWakeLock;
-    private AsyncTask current_download;
+    private AsyncTask currentDownload;
 
     public WallpaperAdapter(List<WallpaperItem> information) {
         super();
@@ -98,7 +96,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         dialog.cancel();
 
                         // Download the image
-                        this.current_download = new downloadWallpaper(
+                        this.currentDownload = new downloadWallpaper(
                                 this,
                                 wallpaperItem.getCallingActivity()
                         ).execute(
@@ -112,8 +110,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         });
         viewHolderBinding.setWallpaperItem(wallpaperItem);
         viewHolderBinding.executePendingBindings();
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(wallpaperItem.getContext());
+        SharedPreferences prefs = Substratum.getPreferences();
         if (!prefs.getBoolean("lite_mode", false)) {
             setRecyclerViewAnimations(viewHolderBinding.wallpaperImage);
         }
@@ -162,7 +159,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                 }
                 wallpaperAdapter.mWakeLock.acquire(10L * 60L * 1000L /*10 minutes*/);
                 wallpaperAdapter.mProgressDialog.setOnCancelListener(
-                        dialogInterface -> wallpaperAdapter.current_download.cancel(true));
+                        dialogInterface -> wallpaperAdapter.currentDownload.cancel(true));
                 wallpaperAdapter.mProgressDialog.show();
             }
         }

@@ -37,7 +37,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
@@ -88,6 +87,7 @@ import javax.crypto.spec.SecretKeySpec;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 import projekt.substratum.adapters.tabs.overlays.VariantAdapter;
@@ -167,26 +167,26 @@ public class Overlays extends Fragment {
     // Theme instance based variables, used globally amongst all Overlays* files
     public String themeName;
     public String themePid;
-    public String themeVersion;
-    public Cipher themeCipher;
+    String themeVersion;
+    Cipher themeCipher;
     public boolean encrypted = false;
-    public boolean mixAndMatchMode = false;
-    public final OverlaysInstance currentInstance = OverlaysInstance.getInstance();
-    public SubstratumBuilder compileInstance;
-    public List<OverlaysItem> overlayItemList;
-    public List<String> currentInstanceOverlays;
+    boolean mixAndMatchMode = false;
+    final OverlaysInstance currentInstance = OverlaysInstance.getInstance();
+    SubstratumBuilder compileInstance;
+    List<OverlaysItem> overlayItemList;
+    List<String> currentInstanceOverlays;
     // Begin functional variables with no theme-related information
-    public SheetDialog compileDialog;
-    public SharedPreferences prefs;
-    public OverlaysAdapter overlaysAdapter;
-    public NotificationManager notifyManager;
+    SheetDialog compileDialog;
+    public SharedPreferences prefs = Substratum.getPreferences();
+    OverlaysAdapter overlaysAdapter;
+    NotificationManager notifyManager;
     public NotificationCompat.Builder builder;
-    public ProgressBar dialogProgress;
-    public AssetManager themeAssetManager;
-    public ActivityManager activityManager;
+    ProgressBar dialogProgress;
+    AssetManager themeAssetManager;
+    ActivityManager activityManager;
     public ProgressBar progressBar;
-    public Switch toggleAll;
-    public Spinner baseSpinner;
+    Switch toggleAll;
+    Spinner baseSpinner;
     Context context;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -210,7 +210,7 @@ public class Overlays extends Fragment {
      *
      * @return Returns masterView of {@link InformationActivity}
      */
-    public View getActivityView() {
+    View getActivityView() {
         InformationActivity informationActivity = ((InformationActivity) getActivity());
         if (informationActivity != null) {
             View coordinatorLayout = References.getCoordinatorLayoutView(informationActivity);
@@ -287,7 +287,7 @@ public class Overlays extends Fragment {
         swipeRefreshLayout = viewBinding.swipeRefreshLayout;
 
         context = getContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = Substratum.getPreferences();
         activityManager = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
         notifyManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         compileDialog = new SheetDialog(context);

@@ -19,11 +19,9 @@
 package projekt.substratum.services.tiles;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
-
+import projekt.substratum.Substratum;
 import projekt.substratum.activities.floatui.FloatUILaunchActivity;
 
 public class FloatUiTile extends TileService {
@@ -47,9 +45,7 @@ public class FloatUiTile extends TileService {
     }
 
     private void switchState() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
-        int state = prefs.getInt("float_tile", Tile.STATE_INACTIVE);
+        int state = Substratum.getPreferences().getInt("float_tile", Tile.STATE_INACTIVE);
         Tile tile = getQsTile();
         if (tile != null) {
             tile.setState(state);

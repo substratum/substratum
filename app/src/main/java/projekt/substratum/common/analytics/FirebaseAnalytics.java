@@ -112,8 +112,7 @@ public enum FirebaseAnalytics {
 
     public static void withdrawAndromedaFingerprint(Context context,
                                                     int version) {
-        SharedPreferences prefs = context
-                .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         if (!prefs.contains("andromeda_exp_fp_" + version)) {
             SharedPreferences.Editor editor = prefs.edit();
             for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
@@ -143,8 +142,7 @@ public enum FirebaseAnalytics {
 
     public static void withdrawSungstratumFingerprint(Context context,
                                                       int version) {
-        SharedPreferences prefs = context
-                .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         if (!prefs.contains("sungstratum_exp_fp_" + version)) {
             SharedPreferences.Editor editor = prefs.edit();
             for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {

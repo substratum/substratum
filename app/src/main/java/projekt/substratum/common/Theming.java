@@ -22,13 +22,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
 
 import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
@@ -46,16 +46,15 @@ public enum Theming {
      * @param context Self explanatory, bud.
      */
     public static void refreshInstalledThemesPref(Context context) {
-        SharedPreferences.Editor editor =
-                PreferenceManager.getDefaultSharedPreferences(context).edit();
+        SharedPreferences.Editor editor = Substratum.getPreferences().edit();
 
         // Initial parse of what is installed on the device
-        Set<String> installed_themes = new TreeSet<>();
+        Set<String> installedThemes = new TreeSet<>();
         List<ResolveInfo> themes = Packages.getThemes(context);
         for (ResolveInfo theme : themes) {
-            installed_themes.add(theme.activityInfo.packageName);
+            installedThemes.add(theme.activityInfo.packageName);
         }
-        editor.putStringSet("installed_themes", installed_themes);
+        editor.putStringSet("installed_themes", installedThemes);
         editor.apply();
     }
 
@@ -68,11 +67,11 @@ public enum Theming {
     public static void launchTheme(Context context,
                                    String packageName) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
-            Intent theme_intent = themeIntent(
+            Intent themeIntent = themeIntent(
                     context,
                     packageName,
                     TEMPLATE_THEME_MODE);
-            context.startActivity(theme_intent);
+            context.startActivity(themeIntent);
         }
     }
 
@@ -85,12 +84,12 @@ public enum Theming {
     public static void getThemeKeys(Context context,
                                     String packageName) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
-            Intent theme_intent = themeIntent(
+            Intent themeIntent = themeIntent(
                     context,
                     packageName,
                     TEMPLATE_GET_KEYS);
             try {
-                context.startActivity(theme_intent);
+                context.startActivity(themeIntent);
             } catch (Exception e) {
                 e.printStackTrace();
             }

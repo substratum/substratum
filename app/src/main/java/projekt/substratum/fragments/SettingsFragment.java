@@ -33,7 +33,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.preference.CheckBoxPreference;
@@ -89,7 +88,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public List<ValidatorError> errors;
     public Dialog dialog;
     public Context context;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs = Substratum.getPreferences();
 
     /**
      * Scroll up the ListView smoothly
@@ -104,7 +103,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             Bundle bundle,
             String s) {
         context = getContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = Substratum.getPreferences();
 
         boolean isSamsung = Systems.isSamsungDevice(context);
         boolean isOMS = Systems.checkOMS(context);

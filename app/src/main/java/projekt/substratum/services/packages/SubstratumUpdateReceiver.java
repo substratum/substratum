@@ -22,16 +22,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.preference.PreferenceManager;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
-
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.AndromedaService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.ProfileManager;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 
 import static projekt.substratum.common.platform.ThemeManager.listEnabledOverlaysForTarget;
 import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE_ENABLED;
@@ -41,7 +40,7 @@ public class SubstratumUpdateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if ((intent.getAction() != null) &&
                 !intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) return;
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Substratum.getPreferences();
         boolean scheduleProfileEnabled = prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false);
         if (scheduleProfileEnabled) {
             ProfileManager.updateScheduledProfile(context);

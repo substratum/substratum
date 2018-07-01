@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.Xml;
 
 import org.w3c.dom.Document;
@@ -48,6 +47,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
@@ -101,7 +101,7 @@ public enum ProfileManager {
      * @param context Context
      */
     public static void updateScheduledProfile(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Substratum.getPreferences();
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
@@ -174,7 +174,7 @@ public enum ProfileManager {
                                               String nightProfile,
                                               Integer nightHour,
                                               Integer nightMinute) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Substratum.getPreferences();
         SharedPreferences.Editor editor = prefs.edit();
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context
                 .ALARM_SERVICE);
@@ -246,7 +246,7 @@ public enum ProfileManager {
      */
     public static void disableScheduledProfile(Context context) {
         SharedPreferences.Editor editor =
-                PreferenceManager.getDefaultSharedPreferences(context).edit();
+                Substratum.getPreferences().edit();
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);

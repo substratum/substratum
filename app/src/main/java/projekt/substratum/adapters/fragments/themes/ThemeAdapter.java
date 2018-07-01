@@ -27,8 +27,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,16 +37,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.List;
-
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Theming;
 import projekt.substratum.databinding.ThemeEntryCardBinding;
 import projekt.substratum.databinding.ThemeEntryLongPressSheetDialogBinding;
 import projekt.substratum.util.views.SheetDialog;
+
+import java.util.List;
 
 import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
@@ -78,7 +78,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         ThemeItem themeItem = this.information.get(pos);
         this.context = themeItem.getContext();
         ThemeEntryCardBinding viewHolderBinding = viewHolder.getBinding();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
+        SharedPreferences prefs = Substratum.getPreferences();
 
         viewHolderBinding.themeCard.setOnClickListener(
                 v -> Theming.launchTheme(this.context, themeItem.getThemePackage()));

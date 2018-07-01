@@ -113,37 +113,21 @@ public enum Packages {
     }
 
     /**
-     * Returns whether the package is installed or not
-     *
-     * @param context     Context
-     * @param packageName Package name of the desired app to be checked
-     * @return True, if installed
-     */
-    public static boolean isPackageInstalled(Context context,
-                                             String packageName) {
-        return isPackageInstalled(context, packageName, true);
-    }
-
-    /**
      * Returns whether the package is installed or not, with an extra flag to check if enabled or
      * disabled
      *
      * @param context     Context
      * @param packageName Package name of the desired app to be checked
-     * @param enabled     Check whether it is enabled or frozen
      * @return True, if it fits all criteria above
      */
-    private static boolean isPackageInstalled(Context context,
-                                              String packageName,
-                                              boolean enabled) {
+    public static boolean isPackageInstalled(Context context,
+                                              String packageName) {
         try {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             if (!new File(ai.sourceDir).exists()) return false;
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-            if (enabled) return ai.enabled;
-            // if package doesn't exist, an Exception will be thrown, so return true in every case
-            return true;
+            return ai.enabled;
         } catch (Exception e) {
             return false;
         }

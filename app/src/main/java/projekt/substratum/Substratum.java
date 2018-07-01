@@ -41,6 +41,7 @@ import android.util.Log;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.crash.FirebaseCrash;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -77,10 +78,16 @@ public class Substratum extends Application {
     private static final FinishReceiver finishReceiver = new FinishReceiver();
     private static int initialPackageCount = 0;
     private static int initialOverlayCount = 0;
-    public static Thread currentThread;
+    static Thread currentThread;
     private static Substratum substratum;
+    private static WeakReference<Substratum> weakSelf;
     private static boolean isWaiting;
     private static boolean shouldStopThread = false;
+    private static SharedPreferences preferences;
+
+    public Substratum() {
+        weakSelf = new WeakReference<>(this);
+    }
 
     /**
      * Get the current instance of the substratum application
@@ -123,7 +130,7 @@ public class Substratum extends Application {
     /**
      * Stop the ongoing package detection on Samsung
      */
-    public static void stopSamsungPackageMonitor() {
+    static void stopSamsungPackageMonitor() {
         Log.d("Substratum",
                 "The overlay package refresher for Samsung devices is now stopping!");
         shouldStopThread = true;
@@ -134,7 +141,7 @@ public class Substratum extends Application {
      *
      * @param context Context!
      */
-    public static void startSamsungPackageMonitor(Context context) {
+    static void startSamsungPackageMonitor(Context context) {
         Log.d("Substratum",
                 "The overlay package refresher for Samsung devices has been fully loaded.");
         PackageManager pm = context.getPackageManager();
@@ -197,14 +204,17 @@ public class Substratum extends Application {
         System.exit(0);
     }
 
+    public static SharedPreferences getPreferences() {
+        return weakSelf.get().preferences;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         substratum = this;
 
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        String selectedTheme = prefs.getString(APP_THEME, DEFAULT_THEME);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String selectedTheme = preferences.getString(APP_THEME, DEFAULT_THEME);
         if (!getApplicationContext().getResources().getBoolean(R.bool.forceAppDarkTheme)) {
             switch (selectedTheme) {
                 case AUTO_THEME:
@@ -219,7 +229,7 @@ public class Substratum extends Application {
             }
         } else {
             AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
-            prefs.edit().putString("app_theme", DARK_THEME).apply();
+            preferences.edit().putString("app_theme", DARK_THEME).apply();
         }
 
         // Firebase

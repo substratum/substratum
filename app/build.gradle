@@ -105,7 +105,6 @@ ext {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
 
     // Android Support Libraries
     implementation "com.android.support:appcompat-v7:$supportLibsVersion"

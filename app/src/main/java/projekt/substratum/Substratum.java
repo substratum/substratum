@@ -209,7 +209,7 @@ public class Substratum extends Application {
     }
 
     public static void log(final String TAG, final String message) {
-        if (BuildConfig.DEBUG)
+        if (!BuildConfig.DEBUG)
             return;
         Log.d(TAG, message);
     }

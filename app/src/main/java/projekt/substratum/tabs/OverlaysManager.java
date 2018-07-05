@@ -1464,9 +1464,7 @@ enum OverlaysManager {
                                     o.substring(o.lastIndexOf('/') + 1, o.lastIndexOf('-'));
                             packages.add(packageName);
                             if (!Systems.isNewSamsungDevice() &&
-                                    !Systems.checkP() &&
-                                    (checkThemeInterfacer(context) &&
-                                            !Systems.isBinderInterfacer(context)) ||
+                                    checkThemeInterfacer(context) ||
                                     Systems.checkAndromeda(context)) {
                                 // Wait until the overlays to fully install so on compile enable
                                 // mode it can be enabled after.

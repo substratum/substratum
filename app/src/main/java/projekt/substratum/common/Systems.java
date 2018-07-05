@@ -203,7 +203,7 @@ public enum Systems {
      * @return True, if yes.
      */
     public static Boolean checkP() {
-        return (Build.VERSION.SDK_INT == Build.VERSION_CODES.P);
+        return Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
     }
 
     /**

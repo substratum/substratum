@@ -234,7 +234,7 @@ enum OverlaysManager {
                                 overlays.currentInstance.checkedOverlays.get(i)
                                         .getFullOverlayParameters());
                         Intent uninstallIntent =
-                                new Intent(Intent.ACTION_DELETE, packageURI);
+                                new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
                         overlays.startActivity(uninstallIntent);
                     }
                 }

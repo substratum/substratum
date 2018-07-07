@@ -774,7 +774,7 @@ public enum ThemeManager {
                         !Root.requestRootAccess())) {
             for (String overlay : overlays) {
                 Uri packageURI = Uri.parse("package:" + overlay);
-                Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
                 context.startActivity(uninstallIntent);
             }
         } else {

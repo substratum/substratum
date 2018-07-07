@@ -211,7 +211,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 LinearLayout uninstall = sheetDialogBinding.uninstall;
                 uninstall.setOnClickListener(view2 -> {
                     Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
-                    Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                    Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
                     this.context.startActivity(uninstallIntent);
                     sheetDialog.dismiss();
                 });

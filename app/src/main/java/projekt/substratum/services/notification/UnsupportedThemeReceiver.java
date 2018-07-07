@@ -51,7 +51,7 @@ public class UnsupportedThemeReceiver extends BroadcastReceiver {
                 context.getApplicationContext().sendBroadcast(closeSysUi);
 
                 // Fire the uninstall intent
-                Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
                 context.startActivity(uninstallIntent);
             }
         }

@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements
             uninstallOverlay(activity.getApplicationContext(), MainActivity.queuedUninstall);
         } else if (!MainActivity.queuedUninstall.isEmpty()) {
             Uri packageURI = Uri.parse("package:" + MainActivity.queuedUninstall.get(0));
-            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+            Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
             activity.startActivityForResult(uninstallIntent, UNINSTALL_REQUEST_CODE);
         }
     }

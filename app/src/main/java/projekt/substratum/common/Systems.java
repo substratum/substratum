@@ -73,6 +73,12 @@ import static projekt.substratum.common.References.spreadYourWingsAndFly;
 public enum Systems {
     ;
 
+    public static final boolean IS_P = Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
+    public static final boolean IS_OREO = Build.VERSION.SDK_INT == Build.VERSION_CODES.O ||
+            Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1;
+    public static final boolean IS_NOUGAT = Build.VERSION.SDK_INT == Build.VERSION_CODES.N ||
+            Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1;
+
     static Boolean checkPackageSupported;
     static SharedPreferences prefs = Substratum.getPreferences();
     /**
@@ -146,7 +152,7 @@ public enum Systems {
                 return prefs.getInt("current_theme_mode", NO_THEME_ENGINE);
             }
 
-            if (checkOreo()) {
+            if (IS_OREO) {
                 if (isAndromedaDevice(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
@@ -169,7 +175,7 @@ public enum Systems {
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ROOTED;
                 }
-            } else if (checkNougat()) {
+            } else if (IS_NOUGAT) {
                 if (isBinderInterfacer(context)) {
                     // Interfacer mode
                     prefs.edit().putInt(
@@ -198,35 +204,6 @@ public enum Systems {
     }
 
     /**
-     * Check if the device is P based
-     *
-     * @return True, if yes.
-     */
-    public static Boolean checkP() {
-        return Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
-    }
-
-    /**
-     * Check if the device is Oreo based
-     *
-     * @return True, if yes.
-     */
-    public static Boolean checkOreo() {
-        return (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) ||
-                (Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1);
-    }
-
-    /**
-     * Check if the device is Nougat based
-     *
-     * @return True, if yes.
-     */
-    private static Boolean checkNougat() {
-        return (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) ||
-                (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1);
-    }
-
-    /**
      * Set a retained property to refer to rather than constantly calling the OMS state
      *
      * @param context If you haven't gotten this by now, better start reading Android docs
@@ -242,7 +219,7 @@ public enum Systems {
                 } else if (sonyCheck == null || sonyCheck.length() == 0) {
                     Boolean isOMSRunning = isServiceRunning(IOverlayManager.class,
                             context.getApplicationContext());
-                    if (isOMSRunning || checkOreo()) {
+                    if (isOMSRunning || IS_OREO) {
                         Substratum.log(SUBSTRATUM_LOG,
                                 "This device fully supports the Overlay Manager Service...");
                         foundOms = true;

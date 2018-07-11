@@ -1174,7 +1174,7 @@ public class MainActivity extends AppCompatActivity implements
                                 findViewById(R.id.tab_profiles).setVisibility(View.GONE);
                         activity.bottomBar.
                                 setSelectedItemId(R.id.tab_overlay_manager);
-                    } else if (Systems.checkOreo() &&
+                    } else if (Systems.IS_OREO &&
                             !Packages.isPackageInstalled(context, ANDROMEDA_PACKAGE)) {
                         TextView andromedaTitle = activity.progressDialog.findViewById(
                                 R.id.andromeda_title);

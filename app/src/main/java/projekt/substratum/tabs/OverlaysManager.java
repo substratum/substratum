@@ -94,7 +94,6 @@ import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
 import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 import static projekt.substratum.common.Resources.inNexusFilter;
 import static projekt.substratum.common.Systems.checkOMS;
-import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
@@ -597,7 +596,7 @@ enum OverlaysManager {
                         !Systems.isNewSamsungDevice() &&
                                 Substratum.needToWaitInstall() &&
                                 Systems.checkOMS(context) &&
-                                !Systems.checkP();
+                                !Systems.IS_P;
 
                 if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();
@@ -1333,7 +1332,7 @@ enum OverlaysManager {
             Overlays overlays = ref.get();
             Context context = refContext.get();
             if ((context != null) && (overlays != null)) {
-                if (checkOreo() &&
+                if (Systems.IS_OREO &&
                         isSystemSecurityPatchNewer(SECURITY_UPDATE_WARN_AFTER) &&
                         !checkSubstratumService(context)) {
                     if (!overlays.prefs.getBoolean("new_stock_dismissal", false)) {

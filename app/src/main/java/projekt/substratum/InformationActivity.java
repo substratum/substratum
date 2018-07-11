@@ -886,7 +886,7 @@ public class InformationActivity extends AppCompatActivity {
         Thread currentThread = Substratum.currentThread;
         if ((currentThread == null || !currentThread.isAlive()) &&
                 (Systems.isSamsung(context) ||
-                        (Systems.checkOreo() &&
+                        (Systems.IS_OREO &&
                                 Systems.isNewSamsungDevice()))) {
             Substratum.startSamsungPackageMonitor(context);
         }

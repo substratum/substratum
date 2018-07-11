@@ -25,17 +25,13 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 
 import projekt.substratum.IInterfacerInterface;
-import projekt.substratum.R;
 import projekt.substratum.Substratum;
-import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.References.INTERFACER_BINDED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
-import static projekt.substratum.common.Systems.checkOreo;
 
 public class InterfacerBinderService extends Service implements ServiceConnection {
 
@@ -64,16 +60,6 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     public void onCreate() {
         super.onCreate();
         binderService = this;
-        if (checkOreo()) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                    getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
-
-            builder.setContentTitle(getString(R.string.interfacer_notification_title))
-                    .setContentText(getString(R.string.interfacer_notification_text))
-                    .setSmallIcon(R.drawable.notification_icon);
-
-            startForeground(2018, builder.build());
-        }
         bindInterfacer();
     }
 

@@ -451,7 +451,7 @@ public class SubstratumBuilder {
         // Superuser needed as this requires elevated privileges to run these commands
         if (!hasErroredOut) {
             if (isDeviceOMS) {
-                if (Systems.checkP()) {
+                if (Systems.IS_P) {
                     // Brute force install APKs because thanks Google
                     FileOperations.mountRW();
                     final String overlay = P_DIR + "_" + overlayName + ".apk";
@@ -463,7 +463,7 @@ public class SubstratumBuilder {
                     if (Resources.FRAMEWORK.equals(overlayPackage) ||
                             "projekt.substratum".equals(overlayPackage)) {
                         specialSnowflake = ThemeManager.isOverlayEnabled(context, overlayName) ||
-                                (Systems.checkOreo() && !overlayUpdater);
+                                (Systems.IS_OREO && !overlayUpdater);
                     }
 
                     if (!specialSnowflake) {

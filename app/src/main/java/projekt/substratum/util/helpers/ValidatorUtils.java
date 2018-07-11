@@ -190,13 +190,13 @@ public class ValidatorUtils {
             if (settingsFragment != null) {
                 FileDownloader.init(
                         settingsFragment.context,
-                        settingsFragment.getString(Systems.checkOreo() ?
+                        settingsFragment.getString(Systems.IS_OREO ?
                                 R.string.validator_o_url : R.string.validator_n_url),
                         "repository_names.xml", VALIDATOR_CACHE);
 
                 FileDownloader.init(
                         settingsFragment.context,
-                        settingsFragment.getString(Systems.checkOreo() ?
+                        settingsFragment.getString(Systems.IS_OREO ?
                                 R.string.validator_o_whitelist_url :
                                 R.string.validator_n_whitelist_url),
                         "resource_whitelist.xml", VALIDATOR_CACHE);

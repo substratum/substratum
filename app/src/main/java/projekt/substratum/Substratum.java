@@ -68,7 +68,6 @@ import static projekt.substratum.common.References.DEFAULT_THEME;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
-import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.isBinderInterfacer;
 
@@ -148,7 +147,7 @@ public class Substratum extends Application {
         List<ApplicationInfo> currentApps =
                 pm.getInstalledApplications(PackageManager.GET_META_DATA);
         initialPackageCount = currentApps.size();
-        if (checkOreo()) initialOverlayCount = ThemeManager.listAllOverlays(context).size();
+        if (Systems.IS_OREO) initialOverlayCount = ThemeManager.listAllOverlays(context).size();
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -164,12 +163,12 @@ public class Substratum extends Application {
                 List<ApplicationInfo> currentApps =
                         pm.getInstalledApplications(PackageManager.GET_META_DATA);
                 List<String> listOfThemes = new ArrayList<>();
-                if (checkOreo()) listOfThemes = ThemeManager.listAllOverlays(context);
+                if (Systems.IS_OREO) listOfThemes = ThemeManager.listAllOverlays(context);
                 if (initialPackageCount != currentApps.size() ||
-                        (checkOreo() &&
+                        (Systems.IS_OREO &&
                                 initialOverlayCount >= 1 &&
                                 initialOverlayCount != listOfThemes.size())) {
-                    if (checkOreo())
+                    if (Systems.IS_OREO)
                         initialOverlayCount = ThemeManager.listAllOverlays(context).size();
                     initialPackageCount = currentApps.size();
                     Broadcasts.sendOverlayRefreshMessage(context);

@@ -436,7 +436,7 @@ public enum ThemeManager {
         } catch (Exception e) {
             // At this point, we probably ran into a legacy command or stock OMS
             if (!isNewSamsungDeviceAndromeda(context) &&
-                    (Systems.checkOMS(context) || Systems.checkOreo()) &&
+                    (Systems.checkOMS(context) || Systems.IS_OREO) &&
                     !MainActivity.instanceBasedAndromedaFailure) {
                 String prefix;
                 if (overlayState == STATE_ENABLED) {
@@ -739,7 +739,7 @@ public enum ThemeManager {
             shouldRestartUi = shouldRestartUI(context, temp);
         }
 
-        if (Systems.checkP()) {
+        if (Systems.IS_P) {
             FileOperations.mountRW();
             for (String overlay : overlays) {
                 FileOperations.bruteforceDelete(P_DIR + '_' + overlay + ".apk");

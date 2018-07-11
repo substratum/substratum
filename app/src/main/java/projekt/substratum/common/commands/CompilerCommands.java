@@ -39,12 +39,12 @@ import javax.xml.transform.stream.StreamResult;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.References.COMMON_PACKAGE;
 import static projekt.substratum.common.References.ENABLE_AAPT_OUTPUT;
 import static projekt.substratum.common.References.SAMSUNG_OVERLAY_PERMISSION;
 import static projekt.substratum.common.Resources.allowedForSamsungPermission;
-import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.getDeviceID;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
 
@@ -121,7 +121,7 @@ public enum CompilerCommands {
             if (!themeOms)
                 overlayElement.setAttribute("android:priority", String.valueOf(legacyPriority));
             overlayElement.setAttribute("android:targetPackage", targetPackage);
-            if (checkOreo()) overlayElement.setAttribute("android:isStatic", "false");
+            if (Systems.IS_OREO) overlayElement.setAttribute("android:isStatic", "false");
             rootElement.appendChild(overlayElement);
 
             Element applicationElement = document.createElement("application");

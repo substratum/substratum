@@ -63,16 +63,6 @@ import android.widget.SpinnerAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import projekt.substratum.InformationActivity;
-import projekt.substratum.LauncherActivity;
-import projekt.substratum.MainActivity;
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
-import projekt.substratum.common.analytics.FirebaseAnalytics;
-import projekt.substratum.services.profiles.ScheduledProfileReceiver;
-import projekt.substratum.util.helpers.BinaryInstaller;
-import projekt.substratum.util.helpers.TranslatorParser;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -96,6 +86,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
+import projekt.substratum.InformationActivity;
+import projekt.substratum.LauncherActivity;
+import projekt.substratum.MainActivity;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
+import projekt.substratum.common.analytics.FirebaseAnalytics;
+import projekt.substratum.services.profiles.ScheduledProfileReceiver;
+import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.TranslatorParser;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
@@ -243,8 +244,6 @@ public enum References {
     public static final String metadataVersion = "Substratum_Plugin";
     // Validate with logs
     public static final boolean VALIDATE_WITH_LOGS = false;
-    // Control the animation duration
-    private static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
     // Special permission for Samsung devices
     public static final String SAMSUNG_OVERLAY_PERMISSION =
             "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
@@ -254,6 +253,8 @@ public enum References {
     static final String heroImageMainResourceName = "heroimage_banner";
     // Specific intents Substratum should be listening to
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
+    // Control the animation duration
+    private static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
     // These values control the dynamic certification of substratum

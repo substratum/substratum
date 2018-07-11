@@ -444,7 +444,8 @@ public class Fonts extends Fragment {
                 try {
                     final File cacheDirectory = new File(fonts.context.getCacheDir(), FONT_CACHE);
                     if (!cacheDirectory.exists()) {
-                        if (cacheDirectory.mkdirs()) Substratum.log(TAG, "FontCache folder created");
+                        if (cacheDirectory.mkdirs())
+                            Substratum.log(TAG, "FontCache folder created");
                     }
                     final File cacheDirectory2 =
                             new File(fonts.context.getCacheDir(), FONT_PREVIEW_CACHE);
@@ -456,7 +457,8 @@ public class Fonts extends Fragment {
                         FileOperations.delete(fonts.context,
                                 fonts.context.getCacheDir().getAbsolutePath() +
                                         FONT_PREVIEW_CACHE);
-                        if (cacheDirectory2.mkdirs()) Substratum.log(TAG, "FontCache folder recreated");
+                        if (cacheDirectory2.mkdirs())
+                            Substratum.log(TAG, "FontCache folder recreated");
                     }
 
                     // Copy the font.zip from assets/fonts of the theme's assets

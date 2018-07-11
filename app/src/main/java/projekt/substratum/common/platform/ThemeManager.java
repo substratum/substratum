@@ -39,7 +39,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import projekt.substratum.MainActivity;
@@ -50,8 +56,8 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
-import projekt.substratum.common.commands.SamsungOverlayCacher;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.commands.SamsungOverlayCacher;
 import projekt.substratum.util.helpers.Root;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -82,6 +88,10 @@ import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
 public enum ThemeManager {
     ;
 
+    // State values of OverlayInfo
+    public static final int STATE_MISSING_TARGET = (SDK_INT >= O) ? 0 : 1;
+    public static final int STATE_DISABLED = (SDK_INT >= O) ? 2 : 4;
+    public static final int STATE_ENABLED = (SDK_INT >= O) ? 3 : 5;
     /**
      * Begin interaction with the OverlayManagerService binaries.
      * <p>
@@ -91,10 +101,6 @@ public enum ThemeManager {
      * NOTE: Deprecation at the OMS3 level. We no longer support OMS3 commands.
      */
     private static final String disableOverlay = "cmd overlay disable";
-    // State values of OverlayInfo
-    public static final int STATE_MISSING_TARGET = (SDK_INT >= O) ? 0 : 1;
-    public static final int STATE_DISABLED = (SDK_INT >= O) ? 2 : 4;
-    public static final int STATE_ENABLED = (SDK_INT >= O) ? 3 : 5;
     private static final String enableOverlay = "cmd overlay enable";
     private static final String listAllOverlays = "cmd overlay list";
     private static final String setPriority = "cmd overlay set-priority";

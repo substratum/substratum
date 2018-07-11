@@ -76,9 +76,9 @@ public class Substratum extends Application {
 
     private static final String BINDER_TAG = "BinderService";
     private static final FinishReceiver finishReceiver = new FinishReceiver();
+    static Thread currentThread;
     private static int initialPackageCount = 0;
     private static int initialOverlayCount = 0;
-    static Thread currentThread;
     private static Substratum substratum;
     private static WeakReference<Substratum> weakSelf;
     private static boolean isWaiting;

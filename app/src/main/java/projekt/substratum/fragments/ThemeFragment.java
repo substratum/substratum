@@ -83,8 +83,8 @@ public class ThemeFragment extends Fragment {
     /**
      * Prepares the data to be used by the cards
      *
-     * @param map      Map of packages that have been processed
-     * @param context  Self explantory, bud
+     * @param map     Map of packages that have been processed
+     * @param context Self explantory, bud
      * @return Returns an ArrayList to be used to parse further data
      */
     private static ArrayList<ThemeItem> prepareData(Map<String, String[]> map,

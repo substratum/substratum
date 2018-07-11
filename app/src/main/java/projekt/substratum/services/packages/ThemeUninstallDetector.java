@@ -27,6 +27,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Log;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import projekt.substratum.MainActivity;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Broadcasts;
@@ -37,12 +44,6 @@ import projekt.substratum.tabs.BootAnimationsManager;
 import projekt.substratum.tabs.FontsManager;
 import projekt.substratum.tabs.SoundsManager;
 import projekt.substratum.tabs.WallpapersManager;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import static projekt.substratum.common.Internal.BOOT_ANIMATION_APPLIED;
 import static projekt.substratum.common.Internal.SHUTDOWN_ANIMATION_APPLIED;

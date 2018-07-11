@@ -333,9 +333,9 @@ enum OverlaysManager {
     static class compileFunction extends AsyncTask<String, Integer, String> {
 
         private final WeakReference<Overlays> ref;
+        private final String state;
         private String currentPackageName = "";
         private String currentDialogOverlay;
-        private final String state;
 
         compileFunction(Overlays overlays, String state) {
             super();

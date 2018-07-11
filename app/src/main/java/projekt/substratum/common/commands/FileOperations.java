@@ -538,12 +538,13 @@ public enum FileOperations {
 
     /**
      * DirectAssets Mode Functions
-     *  @param assetManager Take the asset manager context from the theme package
+     *
+     * @param assetManager Take the asset manager context from the theme package
      * @param listDir      The expected list directory inside the assets folder
      * @param destination  Output directory on where we should be caching
      * @param remember     Should be the same as listDir, so we strip out the unnecessary prefix
-*                     so it only extracts to a specified folder without the asset manager's
-*                     list structure.
+     *                     so it only extracts to a specified folder without the asset manager's
+     *                     list structure.
      * @param cipher       Encryption key
      */
     public static void copyFileOrDir(final AssetManager assetManager,

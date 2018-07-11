@@ -73,13 +73,13 @@ import static projekt.substratum.common.References.spreadYourWingsAndFly;
 public enum Systems {
     ;
 
+    static Boolean checkPackageSupported;
+    static SharedPreferences prefs = Substratum.getPreferences();
     /**
      * Cached boolean to find if system
      * passes all cases of Samsung checks
      */
     private static Boolean isSamsungDevice = null;
-    static Boolean checkPackageSupported;
-    static SharedPreferences prefs = Substratum.getPreferences();
 
     /**
      * This method is used to determine whether there the system is initiated with OMS
@@ -293,7 +293,6 @@ public enum Systems {
 
     /**
      * Set a retained property to refer to rather than constantly calling the SS state
-     *
      */
     public static void setAndCheckSubstratumService() {
         StringBuilder check = References.runShellCommand("cmd -l");
@@ -557,7 +556,7 @@ public enum Systems {
     /**
      * Retain the ROM version in the Shared Preferences of the app
      *
-     * @param force   Do not dynamically set it, instead, force!
+     * @param force Do not dynamically set it, instead, force!
      */
     public static void setROMVersion(boolean force) {
         if (!prefs.contains("rom_build_date") || force) {

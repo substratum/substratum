@@ -342,13 +342,13 @@
     <string name="logcat_snackbar_text">Target application/overlay outdated or mismatched configuration selected&#8230;</string>
     <string name="logcat_dialog_title">LogChar Debug Report</string>
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
-    <string name="logcat_email_subject" translatable="false" formatted="false">
+    <string name="logcat_email_subject" formatted="false" translatable="false">
       %s: Theme Bug Report</string>
-    <string name="logcat_email_body" translatable="false" formatted="false">
+    <string name="logcat_email_body" formatted="false" translatable="false">
       Hey %s,\n\nI have an issue with %s, and would
       like to see if you could help me resolve this issue.
       </string>
-    <string name="logcat_attachment_body" translatable="false" formatted="false">
+    <string name="logcat_attachment_body" formatted="false" translatable="false">
       Theme Name:\n%s\n\nDevice:\n%s\n\nROM:\n%s\n\nSubstratum Version:\n%s\n\nTheme Version:\n%s\n\nTarget Package(s):\n%s\nReport:\n%s
       </string>
     <string name="logcat_send">Send</string>

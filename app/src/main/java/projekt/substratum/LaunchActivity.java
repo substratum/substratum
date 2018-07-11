@@ -21,6 +21,7 @@ package projekt.substratum;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import projekt.substratum.activities.launch.SplashScreenActivity;
 
 public class LaunchActivity extends Activity {

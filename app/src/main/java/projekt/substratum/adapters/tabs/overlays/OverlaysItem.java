@@ -46,12 +46,6 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 public class OverlaysItem implements Serializable {
 
     public final String attention;
-    public boolean isVariantChosen;
-    public boolean isVariantChosen1;
-    public boolean isVariantChosen2;
-    public boolean isVariantChosen3;
-    public boolean isVariantChosen4;
-    public boolean isVariantChosen5;
     public final boolean variantMode;
     final String versionName;
     private final int overlayVersion;
@@ -65,6 +59,12 @@ public class OverlaysItem implements Serializable {
     private final Context context;
     private final Drawable appIcon;
     private final String name;
+    public boolean isVariantChosen;
+    public boolean isVariantChosen1;
+    public boolean isVariantChosen2;
+    public boolean isVariantChosen3;
+    public boolean isVariantChosen4;
+    public boolean isVariantChosen5;
     private String targetVersion;
     private boolean isSelected;
     private int spinnerSelection;

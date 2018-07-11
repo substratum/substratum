@@ -27,6 +27,9 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+
+import java.lang.ref.WeakReference;
+
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Systems;
@@ -34,10 +37,6 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.tabs.SoundsManager;
 import projekt.substratum.util.views.Lunchbar;
-
-import java.lang.ref.WeakReference;
-
-import projekt.substratum.Substratum;
 
 import static projekt.substratum.common.Internal.JOB_COMPLETE;
 import static projekt.substratum.common.Internal.SOUNDS_APPLIED;

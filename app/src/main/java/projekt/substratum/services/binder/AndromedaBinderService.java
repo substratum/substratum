@@ -27,17 +27,16 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+
+import java.util.ArrayList;
+import java.util.Set;
+
 import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.AndromedaService;
-
-import java.util.ArrayList;
-import java.util.Set;
-
-import projekt.substratum.Substratum;
 
 import static projekt.substratum.common.References.ANDROMEDA_BINDED;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;

@@ -30,6 +30,14 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.activities.profiles.ProfileErrorInfoActivity;
@@ -44,13 +52,6 @@ import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 import projekt.substratum.tabs.WallpapersManager;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
 
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
@@ -69,8 +70,8 @@ public class ScheduledProfileService extends JobService {
 
     private static final int NOTIFICATION_ID = 1023;
     private static final String TAG = "ScheduledProfile";
-    private Context context;
     private static SharedPreferences prefs = Substratum.getPreferences();
+    private Context context;
     private String extra;
     private NotificationManager notificationManager;
     private NotificationCompat.Builder builder;

@@ -164,27 +164,27 @@ import static projekt.substratum.util.helpers.MapUtils.sortMapByValues;
 public class Overlays extends Fragment {
 
     public static AsyncTask mainLoader = null;
+    final OverlaysInstance currentInstance = OverlaysInstance.getInstance();
     // Theme instance based variables, used globally amongst all Overlays* files
     public String themeName;
     public String themePid;
+    public boolean encrypted = false;
+    public SharedPreferences prefs = Substratum.getPreferences();
+    public NotificationCompat.Builder builder;
+    public ProgressBar progressBar;
     String themeVersion;
     Cipher themeCipher;
-    public boolean encrypted = false;
     boolean mixAndMatchMode = false;
-    final OverlaysInstance currentInstance = OverlaysInstance.getInstance();
     SubstratumBuilder compileInstance;
     List<OverlaysItem> overlayItemList;
     List<String> currentInstanceOverlays;
     // Begin functional variables with no theme-related information
     SheetDialog compileDialog;
-    public SharedPreferences prefs = Substratum.getPreferences();
     OverlaysAdapter overlaysAdapter;
     NotificationManager notifyManager;
-    public NotificationCompat.Builder builder;
     ProgressBar dialogProgress;
     AssetManager themeAssetManager;
     ActivityManager activityManager;
-    public ProgressBar progressBar;
     Switch toggleAll;
     Spinner baseSpinner;
     Context context;
@@ -1038,10 +1038,10 @@ public class Overlays extends Fragment {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static class LoadOverlays extends AsyncTask<String, Integer, String> {
         private final WeakReference<Overlays> ref;
+        private final String themePid;
         private String parsedThemeName;
         private ArrayList<OverlaysItem> adapterList;
         private List<String> currentOverlays;
-        private final String themePid;
 
         LoadOverlays(Overlays fragment) {
             super();

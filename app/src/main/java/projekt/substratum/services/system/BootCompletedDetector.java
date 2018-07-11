@@ -25,7 +25,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
+
 import com.bumptech.glide.Glide;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
@@ -33,10 +39,6 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.commands.SamsungOverlayCacher;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.ProfileManager;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import static projekt.substratum.common.References.BOOT_COMPLETED;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;

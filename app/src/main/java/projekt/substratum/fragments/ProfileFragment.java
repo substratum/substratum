@@ -786,9 +786,9 @@ public class ProfileFragment extends Fragment {
      */
     private static class RestoreFunction extends AsyncTask<String, Integer, String> {
         final ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled
+        private final WeakReference<ProfileFragment> ref;
         List<String> system = new ArrayList<>(); // All installed overlays
         String profile_name;
-        private final WeakReference<ProfileFragment> ref;
 
         RestoreFunction(ProfileFragment profileFragment) {
             super();

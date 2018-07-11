@@ -25,7 +25,6 @@ import android.os.Build;
 import java.util.Arrays;
 
 import dalvik.system.DexClassLoader;
-
 import projekt.substratum.Substratum;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
@@ -68,7 +67,13 @@ public enum Resources {
             "InflateException",
             "UnsupportedOperationException"
     };
-
+    // List of stock overlay packages on Pixel devices
+    // We don't want to run any operations on them.
+    public static final String[] PIXEL_OVERLAY_PACKAGES = {
+            "android.auto_generated_rro__",
+            "com.google.android.theme.pixel",
+            "com.android.systemui.theme.dark",
+    };
     private static final String[] ALLOWED_SOUNDS = {
             "alarm.mp3",
             "alarm.ogg",
@@ -83,15 +88,6 @@ public enum Resources {
             "Unlock.mp3",
             "Unlock.ogg",
     };
-
-    // List of stock overlay packages on Pixel devices
-    // We don't want to run any operations on them.
-    public static final String[] PIXEL_OVERLAY_PACKAGES = {
-            "android.auto_generated_rro__",
-            "com.google.android.theme.pixel",
-            "com.android.systemui.theme.dark",
-    };
-
     // These packages will be exempt from having the Samsung overlay permission added onto it
     private static final String[] SAMSUNG_PERMISSION_BLACKLIST_PACKAGES = {
             "com.sec.android.app.music",

@@ -109,13 +109,7 @@ public class OverlayUpdater extends BroadcastReceiver {
             SharedPreferences prefs = Substratum.getPreferences();
             if (replacing && !Packages.getThemesArray(context).contains(packageName)) {
                 // When the package is replacing, and also not a theme, update the overlays too!
-                boolean toUpdate;
-                if (Systems.isNewSamsungDeviceAndromeda(context)) {
-                    toUpdate = !prefs.getBoolean("sungstromeda_mode", true) &&
-                            prefs.getBoolean("overlay_updater", false);
-                } else {
-                    toUpdate = prefs.getBoolean("overlay_updater", false);
-                }
+                boolean toUpdate = prefs.getBoolean("overlay_updater", false);
                 if (!toUpdate) return;
                 new OverlayUpdate(
                         context,
@@ -125,13 +119,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                 ).execute(APP_UPGRADE);
             } else if (replacing && Packages.getThemesArray(context).contains(packageName)) {
                 // When the package is replacing, and also a theme, update the overlays too!
-                boolean toUpdate;
-                if (Systems.isNewSamsungDeviceAndromeda(context)) {
-                    toUpdate = !prefs.getBoolean("sungstromeda_mode", true) &&
-                            prefs.getBoolean("theme_updater", false);
-                } else {
-                    toUpdate = prefs.getBoolean("theme_updater", false);
-                }
+                boolean toUpdate = prefs.getBoolean("theme_updater", false);
                 if (!toUpdate) return;
                 new OverlayUpdate(
                         context,

@@ -34,8 +34,11 @@ final def keystorePropertiesFile = rootProject.file("keystore.properties")
 android {
     compileSdkVersion 28
     lintOptions {
-        checkReleaseBuilds false
         abortOnError false
+        checkAllWarnings false
+        checkReleaseBuilds false
+        ignoreWarnings true
+        quiet true
     }
     dataBinding.enabled true
     android.applicationVariants.all { final variant ->

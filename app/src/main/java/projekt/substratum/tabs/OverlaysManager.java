@@ -852,7 +852,7 @@ enum OverlaysManager {
                                             overlays.themeCipher);
                                 }
 
-                                String packageName =
+                                String variantSection =
                                         (checked.isVariantChosen1 ?
                                                 checked.getSelectedVariantName() : "") +
                                                 (overlays.currentInstance.checkedOverlays
@@ -865,6 +865,11 @@ enum OverlaysManager {
                                                         overlays.currentInstance.checkedOverlays
                                                                 .get(i)
                                                                 .getSelectedVariantName3() : "") +
+                                                (overlays.currentInstance.checkedOverlays
+                                                        .get(i).isVariantChosen4 ?
+                                                        overlays.currentInstance.checkedOverlays
+                                                                .get(i)
+                                                                .getSelectedVariantName4() : "") +
                                                 (overlays.currentInstance.checkedOverlays
                                                         .get(i).isVariantChosen5 ?
                                                         overlays.currentInstance.checkedOverlays
@@ -889,11 +894,6 @@ enum OverlaysManager {
                                             overlays.themeCipher);
                                 }
                                 if (checked.isVariantChosen4) {
-                                    packageName = (packageName + overlays.currentInstance
-                                            .checkedOverlays.get(i)
-                                            .getSelectedVariantName4()).replaceAll("\\s+", "")
-                                            .replaceAll("[^a-zA-Z0-9]+", "");
-
                                     // Copy over the type2 assets
                                     type2 = checked.getSelectedVariantName4();
                                     String type2folder = "/type2_" + type2;
@@ -916,7 +916,7 @@ enum OverlaysManager {
                                             context,
                                             currentOverlay,
                                             overlays.themeName,
-                                            packageName,
+                                            variantSection,
                                             checked.getSelectedVariantName4(),
                                             !sUrl[0].isEmpty() ? sUrl[0] : null,
                                             overlays.themeVersion,
@@ -940,7 +940,7 @@ enum OverlaysManager {
                                             context,
                                             currentOverlay,
                                             overlays.themeName,
-                                            packageName,
+                                            variantSection,
                                             null,
                                             !sUrl[0].isEmpty() ? sUrl[0] : null,
                                             overlays.themeVersion,

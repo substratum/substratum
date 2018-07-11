@@ -22,15 +22,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+
 import com.android.apksig.ApkSigner;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.Packages;
-import projekt.substratum.common.References;
-import projekt.substratum.common.Resources;
-import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.CompilerCommands;
-import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.common.platform.ThemeManager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -50,6 +43,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.Substratum;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.commands.CompilerCommands;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.Packages.getLiveOverlayVersion;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
@@ -124,7 +124,7 @@ public class SubstratumBuilder {
      * @param baseVariant       this is linked to variable baseSpinner in Overlays.java, for
      *                          type3 base /res replacements.
      * @param versionName       the version to use for compiling the overlay's version.
-     * @param themeOms          runs the check if the system is running in RRO or OMS
+     * @param isDeviceOMS       runs the check if the system is running in RRO or OMS
      * @param themeParent       the parent theme of the created overlay.
      * @param noCacheDir        where the compilation files will be placed.
      * @param type1a            String location of the type1a file
@@ -144,7 +144,7 @@ public class SubstratumBuilder {
                                String additionalVariant,
                                String baseVariant,
                                String versionName,
-                               boolean themeOms,
+                               boolean isDeviceOMS,
                                String themeParent,
                                String noCacheDir,
                                String type1a,
@@ -249,7 +249,7 @@ public class SubstratumBuilder {
                                         overlayVersionCode,
                                         targetPackage,
                                         themeParent,
-                                        themeOms,
+                                        isDeviceOMS,
                                         legacyPriority,
                                         false,
                                         type1a,
@@ -275,7 +275,7 @@ public class SubstratumBuilder {
                                             overlayVersionCode,
                                             targetPackage,
                                             themeParent,
-                                            themeOms,
+                                            isDeviceOMS,
                                             legacyPriority,
                                             false,
                                             type1a,
@@ -300,7 +300,7 @@ public class SubstratumBuilder {
                                             overlayVersionCode,
                                             targetPackage,
                                             themeParent,
-                                            themeOms,
+                                            isDeviceOMS,
                                             legacyPriority,
                                             true,
                                             type1a,
@@ -339,7 +339,8 @@ public class SubstratumBuilder {
                     context,
                     noCacheDir);
 
-            if (ENABLE_DIRECT_ASSETS_LOGGING) Substratum.log(DA_LOG, "Running commands: " + commands);
+            if (ENABLE_DIRECT_ASSETS_LOGGING)
+                Substratum.log(DA_LOG, "Running commands: " + commands);
 
             hasErroredOut = !runAAPTShellCommands(
                     commands,
@@ -449,7 +450,7 @@ public class SubstratumBuilder {
         // 9. Install the APK silently
         // Superuser needed as this requires elevated privileges to run these commands
         if (!hasErroredOut) {
-            if (themeOms) {
+            if (isDeviceOMS) {
                 if (Systems.checkP()) {
                     // Brute force install APKs because thanks Google
                     FileOperations.mountRW();
@@ -483,56 +484,56 @@ public class SubstratumBuilder {
                                 "Returning compiled APK path for later installation...");
                         noInstall = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                     }
+                }
+            } else {
+                boolean isSamsung = Systems.isSamsungDevice(context);
+                if (isSamsung) {
+                    // Take account for Samsung's package manager installation mode
+                    Substratum.log(References.SUBSTRATUM_BUILDER,
+                            "Requesting PackageManager to launch signed overlay APK for " +
+                                    "Samsung environment...");
+                    noInstall = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                 } else {
-                    boolean isSamsung = Systems.isSamsungDevice(context);
-                    if (isSamsung) {
-                        // Take account for Samsung's package manager installation mode
-                        Substratum.log(References.SUBSTRATUM_BUILDER,
-                                "Requesting PackageManager to launch signed overlay APK for " +
-                                        "Samsung environment...");
-                        noInstall = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
-                    } else {
-                        // At this point, it is detected to be legacy mode and Substratum will push to
-                        // vendor/overlays directly.
+                    // At this point, it is detected to be legacy mode and Substratum will push to
+                    // vendor/overlays directly.
 
-                        FileOperations.mountRW();
-                        // For Non-Nexus devices
-                        if (!Resources.inNexusFilter()) {
-                            String vendorLocation = LEGACY_NEXUS_DIR;
-                            FileOperations.createNewFolder(vendorLocation);
+                    FileOperations.mountRW();
+                    // For Non-Nexus devices
+                    if (!Resources.inNexusFilter()) {
+                        String vendorLocation = LEGACY_NEXUS_DIR;
+                        FileOperations.createNewFolder(vendorLocation);
+                        FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
+                                "-signed.apk", vendorLocation + overlayName + ".apk");
+                        FileOperations.setPermissionsRecursively(644, vendorLocation);
+                        FileOperations.setPermissions(755, vendorLocation);
+                        FileOperations.setSystemFileContext(vendorLocation);
+                    } else {
+                        // For Nexus devices
+                        FileOperations.mountRWVendor();
+                        String vendorSymlink = PIXEL_NEXUS_DIR;
+                        FileOperations.createNewFolder(vendorSymlink);
+                        String vendorPartition = VENDOR_DIR;
+                        FileOperations.createNewFolder(vendorPartition);
+                        // On nexus devices, put framework overlay to /vendor/overlay/
+                        if ("android".equals(overlayPackage)) {
+                            String androidOverlay = vendorPartition + overlayName + ".apk";
                             FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
-                                    "-signed.apk", vendorLocation + overlayName + ".apk");
-                            FileOperations.setPermissionsRecursively(644, vendorLocation);
-                            FileOperations.setPermissions(755, vendorLocation);
-                            FileOperations.setSystemFileContext(vendorLocation);
+                                    "-signed.apk", androidOverlay);
                         } else {
-                            // For Nexus devices
-                            FileOperations.mountRWVendor();
-                            String vendorSymlink = PIXEL_NEXUS_DIR;
-                            FileOperations.createNewFolder(vendorSymlink);
-                            String vendorPartition = VENDOR_DIR;
-                            FileOperations.createNewFolder(vendorPartition);
-                            // On nexus devices, put framework overlay to /vendor/overlay/
-                            if ("android".equals(overlayPackage)) {
-                                String androidOverlay = vendorPartition + overlayName + ".apk";
-                                FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
-                                        "-signed.apk", androidOverlay);
-                            } else {
-                                String overlay = vendorSymlink + overlayName + ".apk";
-                                FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
-                                        "-signed.apk", overlay);
-                                FileOperations.symlink(overlay, vendorPartition);
-                            }
-                            FileOperations.setPermissionsRecursively(644, vendorSymlink);
-                            FileOperations.setPermissionsRecursively(644, vendorPartition);
-                            FileOperations.setPermissions(755, vendorSymlink);
-                            FileOperations.setPermissions(755, vendorPartition);
-                            FileOperations.setSystemFileContext(vendorSymlink);
-                            FileOperations.setSystemFileContext(vendorPartition);
-                            FileOperations.mountROVendor();
+                            String overlay = vendorSymlink + overlayName + ".apk";
+                            FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
+                                    "-signed.apk", overlay);
+                            FileOperations.symlink(overlay, vendorPartition);
                         }
-                        FileOperations.mountRO();
+                        FileOperations.setPermissionsRecursively(644, vendorSymlink);
+                        FileOperations.setPermissionsRecursively(644, vendorPartition);
+                        FileOperations.setPermissions(755, vendorSymlink);
+                        FileOperations.setPermissions(755, vendorPartition);
+                        FileOperations.setSystemFileContext(vendorSymlink);
+                        FileOperations.setSystemFileContext(vendorPartition);
+                        FileOperations.mountROVendor();
                     }
+                    FileOperations.mountRO();
                 }
             }
         }
@@ -648,7 +649,8 @@ public class SubstratumBuilder {
 
     /**
      * Save a series of error logs to be callable
-     *  @param overlay Overlay that has failed to compile
+     *
+     * @param overlay Overlay that has failed to compile
      * @param message Failure message
      */
     private void dumpErrorLogs(String overlay, String message) {

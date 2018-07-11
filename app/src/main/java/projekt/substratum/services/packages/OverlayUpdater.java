@@ -84,11 +84,15 @@ public class OverlayUpdater extends BroadcastReceiver {
     private static final String THEME_UPGRADE = "ThemeUpgrade";
     private static final Integer APP_UPGRADE_NOTIFICATION_ID = 24768941;
     private static final Integer THEME_UPGRADE_NOTIFICATION_ID = 13573743;
+    private static final SharedPreferences prefs = Substratum.getPreferences();
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (Systems.isNewSamsungDeviceAndromeda(context))
+            return;
         if (intent.getData() != null &&
                 PACKAGE_ADDED.equals(intent.getAction())) {
+
             String packageName = intent.getData().toString().substring(8);
 
             if (ThemeManager.isOverlay(context, intent.getData().toString().substring(8)) ||
@@ -106,7 +110,6 @@ public class OverlayUpdater extends BroadcastReceiver {
 
             // When the package is being updated, continue.
             boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
-            SharedPreferences prefs = Substratum.getPreferences();
             if (replacing && !Packages.getThemesArray(context).contains(packageName)) {
                 // When the package is replacing, and also not a theme, update the overlays too!
                 boolean toUpdate = prefs.getBoolean("overlay_updater", false);

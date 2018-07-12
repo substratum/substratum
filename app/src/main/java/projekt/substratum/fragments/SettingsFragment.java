@@ -551,6 +551,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 (CheckBoxPreference) getPreferenceManager().findPreference("overlay_updater");
         CheckBoxPreference themeUpdater = (CheckBoxPreference)
                 getPreferenceManager().findPreference("theme_updater");
+        CheckBoxPreference autoDisableTargetOverlays = (CheckBoxPreference)
+                findPreference("auto_disable_target_overlays");
         CheckBoxPreference hideAppCheckbox = (CheckBoxPreference)
                 getPreferenceManager().findPreference("hide_app_checkbox");
         CheckBoxPreference sungstromedaMode = (CheckBoxPreference)
@@ -564,12 +566,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             sungstromedaMode.setChecked(prefs.getBoolean("sungstromeda_mode", true));
             sungstromedaMode.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
+                        boolean isEnabled = (boolean) newValue;
+                        autoDisableTargetOverlays.setVisible(!isEnabled);
+                        prefs.edit().putBoolean("auto_disable_target_overlays", !isEnabled).apply();
                         prefs.edit().putBoolean("sungstromeda_mode",
-                                (Boolean) newValue).apply();
+                                isEnabled).apply();
                         sungstromedaMode.setChecked((Boolean) newValue);
                         new Handler().postDelayed(() ->
                                 Substratum.restartSubstratum(context), 1000L);
                         return false;
+
                     });
         }
 

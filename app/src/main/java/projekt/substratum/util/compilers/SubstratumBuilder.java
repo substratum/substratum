@@ -227,8 +227,9 @@ public class SubstratumBuilder {
 
         String overlayVersionCode =
                 String.valueOf(getLiveOverlayVersion(context, themeParent, targetPackage));
-        Substratum.log(References.SUBSTRATUM_BUILDER,
-                "The version for this overlay is " + overlayVersionCode);
+        if (overlayVersionCode != "0")
+            Substratum.log(References.SUBSTRATUM_BUILDER,
+                    "The version for this overlay is " + overlayVersionCode);
 
         if (!hasErroredOut) {
             File root = new File(workArea + "/AndroidManifest.xml");

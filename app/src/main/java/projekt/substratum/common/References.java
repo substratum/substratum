@@ -87,6 +87,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.MainActivity;
@@ -109,7 +110,7 @@ public enum References {
     public static final boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
     public static final boolean ENABLE_AAPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final boolean ENABLE_PACKAGE_LOGGING = false; // Show time/date/place of install
-    public static final boolean ENABLE_DIRECT_ASSETS_LOGGING = true; // Self explanatory
+    public static final boolean ENABLE_DIRECT_ASSETS_LOGGING = BuildConfig.ENHANCED_LOGGING; // Self explanatory
     public static final boolean BYPASS_SYSTEM_VERSION_CHECK = false; // For developer previews only!
     public static final boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
     @SuppressWarnings("WeakerAccess")

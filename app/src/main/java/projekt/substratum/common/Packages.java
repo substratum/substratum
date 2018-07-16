@@ -40,6 +40,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -827,6 +828,8 @@ public enum Packages {
                             "overlays/" + packageName + "/version")))) {
                 return Integer.valueOf(reader.readLine());
             } catch (IOException e) {
+                if (e instanceof FileNotFoundException)
+                    return 0;
                 e.printStackTrace();
             }
         } catch (PackageManager.NameNotFoundException e) {

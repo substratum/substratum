@@ -53,6 +53,8 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <!-- Uninstall apps on Android P -->
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <!-- Start foreground services on Android P -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <!-- Interfacer use only -->
     <uses-permission android:name="android.permission.MODIFY_OVERLAYS" />
     <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE" />

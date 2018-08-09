@@ -596,7 +596,7 @@ enum OverlaysManager {
                         !Systems.isNewSamsungDevice() &&
                                 Substratum.needToWaitInstall() &&
                                 Systems.checkOMS(context) &&
-                                !Systems.IS_P;
+                                !Systems.IS_PIE;
 
                 if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();

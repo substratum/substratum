@@ -73,7 +73,7 @@ import static projekt.substratum.common.References.spreadYourWingsAndFly;
 public enum Systems {
     ;
 
-    public static final boolean IS_P = Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
+    public static final boolean IS_PIE = Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
     public static final boolean IS_OREO = Build.VERSION.SDK_INT == Build.VERSION_CODES.O ||
             Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1;
     public static final boolean IS_NOUGAT = Build.VERSION.SDK_INT == Build.VERSION_CODES.N ||

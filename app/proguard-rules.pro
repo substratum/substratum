@@ -19,7 +19,7 @@
 -keep class com.stephentuso.welcome.** { *; }
 
 # About libraries
--keep class .R
+-keep class **.R
 -keep class **.R$* {
     <fields>;
 }

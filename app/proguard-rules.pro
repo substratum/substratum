@@ -44,6 +44,10 @@
 -dontwarn org.slf4j.impl.**
 -dontwarn junit.textui.TestRunner
 
+# Crashlytics
+-keep public class com.crashlytics.android.Crashlytics { *; }
+-keep public class io.fabric.sdk.android.Fabric { *; }
+
 # Android support libraries
 -keep public class android.support.v7.widget.** { *; }
 -keep public class android.support.v7.internal.widget.** { *; }

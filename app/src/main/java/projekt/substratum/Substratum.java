@@ -38,8 +38,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.crash.FirebaseCrash;
+import io.fabric.sdk.android.Fabric;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -237,10 +238,10 @@ public class Substratum extends Application {
             preferences.edit().putString("app_theme", DARK_THEME).apply();
         }
 
-        // Firebase
+        // Firebase and Crashlytics
         try {
             FirebaseApp.initializeApp(this.getApplicationContext());
-            FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
+            Fabric.with(this, new Crashlytics());
         } catch (IllegalStateException ignored) {
         }
 

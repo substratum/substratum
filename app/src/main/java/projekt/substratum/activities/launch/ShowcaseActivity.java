@@ -42,13 +42,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
@@ -59,6 +52,12 @@ import projekt.substratum.util.helpers.LocaleHelper;
 import projekt.substratum.util.helpers.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 import projekt.substratum.util.views.Lunchbar;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static projekt.substratum.common.Internal.SHOWCASE_CACHE;
 
@@ -117,6 +116,8 @@ public class ShowcaseActivity extends AppCompatActivity {
                 launchShowcaseInfo();
                 return true;
             case R.id.filter:
+                if (drawerLayout.getDrawerLockMode(navigationView) == DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    return true;
                 if (drawerLayout.isDrawerOpen(navigationView)) {
                     drawerLayout.closeDrawer(navigationView);
                 } else {
@@ -180,6 +181,8 @@ public class ShowcaseActivity extends AppCompatActivity {
             if (!made)
                 Log.e(TAG, "Could not make showcase directory...");
         }
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         refreshLayout();
     }
 
@@ -281,6 +284,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 );
 
                 new Handler().postDelayed(() -> {
+                    activity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     activity.drawerLayout.openDrawer(activity.navigationView);
                     activity.navigationView.getMenu()
                             .getItem(0)

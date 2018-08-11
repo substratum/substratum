@@ -26,9 +26,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.util.Log;
-
 import org.apache.commons.io.FileUtils;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.platform.SubstratumService;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.util.helpers.Root;
 
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,14 +42,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-
-import javax.crypto.Cipher;
-import javax.crypto.CipherInputStream;
-
-import projekt.substratum.Substratum;
-import projekt.substratum.common.platform.SubstratumService;
-import projekt.substratum.common.platform.ThemeInterfacerService;
-import projekt.substratum.util.helpers.Root;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
@@ -66,32 +63,32 @@ public enum FileOperations {
     /**
      * Set SEContext for a folder
      *
-     * @param foldername Folder name
+     * @param folderName Folder name
      */
-    public static void setSystemFileContext(final String foldername) {
-        Root.runCommand("chcon -R u:object_r:system_file:s0 " + foldername);
+    public static void setSystemFileContext(final String folderName) {
+        Root.runCommand("chcon -R u:object_r:system_file:s0 " + folderName);
     }
 
     /**
      * Set permissions for a given folder
      *
      * @param permission Permission
-     * @param foldername Folder name
+     * @param folderName Folder name
      */
     public static void setPermissions(final int permission,
-                                      final String foldername) {
-        Root.runCommand("chmod " + permission + ' ' + foldername);
+                                      final String folderName) {
+        Root.runCommand("chmod " + permission + ' ' + folderName);
     }
 
     /**
      * Set permissions recursively
      *
      * @param permission Permission
-     * @param foldername Folder name
+     * @param folderName Folder name
      */
     public static void setPermissionsRecursively(final int permission,
-                                                 final String foldername) {
-        Root.runCommand("chmod -R " + permission + ' ' + foldername);
+                                                 final String folderName) {
+        Root.runCommand("chmod -R " + permission + ' ' + folderName);
     }
 
     /**
@@ -204,16 +201,16 @@ public enum FileOperations {
     /**
      * Create a new folder
      *
-     * @param foldername Folder name
+     * @param folderName Folder name
      */
-    public static void createNewFolder(final String foldername) {
-        Substratum.log(CREATE_LOG, "Using rootless operation to create " + foldername);
-        final File folder = new File(foldername);
+    public static void createNewFolder(final String folderName) {
+        Substratum.log(CREATE_LOG, "Using rootless operation to create " + folderName);
+        final File folder = new File(folderName);
         if (!folder.exists()) {
             Substratum.log(CREATE_LOG, "Operation " + (folder.mkdirs() ? "succeeded" : "failed"));
             if (!folder.exists()) {
-                Substratum.log(CREATE_LOG, "Using rooted operation to create " + foldername);
-                Root.runCommand("mkdir " + foldername);
+                Substratum.log(CREATE_LOG, "Using rooted operation to create " + folderName);
+                Root.runCommand("mkdir " + folderName);
             }
         } else {
             Substratum.log("SubstratumCreate", "Folder already exists!");
@@ -598,9 +595,11 @@ public enum FileOperations {
                         .replaceAll("\\s+", "");
                 final File dir = new File(fullPath);
                 if (!dir.exists()) {
-                    Substratum.log(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + '/');
-                    Substratum.log(DA_LOG, "File operation status: " +
-                            ((dir.mkdir()) ? "Success!" : "Failed"));
+                    if (ENABLE_DIRECT_ASSETS_LOGGING) {
+                        Substratum.log(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + '/');
+                        Substratum.log(DA_LOG, "File operation status: " +
+                                ((dir.mkdir()) ? "Success!" : "Failed"));
+                    }
                 }
                 for (final String asset : assets) {
                     copyFileOrDir(assetManager, listDir + '/' + asset, destination, remember,

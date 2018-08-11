@@ -36,21 +36,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
 import com.thesurix.gesturerecycler.DefaultItemClickListener;
 import com.thesurix.gesturerecycler.GestureManager;
 import com.thesurix.gesturerecycler.RecyclerItemTouchListener;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesItem;
 import projekt.substratum.adapters.fragments.priorities.PriorityAdapter;
 import projekt.substratum.common.Packages;
 import projekt.substratum.databinding.PriorityLoaderFragmentBinding;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import static projekt.substratum.common.platform.ThemeManager.listTargetWithMultipleOverlaysEnabled;
 

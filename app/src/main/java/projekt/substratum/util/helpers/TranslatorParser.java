@@ -21,6 +21,9 @@ package projekt.substratum.util.helpers;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.AsyncTask;
+import projekt.substratum.R;
+import projekt.substratum.common.References;
+import projekt.substratum.fragments.SettingsFragment;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,10 +33,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import projekt.substratum.R;
-import projekt.substratum.common.References;
-import projekt.substratum.fragments.SettingsFragment;
 
 public class TranslatorParser {
     private final InputStream inputStream;

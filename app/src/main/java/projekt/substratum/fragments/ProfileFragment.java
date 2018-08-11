@@ -57,21 +57,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
-
 import net.cachapa.expandablelayout.ExpandableLayout;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
@@ -89,6 +75,17 @@ import projekt.substratum.databinding.ProfileFragmentBinding;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.views.Lunchbar;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import static projekt.substratum.common.Internal.ALARM_THEME_DIRECTORY;
 import static projekt.substratum.common.Internal.AUDIO_THEME_DIRECTORY;

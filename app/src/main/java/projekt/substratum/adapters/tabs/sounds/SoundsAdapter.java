@@ -24,11 +24,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
-
 import projekt.substratum.R;
 import projekt.substratum.databinding.TabSoundsItemBinding;
+
+import java.util.List;
 
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.ViewHolder> {
 

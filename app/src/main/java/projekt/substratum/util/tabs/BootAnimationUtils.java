@@ -30,11 +30,17 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-
 import org.zeroturnaround.zip.FileSource;
 import org.zeroturnaround.zip.ZipEntrySource;
 import org.zeroturnaround.zip.ZipUtil;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.tabs.BootAnimationsManager;
+import projekt.substratum.util.views.Lunchbar;
 
+import javax.crypto.Cipher;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -51,15 +57,6 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-
-import javax.crypto.Cipher;
-
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.tabs.BootAnimationsManager;
-import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.common.Internal.BOOTANIMATION;
 import static projekt.substratum.common.Internal.BOOTANIMATION_BU;

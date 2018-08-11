@@ -34,8 +34,14 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.util.Log;
-
 import org.apache.commons.io.IOUtils;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.analytics.PackageAnalytics;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.platform.SubstratumService;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -49,14 +55,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.analytics.PackageAnalytics;
-import projekt.substratum.common.commands.ElevatedCommands;
-import projekt.substratum.common.platform.SubstratumService;
-import projekt.substratum.common.platform.ThemeInterfacerService;
-import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;

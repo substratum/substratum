@@ -20,7 +20,6 @@ package projekt.substratum.activities.shortcuts;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;

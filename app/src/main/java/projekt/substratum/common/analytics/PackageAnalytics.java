@@ -21,13 +21,12 @@ package projekt.substratum.common.analytics;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import projekt.substratum.Substratum;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import projekt.substratum.Substratum;
 
 public enum PackageAnalytics {
     ;

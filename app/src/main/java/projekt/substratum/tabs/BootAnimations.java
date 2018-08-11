@@ -47,6 +47,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.databinding.TabBootanimationsBinding;
+import projekt.substratum.util.helpers.Root;
+import projekt.substratum.util.tabs.BootAnimationUtils;
+import projekt.substratum.util.views.Lunchbar;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -63,15 +71,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.databinding.TabBootanimationsBinding;
-import projekt.substratum.util.helpers.Root;
-import projekt.substratum.util.tabs.BootAnimationUtils;
-import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.BOOTANIMATION_CACHE;

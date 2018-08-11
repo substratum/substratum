@@ -22,16 +22,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.Fonts;
 import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.Sounds;
 import projekt.substratum.tabs.Wallpapers;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import static projekt.substratum.common.Internal.SHUTDOWNANIMATION_INTENT;
 import static projekt.substratum.common.References.bootAnimationsFolder;

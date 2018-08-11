@@ -43,12 +43,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
@@ -64,6 +58,11 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.views.Lunchbar;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.COMPILE_ENABLE;

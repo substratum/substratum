@@ -21,7 +21,6 @@ package projekt.substratum.util.views;
 import com.stephentuso.welcome.BasicPage;
 import com.stephentuso.welcome.WelcomeActivity;
 import com.stephentuso.welcome.WelcomeConfiguration;
-
 import projekt.substratum.R;
 
 public class AppIntro extends WelcomeActivity {

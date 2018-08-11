@@ -19,7 +19,6 @@
 package projekt.substratum.adapters.tabs.sounds;
 
 import android.content.Context;
-
 import projekt.substratum.R;
 
 import static projekt.substratum.common.Internal.ALARM;

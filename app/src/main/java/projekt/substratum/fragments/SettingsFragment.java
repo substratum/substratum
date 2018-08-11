@@ -42,10 +42,6 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-
-import java.io.File;
-import java.util.List;
-
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
@@ -59,6 +55,9 @@ import projekt.substratum.util.helpers.TranslatorParser;
 import projekt.substratum.util.helpers.ValidatorUtils;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
+
+import java.io.File;
+import java.util.List;
 
 import static projekt.substratum.common.Activities.launchActivityUrl;
 import static projekt.substratum.common.Activities.launchExternalActivity;

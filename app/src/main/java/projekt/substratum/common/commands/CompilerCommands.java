@@ -19,11 +19,12 @@
 package projekt.substratum.common.commands;
 
 import android.content.Context;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.io.StringWriter;
+import projekt.substratum.BuildConfig;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,11 +36,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import projekt.substratum.BuildConfig;
-import projekt.substratum.common.Packages;
-import projekt.substratum.common.References;
-import projekt.substratum.common.Systems;
+import java.io.StringWriter;
 
 import static projekt.substratum.common.References.COMMON_PACKAGE;
 import static projekt.substratum.common.References.ENABLE_AAPT_OUTPUT;

@@ -36,15 +36,6 @@ import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
@@ -54,6 +45,13 @@ import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static projekt.substratum.common.Internal.CIPHER_ALGORITHM;
 import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;

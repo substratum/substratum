@@ -33,18 +33,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.List;
-
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.databinding.TabWallpaperItemBinding;
 import projekt.substratum.util.helpers.FileDownloader;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
 

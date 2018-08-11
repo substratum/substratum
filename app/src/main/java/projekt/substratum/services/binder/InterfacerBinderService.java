@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-
 import projekt.substratum.IInterfacerInterface;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Systems;

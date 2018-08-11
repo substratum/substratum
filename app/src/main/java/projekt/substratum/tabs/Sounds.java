@@ -44,6 +44,15 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
+import projekt.substratum.adapters.tabs.sounds.SoundsItem;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.databinding.TabSoundsBinding;
+import projekt.substratum.util.tabs.SoundUtils;
+import projekt.substratum.util.views.Lunchbar;
+import projekt.substratum.util.views.RecyclerItemClickListener;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -59,16 +68,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
-import projekt.substratum.adapters.tabs.sounds.SoundsItem;
-import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.databinding.TabSoundsBinding;
-import projekt.substratum.util.tabs.SoundUtils;
-import projekt.substratum.util.views.Lunchbar;
-import projekt.substratum.util.views.RecyclerItemClickListener;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;

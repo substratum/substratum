@@ -37,18 +37,10 @@ import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
-
+import cat.ereza.customactivityoncrash.config.CaocConfig;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
 import io.fabric.sdk.android.Fabric;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.activities.crash.SubstratumCrash;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -58,10 +50,15 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_AUTO;
 import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
-import static projekt.substratum.BuildConfig.DEBUG;
 import static projekt.substratum.common.References.APP_THEME;
 import static projekt.substratum.common.References.AUTO_THEME;
 import static projekt.substratum.common.References.DARK_THEME;

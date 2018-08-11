@@ -27,9 +27,7 @@ import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
-
 import projekt.substratum.R;
 import projekt.substratum.common.Internal;
 import projekt.substratum.util.views.Lunchbar;

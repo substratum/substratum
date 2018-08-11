@@ -29,15 +29,14 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
 import android.widget.TextView;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.databinding.ManageSpaceActivityBinding;
 import projekt.substratum.util.helpers.LocaleHelper;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
 
 import static projekt.substratum.common.References.LOGCHAR_DIR;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.NAMES_PREFS;

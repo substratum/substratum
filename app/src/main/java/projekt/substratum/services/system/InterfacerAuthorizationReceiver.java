@@ -22,7 +22,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-
 import projekt.substratum.R;
 
 public class InterfacerAuthorizationReceiver extends BroadcastReceiver {

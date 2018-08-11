@@ -26,7 +26,6 @@ import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;

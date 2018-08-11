@@ -26,12 +26,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-
-import java.util.List;
-
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.databinding.ManagerItemBinding;
+
+import java.util.List;
 
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {

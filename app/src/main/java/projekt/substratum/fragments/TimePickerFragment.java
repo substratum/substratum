@@ -26,11 +26,10 @@ import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.widget.Button;
 import android.widget.TimePicker;
-
-import java.util.Calendar;
-
 import projekt.substratum.R;
 import projekt.substratum.common.References;
+
+import java.util.Calendar;
 
 
 public class TimePickerFragment extends DialogFragment implements

@@ -31,12 +31,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.ThreadLocalRandom;
-
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
@@ -46,6 +40,11 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.services.notification.UnsupportedThemeReceiver;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;

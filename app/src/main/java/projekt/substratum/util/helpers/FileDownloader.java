@@ -21,6 +21,8 @@ package projekt.substratum.util.helpers;
 import android.content.Context;
 import android.os.NetworkOnMainThreadException;
 import android.util.Log;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.References;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,9 +30,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import projekt.substratum.Substratum;
-import projekt.substratum.common.References;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 

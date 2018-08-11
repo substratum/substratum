@@ -22,13 +22,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.References;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -40,9 +41,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import projekt.substratum.Substratum;
-import projekt.substratum.common.References;
 
 import static projekt.substratum.common.Systems.checkPackageSupport;
 

@@ -151,7 +151,16 @@ public enum Systems {
                 return prefs.getInt("current_theme_mode", NO_THEME_ENGINE);
             }
 
-            if (IS_OREO) {
+            if (IS_PIE) {
+                if (checkSubstratumService(context)) {
+                    // SS mode
+                    prefs.edit().putInt(
+                            "current_theme_mode",
+                            OVERLAY_MANAGER_SERVICE_O_UNROOTED
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+                }
+            } else if (IS_OREO) {
                 if (isAndromedaDevice(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(

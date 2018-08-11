@@ -63,32 +63,32 @@ public enum FileOperations {
     /**
      * Set SEContext for a folder
      *
-     * @param folderName Folder name
+     * @param foldername Folder name
      */
-    public static void setSystemFileContext(final String folderName) {
-        Root.runCommand("chcon -R u:object_r:system_file:s0 " + folderName);
+    public static void setSystemFileContext(final String foldername) {
+        Root.runCommand("chcon -R u:object_r:system_file:s0 " + foldername);
     }
 
     /**
      * Set permissions for a given folder
      *
      * @param permission Permission
-     * @param folderName Folder name
+     * @param foldername Folder name
      */
     public static void setPermissions(final int permission,
-                                      final String folderName) {
-        Root.runCommand("chmod " + permission + ' ' + folderName);
+                                      final String foldername) {
+        Root.runCommand("chmod " + permission + ' ' + foldername);
     }
 
     /**
      * Set permissions recursively
      *
      * @param permission Permission
-     * @param folderName Folder name
+     * @param foldername Folder name
      */
     public static void setPermissionsRecursively(final int permission,
-                                                 final String folderName) {
-        Root.runCommand("chmod -R " + permission + ' ' + folderName);
+                                                 final String foldername) {
+        Root.runCommand("chmod -R " + permission + ' ' + foldername);
     }
 
     /**
@@ -201,16 +201,16 @@ public enum FileOperations {
     /**
      * Create a new folder
      *
-     * @param folderName Folder name
+     * @param foldername Folder name
      */
-    public static void createNewFolder(final String folderName) {
-        Substratum.log(CREATE_LOG, "Using rootless operation to create " + folderName);
-        final File folder = new File(folderName);
+    public static void createNewFolder(final String foldername) {
+        Substratum.log(CREATE_LOG, "Using rootless operation to create " + foldername);
+        final File folder = new File(foldername);
         if (!folder.exists()) {
             Substratum.log(CREATE_LOG, "Operation " + (folder.mkdirs() ? "succeeded" : "failed"));
             if (!folder.exists()) {
-                Substratum.log(CREATE_LOG, "Using rooted operation to create " + folderName);
-                Root.runCommand("mkdir " + folderName);
+                Substratum.log(CREATE_LOG, "Using rooted operation to create " + foldername);
+                Root.runCommand("mkdir " + foldername);
             }
         } else {
             Substratum.log("SubstratumCreate", "Folder already exists!");
@@ -609,11 +609,9 @@ public enum FileOperations {
                         .replaceAll("\\s+", "");
                 final File dir = new File(fullPath);
                 if (!dir.exists()) {
-                    if (ENABLE_DIRECT_ASSETS_LOGGING) {
-                        Substratum.log(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + '/');
-                        Substratum.log(DA_LOG, "File operation status: " +
-                                ((dir.mkdir()) ? "Success!" : "Failed"));
-                    }
+                    Substratum.log(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + '/');
+                    Substratum.log(DA_LOG, "File operation status: " +
+                            ((dir.mkdir()) ? "Success!" : "Failed"));
                 }
                 for (final String asset : assets) {
                     copyFileOrDir(assetManager, listDir + '/' + asset, destination, remember,

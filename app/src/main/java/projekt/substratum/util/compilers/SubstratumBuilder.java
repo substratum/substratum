@@ -467,8 +467,7 @@ public class SubstratumBuilder {
 
                     if (!specialSnowflake) {
                         try {
-                            ThemeManager.installOverlay(context, EXTERNAL_STORAGE_CACHE +
-                                    overlayName + "-signed.apk");
+                            ThemeManager.installOverlay(context, signedOverlayAPKPath);
                             Substratum.log(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
                         } catch (Exception e) {
                             dumpErrorLogs(overlayPackage,
@@ -481,7 +480,7 @@ public class SubstratumBuilder {
                     } else {
                         Substratum.log(References.SUBSTRATUM_BUILDER,
                                 "Returning compiled APK path for later installation...");
-                        noInstall = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
+                        noInstall = signedOverlayAPKPath;
                     }
                 }
             } else {
@@ -491,7 +490,7 @@ public class SubstratumBuilder {
                     Substratum.log(References.SUBSTRATUM_BUILDER,
                             "Requesting PackageManager to launch signed overlay APK for " +
                                     "Samsung environment...");
-                    noInstall = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
+                    noInstall = signedOverlayAPKPath;
                 } else {
                     // At this point, it is detected to be legacy mode and Substratum will push to
                     // vendor/overlays directly.
@@ -501,8 +500,8 @@ public class SubstratumBuilder {
                     if (!Resources.inNexusFilter()) {
                         String vendorLocation = LEGACY_NEXUS_DIR;
                         FileOperations.createNewFolder(vendorLocation);
-                        FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
-                                "-signed.apk", vendorLocation + overlayName + ".apk");
+                        FileOperations.move(context, signedOverlayAPKPath,
+                                vendorLocation + overlayName + ".apk");
                         FileOperations.setPermissionsRecursively(644, vendorLocation);
                         FileOperations.setPermissions(755, vendorLocation);
                         FileOperations.setSystemFileContext(vendorLocation);
@@ -516,12 +515,12 @@ public class SubstratumBuilder {
                         // On nexus devices, put framework overlay to /vendor/overlay/
                         if ("android".equals(overlayPackage)) {
                             String androidOverlay = vendorPartition + overlayName + ".apk";
-                            FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
-                                    "-signed.apk", androidOverlay);
+                            FileOperations.move(context, signedOverlayAPKPath
+                                    , androidOverlay);
                         } else {
                             String overlay = vendorSymlink + overlayName + ".apk";
-                            FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
-                                    "-signed.apk", overlay);
+                            FileOperations.move(context, signedOverlayAPKPath
+                                    , overlay);
                             FileOperations.symlink(overlay, vendorPartition);
                         }
                         FileOperations.setPermissionsRecursively(644, vendorSymlink);

@@ -486,9 +486,16 @@ public enum FileOperations {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static void move(final String source, final String destination) {
-        Substratum.log(MOVE_LOG, "Using rootless operation to move " + source + " to " +
-                destination);
         final File out = new File(destination);
+
+        if (destination.startsWith("/system")) {
+            Root.runCommand("cp -f " + source + ' ' + destination);
+            Substratum.log(COPY_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
+            return;
+        }
+
+        Substratum.log(COPY_LOG,
+                "Using rootless operation to copy " + source + " to " + destination);
         try {
             final File in = new File(source);
             if (in.isFile()) {

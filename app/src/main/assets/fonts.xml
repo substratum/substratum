@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2016-2018 Projekt Substratum
+  ~ This file is part of Substratum.
+  ~
+  ~ SPDX-License-Identifier: GPL-3.0-Or-Later
+  -->
+
+<!--
     NOTE: this is the newer (L) version of the system font configuration,
     supporting richer weight selection. Some apps will expect the older
     version, so please keep system_fonts.xml and fallback_fonts.xml in sync

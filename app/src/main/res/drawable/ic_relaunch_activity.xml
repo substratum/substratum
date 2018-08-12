@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2016-2018 Projekt Substratum
+  ~ This file is part of Substratum.
+  ~
+  ~ SPDX-License-Identifier: GPL-3.0-Or-Later
+  -->
+
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"

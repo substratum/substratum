@@ -12,12 +12,12 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.design.widget.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -30,7 +30,7 @@
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextColor="@android:color/white" />
 
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
@@ -38,7 +38,7 @@
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:elevation="0dp">
 
-                <android.support.design.widget.CollapsingToolbarLayout
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapsing_toolbar_tabbed_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -54,7 +54,7 @@
                         android:scaleType="centerCrop"
                         app:layout_collapseMode="parallax" />
 
-                    <android.support.v7.widget.Toolbar
+                    <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
@@ -70,20 +70,20 @@
                             android:textAppearance="@style/CollapsedAppBar"
                             android:visibility="gone" />
 
-                    </android.support.v7.widget.Toolbar>
+                    </androidx.appcompat.widget.Toolbar>
 
-                    <android.support.design.widget.TabLayout
+                    <com.google.android.material.tabs.TabLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:translationY="450dp"
                         app:tabGravity="center" />
 
-                </android.support.design.widget.CollapsingToolbarLayout>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            </android.support.design.widget.AppBarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-            <android.support.v4.view.ViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -113,7 +113,7 @@
                 android:gravity="end|bottom"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/fab_sheet"
                     style="@style/Widget.MaterialSheetFab.Sheet"
                     android:backgroundTint="@color/fab_menu_background_card">
@@ -177,8 +177,8 @@
                             android:text="@string/fab_menu_enable_disable" />
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
             </io.codetail.widget.RevealLinearLayout>
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </RelativeLayout>
 </layout>

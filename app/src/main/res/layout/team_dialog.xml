@@ -40,7 +40,7 @@
             android:layout_marginTop="10dp"
             android:baselineAligned="false">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/nicholas_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,9 +91,9 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/syko_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -154,7 +154,7 @@
             android:layout_marginTop="10dp"
             android:baselineAligned="false">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/ivan_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -205,9 +205,9 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/surge_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -268,7 +268,7 @@
             android:layout_marginTop="10dp"
             android:baselineAligned="false">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/george_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -319,9 +319,9 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/nathan_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -372,7 +372,7 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -382,7 +382,7 @@
             android:layout_marginTop="10dp"
             android:baselineAligned="false">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/char_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -431,9 +431,9 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/harsh_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -489,7 +489,7 @@
                     android:layout_weight="1"
                     tools:ignore="UselessLeaf" />
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

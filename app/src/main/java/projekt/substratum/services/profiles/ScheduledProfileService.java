@@ -18,7 +18,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.activities.profiles.ProfileErrorInfoActivity;

@@ -9,12 +9,12 @@ package projekt.substratum.util.helpers;
 
 import android.app.Dialog;
 import android.os.AsyncTask;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.adapters.fragments.settings.Repository;

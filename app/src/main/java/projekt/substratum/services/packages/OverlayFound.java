@@ -16,7 +16,7 @@ import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Broadcasts;

@@ -7,14 +7,14 @@
 
 package projekt.substratum.adapters.fragments.manager;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.databinding.ManagerItemBinding;

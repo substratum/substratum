@@ -8,13 +8,13 @@
 package projekt.substratum.util.views;
 
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.view.animation.ScaleAnimation;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gordonwong.materialsheetfab.AnimatedFab;
 import projekt.substratum.R;
 

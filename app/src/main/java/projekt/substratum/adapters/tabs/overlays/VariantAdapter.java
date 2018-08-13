@@ -9,13 +9,13 @@ package projekt.substratum.adapters.tabs.overlays;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.databinding.TabOverlaysPreviewItemBinding;

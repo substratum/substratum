@@ -7,10 +7,10 @@
 
 package projekt.substratum.util.views;
 
-import android.support.design.R;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.TextView;
+import com.google.android.material.R;
+import com.google.android.material.snackbar.Snackbar;
 
 public class Lunchbar {
 

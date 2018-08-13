@@ -8,16 +8,16 @@
 package projekt.substratum.activities.launch;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
 import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;

@@ -227,7 +227,8 @@ public class Substratum extends Application {
         // Firebase and Crashlytics
         try {
             FirebaseApp.initializeApp(this.getApplicationContext());
-            Fabric.with(this, new Crashlytics());
+            if (!BuildConfig.DEBUG)
+                Fabric.with(this, new Crashlytics());
         } catch (IllegalStateException ignored) {
         }
 

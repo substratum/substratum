@@ -23,9 +23,8 @@ import android.content.pm.PackageManager;
 import android.media.AudioAttributes;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.util.Log;
+import androidx.appcompat.app.AppCompatDelegate;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
@@ -267,7 +266,7 @@ public class Substratum extends Application {
      * For Android Oreo and above, we need to ensure our notification channels are properly
      * configured so that we do not get killed off with the new background service limiter.
      */
-    @RequiresApi(Build.VERSION_CODES.O)
+    @android.annotation.TargetApi(Build.VERSION_CODES.O)
     private void createNotificationChannel() {
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);

@@ -39,7 +39,6 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -66,14 +65,9 @@ public class Substratum extends Application {
     private static int initialPackageCount = 0;
     private static int initialOverlayCount = 0;
     private static Substratum substratum;
-    private static WeakReference<Substratum> weakSelf;
     private static boolean isWaiting;
     private static boolean shouldStopThread = false;
     private static SharedPreferences preferences;
-
-    public Substratum() {
-        weakSelf = new WeakReference<>(this);
-    }
 
     /**
      * Get the current instance of the substratum application
@@ -190,9 +184,7 @@ public class Substratum extends Application {
         System.exit(0);
     }
 
-    public static SharedPreferences getPreferences() {
-        return weakSelf.get().preferences;
-    }
+    public static SharedPreferences getPreferences() { return preferences; }
 
     public static void log(final String TAG, final String message) {
         if (!BuildConfig.DEBUG)

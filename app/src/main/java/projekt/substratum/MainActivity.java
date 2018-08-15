@@ -623,7 +623,7 @@ public class MainActivity extends AppCompatActivity implements
         if (ManagerFragment.materialSheetFab != null &&
                 ManagerFragment.materialSheetFab.isSheetVisible()) {
             ManagerFragment.materialSheetFab.hideSheet();
-        } else if (!searchView.isIconified()) {
+        } else if (searchView != null && !searchView.isIconified()) {
             searchView.setIconified(true);
             if (userInput.length() > 0) {
                 onQueryTextChange("");

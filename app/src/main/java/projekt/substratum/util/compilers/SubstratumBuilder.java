@@ -154,10 +154,7 @@ public class SubstratumBuilder {
         // 2. Set work area to asset chosen based on the parameter passed into this class
         String workArea = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
 
-        // 3. Create a modified Android Manifest for use with aapt
-        // TODO: Need to git blame this file and find out what we removed
-
-        // 4. Parse the theme's name before adding it into the new manifest to prevent any issues
+        // 3. Parse the theme's name before adding it into the new manifest to prevent any issues
 
         String parse2VariantName = "";
         if (variant != null) {
@@ -179,7 +176,7 @@ public class SubstratumBuilder {
             parse2ThemeName = "no_name";
         }
 
-        // 5. Create the manifest file based on the new parsed names
+        // 4. Create the manifest file based on the new parsed names
         String targetPackage = overlayPackage;
         if (Resources.allowedSettingsOverlay(overlayPackage)) {
             targetPackage = SETTINGS;
@@ -313,7 +310,7 @@ public class SubstratumBuilder {
             }
         }
 
-        // 6. Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
+        // 5. Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
         if (!hasErroredOut) {
             String targetPkg = Packages.getInstalledDirectory(context, targetPackage);
             String commands = SubstratumBuilder.processAAPTCommands(
@@ -343,7 +340,7 @@ public class SubstratumBuilder {
                     noCacheDir);
         }
 
-        // 7. Zipalign the apk
+        // 6. Zipalign the apk
         if (!hasErroredOut) {
             String source = workArea + '/' + overlayPackage + '.' + parse2ThemeName +
                     "-unsigned.apk";
@@ -383,7 +380,7 @@ public class SubstratumBuilder {
             }
         }
 
-        // 8. Sign the apk
+        // 7. Sign the apk
         String overlayName = (variant == null) ?
                 (overlayPackage + '.' + parse2ThemeName) :
                 (overlayPackage + '.' + parse2ThemeName + parse2VariantName + parse2BaseName);
@@ -435,7 +432,7 @@ public class SubstratumBuilder {
             }
         }
 
-        // 9. Install the APK silently
+        // 8. Install the APK silently
         // Superuser needed as this requires elevated privileges to run these commands
         if (!hasErroredOut) {
             if (isDeviceOMS) {

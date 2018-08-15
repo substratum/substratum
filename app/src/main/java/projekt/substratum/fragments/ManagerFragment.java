@@ -988,36 +988,34 @@ public class ManagerFragment extends Fragment {
                                         fragment.overlaysList.get(i).getName() + ".apk");
                                 FileOperations.bruteforceDelete(VENDOR_DIR +
                                         fragment.overlaysList.get(i).getName() + ".apk");
-                                String legacy_resource_idmap =
-                                        (LEGACY_NEXUS_DIR.substring(1, LEGACY_NEXUS_DIR
-                                                .length()) +
+                                String legacyResourceIdmap =
+                                        (LEGACY_NEXUS_DIR.substring(1) +
                                                 fragment.overlaysList.get(i).getName())
                                                 .replace("/", "@") + ".apk@idmap";
-                                String pixel_resource_idmap =
-                                        (PIXEL_NEXUS_DIR.substring(1, PIXEL_NEXUS_DIR.length
-                                                ()) +
+                                String pixelResourceIdmap =
+                                        (PIXEL_NEXUS_DIR.substring(1) +
                                                 fragment.overlaysList.get(i).getName())
                                                 .replace("/", "@") + ".apk@idmap";
-                                String vendor_resource_idmap =
-                                        (VENDOR_DIR.substring(1, VENDOR_DIR.length()) +
+                                String vendorResourceIdmap =
+                                        (VENDOR_DIR.substring(1) +
                                                 fragment.overlaysList.get(i).getName())
                                                 .replace("/", "@") + ".apk@idmap";
                                 Substratum.log(getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
-                                                legacy_resource_idmap + '\'');
+                                                legacyResourceIdmap + '\'');
 
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
-                                        legacy_resource_idmap);
+                                        legacyResourceIdmap);
                                 Substratum.log(getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
-                                                pixel_resource_idmap + '\'');
+                                                pixelResourceIdmap + '\'');
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
-                                        pixel_resource_idmap);
+                                        pixelResourceIdmap);
                                 Substratum.log(getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
-                                                vendor_resource_idmap + '\'');
+                                                vendorResourceIdmap + '\'');
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
-                                        vendor_resource_idmap);
+                                        vendorResourceIdmap);
                                 FileOperations.mountROVendor();
                                 FileOperations.mountROData();
                                 FileOperations.mountRO();

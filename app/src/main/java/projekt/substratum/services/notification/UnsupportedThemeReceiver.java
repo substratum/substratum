@@ -19,7 +19,7 @@ public class UnsupportedThemeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String packageToUninstall = intent.getStringExtra("package_to_uninstall");
-        Integer notificationToKill = intent.getIntExtra("notification_to_close", 0);
+        int notificationToKill = intent.getIntExtra("notification_to_close", 0);
         if (packageToUninstall != null && packageToUninstall.length() > 0) {
             if (Packages.isPackageInstalled(context, packageToUninstall)) {
                 // At this point, we can instantiate an uninstall on notification action click
@@ -40,6 +40,7 @@ public class UnsupportedThemeReceiver extends BroadcastReceiver {
 
                 // Fire the uninstall intent
                 Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
+                uninstallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(uninstallIntent);
             }
         }

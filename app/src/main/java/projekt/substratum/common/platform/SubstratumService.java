@@ -28,7 +28,6 @@ public enum SubstratumService {
             "uninstallOverlay",
             "switchOverlay",
             "setPriority",
-            "setEnabled",
             "restartSystemUI",
             "copy",
             "move",

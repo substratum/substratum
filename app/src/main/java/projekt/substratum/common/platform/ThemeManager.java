@@ -379,7 +379,7 @@ public enum ThemeManager {
                         for (Map.Entry<String, List<OverlayInfo>> stringListEntry :
                                 allOverlays.entrySet()) {
                             for (OverlayInfo oi : stringListEntry.getValue()) {
-                                if (oi.isApproved()) {
+                                if (oi.isEnabled()) {
                                     list.add(oi.packageName);
                                 }
                             }
@@ -727,7 +727,7 @@ public enum ThemeManager {
             shouldRestartUi = shouldRestartUI(context, temp);
         }
 
-        if (Systems.IS_PIE) {
+        if ((Systems.IS_PIE) && checkSubstratumService(context)) {
             FileOperations.mountRW();
             for (String overlay : overlays) {
                 FileOperations.bruteforceDelete(P_DIR + '_' + overlay + ".apk");

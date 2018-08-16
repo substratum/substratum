@@ -26,6 +26,7 @@ public enum SubstratumService {
             "uninstallOverlay",
             "switchOverlay",
             "setPriority",
+            "setEnabled",
             "restartSystemUI",
             "copy",
             "move",
@@ -62,6 +63,15 @@ public enum SubstratumService {
         } catch (RemoteException e) {
             Log.e(TAG, "There was an exception when trying to get all overlay", e);
             return null;
+        }
+    }
+
+    public static boolean setEnabled(String packageName, boolean enable, int userId) {
+        try {
+            return service.setEnabled(packageName, enable, userId);
+        } catch (RemoteException e) {
+            Log.e(TAG, "There was an error enabling overlays", e);
+            return false;
         }
     }
 

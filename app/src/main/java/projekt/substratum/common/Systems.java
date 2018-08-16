@@ -216,7 +216,7 @@ public enum Systems {
                 } else if (sonyCheck == null || sonyCheck.length() == 0) {
                     Boolean isOMSRunning = isServiceRunning(IOverlayManager.class,
                             context.getApplicationContext());
-                    if (isOMSRunning || IS_OREO) {
+                    if (isOMSRunning || IS_OREO || IS_PIE) {
                         Substratum.log(SUBSTRATUM_LOG,
                                 "This device fully supports the Overlay Manager Service...");
                         foundOms = true;

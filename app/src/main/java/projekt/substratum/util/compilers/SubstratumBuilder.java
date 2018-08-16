@@ -609,7 +609,7 @@ public class SubstratumBuilder {
             }
         } catch (IOException ioe) {
             if (Systems.checkOMS(context) || Systems.isNewSamsungDeviceAndromeda(context)) {
-                Substratum.log(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
+                Substratum.log(SUBSTRATUM_BUILDER, "An Android Oreo/Pie specific error message has been " +
                         "detected and has been whitelisted to continue moving forward " +
                         "with overlay compilation.");
                 return !hasErroredOut;

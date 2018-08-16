@@ -727,7 +727,7 @@ public enum ThemeManager {
             shouldRestartUi = shouldRestartUI(context, temp);
         }
 
-        if ((Systems.IS_PIE) && checkSubstratumService(context)) {
+        if (Systems.IS_PIE && !checkSubstratumService(context)) {
             FileOperations.mountRW();
             for (String overlay : overlays) {
                 FileOperations.bruteforceDelete(P_DIR + '_' + overlay + ".apk");

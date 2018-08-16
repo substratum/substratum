@@ -11,10 +11,12 @@ import android.content.substratum.ISubstratumService;
 import android.os.Process;
 import android.os.RemoteException;
 import android.util.Log;
+import projekt.substratum.common.Systems;
 import projekt.substratum.platform.SubstratumServiceBridge;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +40,7 @@ public enum SubstratumService {
             "applyShutdownAnimation",
             "getAllOverlays"
     };
+    private static final ArrayList<String> expectedMethods = new ArrayList<>(Arrays.asList(EXPECTED_METHODS));
     private static final int uid = Process.myUid() / 100000;
     private static final ISubstratumService service = SubstratumServiceBridge.get();
 
@@ -206,8 +209,10 @@ public enum SubstratumService {
 
     public static boolean checkApi() {
         try {
-            Method[] methods = ISubstratumService.class.getMethods();
-            for (String expectedMethod : EXPECTED_METHODS) {
+            final Method[] methods = ISubstratumService.class.getMethods();
+            if (Systems.IS_PIE)
+                expectedMethods.add("setEnabled");
+            for (String expectedMethod : expectedMethods) {
                 boolean methodFound = false;
                 for (Method method : methods) {
                     if (expectedMethod.equals(method.getName())) {

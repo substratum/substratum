@@ -533,6 +533,10 @@ public class InformationActivity extends AppCompatActivity {
             getWindow().setNavigationBarColor(dominantColor);
         }
 
+        if (!dynamicActionBarColors || !dynamicNavBarColors) {
+            appBarLayout.setBackgroundColor(getWindow().getStatusBarColor());
+        }
+
         // Show the FAB
         floatingActionButton.show();
 

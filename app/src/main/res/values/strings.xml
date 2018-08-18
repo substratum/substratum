@@ -360,14 +360,14 @@
     <string name="manager_no_overlays_title">no overlays installed</string>
     <string name="manager_no_overlays_text">compile one overlay to be able to use me!</string>
 
-    <string name="backup">Backup Card</string>
+    <string name="backup">Backup</string>
     <string name="backup_card_content">This function makes a copy of your currently enabled overlays
       list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.
       </string>
     <string name="delete_dialog_okay">Delete</string>
     <string name="delete_dialog_title">Delete profile</string>
     <string name="delete_dialog_text" formatted="false">Are you sure you want to delete \"%s\"?</string>
-    <string name="restore">Restore Card</string>
+    <string name="restore">Restore</string>
     <string name="restore_card_content">When a profile is loaded, your current setup is completely
       wiped and \"restore theme\" would take on the updated changes.
       </string>

@@ -1,6 +1,9 @@
 language: android
+
 jdk:
+- openjdk8
 - oraclejdk8
+
 android:
   components:
   - tools
@@ -10,15 +13,20 @@ android:
   - extra-android-m2repository
   licenses:
   - ".+"
+
 script:
 - "./gradlew clean assembleDebug"
+
 notifications:
   email: false
+
 sudo: false
+
 cache:
   directories:
   - "$HOME/.m2"
   - "$HOME/.gradle"
   - "$ANDROID_HOME"
+
 before_install:
   - yes | sdkmanager "platforms;android-28"

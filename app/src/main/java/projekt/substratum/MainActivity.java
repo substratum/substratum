@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -32,6 +33,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.ActionBar;
@@ -405,9 +407,15 @@ public class MainActivity extends AppCompatActivity implements
                         .setTitle(R.string.backend_not_authorized_title)
                         .setMessage(R.string.backend_not_authorized_text)
                         .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {
-                            startActivity(
+                            try {
+                                startActivity(
                                     new Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
-                            finishAffinity();
+                            } catch (ActivityNotFoundException ignored /* People with developer options disabled */) {
+                                Toast.makeText(this, this.getString(R.string.development_settings_disabled), Toast.LENGTH_LONG).show();
+                            } finally {
+                                dialogInterface.dismiss();
+                                finishAffinity();
+                            }
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialogInterface, i) ->
                                 finishAffinity())

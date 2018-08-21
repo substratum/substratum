@@ -127,6 +127,7 @@
 
     <string name="backend_not_authorized_title">Substratum debug build not authorized!</string>
     <string name="backend_not_authorized_text">To use this build of substratum with your custom ROM, please enable \'Force authorize every theme app\' in Developer options.\n\nIf it is not there, please contact your ROM dev for missing commits!</string>
+    <string name="development_settings_disabled">Please enable development settings and enable  \'Force authorize every theme app\'!</string>
 
     <string name="information_activity_theme_improperly_setup">"%s" has no available resources for theming!</string>
 

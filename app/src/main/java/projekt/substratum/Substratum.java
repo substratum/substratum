@@ -27,6 +27,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatDelegate;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.firebase.FirebaseApp;
 import io.fabric.sdk.android.Fabric;
 import projekt.substratum.activities.crash.SubstratumCrash;
@@ -160,6 +161,14 @@ public class Substratum extends Application {
         currentThread.start();
     }
 
+    private void configureCrashReporting() {
+        CrashlyticsCore crashlyticsCore = new CrashlyticsCore.Builder()
+                .disabled(BuildConfig.DEBUG)
+                .build();
+
+        Fabric.with(this, new Crashlytics.Builder().core(crashlyticsCore).build());
+    }
+
     /**
      * Restart the application after a change that requires a full exit.
      *
@@ -218,8 +227,7 @@ public class Substratum extends Application {
         // Firebase and Crashlytics
         try {
             FirebaseApp.initializeApp(this.getApplicationContext());
-            if (!BuildConfig.DEBUG)
-                Fabric.with(this, new Crashlytics());
+            configureCrashReporting();
         } catch (IllegalStateException ignored) {
         }
 

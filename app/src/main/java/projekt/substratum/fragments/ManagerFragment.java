@@ -647,8 +647,8 @@ public class ManagerFragment extends Fragment {
                                 }
                                 combined.append(getPackageName(context,
                                         getOverlayTarget(context, overlay)));
-                                if (!combined.toString().toLowerCase(Locale.US).contains(
-                                        userInputString.toLowerCase(Locale.US))) {
+                                if (!combined.toString().toLowerCase().contains(
+                                        userInputString.toLowerCase())) {
                                     canContinue = false;
                                 }
                             }
@@ -712,12 +712,13 @@ public class ManagerFragment extends Fragment {
                         }
                     }
 
-                    try {
-                        Thread.sleep((long) (fragment.firstBoot ?
-                                MANAGER_FRAGMENT_INITIAL_DELAY : 0));
-                    } catch (InterruptedException ignored) {
+                    if (fragment.firstBoot) {
+                        try {
+                            Thread.sleep((long) MANAGER_FRAGMENT_INITIAL_DELAY);
+                        } catch (InterruptedException ignored) {
+                        }
+                        fragment.firstBoot = false;
                     }
-                    if (fragment.firstBoot) fragment.firstBoot = false;
                 } catch (Exception ignored) {
                     // Consume window refresh
                 }
@@ -739,8 +740,6 @@ public class ManagerFragment extends Fragment {
                 fragment.recyclerView.getLayoutManager().scrollToPosition(this.currentPosition);
                 fragment.recyclerView.setEnabled(true);
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
-
-                new MainActivity.DoCleanUp(context).execute();
 
                 boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
                 if (!fragment.overlaysList.isEmpty()) {
@@ -788,7 +787,8 @@ public class ManagerFragment extends Fragment {
                 if (!Systems.checkOMS(fragment.context)) {
                     fragment.enableSelected.setVisibility(View.GONE);
                 }
-                if (fragment.firstRun == null) fragment.firstRun = false;
+                if (fragment.firstRun == null)
+                    fragment.firstRun = false;
             }
         }
     }

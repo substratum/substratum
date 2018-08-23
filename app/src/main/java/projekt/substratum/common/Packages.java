@@ -80,8 +80,7 @@ import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 
-public enum Packages {
-    ;
+public class Packages {
 
     /**
      * Grab the installer ID on a given package

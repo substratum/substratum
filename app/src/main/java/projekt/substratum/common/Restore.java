@@ -50,8 +50,7 @@ import static projekt.substratum.common.Resources.isBootAnimationSupported;
 import static projekt.substratum.common.Resources.isFontsSupported;
 import static projekt.substratum.common.Resources.isSoundsSupported;
 
-public enum Restore {
-    ;
+public class Restore {
 
     private static final SharedPreferences.Editor editor = Substratum.getPreferences().edit();
 

@@ -17,8 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public enum PackageAnalytics {
-    ;
+public class PackageAnalytics {
 
     public static final String PACKAGE_TAG = "PackageLogger";
     private static final String RUNTIME_TAG = "RuntimeMemory";

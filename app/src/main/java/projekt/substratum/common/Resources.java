@@ -22,8 +22,7 @@ import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isSamsungDevice;
 
-public enum Resources {
-    ;
+public class Resources {
 
     public static final String FRAMEWORK = "android";
     public static final String SETTINGS = "com.android.settings";

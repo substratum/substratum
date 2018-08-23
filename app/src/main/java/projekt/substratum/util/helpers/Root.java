@@ -15,8 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-public enum Root {
-    ;
+public class Root {
 
     private static SU su;
 

@@ -58,8 +58,7 @@ import static projekt.substratum.common.References.isNetworkAvailable;
 import static projekt.substratum.common.References.isServiceRunning;
 import static projekt.substratum.common.References.spreadYourWingsAndFly;
 
-public enum Systems {
-    ;
+public class Systems {
 
     public static final boolean IS_PIE = Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
     public static final boolean IS_OREO = Build.VERSION.SDK_INT == Build.VERSION_CODES.O ||

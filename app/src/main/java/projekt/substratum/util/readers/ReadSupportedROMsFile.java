@@ -18,8 +18,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ReadSupportedROMsFile {
-    ;
+public class ReadSupportedROMsFile {
 
     /**
      * Function to read the cloud supported ROMs file

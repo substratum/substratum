@@ -14,8 +14,7 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
-public enum SoundsManager {
-    ;
+public class SoundsManager {
 
     /**
      * Set sound pack

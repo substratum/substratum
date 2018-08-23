@@ -91,8 +91,7 @@ import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 import static projekt.substratum.common.Systems.checkPackageRegex;
 
-public enum References {
-    ;
+public class References {
 
     public static final boolean ENABLE_ROOT_CHECK = true; // Force the app to run without root
     public static final boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras

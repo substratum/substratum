@@ -14,8 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public enum MapUtils {
-    ;
+public class MapUtils {
 
     @SuppressWarnings("FuseStreamOperations")
     public static <S, T extends Comparable<T>> List<Pair<S, T>> sortMapByValues(Map<S, T> map) {

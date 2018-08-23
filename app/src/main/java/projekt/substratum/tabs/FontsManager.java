@@ -14,8 +14,7 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
-public enum FontsManager {
-    ;
+public class FontsManager {
 
     /**
      * Set a font pack

@@ -24,8 +24,7 @@ import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
 import static projekt.substratum.common.References.hashPassthrough;
 import static projekt.substratum.common.Systems.checkPackageSupport;
 
-public enum Theming {
-    ;
+public class Theming {
 
     /**
      * Refresh installed themes shared preferences

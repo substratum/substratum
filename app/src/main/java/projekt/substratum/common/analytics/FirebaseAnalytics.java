@@ -34,8 +34,7 @@ import java.util.Set;
 
 import static projekt.substratum.common.Systems.checkPackageSupport;
 
-public enum FirebaseAnalytics {
-    ;
+public class FirebaseAnalytics {
 
     public static final String NAMES_PREFS = "names";
     public static final String PACKAGES_PREFS = "prefs";

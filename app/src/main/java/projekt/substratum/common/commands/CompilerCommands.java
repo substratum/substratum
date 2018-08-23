@@ -34,8 +34,7 @@ import static projekt.substratum.common.Resources.allowedForSamsungPermission;
 import static projekt.substratum.common.Systems.getDeviceID;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
 
-public enum CompilerCommands {
-    ;
+public class CompilerCommands {
 
     /**
      * Create the overlay's manifest

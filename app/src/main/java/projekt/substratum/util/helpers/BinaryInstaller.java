@@ -17,8 +17,7 @@ import projekt.substratum.common.commands.FileOperations;
 import java.io.File;
 import java.util.Arrays;
 
-public enum BinaryInstaller {
-    ;
+public class BinaryInstaller {
 
     /**
      * Install the AAPT/AAPT and ZipAlign binaries to the working files of Substratum

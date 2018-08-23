@@ -18,8 +18,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-public enum ReadCloudShowcaseFile {
-    ;
+public class ReadCloudShowcaseFile {
 
     /**
      * Function to read the cloud showcase file

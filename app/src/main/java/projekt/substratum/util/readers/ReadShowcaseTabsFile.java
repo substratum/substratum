@@ -19,8 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public enum ReadShowcaseTabsFile {
-    ;
+public class ReadShowcaseTabsFile {
 
     /**
      * Function to read the cloud showcase tabs file

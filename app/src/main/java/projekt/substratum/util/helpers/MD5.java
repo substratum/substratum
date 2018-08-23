@@ -20,8 +20,8 @@ import java.security.NoSuchAlgorithmException;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 
-public enum MD5 {
-    ;
+public class MD5 {
+
     private static final String TAG = "MD5";
 
     public static String calculateMD5(File updateFile) {

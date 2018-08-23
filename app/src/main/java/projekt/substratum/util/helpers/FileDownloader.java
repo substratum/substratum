@@ -22,8 +22,7 @@ import java.net.URL;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 
-public enum FileDownloader {
-    ;
+public class FileDownloader {
 
     /**
      * @param context                 getContext() or getApplicationContext()

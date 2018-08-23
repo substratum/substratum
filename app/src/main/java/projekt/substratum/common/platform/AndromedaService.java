@@ -12,8 +12,7 @@ import projekt.substratum.services.binder.AndromedaBinderService;
 
 import java.util.List;
 
-public enum AndromedaService {
-    ;
+public class AndromedaService {
 
     /**
      * Obtain the current binded Andromeda interface

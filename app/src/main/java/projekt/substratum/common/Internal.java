@@ -7,8 +7,7 @@
 
 package projekt.substratum.common;
 
-public enum Internal {
-    ;
+public class Internal {
 
     // Options to unify the modes used in the application
     public static final String COMPILE_ENABLE = "CompileEnable";

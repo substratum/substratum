@@ -21,8 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum ReadRepositoriesFile {
-    ;
+public class ReadRepositoriesFile {
 
     /**
      * Function to read the cloud repository file

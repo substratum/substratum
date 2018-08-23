@@ -15,8 +15,7 @@ import android.net.Uri;
 import android.widget.Toast;
 import projekt.substratum.R;
 
-public enum Activities {
-    ;
+public class Activities {
 
     /**
      * Launches a specified activity URL but on error, throws a toast

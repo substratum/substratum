@@ -28,8 +28,7 @@ import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.getDeviceEncryptionStatus;
 
-public enum BootAnimationsManager {
-    ;
+public class BootAnimationsManager {
 
     private static final String TAG = "BootAnimationsManager";
 

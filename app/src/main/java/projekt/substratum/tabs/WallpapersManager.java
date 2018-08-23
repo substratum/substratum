@@ -18,8 +18,7 @@ import static projekt.substratum.common.Internal.ALL_WALLPAPER;
 import static projekt.substratum.common.Internal.HOME_WALLPAPER;
 import static projekt.substratum.common.Internal.LOCK_WALLPAPER;
 
-public enum WallpapersManager {
-    ;
+public class WallpapersManager {
 
     /**
      * Set a wallpaper

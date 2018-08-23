@@ -13,8 +13,7 @@ import projekt.substratum.services.binder.InterfacerBinderService;
 
 import java.util.ArrayList;
 
-public enum ThemeInterfacerService {
-    ;
+public class ThemeInterfacerService {
 
     private static final IInterfacerInterface interfacerInterface =
             InterfacerBinderService.getInstance().getInterfacerInterface();

@@ -9,8 +9,7 @@ package projekt.substratum.common.commands;
 
 import projekt.substratum.util.helpers.Root;
 
-public enum ElevatedCommands {
-    ;
+public class ElevatedCommands {
 
     /**
      * Reboot the device

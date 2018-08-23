@@ -18,8 +18,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-public enum ReadCloudWallpaperFile {
-    ;
+public class ReadCloudWallpaperFile {
 
     /**
      * Function to read the cloud wallpaper file

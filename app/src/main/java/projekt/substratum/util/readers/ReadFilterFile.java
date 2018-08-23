@@ -19,8 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum ReadFilterFile {
-    ;
+public class ReadFilterFile {
 
     /**
      * Function to read the cloud validator filter file

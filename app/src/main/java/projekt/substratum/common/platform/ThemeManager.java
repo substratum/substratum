@@ -73,8 +73,7 @@ import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
 import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
 
-public enum ThemeManager {
-    ;
+public class ThemeManager {
 
     // State values of OverlayInfo
     public static final int STATE_MISSING_TARGET = (SDK_INT >= O) ? 0 : 1;

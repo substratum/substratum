@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public enum SubstratumService {
-    ;
+public class SubstratumService {
+
     private static final String TAG = "SubstratumService";
     private static final String[] EXPECTED_METHODS = {
             "installOverlay",

@@ -88,8 +88,7 @@ import static projekt.substratum.common.Systems.isNewSamsungDevice;
 import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
 import static projekt.substratum.common.Systems.isSystemSecurityPatchNewer;
 
-enum OverlaysManager {
-    ;
+class OverlaysManager {
 
     private static final String TAG = "OverlaysManager";
 

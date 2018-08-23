@@ -39,8 +39,7 @@ import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
-public enum FileOperations {
-    ;
+public class FileOperations {
 
     public static final String DA_LOG = "DirectAssets";
     private static final String COPY_LOG = "SubstratumCopy";

@@ -377,8 +377,8 @@ public class SubstratumBuilder {
                         new ApkSigner.SignerConfig.Builder("overlay", privateKey, certs).build();
                 List<ApkSigner.SignerConfig> signerConfigs = new ArrayList<>();
                 signerConfigs.add(signerConfig);
-                ApkSigner.Builder apkSigner = new ApkSigner.Builder(signerConfigs);
-                apkSigner.setV1SigningEnabled(false)
+                new ApkSigner.Builder(signerConfigs)
+                        .setV1SigningEnabled(false)
                         .setV2SigningEnabled(true)
                         .setInputApk(new File(source))
                         .setOutputApk(new File(signedOverlayAPKPath))
@@ -435,8 +435,7 @@ public class SubstratumBuilder {
                     }
                 }
             } else {
-                boolean isSamsung = Systems.isSamsungDevice(context);
-                if (isSamsung) {
+                if (Systems.isSamsungDevice(context)) {
                     // Take account for Samsung's package manager installation mode
                     Substratum.log(References.SUBSTRATUM_BUILDER,
                             "Requesting PackageManager to launch signed overlay APK for " +

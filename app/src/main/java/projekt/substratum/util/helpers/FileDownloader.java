@@ -13,11 +13,11 @@ import android.util.Log;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
@@ -41,6 +41,7 @@ public enum FileDownloader {
             NetworkOnMainThreadException {
 
         try {
+            fileUrl = fileUrl.replace("http://", "https://");
             // First create the cache folder
             File directory = new File(context.getCacheDir().getAbsolutePath() + '/' +
                     destinationFileOrFolder);
@@ -62,12 +63,12 @@ public enum FileDownloader {
 
             // Once the cache folder is created, start downloading the file
             URL url = new URL(fileUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             String outputDir = context.getCacheDir().getAbsolutePath() + '/' +
                     destinationFileOrFolder +
                     (outputFile != null && !outputFile.isEmpty() ? '/' + outputFile : "");
             Substratum.log(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            if (connection.getResponseCode() != HttpsURLConnection.HTTP_OK) {
                 Log.e("Server returned HTTP", connection.getResponseCode()
                         + " " + connection.getResponseMessage());
             }

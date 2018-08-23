@@ -29,7 +29,7 @@ public class ViewBindingHelpers {
     @BindingAdapter("imageUrl")
     public static void imageUrl(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
-                .load(url)
+                .load(url.replace("http://", "https://"))
                 .apply(centerCropTransform())
                 .transition(withCrossFade())
                 .into(imageView);

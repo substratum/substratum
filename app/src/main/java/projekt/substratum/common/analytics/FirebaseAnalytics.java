@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
+import androidx.annotation.NonNull;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +21,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 
-import java.net.HttpURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,10 +45,11 @@ public enum FirebaseAnalytics {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(
+            HttpsURLConnection connection = (HttpsURLConnection) new URL(
                     "https://console.firebase.google.com/").openConnection();
             connection.setRequestMethod("HEAD");
-            return connection.getResponseCode() == HttpURLConnection.HTTP_OK;
+            connection.setConnectTimeout(1000);
+            return connection.getResponseCode() == HttpsURLConnection.HTTP_OK;
         } catch (Exception ignored) {
         }
         return false;
@@ -68,7 +70,7 @@ public enum FirebaseAnalytics {
         DatabaseReference database = getDatabaseReference();
         database.child("patchers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 SharedPreferences.Editor editor = context
                         .getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE).edit();
                 editor.clear();
@@ -92,7 +94,7 @@ public enum FirebaseAnalytics {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
@@ -112,7 +114,7 @@ public enum FirebaseAnalytics {
             database.child("andromeda-fp")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Object dataValue = dataSnapshot.child(String.valueOf(version))
                                     .getValue();
                             if (dataValue != null) {
@@ -121,7 +123,7 @@ public enum FirebaseAnalytics {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
         }
@@ -142,7 +144,7 @@ public enum FirebaseAnalytics {
             database.child("sungstratum-fp")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Object dataValue = dataSnapshot.child(String.valueOf(version))
                                     .getValue();
                             if (dataValue != null) {
@@ -151,7 +153,7 @@ public enum FirebaseAnalytics {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
         }

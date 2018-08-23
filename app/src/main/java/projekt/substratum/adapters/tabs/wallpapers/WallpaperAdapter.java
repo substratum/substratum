@@ -70,10 +70,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper));
             arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_lockscreen));
             arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper_both));
-            builder.setCancelable(false);
-            builder.setNegativeButton(
-                    android.R.string.cancel,
-                    (dialog, which) -> dialog.dismiss());
+            builder.setCancelable(true);
             builder.setAdapter(arrayAdapter, (dialog, which) -> {
                 String mode = "homescreen_wallpaper";
                 switch (which) {

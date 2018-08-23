@@ -61,41 +61,6 @@ public class SubstratumBuilder {
     private String errorLogs = "";
 
     /**
-     * Process the AAPT/AAPT commands to be used with the compilation binary
-     *
-     * @param workArea          Directory for the work area
-     * @param targetPkg         Target package name
-     * @param themeName         Theme's name
-     * @param overlayPackage    Overlay package to be compiled
-     * @param additionalVariant Additional variant (type2)
-     * @param assetReplacement  Asset replacement (type4)
-     * @param legacySwitch      Relates to the switch in Settings to fallback if referencing fails
-     * @param context           Self explanatory, bud.
-     * @param noCacheDir        Direct Assets directory
-     * @return Returns a command that will be used with AAPT/AAPT
-     */
-    private static String processAAPTCommands(String workArea,
-                                              String targetPkg,
-                                              String themeName,
-                                              String overlayPackage,
-                                              CharSequence additionalVariant,
-                                              CharSequence assetReplacement,
-                                              boolean legacySwitch,
-                                              Context context,
-                                              String noCacheDir) {
-        return CompilerCommands.createAAPTShellCommands(
-                workArea,
-                targetPkg,
-                overlayPackage,
-                themeName,
-                legacySwitch,
-                additionalVariant,
-                assetReplacement,
-                context,
-                noCacheDir);
-    }
-
-    /**
      * Substratum Builder Build Function
      * <p>
      * Prior to running this function, you must have copied all the files to the working directory!
@@ -313,14 +278,14 @@ public class SubstratumBuilder {
         // 5. Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
         if (!hasErroredOut) {
             String targetPkg = Packages.getInstalledDirectory(context, targetPackage);
-            String commands = SubstratumBuilder.processAAPTCommands(
+            String commands = CompilerCommands.createAAPTShellCommands(
                     workArea,
                     targetPkg,
-                    parse2ThemeName,
                     overlayPackage,
+                    parse2ThemeName,
+                    false,
                     additionalVariant,
                     type4,
-                    false,
                     context,
                     noCacheDir);
 
@@ -570,10 +535,9 @@ public class SubstratumBuilder {
                             Log.e(References.SUBSTRATUM_BUILDER,
                                     "This overlay was designed using a legacy theming " +
                                             "style, now falling back to legacy compiler...");
-                            String newCommands = SubstratumBuilder.processAAPTCommands
-                                    (workArea, targetPkg,
-                                            themeName, overlayPackage, additionalVariant,
-                                            assetReplacement, true, context, noCacheDir);
+                            String newCommands = CompilerCommands.createAAPTShellCommands(workArea, targetPkg,
+                                            overlayPackage, themeName, true, additionalVariant,
+                                            assetReplacement, context, noCacheDir);
                             return runAAPTShellCommands(
                                     newCommands, workArea, targetPkg, themeName,
                                     overlayPackage, additionalVariant, assetReplacement,

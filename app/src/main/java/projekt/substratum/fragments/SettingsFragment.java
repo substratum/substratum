@@ -282,13 +282,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 (preference, newValue) -> {
                     forceEnglish.setChecked(true);
                     prefs.edit().putBoolean("force_english_locale", (Boolean) newValue).apply();
-                    Snackbar lunchbar = Lunchbar.make(getView(),
-                            getString(R.string.locale_restart_message),
-                            Snackbar.LENGTH_LONG);
-                    lunchbar.setAction(getString(R.string.restart), v ->
-                            new Handler().postDelayed(() ->
-                                    Substratum.restartSubstratum(context), 0));
-                    lunchbar.show();
+                    Lunchbar.make(getView(), getString(R.string.locale_restart_message), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.restart), v -> new Handler().postDelayed(() ->
+                                    Substratum.restartSubstratum(context), 0))
+                            .show();
                     return false;
                 }
         );
@@ -404,8 +401,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         gridStyleCardsCount.setSummary(toFormat);
         gridStyleCardsCount.setOnPreferenceClickListener(
                 preference -> {
-                    AlertDialog.Builder d = new AlertDialog.Builder(context);
-                    d.setTitle(getString(R.string.grid_size_title));
+                    AlertDialog.Builder numberPickerDialog = new AlertDialog.Builder(context);
+                    numberPickerDialog.setTitle(getString(R.string.grid_size_title));
 
                     NumberPicker numberPicker = new NumberPicker(context);
                     // Maximum overlay priority count
@@ -420,12 +417,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     // Do not wrap selector wheel
                     numberPicker.setWrapSelectorWheel(false);
 
-                    d.setView(numberPicker);
-                    d.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                        Integer new_count = numberPicker.getValue();
+                    numberPickerDialog.setView(numberPicker);
+                    numberPickerDialog.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                        int newCount = numberPicker.getValue();
                         prefs.edit().putInt(
-                                "grid_style_cards_count", new_count).apply();
-                        switch (new_count) {
+                                "grid_style_cards_count", newCount).apply();
+                        switch (newCount) {
                             case 1:
                                 prefs.edit().putBoolean("grid_layout", false).apply();
                                 break;
@@ -438,11 +435,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 String.format(
                                         getString(R.string.grid_size_text),
                                         DEFAULT_GRID_COUNT,
-                                        new_count));
+                                        newCount));
                     });
-                    d.setNegativeButton(android.R.string.cancel, (dialogInterface, i) ->
+                    numberPickerDialog.setNegativeButton(android.R.string.cancel, (dialogInterface, i) ->
                             dialogInterface.cancel());
-                    d.show();
+                    numberPickerDialog.show();
                     return false;
                 }
         );
@@ -488,15 +485,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 }
         );
-
-        // Alert if an overlay has been found in a theme after a new app has been installed
-        CheckBoxPreference overlayAlert =
-                (CheckBoxPreference) getPreferenceManager().findPreference("overlay_alert");
-        overlayAlert.setChecked(prefs.getBoolean("overlay_alert", false));
-        overlayAlert.setOnPreferenceChangeListener((preference, newValue) -> {
-            prefs.edit().putBoolean("overlay_alert", (Boolean) newValue).apply();
-            return false;
-        });
 
         // Legacy compiler
         CheckBoxPreference debugTheme =
@@ -677,10 +665,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("show_app_icon", true).apply();
-                            PackageManager p = context.getPackageManager();
+                            PackageManager packageManager = context.getPackageManager();
                             ComponentName componentName = new ComponentName(context,
                                     LauncherActivity.class);
-                            p.setComponentEnabledSetting(
+                            packageManager.setComponentEnabledSetting(
                                     componentName,
                                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                     PackageManager.DONT_KILL_APP);
@@ -693,10 +681,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             hideAppCheckbox.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("show_app_icon", false).apply();
-                            PackageManager p = context.getPackageManager();
+                            PackageManager packageManager = context.getPackageManager();
                             ComponentName componentName = new ComponentName(context,
                                     LauncherActivity.class);
-                            p.setComponentEnabledSetting(componentName,
+                            packageManager.setComponentEnabledSetting(componentName,
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                                     PackageManager.DONT_KILL_APP);
                             if (getView() != null) {
@@ -819,8 +807,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             prioritySwitcher.setSummary(formatted);
             prioritySwitcher.setOnPreferenceClickListener(
                     preference -> {
-                        AlertDialog.Builder d = new AlertDialog.Builder(context);
-                        d.setTitle(getString(R.string.legacy_preference_priority_title));
+                        AlertDialog.Builder prioritySwitcherDialog = new AlertDialog.Builder(context);
+                        prioritySwitcherDialog.setTitle(getString(R.string.legacy_preference_priority_title));
 
                         NumberPicker numberPicker = new NumberPicker(context);
                         // Maximum overlay priority count
@@ -833,20 +821,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         // Do not wrap selector wheel
                         numberPicker.setWrapSelectorWheel(false);
 
-                        d.setView(numberPicker);
-                        d.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                            Integer new_priority = numberPicker.getValue();
+                        prioritySwitcherDialog.setView(numberPicker);
+                        prioritySwitcherDialog.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                            int newPriority = numberPicker.getValue();
                             prefs.edit().putInt(
-                                    "legacy_overlay_priority", new_priority).apply();
+                                    "legacy_overlay_priority", newPriority).apply();
                             prioritySwitcher.setSummary(
                                     String.format(
-                                            getString(R.string
-                                                    .legacy_preference_priority_text),
+                                            getString(R.string.legacy_preference_priority_text),
                                             References.DEFAULT_PRIORITY,
-                                            new_priority));
+                                            newPriority));
                         });
-                        d.setNegativeButton(android.R.string.cancel, (di, i) -> di.cancel());
-                        d.show();
+                        prioritySwitcherDialog.setNegativeButton(android.R.string.cancel, (di, i) -> di.cancel());
+                        prioritySwitcherDialog.show();
                         return false;
                     }
             );

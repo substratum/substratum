@@ -47,7 +47,7 @@ public class FirebaseAnalytics {
             HttpsURLConnection connection = (HttpsURLConnection) new URL(
                     "https://console.firebase.google.com/").openConnection();
             connection.setRequestMethod("HEAD");
-            connection.setConnectTimeout(1000);
+            connection.setConnectTimeout(500);
             return connection.getResponseCode() == HttpsURLConnection.HTTP_OK;
         } catch (Exception ignored) {
         }

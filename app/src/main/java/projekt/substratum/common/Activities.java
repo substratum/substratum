@@ -29,7 +29,7 @@ public class Activities {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(context.getString(resource)));
             context.startActivity(i);
-        } catch (ActivityNotFoundException activityNotFoundException) {
+        } catch (ActivityNotFoundException ignored) {
             Toast.makeText(context,
                     context.getString(R.string.activity_missing_toast),
                     Toast.LENGTH_SHORT).show();
@@ -46,10 +46,16 @@ public class Activities {
     public static void launchExternalActivity(Context context,
                                               String packageName,
                                               String className) {
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName(packageName, packageName + '.' + className));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(packageName, packageName + '.' + className));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (ActivityNotFoundException ignored) {
+            Toast.makeText(context,
+                    context.getString(R.string.activity_missing_toast),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

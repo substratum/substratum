@@ -545,8 +545,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isEnabled = (boolean) newValue;
                         autoDisableTargetOverlays.setVisible(!isEnabled);
                         prefs.edit().putBoolean("auto_disable_target_overlays", !isEnabled).apply();
-                        prefs.edit().putBoolean("sungstromeda_mode",
-                                isEnabled).apply();
+                        prefs.edit().putBoolean("sungstromeda_mode", isEnabled).apply();
                         sungstromedaMode.setChecked((Boolean) newValue);
                         new Handler().postDelayed(() ->
                                 Substratum.restartSubstratum(context), 1000L);
@@ -595,7 +594,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 try {
                     PackageInfo info =
                             context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
-                    aboutAndromeda.setSummary(info.versionName + " (" + info.versionCode + ')');
+                    aboutAndromeda.setSummary(info.versionName + " (" + info.getLongVersionCode() + ')');
                 } catch (Exception ignored) {
                 }
                 aboutAndromeda.setOnPreferenceClickListener(preference -> {
@@ -635,7 +634,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     PackageInfo pInfo = Systems.getThemeInterfacerPackage(context);
                     if (pInfo != null) {
                         aboutInterfacer.setSummary(
-                                pInfo.versionName + " (" + pInfo.versionCode + ')');
+                                pInfo.versionName + " (" + pInfo.getLongVersionCode() + ')');
                     }
                 } catch (Exception e) {
                     // Suppress exception
@@ -746,7 +745,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 try {
                     PackageInfo info =
                             context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
-                    aboutAndromeda.setSummary(info.versionName + " (" + info.versionCode + ')');
+                    aboutAndromeda.setSummary(info.versionName + " (" + info.getLongVersionCode() + ')');
                 } catch (Exception ignored) {
                 }
                 aboutAndromeda.setOnPreferenceClickListener(preference -> {
@@ -763,7 +762,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 aboutSamsung.setIcon(Packages.getAppIcon(context, SST_ADDON_PACKAGE));
                 try {
                     PackageInfo info = context.getPackageManager().getPackageInfo(SST_ADDON_PACKAGE, 0);
-                    aboutSamsung.setSummary(info.versionName + " (" + info.versionCode + ')');
+                    aboutSamsung.setSummary(info.versionName + " (" + info.getLongVersionCode() + ')');
                 } catch (Exception ignored) {
                 }
                 showDangerousSamsung.setChecked(

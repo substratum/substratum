@@ -85,11 +85,9 @@ public class AppCrashReceiver extends BroadcastReceiver {
                     Substratum.log("AppCrashReciever", String.format("Disabling overlay %s for package " +
                             "%s", overlay, packageName));
                 }
-
-                AppCrashReceiver.postNotificationAndDisableOverlays(context,
+                postNotificationAndDisableOverlays(context,
                         AppCrashReceiver.getApplicationLabel(context, packageName),
                         overlays);
-
             }
         } else if (SYSTEMUI.equals(packageName)) {
             if (ThemeManager.listEnabledOverlaysForTarget(context, SYSTEMUI).isEmpty()) return;
@@ -106,7 +104,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                 case 2:
                     Substratum.log("AppCrashReceiver", "Disabling all SystemUI overlays now.");
                     sharedPreferences.edit().remove("sysui_crash_count").apply();
-                    AppCrashReceiver.postNotificationAndDisableOverlays(context,
+                    postNotificationAndDisableOverlays(context,
                             AppCrashReceiver.getApplicationLabel(context, packageName),
                             ThemeManager.listEnabledOverlaysForTarget(context, SYSTEMUI));
                     break;

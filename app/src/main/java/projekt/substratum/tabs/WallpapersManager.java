@@ -7,7 +7,9 @@
 
 package projekt.substratum.tabs;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.ParcelFileDescriptor;
 
 import java.io.FileInputStream;
@@ -37,6 +39,10 @@ public class WallpapersManager {
             case HOME_WALLPAPER:
                 // Set home screen wallpaper
                 // Get current lock screen wallpaper to be applied later
+                if (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    // This will never happen -- Substratum simply doesn't launch when storage permissions are denied
+                    return;
+                }
                 ParcelFileDescriptor lockFile =
                         wallpaperManager.getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
                 if (lockFile != null) {
@@ -80,6 +86,10 @@ public class WallpapersManager {
             case HOME_WALLPAPER:
                 // Clear home screen wallpaper
                 // Get current lock screen wallpaper to be applied later
+                if (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    // This will never happen -- Substratum simply doesn't launch when storage permissions are denied
+                    return;
+                }
                 ParcelFileDescriptor lockFile =
                         wallpaperManager.getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
                 if (lockFile != null) {

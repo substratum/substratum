@@ -94,10 +94,10 @@ android {
 
 ext {
     databindingVersion = '3.3.0-alpha05'
-    androidXVersion = '1.0.0-rc01'
-    firebaseVersion = '16.0.1'
-    crashlyticsVersion = '2.9.4'
-    glideVersion = '4.7.1'
+    androidXVersion = '1.0.0-rc02'
+    firebaseVersion = '16.0.3'
+    crashlyticsVersion = '2.9.5'
+    glideVersion = '4.8.0'
 }
 
 dependencies {
@@ -110,13 +110,13 @@ dependencies {
     implementation "androidx.cardview:cardview:$androidXVersion"
     implementation "androidx.recyclerview:recyclerview:$androidXVersion"
     implementation "androidx.legacy:legacy-support-v13:$androidXVersion"
-    implementation "com.google.android.material:material:$androidXVersion"
+    implementation "com.google.android.material:material:1.0.0-rc01"
     implementation "androidx.palette:palette:$androidXVersion"
     implementation "androidx.legacy:legacy-preference-v14:$androidXVersion"
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:$firebaseVersion"
+    implementation "com.google.firebase:firebase-database:16.0.1"
 
     // Crashlytics
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"

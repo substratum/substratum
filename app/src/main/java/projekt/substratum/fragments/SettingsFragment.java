@@ -594,7 +594,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 try {
                     PackageInfo info =
                             context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
-                    aboutAndromeda.setSummary(info.versionName + " (" + info.getLongVersionCode() + ')');
+                    aboutAndromeda.setSummary(info.versionName + " (" + info.versionCode + ')');
                 } catch (Exception ignored) {
                 }
                 aboutAndromeda.setOnPreferenceClickListener(preference -> {
@@ -634,7 +634,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     PackageInfo pInfo = Systems.getThemeInterfacerPackage(context);
                     if (pInfo != null) {
                         aboutInterfacer.setSummary(
-                                pInfo.versionName + " (" + pInfo.getLongVersionCode() + ')');
+                                pInfo.versionName + " (" + pInfo.versionCode + ')');
                     }
                 } catch (Exception e) {
                     // Suppress exception
@@ -745,7 +745,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 try {
                     PackageInfo info =
                             context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
-                    aboutAndromeda.setSummary(info.versionName + " (" + info.getLongVersionCode() + ')');
+                    aboutAndromeda.setSummary(info.versionName + " (" + info.versionCode + ')');
                 } catch (Exception ignored) {
                 }
                 aboutAndromeda.setOnPreferenceClickListener(preference -> {
@@ -762,7 +762,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 aboutSamsung.setIcon(Packages.getAppIcon(context, SST_ADDON_PACKAGE));
                 try {
                     PackageInfo info = context.getPackageManager().getPackageInfo(SST_ADDON_PACKAGE, 0);
-                    aboutSamsung.setSummary(info.versionName + " (" + info.getLongVersionCode() + ')');
+                    aboutSamsung.setSummary(info.versionName + " (" + info.versionCode + ')');
                 } catch (Exception ignored) {
                 }
                 showDangerousSamsung.setChecked(

@@ -346,7 +346,7 @@ public class Systems {
         boolean isEnabled = Packages.isAvailablePackage(context, References
                 .INTERFACER_PACKAGE);
         PackageInfo packageInfo = getThemeInterfacerPackage(context);
-        return (packageInfo != null) && (packageInfo.getLongVersionCode() >= 60) && isEnabled;
+        return (packageInfo != null) && (packageInfo.versionCode >= 60) && isEnabled;
     }
 
     /**

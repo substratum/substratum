@@ -366,7 +366,7 @@ public class Packages {
                                         String packageName) {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(packageName, 0);
-            return (int) pInfo.getLongVersionCode();
+            return pInfo.versionCode;
         } catch (Exception ignored) {
         }
         return 0;

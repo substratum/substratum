@@ -185,85 +185,33 @@ public class SubstratumBuilder {
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter pw = new PrintWriter(bw)) {
                 boolean created = root.createNewFile();
-                if (!created)
-                    if (variant != null) {
-                        String manifest =
-                                CompilerCommands.createOverlayManifest(
-                                        context,
-                                        overlayPackage,
-                                        parse2ThemeName,
-                                        parse2VariantName,
-                                        parse2BaseName,
-                                        versionName,
-                                        overlayVersionCode,
-                                        targetPackage,
-                                        themeParent,
-                                        isDeviceOMS,
-                                        legacyPriority,
-                                        false,
-                                        type1a,
-                                        type1b,
-                                        type1c,
-                                        type2,
-                                        type3,
-                                        type4,
-                                        ((overridePackage != null) &&
-                                                !overridePackage.isEmpty()) ?
-                                                overridePackage : "");
-                        pw.write(manifest);
-                    } else {
-                        if (baseVariant != null) {
-                            String manifest =
-                                    CompilerCommands.createOverlayManifest(
-                                            context,
-                                            overlayPackage,
-                                            parse2ThemeName,
-                                            parse2VariantName,
-                                            parse2BaseName,
-                                            versionName,
-                                            overlayVersionCode,
-                                            targetPackage,
-                                            themeParent,
-                                            isDeviceOMS,
-                                            legacyPriority,
-                                            false,
-                                            type1a,
-                                            type1b,
-                                            type1c,
-                                            type2,
-                                            type3,
-                                            type4,
-                                            ((overridePackage != null) &&
-                                                    !overridePackage.isEmpty()) ?
-                                                    overridePackage : "");
-                            pw.write(manifest);
-                        } else {
-                            String manifest =
-                                    CompilerCommands.createOverlayManifest(
-                                            context,
-                                            overlayPackage,
-                                            parse2ThemeName,
-                                            parse2VariantName,
-                                            parse2BaseName,
-                                            versionName,
-                                            overlayVersionCode,
-                                            targetPackage,
-                                            themeParent,
-                                            isDeviceOMS,
-                                            legacyPriority,
-                                            true,
-                                            type1a,
-                                            type1b,
-                                            type1c,
-                                            type2,
-                                            type3,
-                                            type4,
-                                            ((overridePackage != null) &&
-                                                    !overridePackage.isEmpty()) ?
-                                                    overridePackage : "");
-                            pw.write(manifest);
-                        }
-                    }
+                if (!created) {
+                    String manifest =
+                            CompilerCommands.createOverlayManifest(
+                                    context,
+                                    overlayPackage,
+                                    parse2ThemeName,
+                                    parse2VariantName,
+                                    parse2BaseName,
+                                    versionName,
+                                    overlayVersionCode,
+                                    targetPackage,
+                                    themeParent,
+                                    isDeviceOMS,
+                                    legacyPriority,
+                                    baseVariant == null,
+                                    type1a,
+                                    type1b,
+                                    type1c,
+                                    type2,
+                                    type3,
+                                    type4,
+                                    ((overridePackage != null) &&
+                                            !overridePackage.isEmpty()) ?
+                                            overridePackage : "");
+                    pw.write(manifest);
+                }
+
             } catch (Exception e) {
                 dumpErrorLogs(overlayPackage, e.getMessage());
                 dumpErrorLogs(overlayPackage,

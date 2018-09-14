@@ -47,7 +47,6 @@ import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
-import static projekt.substratum.common.References.isMagisk;
 import static projekt.substratum.common.Resources.SETTINGS;
 import static projekt.substratum.common.Resources.SYSTEMUI;
 import static projekt.substratum.common.commands.FileOperations.DA_LOG;
@@ -403,17 +402,11 @@ public class SubstratumBuilder {
             if (isDeviceOMS) {
                 if (Systems.IS_PIE && !Systems.checkSubstratumService(context)) {
                     // Brute force install APKs because thanks Google
-                    if (isMagisk())
-                        FileOperations.mountRWMagisk();
-                    else
-                        FileOperations.mountRW();
+                    FileOperations.mountRW();
                     final String overlay = References.getPieDir() + "_" + overlayName + ".apk";
                     FileOperations.move(context, signedOverlayAPKPath, overlay);
                     FileOperations.setPermissions(644, overlay);
-                    if (isMagisk())
-                        FileOperations.mountROMagisk();
-                    else
-                        FileOperations.mountRO();
+                    FileOperations.mountRO();
                 } else if (!Systems.isNewSamsungDeviceAndromeda(context)) {
                     specialSnowflake = false;
                     if (Resources.FRAMEWORK.equals(overlayPackage) ||

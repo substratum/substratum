@@ -44,10 +44,10 @@ import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
-import static projekt.substratum.common.References.P_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.References.isMagisk;
 import static projekt.substratum.common.Resources.SETTINGS;
 import static projekt.substratum.common.Resources.SYSTEMUI;
 import static projekt.substratum.common.commands.FileOperations.DA_LOG;
@@ -403,11 +403,17 @@ public class SubstratumBuilder {
             if (isDeviceOMS) {
                 if (Systems.IS_PIE && !Systems.checkSubstratumService(context)) {
                     // Brute force install APKs because thanks Google
-                    FileOperations.mountRW();
-                    final String overlay = P_DIR + "_" + overlayName + ".apk";
+                    if (isMagisk())
+                        FileOperations.mountRWMagisk();
+                    else
+                        FileOperations.mountRW();
+                    final String overlay = References.getPieDir() + "_" + overlayName + ".apk";
                     FileOperations.move(context, signedOverlayAPKPath, overlay);
                     FileOperations.setPermissions(644, overlay);
-                    FileOperations.mountRO();
+                    if (isMagisk())
+                        FileOperations.mountROMagisk();
+                    else
+                        FileOperations.mountRO();
                 } else if (!Systems.isNewSamsungDeviceAndromeda(context)) {
                     specialSnowflake = false;
                     if (Resources.FRAMEWORK.equals(overlayPackage) ||

@@ -62,6 +62,7 @@ import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.helpers.TranslatorParser;
 
 import java.io.BufferedReader;
@@ -192,7 +193,9 @@ public class References {
     public static final String DATA_RESOURCE_DIR = "/data/resource-cache/";
     public static final String PIXEL_NEXUS_DIR = "/system/overlay/";
     public static final String LEGACY_NEXUS_DIR = "/system/vendor/overlay/";
-    public static final String P_DIR = "/system/app/";
+    private static final String P_SYSTEM_DIR = "/system/app/";
+    public static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
+    private static final String P_MAGISK_DIR = MAGISK_MIRROR_MOUNT_POINT + "/app/";
     public static final String VENDOR_DIR = "/vendor/overlay/";
     // Notification Channel
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
@@ -252,6 +255,26 @@ public class References {
     // boolean simply takes on the value false.
     private static Boolean uncertified;
     private static int hashValue;
+    private static String pieDir = null;
+    private static Boolean isMagisk = null;
+
+    public static String getPieDir() {
+        if (pieDir == null) {
+            boolean isMagisk = Root.runCommand(String.format("test -d %s && echo '0'", MAGISK_MIRROR_MOUNT_POINT)).equals("0");
+            if (isMagisk)
+                pieDir = P_MAGISK_DIR;
+            else
+                pieDir = P_SYSTEM_DIR;
+        }
+        return pieDir;
+    }
+
+    public static Boolean isMagisk() {
+        if (isMagisk == null) {
+            isMagisk = getPieDir().equals(P_MAGISK_DIR);
+        }
+        return isMagisk;
+    }
 
     /**
      * Unified method to set theme extra lists

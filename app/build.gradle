@@ -116,7 +116,7 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:16.0.2"
+    implementation "com.google.firebase:firebase-database:16.0.1"
 
     // Crashlytics
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"

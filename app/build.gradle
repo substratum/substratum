@@ -164,5 +164,8 @@ dependencies {
 
     // Splash screen svg animation
     implementation 'com.jaredrummler:animated-svg-view:1.0.5'
+
+    // SLF4J LoggerFactory
+    implementation 'org.slf4j:slf4j-api:1.7.16'
 }
 apply plugin: 'com.google.gms.google-services'

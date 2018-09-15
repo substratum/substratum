@@ -110,13 +110,13 @@ dependencies {
     implementation "androidx.cardview:cardview:$androidXVersion"
     implementation "androidx.recyclerview:recyclerview:$androidXVersion"
     implementation "androidx.legacy:legacy-support-v13:$androidXVersion"
-    implementation "com.google.android.material:material:1.0.0-rc01"
+    implementation "com.google.android.material:material:$androidXVersion"
     implementation "androidx.palette:palette:$androidXVersion"
     implementation "androidx.legacy:legacy-preference-v14:$androidXVersion"
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:16.0.1"
+    implementation "com.google.firebase:firebase-database:16.0.2"
 
     // Crashlytics
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"

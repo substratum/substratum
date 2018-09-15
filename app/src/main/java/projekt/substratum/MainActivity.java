@@ -1112,12 +1112,9 @@ public class MainActivity extends AppCompatActivity implements
                         titleView.setVisibility(View.GONE);
                     } else if (Systems.isAndromedaDevice(context) &&
                             !AndromedaService.checkServerActivity()) {
-                        TextView andromedaTitle = activity.progressDialog.findViewById(
-                                R.id.andromeda_title);
-                        Button andromedaOfflineButton =
-                                activity.progressDialog.findViewById(R.id.andromeda_offline_button);
-                        TextView andromedaDebugText =
-                                activity.progressDialog.findViewById(R.id.andromeda_debug_text);
+                        TextView andromedaTitle = activity.progressDialog.findViewById(R.id.andromeda_title);
+                        Button andromedaOfflineButton = activity.progressDialog.findViewById(R.id.andromeda_offline_button);
+                        TextView andromedaDebugText = activity.progressDialog.findViewById(R.id.andromeda_debug_text);
                         andromedaTitle.setVisibility(View.VISIBLE);
                         if (!checkAndromeda(context)) {
                             andromedaTitle.setText(R.string.andromeda_no_firebase);
@@ -1133,8 +1130,7 @@ public class MainActivity extends AppCompatActivity implements
                                             getAppVersionCode(context, ANDROMEDA_PACKAGE) > 19
                                                     ? "activities.InfoActivity" : "InfoActivity"));
                             andromedaOfflineButton.setVisibility(View.VISIBLE);
-                            andromedaOfflineButton.setOnClickListener(v ->
-                                    activity.progressDialog.cancel());
+                            andromedaOfflineButton.setOnClickListener(v -> activity.progressDialog.cancel());
                             if (BuildConfig.DEBUG) {
                                 andromedaDebugText.setVisibility(View.VISIBLE);
                             }
@@ -1143,14 +1139,10 @@ public class MainActivity extends AppCompatActivity implements
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                         instanceBasedAndromedaFailure = true;
-                        activity.menuView.
-                                findViewById(R.id.tab_themes).setVisibility(View.GONE);
-                        activity.menuView.
-                                findViewById(R.id.tab_priorities).setVisibility(View.GONE);
-                        activity.menuView.
-                                findViewById(R.id.tab_profiles).setVisibility(View.GONE);
-                        activity.bottomBar.
-                                setSelectedItemId(R.id.tab_overlay_manager);
+                        activity.bottomBar.getMenu().removeItem(R.id.tab_themes);
+                        activity.bottomBar.getMenu().removeItem(R.id.tab_priorities);
+                        activity.bottomBar.getMenu().removeItem(R.id.tab_profiles);
+                        activity.bottomBar.setSelectedItemId(R.id.tab_overlay_manager);
                     } else if (Systems.IS_OREO &&
                             !Packages.isPackageInstalled(context, ANDROMEDA_PACKAGE)) {
                         TextView andromedaTitle = activity.progressDialog.findViewById(
@@ -1159,8 +1151,7 @@ public class MainActivity extends AppCompatActivity implements
                         Button andromedaButton = activity.progressDialog.findViewById(
                                 R.id.andromeda_button);
                         andromedaButton.setVisibility(View.VISIBLE);
-                        andromedaButton.setOnClickListener(view ->
-                                launchActivityUrl(context, R.string.andromeda_url));
+                        andromedaButton.setOnClickListener(view -> launchActivityUrl(context, R.string.andromeda_url));
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                     }

@@ -166,8 +166,7 @@ public class SplashScreenActivity extends Activity {
                 if (isAndromedaDevice(context)) {
                     int andromedaVer = Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE);
                     FirebaseAnalytics.withdrawAndromedaFingerprint(context, andromedaVer);
-                    SharedPreferences prefs2 =
-                            context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                    SharedPreferences prefs2 = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                     timeoutCount = 0;
                     while (!prefs2.contains("andromeda_exp_fp_" + andromedaVer) &&
                             (timeoutCount < 100)) {
@@ -199,8 +198,7 @@ public class SplashScreenActivity extends Activity {
                         Packages.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
                     int sstVersion = Packages.getAppVersionCode(context, SST_ADDON_PACKAGE);
                     FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
-                    SharedPreferences prefs2 =
-                            context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                    SharedPreferences prefs2 = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                     timeoutCount = 0;
                     while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && (timeoutCount <
                             100)) {

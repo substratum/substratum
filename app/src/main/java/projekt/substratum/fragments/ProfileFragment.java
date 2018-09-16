@@ -266,28 +266,21 @@ public class ProfileFragment extends Fragment {
         backupButton.setOnClickListener(v -> {
             if (backupName.getText().length() > 0) {
                 selectedBackup = new ArrayList<>();
-                CharSequence[] items;
-                if (Systems.checkOMS(context) ||
-                        projekt.substratum.common.Resources.isFontsSupported(context)) {
-                    items = new CharSequence[]{
-                            getString(R.string.profile_boot_animation),
-                            getString(R.string.profile_font),
-                            getString(R.string.profile_overlay),
-                            getString(R.string.profile_sound),
-                            getString(R.string.profile_wallpaper)};
-                } else {
-                    items = new CharSequence[]{
-                            getString(R.string.profile_boot_animation),
-                            getString(R.string.profile_overlay),
-                            getString(R.string.profile_sound),
-                            getString(R.string.profile_wallpaper)};
-                }
-
+                ArrayList<CharSequence> items = new ArrayList<>();
+                items.add(getString(R.string.profile_overlay));
+                items.add(getString(R.string.profile_wallpaper));
+                if (projekt.substratum.common.Resources.isFontsSupported(context))
+                    items.add(getString(R.string.profile_font));
+                if (projekt.substratum.common.Resources.isSoundsSupported(context))
+                    items.add(getString(R.string.profile_sound));
+                if (projekt.substratum.common.Resources.isBootAnimationSupported(context))
+                    items.add(getString(R.string.profile_boot_animation));
+                CharSequence[] dialogItems = items.toArray(new CharSequence[]{});
                 AlertDialog dialog = new AlertDialog.Builder(context)
                         .setTitle(R.string.profile_dialog_title)
-                        .setMultiChoiceItems(items, null, (dialog1, which, isChecked) -> {
+                        .setMultiChoiceItems(dialogItems, null, (dialog1, which, isChecked) -> {
                             if (isChecked) {
-                                if (items[which].equals(getString(R.string
+                                if (dialogItems[which].equals(getString(R.string
                                         .profile_boot_animation))
                                         && (Systems.getDeviceEncryptionStatus(context) > 1)
                                         && Systems.checkThemeInterfacer(context)) {
@@ -299,8 +292,8 @@ public class ProfileFragment extends Fragment {
                                             .create();
                                     dialog2.show();
                                 }
-                                selectedBackup.add(items[which]);
-                            } else selectedBackup.remove(items[which]);
+                                selectedBackup.add(dialogItems[which]);
+                            } else selectedBackup.remove(dialogItems[which]);
                         })
                         .setPositiveButton(R.string.profile_dialog_ok, null)
                         .setNegativeButton(R.string.dialog_cancel, null)
@@ -1125,6 +1118,7 @@ public class ProfileFragment extends Fragment {
             progressDialog.setMessage(progress[0]);
         }
 
+        @SuppressLint("StringFormatMatches")
         @Override
         protected Void doInBackground(Void... params) {
             ProfileFragment profileFragment = ref.get();
@@ -1139,17 +1133,12 @@ public class ProfileFragment extends Fragment {
                         String compilePackage = toBeCompiled.get(i).get(0);
                         ProfileItem currentItem = items.get(compilePackage);
 
-                        @SuppressLint("StringFormatMatches")
                         // Seems like there's a bug with lint according to
-                                // https://stackoverflow.com/questions/23960019/
-                                // lint-gives-wrong-format-type-when-using-long-values-in-strings
-                                // -xml
-
-                                String format = String.format(
-                                profileFragment.getString(R.string.profile_compile_progress),
-                                i + 1,
-                                toBeCompiled.size(),
-                                compilePackage);
+                        // https://stackoverflow.com/questions/23960019
+                        // lint-gives-wrong-format-type-when-using-long-values-in-strings
+                        // -xml
+                        String format = String.format(profileFragment.getString(R.string.profile_compile_progress),
+                                i + 1, toBeCompiled.size(), compilePackage);
                         publishProgress(format);
 
                         String theme = currentItem.getParentTheme();

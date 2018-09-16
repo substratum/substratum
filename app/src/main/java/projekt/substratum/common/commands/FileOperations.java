@@ -126,7 +126,14 @@ public class FileOperations {
      * Mount system RW
      */
     public static void mountRW() {
-        Root.runCommand(String.format("mount -t auto -o %s %s", checkBox("rw"), References.isMagisk() ? References.MAGISK_MIRROR_MOUNT_POINT : "/system"));
+        Root.runCommand("mount -t auto -o " + checkBox("rw") + " /system");
+    }
+
+    /**
+     * Mount any mountpoint as RW
+     */
+    public static void mountRWMagisk() {
+        Root.runCommand("mount -t auto -o " + checkBox("rw") + " " + References.MAGISK_MIRROR_MOUNT_POINT);
     }
 
     /**
@@ -147,7 +154,14 @@ public class FileOperations {
      * Mount system RO
      */
     public static void mountRO() {
-        Root.runCommand(String.format("mount -t auto -o %s %s", checkBox("ro"), References.isMagisk() ? References.MAGISK_MIRROR_MOUNT_POINT : "/system"));
+        Root.runCommand("mount -t auto -o " + checkBox("ro") + " /system");
+    }
+
+    /**
+     * Mount any mountpoint as RO
+     */
+    public static void mountROMagisk() {
+        Root.runCommand("mount -t auto -o " + checkBox("ro") + " " + References.MAGISK_MIRROR_MOUNT_POINT);
     }
 
     /**

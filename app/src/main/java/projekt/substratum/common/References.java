@@ -269,6 +269,13 @@ public class References {
         return pieDir;
     }
 
+    public static String getPieMountPoint() {
+        if (isMagisk())
+            return MAGISK_MIRROR_MOUNT_POINT;
+        else
+            return "/system";
+    }
+
     public static Boolean isMagisk() {
         if (isMagisk == null) {
             isMagisk = getPieDir().equals(P_MAGISK_DIR);

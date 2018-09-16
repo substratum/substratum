@@ -197,11 +197,11 @@ class OverlaysManager {
      * @param overlays Overlays fragment
      */
     static void legacyDisable(Overlays overlays) {
-        String current_directory;
+        String currentDirectory;
         if (inNexusFilter()) {
-            current_directory = PIXEL_NEXUS_DIR;
+            currentDirectory = PIXEL_NEXUS_DIR;
         } else {
-            current_directory = LEGACY_NEXUS_DIR;
+            currentDirectory = LEGACY_NEXUS_DIR;
         }
 
         if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
@@ -228,7 +228,7 @@ class OverlaysManager {
                 overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
                 for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                     FileOperations.mountRW();
-                    FileOperations.delete(overlays.context, current_directory +
+                    FileOperations.delete(overlays.context, currentDirectory +
                             overlays.currentInstance.checkedOverlays.get(i)
                                     .getFullOverlayParameters() + ".apk");
                     overlays.overlaysAdapter.notifyDataSetChanged();
@@ -273,7 +273,7 @@ class OverlaysManager {
         }
     }
 
-    static void endingEnableDisable(Overlays overlays, Context context) {
+    private static void endingEnableDisable(Overlays overlays, Context context) {
         if ((overlays != null) && (context != null)) {
             if (!overlays.currentInstance.finalRunner.isEmpty()) {
                 List<String> to_analyze = new ArrayList<>();

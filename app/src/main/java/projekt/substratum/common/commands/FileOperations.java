@@ -18,6 +18,7 @@ import androidx.annotation.RestrictTo;
 import org.apache.commons.io.FileUtils;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.util.helpers.Root;
@@ -36,6 +37,7 @@ import java.io.OutputStream;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
 import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
+import static projekt.substratum.common.References.isMagisk;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
@@ -126,14 +128,12 @@ public class FileOperations {
      * Mount system RW
      */
     public static void mountRW() {
-        Root.runCommand("mount -t auto -o " + checkBox("rw") + " /system");
-    }
-
-    /**
-     * Mount any mountpoint as RW
-     */
-    public static void mountRWMagisk() {
-        Root.runCommand("mount -t auto -o " + checkBox("rw") + " " + References.MAGISK_MIRROR_MOUNT_POINT);
+        final String mountPoint;
+        if (Systems.IS_PIE)
+            mountPoint = References.getPieMountPoint();
+        else
+            mountPoint = "/system";
+        Root.runCommand(String.format("mount -t auto -o %s %s", checkBox("rw"), mountPoint));
     }
 
     /**
@@ -154,14 +154,12 @@ public class FileOperations {
      * Mount system RO
      */
     public static void mountRO() {
-        Root.runCommand("mount -t auto -o " + checkBox("ro") + " /system");
-    }
-
-    /**
-     * Mount any mountpoint as RO
-     */
-    public static void mountROMagisk() {
-        Root.runCommand("mount -t auto -o " + checkBox("ro") + " " + References.MAGISK_MIRROR_MOUNT_POINT);
+        final String mountPoint;
+        if (Systems.IS_PIE)
+            mountPoint = References.getPieMountPoint();
+        else
+            mountPoint = "/system";
+        Root.runCommand(String.format("mount -t auto -o %s %s", checkBox("ro"), mountPoint));
     }
 
     /**

@@ -727,17 +727,11 @@ public class ThemeManager {
         }
 
         if (Systems.IS_PIE && !checkSubstratumService(context)) {
-            if (isMagisk())
-                FileOperations.mountRWMagisk();
-            else
-                FileOperations.mountRW();
+            FileOperations.mountRW();
             for (String overlay : overlays) {
                 FileOperations.bruteforceDelete(References.getPieDir() + '_' + overlay + ".apk");
             }
-            if (isMagisk())
-                FileOperations.mountROMagisk();
-            else
-                FileOperations.mountRO();
+            FileOperations.mountRO();
             return;
         }
 

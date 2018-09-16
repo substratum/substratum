@@ -118,6 +118,7 @@ import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.References.getPieDir;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
@@ -675,18 +676,20 @@ public class ProfileFragment extends Fragment {
                         }
                     }
                 } else {
-                    String current_directory;
+                    String currentDirectory;
                     if (projekt.substratum.common.Resources.inNexusFilter()) {
-                        current_directory = SYSTEM_OVERLAY;
+                        currentDirectory = SYSTEM_OVERLAY;
+                    } else if (Systems.IS_PIE) {
+                        currentDirectory = getPieDir() + "_*.apk";
                     } else {
-                        current_directory = SYSTEM_VENDOR_OVERLAY;
+                        currentDirectory = SYSTEM_VENDOR_OVERLAY;
                     }
-                    File file = new File(current_directory);
+                    File file = new File(currentDirectory);
                     if (file.exists()) {
                         FileOperations.mountRW();
                         if (profileFragment.selectedBackup.contains(
                                 profileFragment.getString(R.string.profile_overlay))) {
-                            FileOperations.copyDir(profileFragment.context, current_directory,
+                            FileOperations.copyDir(profileFragment.context, currentDirectory,
                                     Environment.getExternalStorageDirectory().getAbsolutePath() +
                                             PROFILE_DIRECTORY);
                             File oldFolder = new File(Environment
@@ -819,35 +822,37 @@ public class ProfileFragment extends Fragment {
                                 .execute();
                     }
                 } else {
-                    String current_directory;
+                    String currentDirectory;
                     if (projekt.substratum.common.Resources.inNexusFilter()) {
-                        current_directory = PIXEL_NEXUS_DIR;
+                        currentDirectory = PIXEL_NEXUS_DIR;
+                    } else if (Systems.IS_PIE) {
+                        currentDirectory = getPieDir() + "_*.apk";
                     } else {
-                        current_directory = LEGACY_NEXUS_DIR;
+                        currentDirectory = LEGACY_NEXUS_DIR;
                     }
-                    File file = new File(current_directory);
+                    File file = new File(currentDirectory);
                     if (file.exists()) {
                         // Delete destination overlays
                         FileOperations.mountRW();
-                        FileOperations.delete(profileFragment.context, current_directory);
+                        FileOperations.delete(profileFragment.context, currentDirectory);
                         FileOperations.delete(profileFragment.context, THEME_DIRECTORY);
-                        FileOperations.createNewFolder(profileFragment.context, current_directory);
+                        FileOperations.createNewFolder(profileFragment.context, currentDirectory);
                         FileOperations.createNewFolder(profileFragment.context, THEME_DIRECTORY);
                         FileOperations.setPermissions(THEME_755, THEME_DIRECTORY);
 
-                        File profile_apk_files = new File(Environment
+                        File profileApkFiles = new File(Environment
                                 .getExternalStorageDirectory()
                                 .getAbsolutePath() + PROFILE_DIRECTORY +
                                 profileFragment.profileSelector.getSelectedItem() + '/');
-                        String[] located_files = profile_apk_files.list();
-                        for (String found : located_files) {
+                        String[] locatedFiles = profileApkFiles.list();
+                        for (String found : locatedFiles) {
                             if (!"audio".equals(found)) {
                                 FileOperations.copyDir(profileFragment.context, Environment
                                         .getExternalStorageDirectory()
                                         .getAbsolutePath() +
                                         PROFILE_DIRECTORY +
                                         profileFragment.profileSelector.getSelectedItem() +
-                                        '/' + found, current_directory);
+                                        '/' + found, currentDirectory);
                             } else {
                                 FileOperations.copyDir(profileFragment.context, Environment
                                         .getExternalStorageDirectory()
@@ -860,27 +865,25 @@ public class ProfileFragment extends Fragment {
                                 FileOperations.setPermissions(THEME_755, AUDIO_THEME_DIRECTORY);
                             }
                         }
-                        FileOperations.setPermissionsRecursively(THEME_644, current_directory);
-                        FileOperations.setPermissions(THEME_755, current_directory);
-                        FileOperations.setSystemFileContext(current_directory);
+                        FileOperations.setPermissionsRecursively(THEME_644, currentDirectory);
+                        FileOperations.setPermissions(THEME_755, currentDirectory);
+                        FileOperations.setSystemFileContext(currentDirectory);
                         FileOperations.mountRO();
                     } else {
-                        String vendor_location = LEGACY_NEXUS_DIR;
-                        String vendor_partition = VENDOR_DIR;
-                        String current_vendor =
-                                ((projekt.substratum.common.Resources.inNexusFilter()) ?
-                                        vendor_partition : vendor_location);
+                        String vendorLocation = LEGACY_NEXUS_DIR;
+                        String vendorPartition = VENDOR_DIR;
+                        String currentVendor = projekt.substratum.common.Resources.inNexusFilter() ? vendorPartition : vendorLocation;
                         FileOperations.mountRW();
-                        File vendor = new File(current_vendor);
+                        File vendor = new File(currentVendor);
                         if (!vendor.exists()) {
-                            if (current_vendor.equals(vendor_location)) {
-                                FileOperations.createNewFolder(current_vendor);
+                            if (currentVendor.equals(vendorLocation)) {
+                                FileOperations.createNewFolder(currentVendor);
                             } else {
                                 FileOperations.mountRWVendor();
-                                String vendor_symlink = PIXEL_NEXUS_DIR;
-                                FileOperations.createNewFolder(vendor_symlink);
-                                FileOperations.symlink(vendor_symlink, "/vendor");
-                                FileOperations.setPermissions(755, vendor_partition);
+                                String vendorSymlink = PIXEL_NEXUS_DIR;
+                                FileOperations.createNewFolder(vendorSymlink);
+                                FileOperations.symlink(vendorSymlink, "/vendor");
+                                FileOperations.setPermissions(755, vendorPartition);
                                 FileOperations.mountROVendor();
                             }
                         }
@@ -888,11 +891,11 @@ public class ProfileFragment extends Fragment {
                         FileOperations.delete(profileFragment.context, THEME_DIRECTORY);
                         FileOperations.createNewFolder(profileFragment.context, THEME_DIRECTORY);
 
-                        File profile_apk_files = new File(Environment
+                        File profileApkFiles = new File(Environment
                                 .getExternalStorageDirectory()
                                 .getAbsolutePath() + PROFILE_DIRECTORY +
                                 profileFragment.profileSelector.getSelectedItem() + '/');
-                        String[] located_files = profile_apk_files.list();
+                        String[] located_files = profileApkFiles.list();
                         for (String found : located_files) {
                             if (!"audio".equals(found)) {
                                 FileOperations.copyDir(profileFragment.context, Environment
@@ -900,7 +903,7 @@ public class ProfileFragment extends Fragment {
                                         .getAbsolutePath() +
                                         PROFILE_DIRECTORY +
                                         profileFragment.profileSelector.getSelectedItem() +
-                                        '/' + found, current_directory);
+                                        '/' + found, currentDirectory);
                             } else {
                                 FileOperations.setPermissions(755, THEME_DIRECTORY);
                                 FileOperations.copyDir(profileFragment.context, Environment
@@ -914,9 +917,9 @@ public class ProfileFragment extends Fragment {
                                 FileOperations.setPermissions(THEME_755, AUDIO_THEME_DIRECTORY);
                             }
                         }
-                        FileOperations.setPermissionsRecursively(THEME_644, current_directory);
-                        FileOperations.setPermissions(THEME_755, current_directory);
-                        FileOperations.setSystemFileContext(current_directory);
+                        FileOperations.setPermissionsRecursively(THEME_644, currentDirectory);
+                        FileOperations.setPermissions(THEME_755, currentDirectory);
+                        FileOperations.setSystemFileContext(currentDirectory);
                         FileOperations.mountRO();
 
                         // Restore wallpaper

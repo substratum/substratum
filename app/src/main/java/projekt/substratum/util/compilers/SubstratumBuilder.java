@@ -351,17 +351,11 @@ public class SubstratumBuilder {
             if (isDeviceOMS) {
                 if (Systems.IS_PIE && !Systems.checkSubstratumService(context)) {
                     // Brute force install APKs because thanks Google
-                    if (isMagisk())
-                        FileOperations.mountRWMagisk();
-                    else
-                        FileOperations.mountRW();
+                    FileOperations.mountRW();
                     final String overlay = References.getPieDir() + "_" + overlayName + ".apk";
                     FileOperations.move(context, signedOverlayAPKPath, overlay);
                     FileOperations.setPermissions(644, overlay);
-                    if (isMagisk())
-                        FileOperations.mountROMagisk();
-                    else
-                        FileOperations.mountRO();
+                    FileOperations.mountRO();
                 } else if (!Systems.isNewSamsungDeviceAndromeda(context)) {
                     specialSnowflake = false;
                     if (Resources.FRAMEWORK.equals(overlayPackage) ||

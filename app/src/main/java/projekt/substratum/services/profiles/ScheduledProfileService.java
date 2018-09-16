@@ -22,6 +22,7 @@ import androidx.core.app.NotificationCompat;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.activities.profiles.ProfileErrorInfoActivity;
+import projekt.substratum.common.Internal;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
@@ -208,11 +209,9 @@ public class ScheduledProfileService extends JobService {
                     if (bootanimation.exists() &&
                             (Systems.getDeviceEncryptionStatus(context) > 1)) {
                         FileOperations.mountRW();
-                        FileOperations.move(context, "/system/media/bootanimation.zip",
-                                "/system/madia/bootanimation-backup.zip");
-                        FileOperations.copy(context, bootanimation.getAbsolutePath(),
-                                "/system/media/bootanimation.zip");
-                        FileOperations.setPermissions(644, "/system/media/bootanimation.zip");
+                        FileOperations.move(context, Internal.BOOTANIMATION_LOCATION, Internal.BOOTANIMATION_BU_LOCATION);
+                        FileOperations.copy(context, bootanimation.getAbsolutePath(), Internal.BOOTANIMATION_LOCATION);
+                        FileOperations.setPermissions(644, Internal.BOOTANIMATION_LOCATION);
                         FileOperations.mountRO();
                     }
 

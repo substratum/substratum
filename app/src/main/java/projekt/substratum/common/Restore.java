@@ -46,6 +46,7 @@ import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.References.getPieDir;
 import static projekt.substratum.common.Resources.isBootAnimationSupported;
 import static projekt.substratum.common.Resources.isFontsSupported;
 import static projekt.substratum.common.Resources.isSoundsSupported;
@@ -282,6 +283,7 @@ public class Restore {
                         FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR);
                         FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR);
                         FileOperations.bruteforceDelete(VENDOR_DIR);
+                        FileOperations.bruteforceDelete(getPieDir() + "_*.apk");
                         FileOperations.mountROVendor();
                         FileOperations.mountROData();
                         FileOperations.mountRO();
@@ -363,10 +365,9 @@ public class Restore {
         protected void onPreExecute() {
             Activity activity = ref.get();
             if (activity != null) {
-                Context context = activity.getApplicationContext();
                 if (References.ENABLE_EXTRAS_DIALOG) {
-                    alertDialog = new ProgressDialog(context, R.style.RestoreDialog);
-                    alertDialog.setMessage(context.getString(R.string.manage_dialog_performing));
+                    alertDialog = new ProgressDialog(ref.get(), R.style.RestoreDialog);
+                    alertDialog.setMessage(ref.get().getString(R.string.manage_dialog_performing));
                     alertDialog.setIndeterminate(true);
                     alertDialog.setCancelable(false);
                     alertDialog.show();

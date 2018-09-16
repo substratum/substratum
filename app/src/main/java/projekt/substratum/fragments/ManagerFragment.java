@@ -81,6 +81,7 @@ import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.References.getPieDir;
 import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
@@ -988,6 +989,8 @@ public class ManagerFragment extends Fragment {
                                         fragment.overlaysList.get(i).getName() + ".apk");
                                 FileOperations.bruteforceDelete(VENDOR_DIR +
                                         fragment.overlaysList.get(i).getName() + ".apk");
+                                FileOperations.bruteforceDelete(getPieDir() +
+                                        "_" + fragment.overlaysList.get(i).getName() + ".apk");
                                 String legacyResourceIdmap =
                                         (LEGACY_NEXUS_DIR.substring(1) +
                                                 fragment.overlaysList.get(i).getName())

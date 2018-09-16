@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements
     private ActionBar supportActionBar;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog progressDialog;
-    private SharedPreferences prefs = Substratum.getPreferences();
+    private static final SharedPreferences prefs = Substratum.getPreferences();
     private LocalBroadcastManager localBroadcastManager;
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
@@ -1111,7 +1111,7 @@ public class MainActivity extends AppCompatActivity implements
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                     } else if (Systems.isAndromedaDevice(context) &&
-                            !AndromedaService.checkServerActivity()) {
+                            (!AndromedaService.checkServerActivity() || prefs.getBoolean("sungstromeda_mode", false))) {
                         TextView andromedaTitle = activity.progressDialog.findViewById(R.id.andromeda_title);
                         Button andromedaOfflineButton = activity.progressDialog.findViewById(R.id.andromeda_offline_button);
                         TextView andromedaDebugText = activity.progressDialog.findViewById(R.id.andromeda_debug_text);

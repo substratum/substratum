@@ -396,8 +396,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getPreferenceManager().findPreference("grid_style_cards_count");
         String toFormat =
                 String.format(getString(R.string.grid_size_text),
-                        DEFAULT_GRID_COUNT,
-                        prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT));
+                        prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT),
+                        DEFAULT_GRID_COUNT);
         gridStyleCardsCount.setSummary(toFormat);
         gridStyleCardsCount.setOnPreferenceClickListener(
                 preference -> {
@@ -405,11 +405,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     numberPickerDialog.setTitle(getString(R.string.grid_size_title));
 
                     NumberPicker numberPicker = new NumberPicker(context);
-                    // Maximum overlay priority count
+                    // Maximum grid columns count
                     numberPicker.setMaxValue(References.MAX_GRID_COUNT);
-                    // Minimum overlay priority count
+                    // Minimum grid columns count
                     numberPicker.setMinValue(References.MIN_GRID_COUNT);
-                    // Set the value to the current chosen priority by the user
+                    // Set the value to the current chosen grid columns count by the user
                     numberPicker.setValue(
                             prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT));
                     // Do not show the soft keyboard
@@ -431,11 +431,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 break;
                         }
 
-                        gridStyleCardsCount.setSummary(
-                                String.format(
-                                        getString(R.string.grid_size_text),
-                                        DEFAULT_GRID_COUNT,
-                                        newCount));
+                        gridStyleCardsCount.setSummary(String.format(getString(R.string.grid_size_text), newCount, DEFAULT_GRID_COUNT));
                     });
                     numberPickerDialog.setNegativeButton(android.R.string.cancel, (dialogInterface, i) ->
                             dialogInterface.cancel());
@@ -799,10 +795,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 aboutSamsung.setVisible(false);
             }
 
-            @SuppressLint("StringFormatMatches") String formatted =
-                    String.format(getString(R.string.legacy_preference_priority_text),
-                            References.DEFAULT_PRIORITY,
-                            prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY));
+            String formatted = String.format(getString(R.string.legacy_preference_priority_text),
+                    prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY),
+                    References.DEFAULT_PRIORITY);
             prioritySwitcher.setSummary(formatted);
             prioritySwitcher.setOnPreferenceClickListener(
                     preference -> {
@@ -825,11 +820,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             int newPriority = numberPicker.getValue();
                             prefs.edit().putInt(
                                     "legacy_overlay_priority", newPriority).apply();
-                            prioritySwitcher.setSummary(
-                                    String.format(
-                                            getString(R.string.legacy_preference_priority_text),
-                                            References.DEFAULT_PRIORITY,
-                                            newPriority));
+                            prioritySwitcher.setSummary(String.format(getString(R.string.legacy_preference_priority_text), newPriority, References.DEFAULT_PRIORITY));
                         });
                         prioritySwitcherDialog.setNegativeButton(android.R.string.cancel, (di, i) -> di.cancel());
                         prioritySwitcherDialog.show();

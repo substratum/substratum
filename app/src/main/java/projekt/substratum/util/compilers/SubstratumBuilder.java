@@ -47,7 +47,6 @@ import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
-import static projekt.substratum.common.References.isMagisk;
 import static projekt.substratum.common.Resources.SETTINGS;
 import static projekt.substratum.common.Resources.SYSTEMUI;
 import static projekt.substratum.common.commands.FileOperations.DA_LOG;

@@ -100,7 +100,6 @@ import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNR
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
-import static projekt.substratum.common.References.OVERLAY_UPDATE_RANGE;
 import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
@@ -140,31 +139,6 @@ public class MainActivity extends AppCompatActivity implements
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
     private Context context;
-    private BottomNavigationMenuView menuView;
-
-    /**
-     * Checks whether the overlays installed are outdated or not, based on substratum version used
-     * to compile each overlay
-     *
-     * @param context Self explanatory, bud.
-     * @return True, if there are overlays outdated, which invokes a dialog to alert the user.
-     */
-    private static boolean checkIfOverlaysOutdated(Context context) {
-        List<String> overlays = ThemeManager.listAllOverlays(context);
-        for (String overlay : overlays) {
-            int current_version = Packages.getOverlaySubstratumVersion(
-                    context,
-                    overlay);
-            if ((current_version <= OVERLAY_UPDATE_RANGE) && (current_version != 0)) {
-                Substratum.log("OverlayOutdatedCheck",
-                        "An overlay is returning " + current_version +
-                                " as Substratum's version, " +
-                                "this overlay is out of date, please uninstall and reinstall!");
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * A special function for Samsung users, to allow for queued uninstalls of overlays rather than
@@ -345,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         bottomBar.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-        menuView = (BottomNavigationMenuView) bottomBar.getChildAt(0);
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomBar.getChildAt(0);
         if (Systems.checkOMS(context) && !isSamsung(context)) {
             menuView.findViewById(R.id.tab_priorities).setVisibility(View.VISIBLE);
             menuView.findViewById(R.id.tab_profiles).setVisibility(View.VISIBLE);
@@ -902,7 +876,7 @@ public class MainActivity extends AppCompatActivity implements
                                 }
 
                                 if (!Systems.checkROMVersion(context)) {
-                                    activity.prefs.edit().remove("oms_state").apply();
+                                    prefs.edit().remove("oms_state").apply();
                                     Systems.setROMVersion(true);
                                     Systems.setAndCheckOMS(context);
                                     Systems.setAndCheckSubstratumService();
@@ -910,7 +884,7 @@ public class MainActivity extends AppCompatActivity implements
                                 }
 
                                 if (!Systems.checkOMS(context) &&
-                                        !activity.prefs.contains("legacy_dismissal")) {
+                                        !prefs.contains("legacy_dismissal")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                                     alert.setTitle(R.string.warning_title);
                                     if (isSamsungDevice(context)) {
@@ -922,7 +896,7 @@ public class MainActivity extends AppCompatActivity implements
                                             (dialog2, i2) -> dialog2.cancel());
                                     alert.setNeutralButton(R.string.dialog_do_not_show_again,
                                             (dialog3, i3) -> {
-                                                activity.prefs.edit().putBoolean(
+                                                prefs.edit().putBoolean(
                                                         "legacy_dismissal", true).apply();
                                                 dialog3.cancel();
                                             });
@@ -931,7 +905,7 @@ public class MainActivity extends AppCompatActivity implements
 
                                 if (Systems.checkOMS(context) &&
                                         Systems.isXiaomiDevice(context) &&
-                                        !activity.prefs.contains("xiaomi_enable_development")) {
+                                        !prefs.contains("xiaomi_enable_development")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                                     alert.setTitle(R.string.warning_title);
                                     alert.setMessage(R.string.xiaomi_warning_content);
@@ -944,7 +918,7 @@ public class MainActivity extends AppCompatActivity implements
                                     });
                                     alert.setNeutralButton(R.string.dialog_do_not_show_again,
                                             (dialog3, i3) -> {
-                                                activity.prefs.edit().putBoolean(
+                                                prefs.edit().putBoolean(
                                                         "xiaomi_enable_development", true).apply();
                                                 dialog3.cancel();
                                             });
@@ -953,7 +927,7 @@ public class MainActivity extends AppCompatActivity implements
 
                                 if ((checkThemeSystemModule(context) ==
                                         OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
-                                        !activity.prefs.contains("rooted_oms_dismissal")) {
+                                        !prefs.contains("rooted_oms_dismissal")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                                     alert.setTitle(R.string.rooted_oms_dialog_warning_title);
                                     alert.setMessage(R.string.rooted_oms_dialog_warning_text);
@@ -961,7 +935,7 @@ public class MainActivity extends AppCompatActivity implements
                                             (dialog2, i2) -> dialog2.cancel());
                                     alert.setNeutralButton(R.string.dialog_do_not_show_again,
                                             (dialog3, i3) -> {
-                                                activity.prefs.edit().putBoolean(
+                                                prefs.edit().putBoolean(
                                                         "rooted_oms_dismissal", true).apply();
                                                 dialog3.cancel();
                                             });
@@ -977,14 +951,14 @@ public class MainActivity extends AppCompatActivity implements
                 } else {
                     if (!Systems.checkROMVersion(context)) {
                         Systems.setROMVersion(true);
-                        activity.prefs.edit().remove("oms_state").apply();
+                        prefs.edit().remove("oms_state").apply();
                         Systems.setAndCheckOMS(context);
                         Systems.setAndCheckSubstratumService();
                         activity.recreate();
                     }
 
                     if (!Systems.checkOMS(context) &&
-                            !activity.prefs.contains("legacy_dismissal")) {
+                            !prefs.contains("legacy_dismissal")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                         alert.setTitle(R.string.warning_title);
                         if (isSamsungDevice(context)) {
@@ -996,7 +970,7 @@ public class MainActivity extends AppCompatActivity implements
                                 dialog2.cancel());
                         alert.setNeutralButton(R.string.dialog_do_not_show_again,
                                 (dialog3, i3) -> {
-                                    activity.prefs.edit().putBoolean(
+                                    prefs.edit().putBoolean(
                                             "legacy_dismissal", true).apply();
                                     dialog3.cancel();
                                 });
@@ -1005,7 +979,7 @@ public class MainActivity extends AppCompatActivity implements
 
                     if (Systems.checkOMS(context) &&
                             Systems.isXiaomiDevice(context) &&
-                            !activity.prefs.contains("xiaomi_enable_development")) {
+                            !prefs.contains("xiaomi_enable_development")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                         alert.setTitle(R.string.warning_title);
                         alert.setMessage(R.string.xiaomi_warning_content);
@@ -1018,7 +992,7 @@ public class MainActivity extends AppCompatActivity implements
                         });
                         alert.setNeutralButton(R.string.dialog_do_not_show_again,
                                 (dialog3, i3) -> {
-                                    activity.prefs.edit().putBoolean(
+                                    prefs.edit().putBoolean(
                                             "xiaomi_enable_development", true).apply();
                                     dialog3.cancel();
                                 });
@@ -1027,7 +1001,7 @@ public class MainActivity extends AppCompatActivity implements
 
                     if ((checkThemeSystemModule(context) ==
                             OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
-                            !activity.prefs.contains("rooted_oms_dismissal")) {
+                            !prefs.contains("rooted_oms_dismissal")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                         alert.setTitle(R.string.rooted_oms_dialog_warning_title);
                         alert.setMessage(R.string.rooted_oms_dialog_warning_text);
@@ -1035,7 +1009,7 @@ public class MainActivity extends AppCompatActivity implements
                                 (dialog2, i2) -> dialog2.cancel());
                         alert.setNeutralButton(R.string.dialog_do_not_show_again,
                                 (dialog3, i3) -> {
-                                    activity.prefs.edit().putBoolean(
+                                    prefs.edit().putBoolean(
                                             "rooted_oms_dismissal", true).apply();
                                     dialog3.cancel();
                                 });
@@ -1060,17 +1034,8 @@ public class MainActivity extends AppCompatActivity implements
             super.onPostExecute(dialogReturnBool);
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.context;
                 showDialogOrNot(dialogReturnBool);
                 if (!dialogReturnBool) permissionCheck();
-                if (checkIfOverlaysOutdated(context)) {
-                    new AlertDialog.Builder(activity)
-                            .setTitle(R.string.overlays_outdated)
-                            .setMessage(R.string.overlays_outdated_message)
-                            .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {
-                            })
-                            .show();
-                }
             }
         }
 

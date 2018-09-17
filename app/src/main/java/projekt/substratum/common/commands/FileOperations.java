@@ -37,7 +37,6 @@ import java.io.OutputStream;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
 import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
-import static projekt.substratum.common.References.isMagisk;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 

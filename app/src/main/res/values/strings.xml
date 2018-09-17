@@ -46,9 +46,9 @@
     <string name="rooted_oms_dialog_warning_text">If you were with us when masquerade was our backend system, you\'d know that we needed root to do many things with OMS. That was the time when the system was extremely slow!\n\nWe also had a mode where substratum could run without masquerade and it would not offload any resource changes from our own app, meaning substratum will start lagging when enabling/disabling, since configuration changes are extremely heavy!\n\nIf you can, it would be highly recommended that you run a rootless variant such as Andromeda or a custom ROM with our new commits, to experience speedy theming.\n\nBy continuing using the rooted variant, there will be lags and performance issues with the app due to substratum not being able to offload any configuration changes to the system!</string>
 
     <string name="interfacer_notification_title">Substratum and Interfacer are connected!</string>
-    <string name="interfacer_notification_text">The background theme services are binded, active and running.</string>
+    <string name="interfacer_notification_text">The background theme services are bound, active and running.</string>
     <string name="andromeda_notification_title">Substratum and Andromeda are connected!</string>
-    <string name="andromeda_notification_text">The background theme services are binded, active and running.</string>
+    <string name="andromeda_notification_text">The background theme services are bound, active and running.</string>
 
     <string name="resource_commit_dialog_title">Missing Resources in %s</string>
 
@@ -132,10 +132,10 @@
     <string name="information_activity_theme_improperly_setup">"%s" has no available resources for theming!</string>
 
     <string name="legacy_preference_priority_title">Overlay priority adjustment</string>
-    <string name="legacy_preference_priority_text" formatted="false">Priority is set at (default %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Priority is set at: %d (default %d)</string>
 
     <string name="grid_size_title">Theme display column adjustment</string>
-    <string name="grid_size_text">Column count is set to (default %d): %d</string>
+    <string name="grid_size_text">Column count is set to: %d (default %d)</string>
 
     <string name="lite_mode_title">Lite Mode</string>
     <string name="lite_mode_text">Allows certain UI elements to load in reserved power mode.</string>
@@ -493,7 +493,7 @@
     <string name="settings_title_3">Theming</string>
     <string name="settings_title_clickable">System preferences</string>
     <string name="vibrate_on_compiled">Notify after theme is compiled</string>
-    <string name="vibrate_on_compiled_description">When the theme has been compiled, vibrate the device to notify the user that the compilation has completed.</string>
+    <string name="vibrate_on_compiled_description">When the theme has finished compiling, vibrate to notify the user.</string>
     <string name="manage_notification_channel">Manage notifications</string>
     <string name="hide_app_icon">Show app icon</string>
     <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
@@ -646,9 +646,6 @@
 
     <string name="settings_crash_receiver_title">Theme safety crash receiver</string>
     <string name="settings_crash_receiver_text">Automatically disable an overlay when detecting repetitive crashes on the overlaid app.</string>
-
-    <string name="overlays_outdated">Overlays outdated</string>
-    <string name="overlays_outdated_message">As of version 816 and beyond, our signature for signing overlays has changed to prevent possible signature mismatches down the road.\n\nThis means that your overlays installed must be cleaned out to install new theme updates or it will say that your overlay requires a forever update!\n\nThis message will not show when all overlays are compiled using the newest Substratum.</string>
 
     <string name="root_required_title">Root required</string>
     <string name="root_required_boot_animation">Your device is encrypted, so root is necessary to apply boot animations.</string>

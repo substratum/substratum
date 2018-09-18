@@ -70,3 +70,6 @@
 
 # SLF4J
 -keep class org.slf4j.** { *; }
+
+# Don't obfuscate anything
+-dontobfuscate

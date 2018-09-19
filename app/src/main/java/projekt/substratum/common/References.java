@@ -101,8 +101,6 @@ public class References {
     public static final boolean ENABLE_DIRECT_ASSETS_LOGGING = BuildConfig.ENHANCED_LOGGING; // Self explanatory
     public static final boolean BYPASS_SYSTEM_VERSION_CHECK = false; // For developer previews only!
     public static final boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
-    @SuppressWarnings("WeakerAccess")
-    public static final Integer OVERLAY_UPDATE_RANGE = 815; // Overlays require updating since ver
     public static final String SECURITY_UPDATE_WARN_AFTER = "2018-02-01";
     // These are specific log tags for different classes
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
@@ -259,9 +257,9 @@ public class References {
     private static Boolean isMagisk = null;
 
     public static String getPieDir() {
+        isMagisk = checkMagisk();
         if (pieDir == null) {
-            boolean isMagisk = Root.runCommand(String.format("test -d %s && echo '0'", MAGISK_MIRROR_MOUNT_POINT)).equals("0");
-            if (isMagisk)
+            if (isMagisk != null && isMagisk)
                 pieDir = P_MAGISK_DIR;
             else
                 pieDir = P_SYSTEM_DIR;
@@ -270,15 +268,19 @@ public class References {
     }
 
     public static String getPieMountPoint() {
-        if (isMagisk())
+        isMagisk = checkMagisk();
+        if (isMagisk != null && isMagisk)
             return MAGISK_MIRROR_MOUNT_POINT;
         else
             return "/system";
     }
 
-    public static Boolean isMagisk() {
+    static Boolean checkMagisk() {
         if (isMagisk == null) {
-            isMagisk = getPieDir().equals(P_MAGISK_DIR);
+            try {
+                isMagisk = Root.runCommand(String.format("test -d %s && echo '0'", MAGISK_MIRROR_MOUNT_POINT)).equals("0");
+            } catch (Exception ignored) {
+            }
         }
         return isMagisk;
     }

@@ -118,7 +118,6 @@ import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
-import static projekt.substratum.common.References.getPieDir;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
@@ -679,8 +678,6 @@ public class ProfileFragment extends Fragment {
                     String currentDirectory;
                     if (projekt.substratum.common.Resources.inNexusFilter()) {
                         currentDirectory = SYSTEM_OVERLAY;
-                    } else if (Systems.IS_PIE) {
-                        currentDirectory = getPieDir() + "_*.apk";
                     } else {
                         currentDirectory = SYSTEM_VENDOR_OVERLAY;
                     }
@@ -825,8 +822,6 @@ public class ProfileFragment extends Fragment {
                     String currentDirectory;
                     if (projekt.substratum.common.Resources.inNexusFilter()) {
                         currentDirectory = PIXEL_NEXUS_DIR;
-                    } else if (Systems.IS_PIE) {
-                        currentDirectory = getPieDir() + "_*.apk";
                     } else {
                         currentDirectory = LEGACY_NEXUS_DIR;
                     }

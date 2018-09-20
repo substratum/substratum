@@ -29,7 +29,10 @@ public class SystemCrash extends Activity {
         dialog.show();
 
         new Handler().postDelayed(() -> {
-            dialog.dismiss();
+            try {
+                dialog.dismiss();
+            } catch (IllegalArgumentException ignored) {
+            }
             final Context context = getApplicationContext();
             Intent intent = new Intent(context, LaunchActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

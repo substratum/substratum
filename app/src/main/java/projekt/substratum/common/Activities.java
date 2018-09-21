@@ -26,9 +26,10 @@ public class Activities {
     public static void launchActivityUrl(Context context,
                                          int resource) {
         try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(context.getString(resource)));
-            context.startActivity(i);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(context.getString(resource)));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         } catch (ActivityNotFoundException ignored) {
             Toast.makeText(context,
                     context.getString(R.string.activity_missing_toast),

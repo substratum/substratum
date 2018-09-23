@@ -94,7 +94,7 @@ android {
 
 ext {
     databindingVersion = '3.3.0-alpha08'
-    androidXVersion = '1.0.0-rc02'
+    androidXVersion = '1.0.0'
     firebaseVersion = '16.0.3'
     crashlyticsVersion = '2.9.5'
     glideVersion = '4.8.0'

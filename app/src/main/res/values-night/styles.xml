@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (c) 2016-2018 Projekt Substratum
+  ~ This file is part of Substratum.
+  ~
+  ~ SPDX-License-Identifier: GPL-3.0-Or-Later
+  -->
+
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_bg</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
+        <item name="android:toolbarStyle">@style/ToolbarTheme</item>
+        <item name="colorControlHighlight">@color/colorRipple</item>
+    </style>
+</resources>

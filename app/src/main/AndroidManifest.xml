@@ -139,21 +139,21 @@
         </activity>
         <activity
             android:name=".activities.floatui.FloatUILaunchActivity"
-            android:theme="@style/Theme.MaterialComponents.Translucent">
+            android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.shortcuts.RescueActivity"
-            android:theme="@style/Theme.MaterialComponents.Translucent">
+            android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.launch.ThemeLaunchActivity"
-            android:theme="@style/Theme.MaterialComponents.Translucent">
+            android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -175,7 +175,7 @@
         </activity>
         <activity
             android:name=".activities.shortcuts.AppShortcutLaunch"
-            android:theme="@style/Theme.MaterialComponents.Translucent">
+            android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -221,7 +221,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.shortcuts.OverlayManagerActivity"
-            android:theme="@style/Theme.MaterialComponents.Translucent">
+            android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

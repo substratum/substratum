@@ -209,8 +209,10 @@ public class SubstratumService {
     public static boolean checkApi() {
         try {
             final Method[] methods = ISubstratumService.class.getMethods();
+            /*
             if (Systems.IS_PIE)
                 expectedMethods.add("setEnabled");
+            */
             for (String expectedMethod : expectedMethods) {
                 boolean methodFound = false;
                 for (Method method : methods) {

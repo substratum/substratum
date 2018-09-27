@@ -30,6 +30,7 @@ public class FloatUiTile extends TileService {
     @Override
     public void onClick() {
         Intent intent = new Intent(this, FloatUILaunchActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityAndCollapse(intent);
     }
 

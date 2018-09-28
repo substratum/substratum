@@ -606,6 +606,7 @@ public class References {
         SharedPreferences.Editor editor = Substratum.getPreferences().edit();
         SharedPreferences.Editor editor2 =
                 context.getSharedPreferences("base_variant", Context.MODE_PRIVATE).edit();
+        editor.putBoolean("first_run", false);
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("oms_state", Systems.checkOMS(context));
         editor.putBoolean("vibrate_on_compiled", false);

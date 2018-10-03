@@ -789,7 +789,8 @@ public class InformationActivity extends AppCompatActivity {
             localBroadcastManager.sendBroadcast(intent);
         });
 
-        if (!Systems.checkOMS(this)) compileEnableSelected.setVisibility(View.GONE);
+        if (!Systems.checkOMS(this) || (Systems.IS_PIE && !Systems.checkSubstratumService(context)))
+            compileEnableSelected.setVisibility(View.GONE);
         compileEnableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override

@@ -986,8 +986,11 @@ public class MainActivity extends AppCompatActivity implements
                         alert.setPositiveButton(R.string.dialog_ok,
                                 (dialog2, i2) -> dialog2.cancel());
                         alert.setNegativeButton(R.string.dialog_check, (dialog, which) -> {
-                            activity.startActivity(
-                                    new Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+                            try {
+                                activity.startActivity(new Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+                            } catch (ActivityNotFoundException ignored) {
+                                Toast.makeText(context, R.string.development_settings_disabled, Toast.LENGTH_LONG).show();
+                            }
                             activity.finishAffinity();
                         });
                         alert.setNeutralButton(R.string.dialog_do_not_show_again,

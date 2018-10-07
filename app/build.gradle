@@ -120,10 +120,8 @@ dependencies {
     // Android Support Libraries
     implementation "androidx.databinding:databinding-runtime:$databindingVersion"
     implementation "androidx.appcompat:appcompat:$androidXVersion"
-    implementation "androidx.exifinterface:exifinterface:$androidXVersion"
     implementation "androidx.cardview:cardview:$androidXVersion"
     implementation "androidx.recyclerview:recyclerview:$androidXVersion"
-    implementation "androidx.legacy:legacy-support-v13:$androidXVersion"
     implementation "com.google.android.material:material:$androidXVersion"
     implementation "androidx.palette:palette:$androidXVersion"
 
@@ -139,7 +137,6 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Commons IO
-    //noinspection GradleDependency
     implementation "commons-io:commons-io:$commonsIoVersion"
 
     // APK Signer

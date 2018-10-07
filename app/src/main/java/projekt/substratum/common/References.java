@@ -191,9 +191,7 @@ public class References {
     public static final String DATA_RESOURCE_DIR = "/data/resource-cache/";
     public static final String PIXEL_NEXUS_DIR = "/system/overlay/";
     public static final String LEGACY_NEXUS_DIR = "/system/vendor/overlay/";
-    private static final String P_SYSTEM_DIR = "/system/app/";
     public static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
-    private static final String P_MAGISK_DIR = MAGISK_MIRROR_MOUNT_POINT + "/app/";
     public static final String VENDOR_DIR = "/vendor/overlay/";
     // Notification Channel
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
@@ -242,6 +240,8 @@ public class References {
     static final String heroImageMainResourceName = "heroimage_banner";
     // Specific intents Substratum should be listening to
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
+    private static final String P_SYSTEM_DIR = "/system/app/";
+    private static final String P_MAGISK_DIR = MAGISK_MIRROR_MOUNT_POINT + "/app/";
     // Control the animation duration
     private static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
     // Localized variables shared amongst common resources

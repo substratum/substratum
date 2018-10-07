@@ -11,7 +11,6 @@ import android.content.substratum.ISubstratumService;
 import android.os.Process;
 import android.os.RemoteException;
 import android.util.Log;
-import projekt.substratum.common.Systems;
 import projekt.substratum.platform.SubstratumServiceBridge;
 
 import java.lang.reflect.Method;

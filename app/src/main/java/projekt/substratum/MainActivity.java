@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final int PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS = 3;
     private static final int UNINSTALL_REQUEST_CODE = 12675;
     private static final String SELECTED_TAB_ITEM = "selected_tab_item";
+    private static final SharedPreferences prefs = Substratum.getPreferences();
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
     public static boolean instanceBasedAndromedaFailure;
@@ -134,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements
     private ActionBar supportActionBar;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog progressDialog;
-    private static final SharedPreferences prefs = Substratum.getPreferences();
     private LocalBroadcastManager localBroadcastManager;
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements
                         .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {
                             try {
                                 startActivity(
-                                    new Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+                                        new Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
                             } catch (ActivityNotFoundException ignored /* People with developer options disabled */) {
                                 Toast.makeText(this, this.getString(R.string.development_settings_disabled), Toast.LENGTH_LONG).show();
                             } finally {

@@ -163,14 +163,6 @@ public class Substratum extends Application {
         currentThread.start();
     }
 
-    private void configureCrashReporting() {
-        CrashlyticsCore crashlyticsCore = new CrashlyticsCore.Builder()
-                .disabled(BuildConfig.DEBUG)
-                .build();
-
-        Fabric.with(this, new Crashlytics.Builder().core(crashlyticsCore).build());
-    }
-
     /**
      * Restart the application after a change that requires a full exit.
      *
@@ -194,12 +186,22 @@ public class Substratum extends Application {
         new Handler().postDelayed(() -> Process.killProcess(Process.myPid()), 100L);
     }
 
-    public static SharedPreferences getPreferences() { return preferences; }
+    public static SharedPreferences getPreferences() {
+        return preferences;
+    }
 
     public static void log(final String TAG, final String message) {
         if (!BuildConfig.DEBUG)
             return;
         Log.d(TAG, message);
+    }
+
+    private void configureCrashReporting() {
+        CrashlyticsCore crashlyticsCore = new CrashlyticsCore.Builder()
+                .disabled(BuildConfig.DEBUG)
+                .build();
+
+        Fabric.with(this, new Crashlytics.Builder().core(crashlyticsCore).build());
     }
 
     @Override

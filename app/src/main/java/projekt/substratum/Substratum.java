@@ -22,6 +22,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.media.AudioAttributes;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -189,7 +191,7 @@ public class Substratum extends Application {
         if (mgr != null) mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 10, mPendingIntent);
 
         // Kill the application
-        System.exit(0);
+        new Handler().postDelayed(() -> Process.killProcess(Process.myPid()), 100L);
     }
 
     public static SharedPreferences getPreferences() { return preferences; }

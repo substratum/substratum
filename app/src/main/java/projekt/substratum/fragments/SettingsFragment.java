@@ -21,7 +21,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -283,8 +282,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     forceEnglish.setChecked(true);
                     prefs.edit().putBoolean("force_english_locale", (Boolean) newValue).apply();
                     Lunchbar.make(getView(), getString(R.string.locale_restart_message), Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.restart), v -> new Handler().postDelayed(() ->
-                                    Substratum.restartSubstratum(context), 0))
+                            .setAction(getString(R.string.restart), v -> Substratum.restartSubstratum(context))
                             .show();
                     return false;
                 }
@@ -349,8 +347,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
                         Snackbar.LENGTH_LONG);
-                lunchbar.setAction(getString(R.string.restart), v ->
-                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
+                lunchbar.setAction(getString(R.string.restart), v -> Substratum.restartSubstratum(context));
                 lunchbar.show();
             });
             auto.setOnClickListener(view -> {
@@ -361,8 +358,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
                         Snackbar.LENGTH_LONG);
-                lunchbar.setAction(getString(R.string.restart), v ->
-                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
+                lunchbar.setAction(getString(R.string.restart), v -> Substratum.restartSubstratum(context));
                 lunchbar.show();
             });
             dark.setOnClickListener(view -> {
@@ -373,8 +369,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Snackbar lunchbar = Lunchbar.make(getView(),
                         getString(R.string.app_theme_change),
                         Snackbar.LENGTH_LONG);
-                lunchbar.setAction(getString(R.string.restart), v ->
-                        new Handler().postDelayed(() -> Substratum.restartSubstratum(context), 0));
+                lunchbar.setAction(getString(R.string.restart), v -> Substratum.restartSubstratum(context));
                 lunchbar.show();
             });
             sheetDialog.setContentView(sheetView);
@@ -543,8 +538,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         prefs.edit().putBoolean("auto_disable_target_overlays", !isEnabled).apply();
                         prefs.edit().putBoolean("sungstromeda_mode", isEnabled).apply();
                         sungstromedaMode.setChecked((Boolean) newValue);
-                        new Handler().postDelayed(() ->
-                                Substratum.restartSubstratum(context), 1000L);
+                        Substratum.restartSubstratum(context);
                         return false;
 
                     });

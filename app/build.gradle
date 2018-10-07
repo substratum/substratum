@@ -93,11 +93,25 @@ android {
 }
 
 ext {
-    databindingVersion = '3.3.0-alpha08'
+    aboutVersion = '6.0.9'
     androidXVersion = '1.0.0'
-    firebaseVersion = '16.0.3'
+    apkSigVersion = '3.2.0'
+    caocVersion = '2.2.0'
+    commonsIoVersion = '2.5'
     crashlyticsVersion = '2.9.5'
+    databindingVersion = '3.3.0-alpha08'
+    expandableLayoutVersion = '2.9.2'
+    fabSheetVersion = '1.2.1'
+    firebaseVersion = '16.0.4'
+    firebaseDBVersion = '16.0.3'
+    floatingHeadVersion = '2.3.2'
+    gestureRecyclerVersion = '1.5.0'
     glideVersion = '4.8.0'
+    imageCropperVersion = '2.7.0'
+    slf4jVersion = '1.7.16'
+    svgViewVersion = '1.0.5'
+    welcomeVersion = '1.4.1'
+    ztZipVersion = '1.13'
 }
 
 dependencies {
@@ -116,7 +130,7 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:16.0.1"
+    implementation "com.google.firebase:firebase-database:$firebaseDBVersion"
 
     // Crashlytics
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
@@ -127,45 +141,44 @@ dependencies {
 
     // Commons IO
     //noinspection GradleDependency
-    implementation 'commons-io:commons-io:2.5'
+    implementation "commons-io:commons-io:$commonsIoVersion"
 
     // APK Signer
-    implementation 'com.android.tools.build:apksig:3.1.4'
+    implementation "com.android.tools.build:apksig:$apkSigVersion"
 
     // App Intro
-    implementation 'com.stephentuso:welcome:1.4.1'
+    implementation "com.stephentuso:welcome:$welcomeVersion"
 
     // Floating Action Buttons
-    implementation 'com.gordonwong:material-sheet-fab:1.2.1'
+    implementation "com.gordonwong:material-sheet-fab:$fabSheetVersion"
 
     // About Libraries
-    implementation('com.mikepenz:aboutlibraries:6.0.9@aar') {
+    implementation("com.mikepenz:aboutlibraries:$aboutVersion@aar") {
         transitive = true
     }
 
     // Gesture RecyclerView
-    implementation 'com.thesurix.gesturerecycler:gesture-recycler:1.5.0'
+    implementation "com.thesurix.gesturerecycler:gesture-recycler:$gestureRecyclerVersion"
 
     // ZT Zip
-    //noinspection GradleDependency
-    implementation 'org.zeroturnaround:zt-zip:1.13'
+    implementation "org.zeroturnaround:zt-zip:$ztZipVersion"
 
     // Image Processing
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+    implementation "com.theartofdev.edmodo:android-image-cropper:$imageCropperVersion"
 
     // Expandable Layout
-    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    implementation "net.cachapa.expandablelayout:expandablelayout:$expandableLayoutVersion"
 
     // Floating App Head
-    implementation 'com.github.recruit-lifestyle:FloatingView:2.3.2'
+    implementation "com.github.recruit-lifestyle:FloatingView:$floatingHeadVersion"
 
     // Crash Activity
-    implementation 'cat.ereza:customactivityoncrash:2.2.0'
+    implementation "cat.ereza:customactivityoncrash:$caocVersion"
 
     // Splash screen svg animation
-    implementation 'com.jaredrummler:animated-svg-view:1.0.5'
+    implementation "com.jaredrummler:animated-svg-view:$svgViewVersion"
 
     // SLF4J LoggerFactory
-    implementation 'org.slf4j:slf4j-api:1.7.16'
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
 }
 apply plugin: 'com.google.gms.google-services'

@@ -16,7 +16,7 @@
         <item name="android:statusBarColor">@color/statusBarColor</item>
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
         <item name="android:toolbarStyle">@style/ToolbarTheme</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="colorControlHighlight">@color/colorRipple</item>
     </style>
 

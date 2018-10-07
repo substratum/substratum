@@ -126,7 +126,6 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v13:$androidXVersion"
     implementation "com.google.android.material:material:$androidXVersion"
     implementation "androidx.palette:palette:$androidXVersion"
-    implementation "androidx.legacy:legacy-preference-v14:$androidXVersion"
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebaseVersion"

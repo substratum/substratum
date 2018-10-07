@@ -585,7 +585,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
             // About Andromeda
-            if (Systems.isAndromedaDevice(context)) {
+            if (Systems.isAndromedaDevice(context) && !Systems.IS_PIE) {
                 aboutAndromeda.setIcon(Packages.getAppIcon(context, ANDROMEDA_PACKAGE));
                 try {
                     PackageInfo info =

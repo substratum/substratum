@@ -300,6 +300,10 @@ public class Systems {
      * @return True, if using Andromeda
      */
     public static boolean checkAndromeda(Context context) {
+        if (Systems.IS_PIE)
+            // Pls no
+            return false;
+
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
                     "activity has been destroyed, cannot check if andromeda is used");
@@ -326,6 +330,10 @@ public class Systems {
      * @return True, if using Andromeda
      */
     public static boolean isAndromedaDevice(Context context) {
+        if (Systems.IS_PIE)
+            // Pls no
+            return false;
+
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
                     "activity has been destroyed, cannot check if andromeda is used");

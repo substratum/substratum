@@ -180,7 +180,7 @@ public class Substratum extends Application {
                 PendingIntent.getActivity(context,
                         0, startActivity, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (mgr != null) mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 10, mPendingIntent);
+        if (mgr != null) mgr.set(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis() + 10, mPendingIntent);
 
         // Kill the application
         new Handler().postDelayed(() -> Process.killProcess(Process.myPid()), 100L);

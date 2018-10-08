@@ -692,8 +692,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             overlayUpdater.setChecked(prefs.getBoolean("overlay_updater", false));
             overlayUpdater.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        prefs.edit().putBoolean("overlay_updater", (Boolean) newValue).apply();
-                        overlayUpdater.setChecked(false);
+                        boolean value = (boolean) newValue;
+                        prefs.edit().putBoolean("overlay_updater", value).apply();
+                        overlayUpdater.setChecked(value);
                         return false;
                     });
 

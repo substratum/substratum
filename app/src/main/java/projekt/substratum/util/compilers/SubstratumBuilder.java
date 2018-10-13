@@ -247,10 +247,9 @@ public class SubstratumBuilder {
 
         // 5. Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
         if (!hasErroredOut) {
-            String targetPkg = Packages.getInstalledDirectory(context, targetPackage);
             String commands = CompilerCommands.createAAPTShellCommands(
                     workArea,
-                    targetPkg,
+                    targetPackage,
                     overlayPackage,
                     parse2ThemeName,
                     false,
@@ -265,7 +264,7 @@ public class SubstratumBuilder {
             hasErroredOut = !runAAPTShellCommands(
                     commands,
                     workArea,
-                    targetPkg,
+                    targetPackage,
                     parse2ThemeName,
                     overlayPackage,
                     additionalVariant,

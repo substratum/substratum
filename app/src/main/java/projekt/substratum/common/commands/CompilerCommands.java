@@ -8,6 +8,7 @@
 package projekt.substratum.common.commands;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import projekt.substratum.BuildConfig;
@@ -200,7 +201,7 @@ public class CompilerCommands {
      * Create the AAPT working shell commands
      *
      * @param workArea          Working area
-     * @param targetPkg         Target package to build against
+     * @param targetPackage     Target package to build against
      * @param overlayPackage    Overlay package
      * @param themeName         Theme name
      * @param legacySwitch      Fallback support
@@ -214,7 +215,7 @@ public class CompilerCommands {
     // inside the method.
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     public static String createAAPTShellCommands(String workArea,
-                                                 String targetPkg,
+                                                 String targetPackage,
                                                  String overlayPackage,
                                                  String themeName,
                                                  boolean legacySwitch,
@@ -226,29 +227,36 @@ public class CompilerCommands {
         // Initialize the AAPT command
         sb.append(context.getFilesDir().getAbsolutePath() + "/aapt p ");
         // Compile with specified manifest
-        sb.append("-M " + workArea + "/AndroidManifest.xml ");
+        sb.append("-M ").append(workArea).append("/AndroidManifest.xml ");
         // If the user picked a variant (type2), compile multiple directories
-        sb.append(((isNotNullOrEmpty(additionalVariant)) ?
-                ("-S " + workArea + '/' + "type2_" + additionalVariant + "/ ") : ""));
+        if (isNotNullOrEmpty(additionalVariant))
+            sb.append("-S ").append(workArea).append("/").append("type2_").append(additionalVariant).append("/ ");
         // If the user picked an asset variant (type4), compile multiple directories
-        sb.append(((isNotNullOrEmpty(assetReplacement)) ?
-                ("-A " + workArea + "/assets/ ") : ""));
+        if (isNotNullOrEmpty(assetReplacement))
+            sb.append("-A ").append(workArea).append("/assets/ ");
         // We will compile a volatile directory where we make temporary changes to
-        sb.append("-S " + workArea + dir + "/ ");
+        sb.append("-S ").append(workArea).append(dir).append("/ ");
         // Build upon the system's Android framework
-        sb.append("-I " + "/system/framework/framework-res.apk ");
+        sb.append("-I ").append("/system/framework/framework-res.apk ");
         // Build upon the common Substratum framework
         if (Packages.isPackageInstalled(context, COMMON_PACKAGE)) {
             sb.append("-I " + Packages.getInstalledDirectory(context, COMMON_PACKAGE) + ' ');
         }
-        // If running on the AppCompat commits (first run), it will build upon the app too
-        if (targetPkg != null && !targetPkg.equals("null")) {
-            sb.append((legacySwitch) ? "" : ("-I " + targetPkg + ' '));
+        String[] splitLocations = getSplitLocations(context, targetPackage);
+        if (splitLocations != null) {
+            for (String split : splitLocations) {
+                sb.append("-I ").append(split).append(" ");
+            }
         }
-
+        final String packagePath = Packages.getInstalledDirectory(context, targetPackage);
+        // If running on the AppCompat commits (first run), it will build upon the app too
+        if (packagePath != null && !packagePath.equals("null")) {
+            if (!legacySwitch)
+                sb.append("-I ").append(packagePath).append(" ");
+        }
         // Specify the file output directory
-        sb.append("-F " + workArea + '/' + overlayPackage + '.' +
-                themeName + "-unsigned.apk ");
+        sb.append("-F ").append(workArea).append("/").append(overlayPackage)
+                .append(".").append(themeName).append("-unsigned.apk ");
         // arguments to conclude the AAPT build
         if (ENABLE_AAPT_OUTPUT) {
             sb.append("-v ");
@@ -261,6 +269,14 @@ public class CompilerCommands {
         sb.append('\n');
 
         return sb.toString();
+    }
+
+    private static String[] getSplitLocations(Context context, String packageName) {
+        try {
+            return context.getPackageManager().getApplicationInfo(packageName, 0).splitSourceDirs;
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+        return new String[0];
     }
 
     /**

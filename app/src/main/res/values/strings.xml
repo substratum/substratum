@@ -733,4 +733,6 @@
     <string name="locale_restart_message">Restart app to switch language</string>
     <string name="restart">Restart</string>
 
+    <string name="module_placed_reboot_message">Substratum has installed it\'s Magisk module successfully. Please reboot to allow overlays to take effect.</string>
+
 </resources>

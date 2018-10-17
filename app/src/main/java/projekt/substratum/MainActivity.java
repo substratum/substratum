@@ -71,6 +71,7 @@ import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.helpers.BinaryInstaller;
 import projekt.substratum.util.helpers.LocaleHelper;
+import projekt.substratum.util.helpers.MagiskHelper;
 import projekt.substratum.util.helpers.Root;
 
 import java.io.File;
@@ -1121,7 +1122,10 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 } else {
                     BinaryInstaller.install(activity.context, false);
-                    if (Systems.checkOMS(context)) new DoCleanUp(context).execute();
+                    if (Systems.checkOMS(context)) {
+                        new DoCleanUp(context).execute();
+                        if (Root.checkRootAccess()) MagiskHelper.migrateToModule(context);
+                    }
                 }
             }
         }

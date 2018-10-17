@@ -51,6 +51,17 @@ import android.widget.SpinnerAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
+import projekt.substratum.BuildConfig;
+import projekt.substratum.InformationActivity;
+import projekt.substratum.LauncherActivity;
+import projekt.substratum.MainActivity;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
+import projekt.substratum.services.profiles.ScheduledProfileReceiver;
+import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.TranslatorParser;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -71,20 +82,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import projekt.substratum.BuildConfig;
-import projekt.substratum.InformationActivity;
-import projekt.substratum.LauncherActivity;
-import projekt.substratum.MainActivity;
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
-import projekt.substratum.services.profiles.ScheduledProfileReceiver;
-import projekt.substratum.util.helpers.BinaryInstaller;
-import projekt.substratum.util.helpers.Root;
-import projekt.substratum.util.helpers.TranslatorParser;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
@@ -236,60 +233,19 @@ public class References {
     static final String heroImageMainResourceName = "heroimage_banner";
     // Specific intents Substratum should be listening to
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
-    private static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
-    private static final String MAGISK_MIRROR_MOUNT_POINT_AFTER_174 = "/sbin/.magisk/mirror/system";
-    private static final String P_SYSTEM_DIR = "/system/app/";
+    public static final String MAGISK_MODULE_DIR = "/sbin/.magisk/img/substratum/";
     // Control the animation duration
     private static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
-    // These values control the dynamic certification of substratum
-    // We use java.lang.Boolean here rather than a normal boolean
-    // since it being an Object allows us to have a third state - null,
-    // which means that the variable has not been initialised, where
-    // boolean simply takes on the value false.
-    private static Boolean uncertified;
     private static int hashValue;
-    private static String pieDir = null;
-    private static Boolean isMagisk = null;
-    private static String magiskMountPoint = null;
-    private static final String P_MAGISK_DIR = getMagiskMountPoint() + "/app/";
 
     public static String getPieDir() {
-        if (pieDir == null) {
-            if (checkMagisk())
-                pieDir = P_MAGISK_DIR;
-            else
-                pieDir = P_SYSTEM_DIR;
-        }
-        return pieDir;
+        return MAGISK_MODULE_DIR + "system/app/";
     }
 
-    @NonNull
     public static String getPieMountPoint() {
-        return getMagiskMountPoint() != null ? magiskMountPoint : "/system";
-    }
-
-    @Nullable
-    private static String getMagiskMountPoint() {
-        if ((isMagisk == null || isMagisk) && magiskMountPoint == null) {
-            try {
-                final String cmd = "test -d %s && echo '0'";
-                if (Root.runCommand(String.format(cmd, MAGISK_MIRROR_MOUNT_POINT_AFTER_174)).equals("0"))
-                    magiskMountPoint = MAGISK_MIRROR_MOUNT_POINT_AFTER_174;
-                else if (Root.runCommand(String.format(cmd, MAGISK_MIRROR_MOUNT_POINT)).equals("0"))
-                    magiskMountPoint = MAGISK_MIRROR_MOUNT_POINT;
-            } catch (Exception ignored) {
-            }
-        }
-        return magiskMountPoint;
-    }
-
-    private static Boolean checkMagisk() {
-        if (isMagisk == null) {
-            isMagisk = getMagiskMountPoint() != null;
-        }
-        return isMagisk;
+        return MAGISK_MODULE_DIR;
     }
 
     /**

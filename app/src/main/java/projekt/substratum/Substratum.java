@@ -168,7 +168,7 @@ public class Substratum extends Application {
      *
      * @param context Duh
      */
-    public static void restartSubstratum(Context context) {
+    public static void restartSubstratum(Context context, long delay) {
         PackageManager pm = context.getPackageManager();
         Intent startActivity = pm.getLaunchIntentForPackage(context.getPackageName());
 
@@ -183,7 +183,11 @@ public class Substratum extends Application {
         if (mgr != null) mgr.set(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis() + 10, mPendingIntent);
 
         // Kill the application
-        new Handler().postDelayed(() -> Process.killProcess(Process.myPid()), 100L);
+        new Handler().postDelayed(() -> Process.killProcess(Process.myPid()), delay);
+    }
+
+    public static void restartSubstratum(Context context) {
+        restartSubstratum(context, 100L);
     }
 
     public static SharedPreferences getPreferences() {

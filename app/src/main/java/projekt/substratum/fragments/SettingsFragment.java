@@ -62,7 +62,7 @@ import static projekt.substratum.common.References.MAX_PRIORITY;
 import static projekt.substratum.common.References.MIN_PRIORITY;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.Resources.SYSTEMUI;
-import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.checkPackageSupport;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
 import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
@@ -94,7 +94,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         boolean isSamsung = Systems.isSamsungDevice(context);
         boolean isOMS = Systems.checkOMS(context);
         boolean hasThemeInterfacer = Systems.checkThemeInterfacer(context);
-        boolean hasAndromeda = checkAndromeda(context);
+        boolean hasAndromeda = isAndromedaDevice(context);
 
         // Initialize the XML file
         addPreferencesFromResource(R.xml.preference_fragment);
@@ -528,7 +528,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         hideAppCheckbox.setVisible(false);
         sungstromedaMode.setVisible(false);
 
-        if (isNewSamsungDevice() && checkAndromeda(context)) {
+        if (isNewSamsungDevice() && isAndromedaDevice(context)) {
             sungstromedaMode.setVisible(true);
             sungstromedaMode.setChecked(prefs.getBoolean("sungstromeda_mode", true));
             sungstromedaMode.setOnPreferenceChangeListener(
@@ -579,7 +579,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
             // About Andromeda
-            if (Systems.isAndromedaDevice(context) && !Systems.IS_PIE) {
+            if (Systems.isAndromedaDevice(context)) {
                 aboutAndromeda.setIcon(Packages.getAppIcon(context, ANDROMEDA_PACKAGE));
                 try {
                     PackageInfo info =

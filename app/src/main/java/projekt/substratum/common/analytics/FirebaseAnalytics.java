@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 import static projekt.substratum.common.Systems.checkPackageSupport;
@@ -96,65 +95,5 @@ public class FirebaseAnalytics {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-    }
-
-    public static void withdrawAndromedaFingerprint(Context context,
-                                                    int version) {
-        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        if (!prefs.contains("andromeda_exp_fp_" + version)) {
-            SharedPreferences.Editor editor = prefs.edit();
-            for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
-                if (entry.getKey().startsWith("andromeda_fp_")) {
-                    editor.remove(entry.getKey());
-                }
-            }
-            DatabaseReference database = getDatabaseReference();
-            String prefKey = "andromeda_exp_fp_" + version;
-            database.child("andromeda-fp")
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Object dataValue = dataSnapshot.child(String.valueOf(version))
-                                    .getValue();
-                            if (dataValue != null) {
-                                editor.putString(prefKey, dataValue.toString()).apply();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-        }
-    }
-
-    public static void withdrawSungstratumFingerprint(Context context,
-                                                      int version) {
-        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        if (!prefs.contains("sungstratum_exp_fp_" + version)) {
-            SharedPreferences.Editor editor = prefs.edit();
-            for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
-                if (entry.getKey().startsWith("sungstratum_exp_fp_")) {
-                    editor.remove(entry.getKey());
-                }
-            }
-            DatabaseReference database = getDatabaseReference();
-            String prefKey = "sungstratum_exp_fp_" + version;
-            database.child("sungstratum-fp")
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Object dataValue = dataSnapshot.child(String.valueOf(version))
-                                    .getValue();
-                            if (dataValue != null) {
-                                editor.putString(prefKey, dataValue.toString()).apply();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-        }
     }
 }

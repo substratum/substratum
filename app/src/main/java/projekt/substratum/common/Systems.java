@@ -299,46 +299,17 @@ public class Systems {
      * @param context You know it, right?
      * @return True, if using Andromeda
      */
-    public static boolean checkAndromeda(Context context) {
-        if (Systems.IS_PIE)
-            // Pls no
-            return false;
-
-        if (context == null) {
-            Log.e(SUBSTRATUM_LOG,
-                    "activity has been destroyed, cannot check if andromeda is used");
-            return false;
-        }
-
-        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        String fingerprint = prefs.getString("andromeda_fp", "o");
-        String expFingerprint = prefs.getString(
-                "andromeda_exp_fp_" + Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE), "0");
-        String installer = prefs.getString("andromeda_installer", "o");
-
-        boolean andromedaPresent = isAndromedaDevice(context);
-        andromedaPresent &= installer.equals(PLAY_STORE_PACKAGE_NAME);
-        andromedaPresent &= fingerprint.toUpperCase(Locale.US)
-                .equals(expFingerprint.toUpperCase(Locale.US));
-        return andromedaPresent;
-    }
-
-    /**
-     * Check if it is using the Andromeda backend
-     *
-     * @param context You better know it.
-     * @return True, if using Andromeda
-     */
     public static boolean isAndromedaDevice(Context context) {
         if (Systems.IS_PIE)
             // Pls no
-            return false;
+            return isNewSamsungDevice();
 
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
                     "activity has been destroyed, cannot check if andromeda is used");
             return false;
         }
+
         boolean isEnabled = Packages.isAvailablePackage(context, References.ANDROMEDA_PACKAGE);
         PackageInfo packageInfo = getAndromedaPackage(context);
         return (packageInfo != null) && isEnabled;
@@ -420,7 +391,7 @@ public class Systems {
      */
     public static boolean isNewSamsungDeviceAndromeda(Context context) {
         boolean sungstromeda = prefs.getBoolean("sungstromeda_mode", true);
-        return sungstromeda && isNewSamsungDevice() && checkAndromeda(context);
+        return sungstromeda && isNewSamsungDevice() && isAndromedaDevice(context);
     }
 
     /**

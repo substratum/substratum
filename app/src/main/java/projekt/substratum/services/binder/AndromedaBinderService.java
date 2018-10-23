@@ -40,7 +40,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     }
 
     private void bindAndromeda() {
-        if (Systems.checkAndromeda(this) && !bound) {
+        if (Systems.isAndromedaDevice(this) && !bound) {
             Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
             try {

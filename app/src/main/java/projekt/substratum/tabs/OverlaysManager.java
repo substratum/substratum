@@ -1451,7 +1451,7 @@ class OverlaysManager {
                             packages.add(packageName);
                             if (!Systems.isNewSamsungDevice() &&
                                     checkThemeInterfacer(context) ||
-                                    Systems.checkAndromeda(context)) {
+                                    Systems.isAndromedaDevice(context)) {
                                 // Wait until the overlays to fully install so on compile enable
                                 // mode it can be enabled after.
                                 Substratum.startWaitingInstall();

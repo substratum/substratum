@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
-import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isSamsungDevice;
@@ -183,13 +183,13 @@ public class Resources {
 
     // This method checks whether custom sounds is supported by the system
     public static boolean isSoundsSupported(final Context context) {
-        return !checkAndromeda(context) && !isSamsungDevice(context) &&
+        return !isAndromedaDevice(context) && !isSamsungDevice(context) &&
                 (checkThemeInterfacer(context) || checkSubstratumService(context));
     }
 
     // This method checks whether custom boot animation is supported by the system
     public static boolean isBootAnimationSupported(final Context context) {
-        return !checkAndromeda(context) && !isSamsungDevice(context);
+        return !isAndromedaDevice(context) && !isSamsungDevice(context);
     }
 
     // This method checks whether custom shutdown animation is supported by the system

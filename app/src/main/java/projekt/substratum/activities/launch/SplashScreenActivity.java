@@ -39,13 +39,11 @@ import java.util.Locale;
 
 import static projekt.substratum.common.Internal.AUTHENTICATED_RECEIVER;
 import static projekt.substratum.common.Internal.AUTHENTICATE_RECEIVER;
-import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkPackageSupport;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
-import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.isSamsungDevice;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
@@ -163,57 +161,8 @@ public class SplashScreenActivity extends Activity {
                     Substratum.log(SUBSTRATUM_LOG, "Successfully withdrew blacklisted packages!");
                 }
 
-                if (isAndromedaDevice(context)) {
-                    int andromedaVer = Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE);
-                    FirebaseAnalytics.withdrawAndromedaFingerprint(context, andromedaVer);
-                    SharedPreferences prefs2 = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-                    timeoutCount = 0;
-                    while (!prefs2.contains("andromeda_exp_fp_" + andromedaVer) &&
-                            (timeoutCount < 100)) {
-                        try {
-                            Thread.sleep(100L);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        timeoutCount++;
-                    }
-                    if (!prefs2.contains("andromeda_exp_fp_" + andromedaVer)) {
-                        Log.e(SUBSTRATUM_LOG, "Failed to withdraw andromeda fingerprint...");
-                    } else {
-                        String installed_directory =
-                                Packages.getInstalledDirectory(context, ANDROMEDA_PACKAGE);
-                        if (installed_directory != null) {
-                            prefs2.edit()
-                                    .putString("andromeda_fp",
-                                            MD5.calculateMD5(new File(installed_directory)))
-                                    .putString("andromeda_installer", context.getPackageManager()
-                                            .getInstallerPackageName(ANDROMEDA_PACKAGE))
-                                    .apply();
-                            Substratum.log(SUBSTRATUM_LOG, "Successfully approved andromeda fingerprint!");
-                        }
-                    }
-                }
-
                 if (isSamsungDevice(context) &&
                         Packages.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
-                    int sstVersion = Packages.getAppVersionCode(context, SST_ADDON_PACKAGE);
-                    FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
-                    SharedPreferences prefs2 = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-                    timeoutCount = 0;
-                    while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && (timeoutCount <
-                            100)) {
-                        try {
-                            Thread.sleep(100L);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        timeoutCount++;
-                    }
-                    if (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
-                        Log.e(SUBSTRATUM_LOG, "Failed to withdraw sungstratum fingerprint...");
-                    } else {
-                        Substratum.log(SUBSTRATUM_LOG, "Successfully approved sungstratum fingerprint!");
-                    }
 
                     keyRetrieval = new KeyRetrieval();
                     IntentFilter filter = new IntentFilter(AUTHENTICATED_RECEIVER);

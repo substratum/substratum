@@ -82,7 +82,7 @@ import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
 import static projekt.substratum.common.References.getPieDir;
-import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
@@ -388,7 +388,7 @@ public class ManagerFragment extends Fragment {
         updateMenuButtonState(menu.findItem(R.id.alphabetize));
         updateSortingMenuButtonState(menu.findItem(R.id.sort_by_state));
         if (!checkOMS(context) ||
-                checkAndromeda(context) ||
+                isAndromedaDevice(context) ||
                 MainActivity.instanceBasedAndromedaFailure) {
             menu.findItem(R.id.restart_systemui).setVisible(false);
         }

@@ -37,7 +37,7 @@ public class SubstratumUpdateReceiver extends BroadcastReceiver {
 
         List<String> overlays = listEnabledOverlaysForTarget(context, context.getPackageName());
         ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
-        if (Systems.checkAndromeda(context)) {
+        if (Systems.isAndromedaDevice(context)) {
             if (!AndromedaService.checkServerActivity()) {
                 prefs.edit().putStringSet("to_be_disabled_overlays", new TreeSet<>(overlays))
                         .apply();

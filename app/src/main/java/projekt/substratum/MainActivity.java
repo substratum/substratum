@@ -105,7 +105,7 @@ import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
-import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.checkSubstratumServiceApi;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.checkUsagePermissions;
@@ -1084,7 +1084,7 @@ public class MainActivity extends AppCompatActivity implements
                         Button andromedaOfflineButton = activity.progressDialog.findViewById(R.id.andromeda_offline_button);
                         TextView andromedaDebugText = activity.progressDialog.findViewById(R.id.andromeda_debug_text);
                         andromedaTitle.setVisibility(View.VISIBLE);
-                        if (!checkAndromeda(context)) {
+                        if (!isAndromedaDevice(context)) {
                             andromedaTitle.setText(R.string.andromeda_no_firebase);
                             appCloseButton.setVisibility(View.VISIBLE);
                         } else {

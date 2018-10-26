@@ -338,17 +338,17 @@ public class Systems {
         if (!isSamsungDevice(context)) return false;
         if (isNewSamsungDeviceAndromeda(context)) return true;
 
-        final String liveInstaller = Packages.getInstallerId(context, SST_ADDON_PACKAGE);
-        boolean liveInstallerValidity = (liveInstaller != null) &&
-                liveInstaller.equals(PLAY_STORE_PACKAGE_NAME);
-        return Packages.isPackageInstalled(context, SST_ADDON_PACKAGE) && liveInstallerValidity;
+        String liveInstaller = Packages.getInstallerId(context, SST_ADDON_PACKAGE);
+
+        return Packages.isPackageInstalled(context, SST_ADDON_PACKAGE) &&
+                ((liveInstaller != null) &&
+                liveInstaller.equals(PLAY_STORE_PACKAGE_NAME));
     }
 
     public static boolean isSamsungDevice(Context context) {
-        if (isNewSamsungDeviceAndromeda(context))
-            return true;
-        if (isSamsungDevice != null)
-            return isSamsungDevice;
+        if (isNewSamsungDeviceAndromeda(context)) return true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) return false;
+        if (isSamsungDevice != null) return isSamsungDevice;
         if (context != null) {
             List<String> listOfFeatures =
                     Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());

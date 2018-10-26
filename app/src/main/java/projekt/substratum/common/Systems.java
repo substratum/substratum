@@ -338,31 +338,17 @@ public class Systems {
         if (!isSamsungDevice(context)) return false;
         if (isNewSamsungDeviceAndromeda(context)) return true;
 
-        SharedPreferences prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-
-        boolean debuggingValue = prefs.getBoolean("sungstratum_debug", true);
-        boolean installer = prefs.getBoolean("sungstratum_installer", false);
-        String fingerprint = prefs.getString("sungstratum_fp", "0");
-        String expFingerprint = prefs.getString(
-                "sungstratum_exp_fp_" + Packages.getAppVersionCode(context, SST_ADDON_PACKAGE),
-                "o");
-        String liveInstaller = Packages.getInstallerId(context, SST_ADDON_PACKAGE);
-
-        boolean sungstratumPresent = !debuggingValue;
-        sungstratumPresent &= installer;
-        sungstratumPresent &= fingerprint.toUpperCase(
-                Locale.US).equals(
-                expFingerprint.toUpperCase(Locale.US));
+        final String liveInstaller = Packages.getInstallerId(context, SST_ADDON_PACKAGE);
         boolean liveInstallerValidity = (liveInstaller != null) &&
                 liveInstaller.equals(PLAY_STORE_PACKAGE_NAME);
-        sungstratumPresent &= liveInstallerValidity;
-        return sungstratumPresent;
+        return Packages.isPackageInstalled(context, SST_ADDON_PACKAGE) && liveInstallerValidity;
     }
 
     public static boolean isSamsungDevice(Context context) {
-        if (isNewSamsungDeviceAndromeda(context)) return true;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) return false;
-        if (isSamsungDevice != null) return isSamsungDevice;
+        if (isNewSamsungDeviceAndromeda(context))
+            return true;
+        if (isSamsungDevice != null)
+            return isSamsungDevice;
         if (context != null) {
             List<String> listOfFeatures =
                     Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
@@ -397,11 +383,10 @@ public class Systems {
     /**
      * Checks if the device is a Xiaomi device
      *
-     * @param context CONTEXT!
      * @return True, if it passes all Xiaomi tests
      */
-    public static boolean isXiaomiDevice(Context context) {
-        return context != null && new File("/system/etc/permissions/platform-miui.xml").exists();
+    public static boolean isXiaomiDevice() {
+        return new File("/system/etc/permissions/platform-miui.xml").exists();
     }
 
     /**

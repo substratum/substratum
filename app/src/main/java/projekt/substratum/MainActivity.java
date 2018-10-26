@@ -904,7 +904,7 @@ public class MainActivity extends AppCompatActivity implements
                                 }
 
                                 if (Systems.checkOMS(context) &&
-                                        Systems.isXiaomiDevice(context) &&
+                                        Systems.isXiaomiDevice() &&
                                         !prefs.contains("xiaomi_enable_development")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                                     alert.setTitle(R.string.warning_title);
@@ -978,7 +978,7 @@ public class MainActivity extends AppCompatActivity implements
                     }
 
                     if (Systems.checkOMS(context) &&
-                            Systems.isXiaomiDevice(context) &&
+                            Systems.isXiaomiDevice() &&
                             !prefs.contains("xiaomi_enable_development")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                         alert.setTitle(R.string.warning_title);

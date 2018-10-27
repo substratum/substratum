@@ -140,7 +140,14 @@ public class Systems {
             }
 
             if (IS_PIE) {
-                if (checkSubstratumService(context)) {
+                if (isAndromedaDevice(context)) {
+                    // Andromeda mode
+                    prefs.edit().putInt(
+                            "current_theme_mode",
+                            OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                } else if (checkSubstratumService(context)) {
                     // SS mode
                     prefs.edit().putInt(
                             "current_theme_mode",
@@ -300,10 +307,6 @@ public class Systems {
      * @return True, if using Andromeda
      */
     public static boolean isAndromedaDevice(Context context) {
-        if (Systems.IS_PIE)
-            // Pls no
-            return isNewSamsungDevice();
-
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
                     "activity has been destroyed, cannot check if andromeda is used");

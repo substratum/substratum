@@ -1079,7 +1079,7 @@ public class MainActivity extends AppCompatActivity implements
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                     } else if (Systems.isAndromedaDevice(context) &&
-                            (!AndromedaService.checkServerActivity() || prefs.getBoolean("sungstromeda_mode", false))) {
+                            (!AndromedaService.checkServerActivity() && !prefs.getBoolean("sungstromeda_mode", false))) {
                         TextView andromedaTitle = activity.progressDialog.findViewById(R.id.andromeda_title);
                         Button andromedaOfflineButton = activity.progressDialog.findViewById(R.id.andromeda_offline_button);
                         TextView andromedaDebugText = activity.progressDialog.findViewById(R.id.andromeda_debug_text);

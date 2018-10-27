@@ -11,15 +11,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import java.io.Serializable;
-import java.util.concurrent.ThreadLocalRandom;
-
 import projekt.substratum.InformationActivity;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+
+import java.io.Serializable;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;

@@ -29,8 +29,21 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.widget.NestedScrollView;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.android.material.snackbar.Snackbar;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.databinding.TabBootanimationsBinding;
+import projekt.substratum.util.helpers.Root;
+import projekt.substratum.util.tabs.BootAnimationUtils;
+import projekt.substratum.util.views.Lunchbar;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -47,21 +60,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.widget.NestedScrollView;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.databinding.TabBootanimationsBinding;
-import projekt.substratum.util.helpers.Root;
-import projekt.substratum.util.tabs.BootAnimationUtils;
-import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.BOOTANIMATION_CACHE;

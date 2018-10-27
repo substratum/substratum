@@ -11,10 +11,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
-import java.util.Locale;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +19,9 @@ import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.databinding.ShowcaseItemBinding;
+
+import java.util.List;
+import java.util.Locale;
 
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
 

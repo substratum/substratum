@@ -18,10 +18,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
@@ -34,6 +30,9 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.databinding.CrashActivityBinding;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static projekt.substratum.common.Internal.SUPPORTED_ROMS_FILE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;

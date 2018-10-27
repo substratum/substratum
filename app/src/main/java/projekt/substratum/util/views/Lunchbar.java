@@ -9,7 +9,6 @@ package projekt.substratum.util.views;
 
 import android.view.View;
 import android.widget.TextView;
-
 import com.google.android.material.R;
 import com.google.android.material.snackbar.Snackbar;
 

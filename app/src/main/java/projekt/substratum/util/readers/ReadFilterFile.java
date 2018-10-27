@@ -11,15 +11,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import projekt.substratum.adapters.fragments.settings.ValidatorFilter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import projekt.substratum.adapters.fragments.settings.ValidatorFilter;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadFilterFile {
 

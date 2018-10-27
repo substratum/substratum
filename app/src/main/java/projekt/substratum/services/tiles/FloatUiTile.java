@@ -10,7 +10,6 @@ package projekt.substratum.services.tiles;
 import android.content.Intent;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
-
 import projekt.substratum.Substratum;
 import projekt.substratum.activities.floatui.FloatUILaunchActivity;
 

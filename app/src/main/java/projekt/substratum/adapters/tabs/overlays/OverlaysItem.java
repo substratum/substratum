@@ -11,14 +11,13 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
 import android.widget.SpinnerAdapter;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.Systems;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import projekt.substratum.common.Packages;
-import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.Packages.getLiveOverlayVersion;
 import static projekt.substratum.common.Packages.getOverlayMetadataInt;

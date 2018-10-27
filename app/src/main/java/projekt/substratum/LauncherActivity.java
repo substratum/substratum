@@ -9,7 +9,6 @@ package projekt.substratum;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import projekt.substratum.activities.launch.SplashScreenActivity;
 

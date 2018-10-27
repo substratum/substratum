@@ -10,7 +10,6 @@ package projekt.substratum.activities.profiles;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import projekt.substratum.R;

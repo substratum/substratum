@@ -7,10 +7,10 @@
 
 package projekt.substratum.tabs;
 
+import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 
 class OverlaysInstance {
 

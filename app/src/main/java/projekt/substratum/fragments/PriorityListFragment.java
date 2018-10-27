@@ -21,15 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.thesurix.gesturerecycler.GestureAdapter;
-import com.thesurix.gesturerecycler.GestureManager;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
@@ -39,6 +30,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.thesurix.gesturerecycler.GestureAdapter;
+import com.thesurix.gesturerecycler.GestureManager;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
@@ -49,6 +43,10 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.databinding.PriorityListFragmentBinding;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.platform.ThemeManager.listEnabledOverlaysForTarget;

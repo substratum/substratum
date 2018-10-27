@@ -13,12 +13,6 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import projekt.substratum.R;
@@ -35,6 +29,11 @@ import projekt.substratum.fragments.SettingsFragment;
 import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE;
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE_DIR;

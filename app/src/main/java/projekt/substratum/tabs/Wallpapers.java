@@ -18,12 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Map;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -39,6 +33,11 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.databinding.TabWallpapersBinding;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudWallpaperFile;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Map;
 
 import static projekt.substratum.common.Internal.CURRENT_WALLPAPERS;
 import static projekt.substratum.common.Internal.START_JOB_ACTION;

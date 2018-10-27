@@ -11,13 +11,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
+import projekt.substratum.Substratum;
+import projekt.substratum.activities.launch.ThemeLaunchActivity;
 
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
-import projekt.substratum.Substratum;
-import projekt.substratum.activities.launch.ThemeLaunchActivity;
 
 import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.References.TEMPLATE_GET_KEYS;

@@ -10,17 +10,15 @@ package projekt.substratum.util.helpers;
 import android.content.Context;
 import android.os.NetworkOnMainThreadException;
 import android.util.Log;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.References;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import projekt.substratum.Substratum;
-import projekt.substratum.common.References;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 

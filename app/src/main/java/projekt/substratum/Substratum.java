@@ -26,18 +26,11 @@ import android.os.Handler;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
+import androidx.appcompat.app.AppCompatDelegate;
+import cat.ereza.customactivityoncrash.config.CaocConfig;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.firebase.FirebaseApp;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import androidx.appcompat.app.AppCompatDelegate;
-import cat.ereza.customactivityoncrash.config.CaocConfig;
 import io.fabric.sdk.android.Fabric;
 import projekt.substratum.activities.crash.SubstratumCrash;
 import projekt.substratum.common.Broadcasts;
@@ -47,6 +40,11 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_AUTO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;

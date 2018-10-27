@@ -12,7 +12,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-
 import projekt.substratum.common.Packages;
 
 public class UnsupportedThemeReceiver extends BroadcastReceiver {

@@ -11,14 +11,13 @@ import android.content.substratum.ISubstratumService;
 import android.os.Process;
 import android.os.RemoteException;
 import android.util.Log;
+import projekt.substratum.platform.SubstratumServiceBridge;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import projekt.substratum.platform.SubstratumServiceBridge;
 
 public class SubstratumService {
 

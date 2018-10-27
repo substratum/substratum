@@ -18,8 +18,6 @@
     <string name="resource_validated">Tất cả cam kết còn nguyên vẹn!</string>
     <string name="rooted_oms_dialog_warning_title">Lớp phủ động và Root</string>
     <string name="rooted_oms_dialog_warning_text">Nếu bạn ở với chúng tôi khi masquerade là hệ thống phụ trợ của chúng tôi, bạn sẽ biết rằng chúng tôi cần root để làm nhiều thứ với OMS. Đó là thời gian hệ thống rất chậm! \ N \ nChúng tôi cũng đã có một chế độ ở đó!</string>
-    <string name="interfacer_notification_title">Substratum và Interfacer được kết nối!</string>
-    <string name="interfacer_notification_text">Các dịch vụ chủ đề nền được kết hợp, hoạt động và chạy.</string>
     <string name="andromeda_notification_title">Substratum và Andromeda được kết nối!</string>
     <string name="andromeda_notification_text">Các dịch vụ chủ đề nền được kết hợp, hoạt động và chạy.</string>
     <string name="resource_commit_dialog_title">Thiếu nguồn trong %s</string>
@@ -479,8 +477,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Chúng tôi đã ẩn lớp phủ nguy hiểm vì một lý do, nhưng nếu bạn chắc chắn muốn bật tính năng này, hãy làm theo các hướng dẫn để tắt nó trên chủ đề XDA của chúng tôi!</string>
     <string name="settings_crash_receiver_title">Chủ đề an toàn nhận tai nạn</string>
     <string name="settings_crash_receiver_text">Tự động vô hiệu hóa lớp phủ khi phát hiện các sự cố lặp lại trên ứng dụng được phủ.</string>
-    <string name="overlays_outdated">Lớp phủ lỗi thời</string>
-    <string name="overlays_outdated_message">Kể từ phiên bản 816 trở lên, chữ ký ký kết lớp phủ của chúng tôi đã thay đổi để ngăn chặn việc không phù hợp chữ ký không đúng đường.\n\nĐiều này có nghĩa là lớp phủ của bạn đã được cài đặt phải được làm sạch tới.</string>
     <string name="root_required_title">Yêu cầu gốc</string>
     <string name="root_required_boot_animation">Thiết bị của bạn được mã hóa, vì vậy root là cần thiết để áp dụng khởi động hình ảnh động.</string>
     <string name="root_required_boot_animation_profile">Thiết bị của bạn được mã hóa, do đó, root là cần thiết để sao lưu và khôi phục lại hình ảnh động khởi động.</string>

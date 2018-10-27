@@ -45,8 +45,6 @@
     <string name="rooted_oms_dialog_warning_title">Dynamic Overlays and Root</string>
     <string name="rooted_oms_dialog_warning_text">If you were with us when masquerade was our backend system, you\'d know that we needed root to do many things with OMS. That was the time when the system was extremely slow!\n\nWe also had a mode where substratum could run without masquerade and it would not offload any resource changes from our own app, meaning substratum will start lagging when enabling/disabling, since configuration changes are extremely heavy!\n\nIf you can, it would be highly recommended that you run a rootless variant such as Andromeda or a custom ROM with our new commits, to experience speedy theming.\n\nBy continuing using the rooted variant, there will be lags and performance issues with the app due to substratum not being able to offload any configuration changes to the system!</string>
 
-    <string name="interfacer_notification_title">Substratum and Interfacer are connected!</string>
-    <string name="interfacer_notification_text">The background theme services are bound, active and running.</string>
     <string name="andromeda_notification_title">Substratum and Andromeda are connected!</string>
     <string name="andromeda_notification_text">The background theme services are bound, active and running.</string>
 

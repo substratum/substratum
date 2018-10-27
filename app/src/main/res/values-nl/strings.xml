@@ -18,8 +18,6 @@
     <string name="resource_validated">Alle aanpassingen intact!</string>
     <string name="rooted_oms_dialog_warning_title">Dynamische Overlays en Root</string>
     <string name="rooted_oms_dialog_warning_text">Als je met ons bent sinds toen masquerade ons back-end systeem was, dan weet je dat we root nodig hadden om OMS te kunnen benutten. Dat was de tijd toen het systeem zeer traag was!\n\nWe hadden ook een modus waarin substratum kon handelen zonder masquerade, en het de bronwijzigingen niet uitbesteedde van onze eigen app. Hierdoor zou substratum haperen bij het in-/uitschakelen van thema\'s, want configuratiewijzigingen zijn zeer zwaar!\n\nWij raden aan een rootloze variant als Andromeda te draaien, of een aangepaste ROM met onze nieuwe aanpassingen te installeren om vlugge thematisering te ervaren.\n\nDoor gebruik te blijven maken van de root-variant zullen er haperingen en prestatieproblemen zijn met de app, omdat het de bronwijzigingen niet kan uitbesteden aan het systeem!</string>
-    <string name="interfacer_notification_title">Substratum en Interfacer zijn verbonden!</string>
-    <string name="interfacer_notification_text">De achtergrond themaservices zijn gebonden, actief en worden uitgevoerd.</string>
     <string name="andromeda_notification_title">Substratum en Andromeda zijn verbonden!</string>
     <string name="andromeda_notification_text">De achtergrond themaservices zijn gebonden, actief en worden uitgevoerd.</string>
     <string name="resource_commit_dialog_title">Ontbrekende bronnen in %s</string>
@@ -428,8 +426,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Wij hebben gevaarlijke overlays verborgen voor een reden, maar als je er zeker van bent dat je dit wilt inschakelen, volg de instructies op ons XDA thread!</string>
     <string name="settings_crash_receiver_title">Themaveiligheid crashontvanger</string>
     <string name="settings_crash_receiver_text">Schakelt automatisch een overlay uit wanneer herhaalde crashes op een gethematiseerde app wordt gedetecteerd.</string>
-    <string name="overlays_outdated">Overlays verouderd</string>
-    <string name="overlays_outdated_message">Sinds versie 816 is de handtekening voor het ondertekenen van overlays gewijzigd om verkeerde handtekening-combinaties te voorkomen.\n\nDit betekent dat jouw geïnstalleerde overlays dienen te worden opgeschoond om nieuwe thema-updates te installeren. Anders zal het continu vertellen dat je overlay bijgewerkt moet worden!\n\nDit bericht wordt niet getoond wanneer alle overlays zijn gecompileerd met de nieuwste Substratum.</string>
     <string name="root_required_title">Root vereist</string>
     <string name="root_required_boot_animation">Je apparaat is versleuteld, dus root is vereist om opstartanimaties toe te passen.</string>
     <string name="root_required_boot_animation_profile">Je apparaat is versleuteld, dus root is vereist om opstartanimaties toe te back-uppen en herstellen.</string>

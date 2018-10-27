@@ -18,8 +18,6 @@
     <string name="resource_validated">Tutte le commit sono integre!</string>
     <string name="rooted_oms_dialog_warning_title">Sovrapposizioni dinamiche e root</string>
     <string name="rooted_oms_dialog_warning_text">Se eri con noi quando masquerade era il nostro sistema di backend, saprai che avevamo bisogno dei permessi di root per fare molte cose con l\'OMS. Quello era il tempo quando il sistema era estremamente lento!\n\nAvevamo anche una modalità dove substratum poteva funzionare senza masquerade e non avrebbe scaricato nessuna risorsa dalla nostra app, quindi substratum iniziava a rallentare durante l\'abilitazione / disabilitazione, poiché le modifiche alla configurazione erano estremamente pesanti!\n\nSe possibile, sarebbe altamente consigliabile eseguire una variante senza permessi di root come Andromeda o una ROM personalizzata con i nostri nuovi cambiamenti, per avere un caricamento dei temi estremamente rapido.\n\nContinuando a utilizzare la variante con i permessi di root, ci saranno rallentamenti e problemi di prestazioni con l\'app poiché substratum non è in grado di scaricare eventuali modifiche alla configurazione del sistema!</string>
-    <string name="interfacer_notification_title">Substratum e Interfacer sono collegati!</string>
-    <string name="interfacer_notification_text">I servizi del tema di sfondo sono legati, attivi e in esecuzione.</string>
     <string name="andromeda_notification_title">Substratum e Andromeda sono collegati!</string>
     <string name="andromeda_notification_text">I servizi del tema di sfondo sono legati, attivi e in esecuzione.</string>
     <string name="resource_commit_dialog_title">Risorse mancanti in %s</string>
@@ -452,8 +450,6 @@ Ciò significa che la sovrapposizione con la priorità più alta verrà caricata
     <string name="settings_samsung_show_dangerous_overlays_warning">Abbiamo nascosto le sovrapposizioni pericolose per una ragione, ma se sei sicuro di volerle abilitare, segui le istruzioni nel nostro thread su XDA!</string>
     <string name="settings_crash_receiver_title">Ricevitore dei crash di sicurezza del tema</string>
     <string name="settings_crash_receiver_text">Disattiva automaticamente una sovrapposizione quando vengono rilevati crash ripetuti sull\'app sovrapposta.</string>
-    <string name="overlays_outdated">Sovrapposizione obsoleta</string>
-    <string name="overlays_outdated_message">A partire dalla versione 816 e successive, la nostra firma per firmare le sovrapposizioni è cambiata per evitare possibili inconvenienti di firma lungo la strada.\n\nQuesto significa che le sovrapposizioni installate devono essere pulite per installare nuovi aggiornamenti del tema o continuerà a dire che la tua sovrapposizione richiede un aggiornamento per sempre!\n\nQuesto messaggio non verrà mostrato quando tutte le sovrapposizioni vengono compilate utilizzando il nuovo Substratum.</string>
     <string name="root_required_title">Root necessario</string>
     <string name="root_required_boot_animation">Il dispositivo è crittografato, quindi il root è necessario per applicare le animazioni d\'avvio.</string>
     <string name="root_required_boot_animation_profile">Il dispositivo è crittografato, quindi il root è necessario per eseguire il backup e ripristinare le animazioni d\'avvio.</string>

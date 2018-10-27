@@ -18,8 +18,6 @@
     <string name="resource_validated">Semua komit utuh!</string>
     <string name="rooted_oms_dialog_warning_title">Lapisan Dinamis dan Akar</string>
     <string name="rooted_oms_dialog_warning_text">Jika Anda dengan kami ketika menyamar sistem backend kami, Anda akan tahu bahwa kami membutuhkan akar untuk melakukan banyak hal dengan OMS. Itulah waktu ketika sistem masih sangat lambat! \n\nWe juga memiliki mode yang mana substratum dapat menjalankan tanpa menyamar dan itu tidak akan offload perubahan sumber daya dari app kita sendiri, berarti substratum akan mulai lagging saat memungkinkan/menonaktifkan, sejak perubahan konfigurasi sangat berat! \n\nIf Anda dapat, akan sangat dianjurkan bahwa Anda menjalankan rootless varian seperti Andromeda atau custom ROM dengan commit baru kami, untuk mengalami cepat theming.\n\nBy terus menggunakan varian berakar, akan ada kelambatan dan isu-isu kinerja dengan app karena substratum tidak mampu untuk offload perubahan konfigurasi sistem!</string>
-    <string name="interfacer_notification_title">Substratum dan Interfacer terhubung!</string>
-    <string name="interfacer_notification_text">Latar belakang tema layanan telah digabungkan, aktif dan berjalan.</string>
     <string name="andromeda_notification_title">Substratum dan Andromeda terhubung!</string>
     <string name="andromeda_notification_text">Latar belakang tema layanan telah digabungkan, aktif dan berjalan.</string>
     <string name="resource_commit_dialog_title">Sumber yang hilang di %s</string>
@@ -340,8 +338,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Kami menyembunyikan lapisan berbahaya karena suatu alasan, tetapi jika Anda yakin mau ini diaktifkan, ikuti petunjuk untuk menonaktifkannya di thread XDA kami!</string>
     <string name="settings_crash_receiver_title">Penerimaan Keamanan Crash Tema</string>
     <string name="settings_crash_receiver_text">Menghentikan penggunaan lapisan secara otomatis ketika mendeteksi bentrok diaplikasi yang terlapisasi.</string>
-    <string name="overlays_outdated">Lapisan telah usang</string>
-    <string name="overlays_outdated_message">Sampai pada versi 816 dan seterusnya, tandatangan kami untuk penandaan lapisan telah berubah untuk mencegah kemungkinan ketidak sesuainya tandatangan dikemudian.\n\n Ini berarti lapisan anda yang terpasang harus dibersihkan untuk memasang pembaruan tema atau mereka akan bilang bila lapisan anda memerlukan pembaruan secara terus menerus!\n\n Pesan ini tidak akan tampil bila semua lapisan dikompilasi dengan Substratum yang terbaru.</string>
     <string name="root_required_title">Root diperlukan</string>
     <string name="root_required_boot_animation">Perangkat kamu terenkripsi, sehingga root penting untuk menetapkan animasi boot.</string>
     <string name="root_required_boot_animation_profile">Perangkat kamu terenkripsi, sehingga root penting untuk mencadangkan dan memulihkan animasi boot.</string>

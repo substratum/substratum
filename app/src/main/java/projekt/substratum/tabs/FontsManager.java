@@ -8,6 +8,7 @@
 package projekt.substratum.tabs;
 
 import android.content.Context;
+
 import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 

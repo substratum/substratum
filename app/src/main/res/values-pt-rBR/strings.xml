@@ -18,8 +18,6 @@
     <string name="resource_validated">Todas as atualizações intactas!</string>
     <string name="rooted_oms_dialog_warning_title">Camadas Dinâmicas e Root</string>
     <string name="rooted_oms_dialog_warning_text">Se você estava conosco quando masquerade era nosso sistema de backend, você debe saber que o root é necessario para fazer muitas coisas com o OMS. Esse foi um momento em que o sistema era extremamente lento!\n\nNós também tivemos um modo no qual o substratum poderia ser executado sem masquerade e não descarregaria quaisquer mudanças de recursos de nosso próprio aplicativo, mas o substratum começaria a ter lags ao ativar/desativar, uma vez que as mudanças de configuração são extremamente pesadas!\n\nSe você puder, seria altamente recomendável que você execute uma variante sem root, como Andromeda ou uma custom ROM com nossos novos commits, para experimentar temas rápidamente.\n\nSe continuar usando a variante con root, haverá atrasos e problemas de desempenho com o aplicativo devido ao substratum não poder descarregar quaisquer alterações de configuração no sistema!</string>
-    <string name="interfacer_notification_title">Substratum e Interfacer estão conectados!</string>
-    <string name="interfacer_notification_text">Os serviços de plano de fundo de temas estão conectados, ativos e funcionando.</string>
     <string name="andromeda_notification_title">Substratum e Andromeda estão conectados!</string>
     <string name="andromeda_notification_text">Os serviços de plano de fundo de temas estão conectados, ativos e funcionando.</string>
     <string name="resource_commit_dialog_title">Faltam recursos em %s</string>
@@ -476,8 +474,6 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.   
     <string name="settings_samsung_show_dangerous_overlays_warning">Nós escondemos camadas perigosas por algum motivo, mas se você tiver certeza de que deseja ativa-las, siga as instruções para desativar isto no nosso tópico de discussão no XDA!</string>
     <string name="settings_crash_receiver_title">Receptor de falhas de segurança do tema</string>
     <string name="settings_crash_receiver_text">Desabilitar uma camada automaticamente quando detectadas falhas repetidas no aplicativo com camada.</string>
-    <string name="overlays_outdated">Camadas desatualizadas</string>
-    <string name="overlays_outdated_message">A partir da versão 816 ou posteriores, nossa assinatura para camadas assinadas mudou para evitar possíveis diferenças de assinatura ao longo do caminho.\n\nIsso significa que suas camadas instaladas devem ser limpas para instalar novas atualizações de temas, ou então você terá uma mensagem permanente indicando que suas camadas precisam ser atualizadas.\n\nEsta mensagem não será exibida quando todas as camadas forem compiladas usando o Substratum recente.</string>
     <string name="root_required_title">Root requerido</string>
     <string name="root_required_boot_animation">Seu dispositivo é criptografado, portanto é necessário ter root para aplicar animações de inicialização.</string>
     <string name="root_required_boot_animation_profile">Seu dispositivo é criptografado, portanto é necessário ter root para fazer backup e restaurar inicialização animações.</string>

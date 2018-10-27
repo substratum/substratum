@@ -14,6 +14,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+
+import java.util.ArrayList;
+import java.util.Set;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import projekt.andromeda.IAndromedaInterface;
@@ -22,9 +26,6 @@ import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.AndromedaService;
-
-import java.util.ArrayList;
-import java.util.Set;
 
 import static projekt.substratum.common.References.ANDROMEDA_BINDED;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;

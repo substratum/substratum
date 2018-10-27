@@ -18,8 +18,6 @@
     <string name="resource_validated">Todas as submissões estão intactas!</string>
     <string name="rooted_oms_dialog_warning_title">Sobreposições Dinâmicas e Root</string>
     <string name="rooted_oms_dialog_warning_text">Se estava connosco quando o masquerade era o nosso sistema, deve saber que para fazermos muitas das coisas com o OMS necessitávamos de root. Nesse tempo o sistema era extremamente lento!\n\nTambém tínhamos um modo em que o Substratum podia ser executado sem o Masquerade, que não libertava qualquer alteração de recursos da nossa própria aplicação, causando atrasos (lags) no Substratum ao ativar/desativar, uma vez que as alterações de configurações são extremamente pesadas!\n\nSe possível, recomendamos que use uma variante sem root como o Andromeda ou uma ROM personalizada com os nossos novos desenvolvimentos, para que possa usufruir de maior rapidez ao usar os temas.\n\nAo continuar a usar a variante com root, irão haver lags e problemas de performance com a aplicação devido ao Substratum não conseguir libertar qualquer alteração das configurações para o sistema!</string>
-    <string name="interfacer_notification_title">O Substratum e o Interfacer estão ligados!</string>
-    <string name="interfacer_notification_text">Os serviços de temas em segundo plano estão ativados e em execução.</string>
     <string name="andromeda_notification_title">O Substratum e o Andromeda estão ligados!</string>
     <string name="andromeda_notification_text">Os serviços de temas em segundo plano estão ativados e em execução.</string>
     <string name="resource_commit_dialog_title">Recursos em falta em %s</string>
@@ -484,8 +482,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="settings_samsung_show_dangerous_overlays_warning">Escondemos as sobreposições perigosas por alguma razão, mas se tem a certeza de que as quer ativar, por favor siga as instruções no nosso tópico do XDA!</string>
     <string name="settings_crash_receiver_title">Recetor de Segurança para Encerramentos Forçados de Temas</string>
     <string name="settings_crash_receiver_text">Desativar automaticamente uma sobreposição quando forem detetados encerramentos forçados de forma repetitiva numa aplicação com a sobreposição aplicada.</string>
-    <string name="overlays_outdated">Sobreposições desatualizadas</string>
-    <string name="overlays_outdated_message">A partir da versão 816 (inclusivé), a nossa assinatura para assinar as sobreposições foi alterada para prevenir possíveis desajustes futuros.\n\nIsto significa que as suas sobreposições instaladas devem ser limpas de forma a serem instaladas novas atualizações de temas, caso contrário irá obter mensagens eternamente a alertarem-no de que as suas sobreposições necessitam de ser atualizadas!\n\nEsta mensagem não irá ser mostrada quando todas as sobreposições forem compiladas através do novo Substratum.</string>
     <string name="root_required_title">Root necessário</string>
     <string name="root_required_boot_animation">O seu dispositivo está encriptado, por isso será necessário root para aplicar animações de arranque.</string>
     <string name="root_required_boot_animation_profile">O seu dispositivo está encriptado. Por isso, será necessário root para realizar cópias de segurança e restauros de animações de arranque.</string>

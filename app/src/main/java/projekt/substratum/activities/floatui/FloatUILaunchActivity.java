@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;

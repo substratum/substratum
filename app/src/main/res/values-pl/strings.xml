@@ -19,8 +19,6 @@
     <string name="rooted_oms_dialog_warning_title">Dynamiczne nakładki i root</string>
     <string name="rooted_oms_dialog_warning_text">Gdybyś był z nami, gdy maskarada była naszym systemem wsparcia, wiedziałbyś, że potrzebujemy root\'a do robienia wielu rzeczy z OMS. Był to czas, kiedy system był bardzo powolny\n\nMieliśmy 
  również tryb, w którym substratum mógł działać bez maskarady i który nie odciążał żadnych zmian zasobów z naszej własnej aplikacji, co oznacza, że substratum zaczynał strasznie zwalniać przy włączaniu / wyłączaniu, ponieważ konfiguracje zmian są niezwykle wielkie!\n\nJeśli możesz, zdecydowanie zaleca się, abyś uruchamiał wariant bez roota, taki jak Andromeda lub używał niestandardowego oprogramowania ROM z dodanymi naszymi zmianami, aby móc szybko korzystać z motywów. \n\nDalsze korzystanie z trybu roota spowoduje, że będą występować opóźnienia i problemy z wydajnością aplikacji, ponieważ substratum nie będzie w stanie odciążyć żadnych zmian konfiguracji w systemie!</string>
-    <string name="interfacer_notification_title">Substratum i Interfacer są połączone!</string>
-    <string name="interfacer_notification_text">Usługi motywów w tle są powiązane, aktywne i działają.</string>
     <string name="andromeda_notification_title">Substratum i Andromeda są połączone!</string>
     <string name="andromeda_notification_text">Usługi motywów w tle są powiązane, aktywne i działają.</string>
     <string name="resource_commit_dialog_title">Brakujące zasoby w %s</string>
@@ -440,8 +438,6 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="settings_samsung_show_dangerous_overlays_warning">Schowaliśmy niebezpieczne nakładki z pewnego powodu, ale jeżeli jesteś pewien aby były włączone, proszę postępuj zgodnie z instrukcjami zawartymi w naszym wątku na XDA jak je wyłączyć!</string>
     <string name="settings_crash_receiver_title">Odbiornik bezpieczeństwa awarii motywu</string>
     <string name="settings_crash_receiver_text">Automatycznie wyłącz nakładkę, gdy będą wykryte powtarzające się awarie aplikacji.</string>
-    <string name="overlays_outdated">Nakładki nieaktualne</string>
-    <string name="overlays_outdated_message">Od wersji 816 i wyższej, nasz podpis do podpisywania nakładek został zmieniony, aby zapobiec niedopasowaniu podpisu.\n\nTo oznacza, że zainstalowane nakładki muszą zostać wyczyszczone, aby zainstalować nowe aktualizacje motywów. Inaczej wciąż będzie wyświetlane, że Twoja nakładka wymaga aktualizacji!\n\nTen komunikat nie zostanie wyświetlony, gdy wszystkie nakładki zostaną skompilowane przy użyciu najnowszego Substratum.</string>
     <string name="root_required_title">Wymagany root</string>
     <string name="root_required_boot_animation">Urządzenie jest szyfrowane, więc root jest nie zbędny do zastosowania animacji rozruchowych telefonu.</string>
     <string name="root_required_boot_animation_profile">Urządzenie jest szyfrowane, więc root jest niezbędny do tworzenia kopii zapasowych i przywracania animacji rozruchowych telefonu.</string>

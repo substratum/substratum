@@ -16,8 +16,6 @@
     <string name="resource_needs_internet">Pour valider les demandes de votre ROM, connectez-vous à Internet !</string>
     <string name="resource_validated">Toutes les demandes sont intactes !</string>
     <string name="rooted_oms_dialog_warning_title">Surcouches dynamiques et Root</string>
-    <string name="interfacer_notification_title">Substratum et Interfacer sont connectés !</string>
-    <string name="interfacer_notification_text">Les services de thème d\'arrière-plan sont liés, actifs et en cours d\'exécution.</string>
     <string name="andromeda_notification_title">Substratum et Andromeda sont connectés !</string>
     <string name="andromeda_notification_text">Les services de thème d\'arrière-plan sont liés, actifs et en cours d\'exécution.</string>
     <string name="resource_commit_dialog_title">Ressources manquantes pour %s</string>
@@ -313,8 +311,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Nous masquons les surcouches dangereuses pour une raison, mais si vous êtes sûr•e de vouloir l\'activer, veuillez suivre les instructions de désactivation sur notre sujet XDA !</string>
     <string name="settings_crash_receiver_title">Collecteur d\'erreur de thème</string>
     <string name="settings_crash_receiver_text">Désactiver automatiquement une surcouche lors de la détection d\'erreurs répétitives de l\'application</string>
-    <string name="overlays_outdated">Superpositions obsolètes</string>
-    <string name="overlays_outdated_message">Depuis la version 816 et au-delà, notre signature pour signer des couches a changé pour éviter les incompatibilités de signature.\n\nCela signifie que vos couches installées doivent être désactivées pour installer les nouvelles mises à jour de thème ou il va dire que vos couches nécessitent une éternelle mise à jour ! \n\nCe message ne s’affichera pas lorsque toutes les couches seront compilées en utilisant le nouveau substratum.</string>
     <string name="root_required_title">Droits Root</string>
     <string name="root_required_boot_animation">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour modifier l\'animation de démarrage.</string>
     <string name="root_required_boot_animation_profile">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour pour sauvegarder et restaurer l\'animation de démarrage.</string>

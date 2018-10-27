@@ -18,8 +18,6 @@
     <string name="resource_validated">Všechny zdroje jsou v pořádku!</string>
     <string name="rooted_oms_dialog_warning_title">Dynamické potahy a root</string>
     <string name="rooted_oms_dialog_warning_text">Kdybyste byli s námi v minulosti, kdy náš systém využíval metodu maskování na pozadí, věděli byste, že potřebuje oprávnění root pro práci s OMS. V těch dobách byl systém extrémně pomalý!\n\nTaké jsme měli režim, ve kterém mohlo Substratum běžet bez maskování a vypínání zdrojů z naší vlastní aplikace což znamená, že Substratum začalo zpomalovat při zapínání/vypínání, protože změny konfigurace jsou mimořádně náročné!\n\nPokud je to možné, doporučujeme vám spustit verzi bez rootu, jako je Andromeda nebo vlastní ROM s doplněním našich změn, abyste mohli motivy rychle používat.\n\nPokud budete pokračovat v používání verze s rootem, budete pozorovat zpoždění a problémy s výkonem aplikace, protože Substratum není schopno využít všechny změny konfigurace systému!</string>
-    <string name="interfacer_notification_title">Substratum a Interfacer jsou připojeni!</string>
-    <string name="interfacer_notification_text">Služby pozadí motivu jsou propojeny, aktivní a běží.</string>
     <string name="andromeda_notification_title">Substratum a Andromeda jsou připojeni!</string>
     <string name="andromeda_notification_text">Služby pozadí motivu jsou propojeny, aktivní a běží.</string>
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
@@ -467,8 +465,6 @@ nižší prioritou.      </string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Skryli jsme nebezpečné potahy z nějakého důvodu, ale pokud jste si jisti, že chcete, aby byly povoleny, postupujte podle pokynů v našem vlákně XDA a vypněte jejich skrytí!</string>
     <string name="settings_crash_receiver_title">Ošetření pádů při aplikaci motivu</string>
     <string name="settings_crash_receiver_text">Automaticky vypnout potahy při opakovaném selhání překrytí aplikace.</string>
-    <string name="overlays_outdated">Potahy jsou zastaralé</string>
-    <string name="overlays_outdated_message">Od verze 816 a pozdějších se změnil náš podpis na podepisování překryvných souborů, aby se zabránilo možnému nesouladu s podpisy na cestě.\n\nTo znamená, že vaše nainstalované potahy musí být vyčištěny tak, aby se mohli instalovat nové aktualizace motivů nebo se stane, že vaše potahy vyžadují aktualizaci navždy!\n\nTato zpráva se nezobrazí, když jsou všechny potahy zkompilovány pomocí nejnovějšího Substratum.</string>
     <string name="root_required_title">Vyžaduje root</string>
     <string name="root_required_boot_animation">Vaše zařízení je šifrované, takže je potřebný root pro použití spouštěcí animace.</string>
     <string name="root_required_boot_animation_profile">Vaše zařízení je šifrované, takže je potřebný root pro zálohování a obnovení spouštěcí animace.</string>

@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PersistableBundle;
 import android.os.PowerManager;
+
 import androidx.core.app.NotificationCompat;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;

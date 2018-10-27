@@ -25,11 +25,16 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.io.File;
+import java.util.List;
+
 import androidx.cardview.widget.CardView;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import com.google.android.material.snackbar.Snackbar;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
@@ -43,9 +48,6 @@ import projekt.substratum.util.helpers.TranslatorParser;
 import projekt.substratum.util.helpers.ValidatorUtils;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
-
-import java.io.File;
-import java.util.List;
 
 import static projekt.substratum.common.Activities.launchActivityUrl;
 import static projekt.substratum.common.Activities.launchExternalActivity;
@@ -62,8 +64,8 @@ import static projekt.substratum.common.References.MAX_PRIORITY;
 import static projekt.substratum.common.References.MIN_PRIORITY;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.Resources.SYSTEMUI;
-import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.checkPackageSupport;
+import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.isNewSamsungDevice;
 import static projekt.substratum.common.Systems.isNewSamsungDeviceAndromeda;
 import static projekt.substratum.common.commands.FileOperations.delete;

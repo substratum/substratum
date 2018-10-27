@@ -17,8 +17,6 @@
     <string name="resource_needs_internet">Vahvistaaksesi ROMisi commitit, olethan yhteydessä Internetiin!</string>
     <string name="resource_validated">Kaikki commitit koskemattomia!</string>
     <string name="rooted_oms_dialog_warning_title">Dynaamoset Päällykset ja Root</string>
-    <string name="interfacer_notification_title">Substratum ja Interfacer on yhdistetty!</string>
-    <string name="interfacer_notification_text">Teeman taustapalvelut on yhdistetty, aktiiviset ja käynnissä.</string>
     <string name="andromeda_notification_title">Substratum ja Andromeda on yhdistetty!</string>
     <string name="andromeda_notification_text">Teeman taustapalvelut on yhdistetty, aktiiviset ja käynnissä.</string>
     <string name="resource_commit_dialog_title">Puuttuvat Resurssit %s</string>
@@ -300,7 +298,6 @@
     <string name="settings_manage_space_title">Hallitse tallennustilan käyttöä</string>
     <string name="settings_samsung_show_dangerous_overlays">Salli vaaralliset päällykset</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">VAROITUS</string>
-    <string name="overlays_outdated">Päällykset vanhentuneita</string>
     <string name="root_required_title">Root vaadittu</string>
     <string name="per_app_notification_framework_show">Näytä Android-järjestelmä -päällykset</string>
     <string name="per_app_notification_framework_hide">Piilota Android-järjestelmä -päällykset</string>

@@ -14,13 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.databinding.TabOverlaysPreviewItemBinding;
-
-import java.util.List;
 
 public class VariantAdapter extends ArrayAdapter<VariantItem> {
 

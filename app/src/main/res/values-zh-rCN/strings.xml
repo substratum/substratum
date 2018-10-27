@@ -18,8 +18,6 @@
     <string name="resource_validated">所有提交都是完整的</string>
     <string name="rooted_oms_dialog_warning_title">动态覆盖并应用</string>
     <string name="rooted_oms_dialog_warning_text">如果你从我们使用 Masquerade 作为后端时就已经使用 Substratum ，那你应该知道我们需要 root 权限才能充分利用 OMS ，这会导致系统变得极其缓慢！\n\n虽然我们有一种方法可以让 Substratum 无需使用 Masquerade 的模式，在这个模式下不会卸下任何已更改的资源。但由于这个模式会带来大量的配置文件发生变化，这将意味着 Substratum 在启用或停用时，会有可能出现卡顿问题！\n\n如果可以，我们强烈地建议您使用如 Andromeda 这样的不需要以 root 方式运行 Substratum 的第三方系统，或是集成了我们新指令集的定制系统，以便拥有更好的体验。\n\n若继续使用以 root 的方式运行 Substratum，将有可能会出现卡顿或性能问题，因为 Substratum 无法将任何配置更改保存到系统中！</string>
-    <string name="interfacer_notification_title">Substratum与Interfacer已连接！</string>
-    <string name="interfacer_notification_text">后台主题服务已被禁用，激活并运行。</string>
     <string name="andromeda_notification_title">Substratum与Andromeda已连接！</string>
     <string name="andromeda_notification_text">后台主题服务已被禁用，激活并运行。</string>
     <string name="resource_commit_dialog_title">在 %s 中缺少资源</string>
@@ -443,8 +441,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">我们因为某些原因隐藏了高风险叠加层。如果您确实需要使用这些叠加层，请参照 XDA 论坛上的说明手动关闭隐藏功能。</string>
     <string name="settings_crash_receiver_title">主题崩溃检测</string>
     <string name="settings_crash_receiver_text">当检测到应用程序重复崩溃时，自动禁用叠加层</string>
-    <string name="overlays_outdated">叠加层已过期</string>
-    <string name="overlays_outdated_message">在816版本及更高版本中，我们改变了叠加层的签名，以防止可能出现的签名不匹配。\n\n这意味着您必须清除已安装的叠加层，并重新安装新的主题，否则会一直提示您需要更新叠加层。\n\n此消息 在使用最新版本 Substratum 编译叠加层时不会显示。</string>
     <string name="root_required_title">需要 Root 权限</string>
     <string name="root_required_boot_animation">您的设备是加密的，因此需要 Root 权限以应用开机动画。</string>
     <string name="root_required_boot_animation_profile">您的设备是加密的，因此需要 Root 权限以备份和还原开机动画。</string>

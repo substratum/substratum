@@ -18,8 +18,6 @@
     <string name="resource_validated">Minden változtatás átvezetve!</string>
     <string name="rooted_oms_dialog_warning_title">Dinamikus fedvények és root</string>
     <string name="rooted_oms_dialog_warning_text">Ha velünk volt, amikor a masquerade volt a támogatási rendszerünk, akkor tudja, hogy rootra volt szükségünk, hogy sok dolgot csinálhassunk az OMS-vel. Ez egy olyan időszak volt, amikor a rendszer nagyon lassú volt.\n\nVolt olyan módunk is, ahol a substratum a masquerade nélkül is futhatott, és amely nem mentesítette a források változását a saját alkalmazásunkból, ami azt jelenti, hogy a substratum laggolt a be/kikapcsolás során, mivel a konfigurációk módosításai elképesztően nehezek!\n\nHa tud, akkor javasoljuk, hogy futtassa a rootnélküli verziót, például az Andromedát, vagy használjon egyéni ROM-ot az új hozzáadott módosításokkal, hogy gyorsan használhassa témáit.\n\nA root verzió további használata késedelmet és alkalmazással kapcsolatos teljesítmény problémákat okozhat, mivel a substratum nem lesz képes semmilyen konfigurációs változtatásra a rendszerben!</string>
-    <string name="interfacer_notification_title">Substratum és Interfacer össze van kötve!</string>
-    <string name="interfacer_notification_text">A háttér témaszolgáltatások aktívak és futnak.</string>
     <string name="andromeda_notification_title">Substratum és Andromeda össze van kötve!</string>
     <string name="andromeda_notification_text">A háttér témaszolgáltatások aktívak és futnak.</string>
     <string name="resource_commit_dialog_title">Hiányzó források itt: %s</string>
@@ -515,8 +513,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Okkal rejtettük el a veszélyes fedvényeket, de ha biztos benne, hogy engedélyezni kívánja, kövesse az XDA témában lévő utasításokat a kikapcsoláshoz!</string>
     <string name="settings_crash_receiver_title">Alkalmazás összeomlások biztonságos kezelése</string>
     <string name="settings_crash_receiver_text">Automatikusan letiltja a fedvényt, ha a fedvénnyel rendelkező alkalmazás folyamatosan összeomlik.</string>
-    <string name="overlays_outdated">A fedvények elavultak</string>
-    <string name="overlays_outdated_message">A 816 verziótól és felette, a fedvényekhez tartozó aláírásunk megváltozott annak megakadályozására, hogy az aláírások eltérőek legyenek.\n\nEz azt jelenti, hogy a telepített fedvényeit tisztítania kell az új témafrissítések telepítéséhez, ellenkező esetben azt fogja mondani, hogy a fedvények folyamatos frissítést igényelnek!\n\nEz üzenet nem jelenik meg, ha az összes fedvény a legújabb Substratum segítségével került összeállításra.</string>
     <string name="root_required_title">Root szükséges</string>
     <string name="root_required_boot_animation">A készüléke titkosított, így root szükséges a rendszerindítási animációk alkalmazásához.</string>
     <string name="root_required_boot_animation_profile">A készüléke titkosított, így root szükséges a rendszerindítási animációk mentéséhez és visszaállításához.</string>

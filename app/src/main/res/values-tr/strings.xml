@@ -18,8 +18,6 @@
     <string name="resource_validated">Tüm hata bildirimleri sağlam!</string>
     <string name="rooted_oms_dialog_warning_title">Dinamik Temalar ve Kök Erişimi</string>
     <string name="rooted_oms_dialog_warning_text">Eğer masquerade arka uç sistemimiz olduğu zaman bizimle birlikte olsaydınız OMS ile birçok şey yapabilmek için kök erişimi gerektiğini bilirdiniz. Sistemin son derece yavaş olduğu zamanlar böyleydi!\n\nAyrıca, substratum\'u masquerade olmadan çalıştırabilecek ve herhangi bir kaynak değişikliğini uygulamamızdan yükleyen bir modumuz vardı, yani substratum, yapılandırma değişiklikleri son derece ağır olduğu için, etkinleştirirken veya devre dışı bırakıldığında gecikmeye başlar!\n\nEğer yapabilirseniz, hızlı tema uygulamayı deneyimlemek için Andromeda veya özel bir ROM gibi; kök erişimi olmayan bir varyantı çalıştırmanız şiddetle öneriyoruz.\n\nKök erişimli varyantı kullanmaya devam ederseniz, substratum\'un herhangi bir yapılandırma değişikliğini sisteme yükleyememesi nedeniyle uygulamada gecikmeler ve performans sorunları olacaktır!</string>
-    <string name="interfacer_notification_title">Substratum ve Arayüz bağlı!</string>
-    <string name="interfacer_notification_text">Arka plan tema hizmetleri bağlı, etkin ve çalışıyor.</string>
     <string name="andromeda_notification_title">Substratum ve Andromeda bağlı!</string>
     <string name="andromeda_notification_text">Arka plan tema hizmetleri bağlı, etkin ve çalışıyor.</string>
     <string name="resource_commit_dialog_title">%s Kaynakları Eksik</string>
@@ -516,8 +514,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Tehlikeli temaları bir nedenden dolayı gizledik, ancak bu özelliğin etkin olmasını istediğinizden eminseniz, lütfen XDA konumuzdan devre dışı bırakmak için gerekli talimatları uygulayın!</string>
     <string name="settings_crash_receiver_title">Tema güvenliği çökme algılayıcı</string>
     <string name="settings_crash_receiver_text">Tema uygulanan bir uygulamada tekrar eden çökmeler tespit edildiğinde temayı otomatik olarak devre dışı bırak.</string>
-    <string name="overlays_outdated">Eski temalar</string>
-    <string name="overlays_outdated_message">816 ve sonraki sürümleri itibarıyla temaların imzalanması için imzanız, olası imza uyuşmazlıklarını önlemek için değişti.\n\nBu, yüklenen temalarınızın yeni tema güncellemelerini yüklemek için temizlenmesi gerektiği anlamına gelir veya temanızın sürekli olarak bir güncelleme gerektirdiğini söyleyecektir!\n\nBu mesaj, tüm temaların en yeni Substratum sürümü kullanılarak düzenlendiğinde gösterilmez.</string>
     <string name="root_required_title">Kök erişimi gereklidir</string>
     <string name="root_required_boot_animation">Cihazınız şifrelidir, bu nedenle önyükleme animasyonlarını uygulamak için kök erişimi gereklidir.</string>
     <string name="root_required_boot_animation_profile">Cihazınız şifrelidir, bu nedenle önyükleme animasyonlarını yedeklemek ve geri yüklemek için kök erişimi gereklidir.</string>

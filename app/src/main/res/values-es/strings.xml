@@ -18,8 +18,6 @@
     <string name="resource_validated">Todos los commits intactos!</string>
     <string name="rooted_oms_dialog_warning_title">Capas Dinámicas y Root</string>
     <string name="rooted_oms_dialog_warning_text">Si estaba con nosotros cuando Masquerade fue nuestro sistema de apoyo, sabe que necesitábamos root para hacer muchas cosas con OMS. ¡Ese era el tiempo cuando el sistema era extremadamente lento! \n\nTambién teníamos un modo en el que Substratum podía funcionar sin Masquerade y no descargaba ningún cambio de recursos desde nuestra propia aplicación, lo que significaba que Substratum comenzaba a rezagarse cuando se activaba o desactivaba, ¡dado que los cambios de configuración son extremadamente pesados!\n\nSi puede, es altamente recomendado que corra una variante rootless como Andromeda o una ROM personalizada con nuestros nuevos commits, para poder experimentar una tematización veloz.\n\nAl continuar utilizado la variante root, habrán rezagos y problemas de desempeño con la aplicación, ¡debido a que Substratum no puede descargar ningún cambio de configuración en el sistema!</string>
-    <string name="interfacer_notification_title">¡Substratum e Interfacer están conectados!</string>
-    <string name="interfacer_notification_text">Los servicios de tema en segundo plano están vinculados, activos y ejecutándose.</string>
     <string name="andromeda_notification_title">¡Substratum y Andromeda están conectados!</string>
     <string name="andromeda_notification_text">Los servicios de tema en segundo plano están vinculados, activos y ejecutándose.</string>
     <string name="resource_commit_dialog_title">Faltan recursos en %s</string>
@@ -488,8 +486,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Ocultamos las capas peligrosas por una razón, pero si estás seguro que desea activar esto, por favor siga las instrucciones para activar las capas en nuestro hilo en XDA!</string>
     <string name="settings_crash_receiver_title">Receptor de cierres forzados de temas</string>
     <string name="settings_crash_receiver_text">Desactivar automáticamente una capa al detectar cierres repetitivos en la aplicación superpuesta.</string>
-    <string name="overlays_outdated">Capas desactualizadas</string>
-    <string name="overlays_outdated_message">De la versión 816 en adelante, nuestra firma para firmar las capas cambió para prevenir posibles diferencias en la firma a lo largo del camino.\n\nEsto significa que las capas instaladas deben ser limpiadas para instalar nuevas actualizaciones a su tema o de lo contrario tendrá un mensaje permanente indicando que sus capas requieren actualización.\n\nEste mensaje no aparecerá cuando las capas sean compiladas utilizando el nuevo Substratum.</string>
     <string name="root_required_title">Se requiere root</string>
     <string name="root_required_boot_animation">Su dispositivo está encriptado, por lo cual es necesario root para aplicar las animaciones de inicio.</string>
     <string name="root_required_boot_animation_profile">Su dipositivo está encriptado, por lo cual es necesario root para respaldar y restaurar las animaciones de inicio.</string>

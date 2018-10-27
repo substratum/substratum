@@ -7,12 +7,12 @@
 
 package projekt.substratum.util.helpers;
 
-import androidx.core.util.Pair;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import androidx.core.util.Pair;
 
 public class MapUtils {
 

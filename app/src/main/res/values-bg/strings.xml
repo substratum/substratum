@@ -18,8 +18,6 @@
     <string name="resource_validated">Всички комити са в изправност!</string>
     <string name="rooted_oms_dialog_warning_title">Динамични слоеве и root</string>
     <string name="rooted_oms_dialog_warning_text">Ако сте били с нас, когато маскарад е нашата основна система, вие ще знаете, че нямате нужда от руут за да направиш много неща с OMS. Това е времето, когато системата е изключително бавна! \n\nНие също имаше режим където Substratum може да работи без маскарад и то не ще разтоварят никакви промени в ресурс от нашата собствена ап, смисъла Substratum ще започне да се бави огато дава възможност на/правя неспособен, тъй като промените в конфигурацията са изключително тежки! \n\nIf може, тя ще бъде силно препоръчва винаги да стартирате без корени вариант като Андромеда или модифициран ROM с нашата нова система, за да се увеличи скоростта.\n\nКато продължава с помощта на руут вариант, ще има миг и проблеми с производителността с ап поради Substratum, не е в състояние да разтоварят промени в конфигурацията на системата!</string>
-    <string name="interfacer_notification_title">Substratum и interfaced са свързани!</string>
-    <string name="interfacer_notification_text">Фоновите услуги за тема са свързани, активни и работещи.</string>
     <string name="andromeda_notification_title">Substratum и Andromeda са свързани!</string>
     <string name="andromeda_notification_text">Фоновите услуги за тема са свързани, активни и работещи.</string>
     <string name="resource_commit_dialog_title">Липсват източници в %s</string>
@@ -398,7 +396,6 @@
     <string name="settings_manage_space_title">Управление на паметта</string>
     <string name="settings_samsung_show_dangerous_overlays">Позволяване на рискови слоеве</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ВНИМАНИЕ</string>
-    <string name="overlays_outdated">Стари пластове</string>
     <string name="root_required_title">Необходими са суперюзър права</string>
     <string name="root_required_boot_animation">Вашето устройство е криптирано, ще са Ви необходими суперюзър права за прилагането на зареждащи анимации.</string>
     <string name="root_required_boot_animation_profile">Вашето устройство е криптирано, ще са Ви необходими суперюзър права за запазването и прилагането на зареждащи анимации.</string>

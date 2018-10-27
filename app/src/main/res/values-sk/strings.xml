@@ -18,8 +18,6 @@
     <string name="resource_validated">Všetky zdroje sú v poriadku!</string>
     <string name="rooted_oms_dialog_warning_title">Dynamické prekrytia a Root</string>
     <string name="rooted_oms_dialog_warning_text">Keby ste boli s nami v minulosti, keď náš systém využíval metódu maskovania sa na pozadí, vedeli by ste, že potrebuje oprávnenia Root, pre prácu s OMS. V tých časoch bol systém extrémne pomalý!\n\nTiež sme mali režim, v ktorom mohol Substratum bežať bez maskovania a vypínania zdrojov z našej vlastnej aplikácie, čo znamená, že Substratum začal spomaľovať pri zapínaní/vypínaní, pretože zmeny konfigurácie sú mimoriadne náročné!\n\nAk je to možné, odporúčame vám spustiť verziu bez Rootu, ako je Andromeda alebo vlastnú ROM s doplnením našich zmien, aby ste mohli témy používať rýchlo.\n\nAk budete pokračovať v používaní Root verzie, bude pozorovať oneskorenia a problémy s výkonom aplikácie, pretože Substratum nie je schopný využiť všetky zmeny konfigurácie systému!</string>
-    <string name="interfacer_notification_title">Substratum a Interfacer sú spojení!</string>
-    <string name="interfacer_notification_text">Služby pozadia témy sú prepojené, aktívne a bežiace.</string>
     <string name="andromeda_notification_title">Substratum a Andromeda sú spojení!</string>
     <string name="andromeda_notification_text">Služby pozadia témy sú prepojené, aktívne a bežiace.</string>
     <string name="resource_commit_dialog_title">Chýbajúce zdroje v %s</string>
@@ -447,9 +445,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Skryli sme nebezpečné prekrytia z nejakého dôvodu, ale ak ste si istí, že chcete, aby to boli povolené, postupujte podľa pokynov v našom vlákne XDA a vypnite ich skrytie!</string>
     <string name="settings_crash_receiver_title">Ošetrenie pádov pri aplikovaní témy</string>
     <string name="settings_crash_receiver_text">Automaticky vypnúť prekrytie pri opakovanom zlyhaní pokusu o prekrytie aplikácie.</string>
-    <string name="overlays_outdated">Prekrytia sú zastarané</string>
-    <string name="overlays_outdated_message">Od verzie 816 a neskorších sa zmenil náš podpis na podpisovanie prekryvných súborov, aby sa zabránilo možnému
- nesúladu s podpismi na ceste.\n\nTo znamená, že vaše nainštalované prekrytia musia byť upratané tak, aby sa mohli inštalovať nové aktualizácie tém alebo sa povedie, že vaše prekrytie vyžaduje aktualizáciu navždy!\n\nTáto správa sa nezobrazí, keď sú všetky prekrytia skompilované pomocou najnovšieho Substratum.</string>
     <string name="root_required_title">Vyžaduje sa root</string>
     <string name="root_required_boot_animation">Vaše zariadenie je šifrované, takže je potrebný root pre aplikovanie spúšťacej animácie.</string>
     <string name="root_required_boot_animation_profile">Vaše zariadenie je šifrované, takže je potrebný root pre zálohovanie a obnovenie spúšťacej animácie.</string>

@@ -18,8 +18,6 @@
     <string name="resource_validated">Visi įpareigojimai sveiki!</string>
     <string name="rooted_oms_dialog_warning_title">Dinaminiai Sluoksniai ir \"Root\"</string>
     <string name="rooted_oms_dialog_warning_text">Jei jūs buvote su mumis, kai \"masquerade\" buvo mūsų senoji sistema, jūs žinote, jog mums reikia \"root\", kad atlikti daugybę veiksmų su \"OMS\". Tai buvo laikas, kai sistema buvo labai lėta!\n\nMes taip pat turėjome režimą, kai \"substratum galėjo veikti be \"masquerade\" ir nebūtų užkraunami jokie išteklių pakeitimai iš mūsų programos, o \"substratum\" pradėtų veikti lėtai įjungiant / išjungiant, nes konfigūracijos pakeitimai yra labai sunkūs!\n\nJei galite, labai rekomenduojame paleisti \"rootless\" varianta kaip, kad \"Andromeda\" ar \"custom ROM\" su mūsų naujais įskiepiais, kad patirti greitą apipavidalinimą.\n\nNaudodamiesi \"root\" variantą, su programa gali atsirasti sulėtėjimo ir veikimo problemų, nes \"substratum\" negali užkrauti sistemos konfigūracijos pakeitimų!</string>
-    <string name="interfacer_notification_title">\"Substratum\" ir \"Interfacer\" yra prijungtos!</string>
-    <string name="interfacer_notification_text">Fono temos paslaugos susietos, aktyvios ir veikia.</string>
     <string name="andromeda_notification_title">\"Substratum\" ir \"Andromeda\" prijungtos!</string>
     <string name="andromeda_notification_text">Fono temos paslaugos susietos, aktyvios ir veikia.</string>
     <string name="resource_commit_dialog_title">Trūksta išteklių %s</string>
@@ -462,8 +460,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Mes paslėpėme perdangas dėl priežasties, bet jei jūs esate tikras jūs galite tai įjungti. Prašome vadovautis pateiktais nurodymais, kaip tai išjungti mūsų \"XDA\" temoje!</string>
     <string name="settings_crash_receiver_title">Temos saugumo klaidos gavėjas</string>
     <string name="settings_crash_receiver_text">Automatiškai išjungti perdangą, kai aptinkamas pasikartojantis gedimas programos perdangai.</string>
-    <string name="overlays_outdated">Pasenusios perdangos</string>
-    <string name="overlays_outdated_message">Nuo versijos 816 ir po jos, mūsų perdangų pasirašymas pasikeitė, kad išvengti galimo parašo neatitikimo.\n\nTai reiškia, kad jūsų įdiegtos perdangos turi būti išvalytos, jog įdiegti naujus temos atnaujinimus arba jums visada rodys, kad jum reikia atnaujinimo!\n\nŠio pranešimo neberodys, kai visos perdangos bus sukompiliuotos su naujausiu \"Substratum\".</string>
     <string name="root_required_title">Reikalingas \"root\"</string>
     <string name="root_required_boot_animation">Jūsų įrenginys šifruotas, todėl \"root\" yra būtinas, norėdami pritaikyti paleidimo animacijas.</string>
     <string name="root_required_boot_animation_profile">Jūsų įrenginys šifruotas, todėl \"root\" yra būtinas, norėdami sukurti atsarginę kopiją ar atkurti paleidimo animacijas.</string>

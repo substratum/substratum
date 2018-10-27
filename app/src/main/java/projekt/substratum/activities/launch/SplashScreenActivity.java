@@ -20,8 +20,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import androidx.databinding.DataBindingUtil;
+
 import com.jaredrummler.android.widget.AnimatedSvgView;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import androidx.databinding.DataBindingUtil;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
@@ -30,12 +38,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.databinding.SplashscreenActivityBinding;
 import projekt.substratum.util.helpers.MD5;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import static projekt.substratum.common.Internal.AUTHENTICATED_RECEIVER;
 import static projekt.substratum.common.Internal.AUTHENTICATE_RECEIVER;

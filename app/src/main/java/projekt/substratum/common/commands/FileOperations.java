@@ -12,19 +12,9 @@ import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import org.apache.commons.io.FileUtils;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.References;
-import projekt.substratum.common.Systems;
-import projekt.substratum.common.platform.SubstratumService;
-import projekt.substratum.common.platform.ThemeInterfacerService;
-import projekt.substratum.util.helpers.Root;
 
-import javax.crypto.Cipher;
-import javax.crypto.CipherInputStream;
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +23,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.platform.SubstratumService;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.util.helpers.Root;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;

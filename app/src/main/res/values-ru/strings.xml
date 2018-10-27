@@ -18,8 +18,6 @@
     <string name="resource_validated">Обновление не требуется!</string>
     <string name="rooted_oms_dialog_warning_title">Об интеграции слоев и root правах</string>
     <string name="rooted_oms_dialog_warning_text">Если вы застали времена masquerade, то в курсе о применении root для многих действий с OMS, система была крайне медленной!\n\nВ то же время substratum мог работать и без masquerade, применяя ресурсы самостоятельно, что приводило к замедлениям при включении/выключении слоев из-за чрезвычайной нагрузки от изменения параметров!\n\nРади быстрого переоформления настоятельно рекомендуем пользоваться альтернативами, не применяющими root, такими как Andromeda или любительские прошивки с нашими нововведениями, по мере возможности.\n\nВ противном случае могут наблюдаться проблемы с быстродействием, так как substratum не сможет доверить часть изменения настроек системе!</string>
-    <string name="interfacer_notification_title">Substratum и Interfacer соединены!</string>
-    <string name="interfacer_notification_text">Фоновые процессы связаны, активны и запущены.</string>
     <string name="andromeda_notification_title">Substratum и Andromeda соединены!</string>
     <string name="andromeda_notification_text">Фоновые процессы связаны, активны и запущены.</string>
     <string name="resource_commit_dialog_title">Отсутствуют ресурсы в %s</string>
@@ -342,8 +340,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Рискованные наслоения спрятаны не просто так, но если Вы предпочтете таковые оставить - изучите инструкцию по их отключению в теме на XDA!</string>
     <string name="settings_crash_receiver_title">Отслеживание вылетов</string>
     <string name="settings_crash_receiver_text">Автоматически отключать наслоения для приложений с выявленными повторяющимися вылетами.</string>
-    <string name="overlays_outdated">Наслоения устарели</string>
-    <string name="overlays_outdated_message">Начиная с версии 816 и впредь, подпись для наслоений была изменена ради предотвращения возможных конфликтов подписей в дальнейшем.\n\nЭто означает, что все установленные Вами наслоения должны быть переустановлены перед применением обновлений тем, иначе Вы будете видеть требование обновить их постоянно!\n\nЭто сообщение перестанет появляться, как только все наслоения будут пересобраны новой версией Substratum.</string>
     <string name="root_required_title">Требуются Root-права</string>
     <string name="root_required_boot_animation">Устройство зашифровано, для применения анимации загрузок требуются права Суперпользователя.</string>
     <string name="root_required_boot_animation_profile">Устройство зашифровано, для резервирования и восстановления анимации загрузок требуются права Суперпользователя.</string>

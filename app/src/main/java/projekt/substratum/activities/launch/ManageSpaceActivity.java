@@ -13,6 +13,10 @@ import android.os.Bundle;
 import android.os.Process;
 import android.text.format.Formatter;
 import android.widget.TextView;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,9 +27,6 @@ import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.databinding.ManageSpaceActivityBinding;
 import projekt.substratum.util.helpers.LocaleHelper;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
 
 import static projekt.substratum.common.References.LOGCHAR_DIR;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.NAMES_PREFS;

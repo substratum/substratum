@@ -18,8 +18,6 @@
     <string name="resource_validated">Alle Commits intakt!</string>
     <string name="rooted_oms_dialog_warning_title">Dynamische Overlays und Root</string>
     <string name="rooted_oms_dialog_warning_text">Falls du schon dabei warst, als Masquerade noch unser Backend System war, weisst du, dass wir für viele Dinge mit OMS Root brauchen. Das war die Zeit, als das System noch extrem langsam war!\n\nWir hatten auch einen Modus, in welchem Substratum ohne Masquerade laufen konnte und keine Ressourcenänderungen aus unserer App ausgelagert wurden, was heisst, dass die App zu stocken begann beim aktivieren/deaktivieren, da Konfigurationsänderungen extrem schwer sind!\n\nFalls möglich wäre es empfohlen, wenn du eine rootlose Methode so wie Andromeda oder eine Custom ROM mit unseren neuen Commits verwenden würdest, um schnelles Theming zu erleben.\n\nBei weiterer Verwendung der Root-Variante, kann es zu Stocken und Performance Problemen in der App kommen, da Substratum so keine Konfigurationsänderungen ins System auslagern kann!</string>
-    <string name="interfacer_notification_title">Substratum und Interfacer sind verbunden!</string>
-    <string name="interfacer_notification_text">Die Theme-Hintergrunddienste sind gebunden, aktiv und laufen.</string>
     <string name="andromeda_notification_title">Substratum und Andromeda sind verbunden!</string>
     <string name="andromeda_notification_text">Die Theme-Hintergrunddienste sind gebunden, aktiv und laufen.</string>
     <string name="resource_commit_dialog_title">Fehlende Ressourcen in %s</string>
@@ -431,8 +429,6 @@ eingerichtet&#8230;</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Wir haben unsere Gründe gefährliche Overlays zu verstecken, aber wenn du sicher bist, dass du dies eingeschaltet haben willst, folge bitte den Anweisungen in unserem XDA Thread um dies auszuschalten!</string>
     <string name="settings_crash_receiver_title">Theme-Sicherheit Absturz-Empfänger</string>
     <string name="settings_crash_receiver_text">Deaktiviert automatisch ein Overlay, wenn wiederholt Abstürze von der überlagerten App erkannt werden.</string>
-    <string name="overlays_outdated">Overlays veraltet</string>
-    <string name="overlays_outdated_message">Beginnend mit Version 816 hat sich unsere Signatur für Overlays geändert, um nicht übereinstimmende Signaturen in Zukunft zu verhindern.\n\nDas heißt deine installierten Overlays müssen gelöscht werden, um neue Theme-Updates installieren zu können, sonst wird ein ewiges Update für dein Overlays verlangt werden!\n\nDiese Nachricht wird nicht angezeigt wenn alle Overlays mit dem neuesten Substratum kompiliert wurden.</string>
     <string name="root_required_title">Root-Zugriff erforderlich</string>
     <string name="root_required_boot_animation">Dein Gerät ist verschlüsselst, weshalb Root-Zugriff benötigt wird, um Boot-Animationen anzuwenden.</string>
     <string name="root_required_boot_animation_profile">Dein Gerät ist verschlüsselst, weshalb Root-Zugriff benötigt wird, um Boot-Animationen sichern und wiederherstellen zu können.</string>

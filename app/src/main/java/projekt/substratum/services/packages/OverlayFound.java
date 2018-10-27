@@ -16,6 +16,13 @@ import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 import androidx.core.app.NotificationCompat;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
@@ -23,12 +30,6 @@ import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static projekt.substratum.common.Packages.getBitmapFromDrawable;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;

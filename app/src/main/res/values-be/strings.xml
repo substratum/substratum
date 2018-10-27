@@ -18,8 +18,6 @@
     <string name="resource_validated">Усе рэсурсы ў парадку!</string>
     <string name="rooted_oms_dialog_warning_title">Дынамічныя напластаванні і root правы</string>
     <string name="rooted_oms_dialog_warning_text">Калі вы заспелі часы masquerade, то ў курсе аб ужыванні root для многіх дзеянняў з OMS, сістэма была вельмі павольнай!\n\nУ той жа час substratum мог працаваць і без masquerade, ужываючы рэсурсы самастойна, што прыводзіла да запаволеньня пры ўключэнні / выключэнні напластаванняў з-за надзвычайнай нагрузкі ад змены параметраў!\n\nДзеля хуткага пераафармлення настойліва раім карыстацца альтэрнатывамі, не ўжываючы root, такімі як Andromeda або аматарскія прашыўкі з нашымі новаўвядзеннямі, па меры магчымасці.\n\nУ адваротным выпадку могуць назірацца праблемы з хуткадзейнасцю, так як substratum не зможа даверыць частку змен налад сістэме!</string>
-    <string name="interfacer_notification_title">Substratum і Interfacer злучаны!</string>
-    <string name="interfacer_notification_text">Фонавыя працэсы звязаныя, актыўныя і запушчаны.</string>
     <string name="andromeda_notification_title">Substratum і Andromeda злучаны!</string>
     <string name="andromeda_notification_text">Фонавыя працэсы звязаныя, актыўныя і запушчаны.</string>
     <string name="resource_commit_dialog_title">Адсутнічаюць рэсурсы ў %s</string>
@@ -428,8 +426,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Рызыкоўныя напластаванні схаваны не проста так, але калі Вы аддасце перавагу такія пакінуць - вывучыце інструкцыю па іх адключэннб ў тэме на XDA!</string>
     <string name="settings_crash_receiver_title">Выяўленне аварыі тэмы</string>
     <string name="settings_crash_receiver_text">Аўтаматычна адключаць напластаванні для праграм з выяўленымі паўтаральнымі аварыямі.</string>
-    <string name="overlays_outdated">Напластасаванні састарэлыя</string>
-    <string name="overlays_outdated_message">Пачынаючы з версіі 816 і надалей, подпіс для напластаванняў быў зменены дзеля прадухілення магчымых канфліктаў подпісаў у далейшым.\n\nГэта азначае, што ўсе ўсталяваныя Вамі напластаванні павінны быць пераусталяваны перад ужываннем абнаўленняў тэм, інакш Вы будзеце бачыць патрабаванне абнавіць іх увесь час!\n\nГэта паведамленне перастане з\'яўляцца, як толькі ўсе напластаванні будуць перасабраны новай версіяй Substratum.</string>
     <string name="root_required_title">Патрабуюцца Root-правы</string>
     <string name="root_required_boot_animation">Прылада зашыфравана, для прымянення анімацыі загрузак патрабуюцца правы Суперкарыстальніка.</string>
     <string name="root_required_boot_animation_profile">Прылада зашыфравана, для рэзервавання і аднаўлення анімацыі загрузак патрабуюцца правы Суперкарыстальніка.</string>

@@ -17,8 +17,6 @@
     <string name="resource_needs_internet">ROM内のコミットの検証を行うには、インターネットに接続してください！</string>
     <string name="resource_validated">すべてのコミットは完全です！</string>
     <string name="rooted_oms_dialog_warning_title">ダイナミックオーバーレイとRoot</string>
-    <string name="interfacer_notification_title">SubstratumとInterfacerが接続されました！</string>
-    <string name="interfacer_notification_text">バックグラウンドテーマサービスは結合されて実行されており、アクティブです。</string>
     <string name="andromeda_notification_title">SubstratumとAndromedaが接続されました！</string>
     <string name="andromeda_notification_text">バックグラウンドテーマサービスは結合されて実行されており、アクティブです。</string>
     <string name="resource_commit_dialog_title">%s には不足しているリソースがあります</string>

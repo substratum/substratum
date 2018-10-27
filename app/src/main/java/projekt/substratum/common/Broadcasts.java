@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import projekt.substratum.Substratum;
 import projekt.substratum.services.crash.AppCrashReceiver;

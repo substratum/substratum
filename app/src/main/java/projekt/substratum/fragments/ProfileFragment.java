@@ -563,8 +563,12 @@ public class ProfileFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             ProfileFragment profileFragment = ref.get();
             if (profileFragment != null) {
-                String uid =
-                        Environment.getExternalStorageDirectory().getAbsolutePath().split("/")[3];
+                String uid;
+                try {
+                    uid = Environment.getExternalStorageDirectory().getAbsolutePath().split("/")[3];
+                } catch (ArrayIndexOutOfBoundsException ignored) {
+                    uid = "0";
+                }
                 File nomediaFile = new File(Environment.getExternalStorageDirectory() +
                         NO_MEDIA);
                 try {

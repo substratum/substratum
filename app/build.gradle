@@ -75,6 +75,7 @@ android {
             useProguard false
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (keystorePropertiesFile.exists()) signingConfig signingConfigs.release
         }
     }
     compileOptions {

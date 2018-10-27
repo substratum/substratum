@@ -140,7 +140,7 @@ public class Systems {
             }
 
             if (IS_PIE) {
-                if (isAndromedaDevice(context)) {
+                if (isNewSamsungDevice() && isAndromedaDevice(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
                             "current_theme_mode",

@@ -218,6 +218,11 @@ public class MainActivity extends AppCompatActivity implements
             switchToStockToolbar(getString(R.string.nav_main));
         }
 
+        if (!Systems.checkOMS(context) || isSamsung(context)) {
+            bottomBar.getMenu().removeItem(R.id.tab_priorities);
+            bottomBar.getMenu().removeItem(R.id.tab_profiles);
+        }
+
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.main, Fragment.instantiate(this, fragment));
         tx.commitAllowingStateLoss();
@@ -319,14 +324,6 @@ public class MainActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         bottomBar.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomBar.getChildAt(0);
-        if (Systems.checkOMS(context) && !isSamsung(context)) {
-            menuView.findViewById(R.id.tab_priorities).setVisibility(View.VISIBLE);
-            menuView.findViewById(R.id.tab_profiles).setVisibility(View.VISIBLE);
-        } else {
-            menuView.findViewById(R.id.tab_priorities).setVisibility(View.GONE);
-            menuView.findViewById(R.id.tab_profiles).setVisibility(View.GONE);
-        }
 
         bottomBar.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {

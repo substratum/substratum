@@ -1479,7 +1479,7 @@ public class Overlays extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             Overlays fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded()&& fragment != null) {
                 // Modularizing the compile process to make it easier to track errors
                 boolean assigned = assignVariables(fragment, this);
                 if (assigned) {

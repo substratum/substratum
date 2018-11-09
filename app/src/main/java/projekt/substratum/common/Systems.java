@@ -193,7 +193,7 @@ public class Systems {
                             SAMSUNG_THEME_ENGINE_N
                     ).apply();
                     return SAMSUNG_THEME_ENGINE_N;
-                } else if (Root.requestRootAccess()) {
+                } else if (Root.checkRootAccess()) {
                     // Rooted mode
                     prefs.edit().putInt(
                             "current_theme_mode",
@@ -722,6 +722,29 @@ public class Systems {
             return mode == AppOpsManager.MODE_ALLOWED;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
+        }
+    }
+
+    /**
+     * Checks whether there is root access on the device
+     *
+     * @return True, if root is granted
+     */
+    public static boolean checkRootAccess() {
+        if (!prefs.contains("root_access")) {
+            setAndCheckRootAccess();
+        }
+        return prefs.getBoolean("root_access", false);
+    }
+
+    /**
+     * Set a retained property to refer to rather than constantly calling the requestRootAccess method
+     */
+    private static void setAndCheckRootAccess() {
+        boolean access = Root.requestRootAccess();
+        prefs.edit().putBoolean("root_access", false).apply();
+        if (access) {
+            prefs.edit().putBoolean("root_access", true).apply();
         }
     }
 }

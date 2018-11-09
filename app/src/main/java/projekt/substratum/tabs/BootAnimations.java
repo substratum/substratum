@@ -270,7 +270,7 @@ public class BootAnimations extends Fragment {
                         .setMessage(R.string.root_required_boot_animation)
                         .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                             dialog.dismiss();
-                            if (Root.requestRootAccess()) {
+                            if (Root.checkRootAccess()) {
                                 if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                                     new BootAnimationClearer(this).execute("");
                                 } else {

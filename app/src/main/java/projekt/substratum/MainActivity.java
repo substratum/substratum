@@ -406,6 +406,7 @@ public class MainActivity extends AppCompatActivity implements
                 return;
             }
         }
+        prefs.edit().remove("root_access").apply();
         new RootRequester(this).execute();
     }
 
@@ -1179,14 +1180,14 @@ public class MainActivity extends AppCompatActivity implements
                 if (omsCheck) {
                     return (themeSystemModule != OVERLAY_MANAGER_SERVICE_O_UNROOTED) &&
                             (themeSystemModule != OVERLAY_MANAGER_SERVICE_N_UNROOTED) &&
-                            !Root.requestRootAccess();
+                            !Root.checkRootAccess();
                 }
 
                 // Check if the system is legacy
                 boolean legacyCheck = themeSystemModule == NO_THEME_ENGINE;
                 if (legacyCheck) {
                     // Throw the dialog, after checking for root
-                    return !Root.requestRootAccess();
+                    return !Root.checkRootAccess();
                 }
             }
             return false;

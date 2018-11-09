@@ -756,8 +756,7 @@ public class ThemeManager {
         } else if ((MainActivity.instanceBasedAndromedaFailure ||
                 Systems.isNewSamsungDeviceAndromeda(context) ||
                 Systems.isSamsungDevice(context)) &&
-                        (!Root.checkRootAccess() &&
-                        !Root.requestRootAccess())) {
+                        (!Root.checkRootAccess())) {
             for (String overlay : overlays) {
                 Uri packageURI = Uri.parse("package:" + overlay);
                 Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);

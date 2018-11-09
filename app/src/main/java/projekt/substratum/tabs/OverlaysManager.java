@@ -206,7 +206,7 @@ class OverlaysManager {
 
         if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
             if (Systems.isSamsungDevice(overlays.context)) {
-                if (Root.checkRootAccess() && Root.requestRootAccess()) {
+                if (Root.checkRootAccess()) {
                     ArrayList<String> checked_overlays = new ArrayList<>();
                     for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                         checked_overlays.add(
@@ -497,7 +497,7 @@ class OverlaysManager {
                 if (Systems.isSamsungDevice(context) &&
                         (overlays.currentInstance.lateInstall != null) &&
                         !overlays.currentInstance.lateInstall.isEmpty()) {
-                    if (Root.checkRootAccess() && Root.requestRootAccess()) {
+                    if (Root.checkRootAccess()) {
                         overlays.progressBar.setVisibility(View.VISIBLE);
                         overlays.currentInstance.overlaysWaiting =
                                 overlays.currentInstance.lateInstall.size();

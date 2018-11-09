@@ -7,7 +7,7 @@
 
 package projekt.substratum.util.helpers;
 
-import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,8 +25,7 @@ public class Root {
      * @return True, if root is present
      */
     public static boolean checkRootAccess() {
-        StringBuilder check = References.runShellCommand("which su");
-        return (check != null) && !check.toString().isEmpty();
+        return Systems.checkRootAccess();
     }
 
     /**

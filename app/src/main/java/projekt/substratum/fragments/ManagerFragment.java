@@ -747,16 +747,16 @@ public class ManagerFragment extends Fragment {
                     if (alphabetize) {
                         fragment.overlaysList.sort(
                                 Comparator.comparing(ManagerItem::getLabelName,
-                                        String.CASE_INSENSITIVE_ORDER)
+                                        Comparator.nullsFirst(String.CASE_INSENSITIVE_ORDER))
                                         .thenComparing(ManagerItem::getThemeName,
-                                                String.CASE_INSENSITIVE_ORDER)
+                                                Comparator.nullsFirst(String.CASE_INSENSITIVE_ORDER))
                         );
                     } else {
                         fragment.overlaysList.sort(
                                 Comparator.comparing(ManagerItem::getThemeName,
-                                        String.CASE_INSENSITIVE_ORDER)
+                                        Comparator.nullsFirst(String.CASE_INSENSITIVE_ORDER))
                                         .thenComparing(ManagerItem::getLabelName,
-                                                String.CASE_INSENSITIVE_ORDER));
+                                                Comparator.nullsFirst(String.CASE_INSENSITIVE_ORDER)));
                     }
                 }
 

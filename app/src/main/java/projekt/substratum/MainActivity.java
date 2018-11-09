@@ -693,7 +693,8 @@ public class MainActivity extends AppCompatActivity implements
             case UNINSTALL_REQUEST_CODE:
                 if ((queuedUninstall != null) && !queuedUninstall.isEmpty()) {
                     queuedUninstall.remove(0);
-                    uninstallMultipleAPKS(this);
+                    Activity activity = this;
+                    AsyncTask.execute(() -> uninstallMultipleAPKS(activity));
                 }
                 break;
             default:

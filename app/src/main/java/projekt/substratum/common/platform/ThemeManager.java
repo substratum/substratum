@@ -753,10 +753,10 @@ public class ThemeManager {
                                 Toast.LENGTH_LONG).show()
                 );
             }
-        } else if (MainActivity.instanceBasedAndromedaFailure ||
-                (Systems.isNewSamsungDeviceAndromeda(context)) ||
-                (Systems.isSamsungDevice(context) &&
-                        !Root.checkRootAccess() &&
+        } else if ((MainActivity.instanceBasedAndromedaFailure ||
+                Systems.isNewSamsungDeviceAndromeda(context) ||
+                Systems.isSamsungDevice(context)) &&
+                        (!Root.checkRootAccess() &&
                         !Root.requestRootAccess())) {
             for (String overlay : overlays) {
                 Uri packageURI = Uri.parse("package:" + overlay);

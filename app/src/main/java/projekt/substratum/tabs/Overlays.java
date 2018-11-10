@@ -1456,14 +1456,14 @@ public class Overlays extends Fragment {
         @Override
         protected void onPreExecute() {
             Overlays fragment = ref.get();
-            if (fragment != null) setViews(fragment, false);
+            if (fragment.isAdded() && fragment != null) setViews(fragment, false);
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Overlays fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 setViews(fragment, true);
                 fragment.overlaysAdapter = new OverlaysAdapter(adapterList, fragment.context);
                 fragment.recyclerView.setAdapter(fragment.overlaysAdapter);
@@ -1479,7 +1479,7 @@ public class Overlays extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             Overlays fragment = ref.get();
-            if (fragment.isAdded()&& fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 // Modularizing the compile process to make it easier to track errors
                 boolean assigned = assignVariables(fragment, this);
                 if (assigned) {

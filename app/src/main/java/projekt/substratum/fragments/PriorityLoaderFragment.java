@@ -122,7 +122,7 @@ public class PriorityLoaderFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             PriorityLoaderFragment fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 if (fragment.prioritiesList.isEmpty()) {
                     fragment.emptyView.setVisibility(View.VISIBLE);
                     fragment.materialProgressBar.setVisibility(View.GONE);
@@ -144,7 +144,7 @@ public class PriorityLoaderFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             PriorityLoaderFragment fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 List<String> targets =
                         listTargetWithMultipleOverlaysEnabled(fragment.context);
 

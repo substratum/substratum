@@ -66,7 +66,7 @@ public class FontUtils {
         @Override
         protected void onPreExecute() {
             FontUtils fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
@@ -89,7 +89,7 @@ public class FontUtils {
         protected void onPostExecute(String result) {
             if ((result == null) || !result.equals(INTERFACER_PACKAGE)) {
                 FontUtils fragment = ref.get();
-                if (fragment != null) {
+                if (fragment.isAdded() && fragment != null) {
                     Context context = fragment.context;
                     if (References.ENABLE_EXTRAS_DIALOG) {
                         fragment.progress.dismiss();
@@ -134,7 +134,7 @@ public class FontUtils {
         @Override
         protected String doInBackground(String... sUrl) {
             FontUtils fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 Context context = fragment.context;
                 try {
                     boolean isRootless = checkOMS(context) &&

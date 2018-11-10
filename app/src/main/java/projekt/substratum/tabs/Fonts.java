@@ -246,7 +246,7 @@ public class Fonts extends Fragment {
         @Override
         protected void onPreExecute() {
             final Fonts fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 final Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.progressDialog = new ProgressDialog(context, R.style.RestoreDialog);
@@ -262,7 +262,7 @@ public class Fonts extends Fragment {
         @Override
         protected void onPostExecute(final String result) {
             final Fonts fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 final Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.progressDialog.dismiss();
@@ -301,7 +301,7 @@ public class Fonts extends Fragment {
         @Override
         protected String doInBackground(final String... sUrl) {
             final Fonts fragment = ref.get();
-            if (fragment != null) {
+            if (fragment.isAdded() && fragment != null) {
                 final Context context = fragment.context;
                 FontsManager.clearFonts(context);
             }

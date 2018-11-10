@@ -81,7 +81,7 @@ public class TranslatorParser {
         protected void onPreExecute() {
             super.onPreExecute();
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment != null) {
+            if (settingsFragment.isAdded() && settingsFragment != null) {
                 if (settingsFragment.getActivity() != null) {
                     settingsFragment.dialog = new Dialog(settingsFragment.getActivity());
                     settingsFragment.dialog.setContentView(R.layout.validator_dialog);
@@ -94,7 +94,7 @@ public class TranslatorParser {
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment != null) {
+            if (settingsFragment.isAdded() && settingsFragment != null) {
                 settingsFragment.dialog.cancel();
                 if (alertDialogBuilder.get() != null) alertDialogBuilder.get().show();
             }
@@ -103,7 +103,7 @@ public class TranslatorParser {
         @Override
         protected ArrayList<String> doInBackground(String... strings) {
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment != null) {
+            if (settingsFragment.isAdded() && settingsFragment != null) {
                 InputStream inputStream =
                         ref.get().getResources().openRawResource(R.raw.translators);
                 TranslatorParser csvFile = new TranslatorParser(inputStream);

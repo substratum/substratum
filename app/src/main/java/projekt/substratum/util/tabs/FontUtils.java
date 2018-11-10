@@ -58,23 +58,23 @@ public class FontUtils {
 
         private final WeakReference<FontUtils> ref;
 
-        private FontHandlerAsync(FontUtils fragment) {
+        private FontHandlerAsync(FontUtils fontUtils) {
             super();
-            ref = new WeakReference<>(fragment);
+            ref = new WeakReference<>(fontUtils);
         }
 
         @Override
         protected void onPreExecute() {
-            FontUtils fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
-                Context context = fragment.context;
+            FontUtils fontUtils = ref.get();
+            if (fontUtils != null) {
+                Context context = fontUtils.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
-                    fragment.progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
-                    fragment.progress.setMessage(context.getString(R.string
+                    fontUtils.progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
+                    fontUtils.progress.setMessage(context.getString(R.string
                             .font_dialog_apply_text));
-                    fragment.progress.setIndeterminate(false);
-                    fragment.progress.setCancelable(false);
-                    fragment.progress.show();
+                    fontUtils.progress.setIndeterminate(false);
+                    fontUtils.progress.setCancelable(false);
+                    fontUtils.progress.show();
                 }
                 boolean isRootless =
                         (checkThemeInterfacer(context) || checkSubstratumService(context));
@@ -88,15 +88,15 @@ public class FontUtils {
         @Override
         protected void onPostExecute(String result) {
             if ((result == null) || !result.equals(INTERFACER_PACKAGE)) {
-                FontUtils fragment = ref.get();
-                if (fragment.isAdded() && fragment != null) {
-                    Context context = fragment.context;
+                FontUtils fontUtils = ref.get();
+                if (fontUtils != null) {
+                    Context context = fontUtils.context;
                     if (References.ENABLE_EXTRAS_DIALOG) {
-                        fragment.progress.dismiss();
+                        fontUtils.progress.dismiss();
                     }
                     if (result == null) {
-                        SharedPreferences.Editor editor = fragment.prefs.edit();
-                        editor.putString(FONTS_APPLIED, fragment.themePid);
+                        SharedPreferences.Editor editor = fontUtils.prefs.edit();
+                        editor.putString(FONTS_APPLIED, fontUtils.themePid);
                         editor.apply();
                         Toast toast = Toast.makeText(context,
                                 context.getString(R.string.font_dialog_apply_success), Toast
@@ -133,24 +133,24 @@ public class FontUtils {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            FontUtils fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
-                Context context = fragment.context;
+            FontUtils fontUtils = ref.get();
+            if (fontUtils != null) {
+                Context context = fontUtils.context;
                 try {
                     boolean isRootless = checkOMS(context) &&
                             (checkThemeInterfacer(context) &&
                                     checkSubstratumService(context));
 
                     if (isRootless) {
-                        SharedPreferences.Editor editor = fragment.prefs.edit();
-                        editor.putString(FONTS_APPLIED, fragment.themePid);
+                        SharedPreferences.Editor editor = fontUtils.prefs.edit();
+                        editor.putString(FONTS_APPLIED, fontUtils.themePid);
                         editor.apply();
                     }
 
                     // Inform the font manager to start setting fonts!
                     FontsManager.setFonts(
                             context,
-                            fragment.themePid,
+                            fontUtils.themePid,
                             sUrl[0]);
 
                     if (isRootless)

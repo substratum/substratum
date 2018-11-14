@@ -427,8 +427,8 @@ class OverlaysManager {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Overlays overlays = ref.get();
-            if (overlays != null) {
-                Context context = overlays.getActivity();
+            if (overlays != null && overlays.context != null) {
+                Context context = overlays.context;
                 switch (state) {
                     case COMPILE_ENABLE:
                         // It's compile and enable mode, we have to first sort out all the

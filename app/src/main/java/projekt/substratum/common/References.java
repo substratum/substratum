@@ -311,7 +311,7 @@ public class References {
             try {
                 final String[] fileArray = themeAssetManager.list(listDir);
                 final List<String> archivedSounds = new ArrayList<>();
-                Collections.addAll(archivedSounds, fileArray);
+                Collections.addAll(archivedSounds, fileArray != null ? fileArray : new String[0]);
 
                 // Creates the list of dropdown items
                 final ArrayList<String> unarchivedExtra = new ArrayList<>();

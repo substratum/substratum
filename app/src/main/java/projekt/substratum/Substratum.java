@@ -179,7 +179,7 @@ public class Substratum extends Application {
         Intent mStartActivity = new Intent(Substratum.this, SplashScreenActivity.class);
         int mPendingIntentId = 10;
         PendingIntent mPendingIntent = PendingIntent.getActivity(Substratum.this, mPendingIntentId, mStartActivity,PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager mgr = (AlarmManager) HomeActivity.this.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager mgr = (AlarmManager) Substratum.this.getSystemService(Context.ALARM_SERVICE);
         if(mgr != null )
             mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 10, mPendingIntent);
         System.exit(0);

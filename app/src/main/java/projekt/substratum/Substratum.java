@@ -178,6 +178,10 @@ public class Substratum extends Application {
         // We use an AlarmManager to call this intent in 10ms
         Intent mStartActivity = new Intent(Substratum.this, SplashScreenActivity.class);
         int mPendingIntentId = 10;
+        mStartActivity.restart();
+    }
+    
+    public void restart() {
         PendingIntent mPendingIntent = PendingIntent.getActivity(Substratum.this, mPendingIntentId, mStartActivity,PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) Substratum.this.getSystemService(Context.ALARM_SERVICE);
         if(mgr != null )

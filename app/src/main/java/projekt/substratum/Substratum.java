@@ -176,7 +176,7 @@ public class Substratum extends Application {
 
         // Create a pending intent so the application is restarted after System.exit(0) was called.
         // We use an AlarmManager to call this intent in 10ms
-        Intent intent = new Intent(getApplicationContext(), YourStarterActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         int mPendingIntentId = 10;
         PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);

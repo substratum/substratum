@@ -46,7 +46,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import projekt.substratum.activities.launch.ShowcaseActivity;
@@ -56,7 +55,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Restore;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.Theming;
-import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.AndromedaService;
@@ -1063,10 +1061,7 @@ public class MainActivity extends AppCompatActivity implements
                                 R.id.sungstratum_button);
                         samsungButton.setOnClickListener(view ->
                                 launchActivityUrl(context, R.string.sungstratum_url));
-                        if (!FirebaseAnalytics.checkFirebaseAuthorized()) {
-                            samsungTitle.setText(activity.getString(
-                                    R.string.samsung_prototype_no_firebase_dialog));
-                        } else if (Packages.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
+                        if (Packages.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
                             samsungTitle.setText(
                                     activity.getString(
                                             R.string.samsung_prototype_reinstall_dialog));

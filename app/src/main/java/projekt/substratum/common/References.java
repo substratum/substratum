@@ -59,7 +59,6 @@ import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
-import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.util.helpers.BinaryInstaller;
 import projekt.substratum.util.helpers.Root;
@@ -82,15 +81,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
-import static projekt.substratum.common.Systems.checkPackageRegex;
 
 public class References {
 
@@ -747,33 +742,6 @@ public class References {
     }
 
     /**
-     * A beautiful sunshine on a gloomy night, you must escape the grasps of death as it brings you
-     * to the destruction of life.
-     *
-     * @param context What's the point of parameters?
-     * @return Is it true that there is an afterlife?
-     */
-    static boolean spreadYourWingsAndFly(Context context, boolean override) {
-        if (uncertified != null && !override) {
-            return uncertified;
-        }
-        SharedPreferences prefs = context.getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-        String date = dateFormat.format(new Date());
-        if (prefs.contains(date)) {
-            Set<String> pref = prefs.getStringSet(date, new HashSet<>());
-            if (checkPackageRegex(context, pref.toArray(new String[pref.size()]))) {
-                Substratum.log("PatcherDatabase",
-                        "The database has triggered a primary level blacklist package.");
-                uncertified = true;
-                return true;
-            }
-        }
-        uncertified = false;
-        return false;
-    }
-
-    /**
      * Check if list contains item
      *
      * @param inputStr Item
@@ -1017,7 +985,6 @@ public class References {
 
         @Override
         protected Void doInBackground(Void... sUrl) {
-            spreadYourWingsAndFly(this.context, false);
             hashPassthrough(this.context);
             return null;
         }

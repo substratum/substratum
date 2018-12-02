@@ -28,8 +28,6 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 
 import static projekt.substratum.common.References.LOGCHAR_DIR;
-import static projekt.substratum.common.analytics.FirebaseAnalytics.NAMES_PREFS;
-import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.commands.FileOperations.getFileSize;
 
@@ -195,14 +193,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
             for (File f : context.getDataDir().listFiles()) {
                 if (!"shared_prefs".equals(f.getName())) {
                     delete(context, f.getAbsolutePath());
-                } else {
-                    for (File prefs : f.listFiles()) {
-                        String fileName = prefs.getName();
-                        if (!fileName.equals(NAMES_PREFS + ".xml") &&
-                                !fileName.equals(PACKAGES_PREFS + ".xml")) {
-                            delete(context, prefs.getAbsolutePath());
-                        }
-                    }
                 }
             }
             References.loadDefaultConfig(context);

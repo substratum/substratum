@@ -27,25 +27,19 @@ import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.databinding.SplashscreenActivityBinding;
 import projekt.substratum.util.helpers.MD5;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import static projekt.substratum.common.Internal.AUTHENTICATED_RECEIVER;
 import static projekt.substratum.common.Internal.AUTHENTICATE_RECEIVER;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
-import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkPackageSupport;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.isSamsungDevice;
-import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
 public class SplashScreenActivity extends Activity {
@@ -139,27 +133,7 @@ public class SplashScreenActivity extends Activity {
                 prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 editor = prefs.edit();
                 editor.clear().apply();
-                FirebaseAnalytics.withdrawBlacklistedPackages(
-                        activity.getApplicationContext(),
-                        activity.firstRun
-                );
                 checkPackageSupport(activity.getApplicationContext(), false);
-                prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-                int timeoutCount = 0;
-                while (!prefs.contains(dateFormat.format(new Date())) && (timeoutCount < 100)) {
-                    try {
-                        Thread.sleep(100L);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    timeoutCount++;
-                }
-                if (!prefs.contains(dateFormat.format(new Date()))) {
-                    Log.e(SUBSTRATUM_LOG, "Failed to withdraw blacklisted packages...");
-                } else {
-                    Substratum.log(SUBSTRATUM_LOG, "Successfully withdrew blacklisted packages!");
-                }
 
                 if (isSamsungDevice(context) &&
                         Packages.isPackageInstalled(context, SST_ADDON_PACKAGE)) {

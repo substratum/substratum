@@ -103,7 +103,6 @@ ext {
     expandableLayoutVersion = '2.9.2'
     fabSheetVersion = '1.2.1'
     firebaseVersion = '16.0.4'
-    firebaseDBVersion = '16.0.3'
     floatingHeadVersion = '2.3.2'
     gestureRecyclerVersion = '1.5.0'
     glideVersion = '4.8.0'
@@ -127,7 +126,6 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:$firebaseDBVersion"
 
     // Crashlytics
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"

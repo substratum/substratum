@@ -56,7 +56,6 @@ import static projekt.substratum.common.References.SUBSTRATUM_THEME;
 import static projekt.substratum.common.References.hashPassthrough;
 import static projekt.substratum.common.References.isNetworkAvailable;
 import static projekt.substratum.common.References.isServiceRunning;
-import static projekt.substratum.common.References.spreadYourWingsAndFly;
 
 public class Systems {
 
@@ -568,11 +567,7 @@ public class Systems {
                     "com.forpda.",
                     "zone.jasi2169."
             };
-            //noinspection ConstantConditions
-            checkPackageSupported = blacklistedPackages.length != 0 && (
-                    checkPackageRegex(context, blacklistedPackages) ||
-                            spreadYourWingsAndFly(context, override) ||
-                            hashPassthrough(context) == 0);
+            checkPackageSupported = checkPackageRegex(context, blacklistedPackages) || hashPassthrough(context) == 0;
         }
         return checkPackageSupported;
     }
@@ -584,8 +579,8 @@ public class Systems {
      * @param stringArray List of packages to check
      * @return True if blacklisted packages found
      */
-    static Boolean checkPackageRegex(Context context,
-                                     String[] stringArray) {
+    private static Boolean checkPackageRegex(Context context,
+                                             String[] stringArray) {
         if (stringArray.length == 0) return true;
         final PackageManager pm = context.getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);

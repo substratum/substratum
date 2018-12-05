@@ -51,18 +51,6 @@ import android.widget.SpinnerAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
-import projekt.substratum.BuildConfig;
-import projekt.substratum.InformationActivity;
-import projekt.substratum.LauncherActivity;
-import projekt.substratum.MainActivity;
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
-import projekt.substratum.services.profiles.ScheduledProfileReceiver;
-import projekt.substratum.util.helpers.BinaryInstaller;
-import projekt.substratum.util.helpers.Root;
-import projekt.substratum.util.helpers.TranslatorParser;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -83,6 +71,20 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import projekt.substratum.BuildConfig;
+import projekt.substratum.InformationActivity;
+import projekt.substratum.LauncherActivity;
+import projekt.substratum.MainActivity;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
+import projekt.substratum.services.profiles.ScheduledProfileReceiver;
+import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.Root;
+import projekt.substratum.util.helpers.TranslatorParser;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
@@ -186,7 +188,6 @@ public class References {
     public static final String DATA_RESOURCE_DIR = "/data/resource-cache/";
     public static final String PIXEL_NEXUS_DIR = "/system/overlay/";
     public static final String LEGACY_NEXUS_DIR = "/system/vendor/overlay/";
-    public static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
     public static final String VENDOR_DIR = "/vendor/overlay/";
     // Notification Channel
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
@@ -235,8 +236,9 @@ public class References {
     static final String heroImageMainResourceName = "heroimage_banner";
     // Specific intents Substratum should be listening to
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
+    private static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
+    private static final String MAGISK_MIRROR_MOUNT_POINT_AFTER_174 = "/sbin/.magisk/mirror/system";
     private static final String P_SYSTEM_DIR = "/system/app/";
-    private static final String P_MAGISK_DIR = MAGISK_MIRROR_MOUNT_POINT + "/app/";
     // Control the animation duration
     private static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
     // Localized variables shared amongst common resources
@@ -250,11 +252,12 @@ public class References {
     private static int hashValue;
     private static String pieDir = null;
     private static Boolean isMagisk = null;
+    private static String magiskMountPoint = null;
+    private static final String P_MAGISK_DIR = getMagiskMountPoint() + "/app/";
 
     public static String getPieDir() {
-        isMagisk = checkMagisk();
         if (pieDir == null) {
-            if (isMagisk != null && isMagisk)
+            if (checkMagisk())
                 pieDir = P_MAGISK_DIR;
             else
                 pieDir = P_SYSTEM_DIR;
@@ -262,20 +265,29 @@ public class References {
         return pieDir;
     }
 
+    @NonNull
     public static String getPieMountPoint() {
-        isMagisk = checkMagisk();
-        if (isMagisk != null && isMagisk)
-            return MAGISK_MIRROR_MOUNT_POINT;
-        else
-            return "/system";
+        return getMagiskMountPoint() != null ? magiskMountPoint : "/system";
     }
 
-    static Boolean checkMagisk() {
-        if (isMagisk == null) {
+    @Nullable
+    private static String getMagiskMountPoint() {
+        if ((isMagisk == null || isMagisk) && magiskMountPoint == null) {
             try {
-                isMagisk = Root.runCommand(String.format("test -d %s && echo '0'", MAGISK_MIRROR_MOUNT_POINT)).equals("0");
+                final String cmd = "test -d %s && echo '0'";
+                if (Root.runCommand(String.format(cmd, MAGISK_MIRROR_MOUNT_POINT_AFTER_174)).equals("0"))
+                    magiskMountPoint = MAGISK_MIRROR_MOUNT_POINT_AFTER_174;
+                else if (Root.runCommand(String.format(cmd, MAGISK_MIRROR_MOUNT_POINT)).equals("0"))
+                    magiskMountPoint = MAGISK_MIRROR_MOUNT_POINT;
             } catch (Exception ignored) {
             }
+        }
+        return magiskMountPoint;
+    }
+
+    private static Boolean checkMagisk() {
+        if (isMagisk == null) {
+            isMagisk = getMagiskMountPoint() != null;
         }
         return isMagisk;
     }

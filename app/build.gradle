@@ -93,22 +93,22 @@ android {
 }
 
 ext {
-    aboutVersion = '6.0.9'
+    aboutVersion = '6.2.0'
     androidXVersion = '1.0.0'
-    apkSigVersion = '3.2.0'
+    apkSigVersion = '3.2.1'
     caocVersion = '2.2.0'
-    commonsIoVersion = '2.5'
-    crashlyticsVersion = '2.9.5'
-    databindingVersion = '3.3.0-alpha08'
+    commonsIoVersion = '2.6'
+    crashlyticsVersion = '2.9.7'
+    databindingVersion = '3.2.1'
     expandableLayoutVersion = '2.9.2'
     fabSheetVersion = '1.2.1'
-    firebaseVersion = '16.0.4'
-    floatingHeadVersion = '2.3.2'
-    gestureRecyclerVersion = '1.5.0'
+    firebaseVersion = '16.0.6'
+    floatingHeadVersion = '2.4.0'
+    gestureRecyclerVersion = '1.7.0'
     glideVersion = '4.8.0'
-    imageCropperVersion = '2.7.0'
-    slf4jVersion = '1.7.16'
-    svgViewVersion = '1.0.5'
+    imageCropperVersion = '2.8.0'
+    slf4jVersion = '1.7.25'
+    svgViewVersion = '1.0.6'
     welcomeVersion = '1.4.1'
     ztZipVersion = '1.13'
 }
@@ -118,7 +118,7 @@ dependencies {
 
     // Android Support Libraries
     implementation "androidx.databinding:databinding-runtime:$databindingVersion"
-    implementation "androidx.appcompat:appcompat:$androidXVersion"
+    implementation "androidx.appcompat:appcompat:1.0.2"
     implementation "androidx.cardview:cardview:$androidXVersion"
     implementation "androidx.recyclerview:recyclerview:$androidXVersion"
     implementation "com.google.android.material:material:$androidXVersion"

@@ -107,7 +107,6 @@ ext {
     gestureRecyclerVersion = '1.7.0'
     glideVersion = '4.8.0'
     imageCropperVersion = '2.8.0'
-    slf4jVersion = '1.7.25'
     svgViewVersion = '1.0.6'
     welcomeVersion = '1.4.1'
     ztZipVersion = '1.13'
@@ -171,8 +170,5 @@ dependencies {
 
     // Splash screen svg animation
     implementation "com.jaredrummler:animated-svg-view:$svgViewVersion"
-
-    // SLF4J LoggerFactory
-    implementation "org.slf4j:slf4j-api:$slf4jVersion"
 }
 apply plugin: 'com.google.gms.google-services'

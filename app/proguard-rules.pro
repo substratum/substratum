@@ -41,19 +41,18 @@
 # APK Signer
 -dontwarn sun.security.**
 -dontwarn javax.naming.**
+-dontwarn org.slf4j.impl.**
 -dontwarn junit.textui.TestRunner
 
 # Crashlytics
--keep public class com.crashlytics.android.Crashlytics { *; }
--keep public class io.fabric.sdk.android.Fabric { *; }
 -keepattributes *Annotation*
 -keepattributes SourceFile,LineNumberTable
--keep public class * extends java.lang.Exception
--keep class com.crashlytics.** { *; }
--dontwarn com.crashlytics.**
 
 # SLF4J
 -keep class org.slf4j.** { *; }
 
 # Don't obfuscate anything
 -dontobfuscate
+
+# Warnings are nice but please don't abort build over things I don't control
+-ignorewarnings

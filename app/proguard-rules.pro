@@ -41,27 +41,11 @@
 # APK Signer
 -dontwarn sun.security.**
 -dontwarn javax.naming.**
--dontwarn org.slf4j.impl.**
 -dontwarn junit.textui.TestRunner
 
 # Crashlytics
 -keep public class com.crashlytics.android.Crashlytics { *; }
 -keep public class io.fabric.sdk.android.Fabric { *; }
-
-# Android support libraries
--keep public class android.support.v7.widget.** { *; }
--keep public class android.support.v7.internal.widget.** { *; }
--keep public class android.support.v7.internal.view.menu.** { *; }
--keep class android.support.v7.widget.RoundRectDrawable { *; }
--keep public class * extends android.support.v4.view.ActionProvider {
-    public <init>(android.content.Context);
-}
--dontwarn android.support.design.**
--keep class android.support.design.** { *; }
--keep interface android.support.design.** { *; }
--keep public class android.support.design.R$* { *; }
-
-# Crashlytics
 -keepattributes *Annotation*
 -keepattributes SourceFile,LineNumberTable
 -keep public class * extends java.lang.Exception

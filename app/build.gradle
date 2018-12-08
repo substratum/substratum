@@ -11,7 +11,7 @@ apply plugin: 'io.fabric'
 final def gitHash = { ->
     final def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+        commandLine 'git', 'describe', '--tags'
         standardOutput = stdout
     }
     stdout.toString().trim()

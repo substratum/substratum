@@ -227,13 +227,13 @@ public class References {
     // Special permission for Samsung devices
     public static final String SAMSUNG_OVERLAY_PERMISSION =
             "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
+    public static final String MAGISK_MODULE_DIR = "/sbin/.magisk/img/substratum/";
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";
     static final String heroImageGridResourceName = "heroimage_grid";
     static final String heroImageMainResourceName = "heroimage_banner";
     // Specific intents Substratum should be listening to
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
-    public static final String MAGISK_MODULE_DIR = "/sbin/.magisk/img/substratum/";
     // Control the animation duration
     private static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
     // Localized variables shared amongst common resources

@@ -9,9 +9,9 @@ import projekt.substratum.common.References;
 
 public class MagiskHelper {
 
-    private static String TAG = MagiskHelper.class.getSimpleName();
     private static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
     private static final String MAGISK_MIRROR_MOUNT_POINT_AFTER_174 = "/sbin/.magisk/mirror/system";
+    private static String TAG = MagiskHelper.class.getSimpleName();
 
     public static void migrateToModule(final Context context) {
         if (Root.runCommand(String.format("test -d %s || echo '1'",

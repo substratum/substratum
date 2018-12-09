@@ -43,12 +43,8 @@ android {
         setSourceCompatibility(JavaVersion.VERSION_1_8)
         setTargetCompatibility(JavaVersion.VERSION_1_8)
     }
-    // If the keystore file exists
     if (keystorePropertiesFile.exists()) {
-        // Initialize a new Properties() object called keystoreProperties.
         val keystoreProperties = Properties()
-
-        // Load your keystore.properties file into the keystoreProperties object.
         keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
         signingConfigs {
@@ -97,61 +93,29 @@ dependencies {
     val welcomeVersion = "1.4.1"
     val ztZipVersion = "1.13"
 
+    annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
-    // Android Support Libraries
-    implementation("androidx.databinding:databinding-runtime:$databindingVersion")
     implementation("androidx.appcompat:appcompat:1.0.2")
     implementation("androidx.cardview:cardview:$androidXVersion")
-    implementation("androidx.recyclerview:recyclerview:$androidXVersion")
-    implementation("com.google.android.material:material:$androidXVersion")
+    implementation("androidx.databinding:databinding-runtime:$databindingVersion")
     implementation("androidx.palette:palette:$androidXVersion")
-
-    // Firebase
-    implementation("com.google.firebase:firebase-core:$firebaseVersion")
-
-    // Crashlytics
-    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion")
-
-    // Image Downloading and Caching
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
-    annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
-
-    // Commons IO
+    implementation("androidx.recyclerview:recyclerview:$androidXVersion")
+    implementation("cat.ereza:customactivityoncrash:$caocVersion")
     implementation("commons-io:commons-io:$commonsIoVersion")
-
-    // APK Signer
     implementation("com.android.tools.build:apksig:$apkSigVersion")
-
-    // App Intro
-    implementation("com.stephentuso:welcome:$welcomeVersion")
-
-    // Floating Action Buttons
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion")
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    implementation("com.github.recruit-lifestyle:FloatingView:$floatingHeadVersion")
+    implementation("com.google.android.material:material:$androidXVersion")
+    implementation("com.google.firebase:firebase-core:$firebaseVersion")
     implementation("com.gordonwong:material-sheet-fab:$fabSheetVersion")
-
-    // About Libraries
+    implementation("com.jaredrummler:animated-svg-view:$svgViewVersion")
     implementation("com.mikepenz:aboutlibraries:$aboutVersion@aar") {
         isTransitive = true
     }
-
-    // Gesture RecyclerView
-    implementation("com.thesurix.gesturerecycler:gesture-recycler:$gestureRecyclerVersion")
-
-    // ZT Zip
-    implementation("org.zeroturnaround:zt-zip:$ztZipVersion")
-
-    // Image Processing
+    implementation("com.stephentuso:welcome:$welcomeVersion")
     implementation("com.theartofdev.edmodo:android-image-cropper:$imageCropperVersion")
-
-    // Expandable Layout
+    implementation("com.thesurix.gesturerecycler:gesture-recycler:$gestureRecyclerVersion")
     implementation("net.cachapa.expandablelayout:expandablelayout:$expandableLayoutVersion")
-
-    // Floating App Head
-    implementation("com.github.recruit-lifestyle:FloatingView:$floatingHeadVersion")
-
-    // Crash Activity
-    implementation("cat.ereza:customactivityoncrash:$caocVersion")
-
-    // Splash screen svg animation
-    implementation("com.jaredrummler:animated-svg-view:$svgViewVersion")
+    implementation("org.zeroturnaround:zt-zip:$ztZipVersion")
 }

@@ -97,7 +97,9 @@ ext {
     androidXVersion = '1.0.0'
     apkSigVersion = '3.2.1'
     caocVersion = '2.2.0'
-    commonsIoVersion = '2.6'
+    // Apparently v2.6 relies on the framework
+    // having java.nio.File which Android 7 does not.
+    commonsIoVersion = '2.5'
     crashlyticsVersion = '2.9.7'
     databindingVersion = '3.2.1'
     expandableLayoutVersion = '2.9.2'

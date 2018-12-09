@@ -21,6 +21,7 @@ public class MagiskHelper {
     private static final String MAGISK_MIRROR_MOUNT_POINT_AFTER_174 = "/sbin/.magisk/mirror/system";
     private static final String TAG = MagiskHelper.class.getSimpleName();
     private static final String CHECK_MAGISK_CMD = "if [ -d %s ] || [ -d %s ]; then echo '0'; fi";
+    private static final String[] mountPoints = new String[]{MAGISK_MIRROR_MOUNT_POINT, MAGISK_MIRROR_MOUNT_POINT_AFTER_174};
 
     public static void migrateToModule(final Context context) {
         if (!checkMagisk())
@@ -40,7 +41,13 @@ public class MagiskHelper {
                     String.format("mkdir -p %s/system/app; ", References.MAGISK_MODULE_DIR) +
                     String.format("mv %s/app/_*.apk %s; ", MAGISK_MIRROR_MOUNT_POINT, References.getPieDir()) +
                     String.format("mv %s/app/_*.apk %s; ", MAGISK_MIRROR_MOUNT_POINT_AFTER_174, References.getPieDir());
+            for (String mountPoint : mountPoints) {
+                FileOperations.mountRW(mountPoint);
+            }
             Root.runCommand(command);
+            for (String mountPoint : mountPoints) {
+                FileOperations.mountRO(mountPoint);
+            }
             Toast.makeText(context, R.string.module_placed_reboot_message, Toast.LENGTH_LONG).show();
         }
     }
@@ -50,7 +57,6 @@ public class MagiskHelper {
     }
 
     public static void forceRemoveOverlays() {
-        final String[] mountPoints = new String[]{MAGISK_MIRROR_MOUNT_POINT, MAGISK_MIRROR_MOUNT_POINT_AFTER_174};
         for (String mountPoint : mountPoints) {
             FileOperations.mountRW(mountPoint);
             Root.runCommand(String.format("rm -rf %s/app/_*.apk", mountPoint));

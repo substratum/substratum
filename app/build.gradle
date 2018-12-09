@@ -33,7 +33,7 @@ android {
     dataBinding.enabled true
     android.applicationVariants.all { final variant ->
         variant.outputs.all {
-            outputFileName = "substratum_${variant.versionCode}_${gitHash()}.apk"
+            outputFileName = "substratum_${gitHash()}.apk"
         }
     }
     defaultConfig {

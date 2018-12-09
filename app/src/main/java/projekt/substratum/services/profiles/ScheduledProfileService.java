@@ -208,11 +208,11 @@ public class ScheduledProfileService extends JobService {
                     File bootanimation = new File(theme, "bootanimation.zip");
                     if (bootanimation.exists() &&
                             (Systems.getDeviceEncryptionStatus(context) > 1)) {
-                        FileOperations.mountRW();
+                        FileOperations.mountSystemRW();
                         FileOperations.move(context, Internal.BOOTANIMATION_LOCATION, Internal.BOOTANIMATION_BU_LOCATION);
                         FileOperations.copy(context, bootanimation.getAbsolutePath(), Internal.BOOTANIMATION_LOCATION);
                         FileOperations.setPermissions(644, Internal.BOOTANIMATION_LOCATION);
-                        FileOperations.mountRO();
+                        FileOperations.mountSystemRO();
                     }
 
                     Iterable<String> toBeDisabled = new ArrayList<>(system);

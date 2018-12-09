@@ -62,14 +62,14 @@ public class BootAnimationsManager {
             // We will mount system, make our directory, copy the bootanimation
             // zip into place, set proper permissions, then unmount
             Substratum.log(TAG, "Root option has been enabled");
-            FileOperations.mountRW();
+            FileOperations.mountSystemRW();
             FileOperations.mountRWData();
             FileOperations.setPermissions(THEME_755, themeDirectory);
             FileOperations.move(context, location, themeDirectory + '/' + fileName + ".zip");
             FileOperations.setPermissions(THEME_644, themeDirectory + '/' + fileName + ".zip");
             FileOperations.setSystemFileContext(themeDirectory);
             FileOperations.mountROData();
-            FileOperations.mountRO();
+            FileOperations.mountSystemRO();
         }
     }
 
@@ -101,12 +101,12 @@ public class BootAnimationsManager {
             }
         } else {
             // Encrypted OMS and legacy
-            FileOperations.mountRW();
+            FileOperations.mountSystemRW();
             FileOperations.move(context,
                     BOOTANIMATION_BU_LOCATION,
                     BOOTANIMATION_LOCATION);
             FileOperations.delete(context, SUBSBOOT_ADDON);
-            FileOperations.mountRO();
+            FileOperations.mountSystemRO();
         }
     }
 }

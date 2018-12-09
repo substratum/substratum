@@ -167,7 +167,7 @@ public class BootAnimationUtils {
             }
             if (!Systems.checkThemeInterfacer(context)) {
                 FileOperations.mountROData();
-                FileOperations.mountRO();
+                FileOperations.mountSystemRO();
             }
         }
 
@@ -451,7 +451,7 @@ public class BootAnimationUtils {
                 // Inject backup script for encrypted legacy and encrypted OMS devices
                 if (!hasFailed && (isEncrypted || !Systems.checkOMS(context)) &&
                         !shutdownAnimation) {
-                    FileOperations.mountRW();
+                    FileOperations.mountSystemRW();
                     File backupScript = new File(SYSTEM_ADDON_DIR + BACKUP_SCRIPT);
 
                     if (Systems.checkSubstratumFeature(context)) {

@@ -13,6 +13,7 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
+import projekt.substratum.common.commands.FileOperations;
 
 public class MagiskHelper {
 
@@ -46,5 +47,14 @@ public class MagiskHelper {
 
     private static boolean checkMagisk() {
         return Root.runCommand(String.format(CHECK_MAGISK_CMD, MAGISK_MIRROR_MOUNT_POINT, MAGISK_MIRROR_MOUNT_POINT_AFTER_174)).equals("0");
+    }
+
+    public static void forceRemoveOverlays() {
+        final String[] mountPoints = new String[]{MAGISK_MIRROR_MOUNT_POINT, MAGISK_MIRROR_MOUNT_POINT_AFTER_174};
+        for (String mountPoint : mountPoints) {
+            FileOperations.mountRW(mountPoint);
+            Root.runCommand(String.format("rm -rf %s/app/_*.apk", mountPoint));
+            FileOperations.mountRO(mountPoint);
+        }
     }
 }

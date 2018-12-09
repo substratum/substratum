@@ -371,11 +371,11 @@ public class SubstratumBuilder {
             if (isDeviceOMS) {
                 if (Systems.IS_PIE && !Systems.checkSubstratumService(context)) {
                     // Brute force install APKs because thanks Google
-                    FileOperations.mountRW();
+                    FileOperations.mountSystemRW();
                     final String overlay = References.getPieDir() + "_" + overlayName + ".apk";
                     FileOperations.move(context, signedOverlayAPKPath, overlay);
                     FileOperations.setPermissions(644, overlay);
-                    FileOperations.mountRO();
+                    FileOperations.mountSystemRO();
                 } else if (!Systems.isNewSamsungDeviceAndromeda(context)) {
                     specialSnowflake = false;
                     if (Resources.FRAMEWORK.equals(overlayPackage) ||
@@ -413,7 +413,7 @@ public class SubstratumBuilder {
                     // At this point, it is detected to be legacy mode and Substratum will push to
                     // vendor/overlays directly.
 
-                    FileOperations.mountRW();
+                    FileOperations.mountSystemRW();
                     // For Non-Nexus devices
                     if (!Resources.inNexusFilter()) {
                         String vendorLocation = LEGACY_NEXUS_DIR;
@@ -449,7 +449,7 @@ public class SubstratumBuilder {
                         FileOperations.setSystemFileContext(vendorPartition);
                         FileOperations.mountROVendor();
                     }
-                    FileOperations.mountRO();
+                    FileOperations.mountSystemRO();
                 }
             }
         }

@@ -227,7 +227,7 @@ class OverlaysManager {
             } else {
                 overlays.overlaysAdapter.refreshOverlayStateList(overlays.context);
                 for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
-                    FileOperations.mountRW();
+                    FileOperations.mountSystemRW();
                     FileOperations.delete(overlays.context, currentDirectory +
                             overlays.currentInstance.checkedOverlays.get(i)
                                     .getFullOverlayParameters() + ".apk");
@@ -573,7 +573,7 @@ class OverlaysManager {
                     }
                     File file = new File(currentDirectory);
                     if (file.exists()) {
-                        FileOperations.mountRW();
+                        FileOperations.mountSystemRW();
                         FileOperations.delete(context, currentDirectory);
                     }
                 }

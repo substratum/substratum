@@ -276,7 +276,7 @@ public class Restore {
                                 .filter(o -> Packages.getOverlayParent(context, o) != null)
                                 .collect(Collectors.toList()));
                     } else {
-                        FileOperations.mountRW();
+                        FileOperations.mountSystemRW();
                         FileOperations.mountRWData();
                         FileOperations.mountRWVendor();
                         FileOperations.bruteforceDelete(DATA_RESOURCE_DIR);
@@ -286,7 +286,7 @@ public class Restore {
                         FileOperations.bruteforceDelete(getPieDir() + "_*.apk");
                         FileOperations.mountROVendor();
                         FileOperations.mountROData();
-                        FileOperations.mountRO();
+                        FileOperations.mountSystemRO();
                     }
                 } else {
                     ThemeManager.disableAllThemeOverlays(context);

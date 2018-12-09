@@ -1248,6 +1248,7 @@ public class MainActivity extends AppCompatActivity implements
                 if (!removeList.isEmpty())
                     uninstallOverlay(context, removeList);
             }
+            new Thread(MagiskHelper::forceRemoveOverlays).start();
             return null;
         }
     }

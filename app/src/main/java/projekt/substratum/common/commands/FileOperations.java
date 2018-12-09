@@ -126,13 +126,21 @@ public class FileOperations {
     /**
      * Mount system RW
      */
-    public static void mountRW() {
+    public static void mountSystemRW() {
         final String mountPoint;
         if (Systems.IS_PIE)
             mountPoint = References.getPieMountPoint();
         else
             mountPoint = "/system";
-        Root.runCommand(String.format("mount -t auto -o %s %s", checkBox("rw"), mountPoint));
+        mountRW(mountPoint);
+    }
+
+    /**
+     * Mount given mountpoint as RW
+     * @param mountpoint The directory to mount as RW
+     */
+    public static void mountRW(final String mountpoint) {
+        Root.runCommand(String.format("mount -t auto -o %s %s", checkBox("rw"), mountpoint));
     }
 
     /**
@@ -152,13 +160,21 @@ public class FileOperations {
     /**
      * Mount system RO
      */
-    public static void mountRO() {
+    public static void mountSystemRO() {
         final String mountPoint;
         if (Systems.IS_PIE)
             mountPoint = References.getPieMountPoint();
         else
             mountPoint = "/system";
-        Root.runCommand(String.format("mount -t auto -o %s %s", checkBox("ro"), mountPoint));
+        mountRO(mountPoint);
+    }
+
+    /**
+     * Mount given mountpoint as RO
+     * @param mountpoint The directory to mount as RO
+     */
+    public static void mountRO(final String mountpoint) {
+        Root.runCommand(String.format("mount -t auto -o %s %s", checkBox("rw"), mountpoint));
     }
 
     /**

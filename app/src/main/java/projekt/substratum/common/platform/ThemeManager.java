@@ -726,11 +726,11 @@ public class ThemeManager {
         }
 
         if (Systems.IS_PIE && !checkSubstratumService(context)) {
-            FileOperations.mountRW();
+            FileOperations.mountSystemRW();
             for (String overlay : overlays) {
                 FileOperations.bruteforceDelete(References.getPieDir() + '_' + overlay + ".apk");
             }
-            FileOperations.mountRO();
+            FileOperations.mountSystemRO();
             return;
         }
 

@@ -977,7 +977,7 @@ public class ManagerFragment extends Fragment {
                                 overlay.add(fragment.overlaysList.get(i).getName());
                                 ThemeManager.uninstallOverlay(context, overlay);
                             } else {
-                                FileOperations.mountRW();
+                                FileOperations.mountSystemRW();
                                 FileOperations.mountRWData();
                                 FileOperations.mountRWVendor();
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
@@ -1021,7 +1021,7 @@ public class ManagerFragment extends Fragment {
                                         vendorResourceIdmap);
                                 FileOperations.mountROVendor();
                                 FileOperations.mountROData();
-                                FileOperations.mountRO();
+                                FileOperations.mountSystemRO();
                             }
                         }
                     }

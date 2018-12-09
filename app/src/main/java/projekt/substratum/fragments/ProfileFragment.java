@@ -687,7 +687,7 @@ public class ProfileFragment extends Fragment {
                     }
                     File file = new File(currentDirectory);
                     if (file.exists()) {
-                        FileOperations.mountRW();
+                        FileOperations.mountSystemRW();
                         if (profileFragment.selectedBackup.contains(
                                 profileFragment.getString(R.string.profile_overlay))) {
                             FileOperations.copyDir(profileFragment.context, currentDirectory,
@@ -715,7 +715,7 @@ public class ProfileFragment extends Fragment {
                                             .getAbsolutePath() + PROFILE_DIRECTORY
                                             + profileFragment.backupGetText);
                         }
-                        FileOperations.mountRO();
+                        FileOperations.mountSystemRO();
 
                         // Don't forget the wallpaper if wanted
                         if (profileFragment.selectedBackup.contains(
@@ -832,7 +832,7 @@ public class ProfileFragment extends Fragment {
                     File file = new File(currentDirectory);
                     if (file.exists()) {
                         // Delete destination overlays
-                        FileOperations.mountRW();
+                        FileOperations.mountSystemRW();
                         FileOperations.delete(profileFragment.context, currentDirectory);
                         FileOperations.delete(profileFragment.context, THEME_DIRECTORY);
                         FileOperations.createNewFolder(profileFragment.context, currentDirectory);
@@ -867,12 +867,12 @@ public class ProfileFragment extends Fragment {
                         FileOperations.setPermissionsRecursively(THEME_644, currentDirectory);
                         FileOperations.setPermissions(THEME_755, currentDirectory);
                         FileOperations.setSystemFileContext(currentDirectory);
-                        FileOperations.mountRO();
+                        FileOperations.mountSystemRO();
                     } else {
                         String vendorLocation = LEGACY_NEXUS_DIR;
                         String vendorPartition = VENDOR_DIR;
                         String currentVendor = projekt.substratum.common.Resources.inNexusFilter() ? vendorPartition : vendorLocation;
-                        FileOperations.mountRW();
+                        FileOperations.mountSystemRW();
                         File vendor = new File(currentVendor);
                         if (!vendor.exists()) {
                             if (currentVendor.equals(vendorLocation)) {
@@ -919,7 +919,7 @@ public class ProfileFragment extends Fragment {
                         FileOperations.setPermissionsRecursively(THEME_644, currentDirectory);
                         FileOperations.setPermissions(THEME_755, currentDirectory);
                         FileOperations.setSystemFileContext(currentDirectory);
-                        FileOperations.mountRO();
+                        FileOperations.mountSystemRO();
 
                         // Restore wallpaper
                         new ContinueRestore(profileFragment).execute();
@@ -1388,7 +1388,7 @@ public class ProfileFragment extends Fragment {
                 File bootanimation = new File(theme, BOOTANIMATION);
                 if (bootanimation.exists() &&
                         (Systems.getDeviceEncryptionStatus(profileFragment.context) > 1)) {
-                    FileOperations.mountRW();
+                    FileOperations.mountSystemRW();
                     FileOperations.move(
                             profileFragment.context,
                             BOOTANIMATION_LOCATION,
@@ -1398,7 +1398,7 @@ public class ProfileFragment extends Fragment {
                             bootanimation.getAbsolutePath(),
                             BOOTANIMATION_LOCATION);
                     FileOperations.setPermissions(THEME_644, BOOTANIMATION_LOCATION);
-                    FileOperations.mountRO();
+                    FileOperations.mountSystemRO();
                 }
 
                 // Late install

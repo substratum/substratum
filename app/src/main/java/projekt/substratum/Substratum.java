@@ -28,10 +28,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatDelegate;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
-import com.google.firebase.FirebaseApp;
-import io.fabric.sdk.android.Fabric;
 import projekt.substratum.activities.crash.SubstratumCrash;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -201,14 +197,6 @@ public class Substratum extends Application {
         Log.d(TAG, message);
     }
 
-    private void configureCrashReporting() {
-        CrashlyticsCore crashlyticsCore = new CrashlyticsCore.Builder()
-                .disabled(BuildConfig.DEBUG)
-                .build();
-
-        Fabric.with(this, new Crashlytics.Builder().core(crashlyticsCore).build());
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -232,14 +220,6 @@ public class Substratum extends Application {
             AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
             preferences.edit().putString("app_theme", DARK_THEME).apply();
         }
-
-        // Firebase and Crashlytics
-        try {
-            FirebaseApp.initializeApp(this.getApplicationContext());
-            configureCrashReporting();
-        } catch (IllegalStateException ignored) {
-        }
-
         // Dynamically check which theme engine is running at the moment
         if (isAndromedaDevice(this.getApplicationContext())) {
             boolean startBinderService = this.startBinderService(AndromedaBinderService.class);

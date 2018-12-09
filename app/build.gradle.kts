@@ -11,7 +11,6 @@ import java.util.Properties
 
 plugins {
     id("com.android.application")
-    id("com.google.gms.google-services")
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -80,11 +79,9 @@ dependencies {
     // Apparently v2.6 relies on the framework
     // having java.nio.File which Android 7 does not.
     val commonsIoVersion = "2.5"
-    val crashlyticsVersion = "2.9.7"
     val databindingVersion = "3.2.1"
     val expandableLayoutVersion = "2.9.2"
     val fabSheetVersion = "1.2.1"
-    val firebaseVersion = "16.0.6"
     val floatingHeadVersion = "2.4.0"
     val gestureRecyclerVersion = "1.7.0"
     val glideVersion = "4.8.0"
@@ -103,11 +100,9 @@ dependencies {
     implementation("cat.ereza:customactivityoncrash:$caocVersion")
     implementation("commons-io:commons-io:$commonsIoVersion")
     implementation("com.android.tools.build:apksig:$apkSigVersion")
-    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion")
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.github.recruit-lifestyle:FloatingView:$floatingHeadVersion")
     implementation("com.google.android.material:material:$androidXVersion")
-    implementation("com.google.firebase:firebase-core:$firebaseVersion")
     implementation("com.gordonwong:material-sheet-fab:$fabSheetVersion")
     implementation("com.jaredrummler:animated-svg-view:$svgViewVersion")
     implementation("com.mikepenz:aboutlibraries:$aboutVersion@aar") {

@@ -58,11 +58,8 @@ android {
     buildTypes {
         getByName(buildTypeRelease) {
             if (keystorePropertiesFile.exists()) signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-        getByName("debug") {
             isMinifyEnabled = false
+            //proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     dexOptions {

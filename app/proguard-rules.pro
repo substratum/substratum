@@ -44,9 +44,6 @@
 -dontwarn org.slf4j.impl.**
 -dontwarn junit.textui.TestRunner
 
-# Crashlytics
--keepattributes *Annotation*
--keepattributes SourceFile,LineNumberTable
 
 # SLF4J
 -keep class org.slf4j.** { *; }

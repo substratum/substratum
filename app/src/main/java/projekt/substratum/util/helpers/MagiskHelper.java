@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2016-2018 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * SPDX-License-Identifier: GPL-3.0-Or-Later
+ */
+
 package projekt.substratum.util.helpers;
 
 import android.content.Context;
@@ -11,9 +18,12 @@ public class MagiskHelper {
 
     private static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
     private static final String MAGISK_MIRROR_MOUNT_POINT_AFTER_174 = "/sbin/.magisk/mirror/system";
-    private static String TAG = MagiskHelper.class.getSimpleName();
+    private static final String TAG = MagiskHelper.class.getSimpleName();
+    private static final String CHECK_MAGISK_CMD = "if [ -d %s ] || [ -d %s ]; then echo '0'; fi";
 
     public static void migrateToModule(final Context context) {
+        if (!checkMagisk())
+            return;
         if (Root.runCommand(String.format("test -d %s || echo '1'",
                 References.MAGISK_MODULE_DIR)).equals("1")) {
             Substratum.log(TAG, "Magisk module does not exist, migrating");
@@ -32,5 +42,9 @@ public class MagiskHelper {
             Root.runCommand(command);
             Toast.makeText(context, R.string.module_placed_reboot_message, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private static boolean checkMagisk() {
+        return Root.runCommand(String.format(CHECK_MAGISK_CMD, MAGISK_MIRROR_MOUNT_POINT, MAGISK_MIRROR_MOUNT_POINT_AFTER_174)).equals("0");
     }
 }

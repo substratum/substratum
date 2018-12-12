@@ -51,7 +51,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import projekt.substratum.BuildConfig;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.MainActivity;
@@ -91,7 +90,7 @@ public class References {
     public static final boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
     public static final boolean ENABLE_AAPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final boolean ENABLE_PACKAGE_LOGGING = false; // Show time/date/place of install
-    public static final boolean ENABLE_DIRECT_ASSETS_LOGGING = BuildConfig.ENHANCED_LOGGING; // Self explanatory
+    public static final boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
     public static final boolean BYPASS_SYSTEM_VERSION_CHECK = false; // For developer previews only!
     public static final boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
     public static final String SECURITY_UPDATE_WARN_AFTER = "2018-02-01";

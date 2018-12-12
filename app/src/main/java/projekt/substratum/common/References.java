@@ -204,7 +204,7 @@ public class References {
     public static final int REFRESH_WINDOW_DELAY = 500;
     // This int controls the default grid count for the theme adapter
     public static final int MIN_GRID_COUNT = 1;
-    public static final int DEFAULT_GRID_COUNT = 1;
+    public static final int DEFAULT_GRID_COUNT = 2;
     public static final int MAX_GRID_COUNT = 4;
     // This String controls the default theme setting
     public static final String APP_THEME = "app_theme";

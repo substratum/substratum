@@ -516,14 +516,8 @@ public class References {
         if (rescueFileLegacy.exists() && rescueFileLegacy.delete()) {
             Log.e(SUBSTRATUM_LOG, "Deleted the rescue legacy file!");
         }
-        copyRescueFile(context, "rescue_legacy.dat",
-                Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        File.separator + "substratum" +
-                        File.separator + "SubstratumRescue_Legacy.zip");
-        copyRescueFile(context, "rescue.dat",
-                Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        File.separator + "substratum" +
-                        File.separator + "SubstratumRescue.zip");
+        copyRescueFile(context, "rescue_legacy.dat", rescueFileLegacy.getAbsolutePath());
+        copyRescueFile(context, "rescue.dat", rescueFile.getAbsolutePath());
     }
 
     /**

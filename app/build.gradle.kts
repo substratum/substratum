@@ -62,9 +62,6 @@ android {
             //proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    dexOptions {
-        setJavaMaxHeapSize("2048m")
-    }
     lintOptions.isAbortOnError = false
 }
 

@@ -76,7 +76,7 @@ public class ValidatorUtils {
                 return;
             }
 
-            if (!result.isEmpty()) {
+            if (result != null && !result.isEmpty()) {
                 String supportedRom = String.format(
                         settingsFragment.getString(R.string.rom_status_supported), result);
                 settingsFragment.platformSummary.append('\n')

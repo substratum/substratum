@@ -124,7 +124,7 @@ public class ValidatorUtils {
         protected void onPreExecute() {
             super.onPreExecute();
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment.isAdded() && settingsFragment != null) {
+            if (settingsFragment.isAdded()) {
                 if (settingsFragment.getActivity() != null) {
                     settingsFragment.dialog = new Dialog(settingsFragment.getActivity());
                     settingsFragment.dialog.setContentView(R.layout.validator_dialog);
@@ -138,7 +138,7 @@ public class ValidatorUtils {
         protected void onPostExecute(ArrayList<String> result) {
             super.onPostExecute(result);
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment.isAdded() && settingsFragment != null) {
+            if (settingsFragment.isAdded()) {
                 Collection<String> erroredPackages = new ArrayList<>();
                 for (int x = 0; x < settingsFragment.errors.size(); x++) {
                     ValidatorError error = settingsFragment.errors.get(x);
@@ -192,7 +192,7 @@ public class ValidatorUtils {
             // First, we have to download the repository list into the cache
             SettingsFragment settingsFragment = ref.get();
             ArrayList<String> packages = new ArrayList<>();
-            if (settingsFragment.isAdded() && settingsFragment != null) {
+            if (settingsFragment.isAdded()) {
                 FileDownloader.init(
                         settingsFragment.context,
                         settingsFragment.getString(Systems.IS_OREO ?

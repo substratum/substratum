@@ -691,7 +691,8 @@ public class Systems {
                     }
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return supportedRom;
     }

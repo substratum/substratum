@@ -49,7 +49,7 @@ android {
             create(buildTypeRelease) {
                 keyAlias = keystoreProperties["keyAlias"].toString()
                 keyPassword = keystoreProperties["keyPassword"].toString()
-                storeFile = rootProject.file(keystoreProperties["storeFile"].toString())
+                storeFile = file(keystoreProperties["storeFile"].toString())
                 storePassword = keystoreProperties["storePassword"].toString()
             }
         }

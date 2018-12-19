@@ -7,13 +7,9 @@
   ~ SPDX-License-Identifier: GPL-3.0-Or-Later
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:title="@string/settings_title">
 
         <Preference
@@ -48,47 +44,32 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:title="@string/settings_title_clickable">
+    <PreferenceCategory android:title="@string/settings_title_clickable">
 
         <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="manage_notifications"
             android:title="@string/manage_notification_channel" />
 
         <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="manage_space"
             android:title="@string/settings_manage_space_title" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="show_dangerous_samsung_overlays"
             android:summary="@string/settings_samsung_show_dangerous_overlays_text"
             android:title="@string/settings_samsung_show_dangerous_overlays" />
 
         <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="legacy_priority_switcher"
             android:summary="@string/legacy_preference_priority_text"
             android:title="@string/legacy_preference_priority_title" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="theme_debug"
             android:summary="@string/theme_debug_mode_summary"
             android:title="@string/theme_debug_mode_title" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="sungstromeda_mode"
             android:summary="@string/sungstromeda_mode_summary"
             android:title="@string/sungstromeda_mode_title" />
@@ -96,27 +77,19 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:title="@string/settings_title_automation">
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="overlay_updater"
             android:summary="@string/settings_auto_updater_text"
             android:title="@string/settings_auto_updater_title" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="theme_updater"
             android:summary="@string/settings_theme_auto_updater_text"
             android:title="@string/settings_theme_auto_updater_title" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:defaultValue="false"
             android:key="auto_disable_target_overlays"
             android:summaryOff="@string/auto_disable_target_overlays_off"
@@ -124,15 +97,11 @@
             android:title="@string/auto_disable_target_overlays" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="overlay_alert"
             android:summary="@string/settings_auto_alert_text"
             android:title="@string/settings_auto_alert_title" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="crash_receiver"
             android:summary="@string/settings_crash_receiver_text"
             android:title="@string/settings_crash_receiver_title" />
@@ -140,62 +109,43 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:title="@string/settings_title_1">
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="force_english_locale"
             android:summary="@string/settings_force_english_text"
             android:title="@string/settings_force_english_title" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="vibrate_on_compiled"
             android:summary="@string/vibrate_on_compiled_description"
             android:title="@string/vibrate_on_compiled" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="hide_app_checkbox"
             android:summary="@string/hide_app_icon_not_supported"
             android:title="@string/hide_app_icon" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="autosave_logchar"
             android:summary="@string/logchar_autosave_subtext"
             android:title="@string/logchar_autosave_title" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:title="@string/settings_title_3">
+    <PreferenceCategory android:title="@string/settings_title_3">
 
         <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="app_theme"
             android:summary="@string/app_theme_text"
             android:title="@string/app_theme_title" />
 
         <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="lite_mode"
             android:summary="@string/lite_mode_text"
             android:title="@string/lite_mode_title" />
 
         <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="grid_style_cards_count"
             android:summary="@string/grid_size_text"
             android:title="@string/grid_size_title" />

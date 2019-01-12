@@ -196,7 +196,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
             // Uninstalling
             LinearLayout uninstall = sheetDialogBinding.uninstall;
-            if (!Packages.isUserApp(this.context, themeItem.getThemePackage())) {
+            if (Packages.isSystemApp(this.context, themeItem.getThemePackage())) {
                 uninstall.setVisibility(View.GONE);
             } else {
                 uninstall.setOnClickListener(view2 -> {

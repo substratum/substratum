@@ -938,7 +938,7 @@ public class InformationActivity extends AppCompatActivity {
             menu.findItem(R.id.uninstall).setVisible(false);
         }
 
-        if (!Packages.isUserApp(context, themePid)) {
+        if (Packages.isSystemApp(context, themePid)) {
             menu.findItem(R.id.uninstall).setVisible(false);
         }
         return true;

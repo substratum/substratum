@@ -614,16 +614,16 @@ public class Packages {
      * @param packageName Package name of the desired app to be checked
      * @return True, if user app
      */
-    public static boolean isUserApp(Context context,
-                                    String packageName) {
+    public static boolean isSystemApp(Context context,
+                                      String packageName) {
         try {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
-            return (ai.flags & mask) == 0;
+            return (ai.flags & mask) != 0;
         } catch (PackageManager.NameNotFoundException ignored) {
         }
-        return false;
+        return true;
     }
 
     /**

@@ -215,7 +215,6 @@ public class Restore {
                                         Snackbar.LENGTH_LONG)
                                         .show();
                             }
-                            //noinspection ConstantConditions
                             if (context != null) {
                                 ThemeManager.uninstallOverlay(
                                         context, finalCommandsArray);
@@ -275,6 +274,8 @@ public class Restore {
                         finalCommandsArray.addAll(overlays.stream()
                                 .filter(o -> Packages.getOverlayParent(context, o) != null)
                                 .collect(Collectors.toList()));
+                        if (Systems.IS_PIE)
+                            FileOperations.bruteforceDelete(getPieDir() + "_*.apk");
                     } else {
                         FileOperations.mountSystemRW();
                         FileOperations.mountRWData();
@@ -283,7 +284,6 @@ public class Restore {
                         FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR);
                         FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR);
                         FileOperations.bruteforceDelete(VENDOR_DIR);
-                        FileOperations.bruteforceDelete(getPieDir() + "_*.apk");
                         FileOperations.mountROVendor();
                         FileOperations.mountROData();
                         FileOperations.mountSystemRO();

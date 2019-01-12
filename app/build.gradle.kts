@@ -38,8 +38,8 @@ android {
         setProperty("archivesBaseName", "substratum_${gitHash()}")
     }
     compileOptions {
-        setSourceCompatibility(JavaVersion.VERSION_1_8)
-        setTargetCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     if (keystorePropertiesFile.exists()) {
         val keystoreProperties = Properties()

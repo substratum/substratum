@@ -127,7 +127,7 @@ public class BootAnimationUtils {
             this.shutdownAnimation = shutdownAnimation;
         }
 
-        private static void CopyStream(InputStream Input, OutputStream Output) throws
+        private static void copyStream(InputStream Input, OutputStream Output) throws
                 IOException {
             byte[] buffer = new byte[BYTE_ACCESS_RATE];
             int length = Input.read(buffer);
@@ -209,17 +209,16 @@ public class BootAnimationUtils {
                         Context otherContext = context.createPackageContext(this
                                 .themePid, 0);
                         AssetManager themeAssetManager = otherContext.getAssets();
+                        String listDir = directory + '/' + bootanimation +
+                                (encrypted ?
+                                        ".zip" + ENCRYPTED_FILE_EXTENSION : ".zip");
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
-                                directory + '/' + bootanimation +
-                                        (encrypted ?
-                                                ".zip" + ENCRYPTED_FILE_EXTENSION : ".zip"),
+                                listDir,
                                 context.getCacheDir().getAbsolutePath() +
                                         BOOTANIMATION_CREATION_CACHE +
                                         bootanimation + ".zip",
-                                directory + '/' + bootanimation +
-                                        (encrypted ?
-                                                ".zip" + ENCRYPTED_FILE_EXTENSION : ".zip"),
+                                listDir,
                                 cipher);
                     } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();
@@ -235,7 +234,7 @@ public class BootAnimationUtils {
                                      context.getCacheDir().getAbsolutePath() +
                                              BOOTANIMATION_CREATION_CACHE +
                                              bootanimation + ".zip")) {
-                            BootAnimationHandlerAsync.CopyStream(inputStream, outputStream);
+                            BootAnimationHandlerAsync.copyStream(inputStream, outputStream);
                         }
                     } catch (Exception ignored) {
                         hasFailed = true;

@@ -726,9 +726,10 @@ public class ThemeManager {
         }
 
         if (Systems.IS_PIE && !checkSubstratumService(context)) {
-            final StringBuilder deleteBuilder = new StringBuilder(String.format("rm -f %s ", References.getPieDir()));
+            final StringBuilder deleteBuilder = new StringBuilder("rm -f ");
+            final String pieDir = References.getPieDir();
             for (String overlay : overlays) {
-                deleteBuilder.append(String.format("_%s.apk", overlay));
+                deleteBuilder.append(String.format("%s/_%s.apk", References.getPieDir(), overlay));
             }
             Root.runCommand(deleteBuilder.toString());
             return;

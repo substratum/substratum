@@ -1124,7 +1124,7 @@ public class MainActivity extends AppCompatActivity implements
                     BinaryInstaller.install(activity.context, false);
                     if (Systems.checkOMS(context)) {
                         new DoCleanUp(context).execute();
-                        if (Root.checkRootAccess() && Systems.IS_PIE) MagiskHelper.migrateToModule(context);
+                        if (Root.checkRootAccess() && Systems.IS_PIE) MagiskHelper.handleModule(context);
                     }
                 }
             }

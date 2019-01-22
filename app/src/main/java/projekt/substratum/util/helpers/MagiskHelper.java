@@ -37,16 +37,8 @@ public class MagiskHelper {
                             References.MAGISK_MODULE_DIR
                     ) +
                     String.format("touch %s/auto_mount; ", References.MAGISK_MODULE_DIR) +
-                    String.format("mkdir -p %s/system/app; ", References.MAGISK_MODULE_DIR) +
-                    String.format("mv %s/app/_*.apk %s; ", MAGISK_MIRROR_MOUNT_POINT, References.getPieDir()) +
-                    String.format("mv %s/app/_*.apk %s; ", MAGISK_MIRROR_MOUNT_POINT_AFTER_174, References.getPieDir());
-            for (String mountPoint : mountPoints) {
-                FileOperations.mountRW(mountPoint);
-            }
+                    String.format("mkdir -p %s/system/app; ", References.MAGISK_MODULE_DIR);
             Root.runCommand(command);
-            for (String mountPoint : mountPoints) {
-                FileOperations.mountRO(mountPoint);
-            }
             Toast.makeText(context, R.string.module_placed_reboot_message, Toast.LENGTH_LONG).show();
         }
     }

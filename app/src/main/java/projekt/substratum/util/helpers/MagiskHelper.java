@@ -20,7 +20,6 @@ public class MagiskHelper {
     private static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
     private static final String MAGISK_MIRROR_MOUNT_POINT_AFTER_174 = "/sbin/.magisk/mirror/system";
     private static final String TAG = MagiskHelper.class.getSimpleName();
-    private static final String CHECK_MAGISK_CMD = "if [ -d %s ] || [ -d %s ]; then echo '0'; fi";
     private static final String[] mountPoints = new String[]{MAGISK_MIRROR_MOUNT_POINT, MAGISK_MIRROR_MOUNT_POINT_AFTER_174};
 
     public static void migrateToModule(final Context context) {
@@ -53,7 +52,7 @@ public class MagiskHelper {
     }
 
     private static boolean checkMagisk() {
-        return Root.runCommand(String.format(CHECK_MAGISK_CMD, MAGISK_MIRROR_MOUNT_POINT, MAGISK_MIRROR_MOUNT_POINT_AFTER_174)).equals("0");
+        return Root.runCommand("su --version").contains("MAGISKSU");
     }
 
     public static void forceRemoveOverlays() {

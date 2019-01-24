@@ -129,7 +129,7 @@ public class FileOperations {
     public static void mountSystemRW() {
         final String mountPoint;
         if (Systems.IS_PIE)
-            mountPoint = References.getPieMountPoint();
+            mountPoint = References.MAGISK_MODULE_DIR;
         else
             mountPoint = "/system";
         mountRW(mountPoint);
@@ -163,7 +163,7 @@ public class FileOperations {
     public static void mountSystemRO() {
         final String mountPoint;
         if (Systems.IS_PIE)
-            mountPoint = References.getPieMountPoint();
+            mountPoint = References.MAGISK_MODULE_DIR;
         else
             mountPoint = "/system";
         mountRO(mountPoint);

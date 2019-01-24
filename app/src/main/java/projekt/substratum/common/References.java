@@ -243,10 +243,6 @@ public class References {
         return MAGISK_MODULE_DIR + "system/app/";
     }
 
-    public static String getPieMountPoint() {
-        return MAGISK_MODULE_DIR;
-    }
-
     /**
      * Unified method to set theme extra lists
      *

@@ -135,9 +135,9 @@ public class Internal {
     public static final String BOOTANIMATION_DESCRIPTOR = "desc.txt";
     public static final String BOOTANIMATION = "bootanimation.zip";
     public static final String SHUTDOWNANIMATION = "shutdownanimation.zip";
-    public static final String BOOTANIMATION_LOCATION = References.getPieMountPoint() + "/media/bootanimation.zip";
+    public static final String BOOTANIMATION_LOCATION = References.MAGISK_MODULE_DIR + "/media/bootanimation.zip";
     public static final String BOOTANIMATION_BU = "bootanimation-backup.zip";
-    public static final String BOOTANIMATION_BU_LOCATION = References.getPieMountPoint() + "/media/bootanimation-backup.zip";
+    public static final String BOOTANIMATION_BU_LOCATION = References.MAGISK_MODULE_DIR + "/media/bootanimation-backup.zip";
     public static final String VALIDATOR_CACHE = "ValidatorCache";
     public static final String VALIDATOR_CACHE_DIR = "/ValidatorCache/";
     public static final String SYSTEM_ADDON_DIR = "/system/addon.d/";

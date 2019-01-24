@@ -50,7 +50,7 @@ public class MagiskHelper {
     }
 
     private static boolean moduleExists() {
-        return Root.runCommand(String.format("test -d %s || echo '1'",
+        return Root.runCommand(String.format("test -d %s && echo '1'",
                 References.MAGISK_MODULE_DIR)).equals("1");
     }
 

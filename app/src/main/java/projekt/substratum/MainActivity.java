@@ -585,13 +585,11 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public boolean onKeyDown(int code, KeyEvent e) {
-        switch (code) {
-            case KeyEvent.KEYCODE_BACK:
-                onBackPressed();
-                return true;
-            default:
-                return super.onKeyDown(code, e);
+        if (code == KeyEvent.KEYCODE_BACK) {
+            onBackPressed();
+            return true;
         }
+        return super.onKeyDown(code, e);
     }
 
     /**
@@ -724,69 +722,65 @@ public class MainActivity extends AppCompatActivity implements
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
-                if ((grantResults.length > 0) &&
-                        (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // permission already granted, allow the program to continue running
-                    File directory = new File(EXTERNAL_STORAGE_CACHE);
-                    if (directory.exists()) {
-                        boolean deleted = directory.delete();
-                        if (!deleted) Log.e(References.SUBSTRATUM_LOG,
-                                "Unable to delete directory");
-                    } else {
-                        Substratum.log(References.SUBSTRATUM_LOG, "Deleting old cache dir: " + directory);
-                    }
-                    if (!directory.exists()) {
-                        boolean made = directory.mkdirs();
-                        if (!made) Log.e(References.SUBSTRATUM_LOG,
-                                "Unable to create directory");
-                    } else {
-                        References.injectRescueArchives(context);
-                        Substratum.log(References.SUBSTRATUM_LOG, "Successfully made dir: " + directory);
-                    }
-                    File cacheDirectory = new File(getCacheDir(),
-                            SUBSTRATUM_BUILDER_CACHE);
-                    if (!cacheDirectory.exists()) {
-                        boolean made = cacheDirectory.mkdirs();
-                        if (!made) Log.e(References.SUBSTRATUM_LOG,
-                                "Unable to create cache directory");
-                    }
-                    File[] fileList = new File(getCacheDir().getAbsolutePath() +
-                            SUBSTRATUM_BUILDER_CACHE).listFiles();
-                    for (File file : fileList) {
-                        FileOperations.delete(context, getCacheDir()
-                                .getAbsolutePath() +
-                                SUBSTRATUM_BUILDER_CACHE + file.getName());
-                    }
-                    Substratum.log(SUBSTRATUM_BUILDER, "The cache has been flushed!");
-                    References.injectRescueArchives(context);
+        if (requestCode == PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
+            if ((grantResults.length > 0) &&
+                    (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // permission already granted, allow the program to continue running
+                File directory = new File(EXTERNAL_STORAGE_CACHE);
+                if (directory.exists()) {
+                    boolean deleted = directory.delete();
+                    if (!deleted) Log.e(SUBSTRATUM_LOG,
+                            "Unable to delete directory");
                 } else {
-                    // permission was not granted, show closing dialog
-                    new AlertDialog.Builder(this)
-                            .setTitle(R.string.permission_not_granted_dialog_title)
-                            .setMessage(R.string.permission_not_granted_dialog_message1)
-                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
-                                if (shouldShowRequestPermissionRationale(
-                                        WRITE_EXTERNAL_STORAGE)) {
-                                    finish();
-                                } else {
-                                    // User choose not to show request again
-                                    Intent i = new Intent();
-                                    i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                    i.addCategory(Intent.CATEGORY_DEFAULT);
-                                    i.setData(Uri.parse("package:" + getPackageName()));
-                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                                    i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                                    startActivity(i);
-                                    finish();
-                                }
-                            })
-                            .show();
-                    return;
+                    Substratum.log(SUBSTRATUM_LOG, "Deleting old cache dir: " + directory);
                 }
-                break;
+                if (!directory.exists()) {
+                    boolean made = directory.mkdirs();
+                    if (!made) Log.e(SUBSTRATUM_LOG,
+                            "Unable to create directory");
+                } else {
+                    References.injectRescueArchives(context);
+                    Substratum.log(SUBSTRATUM_LOG, "Successfully made dir: " + directory);
+                }
+                File cacheDirectory = new File(getCacheDir(),
+                        SUBSTRATUM_BUILDER_CACHE);
+                if (!cacheDirectory.exists()) {
+                    boolean made = cacheDirectory.mkdirs();
+                    if (!made) Log.e(SUBSTRATUM_LOG,
+                            "Unable to create cache directory");
+                }
+                File[] fileList = new File(getCacheDir().getAbsolutePath() +
+                        SUBSTRATUM_BUILDER_CACHE).listFiles();
+                for (File file : fileList) {
+                    delete(context, getCacheDir()
+                            .getAbsolutePath() +
+                            SUBSTRATUM_BUILDER_CACHE + file.getName());
+                }
+                Substratum.log(SUBSTRATUM_BUILDER, "The cache has been flushed!");
+                References.injectRescueArchives(context);
+            } else {
+                // permission was not granted, show closing dialog
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.permission_not_granted_dialog_title)
+                        .setMessage(R.string.permission_not_granted_dialog_message1)
+                        .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+                            if (shouldShowRequestPermissionRationale(
+                                    WRITE_EXTERNAL_STORAGE)) {
+                                finish();
+                            } else {
+                                // User choose not to show request again
+                                Intent i = new Intent();
+                                i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                i.addCategory(Intent.CATEGORY_DEFAULT);
+                                i.setData(Uri.parse("package:" + getPackageName()));
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                startActivity(i);
+                                finish();
+                            }
+                        })
+                        .show();
             }
         }
     }

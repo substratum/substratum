@@ -34,6 +34,8 @@ tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
                 }
                 if (rejected) {
                     reject("Release candidate")
+                } else if (candidate.group.equals("commons-io") && candidate.version.toFloat() >= 2.6F) {
+                    reject("commons-io v2.6+ cause runtime crashes due to missing java.nio.File class in Android 7")
                 }
             }
         }

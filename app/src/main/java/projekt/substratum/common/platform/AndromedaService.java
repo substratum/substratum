@@ -67,7 +67,6 @@ public class AndromedaService {
     /**
      * List all overlays
      *
-     * @return True, if succeeded.
      */
     public static void listOverlays() {
         try {

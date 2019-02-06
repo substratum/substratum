@@ -68,7 +68,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
     }
 
     @Override
-    public void onBindViewHolder(GestureViewHolder holder,
+    public void onBindViewHolder(@NonNull GestureViewHolder holder,
                                  int position) {
         super.onBindViewHolder(holder, position);
         PrioritiesInterface prioritiesInterface = getData().get(position);

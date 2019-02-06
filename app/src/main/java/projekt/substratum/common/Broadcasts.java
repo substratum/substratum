@@ -48,9 +48,9 @@ public class Broadcasts {
      * @param encryptionKey Encryption key
      * @param ivEncryptKey  IV encryption key
      */
-    static void sendLocalizedKeyMessage(Context context,
-                                        byte[] encryptionKey,
-                                        byte[] ivEncryptKey) {
+    private static void sendLocalizedKeyMessage(Context context,
+                                                byte[] encryptionKey,
+                                                byte[] ivEncryptKey) {
         Substratum.log("KeyRetrieval",
                 "The system has completed the handshake for keys retrieval " +
                         "and is now passing it to the activity...");

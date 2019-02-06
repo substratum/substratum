@@ -528,7 +528,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 profileFragment.headerProgress.setVisibility(View.VISIBLE);
             }
         }
@@ -537,25 +537,25 @@ public class ProfileFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 profileFragment.headerProgress.setVisibility(View.GONE);
                 if (Systems.checkOMS(profileFragment.context)) {
-                    String directory_parse = String.format(
+                    String directoryParse = String.format(
                             profileFragment.getString(R.string.toast_backup_success),
                             profileFragment.backupGetText);
                     if (profileFragment.getView() != null) {
                         Lunchbar.make(profileFragment.getView(),
-                                directory_parse,
+                                directoryParse,
                                 Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 } else {
-                    String directory_parse = String.format(
+                    String directoryParse = String.format(
                             profileFragment.getString(R.string.toast_backup_success),
                             profileFragment.backupGetText + '/');
                     if (profileFragment.getView() != null) {
                         Lunchbar.make(profileFragment.getView(),
-                                directory_parse,
+                                directoryParse,
                                 Snackbar.LENGTH_LONG)
                                 .show();
                     }
@@ -567,7 +567,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 String uid;
                 try {
                     uid = Environment.getExternalStorageDirectory().getAbsolutePath().split("/")[3];
@@ -773,10 +773,10 @@ public class ProfileFragment extends Fragment {
      * Restore function to restore a profile on the device
      */
     private static class RestoreFunction extends AsyncTask<String, Integer, String> {
-        final ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled
+        final ArrayList<String> toBeRun = new ArrayList<>(); // Overlays going to be enabled
         private final WeakReference<ProfileFragment> ref;
         List<String> system = new ArrayList<>(); // All installed overlays
-        String profile_name;
+        String profileName;
 
         RestoreFunction(ProfileFragment profileFragment) {
             super();
@@ -786,7 +786,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 profileFragment.headerProgress.setVisibility(View.VISIBLE);
             }
         }
@@ -795,7 +795,7 @@ public class ProfileFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 if (Systems.checkOMS(profileFragment.context)) {
                     if (!profileFragment.cannotRunOverlays.isEmpty()) {
                         new AlertDialog.Builder(profileFragment.context)
@@ -811,9 +811,9 @@ public class ProfileFragment extends Fragment {
                                             // enable)
                                             new ContinueRestore(
                                                     profileFragment,
-                                                    profile_name,
+                                                    profileName,
                                                     profileFragment.cannotRunOverlays,
-                                                    to_be_run)
+                                                    toBeRun)
                                                     .execute();
                                         })
                                 .setNegativeButton(
@@ -824,7 +824,7 @@ public class ProfileFragment extends Fragment {
                                 .create().show();
                     } else {
                         // Continue restore process (enable)
-                        new ContinueRestore(profileFragment, profile_name, to_be_run)
+                        new ContinueRestore(profileFragment, profileName, toBeRun)
                                 .execute();
                     }
                 } else {
@@ -899,8 +899,8 @@ public class ProfileFragment extends Fragment {
                                 .getExternalStorageDirectory()
                                 .getAbsolutePath() + PROFILE_DIRECTORY +
                                 profileFragment.profileSelector.getSelectedItem() + '/');
-                        String[] located_files = profileApkFiles.list();
-                        for (String found : located_files) {
+                        String[] locatedFiles = profileApkFiles.list();
+                        for (String found : locatedFiles) {
                             if (!"audio".equals(found)) {
                                 FileOperations.copyDir(profileFragment.context, Environment
                                         .getExternalStorageDirectory()
@@ -951,21 +951,21 @@ public class ProfileFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 if (Systems.checkOMS(profileFragment.context)) {  // RRO doesn't need this
-                    profile_name = sUrl[0];
+                    profileName = sUrl[0];
                     profileFragment.cannotRunOverlays = new ArrayList<>();
                     profileFragment.dialogMessage = new StringBuilder();
                     profileFragment.toBeRunCommands = "";
 
                     File overlays = new File(
                             Environment.getExternalStorageDirectory().getAbsolutePath()
-                                    + PROFILE_DIRECTORY + profile_name + "/overlay_state.xml");
+                                    + PROFILE_DIRECTORY + profileName + "/overlay_state.xml");
 
                     if (overlays.exists()) {
                         List<List<String>> profiles =
                                 ProfileManager.readProfileStatePackageWithTargetPackage(
-                                        profile_name, STATE_ENABLED);
+                                        profileName, STATE_ENABLED);
                         system = ThemeManager.listAllOverlays(profileFragment.context);
 
                         // Now process the overlays to be enabled
@@ -975,7 +975,7 @@ public class ProfileFragment extends Fragment {
                             if (Packages.isPackageInstalled(profileFragment.context,
                                     targetPackage)) {
                                 if (system.contains(packageName)) {
-                                    to_be_run.add(packageName);
+                                    toBeRun.add(packageName);
                                 } else {
                                     profileFragment.cannotRunOverlays.add(profile);
                                 }
@@ -1014,14 +1014,14 @@ public class ProfileFragment extends Fragment {
                         }
                     }
                 } else {
-                    String profile_name = sUrl[0];
+                    String profileName = sUrl[0];
                     profileFragment.toBeRunCommands += " && mount -o rw,remount /system";
                     profileFragment.toBeRunCommands = profileFragment.toBeRunCommands +
                             " && mv -f " + BOOTANIMATION_LOCATION + " " + BOOTANIMATION_BU_LOCATION;
                     profileFragment.toBeRunCommands =
                             profileFragment.toBeRunCommands + " && cp -f " +
                                     Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                    PROFILE_DIRECTORY + profile_name + "/ /system/media/";
+                                    PROFILE_DIRECTORY + profileName + "/ /system/media/";
                     profileFragment.toBeRunCommands = profileFragment.toBeRunCommands +
                             " && chmod 644 " + BOOTANIMATION_LOCATION +
                             " && mount -o ro,remount /system";
@@ -1097,7 +1097,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 progressDialog = new ProgressDialog(profileFragment.context);
                 progressDialog.setIndeterminate(true);
                 progressDialog.setCancelable(false);
@@ -1129,7 +1129,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 profileFragment.lateInstall = new ArrayList<>();
                 if (toBeCompiled != null) {
                     Map<String, ProfileItem> items =
@@ -1151,11 +1151,11 @@ public class ProfileFragment extends Fragment {
                         String theme = currentItem.getParentTheme();
 
                         boolean encrypted = false;
-                        String encrypt_check =
+                        String encryptCheck =
                                 Packages.getOverlayMetadata(
                                         profileFragment.context, theme, metadataEncryption);
 
-                        if ((encrypt_check != null) && encrypt_check.equals
+                        if ((encryptCheck != null) && encryptCheck.equals
                                 (metadataEncryptionValue) &&
                                 !theme.equals(prevTheme)) {
                             prevTheme = theme;
@@ -1189,17 +1189,17 @@ public class ProfileFragment extends Fragment {
 
                             if (securityIntent != null) {
                                 try {
-                                    byte[] encryption_key =
+                                    byte[] encryptionKey =
                                             securityIntent.getByteArrayExtra(ENCRYPTION_KEY_EXTRA);
-                                    byte[] iv_encrypt_key =
+                                    byte[] ivEncryptKey =
                                             securityIntent.getByteArrayExtra(
                                                     IV_ENCRYPTION_KEY_EXTRA);
 
                                     cipher = Cipher.getInstance(CIPHER_ALGORITHM);
                                     cipher.init(
                                             Cipher.DECRYPT_MODE,
-                                            new SecretKeySpec(encryption_key, SECRET_KEY_SPEC),
-                                            new IvParameterSpec(iv_encrypt_key)
+                                            new SecretKeySpec(encryptionKey, SECRET_KEY_SPEC),
+                                            new IvParameterSpec(ivEncryptKey)
                                     );
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -1233,8 +1233,8 @@ public class ProfileFragment extends Fragment {
                         String type1cDir = "overlays/" + target + "/type1c_" + type1c +
                                 (encrypted ? ".xml" + ENCRYPTED_FILE_EXTENSION : ".xml");
 
-                        String additional_variant = (!type2.isEmpty() ? type2 : null);
-                        String base_variant = (!type3.isEmpty() ? type3 : null);
+                        String additionalVariant = (!type2.isEmpty() ? type2 : null);
+                        String baseVariant = (!type3.isEmpty() ? type3 : null);
 
                         // Pre-notions
                         String suffix;
@@ -1318,8 +1318,8 @@ public class ProfileFragment extends Fragment {
                                 target,
                                 Packages.getPackageName(profileFragment.context, theme),
                                 compilePackage,
-                                additional_variant,
-                                base_variant,
+                                additionalVariant,
+                                baseVariant,
                                 Packages.getAppVersion(profileFragment.context,
                                         currentItem.getParentTheme()),
                                 Systems.checkOMS(profileFragment.context),
@@ -1376,14 +1376,14 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 progressDialog.dismiss();
             }
         }
 
         void continueProcess() {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
 
                 File theme = new File(Environment.getExternalStorageDirectory()
                         .getAbsolutePath() +
@@ -1467,7 +1467,7 @@ public class ProfileFragment extends Fragment {
 
         void continueProcessWallpaper() {
             ProfileFragment profileFragment = ref.get();
-            if (profileFragment.isAdded() && profileFragment != null) {
+            if (profileFragment.isAdded()) {
                 String homeWallPath = Environment.getExternalStorageDirectory()
                         .getAbsolutePath() + PROFILE_DIRECTORY + profileName + WALLPAPER_FILE_NAME;
                 String lockWallPath = Environment.getExternalStorageDirectory()

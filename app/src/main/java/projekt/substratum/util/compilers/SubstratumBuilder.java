@@ -137,7 +137,7 @@ public class SubstratumBuilder {
 
         String parse1ThemeName = themeName.replaceAll("\\s+", "");
         String parse2ThemeName = parse1ThemeName.replaceAll("[^a-zA-Z0-9]+", "");
-        if (parse2ThemeName != null && parse2ThemeName.isEmpty()) {
+        if (parse2ThemeName.isEmpty()) {
             parse2ThemeName = "no_name";
         }
 

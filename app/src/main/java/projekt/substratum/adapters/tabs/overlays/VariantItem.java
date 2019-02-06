@@ -7,6 +7,8 @@
 
 package projekt.substratum.adapters.tabs.overlays;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class VariantItem implements Serializable {
@@ -35,6 +37,7 @@ public class VariantItem implements Serializable {
         return this.variantHex;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return this.variantName;

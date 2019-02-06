@@ -424,14 +424,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         int newCount = numberPicker.getValue();
                         prefs.edit().putInt(
                                 "grid_style_cards_count", newCount).apply();
-                        switch (newCount) {
-                            case 1:
-                                prefs.edit().putBoolean("grid_layout", false).apply();
-                                break;
-                            default:
-                                prefs.edit().putBoolean("grid_layout", true).apply();
-                                break;
-                        }
+                        prefs.edit().putBoolean("grid_layout", !(newCount == 1)).apply();
 
                         gridStyleCardsCount.setSummary(String.format(getString(R.string.grid_size_text), newCount, DEFAULT_GRID_COUNT));
                     });

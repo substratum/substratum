@@ -829,22 +829,21 @@ public class Overlays extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case 2486:
-                if (currentInstance.lateInstall.isEmpty()) {
-                    refreshList();
-                    return;
-                }
-                FileOperations.delete(context,
-                        new File(currentInstance.lateInstall.get(0)).getAbsolutePath());
-                if ((currentInstance.lateInstall != null) &&
-                        !currentInstance.lateInstall.isEmpty())
-                    currentInstance.lateInstall.remove(0);
-                if (!currentInstance.lateInstall.isEmpty()) {
-                    installMultipleAPKs();
-                } else {
-                    refreshList();
-                }
+        if (requestCode == 2486) {
+            if (currentInstance.lateInstall.isEmpty()) {
+                refreshList();
+                return;
+            }
+            FileOperations.delete(context,
+                    new File(currentInstance.lateInstall.get(0)).getAbsolutePath());
+            if ((currentInstance.lateInstall != null) &&
+                    !currentInstance.lateInstall.isEmpty())
+                currentInstance.lateInstall.remove(0);
+            if (!currentInstance.lateInstall.isEmpty()) {
+                installMultipleAPKs();
+            } else {
+                refreshList();
+            }
         }
     }
 
@@ -1174,11 +1173,9 @@ public class Overlays extends Fragment {
                         }
                     } else if (allowedSettingsOverlay(value)) {
                         // If not SystemUI, check if it is part of the Settings
-                        switch (value) {
-                            case SETTINGS_ICONS:
-                                packageName = overlays.getString(R.string.settings_icons);
-                                succeeded = true;
-                                break;
+                        if (SETTINGS_ICONS.equals(value)) {
+                            packageName = overlays.getString(R.string.settings_icons);
+                            succeeded = true;
                         }
                     } else if (allowedFrameworkOverlay(value)) {
                         // Finally, if not Settings, check if it is part of the Android Framework
@@ -1464,14 +1461,14 @@ public class Overlays extends Fragment {
         @Override
         protected void onPreExecute() {
             Overlays fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) setViews(fragment, false);
+            if (fragment.isAdded()) setViews(fragment, false);
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Overlays fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 setViews(fragment, true);
                 fragment.overlaysAdapter = new OverlaysAdapter(adapterList, fragment.context);
                 fragment.recyclerView.setAdapter(fragment.overlaysAdapter);
@@ -1487,7 +1484,7 @@ public class Overlays extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             Overlays fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 // Modularizing the compile process to make it easier to track errors
                 boolean assigned = assignVariables(fragment, this);
                 if (assigned) {

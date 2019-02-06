@@ -248,7 +248,7 @@ public class Fonts extends Fragment {
         @Override
         protected void onPreExecute() {
             final Fonts fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 final Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.progressDialog = new ProgressDialog(context, R.style.RestoreDialog);
@@ -264,7 +264,7 @@ public class Fonts extends Fragment {
         @Override
         protected void onPostExecute(final String result) {
             final Fonts fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 final Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.progressDialog.dismiss();
@@ -303,7 +303,7 @@ public class Fonts extends Fragment {
         @Override
         protected String doInBackground(final String... sUrl) {
             final Fonts fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 final Context context = fragment.context;
                 FontsManager.clearFonts(context);
             }
@@ -376,12 +376,12 @@ public class Fonts extends Fragment {
                 try {
                     Substratum.log(TAG, "Fonts have been loaded on the drawing panel.");
 
-                    final String work_directory =
+                    final String workDirectory =
                             fonts.context.getCacheDir().getAbsolutePath() + FONT_PREVIEW_CACHE;
 
                     try {
                         final Typeface normalTf = Typeface.createFromFile(
-                                work_directory + NORMAL_FONT);
+                                workDirectory + NORMAL_FONT);
                         fonts.normal.setTypeface(normalTf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for normal template." +
@@ -390,7 +390,7 @@ public class Fonts extends Fragment {
 
                     try {
                         final Typeface boldTf = Typeface.createFromFile(
-                                work_directory + BOLD_FONT);
+                                workDirectory + BOLD_FONT);
                         fonts.normalBold.setTypeface(boldTf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for normal-bold " +
@@ -399,7 +399,7 @@ public class Fonts extends Fragment {
 
                     try {
                         final Typeface italicsTf = Typeface.createFromFile(
-                                work_directory + ITALICS_FONT);
+                                workDirectory + ITALICS_FONT);
                         fonts.italics.setTypeface(italicsTf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for italic template." +
@@ -408,7 +408,7 @@ public class Fonts extends Fragment {
 
                     try {
                         final Typeface italicsBoldTf = Typeface.createFromFile(
-                                work_directory + BOLD_ITALICS_FONT);
+                                workDirectory + BOLD_ITALICS_FONT);
                         fonts.italicsBold.setTypeface(italicsBoldTf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for italic-bold " +

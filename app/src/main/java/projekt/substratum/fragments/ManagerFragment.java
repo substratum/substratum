@@ -584,7 +584,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 currentPosition = ((LinearLayoutManager) fragment.recyclerView
                         .getLayoutManager())
                         .findFirstCompletelyVisibleItemPosition();
@@ -602,7 +602,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 try {
                     Context context = fragment.context;
                     fragment.overlaysList = new ArrayList<>();
@@ -734,7 +734,7 @@ public class ManagerFragment extends Fragment {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 Context context = fragment.context;
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggleAll.setEnabled(true);
@@ -811,7 +811,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
             }
@@ -820,7 +820,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 Context context = fragment.context;
                 if ("unauthorized".equals(result)) {
                     Toast.makeText(context,
@@ -840,10 +840,10 @@ public class ManagerFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 Context context = fragment.context;
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
-                boolean has_failed = false;
+                boolean hasFailed = false;
                 int len = fragment.overlayList.size();
                 ArrayList<String> data = new ArrayList<>();
                 for (int i = 0; i < len; i++) {
@@ -856,11 +856,11 @@ public class ManagerFragment extends Fragment {
                                 data.add(managerItem.getName());
                             }
                         } else {
-                            has_failed = true;
+                            hasFailed = true;
                         }
                     }
                 }
-                if (!data.isEmpty() && !has_failed) {
+                if (!data.isEmpty() && !hasFailed) {
                     // The magic goes here
                     ThemeManager.enableOverlay(context, data);
 
@@ -908,7 +908,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
             }
@@ -917,7 +917,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected String doInBackground(Void... voids) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 Context context = fragment.context;
 
                 if (Systems.checkOMS(context) && !Systems.isSamsungDevice(context)) {
@@ -1074,7 +1074,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 Context context = fragment.context;
                 if (Systems.isAndromedaDevice(context)) {
                     new Handler().postDelayed(fragment::setSwipeRefreshLayoutRefreshing,
@@ -1129,7 +1129,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
             }
@@ -1138,7 +1138,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 Context context = fragment.context;
                 if ("unauthorized".equals(result)) {
                     Toast.makeText(context,
@@ -1157,7 +1157,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 Context context = fragment.context;
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                 boolean hasFailed = false;
@@ -1228,7 +1228,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 MainActivity.queuedUninstall = new ArrayList<>();
                 materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
@@ -1238,7 +1238,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 Context context = fragment.context;
 
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
@@ -1297,7 +1297,7 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 if (Systems.isAndromedaDevice(fragment.context)) {
                     new Handler().postDelayed(fragment::setSwipeRefreshLayoutRefreshing,
                             MANAGER_FRAGMENT_INITIAL_DELAY);
@@ -1325,7 +1325,7 @@ public class ManagerFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             ManagerFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 if (layoutReloader != null && !layoutReloader.isCancelled()) {
                     layoutReloader.cancel(true);
                     layoutReloader = new LayoutReloader(fragment, MainActivity.userInput);

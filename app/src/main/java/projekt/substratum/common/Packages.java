@@ -487,9 +487,9 @@ public class Packages {
         try {
             android.content.res.Resources res =
                     context.getPackageManager().getResourcesForApplication(packageName);
-            int array_position = getResource(context, packageName, resourceChangelog,
+            int arrayPosition = getResource(context, packageName, resourceChangelog,
                     "array");
-            return res.getStringArray(array_position);
+            return res.getStringArray(arrayPosition);
         } catch (Exception ignored) {
         }
         return null;
@@ -578,9 +578,9 @@ public class Packages {
      */
     public static String getPackageTemplateVersion(Context context,
                                                    String packageName) {
-        String template_version = getOverlayMetadata(context, packageName, metadataVersion);
-        if (template_version != null) {
-            return context.getString(R.string.plugin_template) + ": " + template_version;
+        String templateVersion = getOverlayMetadata(context, packageName, metadataVersion);
+        if (templateVersion != null) {
+            return context.getString(R.string.plugin_template) + ": " + templateVersion;
         }
         return null;
     }

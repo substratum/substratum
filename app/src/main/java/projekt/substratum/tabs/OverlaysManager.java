@@ -210,13 +210,13 @@ class OverlaysManager {
         if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
             if (Systems.isSamsungDevice(overlays.context)) {
                 if (Root.checkRootAccess()) {
-                    ArrayList<String> checked_overlays = new ArrayList<>();
+                    ArrayList<String> checkedOverlays = new ArrayList<>();
                     for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
-                        checked_overlays.add(
+                        checkedOverlays.add(
                                 overlays.currentInstance.checkedOverlays.get(i)
                                         .getFullOverlayParameters());
                     }
-                    ThemeManager.uninstallOverlay(overlays.context, checked_overlays);
+                    ThemeManager.uninstallOverlay(overlays.context, checkedOverlays);
                 } else {
                     for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                         Uri packageURI = Uri.parse("package:" +
@@ -279,12 +279,12 @@ class OverlaysManager {
     private static void endingEnableDisable(Overlays overlays, Context context) {
         if ((overlays != null) && (context != null)) {
             if (!overlays.currentInstance.finalRunner.isEmpty()) {
-                List<String> to_analyze = new ArrayList<>();
+                List<String> toAnalyze = new ArrayList<>();
                 List<OverlaysItem> allOverlays = overlays.currentInstance.checkedOverlays;
                 for (OverlaysItem overlay : allOverlays) {
-                    to_analyze.add(overlay.getPackageName());
+                    toAnalyze.add(overlay.getPackageName());
                 }
-                if (Packages.needsRecreate(context, to_analyze)) {
+                if (Packages.needsRecreate(context, toAnalyze)) {
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet
@@ -425,24 +425,19 @@ class OverlaysManager {
             }
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Overlays overlays = ref.get();
             if (overlays != null && overlays.context != null) {
                 Context context = overlays.context;
-                switch (state) {
-                    case COMPILE_ENABLE:
-                        // It's compile and enable mode, we have to first sort out all the
-                        // "pm install"'s from the final_commands
-                        overlays.currentInstance.finalCommand
-                                .addAll(overlays.currentInstance.finalRunner);
-                        break;
-                    default:
-                        overlays.currentInstance.finalCommand
-                                .addAll(overlays.currentInstance.finalRunner);
-                        break;
+                if (COMPILE_ENABLE.equals(state)) {// It's compile and enable mode, we have to first sort out all the
+                    // "pm install"'s from the final_commands
+                    overlays.currentInstance.finalCommand
+                            .addAll(overlays.currentInstance.finalRunner);
+                } else {
+                    overlays.currentInstance.finalCommand
+                            .addAll(overlays.currentInstance.finalRunner);
                 }
                 switch (state) {
                     case ENABLE_MODE:
@@ -620,10 +615,10 @@ class OverlaysManager {
                             if (overlays.currentInstance.finalRunner == null) {
                                 overlays.currentInstance.finalRunner = new ArrayList<>();
                             }
-                            String package_name = checked.getFullOverlayParameters();
-                            if (Packages.isPackageInstalled(context, package_name) ||
+                            String packageName = checked.getFullOverlayParameters();
+                            if (Packages.isPackageInstalled(context, packageName) ||
                                     state.equals(COMPILE_ENABLE)) {
-                                overlays.currentInstance.finalRunner.add(package_name);
+                                overlays.currentInstance.finalRunner.add(packageName);
                             }
                         }
                         try {

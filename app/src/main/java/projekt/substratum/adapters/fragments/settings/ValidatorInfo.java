@@ -8,14 +8,12 @@
 package projekt.substratum.adapters.fragments.settings;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 
 public class ValidatorInfo {
     private final String packageName;
     private final Context context;
     private final boolean verified;
     private final boolean commons;
-    private Drawable drawable;
     private ValidatorError validatorError;
 
     public ValidatorInfo(Context context,

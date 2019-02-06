@@ -364,7 +364,7 @@ public class ThemeManager {
             if (substratumService) {
                 // For direct calls with the Substratum service
                 allOverlays = SubstratumService.getAllOverlays();
-            } else if (themeInterfacer) {
+            } else {
                 // The ol' way
                 try {
                     allOverlays = OM.get().getAllOverlays(Process.myUid() / 100000);
@@ -506,13 +506,11 @@ public class ThemeManager {
                             String disabledPrefix = "[ ]";
                             for (String line : arrList) {
                                 boolean checker;
-                                switch (overlayState) {
-                                    case STATE_LIST_ALL_OVERLAYS:
-                                        checker = line.startsWith(enabledPrefix) ||
-                                                line.startsWith(disabledPrefix);
-                                        break;
-                                    default:
-                                        checker = line.startsWith(prefix);
+                                if (overlayState == STATE_LIST_ALL_OVERLAYS) {
+                                    checker = line.startsWith(enabledPrefix) ||
+                                            line.startsWith(disabledPrefix);
+                                } else {
+                                    checker = line.startsWith(prefix);
                                 }
                                 if (checker &&
                                         getOverlayParent(context, line.substring(4)) != null &&
@@ -730,7 +728,7 @@ public class ThemeManager {
             final StringBuilder deleteBuilder = new StringBuilder("rm -f");
             final String pieDir = References.getPieDir();
             for (String overlay : overlays) {
-                deleteBuilder.append(String.format(" %s/_%s.apk", References.getPieDir(), overlay));
+                deleteBuilder.append(String.format(" %s/_%s.apk", pieDir, overlay));
             }
             Root.runCommand(deleteBuilder.toString());
             return;

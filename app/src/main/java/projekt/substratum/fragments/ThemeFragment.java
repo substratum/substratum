@@ -332,7 +332,7 @@ public class ThemeFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             ThemeFragment themeFragment = fragment.get();
-            if (themeFragment.isAdded() && themeFragment != null) {
+            if (themeFragment.isAdded()) {
                 refreshLayout(
                         themeFragment,
                         themeFragment.context,
@@ -345,7 +345,7 @@ public class ThemeFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             ThemeFragment themeFragment = fragment.get();
-            if (themeFragment.isAdded() && themeFragment != null) {
+            if (themeFragment.isAdded()) {
                 substratumPackages = Packages.getSubstratumPackages(
                         themeFragment.context,
                         MainActivity.userInput);

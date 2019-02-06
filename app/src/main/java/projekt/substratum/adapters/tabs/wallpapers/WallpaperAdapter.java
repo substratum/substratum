@@ -85,7 +85,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         dialog.cancel();
 
                         // Download the image
-                        this.currentDownload = new downloadWallpaper(
+                        this.currentDownload = new DownloadWallpaperTask(
                                 this,
                                 wallpaperItem.getCallingActivity()
                         ).execute(
@@ -110,7 +110,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         return this.information.size();
     }
 
-    private static class downloadWallpaper extends AsyncTask<String, Integer, String> {
+    private static class DownloadWallpaperTask extends AsyncTask<String, Integer, String> {
 
         private final WeakReference<WallpaperAdapter> ref;
         private final WeakReference<Activity> activity;
@@ -119,8 +119,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         private String directoryOutput;
         private String wallpaperName;
 
-        downloadWallpaper(WallpaperAdapter wallpaperAdapter,
-                          Activity callingActivity) {
+        DownloadWallpaperTask(WallpaperAdapter wallpaperAdapter,
+                              Activity callingActivity) {
             super();
             this.ref = new WeakReference<>(wallpaperAdapter);
             this.activity = new WeakReference<>(callingActivity);

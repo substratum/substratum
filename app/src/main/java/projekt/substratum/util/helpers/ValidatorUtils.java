@@ -223,7 +223,7 @@ public class ValidatorUtils {
                     // Now we have to check all the packages
                     String packageName = repository.getPackageName();
                     ValidatorError validatorError = new ValidatorError(packageName);
-                    Boolean has_errored = false;
+                    boolean hasErrored = false;
 
                     String tempPackageName = (packageName.endsWith(".common") ?
                             packageName.substring(0, packageName.length() - 7) :
@@ -274,7 +274,7 @@ public class ValidatorUtils {
                                         if (VALIDATE_WITH_LOGS)
                                             Log.e("BoolCheck",
                                                     "Resource does not exist: " + bool);
-                                        has_errored = true;
+                                        hasErrored = true;
                                         validatorError.addBoolError(
                                                 '{' + settingsFragment.getString(
                                                         R.string.resource_boolean) + "} " +
@@ -323,7 +323,7 @@ public class ValidatorUtils {
                                         if (VALIDATE_WITH_LOGS)
                                             Log.e("ColorCheck",
                                                     "Resource does not exist: " + color);
-                                        has_errored = true;
+                                        hasErrored = true;
                                         validatorError.addBoolError(
                                                 '{' + settingsFragment.getString(
                                                         R.string.resource_color) + "} " +
@@ -371,7 +371,7 @@ public class ValidatorUtils {
                                         if (VALIDATE_WITH_LOGS)
                                             Log.e("DimenCheck",
                                                     "Resource does not exist: " + dimen);
-                                        has_errored = true;
+                                        hasErrored = true;
                                         validatorError.addBoolError(
                                                 '{' + settingsFragment.getString(
                                                         R.string.resource_dimension) + '}' +
@@ -421,7 +421,7 @@ public class ValidatorUtils {
                                         if (VALIDATE_WITH_LOGS)
                                             Log.e("StyleCheck",
                                                     "Resource does not exist: " + style);
-                                        has_errored = true;
+                                        hasErrored = true;
                                         validatorError.addBoolError(
                                                 '{' + settingsFragment.getString(
                                                         R.string.resource_style) + "} " +
@@ -434,7 +434,7 @@ public class ValidatorUtils {
                         Substratum.log(SUBSTRATUM_VALIDATOR,
                                 "This device does not come built-in with '" + packageName + "', " +
                                         "skipping resource verification...");
-                    if (has_errored) settingsFragment.errors.add(validatorError);
+                    if (hasErrored) settingsFragment.errors.add(validatorError);
                 }
             }
             return packages;

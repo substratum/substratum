@@ -7,16 +7,13 @@
 
 package projekt.substratum.services.tiles;
 
-import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.os.Build;
 import android.service.quicksettings.TileService;
 
 import projekt.substratum.LaunchActivity;
 import projekt.substratum.LauncherActivity;
 
-@TargetApi(Build.VERSION_CODES.N)
 public class SubstratumTile extends TileService {
 
     @Override

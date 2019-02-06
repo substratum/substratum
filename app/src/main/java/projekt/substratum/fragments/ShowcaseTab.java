@@ -93,8 +93,8 @@ public class ShowcaseTab extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
         ArrayList<WallpaperItem> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
-        recyclerView.setAdapter(empty_adapter);
+        RecyclerView.Adapter emptyAdapter = new WallpaperAdapter(empty_array);
+        recyclerView.setAdapter(emptyAdapter);
         recyclerView.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
                     @Override
@@ -113,7 +113,7 @@ public class ShowcaseTab extends Fragment {
                     }
                 });
         if (References.isNetworkAvailable(context)) {
-            downloadResources downloadTask = new downloadResources(this);
+            DownloadResourcesTask downloadTask = new DownloadResourcesTask(this);
             downloadTask.execute(
                     currentTabAddress,
                     "showcase_tab_" + currentTabPosition + ".xml");
@@ -127,10 +127,10 @@ public class ShowcaseTab extends Fragment {
      * Download the showcase entry list on our GitHub repository at:
      * https://github.com/substratum/database
      */
-    private static class downloadResources extends AsyncTask<String, Integer, ArrayList> {
+    private static class DownloadResourcesTask extends AsyncTask<String, Integer, ArrayList> {
         private final WeakReference<ShowcaseTab> ref;
 
-        downloadResources(ShowcaseTab showcaseTab) {
+        DownloadResourcesTask(ShowcaseTab showcaseTab) {
             super();
             ref = new WeakReference<>(showcaseTab);
         }

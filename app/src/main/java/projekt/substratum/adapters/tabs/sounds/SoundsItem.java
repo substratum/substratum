@@ -37,8 +37,8 @@ public class SoundsItem {
     }
 
     public String getWorkingTitle() {
-        String current_sound = title.substring(0, title.length() - 4);
-        switch (current_sound) {
+        String currentSound = title.substring(0, title.length() - 4);
+        switch (currentSound) {
             case ALARM:
                 return context.getString(R.string.sounds_alarm);
             case NOTIFICATION:
@@ -52,7 +52,7 @@ public class SoundsItem {
             case UNLOCK:
                 return context.getString(R.string.sounds_unlock_sound);
             default:
-                return current_sound;
+                return currentSound;
         }
     }
 }

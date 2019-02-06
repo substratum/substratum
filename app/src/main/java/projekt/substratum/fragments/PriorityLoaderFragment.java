@@ -76,9 +76,9 @@ public class PriorityLoaderFragment extends Fragment {
         emptyView = viewBinding.noPrioritiesFound;
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        PriorityAdapter empty_adapter =
+        PriorityAdapter emptyAdapter =
                 new PriorityAdapter(context, R.layout.priority_loader_item);
-        recyclerView.setAdapter(empty_adapter);
+        recyclerView.setAdapter(emptyAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(context);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
@@ -125,7 +125,7 @@ public class PriorityLoaderFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             PriorityLoaderFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 if (fragment.prioritiesList.isEmpty()) {
                     fragment.emptyView.setVisibility(View.VISIBLE);
                     fragment.materialProgressBar.setVisibility(View.GONE);
@@ -147,7 +147,7 @@ public class PriorityLoaderFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             PriorityLoaderFragment fragment = ref.get();
-            if (fragment.isAdded() && fragment != null) {
+            if (fragment.isAdded()) {
                 List<String> targets =
                         listTargetWithMultipleOverlaysEnabled(fragment.context);
 

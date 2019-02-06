@@ -63,7 +63,7 @@ public class Systems {
     public static final boolean IS_PIE = Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
     public static final boolean IS_OREO = Build.VERSION.SDK_INT == Build.VERSION_CODES.O ||
             Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1;
-    public static final boolean IS_NOUGAT = Build.VERSION.SDK_INT == Build.VERSION_CODES.N ||
+    private static final boolean IS_NOUGAT = Build.VERSION.SDK_INT == Build.VERSION_CODES.N ||
             Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1;
 
     private static Boolean checkPackageSupported;

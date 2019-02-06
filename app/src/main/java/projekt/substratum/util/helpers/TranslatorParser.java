@@ -82,7 +82,7 @@ public class TranslatorParser {
         protected void onPreExecute() {
             super.onPreExecute();
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment.isAdded() && settingsFragment != null) {
+            if (settingsFragment.isAdded()) {
                 if (settingsFragment.getActivity() != null) {
                     settingsFragment.dialog = new Dialog(settingsFragment.getActivity());
                     settingsFragment.dialog.setContentView(R.layout.validator_dialog);
@@ -95,7 +95,7 @@ public class TranslatorParser {
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment.isAdded() && settingsFragment != null) {
+            if (settingsFragment.isAdded()) {
                 settingsFragment.dialog.cancel();
                 if (alertDialogBuilder.get() != null) alertDialogBuilder.get().show();
             }
@@ -104,7 +104,7 @@ public class TranslatorParser {
         @Override
         protected ArrayList<String> doInBackground(String... strings) {
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment.isAdded() && settingsFragment != null) {
+            if (settingsFragment.isAdded()) {
                 InputStream inputStream =
                         ref.get().getResources().openRawResource(R.raw.translators);
                 TranslatorParser csvFile = new TranslatorParser(inputStream);
@@ -122,13 +122,13 @@ public class TranslatorParser {
         public final List<String> languages;
         public Integer translated_words = 0;
 
-        Translator(String contributor_name,
+        Translator(String contributorName,
                    String languages,
-                   String translated_words) {
-            this.contributorName = contributor_name;
+                   String translatedWords) {
+            this.contributorName = contributorName;
             this.languages = Arrays.asList(languages.split("; "));
             try {
-                this.translated_words = Integer.valueOf(translated_words);
+                this.translated_words = Integer.valueOf(translatedWords);
             } catch (Exception ignored) {
             }
         }

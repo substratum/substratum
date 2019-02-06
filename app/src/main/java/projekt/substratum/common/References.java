@@ -196,7 +196,6 @@ public class References {
     public static final int OVERLAY_MANAGER_SERVICE_O_UNROOTED = 13970147;
     public static final int OVERLAY_MANAGER_SERVICE_O_ROOTED = 1310794;
     public static final int OVERLAY_MANAGER_SERVICE_N_UNROOTED = 18723789;
-    @SuppressWarnings("WeakerAccess")
     public static final int RUNTIME_RESOURCE_OVERLAY_N_ROOTED = 8282713;
     public static final int SAMSUNG_THEME_ENGINE_N = 2389284;
     public static final int NO_THEME_ENGINE = 0;
@@ -841,7 +840,7 @@ public class References {
         TableLayout table = new TableLayout(context);
         table.setPadding(30, 10, 30, 10);
 
-        final int size_of_row_text = 10;
+        final int sizeOfRowText = 10;
 
         // Dialog title
         TableRow columnHeaders = new TableRow(context);
@@ -891,7 +890,7 @@ public class References {
 
             TextView contributor = new TextView(context);
             contributor.setText(translator.contributorName);
-            contributor.setTextSize(size_of_row_text);
+            contributor.setTextSize(sizeOfRowText);
             contributor.setTypeface(Typeface.DEFAULT_BOLD);
             contributor.setGravity(Gravity.CENTER_HORIZONTAL);
             contributor.setLayoutParams(equivalentParams);
@@ -900,14 +899,14 @@ public class References {
             langs = langs.substring(1, langs.length() - 1);
             TextView languages = new TextView(context);
             languages.setText(langs);
-            languages.setTextSize(size_of_row_text);
+            languages.setTextSize(sizeOfRowText);
             languages.setTypeface(Typeface.DEFAULT_BOLD);
             languages.setGravity(Gravity.CENTER_HORIZONTAL);
             languages.setLayoutParams(equivalentParams);
 
             TextView translated = new TextView(context);
             translated.setText(String.valueOf(translator.translated_words));
-            translated.setTextSize(size_of_row_text);
+            translated.setTextSize(sizeOfRowText);
             translated.setTypeface(Typeface.DEFAULT_BOLD);
             translated.setGravity(Gravity.CENTER_HORIZONTAL);
             translated.setLayoutParams(equivalentParams);

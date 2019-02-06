@@ -52,7 +52,6 @@ public class SplashScreenActivity extends Activity {
     private static final long DELAY_SHOW_PROGRESS_BAR = 2500;
     private ProgressBar progressBar;
     private Intent intent;
-    private boolean firstRun;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,7 @@ public class SplashScreenActivity extends Activity {
         progressBar = binding.progressBarLoader;
 
         Intent currentIntent = getIntent();
-        firstRun = currentIntent.getBooleanExtra("first_run", false);
+        boolean firstRun = currentIntent.getBooleanExtra("first_run", false);
         checkThemeSystemModule(this, firstRun);
         intent = new Intent(SplashScreenActivity.this, MainActivity.class);
         long intentLaunchDelay = DELAY_LAUNCH_MAIN_ACTIVITY;
@@ -176,7 +175,6 @@ public class SplashScreenActivity extends Activity {
             }
         }
 
-        @SuppressWarnings("ConstantConditions")
         class KeyRetrieval extends BroadcastReceiver {
             @Override
             public void onReceive(Context context, Intent intent) {

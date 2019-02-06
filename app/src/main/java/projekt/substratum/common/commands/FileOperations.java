@@ -207,10 +207,9 @@ public class FileOperations {
                                        final String destination) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        final boolean needRoot = (
-                !destination.startsWith(dataDir) && !destination.startsWith(externalDir) &&
-                        !destination.startsWith("/system")) || (!destination.startsWith(dataDir) &&
-                !destination.startsWith(externalDir) && !destination.startsWith("/system"));
+        final boolean needRoot = (!destination.startsWith(dataDir) &&
+                !destination.startsWith(externalDir) &&
+                !destination.startsWith("/system"));
         if (checkSubstratumService(context) && needRoot) {
             SubstratumService.createNewFolder(destination);
         } else if (checkThemeInterfacer(context) && needRoot) {
@@ -599,7 +598,7 @@ public class FileOperations {
                     Character.toString(ending.charAt(2)) + ending.charAt(3);
             if (ENABLE_DIRECT_ASSETS_LOGGING)
                 Substratum.log(DA_LOG, "Folder with versioning found: " + parsedVersion);
-            Integer parsedVer = Integer.parseInt(parsedVersion);
+            int parsedVer = Integer.parseInt(parsedVersion);
             if (Build.VERSION.SDK_INT < parsedVer) {
                 if (ENABLE_DIRECT_ASSETS_LOGGING)
                     Substratum.log(DA_LOG,

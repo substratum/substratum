@@ -466,11 +466,11 @@ public class MainActivity extends AppCompatActivity implements
                                                                                which) -> {
                             switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
-                                    Intent draw_over_apps = new Intent(
+                                    Intent drawOverApps = new Intent(
                                             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                                             Uri.parse("package:" + context
                                                     .getPackageName()));
-                                    startActivityForResult(draw_over_apps,
+                                    startActivityForResult(drawOverApps,
                                             PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
                                     break;
                                 case DialogInterface.BUTTON_NEGATIVE:

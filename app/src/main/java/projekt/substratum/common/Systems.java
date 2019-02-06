@@ -19,12 +19,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
-import projekt.substratum.BuildConfig;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.platform.SubstratumService;
-import projekt.substratum.util.helpers.FileDownloader;
-import projekt.substratum.util.helpers.Root;
-import projekt.substratum.util.readers.ReadSupportedROMsFile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,6 +32,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import projekt.substratum.BuildConfig;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.platform.SubstratumService;
+import projekt.substratum.util.helpers.FileDownloader;
+import projekt.substratum.util.helpers.Root;
+import projekt.substratum.util.readers.ReadSupportedROMsFile;
 
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_SYSTEM_VERSION_CHECK;

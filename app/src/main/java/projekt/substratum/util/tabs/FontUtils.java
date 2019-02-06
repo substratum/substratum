@@ -12,7 +12,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
+
+import java.lang.ref.WeakReference;
+
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
@@ -20,8 +24,6 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.tabs.FontsManager;
-
-import java.lang.ref.WeakReference;
 
 import static projekt.substratum.common.Internal.FONTS_APPLIED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;

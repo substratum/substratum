@@ -7,13 +7,13 @@
 
 package projekt.substratum.util.helpers;
 
-import projekt.substratum.common.Systems;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+
+import projekt.substratum.common.Systems;
 
 public class Root {
 

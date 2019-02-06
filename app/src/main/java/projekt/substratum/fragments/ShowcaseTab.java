@@ -17,11 +17,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
+
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.adapters.activities.ShowcaseAdapter;
@@ -33,14 +43,6 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.databinding.ShowcaseTabBinding;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudShowcaseFile;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
 
 import static projekt.substratum.common.References.SHOWCASE_SHUFFLE_COUNT;
 

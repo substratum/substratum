@@ -13,12 +13,14 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.Button;
 import android.widget.TimePicker;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import projekt.substratum.R;
-import projekt.substratum.common.References;
 
 import java.util.Calendar;
+
+import projekt.substratum.R;
+import projekt.substratum.common.References;
 
 
 public class TimePickerFragment extends DialogFragment implements

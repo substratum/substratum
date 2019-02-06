@@ -15,14 +15,16 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
+
 import androidx.core.app.NotificationCompat;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.common.References.CRASH_PACKAGE_NAME;

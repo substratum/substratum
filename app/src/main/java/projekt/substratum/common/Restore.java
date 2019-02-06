@@ -16,8 +16,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
+
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.commands.ElevatedCommands;
@@ -29,12 +38,6 @@ import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
-
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static projekt.substratum.common.Internal.ALL_WALLPAPER;
 import static projekt.substratum.common.Internal.BOOT_ANIMATION_APPLIED;

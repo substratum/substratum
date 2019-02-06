@@ -10,10 +10,11 @@ package projekt.substratum.common;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import dalvik.system.DexClassLoader;
-import projekt.substratum.Substratum;
 
 import java.util.Arrays;
+
+import dalvik.system.DexClassLoader;
+import projekt.substratum.Substratum;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;

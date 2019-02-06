@@ -22,18 +22,8 @@ import android.os.Looper;
 import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.annotation.RestrictTo;
-import projekt.substratum.MainActivity;
-import projekt.substratum.R;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.Packages;
-import projekt.substratum.common.References;
-import projekt.substratum.common.Resources;
-import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.ElevatedCommands;
-import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.common.commands.SamsungOverlayCacher;
-import projekt.substratum.util.helpers.Root;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +37,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import projekt.substratum.MainActivity;
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.commands.SamsungOverlayCacher;
+import projekt.substratum.util.helpers.Root;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.O;

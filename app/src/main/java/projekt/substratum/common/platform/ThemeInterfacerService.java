@@ -8,10 +8,11 @@
 package projekt.substratum.common.platform;
 
 import android.os.RemoteException;
-import projekt.substratum.IInterfacerInterface;
-import projekt.substratum.services.binder.InterfacerBinderService;
 
 import java.util.ArrayList;
+
+import projekt.substratum.IInterfacerInterface;
+import projekt.substratum.services.binder.InterfacerBinderService;
 
 public class ThemeInterfacerService {
 

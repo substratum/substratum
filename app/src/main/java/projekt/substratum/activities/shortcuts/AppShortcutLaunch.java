@@ -8,7 +8,9 @@
 package projekt.substratum.activities.shortcuts;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Theming;
 

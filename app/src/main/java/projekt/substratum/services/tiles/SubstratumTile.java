@@ -12,6 +12,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Build;
 import android.service.quicksettings.TileService;
+
 import projekt.substratum.LaunchActivity;
 import projekt.substratum.LauncherActivity;
 

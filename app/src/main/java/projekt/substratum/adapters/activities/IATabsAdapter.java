@@ -8,18 +8,20 @@
 package projekt.substratum.adapters.activities;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.Fonts;
 import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.Sounds;
 import projekt.substratum.tabs.Wallpapers;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import static projekt.substratum.common.Internal.SHUTDOWNANIMATION_INTENT;
 import static projekt.substratum.common.References.bootAnimationsFolder;

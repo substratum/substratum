@@ -22,9 +22,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
@@ -33,8 +37,6 @@ import projekt.substratum.common.Theming;
 import projekt.substratum.databinding.ThemeEntryCardBinding;
 import projekt.substratum.databinding.ThemeEntryLongPressSheetDialogBinding;
 import projekt.substratum.util.views.SheetDialog;
-
-import java.util.List;
 
 import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;

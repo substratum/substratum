@@ -10,12 +10,13 @@ package projekt.substratum.util.helpers;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.References;
-import projekt.substratum.common.commands.FileOperations;
 
 import java.io.File;
 import java.util.Arrays;
+
+import projekt.substratum.Substratum;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.FileOperations;
 
 public class BinaryInstaller {
 

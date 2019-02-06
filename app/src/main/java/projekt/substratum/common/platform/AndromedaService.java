@@ -7,10 +7,10 @@
 
 package projekt.substratum.common.platform;
 
+import java.util.List;
+
 import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.services.binder.AndromedaBinderService;
-
-import java.util.List;
 
 public class AndromedaService {
 

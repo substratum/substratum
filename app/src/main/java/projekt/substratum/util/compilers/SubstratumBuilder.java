@@ -11,14 +11,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+
 import com.android.apksig.ApkSigner;
-import projekt.substratum.Substratum;
-import projekt.substratum.common.References;
-import projekt.substratum.common.Resources;
-import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.CompilerCommands;
-import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.common.platform.ThemeManager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -36,6 +30,14 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import projekt.substratum.Substratum;
+import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.commands.CompilerCommands;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.Packages.getLiveOverlayVersion;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
@@ -198,7 +200,7 @@ public class SubstratumBuilder {
                             themeParent,
                             isDeviceOMS,
                             legacyPriority,
-                            (variant != null) ? false : baseVariant == null,
+                            (variant == null) && baseVariant == null,
                             type1a,
                             type1b,
                             type1c,

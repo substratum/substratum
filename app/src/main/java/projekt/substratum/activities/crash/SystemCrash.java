@@ -13,7 +13,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.Nullable;
+
 import projekt.substratum.LaunchActivity;
 import projekt.substratum.R;
 

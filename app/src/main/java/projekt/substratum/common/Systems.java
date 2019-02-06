@@ -44,10 +44,11 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_SYSTEM_VERSION_CHECK;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_INTERFACER;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_ANDROMEDA;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_P_ROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_SYSSERV;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
 import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
@@ -144,32 +145,37 @@ public class Systems {
                     // Andromeda mode
                     prefs.edit().putInt(
                             "current_theme_mode",
-                            OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
+                            OVERLAY_MANAGER_SERVICE_ANDROMEDA
                     ).apply();
-                    return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                    return OVERLAY_MANAGER_SERVICE_ANDROMEDA;
                 } else if (checkSubstratumService(context)) {
                     // SS mode
                     prefs.edit().putInt(
                             "current_theme_mode",
-                            OVERLAY_MANAGER_SERVICE_O_UNROOTED
+                            OVERLAY_MANAGER_SERVICE_SYSSERV
                     ).apply();
-                    return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+                    return OVERLAY_MANAGER_SERVICE_SYSSERV;
+                } else if (Root.checkRootAccess()) {
+                    prefs.edit().putInt(
+                            "current_theme_mode",
+                            OVERLAY_MANAGER_SERVICE_P_ROOTED
+                    ).apply();
                 }
             } else if (IS_OREO) {
                 if (isAndromedaDevice(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
                             "current_theme_mode",
-                            OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
+                            OVERLAY_MANAGER_SERVICE_ANDROMEDA
                     ).apply();
-                    return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                    return OVERLAY_MANAGER_SERVICE_ANDROMEDA;
                 } else if (checkSubstratumService(context)) {
                     // SS mode
                     prefs.edit().putInt(
                             "current_theme_mode",
-                            OVERLAY_MANAGER_SERVICE_O_UNROOTED
+                            OVERLAY_MANAGER_SERVICE_SYSSERV
                     ).apply();
-                    return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+                    return OVERLAY_MANAGER_SERVICE_SYSSERV;
                 } else if (Root.checkRootAccess()) {
                     // Rooted mode
                     prefs.edit().putInt(
@@ -183,9 +189,9 @@ public class Systems {
                     // Interfacer mode
                     prefs.edit().putInt(
                             "current_theme_mode",
-                            OVERLAY_MANAGER_SERVICE_N_UNROOTED
+                            OVERLAY_MANAGER_SERVICE_INTERFACER
                     ).apply();
-                    return OVERLAY_MANAGER_SERVICE_N_UNROOTED;
+                    return OVERLAY_MANAGER_SERVICE_INTERFACER;
                 } else if (isSamsungDevice(context)) {
                     // Sungstratum mode
                     prefs.edit().putInt(

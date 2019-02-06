@@ -38,10 +38,10 @@ import projekt.substratum.databinding.CrashActivityBinding;
 
 import static projekt.substratum.common.Internal.SUPPORTED_ROMS_FILE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_INTERFACER;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_ANDROMEDA;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_SYSSERV;
 import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
 import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.Resources.SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS;
@@ -196,17 +196,17 @@ public class SubstratumCrash extends Activity {
             case OVERLAY_MANAGER_SERVICE_O_ROOTED:
                 details += "OMS (root)";
                 break;
-            case OVERLAY_MANAGER_SERVICE_O_ANDROMEDA:
+            case OVERLAY_MANAGER_SERVICE_ANDROMEDA:
                 details += "OMS (andromeda)";
                 break;
-            case OVERLAY_MANAGER_SERVICE_O_UNROOTED:
+            case OVERLAY_MANAGER_SERVICE_SYSSERV:
                 if (Systems.checkSubstratumService(getApplicationContext())) {
                     details += "OMS (system service)";
                 } else if (Systems.checkThemeInterfacer(getApplicationContext())) {
                     details += "OMS (interfacer)";
                 }
                 break;
-            case OVERLAY_MANAGER_SERVICE_N_UNROOTED:
+            case OVERLAY_MANAGER_SERVICE_INTERFACER:
                 details += "OMS (interfacer)";
                 break;
             case SAMSUNG_THEME_ENGINE_N:

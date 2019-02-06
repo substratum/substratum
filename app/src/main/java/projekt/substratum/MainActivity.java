@@ -97,10 +97,10 @@ import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LOGCHAR_DIR;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_INTERFACER;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_ANDROMEDA;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_SYSSERV;
 import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
@@ -1120,7 +1120,7 @@ public class MainActivity extends AppCompatActivity implements
                     BinaryInstaller.install(activity.context, false);
                     if (Systems.checkOMS(context)) {
                         new DoCleanUp(context).execute();
-                        if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_O_UNROOTED
+                        if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_SYSSERV
                                 && Systems.IS_PIE) MagiskHelper.handleModule(context);
                     }
                 }
@@ -1143,7 +1143,7 @@ public class MainActivity extends AppCompatActivity implements
                 }
 
                 // Check if the system is Andromeda mode
-                boolean andromedaCheck = themeSystemModule == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                boolean andromedaCheck = themeSystemModule == OVERLAY_MANAGER_SERVICE_ANDROMEDA;
                 if (andromedaCheck) {
                     // Throw the dialog when checkServerActivity() isn't working
                     if (!AndromedaService.checkServerActivity()) {
@@ -1168,14 +1168,14 @@ public class MainActivity extends AppCompatActivity implements
                 // Check for Substratum Service
                 boolean ssCheck = Systems.checkSubstratumService(context);
                 if (ssCheck) {
-                    return (themeSystemModule != OVERLAY_MANAGER_SERVICE_O_UNROOTED);
+                    return (themeSystemModule != OVERLAY_MANAGER_SERVICE_SYSSERV);
                 }
 
                 // Check for OMS
                 boolean omsCheck = Systems.checkOMS(context);
                 if (omsCheck) {
-                    return (themeSystemModule != OVERLAY_MANAGER_SERVICE_O_UNROOTED) &&
-                            (themeSystemModule != OVERLAY_MANAGER_SERVICE_N_UNROOTED) &&
+                    return (themeSystemModule != OVERLAY_MANAGER_SERVICE_SYSSERV) &&
+                            (themeSystemModule != OVERLAY_MANAGER_SERVICE_INTERFACER) &&
                             !Root.checkRootAccess();
                 }
 
@@ -1245,7 +1245,7 @@ public class MainActivity extends AppCompatActivity implements
                 if (!removeList.isEmpty())
                     uninstallOverlay(context, removeList);
             }
-            if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_O_UNROOTED && Systems.IS_PIE)
+            if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_SYSSERV && Systems.IS_PIE)
                 new Thread(MagiskHelper::forceRemoveOverlays).start();
             return null;
         }

@@ -192,10 +192,11 @@ public class References {
     public static final String ONGOING_NOTIFICATION_CHANNEL_ID = "ongoing";
     public static final String ANDROMEDA_NOTIFICATION_CHANNEL_ID = "andromeda";
     // Different theme systems
-    public static final int OVERLAY_MANAGER_SERVICE_O_ANDROMEDA = 1089303;
-    public static final int OVERLAY_MANAGER_SERVICE_O_UNROOTED = 13970147;
+    public static final int OVERLAY_MANAGER_SERVICE_P_ROOTED = 1234567;
+    public static final int OVERLAY_MANAGER_SERVICE_ANDROMEDA = 1089303;
+    public static final int OVERLAY_MANAGER_SERVICE_SYSSERV = 13970147;
     public static final int OVERLAY_MANAGER_SERVICE_O_ROOTED = 1310794;
-    public static final int OVERLAY_MANAGER_SERVICE_N_UNROOTED = 18723789;
+    public static final int OVERLAY_MANAGER_SERVICE_INTERFACER = 18723789;
     public static final int RUNTIME_RESOURCE_OVERLAY_N_ROOTED = 8282713;
     public static final int SAMSUNG_THEME_ENGINE_N = 2389284;
     public static final int NO_THEME_ENGINE = 0;

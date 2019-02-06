@@ -14,6 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.StringWriter;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -118,60 +119,25 @@ public class CompilerCommands {
             applicationElement.setAttribute("allowBackup", "false");
             applicationElement.setAttribute("android:hasCode", "false");
 
-            Element metadataOverlayDevice = document.createElement("meta-data");
-            metadataOverlayDevice.setAttribute("android:name", References.metadataOverlayDevice);
-            metadataOverlayDevice.setAttribute("android:value", getDeviceID(context));
-            applicationElement.appendChild(metadataOverlayDevice);
+            final HashMap<String, String> metadataNameToValueMap = new HashMap<>();
+            metadataNameToValueMap.put(References.metadataOverlayDevice, getDeviceID(context));
+            metadataNameToValueMap.put(References.metadataOverlayParent, themeParent);
+            metadataNameToValueMap.put(References.metadataOverlayTarget, targetPackage);
+            metadataNameToValueMap.put(References.metadataOverlayType1a, type1a);
+            metadataNameToValueMap.put(References.metadataOverlayType1b, type1b);
+            metadataNameToValueMap.put(References.metadataOverlayType1c, type1c);
+            metadataNameToValueMap.put(References.metadataOverlayType2, type2);
+            metadataNameToValueMap.put(References.metadataOverlayType3, type3);
+            metadataNameToValueMap.put(References.metadataOverlayType4, type4);
+            metadataNameToValueMap.put(References.metadataThemeVersion, String.valueOf(BuildConfig.VERSION_CODE));
+            metadataNameToValueMap.put(References.metadataOverlayVersion, String.valueOf(overlayVersion));
 
-            Element metadataOverlayParent = document.createElement("meta-data");
-            metadataOverlayParent.setAttribute("android:name", References.metadataOverlayParent);
-            metadataOverlayParent.setAttribute("android:value", themeParent);
-            applicationElement.appendChild(metadataOverlayParent);
-
-            Element metadataOverlayTarget = document.createElement("meta-data");
-            metadataOverlayTarget.setAttribute("android:name", References.metadataOverlayTarget);
-            metadataOverlayTarget.setAttribute("android:value", targetPackage);
-            applicationElement.appendChild(metadataOverlayTarget);
-
-            Element metadataOverlayType1a = document.createElement("meta-data");
-            metadataOverlayType1a.setAttribute("android:name", References.metadataOverlayType1a);
-            metadataOverlayType1a.setAttribute("android:value", type1a);
-            applicationElement.appendChild(metadataOverlayType1a);
-
-            Element metadataOverlayType1b = document.createElement("meta-data");
-            metadataOverlayType1b.setAttribute("android:name", References.metadataOverlayType1b);
-            metadataOverlayType1b.setAttribute("android:value", type1b);
-            applicationElement.appendChild(metadataOverlayType1b);
-
-            Element metadataOverlayType1c = document.createElement("meta-data");
-            metadataOverlayType1c.setAttribute("android:name", References.metadataOverlayType1c);
-            metadataOverlayType1c.setAttribute("android:value", type1c);
-            applicationElement.appendChild(metadataOverlayType1c);
-
-            Element metadataOverlayType2 = document.createElement("meta-data");
-            metadataOverlayType2.setAttribute("android:name", References.metadataOverlayType2);
-            metadataOverlayType2.setAttribute("android:value", type2);
-            applicationElement.appendChild(metadataOverlayType2);
-
-            Element metadataOverlayType3 = document.createElement("meta-data");
-            metadataOverlayType3.setAttribute("android:name", References.metadataOverlayType3);
-            metadataOverlayType3.setAttribute("android:value", type3);
-            applicationElement.appendChild(metadataOverlayType3);
-
-            Element metadataOverlayType4 = document.createElement("meta-data");
-            metadataOverlayType4.setAttribute("android:name", References.metadataOverlayType4);
-            metadataOverlayType4.setAttribute("android:value", type4);
-            applicationElement.appendChild(metadataOverlayType4);
-
-            Element metadataThemeVersion = document.createElement("meta-data");
-            metadataThemeVersion.setAttribute("android:name", References.metadataThemeVersion);
-            metadataThemeVersion.setAttribute("android:value", String.valueOf(BuildConfig.VERSION_CODE));
-            applicationElement.appendChild(metadataThemeVersion);
-
-            Element metadataOverlayVersion = document.createElement("meta-data");
-            metadataOverlayVersion.setAttribute("android:name", References.metadataOverlayVersion);
-            metadataOverlayVersion.setAttribute("android:value", String.valueOf(overlayVersion));
-            applicationElement.appendChild(metadataOverlayVersion);
+            metadataNameToValueMap.forEach((key, value) -> {
+                Element element = document.createElement("meta-data");
+                element.setAttribute("android:name", key);
+                element.setAttribute("android:value", value);
+                applicationElement.appendChild(element);
+            });
 
             rootElement.appendChild(applicationElement);
             document.appendChild(rootElement);

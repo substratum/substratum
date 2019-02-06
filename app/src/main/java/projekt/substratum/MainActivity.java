@@ -1124,7 +1124,8 @@ public class MainActivity extends AppCompatActivity implements
                     BinaryInstaller.install(activity.context, false);
                     if (Systems.checkOMS(context)) {
                         new DoCleanUp(context).execute();
-                        if (Root.checkRootAccess() && Systems.IS_PIE) MagiskHelper.handleModule(context);
+                        if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_O_UNROOTED
+                                && Systems.IS_PIE) MagiskHelper.handleModule(context);
                     }
                 }
             }
@@ -1248,7 +1249,8 @@ public class MainActivity extends AppCompatActivity implements
                 if (!removeList.isEmpty())
                     uninstallOverlay(context, removeList);
             }
-            new Thread(MagiskHelper::forceRemoveOverlays).start();
+            if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_O_UNROOTED && Systems.IS_PIE)
+                new Thread(MagiskHelper::forceRemoveOverlays).start();
             return null;
         }
     }

@@ -65,17 +65,17 @@ android {
 }
 
 dependencies {
-    val aboutVersion = "6.2.0"
+    val aboutVersion = "6.2.2"
     val androidXVersion = "1.0.0"
-    val apkSigVersion = "3.2.1"
+    val apkSigVersion = "3.3.0"
     val caocVersion = "2.2.0"
     // Apparently v2.6 relies on the framework
     // having java.nio.File which Android 7 does not.
     val commonsIoVersion = "2.5"
-    val databindingVersion = "3.2.1"
+    val databindingVersion = "3.3.0"
     val expandableLayoutVersion = "2.9.2"
     val fabSheetVersion = "1.2.1"
-    val floatingHeadVersion = "2.4.0"
+    val floatingHeadVersion = "2.4.2"
     val gestureRecyclerVersion = "1.7.0"
     val glideVersion = "4.8.0"
     val imageCropperVersion = "2.8.0"

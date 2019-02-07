@@ -65,7 +65,7 @@
     <string name="legacy_preference_priority_title">Anpassung der Overlay-Priorität</string>
     <string name="legacy_preference_priority_text" formatted="false">Die Priorität beträgt (Standard %d): %d</string>
     <string name="grid_size_title">Theme-Ansicht Spalteneinstellungen</string>
-    <string name="grid_size_text">Die Anzahl an Spalten beträgt (Standard: %d): %d</string>
+    <string name="grid_size_text">Die Anzahl an Spalten beträgt (Standard: %2$d): %1$d</string>
     <string name="lite_mode_title">Lite Modus</string>
     <string name="app_theme_title">App Theme</string>
     <string name="app_theme_text">App Theme gesetzt auf: %s</string>

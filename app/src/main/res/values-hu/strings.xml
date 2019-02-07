@@ -90,7 +90,7 @@
     <string name="legacy_preference_priority_title">Fedvény prioritás beállítása</string>
     <string name="legacy_preference_priority_text" formatted="false">Prioritás beállított értéke (alapértelmezett: %d): %d</string>
     <string name="grid_size_title">Téma kijelző oszlopok beállítása</string>
-    <string name="grid_size_text">Oszlopok beállított száma (alapértelmezett %d): %d</string>
+    <string name="grid_size_text">Oszlopok beállított száma (alapértelmezett %2$d): %1$d</string>
     <string name="lite_mode_title">Egyszerűsített mód</string>
     <string name="lite_mode_text">Lehetővé teszi egyes felhasználói felületek betöltését az energiatakarékos módban.</string>
     <string name="app_theme_title">Alkalmazás téma</string>

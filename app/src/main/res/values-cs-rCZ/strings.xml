@@ -76,7 +76,7 @@
     <string name="legacy_preference_priority_title">Nastavení priority potahů</string>
     <string name="legacy_preference_priority_text" formatted="false">Priorita je nastavena na: %d (výchozí %d)</string>
     <string name="grid_size_title">Nastavení počtu sloupců motivu</string>
-    <string name="grid_size_text">Počet sloupců je nastaven na: %d (výchozí %d)</string>
+    <string name="grid_size_text">Počet sloupců je nastaven na: %1$d (výchozí %2$d)</string>
     <string name="lite_mode_title">Zjednodušený režim</string>
     <string name="lite_mode_text">Umožňuje načíst některé prvky UI v režimu vyhrazeného napájení.</string>
     <string name="app_theme_title">Motiv aplikace</string>

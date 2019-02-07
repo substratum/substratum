@@ -70,7 +70,7 @@
     <string name="legacy_preference_priority_title">调整叠加层优先级</string>
     <string name="legacy_preference_priority_text" formatted="false">优先级已设置为: %d (默认为 %d)</string>
     <string name="grid_size_title">主题显示列调整</string>
-    <string name="grid_size_text">列数已设置为：%d (默认为 %d)</string>
+    <string name="grid_size_text">列数已设置为：%1$d (默认为 %2$d)</string>
     <string name="lite_mode_title">精简模式</string>
     <string name="lite_mode_text">允许某些 UI 元素以省电模式加载。</string>
     <string name="app_theme_title">应用主题</string>

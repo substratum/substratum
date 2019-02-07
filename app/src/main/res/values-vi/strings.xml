@@ -79,7 +79,7 @@
     <string name="legacy_preference_priority_title">Điều chỉnh ưu tiên che phủ</string>
     <string name="legacy_preference_priority_text" formatted="false">Ưu tiên được đặt (mặc định %d): %d</string>
     <string name="grid_size_title">Điều chỉnh cột hiển thị chủ đề</string>
-    <string name="grid_size_text">Cột đếm được thiết lập (mặc định %d): %d</string>
+    <string name="grid_size_text">Cột đếm được thiết lập (mặc định %2$d): %1$d</string>
     <string name="lite_mode_title">Chế độ Nhẹ</string>
     <string name="lite_mode_text">Cho phép một số yếu tố UI để tải trong chế độ tiết kiệm năng lượng.</string>
     <string name="app_theme_title">Ứng dụng chủ đề</string>

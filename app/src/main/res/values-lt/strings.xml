@@ -74,7 +74,7 @@
     <string name="legacy_preference_priority_title">Perdangos prioriteto koregavimas</string>
     <string name="legacy_preference_priority_text" formatted="false">Prioritetas nustatytas (numatytasis %d): %d</string>
     <string name="grid_size_title">Temos ekrano stulpelio koregavimas</string>
-    <string name="grid_size_text">Stulpelių skaičius nustatytas (numatytasis %d): %d</string>
+    <string name="grid_size_text">Stulpelių skaičius nustatytas (numatytasis %2$d): %1$d</string>
     <string name="lite_mode_title">Supaprastintas režimas</string>
     <string name="lite_mode_text">Leidžia tam tikroms vartotojo sąsajos elementams įkelti rezervuotu energijos režimu.</string>
     <string name="app_theme_title">Programos tema</string>

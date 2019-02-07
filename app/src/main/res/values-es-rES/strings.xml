@@ -85,7 +85,7 @@
     <string name="legacy_preference_priority_title">Ajuste de prioridad de las capas</string>
     <string name="legacy_preference_priority_text" formatted="false">La prioridad está establecida en: %d (por omisión %d)</string>
     <string name="grid_size_title">Ajuste de columnas de temas en pantalla</string>
-    <string name="grid_size_text">El número de columnas está fijado en: %d (por omisión %d)</string>
+    <string name="grid_size_text">El número de columnas está fijado en: %1$d (por omisión %2$d)</string>
     <string name="lite_mode_title">Modo liviano</string>
     <string name="lite_mode_text">Permite que ciertos elementos de interfaz de usuario se carguen en modo de energía reservada.</string>
     <string name="app_theme_title">Tema de la app</string>

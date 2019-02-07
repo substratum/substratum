@@ -76,7 +76,7 @@
     <string name="legacy_preference_priority_title">Regolazione priorità sovrapposizione</string>
     <string name="legacy_preference_priority_text" formatted="false">La priorità è impostata a: %d (predefinito %d)</string>
     <string name="grid_size_title">Regolazione della colonna di visualizzazione del tema</string>
-    <string name="grid_size_text">Il numero delle colonne è impostato su: %d (predefinito %d)</string>
+    <string name="grid_size_text">Il numero delle colonne è impostato su: %1$d (predefinito %2$d)</string>
     <string name="lite_mode_title">Modalità Lite</string>
     <string name="lite_mode_text">Consente a determinati elementi dell\'interfaccia utente di caricare in modalità di alimentazione riservata.</string>
     <string name="app_theme_title">Tema applicazione</string>

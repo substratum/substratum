@@ -70,7 +70,7 @@ Substratum. \n\nMusisz mieć włączone w Opcjach programistycznych \"Instaluj p
     <string name="legacy_preference_priority_title">Korekta priorytetu nakładki</string>
     <string name="legacy_preference_priority_text" formatted="false">Priorytet jest ustawiony na (domyślnie %d): %d</string>
     <string name="grid_size_title">Dopasowanie kolumny wyświetlanego motywu</string>
-    <string name="grid_size_text">Liczba kolumn jest ustawiona na (domyślnie %d): %d</string>
+    <string name="grid_size_text">Liczba kolumn jest ustawiona na (domyślnie %2$d): %1$d</string>
     <string name="lite_mode_title">Tryb uproszczony</string>
     <string name="lite_mode_text">Umożliwia załadowanie określonych elementów interfejsu użytkownika w trybie zastrzeżonego zasilania.</string>
     <string name="app_theme_title">Motyw aplikacji</string>

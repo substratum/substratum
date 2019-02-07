@@ -69,7 +69,7 @@
     <string name="legacy_preference_priority_title">Nastavenie priority prekrytia</string>
     <string name="legacy_preference_priority_text" formatted="false">Priorita je nastavená na (predvolene 255): %d</string>
     <string name="grid_size_title">Nastavenie počtu stĺpcov témy</string>
-    <string name="grid_size_text">Počet stĺpcov je nastavený na (predvolene %d): %d</string>
+    <string name="grid_size_text">Počet stĺpcov je nastavený na (predvolene %2$d): %1$d</string>
     <string name="lite_mode_title">Zjednodušený režim</string>
     <string name="lite_mode_text">Umožňuje načítať niektoré prvky používateľského rozhrania v režime vyhradeného napájania.</string>
     <string name="app_theme_title">Téme aplikácie</string>

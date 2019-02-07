@@ -90,7 +90,7 @@
     <string name="legacy_preference_priority_title">Ülekatte prioriteetide muutmine</string>
     <string name="legacy_preference_priority_text" formatted="false">Prioriteediks on: %d (vaikimisi %d)</string>
     <string name="grid_size_title">Teema veergudes kuvamise muutmine</string>
-    <string name="grid_size_text">Veergude arvuks on: %d (vaikimisi %d)</string>
+    <string name="grid_size_text">Veergude arvuks on: %1$d (vaikimisi %2$d)</string>
     <string name="lite_mode_title">Lihtrežiim</string>
     <string name="lite_mode_text">Lubab teatud liideseelementide kasutamist piiratud jõudlusega režiimis.</string>
     <string name="app_theme_title">Rakenduse teema</string>

@@ -68,7 +68,7 @@
     <string name="legacy_preference_priority_title">Overlay prioriteitsaanpassing</string>
     <string name="legacy_preference_priority_text" formatted="false">Prioriteit is ingesteld op (standaard %d): %d</string>
     <string name="grid_size_title">Themaweergave kolomaanpassing</string>
-    <string name="grid_size_text">Aantal kolommen is ingesteld op (standaard %d): %d</string>
+    <string name="grid_size_text">Aantal kolommen is ingesteld op (standaard %2$d): %1$d</string>
     <string name="app_theme_title">Applicatie thema</string>
     <string name="app_theme_text">Applicatiethema ingesteld op: %s</string>
     <string name="app_theme_disabled">Standaard</string>

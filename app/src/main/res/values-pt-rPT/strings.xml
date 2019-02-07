@@ -79,7 +79,7 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="legacy_preference_priority_title">Prioridade de ajuste de sobreposições</string>
     <string name="legacy_preference_priority_text" formatted="false">Prioridade definida como: %d (padrão %d)</string>
     <string name="grid_size_title">Colunas do visualizador de temas</string>
-    <string name="grid_size_text">O número de colunas está definido para: %d (padrão %d)</string>
+    <string name="grid_size_text">O número de colunas está definido para: %1$d (padrão %2$d)</string>
     <string name="lite_mode_title">Modo Leve</string>
     <string name="lite_mode_text">Permite que certos elementos da IU sejam carregados no modo de poupança de energia.</string>
     <string name="app_theme_title">Tema da aplicação</string>

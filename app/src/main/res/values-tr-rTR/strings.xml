@@ -92,7 +92,7 @@
     <string name="legacy_preference_priority_title">Tema öncelik ayarı</string>
     <string name="legacy_preference_priority_text" formatted="false">Ayarlanan öncelik değeri: %d (varsayılan %d)</string>
     <string name="grid_size_title">Tema paketlerini görüntüleme düzeni</string>
-    <string name="grid_size_text">Ayarlanan sütun sayısı: %d (varsayılan %d)</string>
+    <string name="grid_size_text">Ayarlanan sütun sayısı: %1$d (varsayılan %2$d)</string>
     <string name="lite_mode_title">Basit Mod</string>
     <string name="lite_mode_text">Belirli kullanıcı arayüzü öğelerinin ayrılmış güç modunda yüklenmesine izin verir.</string>
     <string name="app_theme_title">Uygulama teması</string>

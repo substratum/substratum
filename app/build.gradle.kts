@@ -67,10 +67,10 @@ android {
 dependencies {
     val aboutVersion = "6.2.2"
     val androidXVersion = "1.0.0"
-    val apkSigVersion = "3.3.0"
+    val apkSigVersion = "3.3.1"
     val caocVersion = "2.2.0"
     val commonsIoVersion = "2.5"
-    val databindingVersion = "3.3.0"
+    val databindingVersion = "3.3.1"
     val expandableLayoutVersion = "2.9.2"
     val fabSheetVersion = "1.2.1"
     val floatingHeadVersion = "2.4.2"

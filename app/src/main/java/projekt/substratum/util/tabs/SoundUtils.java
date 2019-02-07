@@ -101,7 +101,7 @@ public class SoundUtils {
             if (soundUtils != null) {
                 Context context = soundUtils.context;
                 if (Systems.checkThemeInterfacer(context) &&
-                        !Systems.isBinderInterfacer(context)) {
+                        !Systems.checkThemeInterfacer(context)) {
                     if (finishReceiver == null) {
                         finishReceiver = new FinishReceiver(soundUtils);
                     }

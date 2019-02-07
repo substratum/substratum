@@ -39,7 +39,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     }
 
     private void bindInterfacer() {
-        if (Systems.isBinderInterfacer(this) && !bound) {
+        if (Systems.checkThemeInterfacer(this) && !bound) {
             Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
             bindService(intent, this, Context.BIND_AUTO_CREATE);

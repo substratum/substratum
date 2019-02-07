@@ -55,7 +55,7 @@ import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_ANDRO
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
-import static projekt.substratum.common.Systems.isBinderInterfacer;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 public class Substratum extends Application {
 
@@ -231,7 +231,7 @@ public class Substratum extends Application {
                 this.stopService(
                         new Intent(this.getApplicationContext(), AndromedaBinderService.class));
             }
-        } else if (isBinderInterfacer(this.getApplicationContext())) {
+        } else if (checkThemeInterfacer(this.getApplicationContext())) {
             boolean startBinderService = this.startBinderService(InterfacerBinderService.class);
             log(BINDER_TAG, "Successful to start the Interfacer binder service: " +
                     (startBinderService ? "Success!" : "Failed"));

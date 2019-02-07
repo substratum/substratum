@@ -46,7 +46,7 @@ import projekt.substratum.tabs.WallpapersManager;
 
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
-import static projekt.substratum.common.Systems.isBinderInterfacer;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_HOUR;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_MINUTE;
@@ -112,7 +112,7 @@ public class ScheduledProfileService extends JobService {
                 // Make sure binder service is alive
                 if (isAndromedaDevice(service)) {
                     Substratum.getInstance().startBinderService(AndromedaBinderService.class);
-                } else if (isBinderInterfacer(service)) {
+                } else if (checkThemeInterfacer(service)) {
                     Substratum.getInstance().startBinderService(InterfacerBinderService.class);
                 }
 
@@ -221,7 +221,7 @@ public class ScheduledProfileService extends JobService {
                     boolean shouldRestartUi = ThemeManager.shouldRestartUI(context,
                             toBeDisabled)
                             || ThemeManager.shouldRestartUI(context, toBeRun);
-                    if (isBinderInterfacer(context)) {
+                    if (checkThemeInterfacer(context)) {
                         ThemeInterfacerService.applyProfile(
                                 processed,
                                 new ArrayList<>(system),

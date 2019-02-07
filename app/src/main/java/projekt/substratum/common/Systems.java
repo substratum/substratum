@@ -141,14 +141,14 @@ public class Systems {
             }
 
             if (IS_PIE) {
-                if (isNewSamsungDevice() && isAndromedaDevice(context)) {
+                if (isNewSamsungDevice() && isAndromeda(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
                             "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_ANDROMEDA
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_ANDROMEDA;
-                } else if (checkSubstratumService(context)) {
+                } else if (isSubstratumService(context)) {
                     // SS mode
                     prefs.edit().putInt(
                             "current_theme_mode",
@@ -162,14 +162,14 @@ public class Systems {
                     ).apply();
                 }
             } else if (IS_OREO) {
-                if (isAndromedaDevice(context)) {
+                if (isAndromeda(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
                             "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_ANDROMEDA
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_ANDROMEDA;
-                } else if (checkSubstratumService(context)) {
+                } else if (isSubstratumService(context)) {
                     // SS mode
                     prefs.edit().putInt(
                             "current_theme_mode",
@@ -223,7 +223,7 @@ public class Systems {
             boolean foundOms = false;
             if (!isSamsungDevice(context)) {
                 String sonyCheck = getProp("ro.sony.fota.encrypteddata");
-                if (checkThemeInterfacer(context) || checkSubstratumService(context)) {
+                if (checkThemeInterfacer(context) || isSubstratumService(context)) {
                     foundOms = true;
                 } else if (sonyCheck == null || sonyCheck.length() == 0) {
                     boolean isOMSRunning = isServiceRunning(IOverlayManager.class,
@@ -269,12 +269,7 @@ public class Systems {
      * @return True, if using Theme Interfacer
      */
     public static boolean checkThemeInterfacer(Context context) {
-        if (context == null) {
-            Log.e(SUBSTRATUM_LOG,
-                    "activity has been destroyed, cannot check if interfacer is used");
-            return false;
-        }
-        return getThemeInterfacerPackage(context) != null;
+        return checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_INTERFACER;
     }
 
     /**
@@ -289,17 +284,21 @@ public class Systems {
         }
     }
 
+    private static boolean isSubstratumService(Context context) {
+        if (context == null) return true; // Safe to assume that window refreshes only on OMS
+        if (!prefs.contains("substratum_service_present")) {
+            setAndCheckSubstratumService();
+        }
+        return prefs.getBoolean("substratum_service_present", false);
+    }
+
     /**
      * Determine whether the device supports the new Substratum service
      *
      * @return True, if Substratum service
      */
     public static boolean checkSubstratumService(Context context) {
-        if (context == null) return true; // Safe to assume that window refreshes only on OMS
-        if (!prefs.contains("substratum_service_present")) {
-            setAndCheckSubstratumService();
-        }
-        return prefs.getBoolean("substratum_service_present", false);
+        return checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_SYSSERV;
     }
 
     public static boolean checkSubstratumServiceApi(Context context) {
@@ -313,6 +312,10 @@ public class Systems {
      * @return True, if using Andromeda
      */
     public static boolean isAndromedaDevice(Context context) {
+        return checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_ANDROMEDA;
+    }
+
+    private static boolean isAndromeda(Context context) {
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
                     "activity has been destroyed, cannot check if andromeda is used");
@@ -330,7 +333,7 @@ public class Systems {
      * @param context Context!
      * @return True, if using Theme Interfacer
      */
-    public static boolean isBinderInterfacer(Context context) {
+    private static boolean isBinderInterfacer(Context context) {
         boolean isEnabled = Packages.isAvailablePackage(context, References
                 .INTERFACER_PACKAGE);
         PackageInfo packageInfo = getThemeInterfacerPackage(context);

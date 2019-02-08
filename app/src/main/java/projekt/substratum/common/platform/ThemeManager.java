@@ -46,7 +46,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
-import projekt.substratum.common.commands.SamsungOverlayCacher;
 import projekt.substratum.util.helpers.Root;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -54,7 +53,6 @@ import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.Packages.getOverlayParent;
 import static projekt.substratum.common.Packages.getOverlayTarget;
 import static projekt.substratum.common.Packages.isPackageInstalled;
-import static projekt.substratum.common.References.EXTERNAL_STORAGE_SAMSUNG_OVERLAY_CACHE;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.Resources.FRAMEWORK;
@@ -540,11 +538,8 @@ public class ThemeManager {
                         List<ApplicationInfo> packages = pm.getInstalledApplications(0);
                         list.clear();
 
-                        if ((isNewSamsungDevice() || isNewSamsungDeviceAndromeda(context)) &&
-                                new File(EXTERNAL_STORAGE_SAMSUNG_OVERLAY_CACHE).exists()) {
-                            SamsungOverlayCacher samsungOverlayCacher =
-                                    new SamsungOverlayCacher(context);
-                            list.addAll(samsungOverlayCacher.getOverlays(false));
+                        if (isNewSamsungDevice() || isNewSamsungDeviceAndromeda(context)) {
+                            list.addAll(getAllSamsungOverlays(context));
                         } else {
                             for (ApplicationInfo packageInfo : packages) {
                                 if (Packages.getOverlayMetadata(
@@ -574,6 +569,14 @@ public class ThemeManager {
         }
         list.removeAll(Arrays.asList(PIXEL_OVERLAY_PACKAGES));
         return new ArrayList<>(list);
+    }
+
+    public static ArrayList<String> getAllSamsungOverlays(final Context context) {
+        final ArrayList<String> overlays = new ArrayList<>();
+        context.getPackageManager().getPackagesHoldingPermissions(new String[] {References.SAMSUNG_OVERLAY_PERMISSION}, 0).forEach(
+                packageInfo -> overlays.add(packageInfo.packageName)
+        );
+        return overlays;
     }
 
     /**

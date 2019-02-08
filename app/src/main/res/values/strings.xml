@@ -734,5 +734,6 @@
     <string name="restart">Restart</string>
 
     <string name="module_placed_reboot_message">Substratum has installed it\'s Magisk module successfully. Please reboot to allow overlays to take effect.</string>
-
+    <string name="permlab_overlay" translatable="false">overlay app resources</string>
+    <string name="permdesc_overlay" translatable="false">access app resources as overlay</string>
 </resources>

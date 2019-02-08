@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.SamsungOverlayCacher;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
@@ -36,9 +35,7 @@ public class RescueActivity extends AppCompatActivity {
         if (Systems.isSamsungDevice(Substratum.getInstance())) {
             if (Systems.isNewSamsungDeviceAndromeda(Substratum.getInstance()) ||
                     Systems.isNewSamsungDevice()) {
-                SamsungOverlayCacher samsungOverlayCacher =
-                        new SamsungOverlayCacher(Substratum.getInstance());
-                List<String> listOfOverlays = samsungOverlayCacher.getOverlays(false);
+                List<String> listOfOverlays = ThemeManager.getAllSamsungOverlays(Substratum.getInstance());
                 ArrayList<String> toUninstall = listOfOverlays.stream()
                         .filter(t -> t.startsWith(FRAMEWORK) || t.startsWith(SUBSTRATUM_PACKAGE))
                         .collect(Collectors.toCollection(ArrayList::new));

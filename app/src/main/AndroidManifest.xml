@@ -49,6 +49,13 @@
     <uses-permission android:name="android.permission.MODIFY_OVERLAYS" />
     <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE" />
 
+    <permission
+        android:name="projekt.substratum.OVERLAY_COMPONENT"
+        android:description="@string/permdesc_overlay"
+        android:icon="@drawable/substratum_icon"
+        android:label="@string/permlab_overlay"
+        android:protectionLevel="normal" />
+
     <application
         android:name=".Substratum"
         android:allowBackup="false"

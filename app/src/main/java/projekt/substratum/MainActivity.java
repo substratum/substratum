@@ -60,6 +60,7 @@ import java.util.concurrent.TimeUnit;
 
 import projekt.substratum.activities.launch.ShowcaseActivity;
 import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.MigrationsHandler;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Restore;
@@ -1215,14 +1216,15 @@ public class MainActivity extends AppCompatActivity implements
             if (context != null) {
                 ArrayList<String> removeList = new ArrayList<>();
                 // Overlays with non-existent targets
-                List<String> state1 = ThemeManager.listOverlays(
+                List<String> overlaysMissingTarget = ThemeManager.listOverlays(
                         context, ThemeManager.STATE_MISSING_TARGET);
                 // Uninstall overlays when the main theme is not present,
                 // regardless if enabled/disabled
-                List<String> stateAll = ThemeManager.listAllOverlays(context);
+                List<String> overlays = ThemeManager.listAllOverlays(context);
+                overlays.addAll(MigrationsHandler.getAllCachedSamsungOverlays());
                 // We need the null check because listOverlays never returns null, but empty
-                if (!state1.isEmpty() && (state1.get(0) != null)) {
-                    for (String aState1 : state1) {
+                if (!overlaysMissingTarget.isEmpty() && (overlaysMissingTarget.get(0) != null)) {
+                    for (String aState1 : overlaysMissingTarget) {
                         Log.e("OverlayCleaner",
                                 "Target APK not found for \"" + aState1 +
                                         "\" and will be removed.");
@@ -1230,14 +1232,14 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 }
 
-                for (String aStateAll : stateAll) {
-                    String parent = Packages.getOverlayParent(context, aStateAll);
+                for (String overlay : overlays) {
+                    String parent = Packages.getOverlayParent(context, overlay);
                     if (parent != null) {
                         if (!Packages.isPackageInstalled(context, parent)) {
                             Log.e("OverlayCleaner",
-                                    "Parent APK not found for \"" + aStateAll +
+                                    "Parent APK not found for \"" + overlay +
                                             "\" and will be removed.");
-                            removeList.add(aStateAll);
+                            removeList.add(overlay);
                         }
                     }
                 }

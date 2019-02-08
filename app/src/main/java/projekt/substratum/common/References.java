@@ -176,9 +176,6 @@ public class References {
     // These strings control the directories that Substratum uses
     public static final String EXTERNAL_STORAGE_CACHE = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + "/.substratum/";
-    public static final String EXTERNAL_STORAGE_SAMSUNG_OVERLAY_CACHE =
-            Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.samsung_overlays.xml";
     public static final String LOGCHAR_DIR = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + "/substratum" + File.separator + "LogCharReports";
     public static final String SUBSTRATUM_BUILDER_CACHE = "/SubstratumBuilder/";
@@ -226,8 +223,7 @@ public class References {
     // Validate with logs
     public static final boolean VALIDATE_WITH_LOGS = false;
     // Special permission for Samsung devices
-    public static final String SAMSUNG_OVERLAY_PERMISSION =
-            "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
+    public static final String SAMSUNG_OVERLAY_PERMISSION = "projekt.substratum.OVERLAY_PERMISSION";
     public static final String MAGISK_MODULE_DIR = "/sbin/.magisk/img/substratum/";
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";

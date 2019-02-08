@@ -664,7 +664,11 @@ public class FileOperations {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
-            inputStream = assetManager.open(filename);
+            try {
+                inputStream = assetManager.open(filename);
+            } catch (FileNotFoundException ignored) {
+                return true;
+            }
             if ((cipher != null) && filename.endsWith(ENCRYPTED_FILE_EXTENSION)) {
                 inputStream = new CipherInputStream(inputStream, cipher);
             } else if ((cipher == null) && filename.endsWith(ENCRYPTED_FILE_EXTENSION)) {

@@ -1140,8 +1140,16 @@ public class Overlays extends Fragment {
          * @param values   {@link #buffer(Overlays)}
          * @return Returns a Map, for sorting
          */
-        private static Map<String, String> obtainUnsortedMap(Overlays overlays,
+        private static Map<String, String> obtainUnsortedMap(@NonNull Overlays overlays,
                                                              List<String> values) {
+
+            final Context context;
+            try {
+                context = overlays.requireContext();
+            } catch (IllegalStateException ignored) {
+                return null;
+            }
+
             // Create the map for {package name: package identifier}
             Map<String, String> unsortedMap = new HashMap<>();
 
@@ -1155,43 +1163,43 @@ public class Overlays extends Fragment {
                         // Check if the overlay matches one of the custom packages from SystemUI
                         switch (value) {
                             case SYSTEMUI_HEADERS:
-                                packageName = overlays.getString(R.string.systemui_headers);
+                                packageName = context.getString(R.string.systemui_headers);
                                 succeeded = true;
                                 break;
                             case SYSTEMUI_NAVBARS:
-                                packageName = overlays.getString(R.string.systemui_navigation);
+                                packageName = context.getString(R.string.systemui_navigation);
                                 succeeded = true;
                                 break;
                             case SYSTEMUI_STATUSBARS:
-                                packageName = overlays.getString(R.string.systemui_statusbar);
+                                packageName = context.getString(R.string.systemui_statusbar);
                                 succeeded = true;
                                 break;
                             case SYSTEMUI_QSTILES:
-                                packageName = overlays.getString(R.string.systemui_qs_tiles);
+                                packageName = context.getString(R.string.systemui_qs_tiles);
                                 succeeded = true;
                                 break;
                         }
                     } else if (allowedSettingsOverlay(value)) {
                         // If not SystemUI, check if it is part of the Settings
                         if (SETTINGS_ICONS.equals(value)) {
-                            packageName = overlays.getString(R.string.settings_icons);
+                            packageName = context.getString(R.string.settings_icons);
                             succeeded = true;
                         }
                     } else if (allowedFrameworkOverlay(value)) {
                         // Finally, if not Settings, check if it is part of the Android Framework
                         switch (value) {
                             case SAMSUNG_FRAMEWORK:
-                                packageName = overlays.getString(R.string.samsung_framework);
+                                packageName = context.getString(R.string.samsung_framework);
                                 succeeded = true;
                                 break;
                             case LG_FRAMEWORK:
-                                packageName = overlays.getString(R.string.lg_framework);
+                                packageName = context.getString(R.string.lg_framework);
                                 succeeded = true;
                                 break;
                         }
                     } else if (allowedAppOverlay(value)) {
                         // The filter passes, just toss in the app into the list
-                        packageName = Packages.getPackageName(overlays.context, value);
+                        packageName = Packages.getPackageName(context, value);
                         succeeded = true;
                     }
                     if (succeeded) unsortedMap.put(value, packageName);

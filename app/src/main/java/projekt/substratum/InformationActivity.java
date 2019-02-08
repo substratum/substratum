@@ -805,7 +805,7 @@ public class InformationActivity extends AppCompatActivity {
                     materialSheetFab.setEventListener(null);
                 }
             });
-            materialSheetFab.hideSheet();
+            if (materialSheetFab != null) materialSheetFab.hideSheet();
         });
 
         if (!Systems.checkOMS(this)) {
@@ -821,7 +821,7 @@ public class InformationActivity extends AppCompatActivity {
                     materialSheetFab.setEventListener(null);
                 }
             });
-            materialSheetFab.hideSheet();
+            if (materialSheetFab != null) materialSheetFab.hideSheet();
         });
 
         if (!Systems.checkOMS(this)) {
@@ -837,7 +837,7 @@ public class InformationActivity extends AppCompatActivity {
                     materialSheetFab.setEventListener(null);
                 }
             });
-            materialSheetFab.hideSheet();
+            if (materialSheetFab != null) materialSheetFab.hideSheet();
         });
 
         if (!Systems.checkOMS(this)) enableZone.setVisibility(View.GONE);
@@ -851,7 +851,7 @@ public class InformationActivity extends AppCompatActivity {
                     materialSheetFab.setEventListener(null);
                 }
             });
-            materialSheetFab.hideSheet();
+            if (materialSheetFab != null) materialSheetFab.hideSheet();
         });
 
         if (!Systems.checkOMS(this))
@@ -866,7 +866,7 @@ public class InformationActivity extends AppCompatActivity {
                     materialSheetFab.setEventListener(null);
                 }
             });
-            materialSheetFab.hideSheet();
+            if (materialSheetFab != null) materialSheetFab.hideSheet();
         });
 
         boolean shouldShowSamsungWarning =
@@ -1171,7 +1171,7 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (materialSheetFab.isSheetVisible()) {
-            materialSheetFab.hideSheet();
+            if (materialSheetFab != null) materialSheetFab.hideSheet();
         } else {
             if (uninstalled)
                 Broadcasts.sendRefreshMessage(context);

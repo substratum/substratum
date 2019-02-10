@@ -1121,7 +1121,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (Systems.checkOMS(context)) {
                         new DoCleanUp(context).execute();
                         if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_SYSSERV
-                                && Systems.IS_PIE) MagiskHelper.handleModule(context);
+                                && Systems.IS_PIE && Root.checkRootAccess()) MagiskHelper.handleModule(context);
                     }
                 }
             }
@@ -1245,7 +1245,7 @@ public class MainActivity extends AppCompatActivity implements
                 if (!removeList.isEmpty())
                     uninstallOverlay(context, removeList);
             }
-            if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_SYSSERV && Systems.IS_PIE)
+            if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_SYSSERV && Systems.IS_PIE && Root.checkRootAccess())
                 new Thread(MagiskHelper::forceRemoveOverlays).start();
             return null;
         }

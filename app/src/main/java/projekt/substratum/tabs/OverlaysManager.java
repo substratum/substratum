@@ -112,7 +112,7 @@ class OverlaysManager {
         }
 
         if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
-            compileFunction compile = new compileFunction(overlays, state);
+            CompileTask compile = new CompileTask(overlays, state);
             if ((overlays.baseSpinner.getSelectedItemPosition() != 0) &&
                     (overlays.baseSpinner.getVisibility() == View.VISIBLE)) {
                 compile.execute(overlays.baseSpinner.getSelectedItem().toString());
@@ -171,7 +171,7 @@ class OverlaysManager {
 
         if (overlays.context != null && Systems.checkOMS(overlays.context)) {
             if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
-                compileFunction compile = new compileFunction(overlays, mode);
+                CompileTask compile = new CompileTask(overlays, mode);
                 if ((overlays.baseSpinner.getSelectedItemPosition() != 0) &&
                         (overlays.baseSpinner.getVisibility() == View.VISIBLE)) {
                     compile.execute(overlays.baseSpinner.getSelectedItem().toString());
@@ -319,14 +319,14 @@ class OverlaysManager {
     /**
      * Main beef of the compilation process
      */
-    static class compileFunction extends AsyncTask<String, Integer, String> {
+    static class CompileTask extends AsyncTask<String, Integer, String> {
 
         private final WeakReference<Overlays> ref;
         private final String state;
         private String currentPackageName = "";
         private String currentDialogOverlay;
 
-        compileFunction(Overlays overlays, String state) {
+        CompileTask(Overlays overlays, String state) {
             super();
             ref = new WeakReference<>(overlays);
             this.state = state;
@@ -441,13 +441,13 @@ class OverlaysManager {
                 }
                 switch (state) {
                     case ENABLE_MODE:
-                        new finishEnableFunction(overlays).execute();
+                        new FinishEnableTask(overlays).execute();
                         break;
                     case DISABLE_MODE:
-                        new finishDisableFunction(overlays).execute();
+                        new FinishDisableTask(overlays).execute();
                         break;
                     case ENABLE_DISABLE:
-                        new finishEnableDisableFunction(overlays).execute();
+                        new FinishDisableEnableTask(overlays).execute();
                         break;
                     case COMPILE_ENABLE:
                     case COMPILE_UPDATE:
@@ -463,7 +463,7 @@ class OverlaysManager {
                             }
                         }
 
-                        new finishUpdateFunction(overlays, state).execute();
+                        new FinishUpdateTask(overlays, state).execute();
                         if (overlays.currentInstance.hasFailed) {
                             overlays.failedFunction(context);
                         } else {
@@ -1062,11 +1062,11 @@ class OverlaysManager {
     /**
      * Concluding function to end the enabling process gracefully
      */
-    static class finishEnableFunction extends AsyncTask<Void, Void, Void> {
+    static class FinishEnableTask extends AsyncTask<Void, Void, Void> {
         final WeakReference<Overlays> ref;
         final WeakReference<Context> refContext;
 
-        finishEnableFunction(Overlays overlays) {
+        FinishEnableTask(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.context);
@@ -1119,11 +1119,11 @@ class OverlaysManager {
     /**
      * Concluding function to end the disabling process gracefully
      */
-    static class finishDisableFunction extends AsyncTask<Void, Void, Void> {
+    static class FinishDisableTask extends AsyncTask<Void, Void, Void> {
         final WeakReference<Overlays> ref;
         final WeakReference<Context> refContext;
 
-        finishDisableFunction(Overlays overlays) {
+        FinishDisableTask(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.context);
@@ -1165,11 +1165,11 @@ class OverlaysManager {
     /**
      * Concluding function to end the swapping process gracefully
      */
-    static class finishEnableDisableFunction extends AsyncTask<Void, Void, Void> {
+    static class FinishDisableEnableTask extends AsyncTask<Void, Void, Void> {
         final WeakReference<Overlays> ref;
         final WeakReference<Context> refContext;
 
-        finishEnableDisableFunction(Overlays overlays) {
+        FinishDisableEnableTask(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.context);
@@ -1237,12 +1237,12 @@ class OverlaysManager {
     /**
      * Concluding function to end the update process gracefully
      */
-    static class finishUpdateFunction extends AsyncTask<Void, Void, Void> {
+    static class FinishUpdateTask extends AsyncTask<Void, Void, Void> {
         final WeakReference<Overlays> ref;
         final WeakReference<Context> refContext;
         private final String state;
 
-        finishUpdateFunction(Overlays overlays, String state) {
+        FinishUpdateTask(Overlays overlays, String state) {
             super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.context);

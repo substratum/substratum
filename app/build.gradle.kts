@@ -65,7 +65,7 @@ android {
 }
 
 dependencies {
-    val aboutVersion = "6.2.2"
+    val aboutVersion = "6.2.3"
     val androidXVersion = "1.0.0"
     val apkSigVersion = "3.3.1"
     val caocVersion = "2.2.0"

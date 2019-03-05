@@ -67,7 +67,7 @@ android {
 dependencies {
     val aboutVersion = "6.2.3"
     val androidXVersion = "1.0.0"
-    val apkSigVersion = "3.3.1"
+    val apkSigVersion = "3.3.2"
     val caocVersion = "2.2.0"
     val commonsIoVersion = "2.5"
     val databindingVersion = "3.3.1"
@@ -75,7 +75,7 @@ dependencies {
     val fabSheetVersion = "1.2.1"
     val floatingHeadVersion = "2.4.2"
     val gestureRecyclerVersion = "1.7.0"
-    val glideVersion = "4.8.0"
+    val glideVersion = "4.9.0"
     val imageCropperVersion = "2.8.0"
     val svgViewVersion = "1.0.6"
     val welcomeVersion = "1.4.1"

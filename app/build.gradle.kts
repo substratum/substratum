@@ -73,7 +73,7 @@ dependencies {
     val databindingVersion = "3.3.1"
     val expandableLayoutVersion = "2.9.2"
     val fabSheetVersion = "1.2.1"
-    val floatingHeadVersion = "2.4.2"
+    val floatingHeadVersion = "2.4.3"
     val gestureRecyclerVersion = "1.7.0"
     val glideVersion = "4.9.0"
     val imageCropperVersion = "2.8.0"

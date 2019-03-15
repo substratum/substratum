@@ -69,7 +69,7 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
             anim.setInterpolator(getInterpolator());
             startAnimation(anim);
         }
-        setVisibility(View.VISIBLE);
+        super.show();
     }
 
     @Override
@@ -87,7 +87,7 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
             anim.setInterpolator(getInterpolator());
             startAnimation(anim);
         }
-        setVisibility(View.INVISIBLE);
+        super.hide();
     }
 
     private void setTranslation(float translationX, float translationY) {

@@ -45,8 +45,6 @@
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <!-- Start foreground services on Android P -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <!-- Write secure settings -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- Interfacer use only -->
     <uses-permission android:name="android.permission.MODIFY_OVERLAYS" />
     <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE" />

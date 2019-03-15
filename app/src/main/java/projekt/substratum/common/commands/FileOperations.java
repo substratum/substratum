@@ -435,7 +435,7 @@ public class FileOperations {
             }
         } catch (final FileNotFoundException ignored) {
             Substratum.log(DELETE_LOG, "File already " + (deleteParent ? "deleted." : "cleaned."));
-        } catch (final IOException ignored) {
+        } catch (final IOException | IllegalArgumentException ignored) {
         }
         if (dir.exists()) {
             Substratum.log(DELETE_LOG,

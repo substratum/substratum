@@ -61,7 +61,10 @@ android {
             //proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    lintOptions.isAbortOnError = true
+    lintOptions {
+        isAbortOnError = true
+        disable("MissingTranslation")
+    }
 }
 
 dependencies {

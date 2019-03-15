@@ -14,7 +14,7 @@ android:
   - ".+"
 
 script:
-- "./gradlew clean assembleDebug"
+- ./gradlew assembleDebug lint
 
 notifications:
   email: false

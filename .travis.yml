@@ -25,7 +25,3 @@ cache:
   directories:
   - "$HOME/.m2"
   - "$HOME/.gradle"
-  - "$ANDROID_HOME"
-
-before_install:
-  - yes | sdkmanager "platforms;android-28"

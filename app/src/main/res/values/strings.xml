@@ -507,7 +507,7 @@
     <string name="auto_disable_target_overlays_off">Other target overlays will remain unchanged when installing / enabling a new overlay</string>
 
     <string name="fab_menu_compile_enable">Build &amp; Enable</string>
-    <string name="fab_menu_compile_update">Build &amp; Update</string>
+    <string name="fab_menu_compile_update">Build &amp; Install</string>
     <string name="fab_menu_compile_install">Install selected</string>
     <string name="fab_menu_uninstall">Uninstall selected</string>
     <string name="fab_menu_disable">Disable selected</string>

@@ -1,4 +1,5 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 
 buildscript {
     repositories {
@@ -23,22 +24,30 @@ allprojects {
     }
 }
 
-tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
-    checkForGradleUpdate = true
+tasks {
+    named<DependencyUpdatesTask>("dependencyUpdates") {
+        checkForGradleUpdate = true
+        outputFormatter = "json"
+        outputDir = "build/dependencyUpdates"
+        reportfileName = "report"
         resolutionStrategy {
             componentSelection {
                 all {
                     val rejected = listOf("alpha", "beta", "rc", "cr", "m", "preview")
                       .map { qualifier -> Regex("(?i).*[.-]$qualifier[.\\d-]*") }
-                      .any { it.matches(candidate.version)
-                }
-                if (rejected) {
-                    reject("Release candidate")
-                } else if (candidate.group.equals("commons-io") && candidate.version.toFloat() >= 2.6F) {
-                    reject("commons-io v2.6+ cause runtime crashes due to missing java.nio.File class in Android 7")
+                      .any { it.matches(candidate.version) }
+                    if (rejected) {
+                        reject("Release candidate")
+                    } else if (candidate.group.equals("commons-io") && candidate.version.toFloat() >= 2.6F) {
+                        reject("commons-io v2.6+ cause runtime crashes due to missing java.nio.File class in Android 7")
+                    }
                 }
             }
         }
+    }
+    wrapper {
+        gradleVersion = "5.3"
+        distributionType = DistributionType.ALL
     }
 }
 

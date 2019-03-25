@@ -14,14 +14,13 @@ plugins {
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
-val buildTypeRelease = "release"
 
 fun gitHash(): String {
-    try {
+    return try {
         return Runtime.getRuntime().exec("git describe --tags").inputStream.reader().use { it.readText() }.trim()
     } catch (ignored: IOException) {
+        ""
     }
-    return ""
 }
 
 android {
@@ -46,17 +45,17 @@ android {
         keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
         signingConfigs {
-            create(buildTypeRelease) {
+            create("release") {
                 keyAlias = keystoreProperties["keyAlias"].toString()
                 keyPassword = keystoreProperties["keyPassword"].toString()
                 storeFile = file(keystoreProperties["storeFile"].toString())
                 storePassword = keystoreProperties["storePassword"].toString()
             }
         }
+        buildTypes.getByName("release").signingConfig = signingConfigs.getByName("release")
     }
     buildTypes {
-        getByName(buildTypeRelease) {
-            if (keystorePropertiesFile.exists()) signingConfig = signingConfigs.getByName("release")
+        getByName("release") {
             isMinifyEnabled = false
             //proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }

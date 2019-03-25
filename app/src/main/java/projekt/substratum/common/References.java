@@ -410,42 +410,40 @@ public class References {
     public static void createShortcut(Context context,
                                       String themePid,
                                       String themeName) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            Icon appIcon;
-            Drawable appIconDrawable = Packages.getAppIcon(context, themePid);
-            //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-                    appIconDrawable instanceof AdaptiveIconDrawable) {
-                appIcon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable
-                        (appIconDrawable));
-            } else {
-                appIcon = Icon.createWithBitmap(Packages.getBitmapFromDrawable(appIconDrawable));
-            }
-            try {
-                Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                myIntent.putExtra(Internal.THEME_NAME, themeName);
-                myIntent.putExtra(Internal.THEME_PID, themePid);
-                myIntent.setComponent(
-                        ComponentName.unflattenFromString(
-                                context.getPackageName() +
-                                        '/' + AppShortcutLaunch.class.getName()));
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+        Icon appIcon;
+        Drawable appIconDrawable = Packages.getAppIcon(context, themePid);
+        //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                appIconDrawable instanceof AdaptiveIconDrawable) {
+            appIcon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable
+                    (appIconDrawable));
+        } else {
+            appIcon = Icon.createWithBitmap(Packages.getBitmapFromDrawable(appIconDrawable));
+        }
+        try {
+            Intent myIntent = new Intent(Intent.ACTION_MAIN);
+            myIntent.putExtra(Internal.THEME_NAME, themeName);
+            myIntent.putExtra(Internal.THEME_PID, themePid);
+            myIntent.setComponent(
+                    ComponentName.unflattenFromString(
+                            context.getPackageName() +
+                                    '/' + AppShortcutLaunch.class.getName()));
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-                ShortcutInfo shortcut =
-                        new ShortcutInfo.Builder(context, "favorite")
-                                .setShortLabel(themeName)
-                                .setLongLabel(themeName)
-                                .setIcon(appIcon)
-                                .setIntent(myIntent)
-                                .build();
-                if (shortcutManager != null) {
-                    shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
-                }
-                Substratum.log(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
-            } catch (Exception e) {
-                e.printStackTrace();
+            ShortcutInfo shortcut =
+                    new ShortcutInfo.Builder(context, "favorite")
+                            .setShortLabel(themeName)
+                            .setLongLabel(themeName)
+                            .setIcon(appIcon)
+                            .setIntent(myIntent)
+                            .build();
+            if (shortcutManager != null) {
+                shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
             }
+            Substratum.log(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -455,13 +453,11 @@ public class References {
      * @param context Context
      */
     public static void clearShortcut(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            if (shortcutManager != null) {
-                shortcutManager.removeAllDynamicShortcuts();
-            }
-            Substratum.log(SUBSTRATUM_LOG, "Successfully removed all dynamic app shortcuts!");
+        ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+        if (shortcutManager != null) {
+            shortcutManager.removeAllDynamicShortcuts();
         }
+        Substratum.log(SUBSTRATUM_LOG, "Successfully removed all dynamic app shortcuts!");
     }
 
     /**

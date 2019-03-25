@@ -17,7 +17,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -677,13 +676,7 @@ final class OverlaysManager {
                                 overlays.builder.setProgress(100, (int) (((double) (i + 1) /
                                         (double) overlays.currentInstance.checkedOverlays.size())
                                         * 100.0), false);
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    overlays.builder.setContentText('"' + packageTitle + '"');
-                                } else {
-                                    overlays.builder.setContentText(
-                                            context.getString(R.string.notification_processing) +
-                                                    '"' + packageTitle + '"');
-                                }
+                                overlays.builder.setContentText('"' + packageTitle + '"');
                                 overlays.notifyManager.notify(References.NOTIFICATION_ID_COMPILER,
                                         overlays.builder.build());
                             }

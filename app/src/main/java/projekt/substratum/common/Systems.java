@@ -44,14 +44,12 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_SYSTEM_VERSION_CHECK;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_INTERFACER;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_INTERFACER;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_P_ROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_SYSSERV;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
-import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
-import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.SUBSTRATUM_THEME;
@@ -64,8 +62,6 @@ public class Systems {
     public static final boolean IS_PIE = Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
     public static final boolean IS_OREO = Build.VERSION.SDK_INT == Build.VERSION_CODES.O ||
             Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1;
-    private static final boolean IS_NOUGAT = Build.VERSION.SDK_INT == Build.VERSION_CODES.N ||
-            Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1;
 
     private static Boolean checkPackageSupported;
     private static SharedPreferences prefs = Substratum.getPreferences();
@@ -127,7 +123,7 @@ public class Systems {
     /**
      * Brain matter of {@link #checkThemeSystemModule(Context)}
      *
-     * @param context     Self explantory, sur..,,
+     * @param context     Self explanatory, sur..,,
      * @param firstLaunch Whether it is the first start of the app
      * @return Returns the theme mode
      */
@@ -183,29 +179,6 @@ public class Systems {
                             OVERLAY_MANAGER_SERVICE_O_ROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ROOTED;
-                }
-            } else if (IS_NOUGAT) {
-                if (isBinderInterfacer(context)) {
-                    // Interfacer mode
-                    prefs.edit().putInt(
-                            "current_theme_mode",
-                            OVERLAY_MANAGER_SERVICE_INTERFACER
-                    ).apply();
-                    return OVERLAY_MANAGER_SERVICE_INTERFACER;
-                } else if (isSamsungDevice(context)) {
-                    // Sungstratum mode
-                    prefs.edit().putInt(
-                            "current_theme_mode",
-                            SAMSUNG_THEME_ENGINE_N
-                    ).apply();
-                    return SAMSUNG_THEME_ENGINE_N;
-                } else if (Root.checkRootAccess()) {
-                    // Rooted mode
-                    prefs.edit().putInt(
-                            "current_theme_mode",
-                            RUNTIME_RESOURCE_OVERLAY_N_ROOTED
-                    ).apply();
-                    return RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
                 }
             }
         }
@@ -325,19 +298,6 @@ public class Systems {
         boolean isEnabled = Packages.isAvailablePackage(context, References.ANDROMEDA_PACKAGE);
         PackageInfo packageInfo = getAndromedaPackage(context);
         return (packageInfo != null) && isEnabled;
-    }
-
-    /**
-     * Check if it is using the latest Theme Interfacer backend
-     *
-     * @param context Context!
-     * @return True, if using Theme Interfacer
-     */
-    private static boolean isBinderInterfacer(Context context) {
-        boolean isEnabled = Packages.isAvailablePackage(context, References
-                .INTERFACER_PACKAGE);
-        PackageInfo packageInfo = getThemeInterfacerPackage(context);
-        return (packageInfo != null) && (packageInfo.versionCode >= 60) && isEnabled;
     }
 
     /**

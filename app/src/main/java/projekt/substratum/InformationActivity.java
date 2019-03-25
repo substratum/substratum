@@ -901,24 +901,20 @@ public class InformationActivity extends AppCompatActivity {
 
         // Start dynamically showing menu items
         boolean isOMS = Systems.checkOMS(context);
-        boolean isMR1orHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
 
-        if (!isMR1orHigher) menu.findItem(R.id.favorite).setVisible(false);
-        if (isMR1orHigher) {
-            favorite = menu.findItem(R.id.favorite);
-            if (prefs.contains("app_shortcut_theme")) {
-                if (prefs.getString("app_shortcut_theme", "").equals(themePid)) {
-                    favorite.setIcon(getDrawable(R.drawable.toolbar_favorite));
-                } else {
-                    favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
-                }
+        favorite = menu.findItem(R.id.favorite);
+        if (prefs.contains("app_shortcut_theme")) {
+            if (prefs.getString("app_shortcut_theme", "").equals(themePid)) {
+                favorite.setIcon(getDrawable(R.drawable.toolbar_favorite));
             } else {
                 favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
             }
-            if (shouldDarken) favorite.getIcon().setColorFilter(
-                    getColor(R.color.information_activity_dark_icon_mode),
-                    PorterDuff.Mode.SRC_ATOP);
+        } else {
+            favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
         }
+        if (shouldDarken) favorite.getIcon().setColorFilter(
+                getColor(R.color.information_activity_dark_icon_mode),
+                PorterDuff.Mode.SRC_ATOP);
         if (Packages.getThemeChangelog(context, themePid) != null) {
             MenuItem changelog = menu.findItem(R.id.changelog);
             changelog.setVisible(true);

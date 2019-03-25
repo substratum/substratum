@@ -28,7 +28,7 @@ android {
     dataBinding.isEnabled = true
     defaultConfig {
         applicationId = "projekt.substratum"
-        minSdkVersion(24)
+        minSdkVersion(26)
         targetSdkVersion(28)
         versionCode = 1015
         versionName = "one thousand fifteen"

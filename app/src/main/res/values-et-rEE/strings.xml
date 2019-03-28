@@ -17,14 +17,14 @@
     <string name="resource_needs_internet">Et valideerida sinu ROMi commit\'e, palun ühendu internetiga!</string>
     <string name="resource_validated">Kõik commit\'id on muutmata!</string>
     <string name="rooted_oms_dialog_warning_title">Dünaamilised ülekatted ja juurkasutaja</string>
-    <string name="rooted_oms_dialog_warning_text">Kui sa olid meiega sel ajal, kui \"masquerade\" oli meie tagasüsteem, teadsid, et meil on vaja juurkasutajat, et teha mitmeid asju OMS-iga. See oli aeg, kus süsteem oli ekstreemselt aeglane!\n\nMeil oli ka režiim, kus substratum võis töötada ilma masquerade\'ta ning see ei laadinud ressursimuutusi meie oma rakendusest, ehk siis substratumi töö oleks hakanud viivituma lubamisel/keelamisel, kuna seadistuse muutused on väga rasked!\n\nKui võimalik, on tungivalt soovitatav kasutada juurkasutaja-vaba varianti, nagu Andromeda või kohandatud ROM meie uute commit\'idega, et kogeda kiiret kujundamist.\n\nJuurkasutaja variandi kasutamise jätkamisel tead, et rakendusega esinevad viivitused ja jõudlusprobleemid, kuna substratum ei saa seadistusmuutusi anda teostamiseks süsteemile!</string>
+    <string name="rooted_oms_dialog_warning_text">Kui sa olid meiega sel ajal, kui \"masquerade\" oli meie tagasüsteem, teadsid, et meil on vaja juurkasutajat, et teha mitmeid asju OMS-iga. See oli aeg, kus süsteem oli ekstreemselt aeglane!\n\nMeil oli ka režiim, kus substratum võis töötada ilma masquerade\'ta ning see ei laadinud ressursimuutusi meie oma rakendusest, ehk siis substratumi töö oleks hakanud viivituma lubamisel/keelamisel, kuna seadistuse muutused on väga rasked!\n\nKui võimalik, on tungivalt soovitatav kasutada juurkasutaja-vaba varianti, nagu Andromeda või kohandatud ROM meie uute commit\'idega, et kogeda kiiret kujundamist.\n\nJuurkasutaja variandi kasutamise jätkamisel tead, et rakendusega esinevad viivitused ja jõudlusprobleemid, kuna substratum ei saa seadistusmuutusi süsteemile teostamiseks anda!</string>
     <string name="andromeda_notification_title">Substratum ja Andromeda on ühendatud!</string>
     <string name="andromeda_notification_text">Teema taustateenused on seotud, aktiivsed ja käimas.</string>
     <string name="resource_commit_dialog_title">Puuduvad ressursid rakenduses %s</string>
     <string name="showcase_no_connection">teemade väljapanek vajab töötamiseks internetiühendust!
       </string>
     <string name="refused_to_install_notification_button">Eemalda teema</string>
-    <string name="refused_to_install_title_notification">Teemamootor keeldus Sansungisse paigaldatud teemast.</string>
+    <string name="refused_to_install_title_notification">Teemamootor keeldus Samsungisse paigaldatud teemast.</string>
     <string name="refused_to_install_text_notification">%s installimine ebaõnnestus.</string>
     <string name="failed_to_install_title_notification">OMS-teema installimine ebaõnnestus</string>
     <string name="failed_to_install_text_notification">%s installimine ebaõnnestus.</string>
@@ -55,8 +55,8 @@
         Ilma nende õigusteta ei saa ülekatteid installida!
       </string>
     <string name="new_stock_commits_title">Taaskäivitamine vajalik!</string>
-    <string name="new_stock_commits_text">Pärast märtsi turbepaika, lisas Google ülekatetele kontrolli, mis vajab taaskäivitust installitud/uuendatud ülekatte aktiveerimiseks!</string>
-    <string name="new_stock_commits_text_samsung">SAMSUNGI KASUTAJA! Me lisasime paar asja uuelt kompileeritud ülekatetele, mida Samsung kasutab nende ülekatete tuvastamiseks! See tähendab, et sul võib vaja olla oodata, kuni ülekatted on installitud enne kui taaskäivitad, kuna Samsung lisas viited ja blokeeringud ülekatete tuvastusele installimisel! Kõik süsteemiliidese ülekatted tuleb lubada enne taaskäivitust või sa pead taaskäivitama ja kogu protsessi uuesti tegema!</string>
+    <string name="new_stock_commits_text">Pärast märtsi turvapaika lisas Google ülekatetele kontrolli, mis vajab taaskäivitust installitud/uuendatud ülekatte aktiveerimiseks!</string>
+    <string name="new_stock_commits_text_samsung">SAMSUNGI KASUTAJA! Me lisasime paar asja uuelt kompileeritud ülekatetele, mida Samsung kasutab oma ülekatete tuvastamiseks! See tähendab, et sul võib vaja olla oodata, kuni ülekatted on installitud enne kui taaskäivitad, kuna Samsung lisas viited ja blokeeringud ülekatete tuvastusele installimisel! Kõik süsteemiliidese ülekatted tuleb lubada enne taaskäivitust või sa pead taaskäivitama ja kogu protsessi uuesti tegema!</string>
     <string name="new_stock_commits_text_pink">Sel juhul on see ülekate roosa ning lubamine/keelamine keelatakse kuni taaskäivituseni.</string>
     <string name="legacy_dialog_soft_reboot_title">Taaskäivitamine vajalik!</string>
     <string name="legacy_dialog_soft_reboot_text">Käitades Resource Runtime Overlay süsteemi,
@@ -122,32 +122,32 @@
     <string name="bootanimation_dialog_apply_text">Käivitusanimatsiooni töödeldakse&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Käivitusanimatsioon rakendatud!</string>
     <string name="bootanimation_dialog_apply_failed">Käivitusanimatsiooni rakendamine ebaõnnestus&#8230;</string>
-    <string name="wallpaper_dialog_wallpaper">Avakuva taustapilt</string>
-    <string name="wallpaper_dialog_lockscreen">Lukukuva taustapilt</string>
+    <string name="wallpaper_dialog_wallpaper">Avaekraani taustapilt</string>
+    <string name="wallpaper_dialog_lockscreen">Lukustuskuva taustapilt</string>
     <string name="wallpaper_dialog_wallpaper_both">Ava- ja lukukuva taustapildid</string>
     <string name="wallpaper_downloading">Laadin pilti vahemällu&#8230;</string>
     <string name="wallpaper_allscreen_success">Nii ava- kui lukukuva taustapildid on seadistatud!
       </string>
     <string name="wallpaper_allscreen_error">Nii ava- kui lukukuva taustapiltide määramine ebaõnnestus
       </string>
-    <string name="wallpaper_homescreen_success">Avakuva taustapilt seadistatud!</string>
-    <string name="wallpaper_homescreen_error">Avakuva taustapilti ei saanud määrata</string>
-    <string name="wallpaper_lockscreen_success">Lukukuva taustapilt seadistatud!</string>
-    <string name="wallpaper_lockscreen_error">Lukukuva taustapildi määramime ebaõnnestus</string>
+    <string name="wallpaper_homescreen_success">Avaekraani taustapilt seadistatud!</string>
+    <string name="wallpaper_homescreen_error">Avaekraani taustapilti ei saanud määrata</string>
+    <string name="wallpaper_lockscreen_success">Lukustuskuva taustapilt seadistatud!</string>
+    <string name="wallpaper_lockscreen_error">Lukustuskuva taustapildi määramime ebaõnnestus</string>
     <string name="wallpaper_no_connection">Teema taustapiltide kasutamiseks on vajalik
       internetiühendus&#8230;</string>
     <string name="wallpaper_no_wallpapers">Tundub, et laaditud taustapildiandmebaas on
       tühi&#8230;</string>
     <string name="font_placeholder_text">Palun vali rippmenüüst fondipakk&#8230;</string>
     <string name="font_default_spinner">Palun vali fondipakk&#8230;</string>
-    <string name="font_spinner_set_defaults">Taasta vaikimisi fontidele&#8230;</string>
+    <string name="font_spinner_set_defaults">Vaikimisi fontidele taastamine&#8230;</string>
     <string name="fonts_defaults_text">See tühjendab mistahes seadmesse
       rakendatud kohandatud fondid</string>
     <string name="font_dialog_apply_text">Fondipakki töödeldakse&#8230;</string>
     <string name="font_dialog_apply_success">Fondipakk on rakendatud!</string>
     <string name="font_dialog_apply_failed">Fondipaki rakendamine ebaõnnestus&#8230;</string>
     <string name="sounds_placeholder_text">Palun vali rippmenüüst helipakk&#8230;</string>
-    <string name="sounds_spinner_set_defaults">Taastamine vaikimisi helidele&#8230;
+    <string name="sounds_spinner_set_defaults">Vaikimisi helidele taastamine&#8230;
       </string>
     <string name="sounds_spinner_defaults_text">See tühjendab mistahes seadmesse
       rakendatud kohandatud helid</string>
@@ -162,7 +162,7 @@
     <string name="sounds_alarm">Äratus</string>
     <string name="sounds_notification">Teade</string>
     <string name="sounds_ringtone">Helin</string>
-    <string name="sounds_effect_tick">Puutehelid</string>
+    <string name="sounds_effect_tick">Süsteemi puutehelid</string>
     <string name="sounds_lock_sound">Ekraani lukustamise helid</string>
     <string name="sounds_unlock_sound">Ekraani avamise helid</string>
     <string name="settings_about_substratum">substratumi versioon</string>
@@ -195,18 +195,18 @@
     <string name="manage_system_overlay_toast">Süsteemiteemat taastatakse&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Ülekatted eemaldatakse nüüd taustal&#8230;</string>
     <string name="manage_system_not_permitted">Palun vali olekute muutmiseks sobiv ülekate.</string>
-    <string name="manage_wallpaper_home">Taasta avakuva taustapilt</string>
-    <string name="manage_wallpaper_lock">Taasta lukukuva taustapilt</string>
+    <string name="manage_wallpaper_home">Taasta avaekraani taustapilt</string>
+    <string name="manage_wallpaper_lock">Taasta lukustuskuva taustapilt</string>
     <string name="manage_wallpaper_all">Taasta ava- ja lukukuva taustapildid</string>
-    <string name="manage_wallpaper_home_toast">Avakuva taustapilt edukalt taastatud!</string>
-    <string name="manage_wallpaper_lock_toast">Lukukuva taustapilt edukalt taastatud!</string>
+    <string name="manage_wallpaper_home_toast">Avaekraani taustapilt edukalt taastatud!</string>
+    <string name="manage_wallpaper_lock_toast">Lukustuskuva taustapilt edukalt taastatud!</string>
     <string name="manage_wallpaper_all_toast">Taustapilt edukalt taastatud!</string>
     <string name="adapter_uninstalling" formatted="false">Nüüd eemaldatakse %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="accept">Luba</string>
     <string name="deny">Keeldu</string>
     <string name="permission_explanation_title">Õiguste ülevaade</string>
-    <string name="permission_explanation_text">Substratum ei pruugi töötada oodatult ilma nende väheste
+    <string name="permission_explanation_text">Substratum ei pruugi oodatult töötada ilma nende väheste
       vajalike õiguste lubamiseta.\n\n<b>Mäluruum: </b> Substratum vajab sinu sisemälu,
       et hoida sinu süsteemitaaste arhiive, mis asuvad kaustas
       /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
@@ -243,9 +243,9 @@
     <string name="dialog_restart_systemui_title">Taaskäivita süsteemiliides</string>
     <string name="dialog_restart_systemui_content">See teostab süsteemiliidese taaskäivituse sinu seadmes.</string>
     <string name="dialog_restart_reboot_title">Taaskäivita</string>
-    <string name="dialog_restart_reboot_content">See teostab täieliku taaskäivituse sinu seadmes.</string>
+    <string name="dialog_restart_reboot_content">See teostab sinu seadmes täieliku taaskäivituse.</string>
     <string name="dialog_restart_soft_reboot_title">Pehme taaskäivitus</string>
-    <string name="dialog_restart_soft_reboot_content">See teostab pehme taaskäivituse sinu seadmes.</string>
+    <string name="dialog_restart_soft_reboot_content">See teostab sinu seadmes pehme taaskäivituse.</string>
     <string name="studio_applying">Laadimine&#8230;</string>
     <string name="error_loading_theme_close">Sulge</string>
     <string name="error_loading_theme_close_text">Selle teema paketinimi peab vastama manifestile ja koodiridadele, et teostada korralik võtmevahetus.</string>
@@ -296,10 +296,10 @@
       enne kui proovid seda kustutada!
       </string>
     <string name="profile_edittext_hint">palun kirjuta oma profiilile nimi&#8230;</string>
-    <string name="profile_edittext_empty_toast">Palun sisesta oma profiilile nimi, enne selle varundamist!
+    <string name="profile_edittext_empty_toast">Palun sisesta oma profiilile enne selle varundamist nimi!
       </string>
     <string name="profile_edittext_title">Uus profiil:</string>
-    <string name="profile_edittext_whitespace_warning_toast">Tühikuid ei saa profiili nimes kasutada!</string>
+    <string name="profile_edittext_whitespace_warning_toast">Profiili nimes ei saa tühikuid kasutada!</string>
     <string name="toast_backup_success" formatted="false">Praegune ülekatete nimekiri salvestatud kausta
       \"/storage/emulated/0/substratum/profiles/%s\"
       </string>
@@ -371,7 +371,7 @@
     <string name="notification_done_update_text">Kõik selle rakenduse ülekatted on uuendatud.</string>
     <string name="notification_done_upgrade_text">Kõik selle teema ülekatted on uuendatud.</string>
     <string name="notification_no_errors_found">Valitud ülekatete installimisel ei esinenud vigu</string>
-    <string name="notification_some_errors_found">Esines viga ülekatte installimisel</string>
+    <string name="notification_some_errors_found">Ülekatte installimisel esines viga</string>
     <string name="notification_processing">Töötlen ülekatet rakendusele</string>
     <string name="notification_processing_n">Valmistan teema ülekatet ette&#8230;</string>
     <string name="shortcut_floatui">FloatUI</string>
@@ -401,7 +401,7 @@
     <string name="auto_disable_target_overlays_on">Teised siht-ülekatted keelatakse, kui installid/lubad uue ülekatte</string>
     <string name="auto_disable_target_overlays_off">Teisi siht-ülekatteid ei muudeta uue ülekatte installimisel/lubamisel</string>
     <string name="fab_menu_compile_enable">Ehita ja luba</string>
-    <string name="fab_menu_compile_update">Ehita ja uuenda</string>
+    <string name="fab_menu_compile_update">Ehita ja installi</string>
     <string name="fab_menu_compile_install">Installi valitud</string>
     <string name="fab_menu_uninstall">Eemalda valitud</string>
     <string name="fab_menu_disable">Keela valitud</string>
@@ -414,7 +414,7 @@
     <string name="team_title_two">Substratumi tõlkijad</string>
     <string name="translator_name">Nimi</string>
     <string name="translator_languages">Keeled</string>
-    <string name="translator_words">Sõnad</string>
+    <string name="translator_words">Sõnu</string>
     <string name="github_repository">GitHub-hoidla</string>
     <string name="team_title_three">Substratumi panustajad</string>
     <string name="team_title_four">Layersi panustajad</string>
@@ -431,9 +431,9 @@
     <string name="slide_3_title">parim rakendusepõhine kujundamine</string>
     <string name="slide_3_text">pole kindel, kas tahad oma Google+\'i kujundada? pole viga, lihtsalt vali, mida soovid kujundada ülekatete nimekirjast!</string>
     <string name="slide_4_title">kompileeri? luba? keela? kus?</string>
-    <string name="slide_4_text">hõljuvale teguminupule vajutades peale ülekatte valimist, võid sa kompileerida (tee seda esimesena!), lubada ja keelata mistahes ülekate otse sinu telefonis, et alustada oma teema kasutamist.</string>
+    <string name="slide_4_text">vajutades peale ülekatte valimist hõljuvale teguminupule, saad sa kompileerida (tee seda esimesena!), lubada ja keelata mistahes ülekatte otse oma telefonis, et alustada oma teema kasutamist.</string>
     <string name="slide_5_title">kuni kompileerid oma ülekatteid&#8230;</string>
-    <string name="slide_5_text">sa võid lülitada omaenda rakendustele ning võimaldada ülekatete kompileerimine taustal, kuna see protsess võib aega võtta. lihtsalt jälgi oma teadetepaneeli, et teada hetkeseisu!</string>
+    <string name="slide_5_text">sa võid lülitada vabalt valitud rakendustele ning jätkata ülekatete kompileerimist taustal, kuna see protsess võib aega võtta. lihtsalt jälgi oma teadetepaneeli, et teada hetkeseisu!</string>
     <string name="slide_6_title">me loodame, et naudid meie loomingut!</string>
     <string name="slide_6_text">täname, et lugesid sissejuhatust ning loodame, et naudid substratumi kasutamist samapalju, kui meie selle tegemist!</string>
     <string name="scheduled_night_profile">Ajastatud kontekstuaalsed profiilid</string>
@@ -452,7 +452,7 @@
     <string name="profile_notification_title_day">Päev</string>
     <string name="profile_notification_title_night">Öö</string>
     <string name="profile_notification_title" formatted="false">%s profiil</string>
-    <string name="profile_pending_notification">Profiil valitakse, kui ekraan on välja lülitatud.</string>
+    <string name="profile_pending_notification">Profiil vahetatakse, kui ekraan on välja lülitatud.</string>
     <string name="profile_success_notification">Profiil edukalt rakendatud!</string>
     <string name="profile_failed_notification">Profiili rakendamine ebaõnnestus&#8230;</string>
     <string name="profile_failed_info_notification">Koputa rohkema teabe saamiseks</string>
@@ -477,7 +477,7 @@
     <string name="profile_sound">Helid</string>
     <string name="profile_wallpaper">Taustapildid</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="settings_system_status">Süsteemi sertifitseering</string>
+    <string name="settings_system_status">Süsteemi sertifikaat</string>
     <string name="settings_system_status_andromeda">Andromeda režiim</string>
     <string name="settings_system_status_rooted">Juurkasutaja režiim</string>
     <string name="settings_system_status_rootless">Interfaceri režiim</string>
@@ -495,18 +495,18 @@
     <string name="settings_theme_auto_updater_dialog_text">Palun ÄRA hoia paketipaigaldajat (PackageInstaller) esiplaanil kuni teade on üleval, raamistiku ülekatted tavaliselt taaskäivitavad selle, põhjustades lõputut taaskompileerimist!</string>
     <string name="settings_auto_alert_title">Uue installitava ülekatte leidmise teade</string>
     <string name="settings_auto_alert_text">Kuva teade, kui hiljuti installitud rakendusel on mõnes teemas ülekate saadaval.</string>
-    <string name="settings_force_english_title">Sunni inglise keel</string>
+    <string name="settings_force_english_title">Sunni inglise keelt</string>
     <string name="settings_force_english_text">Sunnib rakenduse kuvamist inglise keeles.</string>
     <string name="settings_manage_space_title">Halda salvestusruumi kasutust</string>
     <string name="settings_samsung_show_dangerous_overlays">Luba ohtlikud ülekatted</string>
-    <string name="settings_samsung_show_dangerous_overlays_text">Kuva kõik ülekatted, mis võivad tavaoludes Samsungi seadetele ohtlikud olla, kui teema neid ei toeta.</string>
+    <string name="settings_samsung_show_dangerous_overlays_text">Kuva kõik ülekatted, mis võivad tavaoludes Samsungi seadmetele ohtlikud olla, kui teema neid ei toeta.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">HOIATUS</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Me peitsime ohtlikud ülekatted põhjusega, kuid kui sa oled kindel, et soovid neid lubada, palun järgi selle funktsiooni keelamiseks juhiseid meie XDA foorumiteemas!</string>
-    <string name="settings_crash_receiver_title">Teema turvalisuse krahhiedastaja</string>
+    <string name="settings_crash_receiver_title">Teema turvalisuse krahhide jälgija</string>
     <string name="settings_crash_receiver_text">Keela ülekate automaatselt, kui tuvastatakse pidevaid krahhe ülekatetavas rakenduses.</string>
-    <string name="root_required_title">Juurkasutaja vajalik</string>
-    <string name="root_required_boot_animation">Sinu seade on krüptitud, seega käivitusanimatsioonide rakendamiseks on vajalik juurkasutaja.</string>
-    <string name="root_required_boot_animation_profile">Sinu seade on krüptitud, seega käivitusanimatsioonide varundamiseks ja taastamiseks on vajalik juurkasutaja.</string>
+    <string name="root_required_title">Juurkasutaja nõutud</string>
+    <string name="root_required_boot_animation">Sinu seade on krüptitud, seega käivitusanimatsioonide rakendamiseks on nõutud juurkasutaja tugi.</string>
+    <string name="root_required_boot_animation_profile">Sinu seade on krüptitud, seega käivitusanimatsioonide varundamiseks ja taastamiseks on nõutud juurkasutaja tugi.</string>
     <string name="per_app_notification_summary">FloatUI filtreerib su rakendusi dünaamiliselt!</string>
     <string name="per_app_notification_framework_show">Kuva Androidi süsteemi ülekatted</string>
     <string name="per_app_notification_framework_hide">Peida Androidi süsteemi ülekatted</string>
@@ -538,7 +538,7 @@
     <string name="rom_status_network">internetikontroll vajalik&#8230;</string>
     <!-- Notification channel -->
     <string name="notification_channel_default">Vaikimisi</string>
-    <string name="notification_channel_default_description">Põhiteated (Uued ja uuendatud teemad, teema kompileerimine õnnestus jne)</string>
+    <string name="notification_channel_default_description">Põhiteated (uued ja uuendatud teemad, teema kompileerimine õnnestus jne)</string>
     <string name="notification_channel_ongoing">Käimas</string>
     <string name="notification_channel_ongoing_description">Käimasolevad teated</string>
     <string name="notification_channel_andromeda">Teema süsteemiolek</string>
@@ -560,8 +560,8 @@
     <string name="manage_space_reset_text_desc">Kas sul on rakendusega probleeme? Või tegid hiljuti suure versioonihüppe vanalt substratumi versioonilt? Lihtne seadistuste tühjendus aitaks kindlasti viga paremini üles leida!</string>
     <string name="manage_space_reset_dialog_title">Lähtestad seadistuse?</string>
     <string name="manage_space_reset_dialog_content">Rakendus sulgub peale lähtestuse lõpetamist!</string>
-    <string name="legacy_overlay_uninstall_warning_text">Kui sa eemaldad kõik ülekatted, palun kasuta Substratumi taastus-ZIPe, et vältida võimalikke bootloop\'e.</string>
+    <string name="legacy_overlay_uninstall_warning_text">Kui sa eemaldad kõik ülekatted, palun kasuta Substratumi taastus-ZIPe, vältimaks võimalikke bootloop\'e.</string>
     <string name="locale_restart_message">Keele vahetamiseks taaskäivita rakendus</string>
     <string name="restart">Taaskäivita</string>
-    <string name="module_placed_reboot_message">Substratum installis Magiski mooduli edukalt. Palun taaskäivita, et jõustada ülekatteid.</string>
+    <string name="module_placed_reboot_message">Substratum installis Magiski mooduli edukalt. Palun taaskäivita, et ülekatted jõustada.</string>
 </resources>

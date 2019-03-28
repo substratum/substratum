@@ -75,7 +75,7 @@
     <string name="legacy_preference_priority_title">Perdangos prioriteto koregavimas</string>
     <string name="legacy_preference_priority_text" formatted="false">Prioritetas nustatytas: %d (numatytasis %d)</string>
     <string name="grid_size_title">Temos ekrano stulpelio koregavimas</string>
-    <string name="grid_size_text">Stulpelių skaičius nustatytas: %1$d (numatytasis %2$d)</string>
+    <string name="grid_size_text">Stulpelių skaičius nustatytas iki: %1$d (numatytasis %2$d)</string>
     <string name="lite_mode_title">Supaprastintas režimas</string>
     <string name="lite_mode_text">Leidžia tam tikroms vartotojo sąsajos elementams įkelti rezervuotu energijos režimu.</string>
     <string name="app_theme_title">Programos tema</string>
@@ -286,7 +286,7 @@
     <string name="root_rejected_title">negalėjo gryžti į \"root\" režimą</string>
     <string name="root_rejected_text">šiuo metu nėra jokių kitų temos variklių, kurie gali būti naudojami šiame įrenginyje&#8230;</string>
     <string name="toast_activity_finished" formatted="false">%s buvo ką tik atnaujintas ir paleidžiamas iš naujo naujiems pokyčiams!</string>
-    <string name="toast_compiled_updated">Pasirinkta(os) perdanga(os) atnaujinta(os)!</string>
+    <string name="toast_compiled_updated">Pasirinktos perdangos atnaujintos!</string>
     <string name="toast_compiled_missing">Vienos ar daugiau perdangų negalima sukompiliuoti dėl trūkstamų konfigūracijų&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Pasirinkta(os) perdanga(os) atnaujinta(os) su klaidomis!</string>
     <string name="toast_disabled3">Prašome sukompiliuoti šią perdangą prieš pritaikant!</string>
@@ -358,7 +358,7 @@
     <string name="auto_disable_target_overlays_on">Kitos paskirties perdangos bus išjungtos, kai įdiegiama / įjungiama nauja perdanga</string>
     <string name="auto_disable_target_overlays_off">Kitos paskirties perdangos išliks, kai įdiegiama / įjungiama nauja perdanga</string>
     <string name="fab_menu_compile_enable">Sukurti ir Įjungti</string>
-    <string name="fab_menu_compile_update">Sukurti ir Atnaujinti</string>
+    <string name="fab_menu_compile_update">Sukurti &amp; Instaliuoti</string>
     <string name="fab_menu_compile_install">Įdiegti pasirinktus</string>
     <string name="fab_menu_uninstall">Išdiegti pasirinktus</string>
     <string name="fab_menu_disable">Išjungti pasirinktus</string>
@@ -520,4 +520,5 @@
     <string name="legacy_overlay_uninstall_warning_text">Jei jūs išdiegiate visas perdangas, prašome naudoti \"Substratum\" Išsigelėjimo ZIP, kad išvengtumėte galimo įkrovos kilpos.</string>
     <string name="locale_restart_message">Iš naujo paleiskite programą norėdami pakeisti kalbą</string>
     <string name="restart">Paleisti iš naujo</string>
+    <string name="module_placed_reboot_message">Substratum sėkmingai instaliavo savo „Magisk“ modulį. Prašome perkrauti telefoną, kad įsigaliotų pakeitimai.</string>
 </resources>

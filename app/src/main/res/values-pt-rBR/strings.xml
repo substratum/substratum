@@ -19,7 +19,7 @@
     <string name="rooted_oms_dialog_warning_title">Camadas Dinâmicas e Root</string>
     <string name="rooted_oms_dialog_warning_text">Se você estava conosco quando masquerade era nosso sistema de backend, você debe saber que o root é necessario para fazer muitas coisas com o OMS. Esse foi um momento em que o sistema era extremamente lento!\n\nNós também tivemos um modo no qual o substratum poderia ser executado sem masquerade e não descarregaria quaisquer mudanças de recursos de nosso próprio aplicativo, mas o substratum começaria a ter lags ao ativar/desativar, uma vez que as mudanças de configuração são extremamente pesadas!\n\nSe você puder, seria altamente recomendável que você execute uma variante sem root, como Andromeda ou uma custom ROM com nossos novos commits, para experimentar temas rápidamente.\n\nSe continuar usando a variante con root, haverá atrasos e problemas de desempenho com o aplicativo devido ao substratum não poder descarregar quaisquer alterações de configuração no sistema!</string>
     <string name="andromeda_notification_title">Substratum e Andromeda estão conectados!</string>
-    <string name="andromeda_notification_text">O serviços de temas em segundo plano estão ligados, ativos e em execução.</string>
+    <string name="andromeda_notification_text">O serviço de temas em segundo plano está ligado, ativo e em execução.</string>
     <string name="resource_commit_dialog_title">Faltam recursos em %s</string>
     <string name="showcase_no_connection">O expositor de temas requer uma ligação à internet para funcionarem!</string>
     <string name="refused_to_install_notification_button">Remover Tema</string>
@@ -378,7 +378,7 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="auto_disable_target_overlays_on">Outras camadas alvo serão desativadas quando instalar ou ativar uma nova camada</string>
     <string name="auto_disable_target_overlays_off">Outras camadas alvo irão permanecer inalteradas quando instalar ou ativar uma nova camada</string>
     <string name="fab_menu_compile_enable">Compilar e Ativar</string>
-    <string name="fab_menu_compile_update">Compilar e Atualizar</string>
+    <string name="fab_menu_compile_update">Compilar e Instalar</string>
     <string name="fab_menu_compile_install">Instalar selecionado</string>
     <string name="fab_menu_uninstall">Desinstalar selecionado</string>
     <string name="fab_menu_disable">Desabilitar selecionado</string>

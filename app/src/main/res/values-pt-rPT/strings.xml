@@ -378,7 +378,7 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="auto_disable_target_overlays_on">Outras sobreposições alvo serão desativadas quando instalar/ativar uma nova sobreposição</string>
     <string name="auto_disable_target_overlays_off">Outras sobreposições alvo irão permanecer inalteradas quando instalar/ativar uma nova sobreposição</string>
     <string name="fab_menu_compile_enable">Compilar e Ativar</string>
-    <string name="fab_menu_compile_update">Compilar e Atualizar</string>
+    <string name="fab_menu_compile_update">Compilar e Instalar</string>
     <string name="fab_menu_compile_install">Instalar selecionados</string>
     <string name="fab_menu_uninstall">Desinstalar selecionados</string>
     <string name="fab_menu_disable">Desativar seleção</string>

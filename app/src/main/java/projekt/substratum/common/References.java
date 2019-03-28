@@ -247,6 +247,7 @@ public class References {
     }
 
     private static String getMagiskDirectoryFromVersion() {
+        if (!Root.checkRootAccess()) return "";
         final int magiskVer = Integer.parseInt(Root.runCommand("su -V"));
         if (magiskVer > 18000 && magiskVer <= 18100) {
             return "/sbin/.magisk/img";

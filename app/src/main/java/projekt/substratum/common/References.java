@@ -82,6 +82,7 @@ import projekt.substratum.Substratum;
 import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.helpers.TranslatorParser;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
@@ -228,7 +229,7 @@ public class References {
     // Special permission for Samsung devices
     public static final String SAMSUNG_OVERLAY_PERMISSION =
             "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
-    public static final String MAGISK_MODULE_DIR = "/sbin/.magisk/img/substratum/";
+    public static final String MAGISK_MODULE_DIR = getMagiskDirectoryFromVersion() + "/substratum/";
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";
     static final String heroImageGridResourceName = "heroimage_grid";
@@ -243,6 +244,17 @@ public class References {
 
     public static String getPieDir() {
         return MAGISK_MODULE_DIR + "system/app/";
+    }
+
+    private static String getMagiskDirectoryFromVersion() {
+        final int magiskVer = Integer.parseInt(Root.runCommand("su -V"));
+        if (magiskVer > 18000 && magiskVer <= 18100) {
+            return "/sbin/.magisk/img";
+        } else if (magiskVer >= 19000) {
+            return "/data/adb/modules";
+        } else {
+            throw new IllegalArgumentException("Magisk version cannot be lesser than 18.0!");
+        }
     }
 
     /**

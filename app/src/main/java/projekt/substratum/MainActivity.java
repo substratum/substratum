@@ -1245,8 +1245,6 @@ public class MainActivity extends AppCompatActivity implements
                 if (!removeList.isEmpty())
                     uninstallOverlay(context, removeList);
             }
-            if (Systems.checkThemeSystemModule(context) != OVERLAY_MANAGER_SERVICE_SYSSERV && Systems.IS_PIE && Root.checkRootAccess())
-                new Thread(MagiskHelper::forceRemoveOverlays).start();
             return null;
         }
     }

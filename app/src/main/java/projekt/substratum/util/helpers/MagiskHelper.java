@@ -14,19 +14,15 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
-import projekt.substratum.common.commands.FileOperations;
 
 public class MagiskHelper {
 
-    private static final String MAGISK_MIRROR_MOUNT_POINT = "/sbin/.core/mirror/system";
-    private static final String MAGISK_MIRROR_MOUNT_POINT_AFTER_174 = "/sbin/.magisk/mirror/system";
     private static final String TAG = MagiskHelper.class.getSimpleName();
-    private static final String[] mountPoints = new String[]{MAGISK_MIRROR_MOUNT_POINT, MAGISK_MIRROR_MOUNT_POINT_AFTER_174};
 
     private static void installModule(final Context context) {
         if (!checkMagisk())
             return;
-        Substratum.log(TAG, "Magisk module does not exist, migrating");
+        Substratum.log(TAG, "Magisk module does not exist, creating!");
         String command = "set -ex \n" +
                 String.format("mkdir -p %s; ", References.MAGISK_MODULE_DIR) +
                 String.format(
@@ -55,11 +51,4 @@ public class MagiskHelper {
                 References.MAGISK_MODULE_DIR)).equals("1");
     }
 
-    public static void forceRemoveOverlays() {
-        for (String mountPoint : mountPoints) {
-            FileOperations.mountRW(mountPoint);
-            Root.runCommand(String.format("rm -rf %s/app/_*.apk", mountPoint));
-            FileOperations.mountRO(mountPoint);
-        }
-    }
 }

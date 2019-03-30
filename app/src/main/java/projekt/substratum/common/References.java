@@ -249,9 +249,9 @@ public class References {
     private static String getMagiskDirectoryFromVersion() {
         if (!Root.checkRootAccess()) return "";
         final int magiskVer = Integer.parseInt(Root.runCommand("su -V"));
-        if (magiskVer > 18000 && magiskVer <= 18100) {
+        if (magiskVer >= 18000 && magiskVer <= 18100) {
             return "/sbin/.magisk/img";
-        } else if (magiskVer >= 19000) {
+        } else if (magiskVer >= 18101) {
             return "/data/adb/modules";
         } else {
             throw new IllegalArgumentException("Magisk version cannot be lesser than 18.0!");

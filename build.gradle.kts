@@ -1,5 +1,5 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
+import org.gradle.api.tasks.wrapper.Wrapper
 
 buildscript {
     repositories {
@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.3.2")
+        classpath("com.android.tools.build:gradle:3.4.0")
     }
 }
 
@@ -45,13 +45,12 @@ tasks {
             }
         }
     }
-    wrapper {
-        gradleVersion = "5.3.1"
-        distributionType = DistributionType.ALL
-    }
-}
 
-tasks {
+    withType<Wrapper> {
+        gradleVersion = "5.4"
+        distributionType = Wrapper.DistributionType.ALL
+    }
+
     register("clean", Delete::class) {
         delete(rootProject.buildDir)
     }

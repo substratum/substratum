@@ -46,8 +46,8 @@ tasks {
         }
     }
 
-    withType<Wrapper> {
-        gradleVersion = "5.4"
+    named<Wrapper>("wrapper") {
+        gradleVersion = "5.4.1"
         distributionType = Wrapper.DistributionType.ALL
     }
 

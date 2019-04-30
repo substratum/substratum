@@ -480,11 +480,9 @@ public class References {
      */
     public static String checkXposedVersion() {
         String xposedVersion = "";
-        File f = new File("/system/framework/XposedBridge.jar");
-        if (f.isFile()) {
-            try {
-                File file = new File("/system/", "xposed.prop");
-                BufferedReader br = new BufferedReader(new FileReader(file));
+        if (new File("/system/framework/XposedBridge.jar").exists()) {
+            final File xposedProp = new File("/system/", "xposed.prop");
+            try (BufferedReader br = new BufferedReader(new FileReader(xposedProp))) {
                 xposedVersion = br.readLine().substring(8, 10);
             } catch (FileNotFoundException e) {
                 Log.e("XposedChecker", "'xposed.prop' could not be found!");

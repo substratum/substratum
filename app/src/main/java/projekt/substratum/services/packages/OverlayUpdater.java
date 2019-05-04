@@ -403,7 +403,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
                     String additionalVariant = (((type2 != null) && !type2.isEmpty()) ?
                             type2Dir.split("/")[2].substring(6) : null);
-                    String baseVariant = (((type3Dir != null) && !type3Dir.isEmpty()) ?
+                    String baseVariant = (((type3 != null) && !type3.isEmpty()) ?
                             type3Dir.split("/")[2].substring(6) : null);
 
                     // Prenotions

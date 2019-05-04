@@ -59,13 +59,18 @@ public class SubstratumBuilder {
     public String noInstall = "";
     private boolean debug = false;
     private String errorLogs = "";
+    private Context context;
+    private boolean isDeviceOMS;
+
+    public SubstratumBuilder(final Context context) {
+        this.context = context;
+        this.isDeviceOMS = Systems.checkOMS(context);
+    }
 
     /**
      * Substratum Builder Build Function
      * <p>
      * Prior to running this function, you must have copied all the files to the working directory!
-     *
-     * @param context           self explanatory
      * @param overlayPackage    the target package to be overlaid (e.g. com.android.settings).
      * @param themeName         the theme's name to be stripped of symbols for the new package.
      * @param variant           a String flag to tell the compiler to build variant mode. This
@@ -76,7 +81,6 @@ public class SubstratumBuilder {
      * @param baseVariant       this is linked to variable baseSpinner in Overlays.java, for
      *                          type3 base /res replacements.
      * @param versionName       the version to use for compiling the overlay's version.
-     * @param isDeviceOMS       runs the check if the system is running in RRO or OMS
      * @param themeParent       the parent theme of the created overlay.
      * @param noCacheDir        where the compilation files will be placed.
      * @param type1a            String location of the type1a file
@@ -89,14 +93,12 @@ public class SubstratumBuilder {
      * @param overlayUpdater    boolean flag to tell whether specialSnowflake should be skipped
      */
     @SuppressWarnings("UnusedReturnValue")
-    public boolean beginAction(Context context,
-                               String overlayPackage,
+    public boolean beginAction(String overlayPackage,
                                String themeName,
                                String variant,
                                String additionalVariant,
                                String baseVariant,
                                String versionName,
-                               boolean isDeviceOMS,
                                String themeParent,
                                String noCacheDir,
                                String type1a,

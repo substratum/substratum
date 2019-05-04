@@ -497,9 +497,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                                     (type4 != null && !type4.isEmpty() ?
                                             type4.replaceAll("\\s+", "") : "");
 
-                    SubstratumBuilder sb = new SubstratumBuilder();
+                    SubstratumBuilder sb = new SubstratumBuilder(context);
                     sb.beginAction(
-                            context,
                             (upgradeMode.equals(APP_UPGRADE) ?
                                     this.packageName :
                                     Packages.getOverlayTarget(
@@ -512,7 +511,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                             Packages.getAppVersion(context,
                                     Packages.getOverlayParent(context, this
                                             .installedOverlays.get(i))),
-                            Systems.checkOMS(context),
                             theme,
                             suffix,
                             type1a,

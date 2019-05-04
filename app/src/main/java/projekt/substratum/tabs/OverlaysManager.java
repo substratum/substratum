@@ -8,7 +8,7 @@
 package projekt.substratum.tabs;
 
 import android.app.Activity;
-import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -348,7 +348,7 @@ final class OverlaysManager {
                     assert context != null;
                     overlays.builder = new NotificationCompat.Builder(context,
                             References.DEFAULT_NOTIFICATION_CHANNEL_ID);
-                    int notificationPriority = Notification.PRIORITY_MAX;
+                    int notificationPriority = NotificationManager.IMPORTANCE_HIGH;
                     overlays.builder.setContentTitle(
                             context.getString(R.string.notification_initial_title))
                             .setProgress(100, 0, true)
@@ -892,16 +892,14 @@ final class OverlaysManager {
                                     Substratum.log(SUBSTRATUM_BUILDER, "Currently processing package" +
                                             " \"" + checked.getFullOverlayParameters() + "\"...");
 
-                                    overlays.compileInstance = new SubstratumBuilder();
+                                    overlays.compileInstance = new SubstratumBuilder(context);
                                     overlays.compileInstance.beginAction(
-                                            context,
                                             currentOverlay,
                                             overlays.themeName,
                                             variantSection,
                                             checked.getSelectedVariantName4(),
                                             !sUrl[0].isEmpty() ? sUrl[0] : null,
                                             overlays.themeVersion,
-                                            Systems.checkOMS(context),
                                             overlays.themePid,
                                             parsedSuffix,
                                             type1a,
@@ -916,16 +914,14 @@ final class OverlaysManager {
                                 } else {
                                     Substratum.log(SUBSTRATUM_BUILDER, "Currently processing package" +
                                             " \"" + checked.getFullOverlayParameters() + "\"...");
-                                    overlays.compileInstance = new SubstratumBuilder();
+                                    overlays.compileInstance = new SubstratumBuilder(context);
                                     overlays.compileInstance.beginAction(
-                                            context,
                                             currentOverlay,
                                             overlays.themeName,
                                             variantSection,
                                             null,
                                             !sUrl[0].isEmpty() ? sUrl[0] : null,
                                             overlays.themeVersion,
-                                            Systems.checkOMS(context),
                                             overlays.themePid,
                                             parsedSuffix,
                                             type1a,
@@ -984,16 +980,14 @@ final class OverlaysManager {
                                 Substratum.log(SUBSTRATUM_BUILDER, "Currently processing package" +
                                         " \"" + currentOverlay + '.' + themeNameParsed +
                                         "\"...");
-                                overlays.compileInstance = new SubstratumBuilder();
+                                overlays.compileInstance = new SubstratumBuilder(context);
                                 overlays.compileInstance.beginAction(
-                                        context,
                                         currentOverlay,
                                         overlays.themeName,
                                         null,
                                         null,
                                         null,
                                         overlays.themeVersion,
-                                        Systems.checkOMS(context),
                                         overlays.themePid,
                                         parsedSuffix,
                                         type1a,

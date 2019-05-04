@@ -1312,9 +1312,8 @@ public class ProfileFragment extends Fragment {
                                     cipher);
                         }
 
-                        SubstratumBuilder sb = new SubstratumBuilder();
+                        SubstratumBuilder sb = new SubstratumBuilder(profileFragment.context);
                         sb.beginAction(
-                                profileFragment.context,
                                 target,
                                 Packages.getPackageName(profileFragment.context, theme),
                                 compilePackage,
@@ -1322,7 +1321,6 @@ public class ProfileFragment extends Fragment {
                                 baseVariant,
                                 Packages.getAppVersion(profileFragment.context,
                                         currentItem.getParentTheme()),
-                                Systems.checkOMS(profileFragment.context),
                                 theme,
                                 suffix,
                                 type1a,

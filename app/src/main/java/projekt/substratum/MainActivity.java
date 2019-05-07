@@ -672,6 +672,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param data        Result from the received startActivityWithResult
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS:
                 if (!checkUsagePermissions(context)) {

@@ -30,8 +30,8 @@ android {
         applicationId = "projekt.substratum"
         minSdkVersion(26)
         targetSdkVersion(28)
-        versionCode = 1020
-        versionName = "one thousand twenty"
+        versionCode = 1021
+        versionName = "one thousand twenty one"
         buildConfigField("java.util.Date", "buildTime", "new java.util.Date(${System.currentTimeMillis()}L)")
         buildConfigField("String", "GIT_HASH", "\"${gitHash()}\"")
         setProperty("archivesBaseName", "substratum_${gitHash()}")

@@ -64,10 +64,13 @@ android {
         isAbortOnError = true
         disable("MissingTranslation")
     }
+    packagingOptions {
+        exclude("META-INF/*.kotlin_module")
+    }
 }
 
 dependencies {
-    val aboutVersion = "7.0.0-rc1"
+    val aboutVersion = "7.0.0"
     val androidXVersion = "1.0.0"
     val apkSigVersion = "3.4.0"
     val caocVersion = "2.2.0"
@@ -76,7 +79,7 @@ dependencies {
     val expandableLayoutVersion = "2.9.2"
     val fabSheetVersion = "1.2.1"
     val floatingHeadVersion = "2.4.4"
-    val gestureRecyclerVersion = "1.7.0"
+    val gestureRecyclerVersion = "1.8.0"
     val glideVersion = "4.9.0"
     val imageCropperVersion = "2.8.0"
     val svgViewVersion = "1.0.6"
@@ -85,17 +88,17 @@ dependencies {
 
     annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("androidx.appcompat:appcompat:1.1.0-alpha05")
+    implementation("androidx.appcompat:appcompat:1.1.0-beta01")
     implementation("androidx.cardview:cardview:$androidXVersion")
     implementation("androidx.databinding:databinding-runtime:$databindingVersion")
     implementation("androidx.palette:palette:$androidXVersion")
-    implementation("androidx.recyclerview:recyclerview:1.1.0-alpha05")
+    implementation("androidx.recyclerview:recyclerview:1.1.0-alpha06")
     implementation("cat.ereza:customactivityoncrash:$caocVersion")
     implementation("commons-io:commons-io:$commonsIoVersion")
     implementation("com.android.tools.build:apksig:$apkSigVersion")
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.github.recruit-lifestyle:FloatingView:$floatingHeadVersion")
-    implementation("com.google.android.material:material:1.1.0-alpha06")
+    implementation("com.google.android.material:material:1.1.0-alpha07")
     implementation("com.gordonwong:material-sheet-fab:$fabSheetVersion")
     implementation("com.jaredrummler:animated-svg-view:$svgViewVersion")
     implementation("com.mikepenz:aboutlibraries:$aboutVersion@aar") {

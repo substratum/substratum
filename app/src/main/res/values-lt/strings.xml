@@ -37,7 +37,7 @@
     <string name="systemui_statusbar">Sistemos NS Būsenos Juostos Piktogramos</string>
     <string name="warning_title">DĖMESIO!</string>
     <string name="legacy_warning_content">\"Legacy\" yra numatyta ir mes negarantuojame, kad tai jums veiks. Prašome įsitikinti, kad jūs turite pasirinktinį atkūrimo režimą savo įrenginyje ir suprantate, kaip atstatyti įkrovos kilpą prieš tęsiant toliau.\n\nMes negalime sutvarkyti dalykus, kurie negauna apipavidalinimo ant \"legacy\", nes jie reikalauja pakeitimų iš sistemos pusės.      </string>
-    <string name="samsung_warning_content">\"Samsung\" palikymas teikiamas, bet mes negalime garantuoti visiško suderinamumo su spalvomis ir \"AOSP-built\" perdangomis. Mes pasirūpinome ir paslėpėme  pavojingas perdangas jūsų įrenginiui, tačiau rankiniu būdu galite tai išjungti nustatymuose savo nuožiūra.\n\nJei bet kokiu atveju susidursite su galima juodojo ekrano problema, prašome pasikonsultuoti mūsų \"XDA\" temoje dėl dviejų atkūrimo būdų.    
+    <string name="samsung_warning_content">\"Samsung\" palikymas teikiamas, bet mes negalime garantuoti visiško suderinamumo su spalvomis ir \"AOSP-built\" perdangomis. Mes pasirūpinome ir paslėpėme  pavojingas perdangas jūsų įrenginiui, tačiau rankiniu būdu galite tai išjungti nustatymuose savo nuožiūra.\n\nJei bet kokiu atveju susidursite su galima juodojo ekrano problema, prašome pasikonsultuoti mūsų \"XDA\" temoje dėl dviejų atkūrimo būdų.
 
       </string>
     <string name="xiaomi_warning_content">Xiaomi pridėjo papildomų priemonių, kad \"substratum\" veiktu taip,
@@ -185,7 +185,7 @@
       vidinę saugyklą, kad galėtu laikyti gelbėjimosi archyvus, kurie išsaugoti
       /storage/emulated/0/substratum/.\n\n<b>"Firebase":</b>
       \"Substratum\" naudoja \"Google Firebase\", kad atsisiųstų svarbios informacijos iš mūsų
-      centralizuotos realaus laiko duomenų bazės, kad pagerinti pagrindines paslaugas ir saugumo patobulinimus.    
+      centralizuotos realaus laiko duomenų bazės, kad pagerinti pagrindines paslaugas ir saugumo patobulinimus.
       </string>
     <string name="priority_back_title">Sugrįžti į perdangas</string>
     <string name="menu_clean">Išvalyti įdiegtas perdangas</string>
@@ -237,7 +237,7 @@
       perdangų prioritetus, lyginant juos su sluoksniais. Tai reiškia, kad aukščiausias
       perdangos prioritetas bus užkrautas paskutinis ir pakeis resursus visoms perdangoms su
       žemesniu prioritetu ir t. t.
-    
+
       </string>
     <string name="priority_no_multiple_overlays_title">jokių programėlių su keliomis perdangomis</string>
     <string name="priority_no_multiple_overlays_text">įjunkite dvi ar daugiau perdangų vienai programėlei, kad galėtumėte mane naudoti!      </string>

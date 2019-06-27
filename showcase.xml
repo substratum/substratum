@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2016-2019 Projekt Substratum
+  ~ This file is part of Substratum.
+  ~
+  ~ SPDX-License-Identifier: GPL-3.0-Or-Later
+  -->
+
 <substratum>
     <tab id="Featured Themes">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_featured_themes.xml</link>

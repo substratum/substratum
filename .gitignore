@@ -4,7 +4,7 @@
 /.idea
 /projectFilesBackup
 .DS_Store
-/build
+build
 /captures
 *.apk
 keystore.properties

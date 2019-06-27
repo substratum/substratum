@@ -36,8 +36,4 @@ tasks {
         gradleVersion = "5.4.1"
         distributionType = Wrapper.DistributionType.ALL
     }
-
-    register("clean", Delete::class) {
-        delete(rootProject.buildDir)
-    }
 }

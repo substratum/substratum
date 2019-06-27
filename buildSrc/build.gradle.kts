@@ -16,3 +16,7 @@ repositories {
 kotlinDslPluginOptions {
     experimentalWarning.set(false)
 }
+
+dependencies {
+    implementation("com.diffplug.spotless:spotless-plugin-gradle:3.23.1")
+}

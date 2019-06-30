@@ -229,7 +229,6 @@ public class References {
     // Special permission for Samsung devices
     public static final String SAMSUNG_OVERLAY_PERMISSION =
             "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
-    public static final String MAGISK_MODULE_DIR = getMagiskDirectoryFromVersion() + "/substratum/";
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";
     static final String heroImageGridResourceName = "heroimage_grid";
@@ -243,19 +242,26 @@ public class References {
     private static int hashValue;
 
     public static String getPieDir() {
-        return MAGISK_MODULE_DIR + "system/app/";
+        return getSystemDir() + "/app/";
     }
 
-    private static String getMagiskDirectoryFromVersion() {
-        if (!Root.checkRootAccess()) return "";
+    public static String getSystemDir() {
+        return getMagiskDirectory() + "/system";
+    }
+
+    public static String getMagiskDirectory() {
         final int magiskVer = Integer.parseInt(Root.runCommand("su -V"));
+        final String magiskDir;
         if (magiskVer >= 18000 && magiskVer <= 18100) {
-            return "/sbin/.magisk/img";
+            magiskDir = "/sbin/.magisk/img/substratum";
         } else if (magiskVer >= 18101) {
-            return "/data/adb/modules";
+            magiskDir = "/data/adb/modules/substratum";
         } else {
-            throw new IllegalArgumentException("Magisk version cannot be lesser than 18.0!");
+            Log.d("MagiskCheck", "Magisk version cannot be lesser than 18.0, switching to system-installation");
+            magiskDir = "/";
         }
+        Log.d("MagiskCheck", String.format("Detected directory %s for version %d", magiskDir, magiskVer));
+        return magiskDir;
     }
 
     /**

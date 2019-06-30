@@ -18,21 +18,25 @@ import projekt.substratum.common.References;
 public class MagiskHelper {
 
     private static final String TAG = MagiskHelper.class.getSimpleName();
+    private static final String MAGISK_DIR = References.getMagiskDirectory();
 
     private static void installModule(final Context context) {
-        if (!checkMagisk())
+        // Return if not using Magisk, when directory is "/" it means the version
+        // is unsupported and we're falling back to modifying system.
+        if (!checkMagisk() || MAGISK_DIR.equals("/"))
             return;
+
         Substratum.log(TAG, "Magisk module does not exist, creating!");
         String command = "set -ex \n" +
-                String.format("mkdir -p %s; ", References.MAGISK_MODULE_DIR) +
+                String.format("mkdir -p %s; ", MAGISK_DIR) +
                 String.format(
                         "printf 'name=substratum\nversion=%s\nversionCode=%s\nauthor=substratum development team\ndescription=Systemless overlays for Substratum\nminMagisk=1500\n' > %s/module.prop; ",
                         BuildConfig.VERSION_NAME,
                         BuildConfig.VERSION_CODE,
-                        References.MAGISK_MODULE_DIR
+                        MAGISK_DIR
                 ) +
-                String.format("touch %s/auto_mount; ", References.MAGISK_MODULE_DIR) +
-                String.format("mkdir -p %s/system/app; ", References.MAGISK_MODULE_DIR);
+                String.format("touch %s/auto_mount; ", MAGISK_DIR) +
+                String.format("mkdir -p %s/system/app; ", MAGISK_DIR);
         Root.runCommand(command);
         Toast.makeText(context, R.string.module_placed_reboot_message, Toast.LENGTH_LONG).show();
     }
@@ -47,8 +51,7 @@ public class MagiskHelper {
     }
 
     private static boolean moduleExists() {
-        return Root.runCommand(String.format("test -d %s && echo '1'",
-                References.MAGISK_MODULE_DIR)).equals("1");
+        return Root.runCommand(String.format("test -d %s && echo '1'", MAGISK_DIR)).equals("1");
     }
 
 }

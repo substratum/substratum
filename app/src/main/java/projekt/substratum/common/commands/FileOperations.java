@@ -33,7 +33,6 @@ import javax.crypto.CipherInputStream;
 
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
-import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.util.helpers.Root;
@@ -131,11 +130,8 @@ public class FileOperations {
      * Mount system RW
      */
     public static void mountSystemRW() {
-        final String mountPoint;
-        if (Systems.IS_PIE)
-            mountPoint = References.MAGISK_MODULE_DIR;
-        else
-            mountPoint = "/system";
+        String mountPoint = References.getMagiskDirectory();
+        if (mountPoint.equals("/")) mountPoint = "/system";
         mountRW(mountPoint);
     }
 
@@ -166,11 +162,8 @@ public class FileOperations {
      * Mount system RO
      */
     public static void mountSystemRO() {
-        final String mountPoint;
-        if (Systems.IS_PIE)
-            mountPoint = References.MAGISK_MODULE_DIR;
-        else
-            mountPoint = "/system";
+        String mountPoint = References.getMagiskDirectory();
+        if (mountPoint.equals("/")) mountPoint = "/system";
         mountRO(mountPoint);
     }
 

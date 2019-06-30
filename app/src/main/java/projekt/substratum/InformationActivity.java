@@ -622,7 +622,7 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         // Set the tabs to move in a certain way
-        tabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         if (dynamicActionBarColors)
             tabLayout.setBackgroundColor(dominantColor);
 

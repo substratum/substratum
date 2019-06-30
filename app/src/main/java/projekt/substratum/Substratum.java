@@ -44,7 +44,8 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
-import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_AUTO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static projekt.substratum.common.References.APP_THEME;
@@ -209,7 +210,10 @@ public class Substratum extends Application {
         if (!getApplicationContext().getResources().getBoolean(R.bool.forceAppDarkTheme)) {
             switch (selectedTheme) {
                 case AUTO_THEME:
-                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_AUTO);
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P)
+                        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_AUTO_BATTERY);
+                    else
+                        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM);
                     break;
                 case DARK_THEME:
                     AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);

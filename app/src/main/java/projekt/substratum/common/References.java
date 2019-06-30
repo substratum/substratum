@@ -395,26 +395,16 @@ public class References {
         Bitmap appIcon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context,
                 themePid));
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            Intent addIntent = new Intent();
-            addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);
-            addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, themeName);
-            addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, appIcon);
-            addIntent.putExtra("duplicate", false);
-            addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
-            context.sendBroadcast(addIntent);
-        } else {
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            ShortcutInfo shortcut =
-                    new ShortcutInfo.Builder(context, themeName)
-                            .setShortLabel(themeName)
-                            .setLongLabel(themeName)
-                            .setIcon(Icon.createWithBitmap(appIcon))
-                            .setIntent(myIntent)
-                            .build();
-            if (shortcutManager != null) {
-                shortcutManager.requestPinShortcut(shortcut, null);
-            }
+        ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+        ShortcutInfo shortcut =
+                new ShortcutInfo.Builder(context, themeName)
+                        .setShortLabel(themeName)
+                        .setLongLabel(themeName)
+                        .setIcon(Icon.createWithBitmap(appIcon))
+                        .setIntent(myIntent)
+                        .build();
+        if (shortcutManager != null) {
+            shortcutManager.requestPinShortcut(shortcut, null);
         }
         return myIntent;
     }

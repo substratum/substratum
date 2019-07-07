@@ -240,6 +240,7 @@ public class References {
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
     private static int hashValue;
+    private static String magiskDir = null;
 
     public static String getPieDir() {
         return getSystemDir() + "/app/";
@@ -251,7 +252,8 @@ public class References {
 
     public static String getMagiskDirectory() {
         final int magiskVer = Integer.parseInt(Root.runCommand("su -V"));
-        final String magiskDir;
+        if (magiskDir != null)
+            return magiskDir;
         if (magiskVer >= 18000 && magiskVer <= 18100) {
             magiskDir = "/sbin/.magisk/img/substratum";
         } else if (magiskVer >= 18101) {

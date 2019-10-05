@@ -35,7 +35,7 @@
     <string name="systemui_qs_tiles">Значки Быстрых Настроек</string>
     <string name="systemui_statusbar">Значки статус-бара</string>
     <string name="warning_title">ВНИМАНИЕ!</string>
-    <string name="xiaomi_warning_content">Xiaomi добавили несколько дополнительных шагов для предотвращения работы substratum
+    <string name="xiaomi_warning_content">Xiaomi добавили несколько дополнительных шагов для предотвращения работы Substratum
         из коробки.\n\nВам нужно включить \"Устанавливать через USB\" и \"Отладка USB (Настройки безопасности)\" и
         также в режиме разработчика включить \"Отладка USB\".\n\nБез этих
         разрешений оверлеи не будут установлены!
@@ -99,11 +99,11 @@
     <string name="sounds_effect_tick">Звуки касания экрана</string>
     <string name="sounds_lock_sound">Звуки блокировки экрана</string>
     <string name="sounds_unlock_sound">Звуки разблокировки экрана</string>
-    <string name="settings_about_substratum">версия substratum</string>
-    <string name="settings_about_interfacer">версия согласователя</string>
+    <string name="settings_about_substratum">Версия Substratum</string>
+    <string name="settings_about_interfacer">Версия согласователя</string>
     <string name="settings_about_interfacer_not_installed">Не установлен</string>
-    <string name="settings_about_andromeda">Версия andromeda</string>
-    <string name="settings_about_samsung">Версия sungstratum</string>
+    <string name="settings_about_andromeda">Версия Andromeda</string>
+    <string name="settings_about_samsung">Версия Sungstratum</string>
     <string name="settings_about_oms_rro_version">Платформа оформления:</string>
     <string name="settings_about_oms_version_do">Динамичные Наслоения (OMS)</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -178,8 +178,8 @@
     <string name="logcat_email_xposed_check">Фреймворк Xposed</string>
     <string name="logcat_processing_dialog">Создание отчета об ошибке</string>
     <string name="priority_instructions_title">Инструкции</string>
-    <string name="manager_no_overlays_title">нет установленных оверлеев</string>
-    <string name="manager_no_overlays_text">соберите одно наслоение, чтобы начать пользоваться мной!</string>
+    <string name="manager_no_overlays_title">Нет установленных оверлеев</string>
+    <string name="manager_no_overlays_text">Соберите одно наслоение, чтобы начать пользоваться мной!</string>
     <string name="backup">Бэкап</string>
     <string name="delete_dialog_okay">Удалить</string>
     <string name="delete_dialog_title">Удалить профиль</string>
@@ -190,7 +190,7 @@
     <string name="backup_button">СОХРАНИТЬ ТЕКУЩЕЕ СОСТОЯНИЕ</string>
     <string name="backup_no_overlays">В текущей конфигурации наслоений нет.</string>
     <string name="restore_button">ВОССТАНОВИТЬ ПРОФИЛЬ</string>
-    <string name="profile_edittext_hint">введите имя для профиля&#8230;</string>
+    <string name="profile_edittext_hint">Введите имя для профиля&#8230;</string>
     <string name="profile_edittext_title">Новый профиль:</string>
     <string name="profile_edittext_whitespace_warning_toast">Нельзя использовать пробелы внутри имени профиля!</string>
     <string name="profile_restoration_message">Восстановление профиля&#8230;</string>
@@ -206,10 +206,10 @@
     <string name="clean_dialog_body">Вы действительно хотите удалить все наслоения из этой темы?</string>
     <string name="disable_dialog_body">Вы действительно хотите отключить все наслоения из этой темы?</string>
     <string name="uninstall_dialog_body">Удалить тему</string>
-    <string name="sb_phase_1_loader">распаковка темы</string>
-    <string name="sb_phase_2_loader">сборка и установка наслоений</string>
-    <string name="root_rejected_title">не возможно возвратиться в Root-режим</string>
-    <string name="root_rejected_text">другие менеджеры тем не могут быть использованы на этом устройстве&#8230;</string>
+    <string name="sb_phase_1_loader">Распаковка темы</string>
+    <string name="sb_phase_2_loader">Сборка и установка наслоений</string>
+    <string name="root_rejected_title">Не возможно возвратиться в Root-режим</string>
+    <string name="root_rejected_text">Другие менеджеры тем не могут быть использованы на этом устройстве&#8230;</string>
     <string name="toast_activity_finished" formatted="false">%s было обновлено, перезапускаем для
         применения изменений!</string>
     <string name="toast_compiled_updated">Выбранные слои обновлены!</string>
@@ -218,19 +218,19 @@
     <string name="toast_disabled3">Соберите наслоение перед применением!</string>
     <string name="toast_disabled5">Выберите допустимое наслоение до выполнения этого действия.</string>
     <string name="toast_disabled6">Выбранные слои удалены!</string>
-    <string name="no_themes_title">не найдено тем&#8230;</string>
-    <string name="no_overlays_title">оверлеи не найдены&#8230;</string>
-    <string name="no_themes_description">установите любую совместимую тему!</string>
+    <string name="no_themes_title">Темы не найдены&#8230;</string>
+    <string name="no_overlays_title">Наслоения не найдены&#8230;</string>
+    <string name="no_themes_description">Установите любую совместимую тему!</string>
     <string name="toast_could_not_uninstall">Не выбраны допустимые наслоения.</string>
     <string name="dialog_close_button">Закрыть Substratum</string>
     <string name="toast_samsung_prototype_alert">Substratum автоматически скроет неподдерживаемые на вашем устройстве системные наслоения!</string>
     <string name="andromeda_check_status">Проверить статус</string>
-    <string name="andromeda_offline_mode">Оффлайн режим</string>
+    <string name="andromeda_offline_mode">Офлайн режим</string>
     <string name="andromeda_no_root_dialog">Похоже, у Вас поддерживаемое устройство Oreo, для него выпущен пакет совместимости!</string>
     <string name="andromeda_no_root_dialog_button">Загрузить!</string>
     <string name="samsung_prototype_no_root_dialog">Похоже, у Вас поддерживаемое устройство Samsung, для него выпущен пакет совместимости!</string>
     <string name="samsung_prototype_no_root_dialog_button">Загрузить!</string>
-    <string name="samsung_prototype_no_firebase_dialog">Кажется, ваше устройство Samsung поддерживается, однако проверка Firebase не увенчалась успехом. Пожалуйста, попробуйте зайти через VPN и переустановить приложение substratum, он может быть заблокирован в вашей стране!</string>
+    <string name="samsung_prototype_no_firebase_dialog">Кажется, ваше устройство Samsung поддерживается, однако проверка Firebase не увенчалась успехом. Пожалуйста, попробуйте зайти через VPN и переустановить приложение Substratum, он может быть заблокирован в вашей стране!</string>
     <string name="samsung_prototype_reinstall_dialog">Кажется, ваше устройство Samsung поддерживается, пакет совместимости установлен. Однако, проверка не увенчалась успехом. Пожалуйста, попробуйте переустановить пакет через Play Маркет!</string>
     <string name="samsung_framework">Фреймворк Samsung</string>
     <string name="lg_framework">Фреймворк LG</string>
@@ -239,7 +239,7 @@
     <string name="notification_theme_installed_content">Тема успешно установлена.</string>
     <string name="notification_theme_updated_content">Ресурсы обновлены.</string>
     <string name="notification_initial_title">Substratum запущен</string>
-    <string name="notification_initial_title_upgrade_intent" formatted="false">Обновляем оверлеи
+    <string name="notification_initial_title_upgrade_intent" formatted="false">Обновляем наслоения
         у %s&#8230;</string>
     <string name="notification_done_title">Сборка темы завершена</string>
     <string name="notification_done_upgrade_title" formatted="false">Обновление наслоений для %s завершено!</string>
@@ -292,25 +292,25 @@
     <string name="translator_words">Слова</string>
     <string name="github_repository">Репозиторий GitHub</string>
     <string name="team_title_three">Содействовавшие развитию Substratum</string>
-    <string name="team_title_four">Причастные к Layers</string>
+    <string name="team_title_four">Причастные к слоям</string>
     <string name="team_nicholas_description">Организатор разработки</string>
     <string name="team_syko_description">Исследователь системы</string>
     <string name="team_ivan_description">Платформа и возможности</string>
     <string name="team_surge_description">Бинарники и Алгоритмы</string>
     <string name="team_char_description">Поддержка и организация сообщества</string>
     <string name="team_harsh_description">Платформа и возможности</string>
-    <string name="slide_1_title">приветствуем в substratum</string>
-    <string name="slide_1_text">минималистичном, но мощном движке тем, основанном на OMS от Sony</string>
-    <string name="slide_2_title">совершенно новый интерфейс</string>
-    <string name="slide_2_text">любите темы? представляем великолепный карточный интерфейс с предпросмотром всех установленных тем в виде каталога!</string>
-    <string name="slide_3_title">оформите приложения в лучшем виде</string>
-    <string name="slide_3_text">не уверены, что Google+ должен быть оформлен? ничего страшного, выберите то, что считаете нужным, в списке наслоений!</string>
-    <string name="slide_4_title">собрать? включить? отключить? где?</string>
-    <string name="slide_4_text">нажатием всплывающей кнопки после выбора наслоений можно собирать (делайте это заранее!), включать и отключать каждый слой прямо на устройстве, а затем пользоваться темой</string>
-    <string name="slide_5_title">пока слои собираются&#8230;</string>
-    <string name="slide_5_text">занимайтесь своими делами, пока длительный процесс сборки идет в фоне. Прогресс отслеживаем из панели уведомлений!</string>
-    <string name="slide_6_title">надеемся, что наше творение вам по душе!</string>
-    <string name="slide_6_text">спасибо за чтение обучения, надеемся, что использование substratum принесет Вам то же удовольствие, что испытали мы в процессе разработки!</string>
+    <string name="slide_1_title">Приветствуем в Substratum</string>
+    <string name="slide_1_text">Минималистичном, но мощном движке тем, основанном на OMS от Sony</string>
+    <string name="slide_2_title">Совершенно новый интерфейс</string>
+    <string name="slide_2_text">Любите темы? представляем великолепный карточный интерфейс с предпросмотром всех установленных тем в виде каталога!</string>
+    <string name="slide_3_title">Оформите приложения в лучшем виде</string>
+    <string name="slide_3_text">Не уверены, что Google+ должен быть оформлен? Ничего страшного, выберите то, что считаете нужным, в списке наслоений!</string>
+    <string name="slide_4_title">Собрать? включить? отключить? где?</string>
+    <string name="slide_4_text">Нажатием всплывающей кнопки после выбора наслоений можно собирать (делайте это заранее!), включать и отключать каждый слой прямо на устройстве, а затем пользоваться темой</string>
+    <string name="slide_5_title">Пока слои собираются&#8230;</string>
+    <string name="slide_5_text">Занимайтесь своими делами, пока длительный процесс сборки идет в фоне. Прогресс отслеживаем из панели уведомлений!</string>
+    <string name="slide_6_title">Надеемся, что наше творение вам по душе!</string>
+    <string name="slide_6_text">Спасибо за чтение обучения, надеемся, что использование Substratum принесет Вам то же удовольствие, что испытали мы в процессе разработки!</string>
     <string name="scheduled_night_profile">Планировщик профилей</string>
     <string name="scheduled_profile_card_content">Возможность автоматически переключаться между профилями в зависимости времени суток.</string>
     <string name="scheduled_profile_apply_success">Планировщик профилей активен!</string>
@@ -343,7 +343,7 @@
     <string name="break_compilation_dialog_continue">Продолжить</string>
     <string name="theme_safety_dialog_title">ВНИМАНИЕ</string>
     <string name="theme_safety_dialog_content">Эта функция важна для возможности отката при вылетах из-за плохих наслоений! Вы сможете воспользоваться кнопкой \"На помощь!\" из ярлыка приложения Substratum, если приложение зависнет, а в крайнем случае прошить архив восстановления из /storage/emulated/0/substratum/.</string>
-    <string name="profile_dialog_title">выберите элементы для резервирования</string>
+    <string name="profile_dialog_title">Выберите элементы для резервирования</string>
     <string name="profile_no_selection_warning">Выберите хотя бы один из вариантов!</string>
     <string name="profile_boot_animation">Анимация загрузки</string>
     <string name="profile_font">Шрифты</string>
@@ -351,18 +351,18 @@
     <string name="profile_sound">Звуки</string>
     <string name="profile_wallpaper">Обои</string>
     <string name="profile_dialog_ok">ОК</string>
-    <string name="settings_system_status">Пригодность системы</string>
+    <string name="settings_system_status">Поддержка системы</string>
     <string name="settings_system_status_andromeda">Режим Andromeda</string>
     <string name="settings_system_status_rooted">Применяется root</string>
-    <string name="settings_system_status_rootless">применяется Согласователь</string>
-    <string name="settings_system_status_ss">применяется сервис Substratum</string>
+    <string name="settings_system_status_rootless">Применяется Согласователь</string>
+    <string name="settings_system_status_ss">Применяется сервис Substratum</string>
     <string name="settings_system_status_samsung">Режим совместимости с Samsung</string>
     <string name="settings_system_status_samsung_andromeda">Режим Samsung + Andromeda</string>
     <string name="settings_system_status_certified">Одобрена</string>
     <string name="settings_system_status_uncertified">Неодобрена</string>
     <string name="settings_title_automation">Автоматизация</string>
-    <string name="settings_auto_updater_title">Перезапуск оверлея приложением</string>
-    <string name="settings_auto_updater_text">Автоматически создавать и устанавливать обновленную версию всех оверлеев для недавно обновленных, тематических приложений.</string>
+    <string name="settings_auto_updater_title">Перезапуск наслоения приложением</string>
+    <string name="settings_auto_updater_text">Автоматически создавать и устанавливать обновленную версию всех наслоений для недавно обновленных, тематических приложений.</string>
     <string name="settings_theme_auto_updater_title">Перезапуск оверлея приложением</string>
     <string name="settings_theme_auto_updater_dialog_title">ВНИМАНИЕ</string>
     <string name="settings_theme_auto_updater_text">Автоматически создавать и устанавливать обновленную версию всех оверлеев для недавно обновленных тем.</string>
@@ -406,7 +406,7 @@
     <string name="app_crash_content">Все наслоения для этого приложения были отключены</string>
     <string name="rom_status">Поддержка:</string>
     <string name="rom_status_supported" formatted="false">%s поддерживается сообществом!</string>
-    <string name="rom_status_unsupported">прошивка не поддерживается сообществом!</string>
+    <string name="rom_status_unsupported">Прошивка не поддерживается сообществом!</string>
     <string name="rom_status_network">проверьте интернет-соединение&#8230;</string>
     <!-- Notification channel -->
     <string name="notification_channel_default">По умолчанию</string>

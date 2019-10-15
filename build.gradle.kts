@@ -14,7 +14,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.0-beta05")
+        classpath("com.android.tools.build:gradle:3.5.1")
     }
 }
 

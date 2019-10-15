@@ -216,7 +216,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // System Platform
         systemPlatform = getPreferenceManager().findPreference("system_platform");
-        if (isOMS && !hasAndromeda && !Systems.IS_PIE) {
+        if (isOMS && !hasAndromeda && !Systems.ATLEAST_PIE) {
             new ValidatorUtils.checkROMSupportList(this).execute(
                     getString(R.string.supported_roms_url),
                     SUPPORTED_ROMS_FILE);
@@ -229,7 +229,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         platformSummary.append(String.format("%s ", getString(R.string
                 .settings_about_oms_rro_version)));
         platformSummary.append((isOMS ?
-                (Systems.IS_OREO || Systems.IS_PIE ? getString(R.string.settings_about_oms_version_do) :
+                (Systems.IS_OREO || Systems.ATLEAST_PIE ? getString(R.string.settings_about_oms_version_do) :
                         getString(R.string.settings_about_oms_version_7)) :
                 getString(R.string.settings_about_rro_version_2)));
         systemPlatform.setSummary(platformSummary);

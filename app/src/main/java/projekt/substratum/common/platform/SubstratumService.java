@@ -210,7 +210,7 @@ public class SubstratumService {
         try {
             final Method[] methods = ISubstratumService.class.getMethods();
             /*
-            if (Systems.IS_PIE)
+            if (Systems.ATLEAST_PIE)
                 expectedMethods.add("setEnabled");
             */
             for (String expectedMethod : expectedMethods) {

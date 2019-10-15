@@ -348,7 +348,7 @@ public class SubstratumBuilder {
         // Superuser needed as this requires elevated privileges to run these commands
         if (!hasErroredOut) {
             if (isDeviceOMS) {
-                if (Systems.IS_PIE && !Systems.checkSubstratumService(context)) {
+                if (Systems.ATLEAST_PIE && !Systems.checkSubstratumService(context)) {
                     // Brute force install APKs because thanks Google
                     FileOperations.mountSystemRW();
                     final String overlay = References.getPieDir() + "_" + overlayName + ".apk";

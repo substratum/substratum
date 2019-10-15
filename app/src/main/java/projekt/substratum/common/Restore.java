@@ -277,7 +277,7 @@ public class Restore {
                         finalCommandsArray.addAll(overlays.stream()
                                 .filter(o -> Packages.getOverlayParent(context, o) != null)
                                 .collect(Collectors.toList()));
-                        if (Systems.IS_PIE)
+                        if (Systems.ATLEAST_PIE)
                             FileOperations.bruteforceDelete(getPieDir() + "_*.apk");
                     } else {
                         FileOperations.mountSystemRW();

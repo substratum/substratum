@@ -724,7 +724,7 @@ public class ThemeManager {
             shouldRestartUi = shouldRestartUI(context, temp);
         }
 
-        if (Systems.IS_PIE && !checkSubstratumService(context)) {
+        if (Systems.ATLEAST_PIE && !checkSubstratumService(context)) {
             final StringBuilder deleteBuilder = new StringBuilder("rm -f");
             final String pieDir = References.getPieDir();
             for (String overlay : overlays) {

@@ -59,7 +59,7 @@ import static projekt.substratum.common.References.isServiceRunning;
 
 public class Systems {
 
-    public static final boolean IS_PIE = Build.VERSION.SDK_INT == Build.VERSION_CODES.P;
+    public static final boolean ATLEAST_PIE = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
     public static final boolean IS_OREO = Build.VERSION.SDK_INT == Build.VERSION_CODES.O ||
             Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1;
 
@@ -136,7 +136,7 @@ public class Systems {
                 return prefs.getInt("current_theme_mode", NO_THEME_ENGINE);
             }
 
-            if (IS_PIE) {
+            if (ATLEAST_PIE) {
                 if (isNewSamsungDevice() && isAndromeda(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
@@ -201,7 +201,7 @@ public class Systems {
                 } else if (sonyCheck == null || sonyCheck.length() == 0) {
                     boolean isOMSRunning = isServiceRunning(IOverlayManager.class,
                             context.getApplicationContext());
-                    if (isOMSRunning || IS_OREO || IS_PIE) {
+                    if (isOMSRunning || IS_OREO || ATLEAST_PIE) {
                         Substratum.log(SUBSTRATUM_LOG,
                                 "This device fully supports the Overlay Manager Service...");
                         foundOms = true;

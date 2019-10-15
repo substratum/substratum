@@ -584,7 +584,7 @@ final class OverlaysManager {
                         !Systems.isNewSamsungDevice() &&
                                 Substratum.needToWaitInstall() &&
                                 Systems.checkOMS(context) &&
-                                !Systems.IS_PIE;
+                                !Systems.ATLEAST_PIE;
 
                 if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();

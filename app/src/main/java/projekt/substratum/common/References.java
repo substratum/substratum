@@ -251,18 +251,24 @@ public class References {
     }
 
     public static String getMagiskDirectory() {
-        final int magiskVer = Integer.parseInt(Root.runCommand("su -V"));
         if (magiskDir != null)
             return magiskDir;
-        if (magiskVer >= 18000 && magiskVer <= 18100) {
-            magiskDir = "/sbin/.magisk/img/substratum";
-        } else if (magiskVer >= 18101) {
-            magiskDir = "/data/adb/modules/substratum";
-        } else {
-            Log.d("MagiskCheck", "Magisk version cannot be lesser than 18.0, switching to system-installation");
-            magiskDir = "/";
+        if (!Root.checkRootAccess()) return "";
+        try {
+            final int magiskVer = Integer.parseInt(Root.runCommand("su -V"));
+            if (magiskVer >= 18000 && magiskVer <= 18100) {
+                magiskDir = "/sbin/.magisk/img/substratum";
+            } else if (magiskVer >= 18101) {
+                magiskDir = "/data/adb/modules/substratum";
+            } else {
+                Log.d("MagiskCheck", "Magisk version cannot be lesser than 18.0, switching to system-installation");
+                magiskDir = "";
+            }
+            Log.d("MagiskCheck", String.format("Detected directory %s for version %d", magiskDir, magiskVer));
+        } catch (NumberFormatException e) {
+            Log.d("MagiskCheck", "Unable to detect Magisk version, switching to system-installation");
+            magiskDir = "";
         }
-        Log.d("MagiskCheck", String.format("Detected directory %s for version %d", magiskDir, magiskVer));
         return magiskDir;
     }
 
